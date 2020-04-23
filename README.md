@@ -2,18 +2,21 @@
 
 Musora UI is a tool for prototyping, building, and testing the front end (HTML/JS) for projects.
 
+
 ## Setup
 
-1. Ensure your railenvironment repository and docker build is up to date.
-1. In manager container, run: r setup musora-ui
-1. Navigate to: /app/musora-ui
-1. Run: npm install
-1. Run: npm run build  
+1. Ensure your railenvironment repository and docker build are up to date.
+1. In manager container, run: **r setup musora-ui**
+1. Navigate to: **/app/musora-ui**
+1. Run: **npm install**
+1. Run: **npm run BUILD_COMMAND**  
 
-The /public folder of this repository is hosted on your local machine under URL:
+You can view the different npm build commands inside the root package.json file. An example is: 
+**npm run build-drumeo-dev**
+
+The /public folder of this repository is hosted on your local machine under URL:  
 [http://devui.musora.com/](http://devui.musora.com/)  
 
-You can view the different npm build commands inside the root package.json file.
 
 ## Prototyping 
 
@@ -23,10 +26,29 @@ We highly recommend using the Sizzy browser to develop and preview html pages:
 You can also use our own internal preview tool here:  
 [http://devui.musora.com/viewer.html](http://devui.musora.com/viewer.html)
 
-Musora UI is meant for prototyping in pure HTML and css, which can then be reviewing and go through QA before 
+Musora UI is for prototyping in pure HTML and css, which can be reviewed and go through QA before 
 being put in a regular project such as a laravel project.  
 
 All pages inside Musora UI should be statically linked using relative linking in the href tags.    
 
 Please create a new branch in this repository when starting a new prototype or starting a new version of an existing 
-one.
+one. Please also seperate the prototypes by brands using the folder structure.
+
+## Tools
+
+Tailwind CSS is the front end framework that Musora UI uses, it is already installed and configured. You can find 
+the tailwind docs here:  
+[https://tailwindcss.com/docs/installation](https://tailwindcss.com/docs/installation)
+
+If you are new to tailwind css we highly recommend watching this video series (the other ones in there are great too):  
+[https://tailwindcss.com/course/setting-up-tailwind-and-postcss](https://tailwindcss.com/course/setting-up-tailwind-and-postcss)  
+
+This is an amazing list of front end development resources:  
+[https://tailwindcss.com/resources/](https://tailwindcss.com/resources/)
+
+A good list of tailwind css specific plugins and tools:  
+[https://github.com/aniftyco/awesome-tailwindcss](https://github.com/aniftyco/awesome-tailwindcss)
+
+We may end up purchasing this UI kit for tailwind:  
+[https://tailwindui.com/](https://tailwindui.com/)  
+If you think it could be of use let Caleb know!
