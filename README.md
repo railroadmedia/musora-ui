@@ -20,21 +20,25 @@ The /public folder of this repository is hosted on your local machine under URL:
 
 ## Prototyping 
 
-We highly recommend using the Sizzy browser to develop and preview html pages:  
-[https://sizzy.co/](https://sizzy.co/) 
-
-You can also use our own internal preview tool here:  
-[http://devui.musora.com/viewer.html](http://devui.musora.com/viewer.html)
-
 Musora UI is for prototyping in pure HTML and css, which can be reviewed and go through QA before 
 being put in a regular project such as a laravel project.  
 
 All pages inside Musora UI should be statically linked using relative linking in the href tags.    
 
 Please create a new branch in this repository when starting a new prototype or starting a new version of an existing 
-one. Please also seperate the prototypes by brands using the folder structure.
+one. Please also separate the prototypes by brands using the folder structure.
 
+Feel free to add new build commands and custom tailwind configs. We can also integrate VueJS, but it has not been setup 
+yet.
+
+    
 ## Tools
+
+We highly recommend using the Sizzy browser to develop and preview html pages (license in 1pass):  
+[https://sizzy.co/](https://sizzy.co/)   
+
+You can also use our own internal preview tool here:  
+[http://devui.musora.com/viewer.html](http://devui.musora.com/viewer.html)  
 
 Tailwind CSS is the front end framework that Musora UI uses, it is already installed and configured. You can find 
 the tailwind docs here:  
