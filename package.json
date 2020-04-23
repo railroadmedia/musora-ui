@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "postcss css/ui.css -o public/build/ui.css"
+    "build": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css"
   },
   "keywords": [],
   "author": "",
