@@ -1,6 +1,10 @@
 module.exports = {
     theme: {
-        extend: {},
+        extend: {
+            left: {
+                '6': '1.5rem;'
+            }
+        },
         minWidth: {
             '0': '0',
             '1/4': '25%',
