@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@musora/icons": "^1.0.3",
     "autoprefixer": "^9.7.6",
     "postcss-cli": "^7.1.0",
     "tailwindcss": "^1.3.4"
