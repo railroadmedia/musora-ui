@@ -3,6 +3,9 @@ module.exports = {
         extend: {
             left: {
                 '6': '1.5rem;'
+            },
+            spacing: {
+                md: '28rem'
             }
         },
         minWidth: {
@@ -14,7 +17,8 @@ module.exports = {
         }
     },
     variants: {
-        backgroundColor: ['responsive', 'hover', 'focus', 'active']
+        backgroundColor: ['responsive', 'hover', 'focus', 'active'],
+        textColor: ['responsive', 'hover', 'focus', 'active']
     },
     plugins: [],
 }
