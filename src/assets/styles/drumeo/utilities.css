@@ -1,7 +1,5 @@
-@tailwind base;
-@tailwind components;
-
 /* todo - add parts of the rules below in tailwind config extend */
+
 input.floating-label ~ label {
     transition: transform .2s ease-in-out,color .1s ease-in-out,-webkit-transform .2s ease-in-out;
     transform-origin: 0 0;
@@ -14,5 +12,3 @@ input.floating-label:focus ~ label {
     transform: scale(.7) translateY(-1.25rem) translateX(1.25rem);
     @apply text-blue-600
 }
-
-@tailwind utilities;

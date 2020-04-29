@@ -1,0 +1,8 @@
+/*@import "./drumeo/base.css";*/
+@import "tailwindcss/base";
+
+/*@import "./drumeo/components.css";*/
+@import "tailwindcss/components";
+
+@import "./drumeo/utilities.css";
+@import "tailwindcss/utilities";

@@ -31,6 +31,27 @@ one. Please also separate the prototypes by brands using the folder structure.
 Feel free to add new build commands and custom tailwind configs. We can also integrate VueJS, but it has not been setup 
 yet.
 
+## VueJS
+Vue JS has been installed with Vue CLI
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
     
 ## Tools
 
