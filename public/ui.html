@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>UI</title>
+
+    <!-- todo: use non-branded css -->
+    <link rel="stylesheet" href="build/drumeo/drumeo.css">
+</head>
+<body class="box-border">
+
+<div class="grid grid-cols-3">
+    <div class="flex flex-col h-screen p-5">
+
+        <!--    Regular    -->
+        <div class="relative mb-5">
+            <input type="text"
+                   class="bg-gray-300 w-full rounded-full p-3 pl-6 focus:outline-none focus:shadow-outline floating-label"
+                   id="text-input">
+            <label for="text-input" class="absolute top-3 text-gray-500">Text Input</label>
+        </div>
+
+        <!--    Focus    -->
+        <div class="relative mb-5">
+            <input type="text"
+                   class="bg-gray-300 w-full rounded-full p-3 pl-6 outline-none shadow-outline floating-label show-focused"
+                   id="text-input-focused"
+            value="A focused text input.">
+            <label for="text-input-focused" class="absolute top-3 left-6 text-gray-500">Text Input Focused</label>
+        </div>
+
+        <!--    Validation Error    -->
+        <div class="relative mb-5">
+            <input type="text"
+                   class="bg-gray-300 w-full rounded-full p-3 pl-6 outline-none focus:outline-none focus:shadow-outline floating-label validation-error has-value"
+                   id="text-input-error"
+            value="A focused text input.">
+            <label for="text-input-error" class="absolute top-3 left-6 text-gray-500">Text Input Focused</label>
+            <p class="text-red-500 text-xs italic font-bold mt-2 ml-2">Error the input is incorrect, try again.</p>
+        </div>
+    </div>
+
+    <div class="flex flex-col h-screen p-5">
+
+    </div>
+
+    <div class="flex flex-col h-screen p-5">
+
+    </div>
+</div>
+
+<script type="text/javascript">
+let elements = document.querySelectorAll('input[type=text]');
+
+Array.from(elements).forEach(function(element) {
+    element.addEventListener(
+        'change',
+        function(event) {
+
+            if (!element.value) {
+                element.classList.remove('has-value');
+            } else {
+                element.classList.add('has-value');
+            }
+        }
+    );
+});
+</script>
+</body>
+</html>

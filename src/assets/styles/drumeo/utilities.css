@@ -3,12 +3,17 @@
 input.floating-label ~ label {
     transition: transform .2s ease-in-out,color .1s ease-in-out,-webkit-transform .2s ease-in-out;
     transform-origin: 0 0;
-    transform: scale(1) translateY(0) translateX(15px);
-    left: 0.5rem;
+    left: 1.25rem;
     top: 0.75rem;
 }
 
-input.floating-label:focus ~ label {
-    transform: scale(.7) translateY(-1.25rem) translateX(1.25rem);
+input.floating-label:focus ~ label,
+.show-focused  ~ label,
+input.has-value ~ label {
+    transform: scale(.7) translateY(-1.1rem) translateX(0.25rem);
     @apply text-blue-600
+}
+
+input.validation-error {
+    @apply border-red-500 border-2
 }
