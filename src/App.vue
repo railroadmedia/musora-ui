@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import './assets/styles/drumeo.css';
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {

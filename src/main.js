@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
 
-import './assets/styles/drumeo.css';
-
 Vue.config.productionTip = false;
 
 new Vue({
