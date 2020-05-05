@@ -632,7 +632,9 @@ input.floating-label ~ label {
   top: 0.75rem;
 }
 
-input.floating-label:focus ~ label, .show-focused  ~ label {
+input.floating-label:focus ~ label,
+.show-focused  ~ label,
+input.has-value ~ label {
   transform: scale(.7) translateY(-1.1rem) translateX(0.25rem);
   color: #3182ce
 }

@@ -35,7 +35,7 @@
         <!--    Validation Error    -->
         <div class="relative mb-5">
             <input type="text"
-                   class="bg-gray-300 w-full rounded-full p-3 pl-6 outline-none focus:outline-none focus:shadow-outline floating-label validation-error"
+                   class="bg-gray-300 w-full rounded-full p-3 pl-6 outline-none focus:outline-none focus:shadow-outline floating-label validation-error has-value"
                    id="text-input-error"
             value="A focused text input.">
             <label for="text-input-error" class="absolute top-3 left-6 text-gray-500">Text Input Focused</label>
@@ -52,6 +52,22 @@
     </div>
 </div>
 
-<script> </script>
+<script type="text/javascript">
+let elements = document.querySelectorAll('input[type=text]');
+
+Array.from(elements).forEach(function(element) {
+    element.addEventListener(
+        'change',
+        function(event) {
+
+            if (!element.value) {
+                element.classList.remove('has-value');
+            } else {
+                element.classList.add('has-value');
+            }
+        }
+    );
+});
+</script>
 </body>
 </html>
