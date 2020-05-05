@@ -2,20 +2,30 @@
 @tailwind components;
 
 /* todo - add parts of the rules below in tailwind config extend */
-input.floating-label ~ label {
-    transition: transform .2s ease-in-out,color .1s ease-in-out,-webkit-transform .2s ease-in-out;
+.floating-label ~ label {
     transform-origin: 0 0;
+    transition: transform .2s ease-in-out, color .1s ease-in-out, -webkit-transform .2s ease-in-out;
     left: 1.25rem;
-    top: 0.75rem;
+    top: 0.85rem;
 }
 
-input.floating-label:focus ~ label, .show-focused  ~ label {
-    transform: scale(.7) translateY(-1.1rem) translateX(0.25rem);
+.floating-label:focus ~ label, .floating-label:not(:placeholder-shown) ~ label, .show-focused ~ label {
+    transform: scale(.7) translateY(-1.10rem) translateX(0.25rem);
     @apply text-blue-600
 }
 
-input.validation-error {
-    @apply border-red-500 border-2
+textarea.floating-label:focus ~ label, textarea.floating-label:not(:placeholder-shown) ~ label, textarea.show-focused ~ label {
+    transform: scale(.7) translateY(-1.10rem) translateX(-0.20em);
+    @apply text-blue-600
+}
+
+textarea.floating-label ~ label {
+    left: 0.85rem;
+    top: 0.85rem;
+}
+
+.validation-error, .validation-error:hover {
+    box-shadow: 0 0 0 3px #f56565 !important;
 }
 
 @tailwind utilities;
