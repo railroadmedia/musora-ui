@@ -629,11 +629,11 @@ video {
   transform-origin: 0 0;
   transition: transform .2s ease-in-out, color .1s ease-in-out;
   left: 1.25rem;
-  top: 0.85rem;
+  top: 0.65rem;
 }
 
 .floating-label:focus ~ label, .floating-label:not(:placeholder-shown) ~ label, .show-focused ~ label {
-  transform: scale(.7) translateY(-1.10rem) translateX(0.25rem);
+  transform: scale(.7) translateY(-0.70rem) translateX(0.25rem);
   color: #3182ce
 }
 
