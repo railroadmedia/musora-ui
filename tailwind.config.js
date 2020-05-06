@@ -6,6 +6,14 @@ module.exports = {
             },
             spacing: {
                 md: '28rem'
+            },
+            colors: {
+                'light-gray': '#F0F0F0',
+                'gray': '#CCCCCC',
+                'medium-gray': '#999999',
+                'dark-gray': '#555555',
+                'focus-blue': '#A0CCF0',
+                'validation-red': '#F56565',
             }
         },
         minWidth: {

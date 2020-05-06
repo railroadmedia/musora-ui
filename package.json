@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-drumeo-dev": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css",
-    "bdd": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css",
-    "watch": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css --watch"
+    "build-drumeo-dev": "postcss css/drumeo/drumeo.scss -o public/build/drumeo/drumeo.css",
+    "bdd": "postcss css/drumeo/drumeo.scss -o public/build/drumeo/drumeo.css",
+    "watch": "postcss css/drumeo/drumeo.scss -o public/build/drumeo/drumeo.css --watch"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +16,10 @@
     "autoprefixer": "^9.7.6",
     "postcss-cli": "^7.1.0",
     "tailwindcss": "^1.3.4"
+  },
+  "devDependencies": {
+    "postcss-import": "^12.0.1",
+    "postcss-nested": "^4.2.1",
+    "postcss-simple-vars": "^5.0.2"
   }
 }

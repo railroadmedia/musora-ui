@@ -1,6 +1,9 @@
 @tailwind base;
 @tailwind components;
 
+@import "../core/core-colors";
+@import "drumeo-colors";
+
 /* todo - add parts of the rules below in tailwind config extend */
 .floating-label ~ label {
     transform-origin: 0 0;
@@ -11,12 +14,12 @@
 
 .floating-label:focus ~ label, .floating-label:not(:placeholder-shown) ~ label, .show-focused ~ label {
     transform: scale(.7) translateY(-0.70rem) translateX(0.25rem);
-    @apply text-blue-600
+    color: $validation-red;
 }
 
 textarea.floating-label:focus ~ label, textarea.floating-label:not(:placeholder-shown) ~ label, textarea.show-focused ~ label {
     transform: scale(.7) translateY(-1.10rem) translateX(-0.20em);
-    @apply text-blue-600
+    color: $drumeo-blue;
 }
 
 textarea.floating-label ~ label {
@@ -25,7 +28,11 @@ textarea.floating-label ~ label {
 }
 
 .validation-error, .validation-error:hover {
-    box-shadow: 0 0 0 3px #f56565 !important;
+    box-shadow: 0 0 0 3px $validation-red !important;
+}
+
+.validation-error ~ label, .validation-error label {
+    @apply $validation-red !important
 }
 
 @tailwind utilities;
