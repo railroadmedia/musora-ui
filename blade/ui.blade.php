@@ -21,7 +21,15 @@
         {{-- Regular --}}
         <div class="mb-5">
             @component('core.text-input', [
-                'labelText' => 'Regular Text Input Placeholder'
+                'labelText' => 'Regular Gray Style Text Input Placeholder',
+                'theme' => 'gray',
+            ])
+            @endcomponent
+        </div>
+        <div class="mb-5">
+            @component('core.text-input', [
+                'labelText' => 'Regular Wire Style Text Input Placeholder',
+                'theme' => 'wire',
             ])
             @endcomponent
         </div>
@@ -32,6 +40,15 @@
                 'labelText' => 'Regular Text Input',
                 'inputValue' => 'A focused text input.',
                 'forceFocus' => true
+            ])
+            @endcomponent
+        </div>
+        <div class="mb-5">
+            @component('core.text-input', [
+                'labelText' => 'Regular Text Input',
+                'inputValue' => 'A focused text input.',
+                'forceFocus' => true,
+                'theme' => 'wire',
             ])
             @endcomponent
         </div>
@@ -51,6 +68,15 @@
                 'labelText' => 'Error Text Input',
                 'validationErrorText' => 'Error the input is incorrect, try again.',
                 'inputValue' => 'Invalid text input.'
+            ])
+            @endcomponent
+        </div>
+
+        <div class="mb-5">
+            @component('core.text-input', [
+               'labelText' => 'Empty Error Text Input Placeholder',
+               'validationErrorText' => 'This input is required.',
+               'theme' => 'wire'
             ])
             @endcomponent
         </div>

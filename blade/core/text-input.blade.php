@@ -1,4 +1,6 @@
 @php
+    // themes: gray, wire
+    $theme = $theme ?? 'gray';
     $inputId = $inputId ?? 'text-input-' . md5(__FILE__ . $inputName . $inputValue . $labelText);
     $inputName = $inputName ?? '';
     $inputValue = $inputValue ?? '';
@@ -8,15 +10,39 @@
     $inputMode = $inputMode ?? '';
     $tabIndex = $tabIndex ?? 1;
     $labelText = $labelText ?? '';
-
     $validationErrorText = $validationErrorText ?? '';
-
     $forceFocus = $forceFocus ?? false;
+
+    $_inputClasses = ['theme-' . $theme];
+
+    if ($theme == 'gray') {
+        $_inputClasses[] = 'bg-light-gray';
+    } elseif ($theme == 'wire') {
+        $_inputClasses[] = 'bg-transparent';
+
+        if (empty($validationErrorText)) {
+            $_inputClasses[] = 'border-1';
+            $_inputClasses[] = 'border-gray';
+        }
+    }
+
+    if ($forceFocus) {
+        $_inputClasses[] = 'shadow-outline';
+        $_inputClasses[] = 'show-focused';
+    } else {
+        $_inputClasses[] = 'focus:shadow-outline';
+    }
+
+    if (!empty($validationErrorText)) {
+        $_inputClasses[] = 'validation-error';
+    }
+
+    $_inputClasses = implode(' ', $_inputClasses);
 @endphp
 
 <div class="relative">
     <input type="text"
-           class="bg-light-gray w-full rounded-full p-3 pl-6 pt-4 pb-1 focus:outline-none floating-label {{ $forceFocus ? 'shadow-outline show-focused' : 'focus:shadow-outline' }} {{ !empty($validationErrorText) ? 'validation-error' : '' }}"
+           class="w-full rounded-full p-3 pl-6 pt-4 pb-1 focus:outline-none floating-label {{ $_inputClasses }}"
            placeholder=" "
            id="{{ $inputId }}"
            name="{{ $inputName }}"
