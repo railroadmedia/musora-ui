@@ -25,7 +25,7 @@
            inputmode="numeric"
            tabindex="1"
            aria-label="Credit or debit card number"
-           aria-invalid="false">>
+           aria-invalid="false">
     <label for="{{ $inputId }}" class="absolute text-medium-gray hover:cursor-text">{{ $labelText }}</label>
 
     @if(!empty($validationErrorText))
