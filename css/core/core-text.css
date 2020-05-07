@@ -1,0 +1,15 @@
+.validation-error-text {
+    @apply text-validation-red text-xs italic font-bold;
+}
+
+.validation-error-text-spacing {
+    @apply mt-2 ml-2;
+}
+
+.input-label-text {
+    @apply text-medium-gray;
+}
+
+.input-label-text:hover {
+    @apply cursor-text;
+}

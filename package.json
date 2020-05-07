@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-drumeo-dev": "postcss css/drumeo/drumeo.scss -o public/build/drumeo/drumeo.css",
-    "bdd": "postcss css/drumeo/drumeo.scss -o public/build/drumeo/drumeo.css",
-    "watch": "postcss css/drumeo/drumeo.scss -o public/build/drumeo/drumeo.css --watch"
+    "build-drumeo-dev": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css",
+    "bdd": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css",
+    "watch": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css --watch"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,16 @@
+{
+    "name": "railroad/musora-ui",
+    "description": "Musora UI.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Caleb Favor",
+            "email": "caleb@drumeo.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "jenssegers/blade": "dev-master"
+    }
+}

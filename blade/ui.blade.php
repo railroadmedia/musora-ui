@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>UI</title>
+
+    <!-- todo: use non-branded css -->
+    <link rel="stylesheet" href="/build/drumeo/drumeo.css">
+</head>
+<body class="box-border">
+
+<div class="grid grid-cols-3">
+    <div class="flex flex-col h-screen p-5">
+
+        <!--    Text Inputs    -->
+        <h3 class="text-xl mb-5 pl-1">Text Inputs</h3>
+
+    {{-- Regular --}}
+    @include('core.text-input', [
+        'labelText' => 'Regular Text Input Placeholder'
+    ])
+
+    {{-- Focus --}}
+    @include('core.text-input', [
+        'labelText' => 'Regular Text Input',
+        'inputValue' => 'A focused text input.',
+        'forceFocus' => true
+    ])
+
+    {{-- Validation Error --}}
+    @include('core.text-input', [
+        'labelText' => 'Empty Error Text Input Placeholder',
+        'validationErrorText' => 'This input is required.',
+        'inputValue' => ''
+     ])
+
+    @include('core.text-input', [
+        'labelText' => 'Error Text Input',
+        'validationErrorText' => 'Error the input is incorrect, try again.',
+        'inputValue' => 'Invalid text input.'
+    ])
+
+
+    <!--    Text Areas    -->
+        <h3 class="text-xl mb-5 pl-1">Text Areas</h3>
+
+        <!--    Regular    -->
+        <div class="relative mb-5">
+            <div class="bg-light-gray w-full rounded-lg p-2 pl-3 pr-3 pb-1 pt-4 focus-within:shadow-outline">
+            <textarea
+                    class="w-full h-full floating-label bg-light-gray focus:outline-none"
+                    id="textarea-input"
+                    placeholder=" "></textarea>
+                <label for="textarea-input" class="absolute text-medium-gray left-0 hover:cursor-text">Textarea
+                    Input</label>
+            </div>
+        </div>
+
+        <!--    Focus    -->
+        <div class="relative mb-5">
+            <div class="bg-light-gray w-full rounded-lg p-2 pl-3 pr-3 pb-1 pt-4 shadow-outline show-focused">
+            <textarea
+                    class="w-full h-full floating-label bg-light-gray focus:outline-none show-focused"
+                    id="textarea-input-focus"
+                    placeholder=" ">A focused text area input.</textarea>
+                <label for="textarea-input-focus" class="absolute text-medium-gray left-0 hover:cursor-text">Focus
+                    Textarea
+                    Input</label>
+            </div>
+        </div>
+
+        <!--    Focus Many Lines    -->
+        <div class="relative mb-5">
+            <div class="bg-light-gray w-full rounded-lg p-2 pl-3 pr-3 pb-1 pt-4 shadow-outline">
+                <textarea
+                        class="w-full h-full floating-label bg-light-gray focus:outline-none show-focused"
+                        id="textarea-input-focus-newlines"
+                        placeholder=" ">A focused text area input. A focused text area input. A focused text area input. A focused text area input. A focused text area input. A focused text area input. A focused text area input. A focused text area input. A focused text area input. A focused text area input.</textarea>
+                <label for="textarea-input-focus-newlines" class="absolute text-medium-gray left-0 hover:cursor-text">Focus
+                    Textarea
+                    Input</label>
+            </div>
+        </div>
+
+        <!--    Error    -->
+        <div class="relative mb-5">
+            <div class="bg-light-gray w-full rounded-lg p-2 pl-3 pr-3 pb-1 pt-4 shadow-outline validation-error">
+                <textarea
+                        class="w-full h-full floating-label bg-light-gray focus:outline-none"
+                        id="textarea-input-error"
+                        placeholder=" ">A error text area input.</textarea>
+                <label for="textarea-input-error" class="absolute text-medium-gray left-0 hover:cursor-text">Focus
+                    Textarea
+                    Input</label>
+
+            </div>
+            <p class="text-validation-red text-xs italic font-bold mt-2 ml-2">Error the input is incorrect, try
+                again.</p>
+        </div>
+    </div>
+
+    <div class="flex flex-col h-screen p-5">
+        <h3 class="text-xl mb-5 pl-1">Selectors</h3>
+
+        <!--    Regular    -->
+        <div class="relative mb-5">
+            <select
+                    class="w-full floating-label bg-transparent focus:outline-none bg-light-gray w-full rounded-full p-2 pl-5 pt-4 pb-2 focus-within:shadow-outline border-transparent border-r-16 hover:cursor-pointer"
+                    id="selector-input">
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+                <option>Option 4</option>
+                <option>Option 5</option>
+            </select>
+            <label for="selector-input" class="absolute text-medium-gray hover:cursor-pointer">Selector</label>
+        </div>
+
+        <!--    Focus    -->
+        <div class="relative mb-5">
+            <select
+                    class="w-full floating-label bg-transparent focus:outline-none bg-light-gray w-full rounded-full p-2 pl-5 pt-4 pb-1 shadow-outline border-transparent border-r-16 hover:cursor-pointer show-focused"
+                    id="selector-input-focus">
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+                <option>Option 4</option>
+                <option>Option 5</option>
+            </select>
+            <label for="selector-input-focus" class="absolute text-medium-gray hover:cursor-pointer">Selector</label>
+        </div>
+
+        <!--    Error    -->
+        <div class="relative mb-5">
+            <select
+                    class="w-full floating-label bg-transparent focus:outline-none bg-light-gray w-full rounded-full p-2 pl-5 pt-4 pb-1 focus:outline-none border-transparent border-r-16 hover:cursor-pointer validation-error"
+                    id="selector-input-error">
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+                <option>Option 4</option>
+                <option>Option 5</option>
+            </select>
+            <label for="selector-input-error" class="absolute text-medium-gray hover:cursor-pointer">Selector</label>
+            <p class="text-validation-red text-xs italic font-bold mt-2 ml-2">Error the input is incorrect, try
+                again.</p>
+        </div>
+    </div>
+
+    <div class="flex flex-col h-screen p-5">
+
+    </div>
+</div>
+
+<script></script>
+</body>
+</html>

@@ -1,9 +1,9 @@
-module.exports = {
+module.exports = (ctx) => ({
     plugins: [
-        require('tailwindcss'),
-        require('autoprefixer'),
-        require('postcss-simple-vars'),
-        require('postcss-nested'),
         require('postcss-import'),
+        require('postcss-simple-vars'),
+        require('tailwindcss'),
+        require('postcss-nested'),
+        require('autoprefixer'),
     ]
-}
+})

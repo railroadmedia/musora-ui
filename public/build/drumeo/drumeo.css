@@ -1,3 +1,23 @@
+.validation-error-text {
+  color: #F56565;
+  font-size: 0.75rem;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.validation-error-text-spacing {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.input-label-text {
+  color: #999999;
+}
+
+.input-label-text:hover {
+  cursor: text;
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 /* Document
@@ -634,12 +654,12 @@ video {
 
 .floating-label:focus ~ label, .floating-label:not(:placeholder-shown) ~ label, .show-focused ~ label {
   transform: scale(.7) translateY(-0.70rem) translateX(0.25rem);
-  color: #3182ce
+  color: #0B76DB;
 }
 
 textarea.floating-label:focus ~ label, textarea.floating-label:not(:placeholder-shown) ~ label, textarea.show-focused ~ label {
   transform: scale(.7) translateY(-1.10rem) translateX(-0.20em);
-  color: #3182ce
+  color: #0B76DB;
 }
 
 textarea.floating-label ~ label {
@@ -648,11 +668,14 @@ textarea.floating-label ~ label {
 }
 
 .validation-error, .validation-error:hover {
-  box-shadow: 0 0 0 3px #f56565 !important;
+  box-shadow: 0 0 0 3px #F56565 !important;
 }
 
-.validation-error ~ label, .validation-error label {
-  color: #e53e3e !important
+.validation-error:not(:placeholder-shown) ~ label,
+.validation-error:not(:placeholder-shown) label,
+.validation-error:focus ~ label,
+.validation-error:focus label {
+  color: #F56565 !important
 }
 
 .space-y-0 > :not(template) ~ :not(template) {
