@@ -18,33 +18,45 @@
         <!--    Text Inputs    -->
         <h3 class="text-xl mb-5 pl-1">Text Inputs</h3>
 
-    {{-- Regular --}}
-    @include('core.text-input', [
-        'labelText' => 'Regular Text Input Placeholder'
-    ])
+        {{-- Regular --}}
+        <div class="mb-5">
+            @component('core.text-input', [
+                'labelText' => 'Regular Text Input Placeholder'
+            ])
+            @endcomponent
+        </div>
 
-    {{-- Focus --}}
-    @include('core.text-input', [
-        'labelText' => 'Regular Text Input',
-        'inputValue' => 'A focused text input.',
-        'forceFocus' => true
-    ])
+        {{-- Focus --}}
+        <div class="mb-5">
+            @component('core.text-input', [
+                'labelText' => 'Regular Text Input',
+                'inputValue' => 'A focused text input.',
+                'forceFocus' => true
+            ])
+            @endcomponent
+        </div>
 
-    {{-- Validation Error --}}
-    @include('core.text-input', [
-        'labelText' => 'Empty Error Text Input Placeholder',
-        'validationErrorText' => 'This input is required.',
-        'inputValue' => ''
-     ])
+        {{-- Validation Error --}}
+        <div class="mb-5">
+            @component('core.text-input', [
+               'labelText' => 'Empty Error Text Input Placeholder',
+               'validationErrorText' => 'This input is required.',
+               'inputValue' => ''
+            ])
+            @endcomponent
+        </div>
 
-    @include('core.text-input', [
-        'labelText' => 'Error Text Input',
-        'validationErrorText' => 'Error the input is incorrect, try again.',
-        'inputValue' => 'Invalid text input.'
-    ])
+        <div class="mb-5">
+            @component('core.text-input', [
+                'labelText' => 'Error Text Input',
+                'validationErrorText' => 'Error the input is incorrect, try again.',
+                'inputValue' => 'Invalid text input.'
+            ])
+            @endcomponent
+        </div>
 
 
-    <!--    Text Areas    -->
+        <!--    Text Areas    -->
         <h3 class="text-xl mb-5 pl-1">Text Areas</h3>
 
         <!--    Regular    -->
