@@ -6,7 +6,7 @@
                 <p class="text-white text-center mt-3 text-xl">The Ultimate Online Drum Lessons Experience™</p>
             </div>
             <div class="bg-white rounded-lg flex flex-wrap mt-8">
-                <div class="m-10 w-full">
+                <div class="my-10 sm:mx-10 w-full">
                     <h2 class="font-extrabold text-center uppercase mb-8">choose your profile image</h2>
                     <div class="text-center">
                         <profile-avatar></profile-avatar>

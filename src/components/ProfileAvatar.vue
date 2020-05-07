@@ -1,18 +1,18 @@
 <template>
-    <div class="">
+    <div class="profile-avatar">
         <div
             v-show="!hasFileToCrop"
             ref="uploader"
             class="border-2 border-blue-600 rounded-full text-blue-600 mx-auto text-4xl flex flex-col justify-center"
             style="height: 120px; width: 120px;"
         >
-            <a><i class="icon-add-to-list"></i></a>
+            <i class="icon-add-to-list dz-message"></i>
         </div>
         <div
             v-show="hasFileToCrop"
             class="relative"
         >
-            <div class="" style="height: 280px;">
+            <div class="" style="height: 260px;" :class="{invisible: croppedImage}">
                 <canvas
                     id="imgToCrop"
                     ref="cropper"
@@ -20,7 +20,7 @@
             </div>
 
             <div
-                class="py-3 flex items-center justify-between"
+                class="mx-2 sm:mx-0 py-3 flex items-center justify-between"
                 v-show="!croppedImage"
             >
                 <a
@@ -58,14 +58,14 @@
                 v-show="croppedImage"
                 class="absolute top-0 left-0 w-full bg-white"
             >
-                <div class="relative h-0" style="padding-bottom: 65%">
+                <div class="relative h-0" style="padding-bottom: 58%">
                     <img
                         :src="croppedImage"
-                        class=""
+                        class="rounded-full"
                         style="max-height: 100%; position: absolute; height: auto; top: 50%; left: 50%; transform: translate(-50%,-50%);"
                     >
                 </div>
-                <div class="py-3 flex items-center justify-between">
+                <div class="mx-10 sm:mx-0 py-3 flex items-center justify-between">
                     <a
                         class="bg-gray-500 text-white py-1 px-6 rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase inline-block text-sm cursor-pointer"
                         :disabled="loading"
@@ -81,6 +81,7 @@
         </div>
 
         <span class="dz-hidden-input"></span>
+        <p v-if="dropZoneError" class="italic text-red-600">{{ dropZoneError }}</p>
     </div>
 </template>
 
@@ -95,8 +96,8 @@ export default {
             type: Object,
             default: () => ({
                 url: ' ',
-                dictDefaultMessage: '<i class="fas fa-upload"></i> Choose a photo',
-                dictFileTooBig: 'Maximum file size exceeded.',
+                dictDefaultMessage: '<i class="icon-add-to-list dz-message"></i>',
+                dictFileTooBig: 'Maximum file size of 5MB exceeded.',
                 dictInvalidFileType: 'Invalid File Type.',
                 acceptedFiles: '.jpg,.jpeg,.png,.bmp',
                 maxFilesize: 5,
@@ -226,3 +227,8 @@ export default {
     }
 }
 </script>
+<style>
+.profile-avatar .dz-preview {
+    display: none;
+}
+</style>
