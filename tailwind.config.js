@@ -17,7 +17,10 @@ module.exports = {
             },
             width: {
                 '1/9': '11.111111%',
-            }
+            },
+            maxWidth: {
+                page: '97.5rem'
+            },
         },
         minWidth: {
             '0': '0',
@@ -25,9 +28,6 @@ module.exports = {
             '1/2': '50%',
             '3/4': '75%',
             'full': '100%',
-        },
-        maxWidth: {
-            page: '97.5rem'
         },
         borderWidth: {
             default: '1px',
