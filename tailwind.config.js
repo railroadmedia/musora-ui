@@ -14,6 +14,9 @@ module.exports = {
                 'dark-gray': '#555555',
                 'focus-blue': '#A0CCF0',
                 'validation-red': '#F56565',
+            },
+            width: {
+                '1/9': '11.111111%',
             }
         },
         minWidth: {
@@ -22,6 +25,9 @@ module.exports = {
             '1/2': '50%',
             '3/4': '75%',
             'full': '100%',
+        },
+        maxWidth: {
+            page: '97.5rem'
         },
         borderWidth: {
             default: '1px',
@@ -33,7 +39,7 @@ module.exports = {
             '6': '6px',
             '8': '8px',
             '16': '16px',
-        }
+        },
     },
     variants: {
         backgroundColor: ['responsive', 'hover', 'focus', 'active'],
