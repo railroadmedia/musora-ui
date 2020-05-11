@@ -14,6 +14,10 @@ module.exports = {
                 'dark-gray': '#555555',
                 'focus-blue': '#A0CCF0',
                 'validation-red': '#F56565',
+                'header': '#00101D',
+                'header-gray': '#445F74',
+                'edge-blue': '#0B76DB',
+                'edge-dark-blue': '#094A86',
             },
             width: {
                 '1/9': '11.111111%',
