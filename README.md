@@ -26,11 +26,11 @@ path after /blade relative to the blade folder in the project. For example:
 
 http://devui.musora.com/blade/ui  
 
-Will render the blade file at: **PROJECTROOT/blade/ui.blade.php**  
+Will render the blade file at: blade/ui.blade.php  
 
 http://devui.musora.com/blade/core/text-input
 
-Will render the blade file at: **PROJECTROOT/blade/core/text-input.blade.php**  
+Will render the blade file at: blade/core/text-input.blade.php  
 
 
 ## Prototyping 
