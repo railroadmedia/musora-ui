@@ -2,6 +2,8 @@
 
 require_once('../vendor/autoload.php');
 
+chmod('../cache', 777);
+
 use Jenssegers\Blade\Blade;
 
 $blade = new Blade('../blade', '../cache');
