@@ -1,6 +1,6 @@
 # Musora UI
 
-Musora UI is a tool for prototyping, building, and testing the front end (HTML/JS) for projects.
+Musora UI is a tool for prototyping, building, and testing the front end (HTML/JS/Blade) for projects.
 
 
 ## Setup
@@ -10,12 +10,27 @@ Musora UI is a tool for prototyping, building, and testing the front end (HTML/J
 1. Navigate to: **/app/musora-ui**
 1. Run: **npm install**
 1. Run: **npm run BUILD_COMMAND**  
+1. Run: **r musora-ui composer install**  
 
 You can view the different npm build commands inside the root package.json file. An example is: 
 **npm run build-drumeo-dev**
 
 The /public folder of this repository is hosted on your local machine under URL:  
 [http://devui.musora.com/](http://devui.musora.com/)  
+
+
+## Blade
+
+You can automatically render any blade file using the url. /blade tells the request to render a blade template at the 
+path after /blade relative to the blade folder in the project. For example:  
+
+http://devui.musora.com/blade/ui  
+
+Will render the blade file at: **PROJECTROOT/blade/ui.blade.php**  
+
+http://devui.musora.com/blade/core/text-input
+
+Will render the blade file at: **PROJECTROOT/blade/core/text-input.blade.php**  
 
 
 ## Prototyping 
