@@ -12,6 +12,14 @@
         rel="stylesheet"
         href="https://d1prhhmg8i11jr.cloudfront.net/v1.0.0/dist/icons.css"
     >
+
+    <!-- todo - include simplebar css/js in build resources -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/simplebar@latest/dist/simplebar.css"
+    >
+    <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
+
     <style type="text/css">
         /* todo - move the css from elements inline tino classes, here */
         .level-select.level-checked .level-ind {
@@ -19,6 +27,35 @@
         }
         .level-select.level-checked ~ .level-select .level-bar {
             background-color: #2c5282;
+        }
+
+        .simplebar-scrollbar::before {
+            background-color: #555555;
+        }
+
+        /* prototype automation css, not relevant in logterm */
+        .filter-group-header .symbol-open {
+            display: none;
+        }
+
+        .filter-group-header .symbol-close {
+            display: inline;
+        }
+
+        .filter-group-header.open .symbol-open {
+            display: inline;
+        }
+
+        .filter-group-header.open .symbol-close {
+            display: none;
+        }
+
+        .filter span {
+            display: none;
+        }
+
+        .filter.enabled span {
+            display: inline;
         }
     </style>
 </head>
@@ -289,61 +326,61 @@
                 <h4 class="py-2 text-center text-white bg-edge-dark-blue font-semibold">what do you want to work on?</h4>
                 <div class="p-3 flex flex-wrap text-xs font-medium">
                     <div class="w-1/5 p-1">
-                        <div class="rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
                             <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">beats</label>
                         </div>
                     </div>
 
                     <div class="w-1/5 p-1">
-                        <div class="rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
                             <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">theory</label>
                         </div>
                     </div>
 
                     <div class="w-1/5 p-1">
-                        <div class="rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
                             <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">fills</label>
                         </div>
                     </div>
 
                     <div class="w-1/5 p-1">
-                        <div class="rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
                             <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">styles</label>
                         </div>
                     </div>
 
                     <div class="w-1/5 p-1">
-                        <div class="rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
-                            <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">technique</label>
+                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none text-edge-dark-blue">
+                            <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer">technique</label>
                         </div>
                     </div>
 
                     <div class="w-1/5 p-1">
-                        <div class="rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
                             <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">rudiments</label>
                         </div>
                     </div>
 
                     <div class="w-1/5 p-1">
-                        <div class="rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
                             <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">ear training</label>
                         </div>
                     </div>
 
                     <div class="w-1/5 p-1">
-                        <div class="rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
                             <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">independence</label>
                         </div>
                     </div>
 
                     <div class="w-1/5 p-1">
-                        <div class="rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
                             <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">musicality</label>
                         </div>
                     </div>
 
                     <div class="w-1/5 p-1">
-                        <div class="rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
                             <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">gear</label>
                         </div>
                     </div>
@@ -397,34 +434,65 @@
             </div>
         </div>
 
+        <!-- for pre-selected filters, add 'enabled', 'font-semibold', 'text-black' to the <a> -->
+        <!-- and remove 'hidden' class from the <span> inside <a> -->
+        <!-- and remove 'hidden' class from the filter badge above -->
+
         <div class="flex py-4">
             <div class="" style="width: 200px;">
                 <div class="border-2 rounded-lg text-light-gray mb-2">
-                    <div class="text-dark-gray font-semibold">
-                        <a href="#" class="flex content-center justify-between pl-3 p-2 text-xs">
-                            <span class="uppercase">content type</span><span>&#8897;</span>
+                    <div class="text-dark-gray text-xs">
+                        <a href="#" class="filter-group-header open flex content-center justify-between px-3 py-2 font-semibold text-sm">
+                            <span class="uppercase">content type</span><span class="symbol-close">&#8897;</span><span class="symbol-open">&#8896;</span>
                         </a>
+                        <div class="filter-group pb-2 font-medium">
+                            <a href="#" id="filter-drumeo-method" class="filter enabled block pl-3 py-1 font-semibold text-black"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1">X</span>Drumeo method</a>
+                            <a href="#" id="filter-courses" class="filter enabled block pl-3 py-1 font-semibold text-black"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1">X</span>Courses</a>
+                            <a href="#" id="filter-packs" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Packs</a>
+                            <a href="#" id="filter-quick-tips" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Quick tips</a>
+                            <a href="#" id="filter-live" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Live</a>
+                            <a href="#" id="filter-bootcamp" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Bootcamp</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-2 rounded-lg text-light-gray my-2">
+                    <div class="text-dark-gray text-xs">
+                        <a href="#" class="filter-group-header flex content-center justify-between pl-3 p-2 font-semibold text-sm">
+                            <span class="uppercase">instructor</span><span class="symbol-close">&#8897;</span><span class="symbol-open">&#8896;</span>
+                        </a>
+                        <div class="filter-group pb-2 font-medium overflow-y-auto hidden" style="max-height: 240px;" data-simplebar>
+                            <a href="#" id="filter-aaron-edgar" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Aaron Edgar</a>
+                            <a href="#" id="filter-adam-marko" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Adam Marko</a>
+                            <a href="#" id="filter-anika-nilles" class="filter enabled block pl-3 py-1 font-semibold text-black"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1">X</span>Anika Nilles</a>
+                            <a href="#" id="filter-antonia-sanchez" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Antonia Sanchez</a>
+                            <a href="#" id="filter-benny-greb" class="filter enabled block pl-3 py-1 font-semibold text-black"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1">X</span>Benny Greb</a>
+                            <a href="#" id="filter-billy-cobham" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Billy Cobham</a>
+                            <a href="#" id="filter-billy-rymer" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Billy Rymer</a>
+                            <a href="#" id="filter-brandon-khoo" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Brandon Khoo</a>
+                            <a href="#" id="filter-brian-frasier-moore" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Brian Frasier-Moore</a>
+                            <a href="#" id="filter-brian-tichy" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Brian Tichy</a>
+                            <a href="#" id="filter-bruce-becker" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Bruce Becker</a>
+                            <a href="#" id="filter-camille-bigeault" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Camille Bigeault</a>
+                            <a href="#" id="filter-carmine-appice" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Carmine Appice</a>
+                        </div>
                     </div>
                 </div>
                 <div class="border-2 rounded-lg text-light-gray my-2">
                     <div class="text-dark-gray font-semibold">
-                        <a href="#" class="flex content-center justify-between pl-3 p-2 text-xs">
-                            <span class="uppercase">instructor</span><span>&#8897;</span>
+                        <a href="#" class="filter-group-header flex content-center justify-between pl-3 p-2 text-xs">
+                            <span class="uppercase">style</span><span class="symbol-close">&#8897;</span><span class="symbol-open">&#8896;</span>
                         </a>
+                        <div class="filter-group pb-2 font-medium hidden">
+                        </div>
                     </div>
                 </div>
                 <div class="border-2 rounded-lg text-light-gray my-2">
                     <div class="text-dark-gray font-semibold">
-                        <a href="#" class="flex content-center justify-between pl-3 p-2 text-xs">
-                            <span class="uppercase">style</span><span>&#8897;</span>
+                        <a href="#" class="filter-group-header flex content-center justify-between pl-3 p-2 text-xs">
+                            <span class="uppercase">progress</span><span class="symbol-close">&#8897;</span><span class="symbol-open">&#8896;</span>
                         </a>
-                    </div>
-                </div>
-                <div class="border-2 rounded-lg text-light-gray my-2">
-                    <div class="text-dark-gray font-semibold">
-                        <a href="#" class="flex content-center justify-between pl-3 p-2 text-xs">
-                            <span class="uppercase">progress</span><span>&#8897;</span>
-                        </a>
+                        <div class="filter-group pb-2 font-medium hidden">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -439,23 +507,86 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-xs flex items-center text-medium-gray py-2">
+
+                <!-- for pre-selected filter, remove the hidden class of the <div> with id 'badge-<filter-id>' -->
+
+                <div class="text-xs flex flex-wrap items-center text-medium-gray py-2">
                     <div class="py-2 mr-1"><a href="#" class="text-blue-500 uppercase font-semibold">clear all</a></div>
-                    <div class="mx-1 px-2 py-1 flex items-center bg-light-gray rounded-full">
+                    <div id="badge-filter-drumeo-method" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full">
                         <span class="capitalize">drumeo method</span>
-                        <a href="#" class="items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
                     </div>
-                    <div class="mx-1 px-2 py-1 flex items-center bg-light-gray rounded-full">
+                    <div id="badge-filter-courses" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full">
                         <span class="capitalize">courses</span>
-                        <a href="#" class="items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
                     </div>
-                    <div class="mx-1 px-2 py-1 flex items-center bg-light-gray rounded-full">
-                        <span class="capitalize">anika nilles</span>
-                        <a href="#" class="items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    <div id="badge-filter-packs" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">packs</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
                     </div>
-                    <div class="mx-1 px-2 py-1 flex items-center bg-light-gray rounded-full">
-                        <span class="capitalize">benny greb</span>
-                        <a href="#" class="items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    <div id="badge-filter-quick-tips" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">quick tips</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-live" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">live</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-bootcamp" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">bootcamp</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-aaron-edgar" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">Aaron Edgar</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-adam-marko" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">Adam Marko</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-anika-nilles" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full">
+                        <span class="capitalize">Anika Nilles</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-antonia-sanchez" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">Antonia Sanchez</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-benny-greb" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full">
+                        <span class="capitalize">Benny Greb</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-billy-cobham" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">Billy Cobham</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-billy-rymer" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">Billy Rymer</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-brandon-khoo" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">Brandon Khoo</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-brian-frasier-moore" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">Brian Frasier-Moore</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-brian-tichy" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">Brian Tichy</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-bruce-becker" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">Bruce Becker</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-camille-bigeault" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">Camille Bigeault</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
+                    </div>
+                    <div id="badge-filter-carmine-appice" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full hidden">
+                        <span class="capitalize">Carmine Appice</span>
+                        <a href="#" class="filter-badge flex items-center ml-1 px-1 rounded-full bg-dark-gray text-white">X</a>
                     </div>
                 </div>
                 <div class="flex flex-wrap py-2">
@@ -785,5 +916,124 @@
             </div>
         </div>
     </div>
+
+<!-- todo: move down -->
+<script type="text/javascript">
+let filterGroupHeaders = Array.from(document.getElementsByClassName('filter-group-header'));
+
+filterGroupHeaders.forEach(function(element) {
+    element.addEventListener(
+        'click',
+        function(event) {
+            let container = element.parentElement;
+
+            element.classList.toggle('open');
+
+            let filterGroup = container.getElementsByClassName('filter-group')[0];
+
+            if (element.classList.contains('open')) {
+                filterGroup.classList.remove('hidden');
+            } else {
+                filterGroup.classList.add('hidden');
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    );
+});
+
+function enableFilter(element) {
+    element.classList.add('font-semibold', 'text-black');
+
+    let badge = document.getElementById('badge-' + element.id);
+
+    if (!badge) {
+        console.log('could not locate filter badge with id: %s', JSON.stringify('badge-' + element.id));
+        return;
+    }
+
+    badge.classList.remove('hidden');
+}
+
+function disableFilter(element) {
+    element.classList.remove('font-semibold', 'text-black');
+
+    let badge = document.getElementById('badge-' + element.id);
+
+    if (!badge) {
+        console.log('could not locate filter badge with id: %s', JSON.stringify('badge-' + element.id));
+        return;
+    }
+
+    badge.classList.add('hidden');
+}
+
+let filters = Array.from(document.getElementsByClassName('filter'));
+
+filters.forEach(function(element) {
+    element.addEventListener(
+        'click',
+        function(event) {
+            element.classList.toggle('enabled');
+
+            if (element.classList.contains('enabled')) {
+                enableFilter(element);
+            } else {
+                disableFilter(element);
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    );
+});
+
+let filtersBadges = Array.from(document.getElementsByClassName('filter-badge'));
+
+filtersBadges.forEach(function(element) {
+    element.addEventListener(
+        'click',
+        function(event) {
+            let container = element.parentElement;
+
+            let filterElement = document.getElementById(container.id.substr(6));
+
+            filterElement.classList.remove('enabled');
+
+            disableFilter(filterElement);
+
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    );
+});
+
+let lessons = document.getElementsByClassName('account-lessons');
+
+Array.from(lessons).forEach(function(element) {
+    element.addEventListener(
+        'click',
+        function(event) {
+
+            let checkbox = element.getElementsByTagName('input')[0];
+
+            checkbox.checked = !checkbox.checked;
+            let isChecked = checkbox.checked;
+
+            if (isChecked) {
+                element.classList.remove('bg-edge-blue', 'text-edge-dark-blue', 'border-edge-dark-blue');
+                element.classList.add('bg-white', 'text-edge-blue', 'border-white', 'font-semibold');
+            } else {
+                element.classList.remove('bg-white', 'text-edge-blue', 'border-white', 'font-semibold');
+                element.classList.add('bg-edge-blue', 'text-edge-dark-blue', 'border-edge-dark-blue');
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    );
+});
+</script>
 </body>
 </html>
