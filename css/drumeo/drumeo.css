@@ -39,4 +39,36 @@ textarea.floating-label ~ label {
     color: $validation-red !important
 }
 
+/* current drumeo container lengths */
+.container {
+    max-width: 100%;
+}
+
+@media screen and (min-width:40rem) {
+    .container {
+        max-width: 100%
+    }
+}
+
+@media screen and (min-width:64rem) {
+    .container {
+        max-width: 64rem;
+    }
+}
+
+@media screen and (min-width:72.5rem) {
+    .container {
+        max-width: 72.5rem
+    }
+}
+
+@media screen and (min-width:97.5rem) {
+    .container {
+        max-width: 97.5rem
+    }
+}
+
+/* current drumeo cards rules */
+
+
 @tailwind utilities;

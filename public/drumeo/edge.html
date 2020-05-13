@@ -61,7 +61,7 @@
 </head>
 <body class="box-border">
     <header class="bg-header fixed w-full top-0 left-0 border-b border-header-gray z-50" style="height: 65px;">
-        <div class="mx-auto w-full max-w-page h-full">
+        <div class="mx-auto w-full container px-3 h-full">
             <div class="flex flex-row items-center h-full">
                 <div class="max-h-full flex">
                     <a href="#" class="">
@@ -84,7 +84,7 @@
         </div>
     </header>
     <div class="bg-header w-full border-b border-header-gray" style="padding-top: 65px;">
-        <div class="mx-auto w-full max-w-page h-full flex flex-row items-center text-center leading-none text-header-gray uppercase">
+        <div class="mx-auto w-full container px-3 h-full flex flex-row items-center text-center leading-none text-header-gray uppercase">
             <a href="#"  class="flex-1 py-4 hover:bg-header-gray hover:text-white">
                 <i class="icon-drums2 text-lg font-bold"></i>
                 <p class="text-xs font-semibold">method</p>
@@ -124,34 +124,34 @@
         </div>
     </div>
     <div class="w-full border-b-2 border-light-gray py-4">
-        <div class="mx-auto w-full max-w-page h-full flex flex-row justify-between items-center text-center leading-none uppercase">
-            <div class="flex items-center">
+        <div class="mx-auto w-full container px-3 h-full flex flex-col medium:flex-row text-center leading-none uppercase">
+            <div class="w-full medium:w-1/3 large:w-1/2 flex items-center">
                 <div class="rounded-full overflow-hidden border-2 border-blue-500 mr-4">
                     <img src="https://musora.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fpianote%2Fdefaults%2Favatar.png?blur=2&fit=crop&h=50&ixlib=php-1.2.1&q=50&w=50&s=0a284a726ec34f3bca2bb253a0dfc869">
                 </div>
                 <p class="font-extrabold capitalize text-3xl">brandon toews</p>
             </div>
-            <div class="flex items-center text-medium-gray">
-                <div class="px-6">
+            <div class="w-full medium:w-2/3 large:w-1/2 pt-4 medium:pt-0 flex items-center justify-between text-medium-gray flex flex-wrap small:flex-no-wrap">
+                <div class="mb-4 small:mb-0 w-1/2 small:w-full">
                     <span class="text-xs">days as member</span>
                     <p class="text-dark-gray font-extrabold text-3xl">857</p>
                 </div>
-                <div class="px-6">
+                <div class="mb-4 small:mb-0 w-1/2 small:w-full">
                     <span class="text-xs">lessons completed</span>
                     <p class="text-dark-gray font-extrabold text-3xl">391</p>
                 </div>
-                <div class="px-6">
+                <div class="w-1/2 small:w-full">
                     <span class="text-xs">xp</span>
                     <p class="text-dark-gray font-extrabold text-3xl">32.2k</p>
                 </div>
-                <div class="pl-6">
+                <div class="w-1/2 small:w-full">
                     <span class="text-xs">drumeo method</span>
                     <p class="text-dark-gray font-extrabold text-3xl">level 1.3</p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="mx-auto w-full max-w-page h-full pt-4">
+    <div class="mx-auto w-full container px-3 h-full pt-4">
         <div class="w-full my-6">
             <div class="flex flex-row justify-between items-center uppercase text-sm font-semibold">
                 <div class="text-medium-gray">
@@ -161,8 +161,9 @@
                     <a href="#" class="text-blue-500 text-xs">see all</a>
                 </div>
             </div>
-            <div class="flex py-6">
-                <div class="px-2 pl-0 w-1/6">
+            <div class="py-6 small:flex small:space-x-3">
+                <!-- 1st video card -->
+                <div class="py-4 small:py-0 w-full small:w-1/3 medium:w-1/4 large:w-1/5 x-large:w-1/6">
                     <div class="relative">
                         <div class="rounded-lg overflow-hidden">
                             <img src="https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg">
@@ -175,7 +176,9 @@
                         <p class="text-xs text-medium-gray">Beginner - 1</p>
                     </div>
                 </div>
-                <div class="px-2 w-1/6">
+
+                <!-- 2nd video card -->
+                <div class="py-4 small:py-0 w-full small:w-1/3 medium:w-1/4 large:w-1/5 x-large:w-1/6">
                     <div class="relative">
                         <div class="rounded-lg overflow-hidden">
                             <img src="https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg">
@@ -188,7 +191,9 @@
                         <p class="text-xs text-medium-gray">Beginner - 1</p>
                     </div>
                 </div>
-                <div class="px-2 w-1/6">
+
+                <!-- 3rd video card -->
+                <div class="py-4 small:py-0 w-full small:w-1/3 medium:w-1/4 large:w-1/5 x-large:w-1/6">
                     <div class="relative">
                         <div class="rounded-lg overflow-hidden">
                             <img src="https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg">
@@ -201,7 +206,9 @@
                         <p class="text-xs text-medium-gray">Beginner - 1</p>
                     </div>
                 </div>
-                <div class="px-2 w-1/6">
+
+                <!-- 4th video card -->
+                <div class="w-1/2 hidden medium:block medium:w-1/4 large:w-1/5 x-large:w-1/6">
                     <div class="relative">
                         <div class="rounded-lg overflow-hidden">
                             <img src="https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg">
@@ -214,7 +221,24 @@
                         <p class="text-xs text-medium-gray">Beginner - 1</p>
                     </div>
                 </div>
-                <div class="px-2 w-1/6">
+
+                <!-- 5th video card -->
+                <div class="w-1/5 hidden large:block large:w-1/5 x-large:w-1/6">
+                    <div class="relative">
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg">
+                        </div>
+                        <h4 class="absolute bottom-0 mb-3 ml-4 text-white uppercase text-xs font-semibold">teacher name</h4>
+                    </div>
+                    <div class="pt-2">
+                        <div class="py-1 text-xs text-dark-gray uppercase flex items-center"><i class="icon-courses text-sm mr-1"></i> content type</div>
+                        <h3 class="pb-1 font-semibold">How To Use Drumeo Edge</h3>
+                        <p class="text-xs text-medium-gray">Beginner - 1</p>
+                    </div>
+                </div>
+
+                <!-- 6th video card -->
+                <div class="hidden x-large:block x-large:w-1/6">
                     <div class="relative">
                         <div class="rounded-lg overflow-hidden">
                             <img src="https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg">
@@ -239,8 +263,9 @@
                     <a href="#" class="text-blue-500 text-xs">see all</a>
                 </div>
             </div>
-            <div class="flex py-6">
-                <div class="px-2 pl-0 w-1/6">
+            <div class="py-6 small:flex small:space-x-3">
+                <!-- 1st video card -->
+                <div class="py-4 small:py-0 w-full small:w-1/3 medium:w-1/4 large:w-1/5 x-large:w-1/6">
                     <div class="relative">
                         <div class="rounded-lg overflow-hidden">
                             <img src="https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg">
@@ -253,7 +278,9 @@
                         <p class="text-xs text-medium-gray">Beginner - 1</p>
                     </div>
                 </div>
-                <div class="px-2 w-1/6">
+
+                <!-- 2nd video card -->
+                <div class="py-4 small:py-0 w-full small:w-1/3 medium:w-1/4 large:w-1/5 x-large:w-1/6">
                     <div class="relative">
                         <div class="rounded-lg overflow-hidden">
                             <img src="https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg">
@@ -266,7 +293,9 @@
                         <p class="text-xs text-medium-gray">Beginner - 1</p>
                     </div>
                 </div>
-                <div class="px-2 w-1/6">
+
+                <!-- 3rd video card -->
+                <div class="py-4 small:py-0 w-full small:w-1/3 medium:w-1/4 large:w-1/5 x-large:w-1/6">
                     <div class="relative">
                         <div class="rounded-lg overflow-hidden">
                             <img src="https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg">
@@ -279,7 +308,9 @@
                         <p class="text-xs text-medium-gray">Beginner - 1</p>
                     </div>
                 </div>
-                <div class="px-2 w-1/6">
+
+                <!-- 4th video card -->
+                <div class="w-1/2 hidden medium:block medium:w-1/4 large:w-1/5 x-large:w-1/6">
                     <div class="relative">
                         <div class="rounded-lg overflow-hidden">
                             <img src="https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg">
@@ -292,7 +323,9 @@
                         <p class="text-xs text-medium-gray">Beginner - 1</p>
                     </div>
                 </div>
-                <div class="px-2 w-1/6">
+
+                <!-- 5th video card -->
+                <div class="w-1/5 hidden large:block large:w-1/5 x-large:w-1/6">
                     <div class="relative">
                         <div class="rounded-lg overflow-hidden">
                             <img src="https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg">
@@ -305,7 +338,9 @@
                         <p class="text-xs text-medium-gray">Beginner - 1</p>
                     </div>
                 </div>
-                <div class="px-2 pr-0 w-1/6">
+
+                <!-- 6th video card -->
+                <div class="hidden x-large:block x-large:w-1/6">
                     <div class="relative">
                         <div class="rounded-lg overflow-hidden">
                             <img src="https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg">
@@ -423,8 +458,20 @@
                     </div>
                     <div class="flex items-center text-2xl">
                         <div class="w-1/4"></div>
-                        <div class="w-2/4 text-center">
+                        <div id="level-tab-1" class="w-2/4 text-center level-tab hidden">
                             <span class="text-white font-extrabold">level 1</span>
+                        </div>
+                        <div id="level-tab-2" class="w-2/4 text-center level-tab">
+                            <span class="text-white font-extrabold">level 2</span>
+                        </div>
+                        <div id="level-tab-3" class="w-2/4 text-center level-tab hidden">
+                            <span class="text-white font-extrabold">level 3</span>
+                        </div>
+                        <div id="level-tab-4" class="w-2/4 text-center level-tab hidden">
+                            <span class="text-white font-extrabold">level 4</span>
+                        </div>
+                        <div id="level-tab-5" class="w-2/4 text-center level-tab hidden">
+                            <span class="text-white font-extrabold">level 5</span>
                         </div>
                         <div class="w-1/4 flex items-center justify-end">
                             <a href="#" class="rounded-full border-2 border-edge-dark-blue text-edge-dark-blue py-1 px-8 text-base">all</a>
@@ -1028,6 +1075,43 @@ Array.from(lessons).forEach(function(element) {
                 element.classList.remove('bg-white', 'text-edge-blue', 'border-white', 'font-semibold');
                 element.classList.add('bg-edge-blue', 'text-edge-dark-blue', 'border-edge-dark-blue');
             }
+
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    );
+});
+
+let levels = Array.from(document.getElementsByClassName('level-select'));
+let levelsTabs = Array.from(document.getElementsByClassName('level-tab'));
+
+function showTab(tabNumber) {
+    let tabId = 'level-tab-' + tabNumber;
+    levelsTabs.forEach(function(tab) {
+        if (tab.id == tabId) {
+            tab.classList.remove('hidden');
+        } else {
+            tab.classList.add('hidden');
+        }
+    });
+}
+
+levels.forEach(function(element) {
+    element.addEventListener(
+        'click',
+        function(event) {
+
+            levels.forEach(function(el) {
+                el.classList.remove('level-checked');
+            })
+
+            let radio = element.getElementsByTagName('input')[0];
+
+            radio.checked = true;
+
+            showTab(radio.value);
+
+            element.classList.add('level-checked');
 
             event.preventDefault();
             event.stopPropagation();
