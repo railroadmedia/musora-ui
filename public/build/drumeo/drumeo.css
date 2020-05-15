@@ -13866,6 +13866,10 @@ textarea.floating-label ~ label {
   width: 11.111111%;
 }
 
+.w-medium {
+  width: 64rem;
+}
+
 .z-0 {
   z-index: 0;
 }
@@ -29530,6 +29534,10 @@ textarea.floating-label ~ label {
 
   .sm\:w-1\/9 {
     width: 11.111111%;
+  }
+
+  .sm\:w-medium {
+    width: 64rem;
   }
 
   .sm\:z-0 {
@@ -45199,6 +45207,10 @@ textarea.floating-label ~ label {
     width: 11.111111%;
   }
 
+  .md\:w-medium {
+    width: 64rem;
+  }
+
   .md\:z-0 {
     z-index: 0;
   }
@@ -60864,6 +60876,10 @@ textarea.floating-label ~ label {
 
   .lg\:w-1\/9 {
     width: 11.111111%;
+  }
+
+  .lg\:w-medium {
+    width: 64rem;
   }
 
   .lg\:z-0 {
@@ -76533,6 +76549,10 @@ textarea.floating-label ~ label {
     width: 11.111111%;
   }
 
+  .xl\:w-medium {
+    width: 64rem;
+  }
+
   .xl\:z-0 {
     z-index: 0;
   }
@@ -92198,6 +92218,10 @@ textarea.floating-label ~ label {
 
   .small\:w-1\/9 {
     width: 11.111111%;
+  }
+
+  .small\:w-medium {
+    width: 64rem;
   }
 
   .small\:z-0 {
@@ -107867,6 +107891,10 @@ textarea.floating-label ~ label {
     width: 11.111111%;
   }
 
+  .medium\:w-medium {
+    width: 64rem;
+  }
+
   .medium\:z-0 {
     z-index: 0;
   }
@@ -123534,6 +123562,10 @@ textarea.floating-label ~ label {
     width: 11.111111%;
   }
 
+  .large\:w-medium {
+    width: 64rem;
+  }
+
   .large\:z-0 {
     z-index: 0;
   }
@@ -139199,6 +139231,10 @@ textarea.floating-label ~ label {
 
   .x-large\:w-1\/9 {
     width: 11.111111%;
+  }
+
+  .x-large\:w-medium {
+    width: 64rem;
   }
 
   .x-large\:z-0 {

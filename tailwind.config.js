@@ -21,6 +21,7 @@ module.exports = {
             },
             width: {
                 '1/9': '11.111111%',
+                medium: '64rem',
             },
             maxWidth: {
                 page: '97.5rem'

@@ -57,74 +57,130 @@
         .filter.enabled span {
             display: inline;
         }
+
+        #nav {
+            height: 50px;
+        }
+
+        @media (min-width: 40rem) {
+            #nav {
+                height: 65px;
+            }
+        }
+
+        #logo {
+            flex:0 0 125px;
+        }
+
+        @media (min-width: 40rem) {
+            #logo {
+                flex:0 0 175px;
+            }
+        }
+
+        #sub-nav-container {
+            padding-top: 50px;
+        }
+
+        @media (min-width: 40rem) {
+            #sub-nav-container {
+                padding-top: 65px;
+            }
+        }
+
+        #sub-nav {
+            padding: 0 35px;
+        }
+
+        @media (min-width: 64rem) {
+            #sub-nav {
+                padding: 0;
+            }
+        }
+
+        #side-menu.open #icon-open,
+        #side-menu:not(.open) #icon-close {
+            display: inline;
+        }
+        #side-menu.open #icon-close,
+        #side-menu:not(.open) #icon-open {
+            display: none;
+        }
     </style>
 </head>
 <body class="box-border">
-    <header class="bg-header fixed w-full top-0 left-0 border-b border-header-gray z-50" style="height: 65px;">
-        <div class="mx-auto w-full container px-3 h-full">
+    <header id="nav" class="bg-header fixed w-full top-0 left-0 border-b border-header-gray z-50">
+        <div class="mx-auto w-full container pl-3 small:pr-3 large:px-0 h-full">
             <div class="flex flex-row items-center h-full">
-                <div class="max-h-full flex">
-                    <a href="#" class="">
-                        <img src="https://dpwjbsxqtam5n.cloudfront.net/logos/logo-white.png" class="w-auto max-w-full" style="max-height: 45px;">
+                <div class="flex">
+                    <a id="logo" href="#" class="max-h-full inline-block">
+                        <img src="https://dpwjbsxqtam5n.cloudfront.net/logos/logo-white.png" class="w-full h-auto">
                     </a>
                 </div>
-                <div class="w-full flex flex-row items-center inline-box text-lg capitalize text-header-gray">
-                    <a href="#" class="w-1/4 text-center text-white uppercase font-bold">edge</a>
-                    <a href="#" class="w-1/4 text-center hover:text-white hover:font-bold">packs</a>
-                    <a href="#" class="w-1/4 text-center hover:text-white hover:font-bold">forums</a>
-                    <a href="#" class="w-1/4 text-center hover:text-white hover:font-bold">shop</a>
+                <div class="w-full h-full hidden small:flex flex-row items-center inline-box text-lg capitalize text-header-gray">
+                    <a href="#" class="h-full w-1/4 flex items-center justify-center text-white uppercase font-bold"><span>edge</span></a>
+                    <a href="#" class="h-full w-1/4 flex items-center justify-center hover:text-white hover:font-bold"><span>packs</span></a>
+                    <a href="#" class="h-full w-1/4 flex items-center justify-center hover:text-white hover:font-bold"><span>forums</span></a>
+                    <a href="#" class="h-full w-1/4 flex items-center justify-center hover:text-white hover:font-bold"><span>shop</span></a>
                 </div>
-                <div class="flex items-center">
+                <div class="flex items-center pr-2 small:pr-0">
                     <div class="text-header-gray mx-2"><i class="icon-search text-lg font-bold"></i></div>
-                    <div class="rounded-full overflow-hidden border-2 border-header-gray ml-2">
+                    <div class="rounded-full overflow-hidden border-2 border-header-gray w-8">
                         <img src="https://musora.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fpianote%2Fdefaults%2Favatar.png?blur=2&fit=crop&h=50&ixlib=php-1.2.1&q=50&w=50&s=0a284a726ec34f3bca2bb253a0dfc869">
                     </div>
                 </div>
+                <div id="side-menu" class="text-header-gray px-4 border-l border-header-gray h-full small:hidden flex items-center justify-center cursor-pointer open"><i id="icon-open" class="icon-home text-lg font-bold"></i><i id="icon-close" class="icon-hammer text-lg font-bold"></i></div>
             </div>
         </div>
     </header>
-    <div class="bg-header w-full border-b border-header-gray" style="padding-top: 65px;">
-        <div class="mx-auto w-full container px-3 h-full flex flex-row items-center text-center leading-none text-header-gray uppercase">
-            <a href="#"  class="flex-1 py-4 hover:bg-header-gray hover:text-white">
-                <i class="icon-drums2 text-lg font-bold"></i>
-                <p class="text-xs font-semibold">method</p>
-            </a>
-            <a href="#"  class="flex-1 py-4 hover:bg-header-gray hover:text-white">
-                <i class="icon-courses text-lg"></i>
-                <p class="text-xs font-semibold">courses</p>
-            </a>
-            <a href="#"  class="flex-1 py-4 hover:bg-header-gray hover:text-white">
-                <i class="icon-shows text-lg"></i>
-                <p class="text-xs font-semibold">shows</p>
-            </a>
-            <a href="#"  class="flex-1 py-4 hover:bg-header-gray hover:text-white">
-                <i class="icon-songs text-lg"></i>
-                <p class="text-xs font-semibold">songs</p>
-            </a>
-            <a href="#"  class="flex-1 py-4 hover:bg-header-gray hover:text-white">
-                <i class="icon-play-alongs text-lg"></i>
-                <p class="text-xs font-semibold">play-alongs</p>
-            </a>
-            <a href="#"  class="flex-1 py-4 hover:bg-header-gray hover:text-white">
-                <i class="icon-student-focus text-lg"></i>
-                <p class="text-xs font-semibold">student focus</p>
-            </a>
-            <a href="#"  class="flex-1 py-4 hover:bg-header-gray hover:text-white">
-                <i class="icon-rudiments text-lg"></i>
-                <p class="text-xs font-semibold">rudiments</p>
-            </a>
-            <a href="#"  class="flex-1 py-4 hover:bg-header-gray hover:text-white">
-                <i class="icon-live text-lg"></i>
-                <p class="text-xs font-semibold">live</p>
-            </a>
-            <a href="#"  class="flex-1 py-4 hover:bg-header-gray hover:text-white">
-                <i class="icon-schedule text-lg"></i>
-                <p class="text-xs font-semibold">schedule</p>
-            </a>
+    <div id="sub-nav-container" class="bg-header w-full border-b border-header-gray">
+        <div id="sub-nav" class="mx-auto w-full container leading-none text-header-gray uppercase h-14 small:h-16 relative">
+            <div id="sub-nav-wrap" class="overflow-x-auto">
+                <div class="w-medium medium:w-full flex flex-row items-center text-center overflow-x-auto">
+                    <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
+                        <i class="icon-drums2 text-lg font-bold"></i>
+                        <p class="text-xs font-semibold">method</p>
+                    </a>
+                    <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
+                        <i class="icon-courses text-lg"></i>
+                        <p class="text-xs font-semibold">courses</p>
+                    </a>
+                    <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
+                        <i class="icon-shows text-lg"></i>
+                        <p class="text-xs font-semibold">shows</p>
+                    </a>
+                    <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
+                        <i class="icon-songs text-lg"></i>
+                        <p class="text-xs font-semibold">songs</p>
+                    </a>
+                    <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
+                        <i class="icon-play-alongs text-lg"></i>
+                        <p class="text-xs font-semibold">play-alongs</p>
+                    </a>
+                    <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
+                        <i class="icon-student-focus text-lg"></i>
+                        <p class="text-xs font-semibold">student focus</p>
+                    </a>
+                    <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
+                        <i class="icon-rudiments text-lg"></i>
+                        <p class="text-xs font-semibold">rudiments</p>
+                    </a>
+                    <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
+                        <i class="icon-live text-lg"></i>
+                        <p class="text-xs font-semibold">live</p>
+                    </a>
+                    <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
+                        <i class="icon-schedule text-lg"></i>
+                        <p class="text-xs font-semibold">schedule</p>
+                    </a>
+                </div>
+            </div>
+            <div id="scroll-sub-nav-left" class="h-full flex items-center justify-center border-l border-r border-header-gray cursor-pointer absolute left-0 top-0 z-10 medium:hidden" style="width: 35px;"><span>&lt;</span></div>
+            <div id="scroll-sub-nav-right" class="h-full flex items-center justify-center border-l border-r border-header-gray cursor-pointer absolute right-0 top-0 z-10 medium:hidden" style="width: 35px;"><span>&gt;</span></div>
         </div>
     </div>
     <div class="w-full border-b-2 border-light-gray py-4">
-        <div class="mx-auto w-full container px-3 h-full flex flex-col medium:flex-row text-center leading-none uppercase">
+        <div class="mx-auto w-full container px-3 large:px-0 h-full flex flex-col medium:flex-row text-center leading-none uppercase">
             <div class="w-full medium:w-1/3 large:w-1/2 flex items-center">
                 <div class="rounded-full overflow-hidden border-2 border-blue-500 mr-4">
                     <img src="https://musora.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fpianote%2Fdefaults%2Favatar.png?blur=2&fit=crop&h=50&ixlib=php-1.2.1&q=50&w=50&s=0a284a726ec34f3bca2bb253a0dfc869">
@@ -151,7 +207,7 @@
             </div>
         </div>
     </div>
-    <div class="mx-auto w-full container px-3 h-full pt-4">
+    <div class="mx-auto w-full container px-3 large:px-0 h-full pt-4">
         <div class="w-full small:mt-6">
             <div class="flex flex-row justify-between items-center uppercase text-sm font-semibold">
                 <div class="text-medium-gray">
@@ -424,7 +480,7 @@
             <div class="large:flex-1 rounded-lg overflow-hidden bg-edge-blue">
                 <h4 class="py-2 text-center text-white bg-edge-dark-blue font-semibold">set your skill level</h4>
                 <div class="px-2 py-2 small:px-6">
-                    <div class="grid grid-cols-5">
+                    <div class="grid grid-cols-5 cursor-pointer">
                         <div class="py-4 level-select">
                             <div style="height: 12px;" class="border-2 border-edge-blue bg-white relative rounded-l-full level-bar">
                                 <input type="radio" class="hidden" id="level-one" name="level" value="1">
@@ -1132,6 +1188,80 @@ levels.forEach(function(element) {
         }
     );
 });
+
+const scrollSubNavRight = document.getElementById('scroll-sub-nav-right');
+const scrollSubNavLeft = document.getElementById('scroll-sub-nav-left');
+const subNavWrap = document.getElementById('sub-nav-wrap');
+const sideMenu = document.getElementById('side-menu');
+let currentSubNavScrollPosition = 0;
+
+function getMaximumScrollAmount() {
+    const amountToScroll = subNavWrap.clientWidth;
+    const subNavLinks = document.querySelectorAll('.subnav-link');
+    let maximumScrollAmount = 0;
+
+    for (let i = 0; i < subNavLinks.length; i++) {
+        maximumScrollAmount += subNavLinks[i].clientWidth;
+    }
+
+    return maximumScrollAmount - amountToScroll -2;
+}
+
+function showOrHideButtons() {
+    const maximumScrollAmount = getMaximumScrollAmount();
+
+    currentSubNavScrollPosition = subNavWrap.scrollLeft;
+
+    if (currentSubNavScrollPosition <= 0) {
+        currentSubNavScrollPosition = 0;
+        scrollSubNavLeft.classList.add('hidden');
+    } else {
+        scrollSubNavLeft.classList.remove('hidden');
+    }
+
+    if (currentSubNavScrollPosition >= maximumScrollAmount) {
+        currentSubNavScrollPosition = maximumScrollAmount;
+        scrollSubNavRight.classList.add('hidden');
+    } else {
+        scrollSubNavRight.classList.remove('hidden');
+    }
+}
+
+function scrollSubNav(backwards = false) {
+    const amountToScroll = subNavWrap.clientWidth;
+    const positionToScrollTo = backwards ? currentSubNavScrollPosition - amountToScroll : currentSubNavScrollPosition + amountToScroll;
+
+    subNavWrap.scrollTo({
+        top: 0,
+        left: positionToScrollTo,
+        behavior: 'smooth',
+    });
+}
+
+document.body.addEventListener('click', (event) => {
+    const element = event.target;
+
+    if (element.getAttribute('id') === 'scroll-sub-nav-left' || element.parentElement.getAttribute('id') === 'scroll-sub-nav-left') {
+        scrollSubNav(true);
+    }
+
+    if (element.getAttribute('id') === 'scroll-sub-nav-right' || element.parentElement.getAttribute('id') === 'scroll-sub-nav-right') {
+        scrollSubNav();
+    }
+});
+
+subNavWrap.addEventListener('scroll', showOrHideButtons);
+
+window.addEventListener('resize', () => {
+    showOrHideButtons();
+});
+
+showOrHideButtons();
+
+sideMenu.addEventListener('click', (event) => {
+    sideMenu.classList.toggle('open');
+});
+
 </script>
 </body>
 </html>
