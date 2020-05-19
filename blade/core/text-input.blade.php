@@ -4,6 +4,7 @@
     $inputId = $inputId ?? 'text-input-' . md5(__FILE__ . $inputName . $inputValue . $labelText);
     $inputName = $inputName ?? '';
     $inputValue = $inputValue ?? '';
+    $type = $type ?? 'text'; // text or password
     $autoComplete = $autoComplete ?? '';
     $autoCorrect = $autoCorrect ?? 'off';
     $spellCheck = $spellCheck ?? 'true';
@@ -41,7 +42,7 @@
 @endphp
 
 <div class="relative">
-    <input type="text"
+    <input type="{{ $type }}"
            class="w-full rounded-full p-3 pl-6 pt-4 pb-1 focus:outline-none floating-label {{ $_inputClasses }}"
            placeholder=" "
            id="{{ $inputId }}"

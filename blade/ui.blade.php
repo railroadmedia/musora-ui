@@ -9,6 +9,11 @@
 
     <!-- todo: use non-branded css -->
     <link rel="stylesheet" href="/build/drumeo/drumeo.css">
+
+    <link
+        rel="stylesheet"
+        href="https://d1prhhmg8i11jr.cloudfront.net/v1.0.0/dist/icons.css"
+    >
 </head>
 <body class="box-border">
 
@@ -186,13 +191,76 @@
             <p class="text-validation-red text-xs italic font-bold mt-2 ml-2">Error the input is incorrect, try
                 again.</p>
         </div>
+
+        <h3 class="text-xl mb-5 pl-1">Checkboxes</h3>
+
+        <div class="mb-5">
+            @component('core.badge-checkbox', [
+                'labelText' => 'badge checkbox',
+                'id' => 'id-badge-checkbox',
+                'name' => 'name-badge-checkbox',
+                'iconClass' => 'icon-drums',
+            ])
+            @endcomponent
+        </div>
     </div>
 
     <div class="flex flex-col h-screen p-5">
+        <h3 class="text-xl mb-5 pl-1">Buttons</h3>
 
+        <div class="mb-5">
+            @component('core.button', [
+                'labelText' => 'full width button',
+                'fullWidth' => 'true',
+                'type' => 'submit',
+            ])
+            @endcomponent
+        </div>
+
+        <div class="mb-5">
+            @component('core.button', [
+                'labelText' => 'regular button',
+                'type' => 'submit',
+            ])
+            @endcomponent
+        </div>
+
+        <div class="mb-5 flex">
+            @component('core.anchor-button', [
+                'labelText' => 'grey outlined anchor button',
+                'theme' => 'grey',
+                'href' => '#',
+            ])
+            @endcomponent
+        </div>
     </div>
 </div>
 
-<script></script>
+<script>
+const elements = document.getElementsByClassName('badge-checkbox');
+
+Array.from(elements).forEach(function(element) {
+    element.addEventListener(
+        'click',
+        function(event) {
+
+            const checkbox = element.getElementsByTagName('input')[0];
+
+            checkbox.checked = !checkbox.checked;
+
+            if (checkbox.checked) {
+                element.classList.remove('text-blue-600');
+                element.classList.add('bg-blue-600', 'text-white');
+            } else {
+                element.classList.remove('bg-blue-600', 'text-white');
+                element.classList.add('text-blue-600');
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    );
+});
+</script>
 </body>
 </html>

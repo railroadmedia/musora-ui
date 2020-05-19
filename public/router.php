@@ -8,7 +8,7 @@ use Jenssegers\Blade\Blade;
 
 $blade = new Blade('../blade', '../cache');
 
-$filePath = substr($_SERVER['REQUEST_URI'], 7);
+$filePath = substr($_SERVER['REQUEST_URI'], 11);
 $filePathDots = str_replace('/', '.', $filePath);
 
 if ($blade->exists($filePathDots)) {

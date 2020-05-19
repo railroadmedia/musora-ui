@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@yield('title')</title>
+
+    <link rel="stylesheet" href="../build/drumeo/drumeo.css">
+    @yield('styles')
+</head>
+<body class="bg-blue-600 box-border">
+
+<div class="flex flex-col h-screen">
+    <div class="m-auto w-md">
+        <div class="pt-8">
+            <img src="https://dpwjbsxqtam5n.cloudfront.net/logos/logo-white.png" class="mx-auto w-2/3">
+        </div>
+        <div class="bg-white rounded-lg flex flex-wrap mt-8">
+            @yield('content')
+        </div>
+        @yield('pitch')
+    </div>
+    @yield('footer')
+</div>
+@yield('scripts')
+</body>
+</html>
