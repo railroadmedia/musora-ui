@@ -8,7 +8,7 @@
     <title>@yield('title')</title>
 
     <link rel="stylesheet" href="../build/drumeo/drumeo.css">
-    @yield('styles')
+    @stack('styles')
 </head>
 <body class="bg-blue-600 box-border">
 
@@ -24,6 +24,6 @@
     </div>
     @yield('footer')
 </div>
-@yield('scripts')
+@stack('scripts')
 </body>
 </html>

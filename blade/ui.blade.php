@@ -14,6 +14,7 @@
         rel="stylesheet"
         href="https://d1prhhmg8i11jr.cloudfront.net/v1.0.0/dist/icons.css"
     >
+    @stack('styles')
 </head>
 <body class="box-border">
 
@@ -236,31 +237,6 @@
     </div>
 </div>
 
-<script>
-const elements = document.getElementsByClassName('badge-checkbox');
-
-Array.from(elements).forEach(function(element) {
-    element.addEventListener(
-        'click',
-        function(event) {
-
-            const checkbox = element.getElementsByTagName('input')[0];
-
-            checkbox.checked = !checkbox.checked;
-
-            if (checkbox.checked) {
-                element.classList.remove('text-blue-600');
-                element.classList.add('bg-blue-600', 'text-white');
-            } else {
-                element.classList.remove('bg-blue-600', 'text-white');
-                element.classList.add('text-blue-600');
-            }
-
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    );
-});
-</script>
+@stack('scripts')
 </body>
 </html>

@@ -11,23 +11,19 @@
 
 @section('content')
 <div class="m-10 w-full">
-    <h2 class="font-extrabold text-center uppercase mb-8">choose your display name</h2>
+    <h2 class="font-extrabold text-center uppercase mb-8">choose your profile image</h2>
     <div class="text-center">
-        <div class="">
-            @component('core.text-input', [
-                'labelText' => 'Username',
-                'inputId' => 'username',
-                'tabIndex' => 1,
-                'theme' => 'gray',
-            ])
-            @endcomponent
+        <div class="flex">
+            <div class="border-2 border-blue-600 rounded-full text-blue-600 mx-auto text-4xl flex flex-col justify-center" style="height: 120px; width: 120px;">
+                <i class="icon-add-to-list"></i>
+            </div>
         </div>
         <p class="text-sm py-5">This appears on your Drumeo profile and comments</p>
     </div>
     <div class="mt-4 mb-2 flex justify-center">
         @component('core.anchor-button', [
             'labelText' => 'next',
-            'href' => '/router.php/account_profile_avatar',
+            'href' => '/router.php/account_start',
         ])
         @endcomponent
     </div>

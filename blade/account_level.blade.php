@@ -2,7 +2,7 @@
 
 @section('title', 'Create Account - Level')
 
-@section('styles')
+@push('styles')
 <style type="text/css">
 /* todo - move the css from elements inline into classes, here */
 .level-select.level-checked .level-ind {
@@ -12,11 +12,12 @@
     background-color: white;
 }
 </style>
-@endsection
+@endpush
 
 @section('content')
 <div class="m-10 w-full">
     <h2 class="font-extrabold text-center uppercase mb-6">set your skill level</h2>
+    <!-- todo: refactor the level selector into a component & theme it to reuse in edge page -->
     <div class="grid grid-cols-5">
         <div class="py-4 level-select">
             <div style="height: 8px;" class="border-2 border-blue-600 bg-blue-600 relative rounded-l-full level-bar">
@@ -114,7 +115,7 @@
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script type="text/javascript">
 let levels = Array.from(document.getElementsByClassName('level-select'));
 let tabs = Array.from(document.getElementsByClassName('tab'));
@@ -153,4 +154,4 @@ levels.forEach(function(element) {
     );
 });
 </script>
-@endsection
+@endpush
