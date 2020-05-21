@@ -109,6 +109,19 @@ $newVideos = [
         'difficulty' => 'Beginner - 1'
     ]
 ];
+
+$lessons = [
+    ['name' => 'beats', 'tab' => 1],
+    ['name' => 'theory', 'tab' => 2],
+    ['name' => 'fills', 'tab' => 3],
+    ['name' => 'styles', 'tab' => 4],
+    ['name' => 'technique', 'tab' => 5],
+    ['name' => 'rudiments', 'tab' => 6],
+    ['name' => 'ear-training', 'label' => 'ear training', 'tab' => 7],
+    ['name' => 'independence', 'tab' => 8],
+    ['name' => 'musicality', 'tab' => 9],
+    ['name' => 'gear', 'tab' => 10],
+];
 @endphp
 
 @section('content')
@@ -134,10 +147,10 @@ $newVideos = [
 
         <div class="w-full mb-6 space-y-4 flex flex-col large:flex-row large:space-x-3 large:space-y-0 large:mt-6 uppercase">
             <div class="large:flex-1 rounded-lg overflow-hidden bg-edge-blue">
-                @include('sections.lessons-selector')
+                @include('sections.badge-checkboxes-group', ['checkboxes' => $lessons, 'skipCollapseStyle' => true, 'skipCollapseScript' => true])
             </div>
             <div class="large:flex-1 rounded-lg overflow-hidden bg-edge-blue">
-                @include('sections.level-selector')
+                @include('sections.level-selector', ['skipCollapseStyle' => true, 'skipCollapseScript' => true])
             </div>
         </div>
     </div>

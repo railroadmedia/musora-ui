@@ -132,26 +132,33 @@
             -webkit-transform: translateX(0);
             transform: translateX(0);
         }
-        .parent-button.active {
+
+        #side-bar .collapse-trigger.active {
             background-color: #f2f2f2;
         }
-        .parent-button.active .icon-open,
-        .parent-button:not(.active) .icon-close {
+        .collapse-trigger.active .collapse-trigger-open,
+        .collapse-trigger:not(.active) .collapse-trigger-close {
             display: none;
         }
-        .parent-button:not(.active) .icon-open,
-        .parent-button.active .icon-close, {
+        .collapse-trigger:not(.active) .collapse-trigger-open,
+        .collapse-trigger.active .collapse-trigger-close {
             display: inline-block;
         }
-        .parent-button.active + .child-links {
-            max-height: 500px;
+        .collapse-trigger.active + .collapse-container {
+            max-height: 1000px;
         }
-        .parent-button:not(.active) + .child-links {
+        .collapse-trigger:not(.active) + .collapse-container {
             max-height: 0;
         }
-        .child-links {
+        .collapse-container {
             -webkit-transition: max-height .2s ease-in-out;
             transition: max-height .3s ease-in-out;
+        }
+        @media (min-width: 40rem) {
+            .collapse-trigger.active + .collapse-container.small\:expand,
+            .collapse-trigger:not(.active) + .collapse-container.small\:expand {
+                max-height: 1000px;
+            }
         }
     </style>
 </head>
@@ -184,8 +191,8 @@
     <aside id="side-bar" class="fixed right-0 z-50 bg-white flex flex-col">
         <a href="#" class="p-3 border-b border-medium-gray flex flex-row items-center"><i class="icon-home inline-block mr-2 text-edge-blue"></i>Home</a>
         <div class="">
-            <span class="p-3 border-b border-medium-gray page-link parent-button flex flex-row items-center relative cursor-pointer"><i class="icon-live inline-block mr-2 text-edge-blue"></i>Drumeo Edge<i class="icon-learning-paths text-medium-gray absolute right-0 mr-3 icon-open"></i><i class="icon-resources text-medium-gray absolute right-0 mr-3 icon-close"></i></span>
-            <div class="flex flex-col child-links overflow-hidden bg-light-gray">
+            <span class="collapse-trigger p-3 border-b border-medium-gray flex flex-row items-center relative cursor-pointer"><i class="icon-live inline-block mr-2 text-edge-blue"></i>Drumeo Edge<i class="icon-learning-paths text-medium-gray absolute right-0 mr-3 collapse-trigger-open"></i><i class="icon-resources text-medium-gray absolute right-0 mr-3 collapse-trigger-close"></i></span>
+            <div class="collapse-container flex flex-col overflow-hidden bg-light-gray">
                 <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center"><i class="icon-learning-paths inline-block mr-2"></i>Learning Paths</a>
                 <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center"><i class="icon-courses inline-block mr-2"></i>Courses</a>
                 <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center"><i class="icon-shows inline-block mr-2"></i>Shows</a>
@@ -198,8 +205,8 @@
             </div>
         </div>
         <div class="">
-            <span class="p-3 border-b border-medium-gray page-link parent-button flex flex-row items-center relative cursor-pointer"><i class="icon-dft inline-block mr-2 text-edge-blue"></i>Drum Shop<i class="icon-learning-paths text-medium-gray absolute right-0 mr-3 icon-open"></i><i class="icon-resources text-medium-gray absolute right-0 mr-3 icon-close"></i></span>
-            <div class="flex flex-col child-links overflow-hidden bg-light-gray">
+            <span class="collapse-trigger p-3 border-b border-medium-gray flex flex-row items-center relative cursor-pointer"><i class="icon-dft inline-block mr-2 text-edge-blue"></i>Drum Shop<i class="icon-learning-paths text-medium-gray absolute right-0 mr-3 collapse-trigger-open"></i><i class="icon-resources text-medium-gray absolute right-0 mr-3 collapse-trigger-close"></i></span>
+            <div class="collapse-container flex flex-col overflow-hidden bg-light-gray">
                 <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center"></i>All products</a>
                 <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center">P4 Practice Pad</a>
                 <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center">Successful Drumming</a>
@@ -491,125 +498,129 @@
             </div>
         </div>
 
-        <div class="w-full mb-6 space-y-4 flex flex-col large:flex-row large:space-x-4 large:space-y-0 large:mt-6 uppercase">
+        <div class="w-full small:mb-6 space-y-4 flex flex-col large:flex-row large:space-x-4 large:space-y-0 large:mt-6 uppercase">
             <div class="large:flex-1 rounded-lg overflow-hidden bg-edge-blue">
-                <h4 class="py-2 text-center text-white bg-edge-dark-blue font-semibold">what do you want to work on?</h4>
-                <div class="p-3 flex flex-wrap text-xs font-medium">
-                    <div class="w-1/2 small:w-1/5 p-1">
-                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
-                            <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">beats</label>
+                <h4 class="collapse-trigger py-2 px-2 cursor-pointer small:cursor-default small:px-0 flex justify-between small:block small:text-center text-white bg-edge-dark-blue font-semibold text-sm small:text-base"><span>what do you want to work on?</span><i class="icon-home text-lg font-bold small:hidden collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold small:hidden collapse-trigger-close"></i></h4>
+                <div class="collapse-container small:expand">
+                    <div class="p-3 flex flex-wrap text-xs font-medium">
+                        <div class="w-1/2 small:w-1/5 p-1">
+                            <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                                <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">beats</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="w-1/2 small:w-1/5 p-1">
-                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
-                            <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">theory</label>
+                        <div class="w-1/2 small:w-1/5 p-1">
+                            <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                                <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">theory</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="w-1/2 small:w-1/5 p-1">
-                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
-                            <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">fills</label>
+                        <div class="w-1/2 small:w-1/5 p-1">
+                            <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                                <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">fills</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="w-1/2 small:w-1/5 p-1">
-                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
-                            <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">styles</label>
+                        <div class="w-1/2 small:w-1/5 p-1">
+                            <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                                <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">styles</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="w-1/2 small:w-1/5 p-1">
-                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none text-edge-dark-blue">
-                            <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer">technique</label>
+                        <div class="w-1/2 small:w-1/5 p-1">
+                            <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none text-edge-dark-blue">
+                                <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer">technique</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="w-1/2 small:w-1/5 p-1">
-                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
-                            <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">rudiments</label>
+                        <div class="w-1/2 small:w-1/5 p-1">
+                            <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                                <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">rudiments</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="w-1/2 small:w-1/5 p-1">
-                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
-                            <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">ear training</label>
+                        <div class="w-1/2 small:w-1/5 p-1">
+                            <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                                <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">ear training</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="w-1/2 small:w-1/5 p-1">
-                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
-                            <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">independence</label>
+                        <div class="w-1/2 small:w-1/5 p-1">
+                            <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                                <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">independence</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="w-1/2 small:w-1/5 p-1">
-                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
-                            <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">musicality</label>
+                        <div class="w-1/2 small:w-1/5 p-1">
+                            <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                                <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">musicality</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="w-1/2 small:w-1/5 p-1">
-                        <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
-                            <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">gear</label>
+                        <div class="w-1/2 small:w-1/5 p-1">
+                            <div class="account-lessons rounded-full border-2 border-edge-dark-blue flex cursor-pointer flex justify-center leading-none">
+                                <input type="checkbox" id="beats" name="beats" class="hidden lesson-cb"><label for="beats" class="py-2 cursor-pointer text-edge-dark-blue">gear</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="large:flex-1 rounded-lg overflow-hidden bg-edge-blue">
-                <h4 class="py-2 text-center text-white bg-edge-dark-blue font-semibold">set your skill level</h4>
-                <div class="px-2 py-2 small:px-6">
-                    <div class="grid grid-cols-5 cursor-pointer">
-                        <div class="py-4 level-select">
-                            <div style="height: 12px;" class="border-2 border-edge-blue bg-white relative rounded-l-full level-bar">
-                                <input type="radio" class="hidden" id="level-one" name="level" value="1">
-                                <div style="height: 30px; width: 30px; top: -11px; right: -11px" class="border-4 border-edge-blue bg-white rounded-full absolute hidden z-10 level-ind"></div>
+                <h4 class="collapse-trigger py-2 px-2 cursor-pointer small:cursor-default small:px-0 flex justify-between small:block small:text-center text-white bg-edge-dark-blue font-semibold text-sm small:text-base"><span>set your skill level</span><div class="small:hidden flex items-center"><div class="flex items-center justify-center border rounded-full w-4 h-4 mr-2 text-xs">?</div><i class="icon-home text-lg font-bold small:hidden collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold small:hidden collapse-trigger-close"></i></div></h4>
+                <div class="collapse-container small:expand">
+                    <div class="px-2 py-2 small:px-6">
+                        <div class="grid grid-cols-5 cursor-pointer">
+                            <div class="py-4 level-select">
+                                <div style="height: 12px;" class="border-2 border-edge-blue bg-white relative rounded-l-full level-bar">
+                                    <input type="radio" class="hidden" id="level-one" name="level" value="1">
+                                    <div style="height: 30px; width: 30px; top: -11px; right: -11px" class="border-4 border-edge-blue bg-white rounded-full absolute hidden z-10 level-ind"></div>
+                                </div>
+                            </div>
+                            <div class="py-4 level-select level-checked">
+                                <div style="height: 12px;" class="border-2 border-l-0 border-edge-blue bg-white relative level-bar">
+                                    <input type="radio" class="hidden" id="level-two" name="level" value="2">
+                                    <div style="height: 30px; width: 30px; top: -11px; right: -11px" class="border-4 border-edge-blue bg-white rounded-full absolute hidden z-10 level-ind"></div>
+                                </div>
+                            </div>
+                            <div class="py-4 level-select">
+                                <div style="height: 12px;" class="border-2 border-l-0 border-edge-blue bg-white relative level-bar">
+                                    <input type="radio" class="hidden" id="level-three" name="level" value="3">
+                                    <div style="height: 30px; width: 30px; top: -11px; right: -11px" class="border-4 border-edge-blue bg-white rounded-full absolute hidden z-10 level-ind"></div>
+                                </div>
+                            </div>
+                            <div class="py-4 level-select">
+                                <div style="height: 12px;" class="border-2 border-l-0 border-edge-blue bg-white relative level-bar">
+                                    <input type="radio" class="hidden" id="level-four" name="level" value="4">
+                                    <div style="height: 30px; width: 30px; top: -11px; right: -11px" class="border-4 border-edge-blue bg-white rounded-full absolute hidden z-10 level-ind"></div>
+                                </div>
+                            </div>
+                            <div class="py-4 level-select">
+                                <div style="height: 12px;" class="border-2 border-l-0 border-edge-blue bg-white relative rounded-r-full level-bar">
+                                    <input type="radio" class="hidden" id="level-five" name="level" value="5">
+                                    <div style="height: 30px; width: 30px; top: -11px; right: -11px" class="border-4 border-edge-blue bg-white rounded-full absolute hidden z-10 level-ind"></div>
+                                </div>
                             </div>
                         </div>
-                        <div class="py-4 level-select level-checked">
-                            <div style="height: 12px;" class="border-2 border-l-0 border-edge-blue bg-white relative level-bar">
-                                <input type="radio" class="hidden" id="level-two" name="level" value="2">
-                                <div style="height: 30px; width: 30px; top: -11px; right: -11px" class="border-4 border-edge-blue bg-white rounded-full absolute hidden z-10 level-ind"></div>
+                        <div class="flex flex-col small:flex-row items-center text-2xl">
+                            <div class="w-1/4 hidden small:block"></div>
+                            <div id="level-tab-1" class="w-2/4 text-center level-tab hidden">
+                                <span class="text-white font-extrabold">level 1</span>
                             </div>
-                        </div>
-                        <div class="py-4 level-select">
-                            <div style="height: 12px;" class="border-2 border-l-0 border-edge-blue bg-white relative level-bar">
-                                <input type="radio" class="hidden" id="level-three" name="level" value="3">
-                                <div style="height: 30px; width: 30px; top: -11px; right: -11px" class="border-4 border-edge-blue bg-white rounded-full absolute hidden z-10 level-ind"></div>
+                            <div id="level-tab-2" class="w-2/4 text-center level-tab">
+                                <span class="text-white font-extrabold">level 2</span>
                             </div>
-                        </div>
-                        <div class="py-4 level-select">
-                            <div style="height: 12px;" class="border-2 border-l-0 border-edge-blue bg-white relative level-bar">
-                                <input type="radio" class="hidden" id="level-four" name="level" value="4">
-                                <div style="height: 30px; width: 30px; top: -11px; right: -11px" class="border-4 border-edge-blue bg-white rounded-full absolute hidden z-10 level-ind"></div>
+                            <div id="level-tab-3" class="w-2/4 text-center level-tab hidden">
+                                <span class="text-white font-extrabold">level 3</span>
                             </div>
-                        </div>
-                        <div class="py-4 level-select">
-                            <div style="height: 12px;" class="border-2 border-l-0 border-edge-blue bg-white relative rounded-r-full level-bar">
-                                <input type="radio" class="hidden" id="level-five" name="level" value="5">
-                                <div style="height: 30px; width: 30px; top: -11px; right: -11px" class="border-4 border-edge-blue bg-white rounded-full absolute hidden z-10 level-ind"></div>
+                            <div id="level-tab-4" class="w-2/4 text-center level-tab hidden">
+                                <span class="text-white font-extrabold">level 4</span>
                             </div>
-                        </div>
-                    </div>
-                    <div class="flex small:items-center justify-between text-2xl">
-                        <div class="w-1/4 hidden small:block"></div>
-                        <div id="level-tab-1" class="w-2/4 small:text-center level-tab hidden">
-                            <span class="text-white font-extrabold">level 1</span>
-                        </div>
-                        <div id="level-tab-2" class="w-2/4 small:text-center level-tab">
-                            <span class="text-white font-extrabold">level 2</span>
-                        </div>
-                        <div id="level-tab-3" class="w-2/4 small:text-center level-tab hidden">
-                            <span class="text-white font-extrabold">level 3</span>
-                        </div>
-                        <div id="level-tab-4" class="w-2/4 small:text-center level-tab hidden">
-                            <span class="text-white font-extrabold">level 4</span>
-                        </div>
-                        <div id="level-tab-5" class="w-2/4 small:text-center level-tab hidden">
-                            <span class="text-white font-extrabold">level 5</span>
-                        </div>
-                        <div class="w-1/4 flex items-center justify-end">
-                            <a href="#" class="rounded-full border-2 border-edge-dark-blue text-edge-dark-blue py-1 px-8 text-base">all</a>
+                            <div id="level-tab-5" class="w-2/4 text-center level-tab hidden">
+                                <span class="text-white font-extrabold">level 5</span>
+                            </div>
+                            <div class="w-1/4 flex justify-center leading-none py-4 small:justify-end small:py-0">
+                                <a href="#" class="rounded-full border-2 border-edge-dark-blue text-edge-dark-blue px-6 text-xs py-1 small:px-8 small:text-base">all</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -621,59 +632,72 @@
         <!-- and remove 'hidden' class from the filter badge above -->
 
         <div class="flex flex-col medium:flex-row py-4">
-            <div class="w-full medium:w-56 flex flex-wrap medium:flex-col medium:flex-no-wrap text-light-gray">
-                <div class="w-1/2 mb-2 pr-1 medium:w-full medium:pr-0">
-                    <div class="text-dark-gray text-xs border-2 border-light-gray rounded-lg">
-                        <a href="#" class="filter-group-header open flex content-center justify-between px-3 py-2 font-semibold small:text-sm">
-                            <span class="uppercase">content type</span><span class="symbol-close">&#8897;</span><span class="symbol-open">&#8896;</span>
-                        </a>
-                        <div class="filter-group pb-2 font-medium">
-                            <a href="#" id="filter-drumeo-method" class="filter enabled block pl-3 py-1 font-semibold text-black"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1">X</span>Drumeo method</a>
-                            <a href="#" id="filter-courses" class="filter enabled block pl-3 py-1 font-semibold text-black"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1">X</span>Courses</a>
-                            <a href="#" id="filter-packs" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Packs</a>
-                            <a href="#" id="filter-quick-tips" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Quick tips</a>
-                            <a href="#" id="filter-live" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Live</a>
-                            <a href="#" id="filter-bootcamp" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Bootcamp</a>
+            <div class="w-full mb-2 small:mb-0 medium:w-56 flex flex-col-reverse small:flex-col">
+                <div class="collapse-trigger small:hidden text-center text-blue-500 uppercase font-semibold text-xs cursor-pointer"><span class="collapse-trigger-open">show filters</span><span class="collapse-trigger-close">hide filters</span></div>
+                <div class="collapse-container small:expand overflow-hidden">
+                    <div class="flex flex-col flex-no-wrap text-light-gray">
+                        <div class="w-full mb-2">
+                            <div class="text-dark-gray text-xs border-2 border-light-gray rounded-lg">
+                                <div class="collapse-trigger active flex content-center justify-between px-3 py-2 font-semibold small:text-sm cursor-pointer">
+                                    <span class="uppercase">content type</span><i class="icon-home text-lg font-bold collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold collapse-trigger-close"></i>
+                                </div>
+                                <div class="collapse-container overflow-hidden">
+                                    <div style="max-height: 230px;" data-simplebar class="mb-3 font-medium">
+                                        <a href="#" id="filter-drumeo-method" class="filter enabled block pl-3 py-1 font-semibold text-black"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1">X</span>Drumeo method</a>
+                                        <a href="#" id="filter-courses" class="filter enabled block pl-3 py-1 font-semibold text-black"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1">X</span>Courses</a>
+                                        <a href="#" id="filter-packs" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Packs</a>
+                                        <a href="#" id="filter-quick-tips" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Quick tips</a>
+                                        <a href="#" id="filter-live" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Live</a>
+                                        <a href="#" id="filter-bootcamp" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Bootcamp</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="w-1/2 mb-2 pl-1 medium:w-full medium:mt-2 medium:pl-0">
-                    <div class="text-dark-gray text-xs border-2 border-light-gray rounded-lg">
-                        <a href="#" class="filter-group-header flex content-center justify-between pl-3 p-2 font-semibold small:text-sm">
-                            <span class="uppercase">instructor</span><span class="symbol-close">&#8897;</span><span class="symbol-open">&#8896;</span>
-                        </a>
-                        <div class="filter-group pb-2 font-medium overflow-y-auto hidden" style="max-height: 240px;" data-simplebar>
-                            <a href="#" id="filter-aaron-edgar" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Aaron Edgar</a>
-                            <a href="#" id="filter-adam-marko" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Adam Marko</a>
-                            <a href="#" id="filter-anika-nilles" class="filter enabled block pl-3 py-1 font-semibold text-black"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1">X</span>Anika Nilles</a>
-                            <a href="#" id="filter-antonia-sanchez" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Antonia Sanchez</a>
-                            <a href="#" id="filter-benny-greb" class="filter enabled block pl-3 py-1 font-semibold text-black"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1">X</span>Benny Greb</a>
-                            <a href="#" id="filter-billy-cobham" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Billy Cobham</a>
-                            <a href="#" id="filter-billy-rymer" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Billy Rymer</a>
-                            <a href="#" id="filter-brandon-khoo" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Brandon Khoo</a>
-                            <a href="#" id="filter-brian-frasier-moore" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Brian Frasier-Moore</a>
-                            <a href="#" id="filter-brian-tichy" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Brian Tichy</a>
-                            <a href="#" id="filter-bruce-becker" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Bruce Becker</a>
-                            <a href="#" id="filter-camille-bigeault" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Camille Bigeault</a>
-                            <a href="#" id="filter-carmine-appice" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Carmine Appice</a>
+                        <div class="w-full mb-2">
+                            <div class="text-dark-gray text-xs border-2 border-light-gray rounded-lg">
+                                <div class="collapse-trigger flex content-center justify-between px-3 py-2 font-semibold small:text-sm cursor-pointer">
+                                    <span class="uppercase">instructor</span><i class="icon-home text-lg font-bold collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold collapse-trigger-close"></i>
+                                </div>
+                                <div class="collapse-container overflow-hidden">
+                                    <div style="max-height: 230px;" data-simplebar class="mb-3 font-medium">
+                                        <a href="#" id="filter-aaron-edgar" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Aaron Edgar</a>
+                                        <a href="#" id="filter-adam-marko" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Adam Marko</a>
+                                        <a href="#" id="filter-anika-nilles" class="filter enabled block pl-3 py-1 font-semibold text-black"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1">X</span>Anika Nilles</a>
+                                        <a href="#" id="filter-antonia-sanchez" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Antonia Sanchez</a>
+                                        <a href="#" id="filter-benny-greb" class="filter enabled block pl-3 py-1 font-semibold text-black"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1">X</span>Benny Greb</a>
+                                        <a href="#" id="filter-billy-cobham" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Billy Cobham</a>
+                                        <a href="#" id="filter-billy-rymer" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Billy Rymer</a>
+                                        <a href="#" id="filter-brandon-khoo" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Brandon Khoo</a>
+                                        <a href="#" id="filter-brian-frasier-moore" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Brian Frasier-Moore</a>
+                                        <a href="#" id="filter-brian-tichy" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Brian Tichy</a>
+                                        <a href="#" id="filter-bruce-becker" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Bruce Becker</a>
+                                        <a href="#" id="filter-camille-bigeault" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Camille Bigeault</a>
+                                        <a href="#" id="filter-carmine-appice" class="filter block pl-3 py-1"><span class="bg-black text-white inline-flex items-center px-1 rounded-full mr-1 hidden">X</span>Carmine Appice</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="w-1/2 mb-2 pr-1 medium:w-full medium:pr-0">
-                    <div class="text-dark-gray text-xs border-2 border-light-gray rounded-lg">
-                        <a href="#" class="filter-group-header flex content-center justify-between pl-3 p-2 font-semibold small:text-sm">
-                            <span class="uppercase">style</span><span class="symbol-close">&#8897;</span><span class="symbol-open">&#8896;</span>
-                        </a>
-                        <div class="filter-group pb-2 font-medium hidden">
+                        <div class="w-full mb-2">
+                            <div class="text-dark-gray text-xs border-2 border-light-gray rounded-lg">
+                                <div class="collapse-trigger flex content-center justify-between px-3 py-2 font-semibold small:text-sm cursor-pointer">
+                                    <span class="uppercase">style</span><i class="icon-home text-lg font-bold collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold collapse-trigger-close"></i>
+                                </div>
+                                <div class="collapse-container overflow-hidden">
+                                    <div style="max-height: 230px;" data-simplebar class="mb-3 font-medium">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="w-1/2 mb-2 pl-1 medium:w-full medium:mt-2 medium:pl-0">
-                    <div class="text-dark-gray text-xs border-2 border-light-gray rounded-lg">
-                        <a href="#" class="filter-group-header flex content-center justify-between pl-3 p-2 font-semibold small:text-sm">
-                            <span class="uppercase">progress</span><span class="symbol-close">&#8897;</span><span class="symbol-open">&#8896;</span>
-                        </a>
-                        <div class="filter-group pb-2 font-medium hidden">
+                        <div class="w-full mb-2">
+                            <div class="text-dark-gray text-xs border-2 border-light-gray rounded-lg">
+                                <div class="collapse-trigger flex content-center justify-between px-3 py-2 font-semibold small:text-sm cursor-pointer">
+                                    <span class="uppercase">progress</span><i class="icon-home text-lg font-bold collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold collapse-trigger-close"></i>
+                                </div>
+                                <div class="collapse-container overflow-hidden">
+                                    <div style="max-height: 230px;" data-simplebar class="mb-3 font-medium">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1114,29 +1138,6 @@
     </div>
 
 <script type="text/javascript">
-let filterGroupHeaders = Array.from(document.getElementsByClassName('filter-group-header'));
-
-filterGroupHeaders.forEach(function(element) {
-    element.addEventListener(
-        'click',
-        function(event) {
-            let container = element.parentElement;
-
-            element.classList.toggle('open');
-
-            let filterGroup = container.getElementsByClassName('filter-group')[0];
-
-            if (element.classList.contains('open')) {
-                filterGroup.classList.remove('hidden');
-            } else {
-                filterGroup.classList.add('hidden');
-            }
-
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    );
-});
 
 function enableFilter(element) {
     element.classList.add('font-semibold', 'text-black');
@@ -1373,11 +1374,19 @@ if (parentLinks.length) {
                 element = element.parentElement;
             }
             element.classList.toggle('active');
-            console.log('test');
         });
     });
 }
 
+const collapseTriggers = document.querySelectorAll('.collapse-trigger');
+
+if (collapseTriggers.length) {
+    Array.from(collapseTriggers).forEach((element) => {
+        element.addEventListener('click', (event) => {
+            element.classList.toggle('active');
+        });
+    });
+}
 </script>
 </body>
 </html>

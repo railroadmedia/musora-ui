@@ -77,6 +77,8 @@ $checkboxes = [
                         'id' => $checkbox['name'],
                         'name' => $checkbox['name'],
                         'iconClass' => $checkbox['icon'] ?? null,
+                        'tabIndex' => $checkbox['tab'] ?? null,
+                        'skipScript' => !$loop->last
                     ])
                     @endcomponent
                 </div>

@@ -1,3 +1,8 @@
+@php
+    $skipCollapseStyle = $skipCollapseStyle ?? false;
+    $skipCollapseScript = $skipCollapseScript ?? false;
+@endphp
+
 @push('styles')
 <style type="text/css">
 #nav {
@@ -54,27 +59,35 @@
     -webkit-transform: translateX(0);
     transform: translateX(0);
 }
-.parent-button.active {
+#side-bar .collapse-trigger.active {
     background-color: #f2f2f2;
 }
-.parent-button.active .icon-open,
-.parent-button:not(.active) .icon-close {
+@if (!$skipCollapseStyle)
+.collapse-trigger.active .collapse-trigger-open,
+.collapse-trigger:not(.active) .collapse-trigger-close {
     display: none;
 }
-.parent-button:not(.active) .icon-open,
-.parent-button.active .icon-close, {
+.collapse-trigger:not(.active) .collapse-trigger-open,
+.collapse-trigger.active .collapse-trigger-close {
     display: inline-block;
 }
-.parent-button.active + .child-links {
-    max-height: 500px;
+.collapse-trigger.active + .collapse-container {
+    max-height: 1000px;
 }
-.parent-button:not(.active) + .child-links {
+.collapse-trigger:not(.active) + .collapse-container {
     max-height: 0;
 }
-.child-links {
+.collapse-container {
     -webkit-transition: max-height .2s ease-in-out;
     transition: max-height .3s ease-in-out;
 }
+@media (min-width: 40rem) {
+    .collapse-trigger.active + .collapse-container.small\:expand,
+    .collapse-trigger:not(.active) + .collapse-container.small\:expand {
+        max-height: 1000px;
+    }
+}
+@endif
 </style>
 @endpush
 
@@ -106,8 +119,8 @@
 <aside id="side-bar" class="fixed right-0 z-50 bg-white flex flex-col">
     <a href="#" class="p-3 border-b border-medium-gray flex flex-row items-center"><i class="icon-home inline-block mr-2 text-edge-blue"></i>Home</a>
     <div class="">
-        <span class="p-3 border-b border-medium-gray page-link parent-button flex flex-row items-center relative cursor-pointer"><i class="icon-live inline-block mr-2 text-edge-blue"></i>Drumeo Edge<i class="icon-learning-paths text-medium-gray absolute right-0 mr-3 icon-open"></i><i class="icon-resources text-medium-gray absolute right-0 mr-3 icon-close"></i></span>
-        <div class="flex flex-col child-links overflow-hidden bg-light-gray">
+        <span class="collapse-trigger p-3 border-b border-medium-gray flex flex-row items-center relative cursor-pointer"><i class="icon-live inline-block mr-2 text-edge-blue"></i>Drumeo Edge<i class="icon-learning-paths text-medium-gray absolute right-0 mr-3 collapse-trigger-open"></i><i class="icon-resources text-medium-gray absolute right-0 mr-3 collapse-trigger-close"></i></span>
+        <div class="collapse-container flex flex-col overflow-hidden bg-light-gray">
             <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center"><i class="icon-learning-paths inline-block mr-2"></i>Learning Paths</a>
             <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center"><i class="icon-courses inline-block mr-2"></i>Courses</a>
             <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center"><i class="icon-shows inline-block mr-2"></i>Shows</a>
@@ -120,8 +133,8 @@
         </div>
     </div>
     <div class="">
-        <span class="p-3 border-b border-medium-gray page-link parent-button flex flex-row items-center relative cursor-pointer"><i class="icon-dft inline-block mr-2 text-edge-blue"></i>Drum Shop<i class="icon-learning-paths text-medium-gray absolute right-0 mr-3 icon-open"></i><i class="icon-resources text-medium-gray absolute right-0 mr-3 icon-close"></i></span>
-        <div class="flex flex-col child-links overflow-hidden bg-light-gray">
+        <span class="collapse-trigger p-3 border-b border-medium-gray flex flex-row items-center relative cursor-pointer"><i class="icon-dft inline-block mr-2 text-edge-blue"></i>Drum Shop<i class="icon-learning-paths text-medium-gray absolute right-0 mr-3 collapse-trigger-open"></i><i class="icon-resources text-medium-gray absolute right-0 mr-3 collapse-trigger-close"></i></span>
+        <div class="collapse-container flex flex-col overflow-hidden bg-light-gray">
             <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center"></i>All products</a>
             <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center">P4 Practice Pad</a>
             <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center">Successful Drumming</a>
@@ -140,7 +153,6 @@
 const sideMenu = document.getElementById('side-menu');
 const overlay = document.getElementById('overlay');
 const sideBar = document.getElementById('side-bar');
-const parentLinks = document.querySelectorAll('.parent-button');
 
 function closeEverything(event) {
     event.stopPropagation();
@@ -164,17 +176,16 @@ sideMenu.addEventListener('click', (event) => {
 
 overlay.addEventListener('click', closeEverything);
 
-if (parentLinks.length) {
-    Array.from(parentLinks).forEach((link) => {
-        link.addEventListener('click', (event) => {
-            let element = event.target;
-            if (!element.classList.contains('parent-button')) {
-                element = element.parentElement;
-            }
+@if (!$skipCollapseScript)
+const collapseTriggers = document.querySelectorAll('.collapse-trigger');
+
+if (collapseTriggers.length) {
+    Array.from(collapseTriggers).forEach((element) => {
+        element.addEventListener('click', (event) => {
             element.classList.toggle('active');
-            console.log('test');
         });
     });
 }
+@endif
 </script>
 @endpush
