@@ -56,7 +56,7 @@
         id="{{ $inputId }}"
         name="{{ $inputName }}"
         tabindex="{{ $tabIndex }}"
-        class="hidden lesson-cb"
+        class="hidden"
     ><label
         for="{{ $inputId }}"
         class="cursor-pointer {{ $_labelClasses }}"

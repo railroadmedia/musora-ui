@@ -204,6 +204,15 @@
             ])
             @endcomponent
         </div>
+
+        <div class="mb-5">
+            @component('core.icon-checkbox', [
+                'labelText' => 'icon checkbox',
+                'id' => 'id-icon-checkbox',
+                'name' => 'name-icon-checkbox'
+            ])
+            @endcomponent
+        </div>
     </div>
 
     <div class="flex flex-col h-screen p-5">

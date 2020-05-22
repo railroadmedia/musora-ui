@@ -122,6 +122,318 @@ $lessons = [
     ['name' => 'musicality', 'tab' => 9],
     ['name' => 'gear', 'tab' => 10],
 ];
+
+// todo - add some default filters active
+$filterGroups = [
+    [
+        'title' => 'content type',
+        'collapsed' => false,
+        'items' => [
+            [
+                'name' => 'drumeo-method',
+                'label' => 'drumeo method',
+                'tab' => 11
+            ],
+            [
+                'name' => 'courses',
+                'tab' => 12
+            ],
+            [
+                'name' => 'packs',
+                'tab' => 13
+            ],
+            [
+                'name' => 'quick-tips',
+                'label' => 'quick tips',
+                'tab' => 14
+            ],
+            [
+                'name' => 'live',
+                'tab' => 15
+            ],
+            [
+                'name' => 'bootcamp',
+                'tab' => 16
+            ],
+        ]
+    ],
+    [
+        'title' => 'instructor',
+        'collapsed' => false,
+        'items' => [
+            [
+                'name' => 'aaron-edgar',
+                'label' => 'Aaron Edgar',
+                'tab' => 11
+            ],
+            [
+                'name' => 'adam-marko',
+                'label' => 'Adam Marko',
+                'tab' => 11
+            ],
+            [
+                'name' => 'anika-nilles',
+                'label' => 'Anika Nilles',
+                'tab' => 11
+            ],
+            [
+                'name' => 'antonia-sanchez',
+                'label' => 'Antonia Sanchez',
+                'tab' => 11
+            ],
+            [
+                'name' => 'benny-greb',
+                'label' => 'Benny Greb',
+                'tab' => 11
+            ],
+            [
+                'name' => 'billy-cobham',
+                'label' => 'Billy Cobham',
+                'tab' => 11
+            ],
+            [
+                'name' => 'billy-rymer',
+                'label' => 'Billy Rymer',
+                'tab' => 11
+            ],
+            [
+                'name' => 'brandon-khoo',
+                'label' => 'Brandon Khoo',
+                'tab' => 11
+            ],
+            [
+                'name' => 'brian-frasier-moore',
+                'label' => 'Brian Frasier-Moore',
+                'tab' => 11
+            ],
+            [
+                'name' => 'brian-tichy',
+                'label' => 'Brian Tichy',
+                'tab' => 11
+            ],
+            [
+                'name' => 'bruce-becker',
+                'label' => 'Bruce Becker',
+                'tab' => 11
+            ],
+            [
+                'name' => 'camille-bigeault',
+                'label' => 'Camille Bigeault',
+                'tab' => 11
+            ],
+            [
+                'name' => 'carmine-appice',
+                'label' => 'Carmine Appice',
+                'tab' => 11
+            ],
+        ]
+    ],
+    [
+        'title' => 'style',
+        'collapsed' => true,
+        'items' => [],
+    ],
+    [
+        'title' => 'progress',
+        'collapsed' => true,
+        'items' => []
+    ]
+];
+
+$sectionVideos = [
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor one',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video One',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Two',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Two',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Other Instructor',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Three',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Four',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Four',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor one',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video One',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Two',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Two',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Other Instructor',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Three',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Four',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Four',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor one',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video One',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Two',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Two',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Other Instructor',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Three',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Four',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Four',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor one',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video One',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Two',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Two',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Other Instructor',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Three',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Four',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Four',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor one',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video One',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Two',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Two',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Other Instructor',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Three',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Four',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Four',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor one',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video One',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Two',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Two',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Other Instructor',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Three',
+        'difficulty' => 'Beginner - 1'
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Four',
+        'icon' => 'icon-courses',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Four',
+        'difficulty' => 'Beginner - 1'
+    ],
+];
 @endphp
 
 @section('content')
@@ -153,5 +465,13 @@ $lessons = [
                 @include('sections.level-selector', ['skipCollapseStyle' => true, 'skipCollapseScript' => true])
             </div>
         </div>
+
+        @include(
+            'sections.video-content',
+            [
+                'filters' => $filterGroups,
+                'videos' => $sectionVideos
+            ]
+        )
     </div>
 @endsection
