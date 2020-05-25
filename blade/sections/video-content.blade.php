@@ -47,7 +47,8 @@
                                             'tabIndex' => $item['tab'] ?? null,
                                             'labelText' => $item['label'] ?? $item['name'],
                                             'skipStyle' => true,
-                                            'skipScript' => true
+                                            'skipScript' => true,
+                                            'active' => $item['active'] ?? false,
                                         ])
                                         @endcomponent
                                     @endforeach
@@ -75,8 +76,20 @@
             <div class="py-2 mr-1"><a href="#" class="text-blue-500 uppercase font-semibold">clear all</a></div>
             @foreach ($filterGroups as $filterGroup)
                 @foreach ($filterGroup['items'] ?? [] as $item)
-                    <div id="badge-filter-{{ $item['name'] }}" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full">
-                        <span class="capitalize">{{ $item['label'] ?? $item['name'] }}</span><i class="icon-info text-base ml-1"></i>
+                    @php
+                        $active = $item['active'] ?? false;
+
+                        $_containerClasses = [];
+
+                        if (!$active) {
+                            $_containerClasses[] = 'hidden';
+                        }
+
+                        $_containerClasses = implode(' ', $_containerClasses);
+                    @endphp
+
+                    <div id="badge-filter-{{ $item['name'] }}" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full {{ $_containerClasses }}">
+                        <span class="capitalize">{{ $item['label'] ?? $item['name'] }}</span><i class="icon-info badge-filter text-dark-gray text-base ml-1 cursor-pointer"></i>
                     </div>
                 @endforeach
             @endforeach
@@ -103,6 +116,37 @@ Array.from(iconCheckboxes).forEach(function(element) {
         function(event) {
 
             element.classList.toggle('checked');
+
+            let badge = document.getElementById('badge-' + element.id);
+
+            if (badge) {
+                if (element.classList.contains('checked')) {
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            } else {
+                console.log('could not locate filter badge with id: %s', JSON.stringify('badge-' + element.id));
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    );
+});
+
+const filtersBadges = document.getElementsByClassName('badge-filter');
+
+Array.from(filtersBadges).forEach(function(element) {
+    element.addEventListener(
+        'click',
+        function(event) {
+            let container = element.parentElement;
+
+            let filterElement = document.getElementById(container.id.substr(6));
+
+            filterElement.classList.remove('checked');
+            container.classList.add('hidden');
 
             event.preventDefault();
             event.stopPropagation();

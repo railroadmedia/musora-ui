@@ -950,6 +950,30 @@ textarea.floating-label ~ label {
   margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
 }
 
+.space-y-72 > :not(template) ~ :not(template) {
+  --space-y-reverse: 0;
+  margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
+  margin-bottom: calc(18rem * var(--space-y-reverse));
+}
+
+.space-x-72 > :not(template) ~ :not(template) {
+  --space-x-reverse: 0;
+  margin-right: calc(18rem * var(--space-x-reverse));
+  margin-left: calc(18rem * calc(1 - var(--space-x-reverse)));
+}
+
+.space-y-80 > :not(template) ~ :not(template) {
+  --space-y-reverse: 0;
+  margin-top: calc(20rem * calc(1 - var(--space-y-reverse)));
+  margin-bottom: calc(20rem * var(--space-y-reverse));
+}
+
+.space-x-80 > :not(template) ~ :not(template) {
+  --space-x-reverse: 0;
+  margin-right: calc(20rem * var(--space-x-reverse));
+  margin-left: calc(20rem * calc(1 - var(--space-x-reverse)));
+}
+
 .space-y-px > :not(template) ~ :not(template) {
   --space-y-reverse: 0;
   margin-top: calc(1px * calc(1 - var(--space-y-reverse)));
@@ -960,18 +984,6 @@ textarea.floating-label ~ label {
   --space-x-reverse: 0;
   margin-right: calc(1px * var(--space-x-reverse));
   margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
-}
-
-.space-y-md > :not(template) ~ :not(template) {
-  --space-y-reverse: 0;
-  margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
-  margin-bottom: calc(28rem * var(--space-y-reverse));
-}
-
-.space-x-md > :not(template) ~ :not(template) {
-  --space-x-reverse: 0;
-  margin-right: calc(28rem * var(--space-x-reverse));
-  margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
 }
 
 .-space-y-1 > :not(template) ~ :not(template) {
@@ -1178,6 +1190,30 @@ textarea.floating-label ~ label {
   margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
 }
 
+.-space-y-72 > :not(template) ~ :not(template) {
+  --space-y-reverse: 0;
+  margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
+  margin-bottom: calc(-18rem * var(--space-y-reverse));
+}
+
+.-space-x-72 > :not(template) ~ :not(template) {
+  --space-x-reverse: 0;
+  margin-right: calc(-18rem * var(--space-x-reverse));
+  margin-left: calc(-18rem * calc(1 - var(--space-x-reverse)));
+}
+
+.-space-y-80 > :not(template) ~ :not(template) {
+  --space-y-reverse: 0;
+  margin-top: calc(-20rem * calc(1 - var(--space-y-reverse)));
+  margin-bottom: calc(-20rem * var(--space-y-reverse));
+}
+
+.-space-x-80 > :not(template) ~ :not(template) {
+  --space-x-reverse: 0;
+  margin-right: calc(-20rem * var(--space-x-reverse));
+  margin-left: calc(-20rem * calc(1 - var(--space-x-reverse)));
+}
+
 .-space-y-px > :not(template) ~ :not(template) {
   --space-y-reverse: 0;
   margin-top: calc(-1px * calc(1 - var(--space-y-reverse)));
@@ -1188,18 +1224,6 @@ textarea.floating-label ~ label {
   --space-x-reverse: 0;
   margin-right: calc(-1px * var(--space-x-reverse));
   margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
-}
-
-.-space-y-md > :not(template) ~ :not(template) {
-  --space-y-reverse: 0;
-  margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
-  margin-bottom: calc(-28rem * var(--space-y-reverse));
-}
-
-.-space-x-md > :not(template) ~ :not(template) {
-  --space-x-reverse: 0;
-  margin-right: calc(-28rem * var(--space-x-reverse));
-  margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
 }
 
 .space-y-reverse > :not(template) ~ :not(template) {
@@ -5544,16 +5568,20 @@ textarea.floating-label ~ label {
   height: 16rem;
 }
 
+.h-72 {
+  height: 18rem;
+}
+
+.h-80 {
+  height: 20rem;
+}
+
 .h-auto {
   height: auto;
 }
 
 .h-px {
   height: 1px;
-}
-
-.h-md {
-  height: 28rem;
 }
 
 .h-full {
@@ -5752,16 +5780,20 @@ textarea.floating-label ~ label {
   margin: 16rem;
 }
 
+.m-72 {
+  margin: 18rem;
+}
+
+.m-80 {
+  margin: 20rem;
+}
+
 .m-auto {
   margin: auto;
 }
 
 .m-px {
   margin: 1px;
-}
-
-.m-md {
-  margin: 28rem;
 }
 
 .-m-1 {
@@ -5832,12 +5864,16 @@ textarea.floating-label ~ label {
   margin: -16rem;
 }
 
-.-m-px {
-  margin: -1px;
+.-m-72 {
+  margin: -18rem;
 }
 
-.-m-md {
-  margin: -28rem;
+.-m-80 {
+  margin: -20rem;
+}
+
+.-m-px {
+  margin: -1px;
 }
 
 .my-0 {
@@ -6020,6 +6056,26 @@ textarea.floating-label ~ label {
   margin-right: 16rem;
 }
 
+.my-72 {
+  margin-top: 18rem;
+  margin-bottom: 18rem;
+}
+
+.mx-72 {
+  margin-left: 18rem;
+  margin-right: 18rem;
+}
+
+.my-80 {
+  margin-top: 20rem;
+  margin-bottom: 20rem;
+}
+
+.mx-80 {
+  margin-left: 20rem;
+  margin-right: 20rem;
+}
+
 .my-auto {
   margin-top: auto;
   margin-bottom: auto;
@@ -6038,16 +6094,6 @@ textarea.floating-label ~ label {
 .mx-px {
   margin-left: 1px;
   margin-right: 1px;
-}
-
-.my-md {
-  margin-top: 28rem;
-  margin-bottom: 28rem;
-}
-
-.mx-md {
-  margin-left: 28rem;
-  margin-right: 28rem;
 }
 
 .-my-1 {
@@ -6220,6 +6266,26 @@ textarea.floating-label ~ label {
   margin-right: -16rem;
 }
 
+.-my-72 {
+  margin-top: -18rem;
+  margin-bottom: -18rem;
+}
+
+.-mx-72 {
+  margin-left: -18rem;
+  margin-right: -18rem;
+}
+
+.-my-80 {
+  margin-top: -20rem;
+  margin-bottom: -20rem;
+}
+
+.-mx-80 {
+  margin-left: -20rem;
+  margin-right: -20rem;
+}
+
 .-my-px {
   margin-top: -1px;
   margin-bottom: -1px;
@@ -6228,16 +6294,6 @@ textarea.floating-label ~ label {
 .-mx-px {
   margin-left: -1px;
   margin-right: -1px;
-}
-
-.-my-md {
-  margin-top: -28rem;
-  margin-bottom: -28rem;
-}
-
-.-mx-md {
-  margin-left: -28rem;
-  margin-right: -28rem;
 }
 
 .mt-0 {
@@ -6528,6 +6584,38 @@ textarea.floating-label ~ label {
   margin-left: 16rem;
 }
 
+.mt-72 {
+  margin-top: 18rem;
+}
+
+.mr-72 {
+  margin-right: 18rem;
+}
+
+.mb-72 {
+  margin-bottom: 18rem;
+}
+
+.ml-72 {
+  margin-left: 18rem;
+}
+
+.mt-80 {
+  margin-top: 20rem;
+}
+
+.mr-80 {
+  margin-right: 20rem;
+}
+
+.mb-80 {
+  margin-bottom: 20rem;
+}
+
+.ml-80 {
+  margin-left: 20rem;
+}
+
 .mt-auto {
   margin-top: auto;
 }
@@ -6558,22 +6646,6 @@ textarea.floating-label ~ label {
 
 .ml-px {
   margin-left: 1px;
-}
-
-.mt-md {
-  margin-top: 28rem;
-}
-
-.mr-md {
-  margin-right: 28rem;
-}
-
-.mb-md {
-  margin-bottom: 28rem;
-}
-
-.ml-md {
-  margin-left: 28rem;
 }
 
 .-mt-1 {
@@ -6848,6 +6920,38 @@ textarea.floating-label ~ label {
   margin-left: -16rem;
 }
 
+.-mt-72 {
+  margin-top: -18rem;
+}
+
+.-mr-72 {
+  margin-right: -18rem;
+}
+
+.-mb-72 {
+  margin-bottom: -18rem;
+}
+
+.-ml-72 {
+  margin-left: -18rem;
+}
+
+.-mt-80 {
+  margin-top: -20rem;
+}
+
+.-mr-80 {
+  margin-right: -20rem;
+}
+
+.-mb-80 {
+  margin-bottom: -20rem;
+}
+
+.-ml-80 {
+  margin-left: -20rem;
+}
+
 .-mt-px {
   margin-top: -1px;
 }
@@ -6862,22 +6966,6 @@ textarea.floating-label ~ label {
 
 .-ml-px {
   margin-left: -1px;
-}
-
-.-mt-md {
-  margin-top: -28rem;
-}
-
-.-mr-md {
-  margin-right: -28rem;
-}
-
-.-mb-md {
-  margin-bottom: -28rem;
-}
-
-.-ml-md {
-  margin-left: -28rem;
 }
 
 .max-h-full {
@@ -7270,12 +7358,16 @@ textarea.floating-label ~ label {
   padding: 16rem;
 }
 
-.p-px {
-  padding: 1px;
+.p-72 {
+  padding: 18rem;
 }
 
-.p-md {
-  padding: 28rem;
+.p-80 {
+  padding: 20rem;
+}
+
+.p-px {
+  padding: 1px;
 }
 
 .py-0 {
@@ -7458,6 +7550,26 @@ textarea.floating-label ~ label {
   padding-right: 16rem;
 }
 
+.py-72 {
+  padding-top: 18rem;
+  padding-bottom: 18rem;
+}
+
+.px-72 {
+  padding-left: 18rem;
+  padding-right: 18rem;
+}
+
+.py-80 {
+  padding-top: 20rem;
+  padding-bottom: 20rem;
+}
+
+.px-80 {
+  padding-left: 20rem;
+  padding-right: 20rem;
+}
+
 .py-px {
   padding-top: 1px;
   padding-bottom: 1px;
@@ -7466,16 +7578,6 @@ textarea.floating-label ~ label {
 .px-px {
   padding-left: 1px;
   padding-right: 1px;
-}
-
-.py-md {
-  padding-top: 28rem;
-  padding-bottom: 28rem;
-}
-
-.px-md {
-  padding-left: 28rem;
-  padding-right: 28rem;
 }
 
 .pt-0 {
@@ -7766,6 +7868,38 @@ textarea.floating-label ~ label {
   padding-left: 16rem;
 }
 
+.pt-72 {
+  padding-top: 18rem;
+}
+
+.pr-72 {
+  padding-right: 18rem;
+}
+
+.pb-72 {
+  padding-bottom: 18rem;
+}
+
+.pl-72 {
+  padding-left: 18rem;
+}
+
+.pt-80 {
+  padding-top: 20rem;
+}
+
+.pr-80 {
+  padding-right: 20rem;
+}
+
+.pb-80 {
+  padding-bottom: 20rem;
+}
+
+.pl-80 {
+  padding-left: 20rem;
+}
+
 .pt-px {
   padding-top: 1px;
 }
@@ -7780,22 +7914,6 @@ textarea.floating-label ~ label {
 
 .pl-px {
   padding-left: 1px;
-}
-
-.pt-md {
-  padding-top: 28rem;
-}
-
-.pr-md {
-  padding-right: 28rem;
-}
-
-.pb-md {
-  padding-bottom: 28rem;
-}
-
-.pl-md {
-  padding-left: 28rem;
 }
 
 .placeholder-transparent::-webkit-input-placeholder {
@@ -13738,16 +13856,20 @@ textarea.floating-label ~ label {
   width: 16rem;
 }
 
+.w-72 {
+  width: 18rem;
+}
+
+.w-80 {
+  width: 20rem;
+}
+
 .w-auto {
   width: auto;
 }
 
 .w-px {
   width: 1px;
-}
-
-.w-md {
-  width: 28rem;
 }
 
 .w-1\/2 {
@@ -13988,14 +14110,19 @@ textarea.floating-label ~ label {
   gap: 16rem;
 }
 
+.gap-72 {
+  grid-gap: 18rem;
+  gap: 18rem;
+}
+
+.gap-80 {
+  grid-gap: 20rem;
+  gap: 20rem;
+}
+
 .gap-px {
   grid-gap: 1px;
   gap: 1px;
-}
-
-.gap-md {
-  grid-gap: 28rem;
-  gap: 28rem;
 }
 
 .col-gap-0 {
@@ -14106,16 +14233,22 @@ textarea.floating-label ~ label {
        column-gap: 16rem;
 }
 
+.col-gap-72 {
+  grid-column-gap: 18rem;
+  -moz-column-gap: 18rem;
+       column-gap: 18rem;
+}
+
+.col-gap-80 {
+  grid-column-gap: 20rem;
+  -moz-column-gap: 20rem;
+       column-gap: 20rem;
+}
+
 .col-gap-px {
   grid-column-gap: 1px;
   -moz-column-gap: 1px;
        column-gap: 1px;
-}
-
-.col-gap-md {
-  grid-column-gap: 28rem;
-  -moz-column-gap: 28rem;
-       column-gap: 28rem;
 }
 
 .row-gap-0 {
@@ -14208,14 +14341,19 @@ textarea.floating-label ~ label {
   row-gap: 16rem;
 }
 
+.row-gap-72 {
+  grid-row-gap: 18rem;
+  row-gap: 18rem;
+}
+
+.row-gap-80 {
+  grid-row-gap: 20rem;
+  row-gap: 20rem;
+}
+
 .row-gap-px {
   grid-row-gap: 1px;
   row-gap: 1px;
-}
-
-.row-gap-md {
-  grid-row-gap: 28rem;
-  row-gap: 28rem;
 }
 
 .grid-flow-row {
@@ -15167,12 +15305,16 @@ textarea.floating-label ~ label {
   --transform-translate-x: 16rem;
 }
 
-.translate-x-px {
-  --transform-translate-x: 1px;
+.translate-x-72 {
+  --transform-translate-x: 18rem;
 }
 
-.translate-x-md {
-  --transform-translate-x: 28rem;
+.translate-x-80 {
+  --transform-translate-x: 20rem;
+}
+
+.translate-x-px {
+  --transform-translate-x: 1px;
 }
 
 .-translate-x-1 {
@@ -15243,12 +15385,16 @@ textarea.floating-label ~ label {
   --transform-translate-x: -16rem;
 }
 
-.-translate-x-px {
-  --transform-translate-x: -1px;
+.-translate-x-72 {
+  --transform-translate-x: -18rem;
 }
 
-.-translate-x-md {
-  --transform-translate-x: -28rem;
+.-translate-x-80 {
+  --transform-translate-x: -20rem;
+}
+
+.-translate-x-px {
+  --transform-translate-x: -1px;
 }
 
 .-translate-x-full {
@@ -15339,12 +15485,16 @@ textarea.floating-label ~ label {
   --transform-translate-y: 16rem;
 }
 
-.translate-y-px {
-  --transform-translate-y: 1px;
+.translate-y-72 {
+  --transform-translate-y: 18rem;
 }
 
-.translate-y-md {
-  --transform-translate-y: 28rem;
+.translate-y-80 {
+  --transform-translate-y: 20rem;
+}
+
+.translate-y-px {
+  --transform-translate-y: 1px;
 }
 
 .-translate-y-1 {
@@ -15415,12 +15565,16 @@ textarea.floating-label ~ label {
   --transform-translate-y: -16rem;
 }
 
-.-translate-y-px {
-  --transform-translate-y: -1px;
+.-translate-y-72 {
+  --transform-translate-y: -18rem;
 }
 
-.-translate-y-md {
-  --transform-translate-y: -28rem;
+.-translate-y-80 {
+  --transform-translate-y: -20rem;
+}
+
+.-translate-y-px {
+  --transform-translate-y: -1px;
 }
 
 .-translate-y-full {
@@ -15511,12 +15665,16 @@ textarea.floating-label ~ label {
   --transform-translate-x: 16rem;
 }
 
-.hover\:translate-x-px:hover {
-  --transform-translate-x: 1px;
+.hover\:translate-x-72:hover {
+  --transform-translate-x: 18rem;
 }
 
-.hover\:translate-x-md:hover {
-  --transform-translate-x: 28rem;
+.hover\:translate-x-80:hover {
+  --transform-translate-x: 20rem;
+}
+
+.hover\:translate-x-px:hover {
+  --transform-translate-x: 1px;
 }
 
 .hover\:-translate-x-1:hover {
@@ -15587,12 +15745,16 @@ textarea.floating-label ~ label {
   --transform-translate-x: -16rem;
 }
 
-.hover\:-translate-x-px:hover {
-  --transform-translate-x: -1px;
+.hover\:-translate-x-72:hover {
+  --transform-translate-x: -18rem;
 }
 
-.hover\:-translate-x-md:hover {
-  --transform-translate-x: -28rem;
+.hover\:-translate-x-80:hover {
+  --transform-translate-x: -20rem;
+}
+
+.hover\:-translate-x-px:hover {
+  --transform-translate-x: -1px;
 }
 
 .hover\:-translate-x-full:hover {
@@ -15683,12 +15845,16 @@ textarea.floating-label ~ label {
   --transform-translate-y: 16rem;
 }
 
-.hover\:translate-y-px:hover {
-  --transform-translate-y: 1px;
+.hover\:translate-y-72:hover {
+  --transform-translate-y: 18rem;
 }
 
-.hover\:translate-y-md:hover {
-  --transform-translate-y: 28rem;
+.hover\:translate-y-80:hover {
+  --transform-translate-y: 20rem;
+}
+
+.hover\:translate-y-px:hover {
+  --transform-translate-y: 1px;
 }
 
 .hover\:-translate-y-1:hover {
@@ -15759,12 +15925,16 @@ textarea.floating-label ~ label {
   --transform-translate-y: -16rem;
 }
 
-.hover\:-translate-y-px:hover {
-  --transform-translate-y: -1px;
+.hover\:-translate-y-72:hover {
+  --transform-translate-y: -18rem;
 }
 
-.hover\:-translate-y-md:hover {
-  --transform-translate-y: -28rem;
+.hover\:-translate-y-80:hover {
+  --transform-translate-y: -20rem;
+}
+
+.hover\:-translate-y-px:hover {
+  --transform-translate-y: -1px;
 }
 
 .hover\:-translate-y-full:hover {
@@ -15855,12 +16025,16 @@ textarea.floating-label ~ label {
   --transform-translate-x: 16rem;
 }
 
-.focus\:translate-x-px:focus {
-  --transform-translate-x: 1px;
+.focus\:translate-x-72:focus {
+  --transform-translate-x: 18rem;
 }
 
-.focus\:translate-x-md:focus {
-  --transform-translate-x: 28rem;
+.focus\:translate-x-80:focus {
+  --transform-translate-x: 20rem;
+}
+
+.focus\:translate-x-px:focus {
+  --transform-translate-x: 1px;
 }
 
 .focus\:-translate-x-1:focus {
@@ -15931,12 +16105,16 @@ textarea.floating-label ~ label {
   --transform-translate-x: -16rem;
 }
 
-.focus\:-translate-x-px:focus {
-  --transform-translate-x: -1px;
+.focus\:-translate-x-72:focus {
+  --transform-translate-x: -18rem;
 }
 
-.focus\:-translate-x-md:focus {
-  --transform-translate-x: -28rem;
+.focus\:-translate-x-80:focus {
+  --transform-translate-x: -20rem;
+}
+
+.focus\:-translate-x-px:focus {
+  --transform-translate-x: -1px;
 }
 
 .focus\:-translate-x-full:focus {
@@ -16027,12 +16205,16 @@ textarea.floating-label ~ label {
   --transform-translate-y: 16rem;
 }
 
-.focus\:translate-y-px:focus {
-  --transform-translate-y: 1px;
+.focus\:translate-y-72:focus {
+  --transform-translate-y: 18rem;
 }
 
-.focus\:translate-y-md:focus {
-  --transform-translate-y: 28rem;
+.focus\:translate-y-80:focus {
+  --transform-translate-y: 20rem;
+}
+
+.focus\:translate-y-px:focus {
+  --transform-translate-y: 1px;
 }
 
 .focus\:-translate-y-1:focus {
@@ -16103,12 +16285,16 @@ textarea.floating-label ~ label {
   --transform-translate-y: -16rem;
 }
 
-.focus\:-translate-y-px:focus {
-  --transform-translate-y: -1px;
+.focus\:-translate-y-72:focus {
+  --transform-translate-y: -18rem;
 }
 
-.focus\:-translate-y-md:focus {
-  --transform-translate-y: -28rem;
+.focus\:-translate-y-80:focus {
+  --transform-translate-y: -20rem;
+}
+
+.focus\:-translate-y-px:focus {
+  --transform-translate-y: -1px;
 }
 
 .focus\:-translate-y-full:focus {
@@ -16620,6 +16806,30 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .sm\:space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(18rem * var(--space-y-reverse));
+  }
+
+  .sm\:space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(18rem * var(--space-x-reverse));
+    margin-left: calc(18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .sm\:space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(20rem * var(--space-y-reverse));
+  }
+
+  .sm\:space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(20rem * var(--space-x-reverse));
+    margin-left: calc(20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .sm\:space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(1px * calc(1 - var(--space-y-reverse)));
@@ -16630,18 +16840,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .sm\:space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(28rem * var(--space-y-reverse));
-  }
-
-  .sm\:space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(28rem * var(--space-x-reverse));
-    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .sm\:-space-y-1 > :not(template) ~ :not(template) {
@@ -16848,6 +17046,30 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .sm\:-space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-18rem * var(--space-y-reverse));
+  }
+
+  .sm\:-space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-18rem * var(--space-x-reverse));
+    margin-left: calc(-18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .sm\:-space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-20rem * var(--space-y-reverse));
+  }
+
+  .sm\:-space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-20rem * var(--space-x-reverse));
+    margin-left: calc(-20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .sm\:-space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-1px * calc(1 - var(--space-y-reverse)));
@@ -16858,18 +17080,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .sm\:-space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(-28rem * var(--space-y-reverse));
-  }
-
-  .sm\:-space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(-28rem * var(--space-x-reverse));
-    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .sm\:space-y-reverse > :not(template) ~ :not(template) {
@@ -21214,16 +21424,20 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .sm\:h-72 {
+    height: 18rem;
+  }
+
+  .sm\:h-80 {
+    height: 20rem;
+  }
+
   .sm\:h-auto {
     height: auto;
   }
 
   .sm\:h-px {
     height: 1px;
-  }
-
-  .sm\:h-md {
-    height: 28rem;
   }
 
   .sm\:h-full {
@@ -21422,16 +21636,20 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .sm\:m-72 {
+    margin: 18rem;
+  }
+
+  .sm\:m-80 {
+    margin: 20rem;
+  }
+
   .sm\:m-auto {
     margin: auto;
   }
 
   .sm\:m-px {
     margin: 1px;
-  }
-
-  .sm\:m-md {
-    margin: 28rem;
   }
 
   .sm\:-m-1 {
@@ -21502,12 +21720,16 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
-  .sm\:-m-px {
-    margin: -1px;
+  .sm\:-m-72 {
+    margin: -18rem;
   }
 
-  .sm\:-m-md {
-    margin: -28rem;
+  .sm\:-m-80 {
+    margin: -20rem;
+  }
+
+  .sm\:-m-px {
+    margin: -1px;
   }
 
   .sm\:my-0 {
@@ -21690,6 +21912,26 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .sm\:my-72 {
+    margin-top: 18rem;
+    margin-bottom: 18rem;
+  }
+
+  .sm\:mx-72 {
+    margin-left: 18rem;
+    margin-right: 18rem;
+  }
+
+  .sm\:my-80 {
+    margin-top: 20rem;
+    margin-bottom: 20rem;
+  }
+
+  .sm\:mx-80 {
+    margin-left: 20rem;
+    margin-right: 20rem;
+  }
+
   .sm\:my-auto {
     margin-top: auto;
     margin-bottom: auto;
@@ -21708,16 +21950,6 @@ textarea.floating-label ~ label {
   .sm\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
-  }
-
-  .sm\:my-md {
-    margin-top: 28rem;
-    margin-bottom: 28rem;
-  }
-
-  .sm\:mx-md {
-    margin-left: 28rem;
-    margin-right: 28rem;
   }
 
   .sm\:-my-1 {
@@ -21890,6 +22122,26 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .sm\:-my-72 {
+    margin-top: -18rem;
+    margin-bottom: -18rem;
+  }
+
+  .sm\:-mx-72 {
+    margin-left: -18rem;
+    margin-right: -18rem;
+  }
+
+  .sm\:-my-80 {
+    margin-top: -20rem;
+    margin-bottom: -20rem;
+  }
+
+  .sm\:-mx-80 {
+    margin-left: -20rem;
+    margin-right: -20rem;
+  }
+
   .sm\:-my-px {
     margin-top: -1px;
     margin-bottom: -1px;
@@ -21898,16 +22150,6 @@ textarea.floating-label ~ label {
   .sm\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
-  }
-
-  .sm\:-my-md {
-    margin-top: -28rem;
-    margin-bottom: -28rem;
-  }
-
-  .sm\:-mx-md {
-    margin-left: -28rem;
-    margin-right: -28rem;
   }
 
   .sm\:mt-0 {
@@ -22198,6 +22440,38 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .sm\:mt-72 {
+    margin-top: 18rem;
+  }
+
+  .sm\:mr-72 {
+    margin-right: 18rem;
+  }
+
+  .sm\:mb-72 {
+    margin-bottom: 18rem;
+  }
+
+  .sm\:ml-72 {
+    margin-left: 18rem;
+  }
+
+  .sm\:mt-80 {
+    margin-top: 20rem;
+  }
+
+  .sm\:mr-80 {
+    margin-right: 20rem;
+  }
+
+  .sm\:mb-80 {
+    margin-bottom: 20rem;
+  }
+
+  .sm\:ml-80 {
+    margin-left: 20rem;
+  }
+
   .sm\:mt-auto {
     margin-top: auto;
   }
@@ -22228,22 +22502,6 @@ textarea.floating-label ~ label {
 
   .sm\:ml-px {
     margin-left: 1px;
-  }
-
-  .sm\:mt-md {
-    margin-top: 28rem;
-  }
-
-  .sm\:mr-md {
-    margin-right: 28rem;
-  }
-
-  .sm\:mb-md {
-    margin-bottom: 28rem;
-  }
-
-  .sm\:ml-md {
-    margin-left: 28rem;
   }
 
   .sm\:-mt-1 {
@@ -22518,6 +22776,38 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .sm\:-mt-72 {
+    margin-top: -18rem;
+  }
+
+  .sm\:-mr-72 {
+    margin-right: -18rem;
+  }
+
+  .sm\:-mb-72 {
+    margin-bottom: -18rem;
+  }
+
+  .sm\:-ml-72 {
+    margin-left: -18rem;
+  }
+
+  .sm\:-mt-80 {
+    margin-top: -20rem;
+  }
+
+  .sm\:-mr-80 {
+    margin-right: -20rem;
+  }
+
+  .sm\:-mb-80 {
+    margin-bottom: -20rem;
+  }
+
+  .sm\:-ml-80 {
+    margin-left: -20rem;
+  }
+
   .sm\:-mt-px {
     margin-top: -1px;
   }
@@ -22532,22 +22822,6 @@ textarea.floating-label ~ label {
 
   .sm\:-ml-px {
     margin-left: -1px;
-  }
-
-  .sm\:-mt-md {
-    margin-top: -28rem;
-  }
-
-  .sm\:-mr-md {
-    margin-right: -28rem;
-  }
-
-  .sm\:-mb-md {
-    margin-bottom: -28rem;
-  }
-
-  .sm\:-ml-md {
-    margin-left: -28rem;
   }
 
   .sm\:max-h-full {
@@ -22940,12 +23214,16 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
-  .sm\:p-px {
-    padding: 1px;
+  .sm\:p-72 {
+    padding: 18rem;
   }
 
-  .sm\:p-md {
-    padding: 28rem;
+  .sm\:p-80 {
+    padding: 20rem;
+  }
+
+  .sm\:p-px {
+    padding: 1px;
   }
 
   .sm\:py-0 {
@@ -23128,6 +23406,26 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .sm\:py-72 {
+    padding-top: 18rem;
+    padding-bottom: 18rem;
+  }
+
+  .sm\:px-72 {
+    padding-left: 18rem;
+    padding-right: 18rem;
+  }
+
+  .sm\:py-80 {
+    padding-top: 20rem;
+    padding-bottom: 20rem;
+  }
+
+  .sm\:px-80 {
+    padding-left: 20rem;
+    padding-right: 20rem;
+  }
+
   .sm\:py-px {
     padding-top: 1px;
     padding-bottom: 1px;
@@ -23136,16 +23434,6 @@ textarea.floating-label ~ label {
   .sm\:px-px {
     padding-left: 1px;
     padding-right: 1px;
-  }
-
-  .sm\:py-md {
-    padding-top: 28rem;
-    padding-bottom: 28rem;
-  }
-
-  .sm\:px-md {
-    padding-left: 28rem;
-    padding-right: 28rem;
   }
 
   .sm\:pt-0 {
@@ -23436,6 +23724,38 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .sm\:pt-72 {
+    padding-top: 18rem;
+  }
+
+  .sm\:pr-72 {
+    padding-right: 18rem;
+  }
+
+  .sm\:pb-72 {
+    padding-bottom: 18rem;
+  }
+
+  .sm\:pl-72 {
+    padding-left: 18rem;
+  }
+
+  .sm\:pt-80 {
+    padding-top: 20rem;
+  }
+
+  .sm\:pr-80 {
+    padding-right: 20rem;
+  }
+
+  .sm\:pb-80 {
+    padding-bottom: 20rem;
+  }
+
+  .sm\:pl-80 {
+    padding-left: 20rem;
+  }
+
   .sm\:pt-px {
     padding-top: 1px;
   }
@@ -23450,22 +23770,6 @@ textarea.floating-label ~ label {
 
   .sm\:pl-px {
     padding-left: 1px;
-  }
-
-  .sm\:pt-md {
-    padding-top: 28rem;
-  }
-
-  .sm\:pr-md {
-    padding-right: 28rem;
-  }
-
-  .sm\:pb-md {
-    padding-bottom: 28rem;
-  }
-
-  .sm\:pl-md {
-    padding-left: 28rem;
   }
 
   .sm\:placeholder-transparent::-webkit-input-placeholder {
@@ -29408,16 +29712,20 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .sm\:w-72 {
+    width: 18rem;
+  }
+
+  .sm\:w-80 {
+    width: 20rem;
+  }
+
   .sm\:w-auto {
     width: auto;
   }
 
   .sm\:w-px {
     width: 1px;
-  }
-
-  .sm\:w-md {
-    width: 28rem;
   }
 
   .sm\:w-1\/2 {
@@ -29658,14 +29966,19 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .sm\:gap-72 {
+    grid-gap: 18rem;
+    gap: 18rem;
+  }
+
+  .sm\:gap-80 {
+    grid-gap: 20rem;
+    gap: 20rem;
+  }
+
   .sm\:gap-px {
     grid-gap: 1px;
     gap: 1px;
-  }
-
-  .sm\:gap-md {
-    grid-gap: 28rem;
-    gap: 28rem;
   }
 
   .sm\:col-gap-0 {
@@ -29776,16 +30089,22 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .sm\:col-gap-72 {
+    grid-column-gap: 18rem;
+    -moz-column-gap: 18rem;
+         column-gap: 18rem;
+  }
+
+  .sm\:col-gap-80 {
+    grid-column-gap: 20rem;
+    -moz-column-gap: 20rem;
+         column-gap: 20rem;
+  }
+
   .sm\:col-gap-px {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
-  }
-
-  .sm\:col-gap-md {
-    grid-column-gap: 28rem;
-    -moz-column-gap: 28rem;
-         column-gap: 28rem;
   }
 
   .sm\:row-gap-0 {
@@ -29878,14 +30197,19 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .sm\:row-gap-72 {
+    grid-row-gap: 18rem;
+    row-gap: 18rem;
+  }
+
+  .sm\:row-gap-80 {
+    grid-row-gap: 20rem;
+    row-gap: 20rem;
+  }
+
   .sm\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
-  }
-
-  .sm\:row-gap-md {
-    grid-row-gap: 28rem;
-    row-gap: 28rem;
   }
 
   .sm\:grid-flow-row {
@@ -30837,12 +31161,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .sm\:translate-x-px {
-    --transform-translate-x: 1px;
+  .sm\:translate-x-72 {
+    --transform-translate-x: 18rem;
   }
 
-  .sm\:translate-x-md {
-    --transform-translate-x: 28rem;
+  .sm\:translate-x-80 {
+    --transform-translate-x: 20rem;
+  }
+
+  .sm\:translate-x-px {
+    --transform-translate-x: 1px;
   }
 
   .sm\:-translate-x-1 {
@@ -30913,12 +31241,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .sm\:-translate-x-px {
-    --transform-translate-x: -1px;
+  .sm\:-translate-x-72 {
+    --transform-translate-x: -18rem;
   }
 
-  .sm\:-translate-x-md {
-    --transform-translate-x: -28rem;
+  .sm\:-translate-x-80 {
+    --transform-translate-x: -20rem;
+  }
+
+  .sm\:-translate-x-px {
+    --transform-translate-x: -1px;
   }
 
   .sm\:-translate-x-full {
@@ -31009,12 +31341,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .sm\:translate-y-px {
-    --transform-translate-y: 1px;
+  .sm\:translate-y-72 {
+    --transform-translate-y: 18rem;
   }
 
-  .sm\:translate-y-md {
-    --transform-translate-y: 28rem;
+  .sm\:translate-y-80 {
+    --transform-translate-y: 20rem;
+  }
+
+  .sm\:translate-y-px {
+    --transform-translate-y: 1px;
   }
 
   .sm\:-translate-y-1 {
@@ -31085,12 +31421,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .sm\:-translate-y-px {
-    --transform-translate-y: -1px;
+  .sm\:-translate-y-72 {
+    --transform-translate-y: -18rem;
   }
 
-  .sm\:-translate-y-md {
-    --transform-translate-y: -28rem;
+  .sm\:-translate-y-80 {
+    --transform-translate-y: -20rem;
+  }
+
+  .sm\:-translate-y-px {
+    --transform-translate-y: -1px;
   }
 
   .sm\:-translate-y-full {
@@ -31181,12 +31521,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .sm\:hover\:translate-x-px:hover {
-    --transform-translate-x: 1px;
+  .sm\:hover\:translate-x-72:hover {
+    --transform-translate-x: 18rem;
   }
 
-  .sm\:hover\:translate-x-md:hover {
-    --transform-translate-x: 28rem;
+  .sm\:hover\:translate-x-80:hover {
+    --transform-translate-x: 20rem;
+  }
+
+  .sm\:hover\:translate-x-px:hover {
+    --transform-translate-x: 1px;
   }
 
   .sm\:hover\:-translate-x-1:hover {
@@ -31257,12 +31601,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .sm\:hover\:-translate-x-px:hover {
-    --transform-translate-x: -1px;
+  .sm\:hover\:-translate-x-72:hover {
+    --transform-translate-x: -18rem;
   }
 
-  .sm\:hover\:-translate-x-md:hover {
-    --transform-translate-x: -28rem;
+  .sm\:hover\:-translate-x-80:hover {
+    --transform-translate-x: -20rem;
+  }
+
+  .sm\:hover\:-translate-x-px:hover {
+    --transform-translate-x: -1px;
   }
 
   .sm\:hover\:-translate-x-full:hover {
@@ -31353,12 +31701,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .sm\:hover\:translate-y-px:hover {
-    --transform-translate-y: 1px;
+  .sm\:hover\:translate-y-72:hover {
+    --transform-translate-y: 18rem;
   }
 
-  .sm\:hover\:translate-y-md:hover {
-    --transform-translate-y: 28rem;
+  .sm\:hover\:translate-y-80:hover {
+    --transform-translate-y: 20rem;
+  }
+
+  .sm\:hover\:translate-y-px:hover {
+    --transform-translate-y: 1px;
   }
 
   .sm\:hover\:-translate-y-1:hover {
@@ -31429,12 +31781,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .sm\:hover\:-translate-y-px:hover {
-    --transform-translate-y: -1px;
+  .sm\:hover\:-translate-y-72:hover {
+    --transform-translate-y: -18rem;
   }
 
-  .sm\:hover\:-translate-y-md:hover {
-    --transform-translate-y: -28rem;
+  .sm\:hover\:-translate-y-80:hover {
+    --transform-translate-y: -20rem;
+  }
+
+  .sm\:hover\:-translate-y-px:hover {
+    --transform-translate-y: -1px;
   }
 
   .sm\:hover\:-translate-y-full:hover {
@@ -31525,12 +31881,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .sm\:focus\:translate-x-px:focus {
-    --transform-translate-x: 1px;
+  .sm\:focus\:translate-x-72:focus {
+    --transform-translate-x: 18rem;
   }
 
-  .sm\:focus\:translate-x-md:focus {
-    --transform-translate-x: 28rem;
+  .sm\:focus\:translate-x-80:focus {
+    --transform-translate-x: 20rem;
+  }
+
+  .sm\:focus\:translate-x-px:focus {
+    --transform-translate-x: 1px;
   }
 
   .sm\:focus\:-translate-x-1:focus {
@@ -31601,12 +31961,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .sm\:focus\:-translate-x-px:focus {
-    --transform-translate-x: -1px;
+  .sm\:focus\:-translate-x-72:focus {
+    --transform-translate-x: -18rem;
   }
 
-  .sm\:focus\:-translate-x-md:focus {
-    --transform-translate-x: -28rem;
+  .sm\:focus\:-translate-x-80:focus {
+    --transform-translate-x: -20rem;
+  }
+
+  .sm\:focus\:-translate-x-px:focus {
+    --transform-translate-x: -1px;
   }
 
   .sm\:focus\:-translate-x-full:focus {
@@ -31697,12 +32061,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .sm\:focus\:translate-y-px:focus {
-    --transform-translate-y: 1px;
+  .sm\:focus\:translate-y-72:focus {
+    --transform-translate-y: 18rem;
   }
 
-  .sm\:focus\:translate-y-md:focus {
-    --transform-translate-y: 28rem;
+  .sm\:focus\:translate-y-80:focus {
+    --transform-translate-y: 20rem;
+  }
+
+  .sm\:focus\:translate-y-px:focus {
+    --transform-translate-y: 1px;
   }
 
   .sm\:focus\:-translate-y-1:focus {
@@ -31773,12 +32141,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .sm\:focus\:-translate-y-px:focus {
-    --transform-translate-y: -1px;
+  .sm\:focus\:-translate-y-72:focus {
+    --transform-translate-y: -18rem;
   }
 
-  .sm\:focus\:-translate-y-md:focus {
-    --transform-translate-y: -28rem;
+  .sm\:focus\:-translate-y-80:focus {
+    --transform-translate-y: -20rem;
+  }
+
+  .sm\:focus\:-translate-y-px:focus {
+    --transform-translate-y: -1px;
   }
 
   .sm\:focus\:-translate-y-full:focus {
@@ -32291,6 +32663,30 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .md\:space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(18rem * var(--space-y-reverse));
+  }
+
+  .md\:space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(18rem * var(--space-x-reverse));
+    margin-left: calc(18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .md\:space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(20rem * var(--space-y-reverse));
+  }
+
+  .md\:space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(20rem * var(--space-x-reverse));
+    margin-left: calc(20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .md\:space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(1px * calc(1 - var(--space-y-reverse)));
@@ -32301,18 +32697,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .md\:space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(28rem * var(--space-y-reverse));
-  }
-
-  .md\:space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(28rem * var(--space-x-reverse));
-    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .md\:-space-y-1 > :not(template) ~ :not(template) {
@@ -32519,6 +32903,30 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .md\:-space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-18rem * var(--space-y-reverse));
+  }
+
+  .md\:-space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-18rem * var(--space-x-reverse));
+    margin-left: calc(-18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .md\:-space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-20rem * var(--space-y-reverse));
+  }
+
+  .md\:-space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-20rem * var(--space-x-reverse));
+    margin-left: calc(-20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .md\:-space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-1px * calc(1 - var(--space-y-reverse)));
@@ -32529,18 +32937,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .md\:-space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(-28rem * var(--space-y-reverse));
-  }
-
-  .md\:-space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(-28rem * var(--space-x-reverse));
-    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .md\:space-y-reverse > :not(template) ~ :not(template) {
@@ -36885,16 +37281,20 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .md\:h-72 {
+    height: 18rem;
+  }
+
+  .md\:h-80 {
+    height: 20rem;
+  }
+
   .md\:h-auto {
     height: auto;
   }
 
   .md\:h-px {
     height: 1px;
-  }
-
-  .md\:h-md {
-    height: 28rem;
   }
 
   .md\:h-full {
@@ -37093,16 +37493,20 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .md\:m-72 {
+    margin: 18rem;
+  }
+
+  .md\:m-80 {
+    margin: 20rem;
+  }
+
   .md\:m-auto {
     margin: auto;
   }
 
   .md\:m-px {
     margin: 1px;
-  }
-
-  .md\:m-md {
-    margin: 28rem;
   }
 
   .md\:-m-1 {
@@ -37173,12 +37577,16 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
-  .md\:-m-px {
-    margin: -1px;
+  .md\:-m-72 {
+    margin: -18rem;
   }
 
-  .md\:-m-md {
-    margin: -28rem;
+  .md\:-m-80 {
+    margin: -20rem;
+  }
+
+  .md\:-m-px {
+    margin: -1px;
   }
 
   .md\:my-0 {
@@ -37361,6 +37769,26 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .md\:my-72 {
+    margin-top: 18rem;
+    margin-bottom: 18rem;
+  }
+
+  .md\:mx-72 {
+    margin-left: 18rem;
+    margin-right: 18rem;
+  }
+
+  .md\:my-80 {
+    margin-top: 20rem;
+    margin-bottom: 20rem;
+  }
+
+  .md\:mx-80 {
+    margin-left: 20rem;
+    margin-right: 20rem;
+  }
+
   .md\:my-auto {
     margin-top: auto;
     margin-bottom: auto;
@@ -37379,16 +37807,6 @@ textarea.floating-label ~ label {
   .md\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
-  }
-
-  .md\:my-md {
-    margin-top: 28rem;
-    margin-bottom: 28rem;
-  }
-
-  .md\:mx-md {
-    margin-left: 28rem;
-    margin-right: 28rem;
   }
 
   .md\:-my-1 {
@@ -37561,6 +37979,26 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .md\:-my-72 {
+    margin-top: -18rem;
+    margin-bottom: -18rem;
+  }
+
+  .md\:-mx-72 {
+    margin-left: -18rem;
+    margin-right: -18rem;
+  }
+
+  .md\:-my-80 {
+    margin-top: -20rem;
+    margin-bottom: -20rem;
+  }
+
+  .md\:-mx-80 {
+    margin-left: -20rem;
+    margin-right: -20rem;
+  }
+
   .md\:-my-px {
     margin-top: -1px;
     margin-bottom: -1px;
@@ -37569,16 +38007,6 @@ textarea.floating-label ~ label {
   .md\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
-  }
-
-  .md\:-my-md {
-    margin-top: -28rem;
-    margin-bottom: -28rem;
-  }
-
-  .md\:-mx-md {
-    margin-left: -28rem;
-    margin-right: -28rem;
   }
 
   .md\:mt-0 {
@@ -37869,6 +38297,38 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .md\:mt-72 {
+    margin-top: 18rem;
+  }
+
+  .md\:mr-72 {
+    margin-right: 18rem;
+  }
+
+  .md\:mb-72 {
+    margin-bottom: 18rem;
+  }
+
+  .md\:ml-72 {
+    margin-left: 18rem;
+  }
+
+  .md\:mt-80 {
+    margin-top: 20rem;
+  }
+
+  .md\:mr-80 {
+    margin-right: 20rem;
+  }
+
+  .md\:mb-80 {
+    margin-bottom: 20rem;
+  }
+
+  .md\:ml-80 {
+    margin-left: 20rem;
+  }
+
   .md\:mt-auto {
     margin-top: auto;
   }
@@ -37899,22 +38359,6 @@ textarea.floating-label ~ label {
 
   .md\:ml-px {
     margin-left: 1px;
-  }
-
-  .md\:mt-md {
-    margin-top: 28rem;
-  }
-
-  .md\:mr-md {
-    margin-right: 28rem;
-  }
-
-  .md\:mb-md {
-    margin-bottom: 28rem;
-  }
-
-  .md\:ml-md {
-    margin-left: 28rem;
   }
 
   .md\:-mt-1 {
@@ -38189,6 +38633,38 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .md\:-mt-72 {
+    margin-top: -18rem;
+  }
+
+  .md\:-mr-72 {
+    margin-right: -18rem;
+  }
+
+  .md\:-mb-72 {
+    margin-bottom: -18rem;
+  }
+
+  .md\:-ml-72 {
+    margin-left: -18rem;
+  }
+
+  .md\:-mt-80 {
+    margin-top: -20rem;
+  }
+
+  .md\:-mr-80 {
+    margin-right: -20rem;
+  }
+
+  .md\:-mb-80 {
+    margin-bottom: -20rem;
+  }
+
+  .md\:-ml-80 {
+    margin-left: -20rem;
+  }
+
   .md\:-mt-px {
     margin-top: -1px;
   }
@@ -38203,22 +38679,6 @@ textarea.floating-label ~ label {
 
   .md\:-ml-px {
     margin-left: -1px;
-  }
-
-  .md\:-mt-md {
-    margin-top: -28rem;
-  }
-
-  .md\:-mr-md {
-    margin-right: -28rem;
-  }
-
-  .md\:-mb-md {
-    margin-bottom: -28rem;
-  }
-
-  .md\:-ml-md {
-    margin-left: -28rem;
   }
 
   .md\:max-h-full {
@@ -38611,12 +39071,16 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
-  .md\:p-px {
-    padding: 1px;
+  .md\:p-72 {
+    padding: 18rem;
   }
 
-  .md\:p-md {
-    padding: 28rem;
+  .md\:p-80 {
+    padding: 20rem;
+  }
+
+  .md\:p-px {
+    padding: 1px;
   }
 
   .md\:py-0 {
@@ -38799,6 +39263,26 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .md\:py-72 {
+    padding-top: 18rem;
+    padding-bottom: 18rem;
+  }
+
+  .md\:px-72 {
+    padding-left: 18rem;
+    padding-right: 18rem;
+  }
+
+  .md\:py-80 {
+    padding-top: 20rem;
+    padding-bottom: 20rem;
+  }
+
+  .md\:px-80 {
+    padding-left: 20rem;
+    padding-right: 20rem;
+  }
+
   .md\:py-px {
     padding-top: 1px;
     padding-bottom: 1px;
@@ -38807,16 +39291,6 @@ textarea.floating-label ~ label {
   .md\:px-px {
     padding-left: 1px;
     padding-right: 1px;
-  }
-
-  .md\:py-md {
-    padding-top: 28rem;
-    padding-bottom: 28rem;
-  }
-
-  .md\:px-md {
-    padding-left: 28rem;
-    padding-right: 28rem;
   }
 
   .md\:pt-0 {
@@ -39107,6 +39581,38 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .md\:pt-72 {
+    padding-top: 18rem;
+  }
+
+  .md\:pr-72 {
+    padding-right: 18rem;
+  }
+
+  .md\:pb-72 {
+    padding-bottom: 18rem;
+  }
+
+  .md\:pl-72 {
+    padding-left: 18rem;
+  }
+
+  .md\:pt-80 {
+    padding-top: 20rem;
+  }
+
+  .md\:pr-80 {
+    padding-right: 20rem;
+  }
+
+  .md\:pb-80 {
+    padding-bottom: 20rem;
+  }
+
+  .md\:pl-80 {
+    padding-left: 20rem;
+  }
+
   .md\:pt-px {
     padding-top: 1px;
   }
@@ -39121,22 +39627,6 @@ textarea.floating-label ~ label {
 
   .md\:pl-px {
     padding-left: 1px;
-  }
-
-  .md\:pt-md {
-    padding-top: 28rem;
-  }
-
-  .md\:pr-md {
-    padding-right: 28rem;
-  }
-
-  .md\:pb-md {
-    padding-bottom: 28rem;
-  }
-
-  .md\:pl-md {
-    padding-left: 28rem;
   }
 
   .md\:placeholder-transparent::-webkit-input-placeholder {
@@ -45079,16 +45569,20 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .md\:w-72 {
+    width: 18rem;
+  }
+
+  .md\:w-80 {
+    width: 20rem;
+  }
+
   .md\:w-auto {
     width: auto;
   }
 
   .md\:w-px {
     width: 1px;
-  }
-
-  .md\:w-md {
-    width: 28rem;
   }
 
   .md\:w-1\/2 {
@@ -45329,14 +45823,19 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .md\:gap-72 {
+    grid-gap: 18rem;
+    gap: 18rem;
+  }
+
+  .md\:gap-80 {
+    grid-gap: 20rem;
+    gap: 20rem;
+  }
+
   .md\:gap-px {
     grid-gap: 1px;
     gap: 1px;
-  }
-
-  .md\:gap-md {
-    grid-gap: 28rem;
-    gap: 28rem;
   }
 
   .md\:col-gap-0 {
@@ -45447,16 +45946,22 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .md\:col-gap-72 {
+    grid-column-gap: 18rem;
+    -moz-column-gap: 18rem;
+         column-gap: 18rem;
+  }
+
+  .md\:col-gap-80 {
+    grid-column-gap: 20rem;
+    -moz-column-gap: 20rem;
+         column-gap: 20rem;
+  }
+
   .md\:col-gap-px {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
-  }
-
-  .md\:col-gap-md {
-    grid-column-gap: 28rem;
-    -moz-column-gap: 28rem;
-         column-gap: 28rem;
   }
 
   .md\:row-gap-0 {
@@ -45549,14 +46054,19 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .md\:row-gap-72 {
+    grid-row-gap: 18rem;
+    row-gap: 18rem;
+  }
+
+  .md\:row-gap-80 {
+    grid-row-gap: 20rem;
+    row-gap: 20rem;
+  }
+
   .md\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
-  }
-
-  .md\:row-gap-md {
-    grid-row-gap: 28rem;
-    row-gap: 28rem;
   }
 
   .md\:grid-flow-row {
@@ -46508,12 +47018,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .md\:translate-x-px {
-    --transform-translate-x: 1px;
+  .md\:translate-x-72 {
+    --transform-translate-x: 18rem;
   }
 
-  .md\:translate-x-md {
-    --transform-translate-x: 28rem;
+  .md\:translate-x-80 {
+    --transform-translate-x: 20rem;
+  }
+
+  .md\:translate-x-px {
+    --transform-translate-x: 1px;
   }
 
   .md\:-translate-x-1 {
@@ -46584,12 +47098,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .md\:-translate-x-px {
-    --transform-translate-x: -1px;
+  .md\:-translate-x-72 {
+    --transform-translate-x: -18rem;
   }
 
-  .md\:-translate-x-md {
-    --transform-translate-x: -28rem;
+  .md\:-translate-x-80 {
+    --transform-translate-x: -20rem;
+  }
+
+  .md\:-translate-x-px {
+    --transform-translate-x: -1px;
   }
 
   .md\:-translate-x-full {
@@ -46680,12 +47198,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .md\:translate-y-px {
-    --transform-translate-y: 1px;
+  .md\:translate-y-72 {
+    --transform-translate-y: 18rem;
   }
 
-  .md\:translate-y-md {
-    --transform-translate-y: 28rem;
+  .md\:translate-y-80 {
+    --transform-translate-y: 20rem;
+  }
+
+  .md\:translate-y-px {
+    --transform-translate-y: 1px;
   }
 
   .md\:-translate-y-1 {
@@ -46756,12 +47278,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .md\:-translate-y-px {
-    --transform-translate-y: -1px;
+  .md\:-translate-y-72 {
+    --transform-translate-y: -18rem;
   }
 
-  .md\:-translate-y-md {
-    --transform-translate-y: -28rem;
+  .md\:-translate-y-80 {
+    --transform-translate-y: -20rem;
+  }
+
+  .md\:-translate-y-px {
+    --transform-translate-y: -1px;
   }
 
   .md\:-translate-y-full {
@@ -46852,12 +47378,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .md\:hover\:translate-x-px:hover {
-    --transform-translate-x: 1px;
+  .md\:hover\:translate-x-72:hover {
+    --transform-translate-x: 18rem;
   }
 
-  .md\:hover\:translate-x-md:hover {
-    --transform-translate-x: 28rem;
+  .md\:hover\:translate-x-80:hover {
+    --transform-translate-x: 20rem;
+  }
+
+  .md\:hover\:translate-x-px:hover {
+    --transform-translate-x: 1px;
   }
 
   .md\:hover\:-translate-x-1:hover {
@@ -46928,12 +47458,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .md\:hover\:-translate-x-px:hover {
-    --transform-translate-x: -1px;
+  .md\:hover\:-translate-x-72:hover {
+    --transform-translate-x: -18rem;
   }
 
-  .md\:hover\:-translate-x-md:hover {
-    --transform-translate-x: -28rem;
+  .md\:hover\:-translate-x-80:hover {
+    --transform-translate-x: -20rem;
+  }
+
+  .md\:hover\:-translate-x-px:hover {
+    --transform-translate-x: -1px;
   }
 
   .md\:hover\:-translate-x-full:hover {
@@ -47024,12 +47558,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .md\:hover\:translate-y-px:hover {
-    --transform-translate-y: 1px;
+  .md\:hover\:translate-y-72:hover {
+    --transform-translate-y: 18rem;
   }
 
-  .md\:hover\:translate-y-md:hover {
-    --transform-translate-y: 28rem;
+  .md\:hover\:translate-y-80:hover {
+    --transform-translate-y: 20rem;
+  }
+
+  .md\:hover\:translate-y-px:hover {
+    --transform-translate-y: 1px;
   }
 
   .md\:hover\:-translate-y-1:hover {
@@ -47100,12 +47638,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .md\:hover\:-translate-y-px:hover {
-    --transform-translate-y: -1px;
+  .md\:hover\:-translate-y-72:hover {
+    --transform-translate-y: -18rem;
   }
 
-  .md\:hover\:-translate-y-md:hover {
-    --transform-translate-y: -28rem;
+  .md\:hover\:-translate-y-80:hover {
+    --transform-translate-y: -20rem;
+  }
+
+  .md\:hover\:-translate-y-px:hover {
+    --transform-translate-y: -1px;
   }
 
   .md\:hover\:-translate-y-full:hover {
@@ -47196,12 +47738,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .md\:focus\:translate-x-px:focus {
-    --transform-translate-x: 1px;
+  .md\:focus\:translate-x-72:focus {
+    --transform-translate-x: 18rem;
   }
 
-  .md\:focus\:translate-x-md:focus {
-    --transform-translate-x: 28rem;
+  .md\:focus\:translate-x-80:focus {
+    --transform-translate-x: 20rem;
+  }
+
+  .md\:focus\:translate-x-px:focus {
+    --transform-translate-x: 1px;
   }
 
   .md\:focus\:-translate-x-1:focus {
@@ -47272,12 +47818,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .md\:focus\:-translate-x-px:focus {
-    --transform-translate-x: -1px;
+  .md\:focus\:-translate-x-72:focus {
+    --transform-translate-x: -18rem;
   }
 
-  .md\:focus\:-translate-x-md:focus {
-    --transform-translate-x: -28rem;
+  .md\:focus\:-translate-x-80:focus {
+    --transform-translate-x: -20rem;
+  }
+
+  .md\:focus\:-translate-x-px:focus {
+    --transform-translate-x: -1px;
   }
 
   .md\:focus\:-translate-x-full:focus {
@@ -47368,12 +47918,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .md\:focus\:translate-y-px:focus {
-    --transform-translate-y: 1px;
+  .md\:focus\:translate-y-72:focus {
+    --transform-translate-y: 18rem;
   }
 
-  .md\:focus\:translate-y-md:focus {
-    --transform-translate-y: 28rem;
+  .md\:focus\:translate-y-80:focus {
+    --transform-translate-y: 20rem;
+  }
+
+  .md\:focus\:translate-y-px:focus {
+    --transform-translate-y: 1px;
   }
 
   .md\:focus\:-translate-y-1:focus {
@@ -47444,12 +47998,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .md\:focus\:-translate-y-px:focus {
-    --transform-translate-y: -1px;
+  .md\:focus\:-translate-y-72:focus {
+    --transform-translate-y: -18rem;
   }
 
-  .md\:focus\:-translate-y-md:focus {
-    --transform-translate-y: -28rem;
+  .md\:focus\:-translate-y-80:focus {
+    --transform-translate-y: -20rem;
+  }
+
+  .md\:focus\:-translate-y-px:focus {
+    --transform-translate-y: -1px;
   }
 
   .md\:focus\:-translate-y-full:focus {
@@ -47962,6 +48520,30 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .lg\:space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(18rem * var(--space-y-reverse));
+  }
+
+  .lg\:space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(18rem * var(--space-x-reverse));
+    margin-left: calc(18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .lg\:space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(20rem * var(--space-y-reverse));
+  }
+
+  .lg\:space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(20rem * var(--space-x-reverse));
+    margin-left: calc(20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .lg\:space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(1px * calc(1 - var(--space-y-reverse)));
@@ -47972,18 +48554,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .lg\:space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(28rem * var(--space-y-reverse));
-  }
-
-  .lg\:space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(28rem * var(--space-x-reverse));
-    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .lg\:-space-y-1 > :not(template) ~ :not(template) {
@@ -48190,6 +48760,30 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .lg\:-space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-18rem * var(--space-y-reverse));
+  }
+
+  .lg\:-space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-18rem * var(--space-x-reverse));
+    margin-left: calc(-18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .lg\:-space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-20rem * var(--space-y-reverse));
+  }
+
+  .lg\:-space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-20rem * var(--space-x-reverse));
+    margin-left: calc(-20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .lg\:-space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-1px * calc(1 - var(--space-y-reverse)));
@@ -48200,18 +48794,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .lg\:-space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(-28rem * var(--space-y-reverse));
-  }
-
-  .lg\:-space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(-28rem * var(--space-x-reverse));
-    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .lg\:space-y-reverse > :not(template) ~ :not(template) {
@@ -52556,16 +53138,20 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .lg\:h-72 {
+    height: 18rem;
+  }
+
+  .lg\:h-80 {
+    height: 20rem;
+  }
+
   .lg\:h-auto {
     height: auto;
   }
 
   .lg\:h-px {
     height: 1px;
-  }
-
-  .lg\:h-md {
-    height: 28rem;
   }
 
   .lg\:h-full {
@@ -52764,16 +53350,20 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .lg\:m-72 {
+    margin: 18rem;
+  }
+
+  .lg\:m-80 {
+    margin: 20rem;
+  }
+
   .lg\:m-auto {
     margin: auto;
   }
 
   .lg\:m-px {
     margin: 1px;
-  }
-
-  .lg\:m-md {
-    margin: 28rem;
   }
 
   .lg\:-m-1 {
@@ -52844,12 +53434,16 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
-  .lg\:-m-px {
-    margin: -1px;
+  .lg\:-m-72 {
+    margin: -18rem;
   }
 
-  .lg\:-m-md {
-    margin: -28rem;
+  .lg\:-m-80 {
+    margin: -20rem;
+  }
+
+  .lg\:-m-px {
+    margin: -1px;
   }
 
   .lg\:my-0 {
@@ -53032,6 +53626,26 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .lg\:my-72 {
+    margin-top: 18rem;
+    margin-bottom: 18rem;
+  }
+
+  .lg\:mx-72 {
+    margin-left: 18rem;
+    margin-right: 18rem;
+  }
+
+  .lg\:my-80 {
+    margin-top: 20rem;
+    margin-bottom: 20rem;
+  }
+
+  .lg\:mx-80 {
+    margin-left: 20rem;
+    margin-right: 20rem;
+  }
+
   .lg\:my-auto {
     margin-top: auto;
     margin-bottom: auto;
@@ -53050,16 +53664,6 @@ textarea.floating-label ~ label {
   .lg\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
-  }
-
-  .lg\:my-md {
-    margin-top: 28rem;
-    margin-bottom: 28rem;
-  }
-
-  .lg\:mx-md {
-    margin-left: 28rem;
-    margin-right: 28rem;
   }
 
   .lg\:-my-1 {
@@ -53232,6 +53836,26 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .lg\:-my-72 {
+    margin-top: -18rem;
+    margin-bottom: -18rem;
+  }
+
+  .lg\:-mx-72 {
+    margin-left: -18rem;
+    margin-right: -18rem;
+  }
+
+  .lg\:-my-80 {
+    margin-top: -20rem;
+    margin-bottom: -20rem;
+  }
+
+  .lg\:-mx-80 {
+    margin-left: -20rem;
+    margin-right: -20rem;
+  }
+
   .lg\:-my-px {
     margin-top: -1px;
     margin-bottom: -1px;
@@ -53240,16 +53864,6 @@ textarea.floating-label ~ label {
   .lg\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
-  }
-
-  .lg\:-my-md {
-    margin-top: -28rem;
-    margin-bottom: -28rem;
-  }
-
-  .lg\:-mx-md {
-    margin-left: -28rem;
-    margin-right: -28rem;
   }
 
   .lg\:mt-0 {
@@ -53540,6 +54154,38 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .lg\:mt-72 {
+    margin-top: 18rem;
+  }
+
+  .lg\:mr-72 {
+    margin-right: 18rem;
+  }
+
+  .lg\:mb-72 {
+    margin-bottom: 18rem;
+  }
+
+  .lg\:ml-72 {
+    margin-left: 18rem;
+  }
+
+  .lg\:mt-80 {
+    margin-top: 20rem;
+  }
+
+  .lg\:mr-80 {
+    margin-right: 20rem;
+  }
+
+  .lg\:mb-80 {
+    margin-bottom: 20rem;
+  }
+
+  .lg\:ml-80 {
+    margin-left: 20rem;
+  }
+
   .lg\:mt-auto {
     margin-top: auto;
   }
@@ -53570,22 +54216,6 @@ textarea.floating-label ~ label {
 
   .lg\:ml-px {
     margin-left: 1px;
-  }
-
-  .lg\:mt-md {
-    margin-top: 28rem;
-  }
-
-  .lg\:mr-md {
-    margin-right: 28rem;
-  }
-
-  .lg\:mb-md {
-    margin-bottom: 28rem;
-  }
-
-  .lg\:ml-md {
-    margin-left: 28rem;
   }
 
   .lg\:-mt-1 {
@@ -53860,6 +54490,38 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .lg\:-mt-72 {
+    margin-top: -18rem;
+  }
+
+  .lg\:-mr-72 {
+    margin-right: -18rem;
+  }
+
+  .lg\:-mb-72 {
+    margin-bottom: -18rem;
+  }
+
+  .lg\:-ml-72 {
+    margin-left: -18rem;
+  }
+
+  .lg\:-mt-80 {
+    margin-top: -20rem;
+  }
+
+  .lg\:-mr-80 {
+    margin-right: -20rem;
+  }
+
+  .lg\:-mb-80 {
+    margin-bottom: -20rem;
+  }
+
+  .lg\:-ml-80 {
+    margin-left: -20rem;
+  }
+
   .lg\:-mt-px {
     margin-top: -1px;
   }
@@ -53874,22 +54536,6 @@ textarea.floating-label ~ label {
 
   .lg\:-ml-px {
     margin-left: -1px;
-  }
-
-  .lg\:-mt-md {
-    margin-top: -28rem;
-  }
-
-  .lg\:-mr-md {
-    margin-right: -28rem;
-  }
-
-  .lg\:-mb-md {
-    margin-bottom: -28rem;
-  }
-
-  .lg\:-ml-md {
-    margin-left: -28rem;
   }
 
   .lg\:max-h-full {
@@ -54282,12 +54928,16 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
-  .lg\:p-px {
-    padding: 1px;
+  .lg\:p-72 {
+    padding: 18rem;
   }
 
-  .lg\:p-md {
-    padding: 28rem;
+  .lg\:p-80 {
+    padding: 20rem;
+  }
+
+  .lg\:p-px {
+    padding: 1px;
   }
 
   .lg\:py-0 {
@@ -54470,6 +55120,26 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .lg\:py-72 {
+    padding-top: 18rem;
+    padding-bottom: 18rem;
+  }
+
+  .lg\:px-72 {
+    padding-left: 18rem;
+    padding-right: 18rem;
+  }
+
+  .lg\:py-80 {
+    padding-top: 20rem;
+    padding-bottom: 20rem;
+  }
+
+  .lg\:px-80 {
+    padding-left: 20rem;
+    padding-right: 20rem;
+  }
+
   .lg\:py-px {
     padding-top: 1px;
     padding-bottom: 1px;
@@ -54478,16 +55148,6 @@ textarea.floating-label ~ label {
   .lg\:px-px {
     padding-left: 1px;
     padding-right: 1px;
-  }
-
-  .lg\:py-md {
-    padding-top: 28rem;
-    padding-bottom: 28rem;
-  }
-
-  .lg\:px-md {
-    padding-left: 28rem;
-    padding-right: 28rem;
   }
 
   .lg\:pt-0 {
@@ -54778,6 +55438,38 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .lg\:pt-72 {
+    padding-top: 18rem;
+  }
+
+  .lg\:pr-72 {
+    padding-right: 18rem;
+  }
+
+  .lg\:pb-72 {
+    padding-bottom: 18rem;
+  }
+
+  .lg\:pl-72 {
+    padding-left: 18rem;
+  }
+
+  .lg\:pt-80 {
+    padding-top: 20rem;
+  }
+
+  .lg\:pr-80 {
+    padding-right: 20rem;
+  }
+
+  .lg\:pb-80 {
+    padding-bottom: 20rem;
+  }
+
+  .lg\:pl-80 {
+    padding-left: 20rem;
+  }
+
   .lg\:pt-px {
     padding-top: 1px;
   }
@@ -54792,22 +55484,6 @@ textarea.floating-label ~ label {
 
   .lg\:pl-px {
     padding-left: 1px;
-  }
-
-  .lg\:pt-md {
-    padding-top: 28rem;
-  }
-
-  .lg\:pr-md {
-    padding-right: 28rem;
-  }
-
-  .lg\:pb-md {
-    padding-bottom: 28rem;
-  }
-
-  .lg\:pl-md {
-    padding-left: 28rem;
   }
 
   .lg\:placeholder-transparent::-webkit-input-placeholder {
@@ -60750,16 +61426,20 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .lg\:w-72 {
+    width: 18rem;
+  }
+
+  .lg\:w-80 {
+    width: 20rem;
+  }
+
   .lg\:w-auto {
     width: auto;
   }
 
   .lg\:w-px {
     width: 1px;
-  }
-
-  .lg\:w-md {
-    width: 28rem;
   }
 
   .lg\:w-1\/2 {
@@ -61000,14 +61680,19 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .lg\:gap-72 {
+    grid-gap: 18rem;
+    gap: 18rem;
+  }
+
+  .lg\:gap-80 {
+    grid-gap: 20rem;
+    gap: 20rem;
+  }
+
   .lg\:gap-px {
     grid-gap: 1px;
     gap: 1px;
-  }
-
-  .lg\:gap-md {
-    grid-gap: 28rem;
-    gap: 28rem;
   }
 
   .lg\:col-gap-0 {
@@ -61118,16 +61803,22 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .lg\:col-gap-72 {
+    grid-column-gap: 18rem;
+    -moz-column-gap: 18rem;
+         column-gap: 18rem;
+  }
+
+  .lg\:col-gap-80 {
+    grid-column-gap: 20rem;
+    -moz-column-gap: 20rem;
+         column-gap: 20rem;
+  }
+
   .lg\:col-gap-px {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
-  }
-
-  .lg\:col-gap-md {
-    grid-column-gap: 28rem;
-    -moz-column-gap: 28rem;
-         column-gap: 28rem;
   }
 
   .lg\:row-gap-0 {
@@ -61220,14 +61911,19 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .lg\:row-gap-72 {
+    grid-row-gap: 18rem;
+    row-gap: 18rem;
+  }
+
+  .lg\:row-gap-80 {
+    grid-row-gap: 20rem;
+    row-gap: 20rem;
+  }
+
   .lg\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
-  }
-
-  .lg\:row-gap-md {
-    grid-row-gap: 28rem;
-    row-gap: 28rem;
   }
 
   .lg\:grid-flow-row {
@@ -62179,12 +62875,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .lg\:translate-x-px {
-    --transform-translate-x: 1px;
+  .lg\:translate-x-72 {
+    --transform-translate-x: 18rem;
   }
 
-  .lg\:translate-x-md {
-    --transform-translate-x: 28rem;
+  .lg\:translate-x-80 {
+    --transform-translate-x: 20rem;
+  }
+
+  .lg\:translate-x-px {
+    --transform-translate-x: 1px;
   }
 
   .lg\:-translate-x-1 {
@@ -62255,12 +62955,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .lg\:-translate-x-px {
-    --transform-translate-x: -1px;
+  .lg\:-translate-x-72 {
+    --transform-translate-x: -18rem;
   }
 
-  .lg\:-translate-x-md {
-    --transform-translate-x: -28rem;
+  .lg\:-translate-x-80 {
+    --transform-translate-x: -20rem;
+  }
+
+  .lg\:-translate-x-px {
+    --transform-translate-x: -1px;
   }
 
   .lg\:-translate-x-full {
@@ -62351,12 +63055,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .lg\:translate-y-px {
-    --transform-translate-y: 1px;
+  .lg\:translate-y-72 {
+    --transform-translate-y: 18rem;
   }
 
-  .lg\:translate-y-md {
-    --transform-translate-y: 28rem;
+  .lg\:translate-y-80 {
+    --transform-translate-y: 20rem;
+  }
+
+  .lg\:translate-y-px {
+    --transform-translate-y: 1px;
   }
 
   .lg\:-translate-y-1 {
@@ -62427,12 +63135,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .lg\:-translate-y-px {
-    --transform-translate-y: -1px;
+  .lg\:-translate-y-72 {
+    --transform-translate-y: -18rem;
   }
 
-  .lg\:-translate-y-md {
-    --transform-translate-y: -28rem;
+  .lg\:-translate-y-80 {
+    --transform-translate-y: -20rem;
+  }
+
+  .lg\:-translate-y-px {
+    --transform-translate-y: -1px;
   }
 
   .lg\:-translate-y-full {
@@ -62523,12 +63235,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .lg\:hover\:translate-x-px:hover {
-    --transform-translate-x: 1px;
+  .lg\:hover\:translate-x-72:hover {
+    --transform-translate-x: 18rem;
   }
 
-  .lg\:hover\:translate-x-md:hover {
-    --transform-translate-x: 28rem;
+  .lg\:hover\:translate-x-80:hover {
+    --transform-translate-x: 20rem;
+  }
+
+  .lg\:hover\:translate-x-px:hover {
+    --transform-translate-x: 1px;
   }
 
   .lg\:hover\:-translate-x-1:hover {
@@ -62599,12 +63315,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .lg\:hover\:-translate-x-px:hover {
-    --transform-translate-x: -1px;
+  .lg\:hover\:-translate-x-72:hover {
+    --transform-translate-x: -18rem;
   }
 
-  .lg\:hover\:-translate-x-md:hover {
-    --transform-translate-x: -28rem;
+  .lg\:hover\:-translate-x-80:hover {
+    --transform-translate-x: -20rem;
+  }
+
+  .lg\:hover\:-translate-x-px:hover {
+    --transform-translate-x: -1px;
   }
 
   .lg\:hover\:-translate-x-full:hover {
@@ -62695,12 +63415,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .lg\:hover\:translate-y-px:hover {
-    --transform-translate-y: 1px;
+  .lg\:hover\:translate-y-72:hover {
+    --transform-translate-y: 18rem;
   }
 
-  .lg\:hover\:translate-y-md:hover {
-    --transform-translate-y: 28rem;
+  .lg\:hover\:translate-y-80:hover {
+    --transform-translate-y: 20rem;
+  }
+
+  .lg\:hover\:translate-y-px:hover {
+    --transform-translate-y: 1px;
   }
 
   .lg\:hover\:-translate-y-1:hover {
@@ -62771,12 +63495,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .lg\:hover\:-translate-y-px:hover {
-    --transform-translate-y: -1px;
+  .lg\:hover\:-translate-y-72:hover {
+    --transform-translate-y: -18rem;
   }
 
-  .lg\:hover\:-translate-y-md:hover {
-    --transform-translate-y: -28rem;
+  .lg\:hover\:-translate-y-80:hover {
+    --transform-translate-y: -20rem;
+  }
+
+  .lg\:hover\:-translate-y-px:hover {
+    --transform-translate-y: -1px;
   }
 
   .lg\:hover\:-translate-y-full:hover {
@@ -62867,12 +63595,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .lg\:focus\:translate-x-px:focus {
-    --transform-translate-x: 1px;
+  .lg\:focus\:translate-x-72:focus {
+    --transform-translate-x: 18rem;
   }
 
-  .lg\:focus\:translate-x-md:focus {
-    --transform-translate-x: 28rem;
+  .lg\:focus\:translate-x-80:focus {
+    --transform-translate-x: 20rem;
+  }
+
+  .lg\:focus\:translate-x-px:focus {
+    --transform-translate-x: 1px;
   }
 
   .lg\:focus\:-translate-x-1:focus {
@@ -62943,12 +63675,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .lg\:focus\:-translate-x-px:focus {
-    --transform-translate-x: -1px;
+  .lg\:focus\:-translate-x-72:focus {
+    --transform-translate-x: -18rem;
   }
 
-  .lg\:focus\:-translate-x-md:focus {
-    --transform-translate-x: -28rem;
+  .lg\:focus\:-translate-x-80:focus {
+    --transform-translate-x: -20rem;
+  }
+
+  .lg\:focus\:-translate-x-px:focus {
+    --transform-translate-x: -1px;
   }
 
   .lg\:focus\:-translate-x-full:focus {
@@ -63039,12 +63775,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .lg\:focus\:translate-y-px:focus {
-    --transform-translate-y: 1px;
+  .lg\:focus\:translate-y-72:focus {
+    --transform-translate-y: 18rem;
   }
 
-  .lg\:focus\:translate-y-md:focus {
-    --transform-translate-y: 28rem;
+  .lg\:focus\:translate-y-80:focus {
+    --transform-translate-y: 20rem;
+  }
+
+  .lg\:focus\:translate-y-px:focus {
+    --transform-translate-y: 1px;
   }
 
   .lg\:focus\:-translate-y-1:focus {
@@ -63115,12 +63855,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .lg\:focus\:-translate-y-px:focus {
-    --transform-translate-y: -1px;
+  .lg\:focus\:-translate-y-72:focus {
+    --transform-translate-y: -18rem;
   }
 
-  .lg\:focus\:-translate-y-md:focus {
-    --transform-translate-y: -28rem;
+  .lg\:focus\:-translate-y-80:focus {
+    --transform-translate-y: -20rem;
+  }
+
+  .lg\:focus\:-translate-y-px:focus {
+    --transform-translate-y: -1px;
   }
 
   .lg\:focus\:-translate-y-full:focus {
@@ -63633,6 +64377,30 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .xl\:space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(18rem * var(--space-y-reverse));
+  }
+
+  .xl\:space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(18rem * var(--space-x-reverse));
+    margin-left: calc(18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .xl\:space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(20rem * var(--space-y-reverse));
+  }
+
+  .xl\:space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(20rem * var(--space-x-reverse));
+    margin-left: calc(20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .xl\:space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(1px * calc(1 - var(--space-y-reverse)));
@@ -63643,18 +64411,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .xl\:space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(28rem * var(--space-y-reverse));
-  }
-
-  .xl\:space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(28rem * var(--space-x-reverse));
-    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .xl\:-space-y-1 > :not(template) ~ :not(template) {
@@ -63861,6 +64617,30 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .xl\:-space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-18rem * var(--space-y-reverse));
+  }
+
+  .xl\:-space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-18rem * var(--space-x-reverse));
+    margin-left: calc(-18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .xl\:-space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-20rem * var(--space-y-reverse));
+  }
+
+  .xl\:-space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-20rem * var(--space-x-reverse));
+    margin-left: calc(-20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .xl\:-space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-1px * calc(1 - var(--space-y-reverse)));
@@ -63871,18 +64651,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .xl\:-space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(-28rem * var(--space-y-reverse));
-  }
-
-  .xl\:-space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(-28rem * var(--space-x-reverse));
-    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .xl\:space-y-reverse > :not(template) ~ :not(template) {
@@ -68227,16 +68995,20 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .xl\:h-72 {
+    height: 18rem;
+  }
+
+  .xl\:h-80 {
+    height: 20rem;
+  }
+
   .xl\:h-auto {
     height: auto;
   }
 
   .xl\:h-px {
     height: 1px;
-  }
-
-  .xl\:h-md {
-    height: 28rem;
   }
 
   .xl\:h-full {
@@ -68435,16 +69207,20 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .xl\:m-72 {
+    margin: 18rem;
+  }
+
+  .xl\:m-80 {
+    margin: 20rem;
+  }
+
   .xl\:m-auto {
     margin: auto;
   }
 
   .xl\:m-px {
     margin: 1px;
-  }
-
-  .xl\:m-md {
-    margin: 28rem;
   }
 
   .xl\:-m-1 {
@@ -68515,12 +69291,16 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
-  .xl\:-m-px {
-    margin: -1px;
+  .xl\:-m-72 {
+    margin: -18rem;
   }
 
-  .xl\:-m-md {
-    margin: -28rem;
+  .xl\:-m-80 {
+    margin: -20rem;
+  }
+
+  .xl\:-m-px {
+    margin: -1px;
   }
 
   .xl\:my-0 {
@@ -68703,6 +69483,26 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .xl\:my-72 {
+    margin-top: 18rem;
+    margin-bottom: 18rem;
+  }
+
+  .xl\:mx-72 {
+    margin-left: 18rem;
+    margin-right: 18rem;
+  }
+
+  .xl\:my-80 {
+    margin-top: 20rem;
+    margin-bottom: 20rem;
+  }
+
+  .xl\:mx-80 {
+    margin-left: 20rem;
+    margin-right: 20rem;
+  }
+
   .xl\:my-auto {
     margin-top: auto;
     margin-bottom: auto;
@@ -68721,16 +69521,6 @@ textarea.floating-label ~ label {
   .xl\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
-  }
-
-  .xl\:my-md {
-    margin-top: 28rem;
-    margin-bottom: 28rem;
-  }
-
-  .xl\:mx-md {
-    margin-left: 28rem;
-    margin-right: 28rem;
   }
 
   .xl\:-my-1 {
@@ -68903,6 +69693,26 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .xl\:-my-72 {
+    margin-top: -18rem;
+    margin-bottom: -18rem;
+  }
+
+  .xl\:-mx-72 {
+    margin-left: -18rem;
+    margin-right: -18rem;
+  }
+
+  .xl\:-my-80 {
+    margin-top: -20rem;
+    margin-bottom: -20rem;
+  }
+
+  .xl\:-mx-80 {
+    margin-left: -20rem;
+    margin-right: -20rem;
+  }
+
   .xl\:-my-px {
     margin-top: -1px;
     margin-bottom: -1px;
@@ -68911,16 +69721,6 @@ textarea.floating-label ~ label {
   .xl\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
-  }
-
-  .xl\:-my-md {
-    margin-top: -28rem;
-    margin-bottom: -28rem;
-  }
-
-  .xl\:-mx-md {
-    margin-left: -28rem;
-    margin-right: -28rem;
   }
 
   .xl\:mt-0 {
@@ -69211,6 +70011,38 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .xl\:mt-72 {
+    margin-top: 18rem;
+  }
+
+  .xl\:mr-72 {
+    margin-right: 18rem;
+  }
+
+  .xl\:mb-72 {
+    margin-bottom: 18rem;
+  }
+
+  .xl\:ml-72 {
+    margin-left: 18rem;
+  }
+
+  .xl\:mt-80 {
+    margin-top: 20rem;
+  }
+
+  .xl\:mr-80 {
+    margin-right: 20rem;
+  }
+
+  .xl\:mb-80 {
+    margin-bottom: 20rem;
+  }
+
+  .xl\:ml-80 {
+    margin-left: 20rem;
+  }
+
   .xl\:mt-auto {
     margin-top: auto;
   }
@@ -69241,22 +70073,6 @@ textarea.floating-label ~ label {
 
   .xl\:ml-px {
     margin-left: 1px;
-  }
-
-  .xl\:mt-md {
-    margin-top: 28rem;
-  }
-
-  .xl\:mr-md {
-    margin-right: 28rem;
-  }
-
-  .xl\:mb-md {
-    margin-bottom: 28rem;
-  }
-
-  .xl\:ml-md {
-    margin-left: 28rem;
   }
 
   .xl\:-mt-1 {
@@ -69531,6 +70347,38 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .xl\:-mt-72 {
+    margin-top: -18rem;
+  }
+
+  .xl\:-mr-72 {
+    margin-right: -18rem;
+  }
+
+  .xl\:-mb-72 {
+    margin-bottom: -18rem;
+  }
+
+  .xl\:-ml-72 {
+    margin-left: -18rem;
+  }
+
+  .xl\:-mt-80 {
+    margin-top: -20rem;
+  }
+
+  .xl\:-mr-80 {
+    margin-right: -20rem;
+  }
+
+  .xl\:-mb-80 {
+    margin-bottom: -20rem;
+  }
+
+  .xl\:-ml-80 {
+    margin-left: -20rem;
+  }
+
   .xl\:-mt-px {
     margin-top: -1px;
   }
@@ -69545,22 +70393,6 @@ textarea.floating-label ~ label {
 
   .xl\:-ml-px {
     margin-left: -1px;
-  }
-
-  .xl\:-mt-md {
-    margin-top: -28rem;
-  }
-
-  .xl\:-mr-md {
-    margin-right: -28rem;
-  }
-
-  .xl\:-mb-md {
-    margin-bottom: -28rem;
-  }
-
-  .xl\:-ml-md {
-    margin-left: -28rem;
   }
 
   .xl\:max-h-full {
@@ -69953,12 +70785,16 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
-  .xl\:p-px {
-    padding: 1px;
+  .xl\:p-72 {
+    padding: 18rem;
   }
 
-  .xl\:p-md {
-    padding: 28rem;
+  .xl\:p-80 {
+    padding: 20rem;
+  }
+
+  .xl\:p-px {
+    padding: 1px;
   }
 
   .xl\:py-0 {
@@ -70141,6 +70977,26 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .xl\:py-72 {
+    padding-top: 18rem;
+    padding-bottom: 18rem;
+  }
+
+  .xl\:px-72 {
+    padding-left: 18rem;
+    padding-right: 18rem;
+  }
+
+  .xl\:py-80 {
+    padding-top: 20rem;
+    padding-bottom: 20rem;
+  }
+
+  .xl\:px-80 {
+    padding-left: 20rem;
+    padding-right: 20rem;
+  }
+
   .xl\:py-px {
     padding-top: 1px;
     padding-bottom: 1px;
@@ -70149,16 +71005,6 @@ textarea.floating-label ~ label {
   .xl\:px-px {
     padding-left: 1px;
     padding-right: 1px;
-  }
-
-  .xl\:py-md {
-    padding-top: 28rem;
-    padding-bottom: 28rem;
-  }
-
-  .xl\:px-md {
-    padding-left: 28rem;
-    padding-right: 28rem;
   }
 
   .xl\:pt-0 {
@@ -70449,6 +71295,38 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .xl\:pt-72 {
+    padding-top: 18rem;
+  }
+
+  .xl\:pr-72 {
+    padding-right: 18rem;
+  }
+
+  .xl\:pb-72 {
+    padding-bottom: 18rem;
+  }
+
+  .xl\:pl-72 {
+    padding-left: 18rem;
+  }
+
+  .xl\:pt-80 {
+    padding-top: 20rem;
+  }
+
+  .xl\:pr-80 {
+    padding-right: 20rem;
+  }
+
+  .xl\:pb-80 {
+    padding-bottom: 20rem;
+  }
+
+  .xl\:pl-80 {
+    padding-left: 20rem;
+  }
+
   .xl\:pt-px {
     padding-top: 1px;
   }
@@ -70463,22 +71341,6 @@ textarea.floating-label ~ label {
 
   .xl\:pl-px {
     padding-left: 1px;
-  }
-
-  .xl\:pt-md {
-    padding-top: 28rem;
-  }
-
-  .xl\:pr-md {
-    padding-right: 28rem;
-  }
-
-  .xl\:pb-md {
-    padding-bottom: 28rem;
-  }
-
-  .xl\:pl-md {
-    padding-left: 28rem;
   }
 
   .xl\:placeholder-transparent::-webkit-input-placeholder {
@@ -76421,16 +77283,20 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .xl\:w-72 {
+    width: 18rem;
+  }
+
+  .xl\:w-80 {
+    width: 20rem;
+  }
+
   .xl\:w-auto {
     width: auto;
   }
 
   .xl\:w-px {
     width: 1px;
-  }
-
-  .xl\:w-md {
-    width: 28rem;
   }
 
   .xl\:w-1\/2 {
@@ -76671,14 +77537,19 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .xl\:gap-72 {
+    grid-gap: 18rem;
+    gap: 18rem;
+  }
+
+  .xl\:gap-80 {
+    grid-gap: 20rem;
+    gap: 20rem;
+  }
+
   .xl\:gap-px {
     grid-gap: 1px;
     gap: 1px;
-  }
-
-  .xl\:gap-md {
-    grid-gap: 28rem;
-    gap: 28rem;
   }
 
   .xl\:col-gap-0 {
@@ -76789,16 +77660,22 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .xl\:col-gap-72 {
+    grid-column-gap: 18rem;
+    -moz-column-gap: 18rem;
+         column-gap: 18rem;
+  }
+
+  .xl\:col-gap-80 {
+    grid-column-gap: 20rem;
+    -moz-column-gap: 20rem;
+         column-gap: 20rem;
+  }
+
   .xl\:col-gap-px {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
-  }
-
-  .xl\:col-gap-md {
-    grid-column-gap: 28rem;
-    -moz-column-gap: 28rem;
-         column-gap: 28rem;
   }
 
   .xl\:row-gap-0 {
@@ -76891,14 +77768,19 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .xl\:row-gap-72 {
+    grid-row-gap: 18rem;
+    row-gap: 18rem;
+  }
+
+  .xl\:row-gap-80 {
+    grid-row-gap: 20rem;
+    row-gap: 20rem;
+  }
+
   .xl\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
-  }
-
-  .xl\:row-gap-md {
-    grid-row-gap: 28rem;
-    row-gap: 28rem;
   }
 
   .xl\:grid-flow-row {
@@ -77850,12 +78732,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .xl\:translate-x-px {
-    --transform-translate-x: 1px;
+  .xl\:translate-x-72 {
+    --transform-translate-x: 18rem;
   }
 
-  .xl\:translate-x-md {
-    --transform-translate-x: 28rem;
+  .xl\:translate-x-80 {
+    --transform-translate-x: 20rem;
+  }
+
+  .xl\:translate-x-px {
+    --transform-translate-x: 1px;
   }
 
   .xl\:-translate-x-1 {
@@ -77926,12 +78812,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .xl\:-translate-x-px {
-    --transform-translate-x: -1px;
+  .xl\:-translate-x-72 {
+    --transform-translate-x: -18rem;
   }
 
-  .xl\:-translate-x-md {
-    --transform-translate-x: -28rem;
+  .xl\:-translate-x-80 {
+    --transform-translate-x: -20rem;
+  }
+
+  .xl\:-translate-x-px {
+    --transform-translate-x: -1px;
   }
 
   .xl\:-translate-x-full {
@@ -78022,12 +78912,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .xl\:translate-y-px {
-    --transform-translate-y: 1px;
+  .xl\:translate-y-72 {
+    --transform-translate-y: 18rem;
   }
 
-  .xl\:translate-y-md {
-    --transform-translate-y: 28rem;
+  .xl\:translate-y-80 {
+    --transform-translate-y: 20rem;
+  }
+
+  .xl\:translate-y-px {
+    --transform-translate-y: 1px;
   }
 
   .xl\:-translate-y-1 {
@@ -78098,12 +78992,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .xl\:-translate-y-px {
-    --transform-translate-y: -1px;
+  .xl\:-translate-y-72 {
+    --transform-translate-y: -18rem;
   }
 
-  .xl\:-translate-y-md {
-    --transform-translate-y: -28rem;
+  .xl\:-translate-y-80 {
+    --transform-translate-y: -20rem;
+  }
+
+  .xl\:-translate-y-px {
+    --transform-translate-y: -1px;
   }
 
   .xl\:-translate-y-full {
@@ -78194,12 +79092,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .xl\:hover\:translate-x-px:hover {
-    --transform-translate-x: 1px;
+  .xl\:hover\:translate-x-72:hover {
+    --transform-translate-x: 18rem;
   }
 
-  .xl\:hover\:translate-x-md:hover {
-    --transform-translate-x: 28rem;
+  .xl\:hover\:translate-x-80:hover {
+    --transform-translate-x: 20rem;
+  }
+
+  .xl\:hover\:translate-x-px:hover {
+    --transform-translate-x: 1px;
   }
 
   .xl\:hover\:-translate-x-1:hover {
@@ -78270,12 +79172,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .xl\:hover\:-translate-x-px:hover {
-    --transform-translate-x: -1px;
+  .xl\:hover\:-translate-x-72:hover {
+    --transform-translate-x: -18rem;
   }
 
-  .xl\:hover\:-translate-x-md:hover {
-    --transform-translate-x: -28rem;
+  .xl\:hover\:-translate-x-80:hover {
+    --transform-translate-x: -20rem;
+  }
+
+  .xl\:hover\:-translate-x-px:hover {
+    --transform-translate-x: -1px;
   }
 
   .xl\:hover\:-translate-x-full:hover {
@@ -78366,12 +79272,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .xl\:hover\:translate-y-px:hover {
-    --transform-translate-y: 1px;
+  .xl\:hover\:translate-y-72:hover {
+    --transform-translate-y: 18rem;
   }
 
-  .xl\:hover\:translate-y-md:hover {
-    --transform-translate-y: 28rem;
+  .xl\:hover\:translate-y-80:hover {
+    --transform-translate-y: 20rem;
+  }
+
+  .xl\:hover\:translate-y-px:hover {
+    --transform-translate-y: 1px;
   }
 
   .xl\:hover\:-translate-y-1:hover {
@@ -78442,12 +79352,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .xl\:hover\:-translate-y-px:hover {
-    --transform-translate-y: -1px;
+  .xl\:hover\:-translate-y-72:hover {
+    --transform-translate-y: -18rem;
   }
 
-  .xl\:hover\:-translate-y-md:hover {
-    --transform-translate-y: -28rem;
+  .xl\:hover\:-translate-y-80:hover {
+    --transform-translate-y: -20rem;
+  }
+
+  .xl\:hover\:-translate-y-px:hover {
+    --transform-translate-y: -1px;
   }
 
   .xl\:hover\:-translate-y-full:hover {
@@ -78538,12 +79452,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .xl\:focus\:translate-x-px:focus {
-    --transform-translate-x: 1px;
+  .xl\:focus\:translate-x-72:focus {
+    --transform-translate-x: 18rem;
   }
 
-  .xl\:focus\:translate-x-md:focus {
-    --transform-translate-x: 28rem;
+  .xl\:focus\:translate-x-80:focus {
+    --transform-translate-x: 20rem;
+  }
+
+  .xl\:focus\:translate-x-px:focus {
+    --transform-translate-x: 1px;
   }
 
   .xl\:focus\:-translate-x-1:focus {
@@ -78614,12 +79532,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .xl\:focus\:-translate-x-px:focus {
-    --transform-translate-x: -1px;
+  .xl\:focus\:-translate-x-72:focus {
+    --transform-translate-x: -18rem;
   }
 
-  .xl\:focus\:-translate-x-md:focus {
-    --transform-translate-x: -28rem;
+  .xl\:focus\:-translate-x-80:focus {
+    --transform-translate-x: -20rem;
+  }
+
+  .xl\:focus\:-translate-x-px:focus {
+    --transform-translate-x: -1px;
   }
 
   .xl\:focus\:-translate-x-full:focus {
@@ -78710,12 +79632,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .xl\:focus\:translate-y-px:focus {
-    --transform-translate-y: 1px;
+  .xl\:focus\:translate-y-72:focus {
+    --transform-translate-y: 18rem;
   }
 
-  .xl\:focus\:translate-y-md:focus {
-    --transform-translate-y: 28rem;
+  .xl\:focus\:translate-y-80:focus {
+    --transform-translate-y: 20rem;
+  }
+
+  .xl\:focus\:translate-y-px:focus {
+    --transform-translate-y: 1px;
   }
 
   .xl\:focus\:-translate-y-1:focus {
@@ -78786,12 +79712,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .xl\:focus\:-translate-y-px:focus {
-    --transform-translate-y: -1px;
+  .xl\:focus\:-translate-y-72:focus {
+    --transform-translate-y: -18rem;
   }
 
-  .xl\:focus\:-translate-y-md:focus {
-    --transform-translate-y: -28rem;
+  .xl\:focus\:-translate-y-80:focus {
+    --transform-translate-y: -20rem;
+  }
+
+  .xl\:focus\:-translate-y-px:focus {
+    --transform-translate-y: -1px;
   }
 
   .xl\:focus\:-translate-y-full:focus {
@@ -79304,6 +80234,30 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .small\:space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(18rem * var(--space-y-reverse));
+  }
+
+  .small\:space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(18rem * var(--space-x-reverse));
+    margin-left: calc(18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .small\:space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(20rem * var(--space-y-reverse));
+  }
+
+  .small\:space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(20rem * var(--space-x-reverse));
+    margin-left: calc(20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .small\:space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(1px * calc(1 - var(--space-y-reverse)));
@@ -79314,18 +80268,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .small\:space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(28rem * var(--space-y-reverse));
-  }
-
-  .small\:space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(28rem * var(--space-x-reverse));
-    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .small\:-space-y-1 > :not(template) ~ :not(template) {
@@ -79532,6 +80474,30 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .small\:-space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-18rem * var(--space-y-reverse));
+  }
+
+  .small\:-space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-18rem * var(--space-x-reverse));
+    margin-left: calc(-18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .small\:-space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-20rem * var(--space-y-reverse));
+  }
+
+  .small\:-space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-20rem * var(--space-x-reverse));
+    margin-left: calc(-20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .small\:-space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-1px * calc(1 - var(--space-y-reverse)));
@@ -79542,18 +80508,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .small\:-space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(-28rem * var(--space-y-reverse));
-  }
-
-  .small\:-space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(-28rem * var(--space-x-reverse));
-    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .small\:space-y-reverse > :not(template) ~ :not(template) {
@@ -83898,16 +84852,20 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .small\:h-72 {
+    height: 18rem;
+  }
+
+  .small\:h-80 {
+    height: 20rem;
+  }
+
   .small\:h-auto {
     height: auto;
   }
 
   .small\:h-px {
     height: 1px;
-  }
-
-  .small\:h-md {
-    height: 28rem;
   }
 
   .small\:h-full {
@@ -84106,16 +85064,20 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .small\:m-72 {
+    margin: 18rem;
+  }
+
+  .small\:m-80 {
+    margin: 20rem;
+  }
+
   .small\:m-auto {
     margin: auto;
   }
 
   .small\:m-px {
     margin: 1px;
-  }
-
-  .small\:m-md {
-    margin: 28rem;
   }
 
   .small\:-m-1 {
@@ -84186,12 +85148,16 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
-  .small\:-m-px {
-    margin: -1px;
+  .small\:-m-72 {
+    margin: -18rem;
   }
 
-  .small\:-m-md {
-    margin: -28rem;
+  .small\:-m-80 {
+    margin: -20rem;
+  }
+
+  .small\:-m-px {
+    margin: -1px;
   }
 
   .small\:my-0 {
@@ -84374,6 +85340,26 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .small\:my-72 {
+    margin-top: 18rem;
+    margin-bottom: 18rem;
+  }
+
+  .small\:mx-72 {
+    margin-left: 18rem;
+    margin-right: 18rem;
+  }
+
+  .small\:my-80 {
+    margin-top: 20rem;
+    margin-bottom: 20rem;
+  }
+
+  .small\:mx-80 {
+    margin-left: 20rem;
+    margin-right: 20rem;
+  }
+
   .small\:my-auto {
     margin-top: auto;
     margin-bottom: auto;
@@ -84392,16 +85378,6 @@ textarea.floating-label ~ label {
   .small\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
-  }
-
-  .small\:my-md {
-    margin-top: 28rem;
-    margin-bottom: 28rem;
-  }
-
-  .small\:mx-md {
-    margin-left: 28rem;
-    margin-right: 28rem;
   }
 
   .small\:-my-1 {
@@ -84574,6 +85550,26 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .small\:-my-72 {
+    margin-top: -18rem;
+    margin-bottom: -18rem;
+  }
+
+  .small\:-mx-72 {
+    margin-left: -18rem;
+    margin-right: -18rem;
+  }
+
+  .small\:-my-80 {
+    margin-top: -20rem;
+    margin-bottom: -20rem;
+  }
+
+  .small\:-mx-80 {
+    margin-left: -20rem;
+    margin-right: -20rem;
+  }
+
   .small\:-my-px {
     margin-top: -1px;
     margin-bottom: -1px;
@@ -84582,16 +85578,6 @@ textarea.floating-label ~ label {
   .small\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
-  }
-
-  .small\:-my-md {
-    margin-top: -28rem;
-    margin-bottom: -28rem;
-  }
-
-  .small\:-mx-md {
-    margin-left: -28rem;
-    margin-right: -28rem;
   }
 
   .small\:mt-0 {
@@ -84882,6 +85868,38 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .small\:mt-72 {
+    margin-top: 18rem;
+  }
+
+  .small\:mr-72 {
+    margin-right: 18rem;
+  }
+
+  .small\:mb-72 {
+    margin-bottom: 18rem;
+  }
+
+  .small\:ml-72 {
+    margin-left: 18rem;
+  }
+
+  .small\:mt-80 {
+    margin-top: 20rem;
+  }
+
+  .small\:mr-80 {
+    margin-right: 20rem;
+  }
+
+  .small\:mb-80 {
+    margin-bottom: 20rem;
+  }
+
+  .small\:ml-80 {
+    margin-left: 20rem;
+  }
+
   .small\:mt-auto {
     margin-top: auto;
   }
@@ -84912,22 +85930,6 @@ textarea.floating-label ~ label {
 
   .small\:ml-px {
     margin-left: 1px;
-  }
-
-  .small\:mt-md {
-    margin-top: 28rem;
-  }
-
-  .small\:mr-md {
-    margin-right: 28rem;
-  }
-
-  .small\:mb-md {
-    margin-bottom: 28rem;
-  }
-
-  .small\:ml-md {
-    margin-left: 28rem;
   }
 
   .small\:-mt-1 {
@@ -85202,6 +86204,38 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .small\:-mt-72 {
+    margin-top: -18rem;
+  }
+
+  .small\:-mr-72 {
+    margin-right: -18rem;
+  }
+
+  .small\:-mb-72 {
+    margin-bottom: -18rem;
+  }
+
+  .small\:-ml-72 {
+    margin-left: -18rem;
+  }
+
+  .small\:-mt-80 {
+    margin-top: -20rem;
+  }
+
+  .small\:-mr-80 {
+    margin-right: -20rem;
+  }
+
+  .small\:-mb-80 {
+    margin-bottom: -20rem;
+  }
+
+  .small\:-ml-80 {
+    margin-left: -20rem;
+  }
+
   .small\:-mt-px {
     margin-top: -1px;
   }
@@ -85216,22 +86250,6 @@ textarea.floating-label ~ label {
 
   .small\:-ml-px {
     margin-left: -1px;
-  }
-
-  .small\:-mt-md {
-    margin-top: -28rem;
-  }
-
-  .small\:-mr-md {
-    margin-right: -28rem;
-  }
-
-  .small\:-mb-md {
-    margin-bottom: -28rem;
-  }
-
-  .small\:-ml-md {
-    margin-left: -28rem;
   }
 
   .small\:max-h-full {
@@ -85624,12 +86642,16 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
-  .small\:p-px {
-    padding: 1px;
+  .small\:p-72 {
+    padding: 18rem;
   }
 
-  .small\:p-md {
-    padding: 28rem;
+  .small\:p-80 {
+    padding: 20rem;
+  }
+
+  .small\:p-px {
+    padding: 1px;
   }
 
   .small\:py-0 {
@@ -85812,6 +86834,26 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .small\:py-72 {
+    padding-top: 18rem;
+    padding-bottom: 18rem;
+  }
+
+  .small\:px-72 {
+    padding-left: 18rem;
+    padding-right: 18rem;
+  }
+
+  .small\:py-80 {
+    padding-top: 20rem;
+    padding-bottom: 20rem;
+  }
+
+  .small\:px-80 {
+    padding-left: 20rem;
+    padding-right: 20rem;
+  }
+
   .small\:py-px {
     padding-top: 1px;
     padding-bottom: 1px;
@@ -85820,16 +86862,6 @@ textarea.floating-label ~ label {
   .small\:px-px {
     padding-left: 1px;
     padding-right: 1px;
-  }
-
-  .small\:py-md {
-    padding-top: 28rem;
-    padding-bottom: 28rem;
-  }
-
-  .small\:px-md {
-    padding-left: 28rem;
-    padding-right: 28rem;
   }
 
   .small\:pt-0 {
@@ -86120,6 +87152,38 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .small\:pt-72 {
+    padding-top: 18rem;
+  }
+
+  .small\:pr-72 {
+    padding-right: 18rem;
+  }
+
+  .small\:pb-72 {
+    padding-bottom: 18rem;
+  }
+
+  .small\:pl-72 {
+    padding-left: 18rem;
+  }
+
+  .small\:pt-80 {
+    padding-top: 20rem;
+  }
+
+  .small\:pr-80 {
+    padding-right: 20rem;
+  }
+
+  .small\:pb-80 {
+    padding-bottom: 20rem;
+  }
+
+  .small\:pl-80 {
+    padding-left: 20rem;
+  }
+
   .small\:pt-px {
     padding-top: 1px;
   }
@@ -86134,22 +87198,6 @@ textarea.floating-label ~ label {
 
   .small\:pl-px {
     padding-left: 1px;
-  }
-
-  .small\:pt-md {
-    padding-top: 28rem;
-  }
-
-  .small\:pr-md {
-    padding-right: 28rem;
-  }
-
-  .small\:pb-md {
-    padding-bottom: 28rem;
-  }
-
-  .small\:pl-md {
-    padding-left: 28rem;
   }
 
   .small\:placeholder-transparent::-webkit-input-placeholder {
@@ -92092,16 +93140,20 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .small\:w-72 {
+    width: 18rem;
+  }
+
+  .small\:w-80 {
+    width: 20rem;
+  }
+
   .small\:w-auto {
     width: auto;
   }
 
   .small\:w-px {
     width: 1px;
-  }
-
-  .small\:w-md {
-    width: 28rem;
   }
 
   .small\:w-1\/2 {
@@ -92342,14 +93394,19 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .small\:gap-72 {
+    grid-gap: 18rem;
+    gap: 18rem;
+  }
+
+  .small\:gap-80 {
+    grid-gap: 20rem;
+    gap: 20rem;
+  }
+
   .small\:gap-px {
     grid-gap: 1px;
     gap: 1px;
-  }
-
-  .small\:gap-md {
-    grid-gap: 28rem;
-    gap: 28rem;
   }
 
   .small\:col-gap-0 {
@@ -92460,16 +93517,22 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .small\:col-gap-72 {
+    grid-column-gap: 18rem;
+    -moz-column-gap: 18rem;
+         column-gap: 18rem;
+  }
+
+  .small\:col-gap-80 {
+    grid-column-gap: 20rem;
+    -moz-column-gap: 20rem;
+         column-gap: 20rem;
+  }
+
   .small\:col-gap-px {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
-  }
-
-  .small\:col-gap-md {
-    grid-column-gap: 28rem;
-    -moz-column-gap: 28rem;
-         column-gap: 28rem;
   }
 
   .small\:row-gap-0 {
@@ -92562,14 +93625,19 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .small\:row-gap-72 {
+    grid-row-gap: 18rem;
+    row-gap: 18rem;
+  }
+
+  .small\:row-gap-80 {
+    grid-row-gap: 20rem;
+    row-gap: 20rem;
+  }
+
   .small\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
-  }
-
-  .small\:row-gap-md {
-    grid-row-gap: 28rem;
-    row-gap: 28rem;
   }
 
   .small\:grid-flow-row {
@@ -93521,12 +94589,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .small\:translate-x-px {
-    --transform-translate-x: 1px;
+  .small\:translate-x-72 {
+    --transform-translate-x: 18rem;
   }
 
-  .small\:translate-x-md {
-    --transform-translate-x: 28rem;
+  .small\:translate-x-80 {
+    --transform-translate-x: 20rem;
+  }
+
+  .small\:translate-x-px {
+    --transform-translate-x: 1px;
   }
 
   .small\:-translate-x-1 {
@@ -93597,12 +94669,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .small\:-translate-x-px {
-    --transform-translate-x: -1px;
+  .small\:-translate-x-72 {
+    --transform-translate-x: -18rem;
   }
 
-  .small\:-translate-x-md {
-    --transform-translate-x: -28rem;
+  .small\:-translate-x-80 {
+    --transform-translate-x: -20rem;
+  }
+
+  .small\:-translate-x-px {
+    --transform-translate-x: -1px;
   }
 
   .small\:-translate-x-full {
@@ -93693,12 +94769,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .small\:translate-y-px {
-    --transform-translate-y: 1px;
+  .small\:translate-y-72 {
+    --transform-translate-y: 18rem;
   }
 
-  .small\:translate-y-md {
-    --transform-translate-y: 28rem;
+  .small\:translate-y-80 {
+    --transform-translate-y: 20rem;
+  }
+
+  .small\:translate-y-px {
+    --transform-translate-y: 1px;
   }
 
   .small\:-translate-y-1 {
@@ -93769,12 +94849,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .small\:-translate-y-px {
-    --transform-translate-y: -1px;
+  .small\:-translate-y-72 {
+    --transform-translate-y: -18rem;
   }
 
-  .small\:-translate-y-md {
-    --transform-translate-y: -28rem;
+  .small\:-translate-y-80 {
+    --transform-translate-y: -20rem;
+  }
+
+  .small\:-translate-y-px {
+    --transform-translate-y: -1px;
   }
 
   .small\:-translate-y-full {
@@ -93865,12 +94949,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .small\:hover\:translate-x-px:hover {
-    --transform-translate-x: 1px;
+  .small\:hover\:translate-x-72:hover {
+    --transform-translate-x: 18rem;
   }
 
-  .small\:hover\:translate-x-md:hover {
-    --transform-translate-x: 28rem;
+  .small\:hover\:translate-x-80:hover {
+    --transform-translate-x: 20rem;
+  }
+
+  .small\:hover\:translate-x-px:hover {
+    --transform-translate-x: 1px;
   }
 
   .small\:hover\:-translate-x-1:hover {
@@ -93941,12 +95029,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .small\:hover\:-translate-x-px:hover {
-    --transform-translate-x: -1px;
+  .small\:hover\:-translate-x-72:hover {
+    --transform-translate-x: -18rem;
   }
 
-  .small\:hover\:-translate-x-md:hover {
-    --transform-translate-x: -28rem;
+  .small\:hover\:-translate-x-80:hover {
+    --transform-translate-x: -20rem;
+  }
+
+  .small\:hover\:-translate-x-px:hover {
+    --transform-translate-x: -1px;
   }
 
   .small\:hover\:-translate-x-full:hover {
@@ -94037,12 +95129,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .small\:hover\:translate-y-px:hover {
-    --transform-translate-y: 1px;
+  .small\:hover\:translate-y-72:hover {
+    --transform-translate-y: 18rem;
   }
 
-  .small\:hover\:translate-y-md:hover {
-    --transform-translate-y: 28rem;
+  .small\:hover\:translate-y-80:hover {
+    --transform-translate-y: 20rem;
+  }
+
+  .small\:hover\:translate-y-px:hover {
+    --transform-translate-y: 1px;
   }
 
   .small\:hover\:-translate-y-1:hover {
@@ -94113,12 +95209,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .small\:hover\:-translate-y-px:hover {
-    --transform-translate-y: -1px;
+  .small\:hover\:-translate-y-72:hover {
+    --transform-translate-y: -18rem;
   }
 
-  .small\:hover\:-translate-y-md:hover {
-    --transform-translate-y: -28rem;
+  .small\:hover\:-translate-y-80:hover {
+    --transform-translate-y: -20rem;
+  }
+
+  .small\:hover\:-translate-y-px:hover {
+    --transform-translate-y: -1px;
   }
 
   .small\:hover\:-translate-y-full:hover {
@@ -94209,12 +95309,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .small\:focus\:translate-x-px:focus {
-    --transform-translate-x: 1px;
+  .small\:focus\:translate-x-72:focus {
+    --transform-translate-x: 18rem;
   }
 
-  .small\:focus\:translate-x-md:focus {
-    --transform-translate-x: 28rem;
+  .small\:focus\:translate-x-80:focus {
+    --transform-translate-x: 20rem;
+  }
+
+  .small\:focus\:translate-x-px:focus {
+    --transform-translate-x: 1px;
   }
 
   .small\:focus\:-translate-x-1:focus {
@@ -94285,12 +95389,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .small\:focus\:-translate-x-px:focus {
-    --transform-translate-x: -1px;
+  .small\:focus\:-translate-x-72:focus {
+    --transform-translate-x: -18rem;
   }
 
-  .small\:focus\:-translate-x-md:focus {
-    --transform-translate-x: -28rem;
+  .small\:focus\:-translate-x-80:focus {
+    --transform-translate-x: -20rem;
+  }
+
+  .small\:focus\:-translate-x-px:focus {
+    --transform-translate-x: -1px;
   }
 
   .small\:focus\:-translate-x-full:focus {
@@ -94381,12 +95489,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .small\:focus\:translate-y-px:focus {
-    --transform-translate-y: 1px;
+  .small\:focus\:translate-y-72:focus {
+    --transform-translate-y: 18rem;
   }
 
-  .small\:focus\:translate-y-md:focus {
-    --transform-translate-y: 28rem;
+  .small\:focus\:translate-y-80:focus {
+    --transform-translate-y: 20rem;
+  }
+
+  .small\:focus\:translate-y-px:focus {
+    --transform-translate-y: 1px;
   }
 
   .small\:focus\:-translate-y-1:focus {
@@ -94457,12 +95569,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .small\:focus\:-translate-y-px:focus {
-    --transform-translate-y: -1px;
+  .small\:focus\:-translate-y-72:focus {
+    --transform-translate-y: -18rem;
   }
 
-  .small\:focus\:-translate-y-md:focus {
-    --transform-translate-y: -28rem;
+  .small\:focus\:-translate-y-80:focus {
+    --transform-translate-y: -20rem;
+  }
+
+  .small\:focus\:-translate-y-px:focus {
+    --transform-translate-y: -1px;
   }
 
   .small\:focus\:-translate-y-full:focus {
@@ -94975,6 +96091,30 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .medium\:space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(18rem * var(--space-y-reverse));
+  }
+
+  .medium\:space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(18rem * var(--space-x-reverse));
+    margin-left: calc(18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .medium\:space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(20rem * var(--space-y-reverse));
+  }
+
+  .medium\:space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(20rem * var(--space-x-reverse));
+    margin-left: calc(20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .medium\:space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(1px * calc(1 - var(--space-y-reverse)));
@@ -94985,18 +96125,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .medium\:space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(28rem * var(--space-y-reverse));
-  }
-
-  .medium\:space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(28rem * var(--space-x-reverse));
-    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .medium\:-space-y-1 > :not(template) ~ :not(template) {
@@ -95203,6 +96331,30 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .medium\:-space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-18rem * var(--space-y-reverse));
+  }
+
+  .medium\:-space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-18rem * var(--space-x-reverse));
+    margin-left: calc(-18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .medium\:-space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-20rem * var(--space-y-reverse));
+  }
+
+  .medium\:-space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-20rem * var(--space-x-reverse));
+    margin-left: calc(-20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .medium\:-space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-1px * calc(1 - var(--space-y-reverse)));
@@ -95213,18 +96365,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .medium\:-space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(-28rem * var(--space-y-reverse));
-  }
-
-  .medium\:-space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(-28rem * var(--space-x-reverse));
-    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .medium\:space-y-reverse > :not(template) ~ :not(template) {
@@ -99569,16 +100709,20 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .medium\:h-72 {
+    height: 18rem;
+  }
+
+  .medium\:h-80 {
+    height: 20rem;
+  }
+
   .medium\:h-auto {
     height: auto;
   }
 
   .medium\:h-px {
     height: 1px;
-  }
-
-  .medium\:h-md {
-    height: 28rem;
   }
 
   .medium\:h-full {
@@ -99777,16 +100921,20 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .medium\:m-72 {
+    margin: 18rem;
+  }
+
+  .medium\:m-80 {
+    margin: 20rem;
+  }
+
   .medium\:m-auto {
     margin: auto;
   }
 
   .medium\:m-px {
     margin: 1px;
-  }
-
-  .medium\:m-md {
-    margin: 28rem;
   }
 
   .medium\:-m-1 {
@@ -99857,12 +101005,16 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
-  .medium\:-m-px {
-    margin: -1px;
+  .medium\:-m-72 {
+    margin: -18rem;
   }
 
-  .medium\:-m-md {
-    margin: -28rem;
+  .medium\:-m-80 {
+    margin: -20rem;
+  }
+
+  .medium\:-m-px {
+    margin: -1px;
   }
 
   .medium\:my-0 {
@@ -100045,6 +101197,26 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .medium\:my-72 {
+    margin-top: 18rem;
+    margin-bottom: 18rem;
+  }
+
+  .medium\:mx-72 {
+    margin-left: 18rem;
+    margin-right: 18rem;
+  }
+
+  .medium\:my-80 {
+    margin-top: 20rem;
+    margin-bottom: 20rem;
+  }
+
+  .medium\:mx-80 {
+    margin-left: 20rem;
+    margin-right: 20rem;
+  }
+
   .medium\:my-auto {
     margin-top: auto;
     margin-bottom: auto;
@@ -100063,16 +101235,6 @@ textarea.floating-label ~ label {
   .medium\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
-  }
-
-  .medium\:my-md {
-    margin-top: 28rem;
-    margin-bottom: 28rem;
-  }
-
-  .medium\:mx-md {
-    margin-left: 28rem;
-    margin-right: 28rem;
   }
 
   .medium\:-my-1 {
@@ -100245,6 +101407,26 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .medium\:-my-72 {
+    margin-top: -18rem;
+    margin-bottom: -18rem;
+  }
+
+  .medium\:-mx-72 {
+    margin-left: -18rem;
+    margin-right: -18rem;
+  }
+
+  .medium\:-my-80 {
+    margin-top: -20rem;
+    margin-bottom: -20rem;
+  }
+
+  .medium\:-mx-80 {
+    margin-left: -20rem;
+    margin-right: -20rem;
+  }
+
   .medium\:-my-px {
     margin-top: -1px;
     margin-bottom: -1px;
@@ -100253,16 +101435,6 @@ textarea.floating-label ~ label {
   .medium\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
-  }
-
-  .medium\:-my-md {
-    margin-top: -28rem;
-    margin-bottom: -28rem;
-  }
-
-  .medium\:-mx-md {
-    margin-left: -28rem;
-    margin-right: -28rem;
   }
 
   .medium\:mt-0 {
@@ -100553,6 +101725,38 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .medium\:mt-72 {
+    margin-top: 18rem;
+  }
+
+  .medium\:mr-72 {
+    margin-right: 18rem;
+  }
+
+  .medium\:mb-72 {
+    margin-bottom: 18rem;
+  }
+
+  .medium\:ml-72 {
+    margin-left: 18rem;
+  }
+
+  .medium\:mt-80 {
+    margin-top: 20rem;
+  }
+
+  .medium\:mr-80 {
+    margin-right: 20rem;
+  }
+
+  .medium\:mb-80 {
+    margin-bottom: 20rem;
+  }
+
+  .medium\:ml-80 {
+    margin-left: 20rem;
+  }
+
   .medium\:mt-auto {
     margin-top: auto;
   }
@@ -100583,22 +101787,6 @@ textarea.floating-label ~ label {
 
   .medium\:ml-px {
     margin-left: 1px;
-  }
-
-  .medium\:mt-md {
-    margin-top: 28rem;
-  }
-
-  .medium\:mr-md {
-    margin-right: 28rem;
-  }
-
-  .medium\:mb-md {
-    margin-bottom: 28rem;
-  }
-
-  .medium\:ml-md {
-    margin-left: 28rem;
   }
 
   .medium\:-mt-1 {
@@ -100873,6 +102061,38 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .medium\:-mt-72 {
+    margin-top: -18rem;
+  }
+
+  .medium\:-mr-72 {
+    margin-right: -18rem;
+  }
+
+  .medium\:-mb-72 {
+    margin-bottom: -18rem;
+  }
+
+  .medium\:-ml-72 {
+    margin-left: -18rem;
+  }
+
+  .medium\:-mt-80 {
+    margin-top: -20rem;
+  }
+
+  .medium\:-mr-80 {
+    margin-right: -20rem;
+  }
+
+  .medium\:-mb-80 {
+    margin-bottom: -20rem;
+  }
+
+  .medium\:-ml-80 {
+    margin-left: -20rem;
+  }
+
   .medium\:-mt-px {
     margin-top: -1px;
   }
@@ -100887,22 +102107,6 @@ textarea.floating-label ~ label {
 
   .medium\:-ml-px {
     margin-left: -1px;
-  }
-
-  .medium\:-mt-md {
-    margin-top: -28rem;
-  }
-
-  .medium\:-mr-md {
-    margin-right: -28rem;
-  }
-
-  .medium\:-mb-md {
-    margin-bottom: -28rem;
-  }
-
-  .medium\:-ml-md {
-    margin-left: -28rem;
   }
 
   .medium\:max-h-full {
@@ -101295,12 +102499,16 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
-  .medium\:p-px {
-    padding: 1px;
+  .medium\:p-72 {
+    padding: 18rem;
   }
 
-  .medium\:p-md {
-    padding: 28rem;
+  .medium\:p-80 {
+    padding: 20rem;
+  }
+
+  .medium\:p-px {
+    padding: 1px;
   }
 
   .medium\:py-0 {
@@ -101483,6 +102691,26 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .medium\:py-72 {
+    padding-top: 18rem;
+    padding-bottom: 18rem;
+  }
+
+  .medium\:px-72 {
+    padding-left: 18rem;
+    padding-right: 18rem;
+  }
+
+  .medium\:py-80 {
+    padding-top: 20rem;
+    padding-bottom: 20rem;
+  }
+
+  .medium\:px-80 {
+    padding-left: 20rem;
+    padding-right: 20rem;
+  }
+
   .medium\:py-px {
     padding-top: 1px;
     padding-bottom: 1px;
@@ -101491,16 +102719,6 @@ textarea.floating-label ~ label {
   .medium\:px-px {
     padding-left: 1px;
     padding-right: 1px;
-  }
-
-  .medium\:py-md {
-    padding-top: 28rem;
-    padding-bottom: 28rem;
-  }
-
-  .medium\:px-md {
-    padding-left: 28rem;
-    padding-right: 28rem;
   }
 
   .medium\:pt-0 {
@@ -101791,6 +103009,38 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .medium\:pt-72 {
+    padding-top: 18rem;
+  }
+
+  .medium\:pr-72 {
+    padding-right: 18rem;
+  }
+
+  .medium\:pb-72 {
+    padding-bottom: 18rem;
+  }
+
+  .medium\:pl-72 {
+    padding-left: 18rem;
+  }
+
+  .medium\:pt-80 {
+    padding-top: 20rem;
+  }
+
+  .medium\:pr-80 {
+    padding-right: 20rem;
+  }
+
+  .medium\:pb-80 {
+    padding-bottom: 20rem;
+  }
+
+  .medium\:pl-80 {
+    padding-left: 20rem;
+  }
+
   .medium\:pt-px {
     padding-top: 1px;
   }
@@ -101805,22 +103055,6 @@ textarea.floating-label ~ label {
 
   .medium\:pl-px {
     padding-left: 1px;
-  }
-
-  .medium\:pt-md {
-    padding-top: 28rem;
-  }
-
-  .medium\:pr-md {
-    padding-right: 28rem;
-  }
-
-  .medium\:pb-md {
-    padding-bottom: 28rem;
-  }
-
-  .medium\:pl-md {
-    padding-left: 28rem;
   }
 
   .medium\:placeholder-transparent::-webkit-input-placeholder {
@@ -107763,16 +108997,20 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .medium\:w-72 {
+    width: 18rem;
+  }
+
+  .medium\:w-80 {
+    width: 20rem;
+  }
+
   .medium\:w-auto {
     width: auto;
   }
 
   .medium\:w-px {
     width: 1px;
-  }
-
-  .medium\:w-md {
-    width: 28rem;
   }
 
   .medium\:w-1\/2 {
@@ -108013,14 +109251,19 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .medium\:gap-72 {
+    grid-gap: 18rem;
+    gap: 18rem;
+  }
+
+  .medium\:gap-80 {
+    grid-gap: 20rem;
+    gap: 20rem;
+  }
+
   .medium\:gap-px {
     grid-gap: 1px;
     gap: 1px;
-  }
-
-  .medium\:gap-md {
-    grid-gap: 28rem;
-    gap: 28rem;
   }
 
   .medium\:col-gap-0 {
@@ -108131,16 +109374,22 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .medium\:col-gap-72 {
+    grid-column-gap: 18rem;
+    -moz-column-gap: 18rem;
+         column-gap: 18rem;
+  }
+
+  .medium\:col-gap-80 {
+    grid-column-gap: 20rem;
+    -moz-column-gap: 20rem;
+         column-gap: 20rem;
+  }
+
   .medium\:col-gap-px {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
-  }
-
-  .medium\:col-gap-md {
-    grid-column-gap: 28rem;
-    -moz-column-gap: 28rem;
-         column-gap: 28rem;
   }
 
   .medium\:row-gap-0 {
@@ -108233,14 +109482,19 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .medium\:row-gap-72 {
+    grid-row-gap: 18rem;
+    row-gap: 18rem;
+  }
+
+  .medium\:row-gap-80 {
+    grid-row-gap: 20rem;
+    row-gap: 20rem;
+  }
+
   .medium\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
-  }
-
-  .medium\:row-gap-md {
-    grid-row-gap: 28rem;
-    row-gap: 28rem;
   }
 
   .medium\:grid-flow-row {
@@ -109192,12 +110446,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .medium\:translate-x-px {
-    --transform-translate-x: 1px;
+  .medium\:translate-x-72 {
+    --transform-translate-x: 18rem;
   }
 
-  .medium\:translate-x-md {
-    --transform-translate-x: 28rem;
+  .medium\:translate-x-80 {
+    --transform-translate-x: 20rem;
+  }
+
+  .medium\:translate-x-px {
+    --transform-translate-x: 1px;
   }
 
   .medium\:-translate-x-1 {
@@ -109268,12 +110526,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .medium\:-translate-x-px {
-    --transform-translate-x: -1px;
+  .medium\:-translate-x-72 {
+    --transform-translate-x: -18rem;
   }
 
-  .medium\:-translate-x-md {
-    --transform-translate-x: -28rem;
+  .medium\:-translate-x-80 {
+    --transform-translate-x: -20rem;
+  }
+
+  .medium\:-translate-x-px {
+    --transform-translate-x: -1px;
   }
 
   .medium\:-translate-x-full {
@@ -109364,12 +110626,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .medium\:translate-y-px {
-    --transform-translate-y: 1px;
+  .medium\:translate-y-72 {
+    --transform-translate-y: 18rem;
   }
 
-  .medium\:translate-y-md {
-    --transform-translate-y: 28rem;
+  .medium\:translate-y-80 {
+    --transform-translate-y: 20rem;
+  }
+
+  .medium\:translate-y-px {
+    --transform-translate-y: 1px;
   }
 
   .medium\:-translate-y-1 {
@@ -109440,12 +110706,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .medium\:-translate-y-px {
-    --transform-translate-y: -1px;
+  .medium\:-translate-y-72 {
+    --transform-translate-y: -18rem;
   }
 
-  .medium\:-translate-y-md {
-    --transform-translate-y: -28rem;
+  .medium\:-translate-y-80 {
+    --transform-translate-y: -20rem;
+  }
+
+  .medium\:-translate-y-px {
+    --transform-translate-y: -1px;
   }
 
   .medium\:-translate-y-full {
@@ -109536,12 +110806,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .medium\:hover\:translate-x-px:hover {
-    --transform-translate-x: 1px;
+  .medium\:hover\:translate-x-72:hover {
+    --transform-translate-x: 18rem;
   }
 
-  .medium\:hover\:translate-x-md:hover {
-    --transform-translate-x: 28rem;
+  .medium\:hover\:translate-x-80:hover {
+    --transform-translate-x: 20rem;
+  }
+
+  .medium\:hover\:translate-x-px:hover {
+    --transform-translate-x: 1px;
   }
 
   .medium\:hover\:-translate-x-1:hover {
@@ -109612,12 +110886,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .medium\:hover\:-translate-x-px:hover {
-    --transform-translate-x: -1px;
+  .medium\:hover\:-translate-x-72:hover {
+    --transform-translate-x: -18rem;
   }
 
-  .medium\:hover\:-translate-x-md:hover {
-    --transform-translate-x: -28rem;
+  .medium\:hover\:-translate-x-80:hover {
+    --transform-translate-x: -20rem;
+  }
+
+  .medium\:hover\:-translate-x-px:hover {
+    --transform-translate-x: -1px;
   }
 
   .medium\:hover\:-translate-x-full:hover {
@@ -109708,12 +110986,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .medium\:hover\:translate-y-px:hover {
-    --transform-translate-y: 1px;
+  .medium\:hover\:translate-y-72:hover {
+    --transform-translate-y: 18rem;
   }
 
-  .medium\:hover\:translate-y-md:hover {
-    --transform-translate-y: 28rem;
+  .medium\:hover\:translate-y-80:hover {
+    --transform-translate-y: 20rem;
+  }
+
+  .medium\:hover\:translate-y-px:hover {
+    --transform-translate-y: 1px;
   }
 
   .medium\:hover\:-translate-y-1:hover {
@@ -109784,12 +111066,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .medium\:hover\:-translate-y-px:hover {
-    --transform-translate-y: -1px;
+  .medium\:hover\:-translate-y-72:hover {
+    --transform-translate-y: -18rem;
   }
 
-  .medium\:hover\:-translate-y-md:hover {
-    --transform-translate-y: -28rem;
+  .medium\:hover\:-translate-y-80:hover {
+    --transform-translate-y: -20rem;
+  }
+
+  .medium\:hover\:-translate-y-px:hover {
+    --transform-translate-y: -1px;
   }
 
   .medium\:hover\:-translate-y-full:hover {
@@ -109880,12 +111166,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .medium\:focus\:translate-x-px:focus {
-    --transform-translate-x: 1px;
+  .medium\:focus\:translate-x-72:focus {
+    --transform-translate-x: 18rem;
   }
 
-  .medium\:focus\:translate-x-md:focus {
-    --transform-translate-x: 28rem;
+  .medium\:focus\:translate-x-80:focus {
+    --transform-translate-x: 20rem;
+  }
+
+  .medium\:focus\:translate-x-px:focus {
+    --transform-translate-x: 1px;
   }
 
   .medium\:focus\:-translate-x-1:focus {
@@ -109956,12 +111246,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .medium\:focus\:-translate-x-px:focus {
-    --transform-translate-x: -1px;
+  .medium\:focus\:-translate-x-72:focus {
+    --transform-translate-x: -18rem;
   }
 
-  .medium\:focus\:-translate-x-md:focus {
-    --transform-translate-x: -28rem;
+  .medium\:focus\:-translate-x-80:focus {
+    --transform-translate-x: -20rem;
+  }
+
+  .medium\:focus\:-translate-x-px:focus {
+    --transform-translate-x: -1px;
   }
 
   .medium\:focus\:-translate-x-full:focus {
@@ -110052,12 +111346,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .medium\:focus\:translate-y-px:focus {
-    --transform-translate-y: 1px;
+  .medium\:focus\:translate-y-72:focus {
+    --transform-translate-y: 18rem;
   }
 
-  .medium\:focus\:translate-y-md:focus {
-    --transform-translate-y: 28rem;
+  .medium\:focus\:translate-y-80:focus {
+    --transform-translate-y: 20rem;
+  }
+
+  .medium\:focus\:translate-y-px:focus {
+    --transform-translate-y: 1px;
   }
 
   .medium\:focus\:-translate-y-1:focus {
@@ -110128,12 +111426,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .medium\:focus\:-translate-y-px:focus {
-    --transform-translate-y: -1px;
+  .medium\:focus\:-translate-y-72:focus {
+    --transform-translate-y: -18rem;
   }
 
-  .medium\:focus\:-translate-y-md:focus {
-    --transform-translate-y: -28rem;
+  .medium\:focus\:-translate-y-80:focus {
+    --transform-translate-y: -20rem;
+  }
+
+  .medium\:focus\:-translate-y-px:focus {
+    --transform-translate-y: -1px;
   }
 
   .medium\:focus\:-translate-y-full:focus {
@@ -110646,6 +111948,30 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .large\:space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(18rem * var(--space-y-reverse));
+  }
+
+  .large\:space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(18rem * var(--space-x-reverse));
+    margin-left: calc(18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .large\:space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(20rem * var(--space-y-reverse));
+  }
+
+  .large\:space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(20rem * var(--space-x-reverse));
+    margin-left: calc(20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .large\:space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(1px * calc(1 - var(--space-y-reverse)));
@@ -110656,18 +111982,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .large\:space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(28rem * var(--space-y-reverse));
-  }
-
-  .large\:space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(28rem * var(--space-x-reverse));
-    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .large\:-space-y-1 > :not(template) ~ :not(template) {
@@ -110874,6 +112188,30 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .large\:-space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-18rem * var(--space-y-reverse));
+  }
+
+  .large\:-space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-18rem * var(--space-x-reverse));
+    margin-left: calc(-18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .large\:-space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-20rem * var(--space-y-reverse));
+  }
+
+  .large\:-space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-20rem * var(--space-x-reverse));
+    margin-left: calc(-20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .large\:-space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-1px * calc(1 - var(--space-y-reverse)));
@@ -110884,18 +112222,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .large\:-space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(-28rem * var(--space-y-reverse));
-  }
-
-  .large\:-space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(-28rem * var(--space-x-reverse));
-    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .large\:space-y-reverse > :not(template) ~ :not(template) {
@@ -115240,16 +116566,20 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .large\:h-72 {
+    height: 18rem;
+  }
+
+  .large\:h-80 {
+    height: 20rem;
+  }
+
   .large\:h-auto {
     height: auto;
   }
 
   .large\:h-px {
     height: 1px;
-  }
-
-  .large\:h-md {
-    height: 28rem;
   }
 
   .large\:h-full {
@@ -115448,16 +116778,20 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .large\:m-72 {
+    margin: 18rem;
+  }
+
+  .large\:m-80 {
+    margin: 20rem;
+  }
+
   .large\:m-auto {
     margin: auto;
   }
 
   .large\:m-px {
     margin: 1px;
-  }
-
-  .large\:m-md {
-    margin: 28rem;
   }
 
   .large\:-m-1 {
@@ -115528,12 +116862,16 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
-  .large\:-m-px {
-    margin: -1px;
+  .large\:-m-72 {
+    margin: -18rem;
   }
 
-  .large\:-m-md {
-    margin: -28rem;
+  .large\:-m-80 {
+    margin: -20rem;
+  }
+
+  .large\:-m-px {
+    margin: -1px;
   }
 
   .large\:my-0 {
@@ -115716,6 +117054,26 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .large\:my-72 {
+    margin-top: 18rem;
+    margin-bottom: 18rem;
+  }
+
+  .large\:mx-72 {
+    margin-left: 18rem;
+    margin-right: 18rem;
+  }
+
+  .large\:my-80 {
+    margin-top: 20rem;
+    margin-bottom: 20rem;
+  }
+
+  .large\:mx-80 {
+    margin-left: 20rem;
+    margin-right: 20rem;
+  }
+
   .large\:my-auto {
     margin-top: auto;
     margin-bottom: auto;
@@ -115734,16 +117092,6 @@ textarea.floating-label ~ label {
   .large\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
-  }
-
-  .large\:my-md {
-    margin-top: 28rem;
-    margin-bottom: 28rem;
-  }
-
-  .large\:mx-md {
-    margin-left: 28rem;
-    margin-right: 28rem;
   }
 
   .large\:-my-1 {
@@ -115916,6 +117264,26 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .large\:-my-72 {
+    margin-top: -18rem;
+    margin-bottom: -18rem;
+  }
+
+  .large\:-mx-72 {
+    margin-left: -18rem;
+    margin-right: -18rem;
+  }
+
+  .large\:-my-80 {
+    margin-top: -20rem;
+    margin-bottom: -20rem;
+  }
+
+  .large\:-mx-80 {
+    margin-left: -20rem;
+    margin-right: -20rem;
+  }
+
   .large\:-my-px {
     margin-top: -1px;
     margin-bottom: -1px;
@@ -115924,16 +117292,6 @@ textarea.floating-label ~ label {
   .large\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
-  }
-
-  .large\:-my-md {
-    margin-top: -28rem;
-    margin-bottom: -28rem;
-  }
-
-  .large\:-mx-md {
-    margin-left: -28rem;
-    margin-right: -28rem;
   }
 
   .large\:mt-0 {
@@ -116224,6 +117582,38 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .large\:mt-72 {
+    margin-top: 18rem;
+  }
+
+  .large\:mr-72 {
+    margin-right: 18rem;
+  }
+
+  .large\:mb-72 {
+    margin-bottom: 18rem;
+  }
+
+  .large\:ml-72 {
+    margin-left: 18rem;
+  }
+
+  .large\:mt-80 {
+    margin-top: 20rem;
+  }
+
+  .large\:mr-80 {
+    margin-right: 20rem;
+  }
+
+  .large\:mb-80 {
+    margin-bottom: 20rem;
+  }
+
+  .large\:ml-80 {
+    margin-left: 20rem;
+  }
+
   .large\:mt-auto {
     margin-top: auto;
   }
@@ -116254,22 +117644,6 @@ textarea.floating-label ~ label {
 
   .large\:ml-px {
     margin-left: 1px;
-  }
-
-  .large\:mt-md {
-    margin-top: 28rem;
-  }
-
-  .large\:mr-md {
-    margin-right: 28rem;
-  }
-
-  .large\:mb-md {
-    margin-bottom: 28rem;
-  }
-
-  .large\:ml-md {
-    margin-left: 28rem;
   }
 
   .large\:-mt-1 {
@@ -116544,6 +117918,38 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .large\:-mt-72 {
+    margin-top: -18rem;
+  }
+
+  .large\:-mr-72 {
+    margin-right: -18rem;
+  }
+
+  .large\:-mb-72 {
+    margin-bottom: -18rem;
+  }
+
+  .large\:-ml-72 {
+    margin-left: -18rem;
+  }
+
+  .large\:-mt-80 {
+    margin-top: -20rem;
+  }
+
+  .large\:-mr-80 {
+    margin-right: -20rem;
+  }
+
+  .large\:-mb-80 {
+    margin-bottom: -20rem;
+  }
+
+  .large\:-ml-80 {
+    margin-left: -20rem;
+  }
+
   .large\:-mt-px {
     margin-top: -1px;
   }
@@ -116558,22 +117964,6 @@ textarea.floating-label ~ label {
 
   .large\:-ml-px {
     margin-left: -1px;
-  }
-
-  .large\:-mt-md {
-    margin-top: -28rem;
-  }
-
-  .large\:-mr-md {
-    margin-right: -28rem;
-  }
-
-  .large\:-mb-md {
-    margin-bottom: -28rem;
-  }
-
-  .large\:-ml-md {
-    margin-left: -28rem;
   }
 
   .large\:max-h-full {
@@ -116966,12 +118356,16 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
-  .large\:p-px {
-    padding: 1px;
+  .large\:p-72 {
+    padding: 18rem;
   }
 
-  .large\:p-md {
-    padding: 28rem;
+  .large\:p-80 {
+    padding: 20rem;
+  }
+
+  .large\:p-px {
+    padding: 1px;
   }
 
   .large\:py-0 {
@@ -117154,6 +118548,26 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .large\:py-72 {
+    padding-top: 18rem;
+    padding-bottom: 18rem;
+  }
+
+  .large\:px-72 {
+    padding-left: 18rem;
+    padding-right: 18rem;
+  }
+
+  .large\:py-80 {
+    padding-top: 20rem;
+    padding-bottom: 20rem;
+  }
+
+  .large\:px-80 {
+    padding-left: 20rem;
+    padding-right: 20rem;
+  }
+
   .large\:py-px {
     padding-top: 1px;
     padding-bottom: 1px;
@@ -117162,16 +118576,6 @@ textarea.floating-label ~ label {
   .large\:px-px {
     padding-left: 1px;
     padding-right: 1px;
-  }
-
-  .large\:py-md {
-    padding-top: 28rem;
-    padding-bottom: 28rem;
-  }
-
-  .large\:px-md {
-    padding-left: 28rem;
-    padding-right: 28rem;
   }
 
   .large\:pt-0 {
@@ -117462,6 +118866,38 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .large\:pt-72 {
+    padding-top: 18rem;
+  }
+
+  .large\:pr-72 {
+    padding-right: 18rem;
+  }
+
+  .large\:pb-72 {
+    padding-bottom: 18rem;
+  }
+
+  .large\:pl-72 {
+    padding-left: 18rem;
+  }
+
+  .large\:pt-80 {
+    padding-top: 20rem;
+  }
+
+  .large\:pr-80 {
+    padding-right: 20rem;
+  }
+
+  .large\:pb-80 {
+    padding-bottom: 20rem;
+  }
+
+  .large\:pl-80 {
+    padding-left: 20rem;
+  }
+
   .large\:pt-px {
     padding-top: 1px;
   }
@@ -117476,22 +118912,6 @@ textarea.floating-label ~ label {
 
   .large\:pl-px {
     padding-left: 1px;
-  }
-
-  .large\:pt-md {
-    padding-top: 28rem;
-  }
-
-  .large\:pr-md {
-    padding-right: 28rem;
-  }
-
-  .large\:pb-md {
-    padding-bottom: 28rem;
-  }
-
-  .large\:pl-md {
-    padding-left: 28rem;
   }
 
   .large\:placeholder-transparent::-webkit-input-placeholder {
@@ -123434,16 +124854,20 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .large\:w-72 {
+    width: 18rem;
+  }
+
+  .large\:w-80 {
+    width: 20rem;
+  }
+
   .large\:w-auto {
     width: auto;
   }
 
   .large\:w-px {
     width: 1px;
-  }
-
-  .large\:w-md {
-    width: 28rem;
   }
 
   .large\:w-1\/2 {
@@ -123684,14 +125108,19 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .large\:gap-72 {
+    grid-gap: 18rem;
+    gap: 18rem;
+  }
+
+  .large\:gap-80 {
+    grid-gap: 20rem;
+    gap: 20rem;
+  }
+
   .large\:gap-px {
     grid-gap: 1px;
     gap: 1px;
-  }
-
-  .large\:gap-md {
-    grid-gap: 28rem;
-    gap: 28rem;
   }
 
   .large\:col-gap-0 {
@@ -123802,16 +125231,22 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .large\:col-gap-72 {
+    grid-column-gap: 18rem;
+    -moz-column-gap: 18rem;
+         column-gap: 18rem;
+  }
+
+  .large\:col-gap-80 {
+    grid-column-gap: 20rem;
+    -moz-column-gap: 20rem;
+         column-gap: 20rem;
+  }
+
   .large\:col-gap-px {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
-  }
-
-  .large\:col-gap-md {
-    grid-column-gap: 28rem;
-    -moz-column-gap: 28rem;
-         column-gap: 28rem;
   }
 
   .large\:row-gap-0 {
@@ -123904,14 +125339,19 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .large\:row-gap-72 {
+    grid-row-gap: 18rem;
+    row-gap: 18rem;
+  }
+
+  .large\:row-gap-80 {
+    grid-row-gap: 20rem;
+    row-gap: 20rem;
+  }
+
   .large\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
-  }
-
-  .large\:row-gap-md {
-    grid-row-gap: 28rem;
-    row-gap: 28rem;
   }
 
   .large\:grid-flow-row {
@@ -124863,12 +126303,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .large\:translate-x-px {
-    --transform-translate-x: 1px;
+  .large\:translate-x-72 {
+    --transform-translate-x: 18rem;
   }
 
-  .large\:translate-x-md {
-    --transform-translate-x: 28rem;
+  .large\:translate-x-80 {
+    --transform-translate-x: 20rem;
+  }
+
+  .large\:translate-x-px {
+    --transform-translate-x: 1px;
   }
 
   .large\:-translate-x-1 {
@@ -124939,12 +126383,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .large\:-translate-x-px {
-    --transform-translate-x: -1px;
+  .large\:-translate-x-72 {
+    --transform-translate-x: -18rem;
   }
 
-  .large\:-translate-x-md {
-    --transform-translate-x: -28rem;
+  .large\:-translate-x-80 {
+    --transform-translate-x: -20rem;
+  }
+
+  .large\:-translate-x-px {
+    --transform-translate-x: -1px;
   }
 
   .large\:-translate-x-full {
@@ -125035,12 +126483,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .large\:translate-y-px {
-    --transform-translate-y: 1px;
+  .large\:translate-y-72 {
+    --transform-translate-y: 18rem;
   }
 
-  .large\:translate-y-md {
-    --transform-translate-y: 28rem;
+  .large\:translate-y-80 {
+    --transform-translate-y: 20rem;
+  }
+
+  .large\:translate-y-px {
+    --transform-translate-y: 1px;
   }
 
   .large\:-translate-y-1 {
@@ -125111,12 +126563,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .large\:-translate-y-px {
-    --transform-translate-y: -1px;
+  .large\:-translate-y-72 {
+    --transform-translate-y: -18rem;
   }
 
-  .large\:-translate-y-md {
-    --transform-translate-y: -28rem;
+  .large\:-translate-y-80 {
+    --transform-translate-y: -20rem;
+  }
+
+  .large\:-translate-y-px {
+    --transform-translate-y: -1px;
   }
 
   .large\:-translate-y-full {
@@ -125207,12 +126663,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .large\:hover\:translate-x-px:hover {
-    --transform-translate-x: 1px;
+  .large\:hover\:translate-x-72:hover {
+    --transform-translate-x: 18rem;
   }
 
-  .large\:hover\:translate-x-md:hover {
-    --transform-translate-x: 28rem;
+  .large\:hover\:translate-x-80:hover {
+    --transform-translate-x: 20rem;
+  }
+
+  .large\:hover\:translate-x-px:hover {
+    --transform-translate-x: 1px;
   }
 
   .large\:hover\:-translate-x-1:hover {
@@ -125283,12 +126743,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .large\:hover\:-translate-x-px:hover {
-    --transform-translate-x: -1px;
+  .large\:hover\:-translate-x-72:hover {
+    --transform-translate-x: -18rem;
   }
 
-  .large\:hover\:-translate-x-md:hover {
-    --transform-translate-x: -28rem;
+  .large\:hover\:-translate-x-80:hover {
+    --transform-translate-x: -20rem;
+  }
+
+  .large\:hover\:-translate-x-px:hover {
+    --transform-translate-x: -1px;
   }
 
   .large\:hover\:-translate-x-full:hover {
@@ -125379,12 +126843,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .large\:hover\:translate-y-px:hover {
-    --transform-translate-y: 1px;
+  .large\:hover\:translate-y-72:hover {
+    --transform-translate-y: 18rem;
   }
 
-  .large\:hover\:translate-y-md:hover {
-    --transform-translate-y: 28rem;
+  .large\:hover\:translate-y-80:hover {
+    --transform-translate-y: 20rem;
+  }
+
+  .large\:hover\:translate-y-px:hover {
+    --transform-translate-y: 1px;
   }
 
   .large\:hover\:-translate-y-1:hover {
@@ -125455,12 +126923,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .large\:hover\:-translate-y-px:hover {
-    --transform-translate-y: -1px;
+  .large\:hover\:-translate-y-72:hover {
+    --transform-translate-y: -18rem;
   }
 
-  .large\:hover\:-translate-y-md:hover {
-    --transform-translate-y: -28rem;
+  .large\:hover\:-translate-y-80:hover {
+    --transform-translate-y: -20rem;
+  }
+
+  .large\:hover\:-translate-y-px:hover {
+    --transform-translate-y: -1px;
   }
 
   .large\:hover\:-translate-y-full:hover {
@@ -125551,12 +127023,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .large\:focus\:translate-x-px:focus {
-    --transform-translate-x: 1px;
+  .large\:focus\:translate-x-72:focus {
+    --transform-translate-x: 18rem;
   }
 
-  .large\:focus\:translate-x-md:focus {
-    --transform-translate-x: 28rem;
+  .large\:focus\:translate-x-80:focus {
+    --transform-translate-x: 20rem;
+  }
+
+  .large\:focus\:translate-x-px:focus {
+    --transform-translate-x: 1px;
   }
 
   .large\:focus\:-translate-x-1:focus {
@@ -125627,12 +127103,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .large\:focus\:-translate-x-px:focus {
-    --transform-translate-x: -1px;
+  .large\:focus\:-translate-x-72:focus {
+    --transform-translate-x: -18rem;
   }
 
-  .large\:focus\:-translate-x-md:focus {
-    --transform-translate-x: -28rem;
+  .large\:focus\:-translate-x-80:focus {
+    --transform-translate-x: -20rem;
+  }
+
+  .large\:focus\:-translate-x-px:focus {
+    --transform-translate-x: -1px;
   }
 
   .large\:focus\:-translate-x-full:focus {
@@ -125723,12 +127203,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .large\:focus\:translate-y-px:focus {
-    --transform-translate-y: 1px;
+  .large\:focus\:translate-y-72:focus {
+    --transform-translate-y: 18rem;
   }
 
-  .large\:focus\:translate-y-md:focus {
-    --transform-translate-y: 28rem;
+  .large\:focus\:translate-y-80:focus {
+    --transform-translate-y: 20rem;
+  }
+
+  .large\:focus\:translate-y-px:focus {
+    --transform-translate-y: 1px;
   }
 
   .large\:focus\:-translate-y-1:focus {
@@ -125799,12 +127283,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .large\:focus\:-translate-y-px:focus {
-    --transform-translate-y: -1px;
+  .large\:focus\:-translate-y-72:focus {
+    --transform-translate-y: -18rem;
   }
 
-  .large\:focus\:-translate-y-md:focus {
-    --transform-translate-y: -28rem;
+  .large\:focus\:-translate-y-80:focus {
+    --transform-translate-y: -20rem;
+  }
+
+  .large\:focus\:-translate-y-px:focus {
+    --transform-translate-y: -1px;
   }
 
   .large\:focus\:-translate-y-full:focus {
@@ -126317,6 +127805,30 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .x-large\:space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(18rem * var(--space-y-reverse));
+  }
+
+  .x-large\:space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(18rem * var(--space-x-reverse));
+    margin-left: calc(18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .x-large\:space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(20rem * var(--space-y-reverse));
+  }
+
+  .x-large\:space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(20rem * var(--space-x-reverse));
+    margin-left: calc(20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .x-large\:space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(1px * calc(1 - var(--space-y-reverse)));
@@ -126327,18 +127839,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .x-large\:space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(28rem * var(--space-y-reverse));
-  }
-
-  .x-large\:space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(28rem * var(--space-x-reverse));
-    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .x-large\:-space-y-1 > :not(template) ~ :not(template) {
@@ -126545,6 +128045,30 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .x-large\:-space-y-72 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-18rem * var(--space-y-reverse));
+  }
+
+  .x-large\:-space-x-72 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-18rem * var(--space-x-reverse));
+    margin-left: calc(-18rem * calc(1 - var(--space-x-reverse)));
+  }
+
+  .x-large\:-space-y-80 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-20rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-20rem * var(--space-y-reverse));
+  }
+
+  .x-large\:-space-x-80 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-20rem * var(--space-x-reverse));
+    margin-left: calc(-20rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .x-large\:-space-y-px > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-1px * calc(1 - var(--space-y-reverse)));
@@ -126555,18 +128079,6 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
-  }
-
-  .x-large\:-space-y-md > :not(template) ~ :not(template) {
-    --space-y-reverse: 0;
-    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
-    margin-bottom: calc(-28rem * var(--space-y-reverse));
-  }
-
-  .x-large\:-space-x-md > :not(template) ~ :not(template) {
-    --space-x-reverse: 0;
-    margin-right: calc(-28rem * var(--space-x-reverse));
-    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .x-large\:space-y-reverse > :not(template) ~ :not(template) {
@@ -130911,16 +132423,20 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .x-large\:h-72 {
+    height: 18rem;
+  }
+
+  .x-large\:h-80 {
+    height: 20rem;
+  }
+
   .x-large\:h-auto {
     height: auto;
   }
 
   .x-large\:h-px {
     height: 1px;
-  }
-
-  .x-large\:h-md {
-    height: 28rem;
   }
 
   .x-large\:h-full {
@@ -131119,16 +132635,20 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .x-large\:m-72 {
+    margin: 18rem;
+  }
+
+  .x-large\:m-80 {
+    margin: 20rem;
+  }
+
   .x-large\:m-auto {
     margin: auto;
   }
 
   .x-large\:m-px {
     margin: 1px;
-  }
-
-  .x-large\:m-md {
-    margin: 28rem;
   }
 
   .x-large\:-m-1 {
@@ -131199,12 +132719,16 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
-  .x-large\:-m-px {
-    margin: -1px;
+  .x-large\:-m-72 {
+    margin: -18rem;
   }
 
-  .x-large\:-m-md {
-    margin: -28rem;
+  .x-large\:-m-80 {
+    margin: -20rem;
+  }
+
+  .x-large\:-m-px {
+    margin: -1px;
   }
 
   .x-large\:my-0 {
@@ -131387,6 +132911,26 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .x-large\:my-72 {
+    margin-top: 18rem;
+    margin-bottom: 18rem;
+  }
+
+  .x-large\:mx-72 {
+    margin-left: 18rem;
+    margin-right: 18rem;
+  }
+
+  .x-large\:my-80 {
+    margin-top: 20rem;
+    margin-bottom: 20rem;
+  }
+
+  .x-large\:mx-80 {
+    margin-left: 20rem;
+    margin-right: 20rem;
+  }
+
   .x-large\:my-auto {
     margin-top: auto;
     margin-bottom: auto;
@@ -131405,16 +132949,6 @@ textarea.floating-label ~ label {
   .x-large\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
-  }
-
-  .x-large\:my-md {
-    margin-top: 28rem;
-    margin-bottom: 28rem;
-  }
-
-  .x-large\:mx-md {
-    margin-left: 28rem;
-    margin-right: 28rem;
   }
 
   .x-large\:-my-1 {
@@ -131587,6 +133121,26 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .x-large\:-my-72 {
+    margin-top: -18rem;
+    margin-bottom: -18rem;
+  }
+
+  .x-large\:-mx-72 {
+    margin-left: -18rem;
+    margin-right: -18rem;
+  }
+
+  .x-large\:-my-80 {
+    margin-top: -20rem;
+    margin-bottom: -20rem;
+  }
+
+  .x-large\:-mx-80 {
+    margin-left: -20rem;
+    margin-right: -20rem;
+  }
+
   .x-large\:-my-px {
     margin-top: -1px;
     margin-bottom: -1px;
@@ -131595,16 +133149,6 @@ textarea.floating-label ~ label {
   .x-large\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
-  }
-
-  .x-large\:-my-md {
-    margin-top: -28rem;
-    margin-bottom: -28rem;
-  }
-
-  .x-large\:-mx-md {
-    margin-left: -28rem;
-    margin-right: -28rem;
   }
 
   .x-large\:mt-0 {
@@ -131895,6 +133439,38 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .x-large\:mt-72 {
+    margin-top: 18rem;
+  }
+
+  .x-large\:mr-72 {
+    margin-right: 18rem;
+  }
+
+  .x-large\:mb-72 {
+    margin-bottom: 18rem;
+  }
+
+  .x-large\:ml-72 {
+    margin-left: 18rem;
+  }
+
+  .x-large\:mt-80 {
+    margin-top: 20rem;
+  }
+
+  .x-large\:mr-80 {
+    margin-right: 20rem;
+  }
+
+  .x-large\:mb-80 {
+    margin-bottom: 20rem;
+  }
+
+  .x-large\:ml-80 {
+    margin-left: 20rem;
+  }
+
   .x-large\:mt-auto {
     margin-top: auto;
   }
@@ -131925,22 +133501,6 @@ textarea.floating-label ~ label {
 
   .x-large\:ml-px {
     margin-left: 1px;
-  }
-
-  .x-large\:mt-md {
-    margin-top: 28rem;
-  }
-
-  .x-large\:mr-md {
-    margin-right: 28rem;
-  }
-
-  .x-large\:mb-md {
-    margin-bottom: 28rem;
-  }
-
-  .x-large\:ml-md {
-    margin-left: 28rem;
   }
 
   .x-large\:-mt-1 {
@@ -132215,6 +133775,38 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .x-large\:-mt-72 {
+    margin-top: -18rem;
+  }
+
+  .x-large\:-mr-72 {
+    margin-right: -18rem;
+  }
+
+  .x-large\:-mb-72 {
+    margin-bottom: -18rem;
+  }
+
+  .x-large\:-ml-72 {
+    margin-left: -18rem;
+  }
+
+  .x-large\:-mt-80 {
+    margin-top: -20rem;
+  }
+
+  .x-large\:-mr-80 {
+    margin-right: -20rem;
+  }
+
+  .x-large\:-mb-80 {
+    margin-bottom: -20rem;
+  }
+
+  .x-large\:-ml-80 {
+    margin-left: -20rem;
+  }
+
   .x-large\:-mt-px {
     margin-top: -1px;
   }
@@ -132229,22 +133821,6 @@ textarea.floating-label ~ label {
 
   .x-large\:-ml-px {
     margin-left: -1px;
-  }
-
-  .x-large\:-mt-md {
-    margin-top: -28rem;
-  }
-
-  .x-large\:-mr-md {
-    margin-right: -28rem;
-  }
-
-  .x-large\:-mb-md {
-    margin-bottom: -28rem;
-  }
-
-  .x-large\:-ml-md {
-    margin-left: -28rem;
   }
 
   .x-large\:max-h-full {
@@ -132637,12 +134213,16 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
-  .x-large\:p-px {
-    padding: 1px;
+  .x-large\:p-72 {
+    padding: 18rem;
   }
 
-  .x-large\:p-md {
-    padding: 28rem;
+  .x-large\:p-80 {
+    padding: 20rem;
+  }
+
+  .x-large\:p-px {
+    padding: 1px;
   }
 
   .x-large\:py-0 {
@@ -132825,6 +134405,26 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .x-large\:py-72 {
+    padding-top: 18rem;
+    padding-bottom: 18rem;
+  }
+
+  .x-large\:px-72 {
+    padding-left: 18rem;
+    padding-right: 18rem;
+  }
+
+  .x-large\:py-80 {
+    padding-top: 20rem;
+    padding-bottom: 20rem;
+  }
+
+  .x-large\:px-80 {
+    padding-left: 20rem;
+    padding-right: 20rem;
+  }
+
   .x-large\:py-px {
     padding-top: 1px;
     padding-bottom: 1px;
@@ -132833,16 +134433,6 @@ textarea.floating-label ~ label {
   .x-large\:px-px {
     padding-left: 1px;
     padding-right: 1px;
-  }
-
-  .x-large\:py-md {
-    padding-top: 28rem;
-    padding-bottom: 28rem;
-  }
-
-  .x-large\:px-md {
-    padding-left: 28rem;
-    padding-right: 28rem;
   }
 
   .x-large\:pt-0 {
@@ -133133,6 +134723,38 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .x-large\:pt-72 {
+    padding-top: 18rem;
+  }
+
+  .x-large\:pr-72 {
+    padding-right: 18rem;
+  }
+
+  .x-large\:pb-72 {
+    padding-bottom: 18rem;
+  }
+
+  .x-large\:pl-72 {
+    padding-left: 18rem;
+  }
+
+  .x-large\:pt-80 {
+    padding-top: 20rem;
+  }
+
+  .x-large\:pr-80 {
+    padding-right: 20rem;
+  }
+
+  .x-large\:pb-80 {
+    padding-bottom: 20rem;
+  }
+
+  .x-large\:pl-80 {
+    padding-left: 20rem;
+  }
+
   .x-large\:pt-px {
     padding-top: 1px;
   }
@@ -133147,22 +134769,6 @@ textarea.floating-label ~ label {
 
   .x-large\:pl-px {
     padding-left: 1px;
-  }
-
-  .x-large\:pt-md {
-    padding-top: 28rem;
-  }
-
-  .x-large\:pr-md {
-    padding-right: 28rem;
-  }
-
-  .x-large\:pb-md {
-    padding-bottom: 28rem;
-  }
-
-  .x-large\:pl-md {
-    padding-left: 28rem;
   }
 
   .x-large\:placeholder-transparent::-webkit-input-placeholder {
@@ -139105,16 +140711,20 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .x-large\:w-72 {
+    width: 18rem;
+  }
+
+  .x-large\:w-80 {
+    width: 20rem;
+  }
+
   .x-large\:w-auto {
     width: auto;
   }
 
   .x-large\:w-px {
     width: 1px;
-  }
-
-  .x-large\:w-md {
-    width: 28rem;
   }
 
   .x-large\:w-1\/2 {
@@ -139355,14 +140965,19 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .x-large\:gap-72 {
+    grid-gap: 18rem;
+    gap: 18rem;
+  }
+
+  .x-large\:gap-80 {
+    grid-gap: 20rem;
+    gap: 20rem;
+  }
+
   .x-large\:gap-px {
     grid-gap: 1px;
     gap: 1px;
-  }
-
-  .x-large\:gap-md {
-    grid-gap: 28rem;
-    gap: 28rem;
   }
 
   .x-large\:col-gap-0 {
@@ -139473,16 +141088,22 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .x-large\:col-gap-72 {
+    grid-column-gap: 18rem;
+    -moz-column-gap: 18rem;
+         column-gap: 18rem;
+  }
+
+  .x-large\:col-gap-80 {
+    grid-column-gap: 20rem;
+    -moz-column-gap: 20rem;
+         column-gap: 20rem;
+  }
+
   .x-large\:col-gap-px {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
-  }
-
-  .x-large\:col-gap-md {
-    grid-column-gap: 28rem;
-    -moz-column-gap: 28rem;
-         column-gap: 28rem;
   }
 
   .x-large\:row-gap-0 {
@@ -139575,14 +141196,19 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .x-large\:row-gap-72 {
+    grid-row-gap: 18rem;
+    row-gap: 18rem;
+  }
+
+  .x-large\:row-gap-80 {
+    grid-row-gap: 20rem;
+    row-gap: 20rem;
+  }
+
   .x-large\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
-  }
-
-  .x-large\:row-gap-md {
-    grid-row-gap: 28rem;
-    row-gap: 28rem;
   }
 
   .x-large\:grid-flow-row {
@@ -140534,12 +142160,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .x-large\:translate-x-px {
-    --transform-translate-x: 1px;
+  .x-large\:translate-x-72 {
+    --transform-translate-x: 18rem;
   }
 
-  .x-large\:translate-x-md {
-    --transform-translate-x: 28rem;
+  .x-large\:translate-x-80 {
+    --transform-translate-x: 20rem;
+  }
+
+  .x-large\:translate-x-px {
+    --transform-translate-x: 1px;
   }
 
   .x-large\:-translate-x-1 {
@@ -140610,12 +142240,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .x-large\:-translate-x-px {
-    --transform-translate-x: -1px;
+  .x-large\:-translate-x-72 {
+    --transform-translate-x: -18rem;
   }
 
-  .x-large\:-translate-x-md {
-    --transform-translate-x: -28rem;
+  .x-large\:-translate-x-80 {
+    --transform-translate-x: -20rem;
+  }
+
+  .x-large\:-translate-x-px {
+    --transform-translate-x: -1px;
   }
 
   .x-large\:-translate-x-full {
@@ -140706,12 +142340,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .x-large\:translate-y-px {
-    --transform-translate-y: 1px;
+  .x-large\:translate-y-72 {
+    --transform-translate-y: 18rem;
   }
 
-  .x-large\:translate-y-md {
-    --transform-translate-y: 28rem;
+  .x-large\:translate-y-80 {
+    --transform-translate-y: 20rem;
+  }
+
+  .x-large\:translate-y-px {
+    --transform-translate-y: 1px;
   }
 
   .x-large\:-translate-y-1 {
@@ -140782,12 +142420,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .x-large\:-translate-y-px {
-    --transform-translate-y: -1px;
+  .x-large\:-translate-y-72 {
+    --transform-translate-y: -18rem;
   }
 
-  .x-large\:-translate-y-md {
-    --transform-translate-y: -28rem;
+  .x-large\:-translate-y-80 {
+    --transform-translate-y: -20rem;
+  }
+
+  .x-large\:-translate-y-px {
+    --transform-translate-y: -1px;
   }
 
   .x-large\:-translate-y-full {
@@ -140878,12 +142520,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .x-large\:hover\:translate-x-px:hover {
-    --transform-translate-x: 1px;
+  .x-large\:hover\:translate-x-72:hover {
+    --transform-translate-x: 18rem;
   }
 
-  .x-large\:hover\:translate-x-md:hover {
-    --transform-translate-x: 28rem;
+  .x-large\:hover\:translate-x-80:hover {
+    --transform-translate-x: 20rem;
+  }
+
+  .x-large\:hover\:translate-x-px:hover {
+    --transform-translate-x: 1px;
   }
 
   .x-large\:hover\:-translate-x-1:hover {
@@ -140954,12 +142600,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .x-large\:hover\:-translate-x-px:hover {
-    --transform-translate-x: -1px;
+  .x-large\:hover\:-translate-x-72:hover {
+    --transform-translate-x: -18rem;
   }
 
-  .x-large\:hover\:-translate-x-md:hover {
-    --transform-translate-x: -28rem;
+  .x-large\:hover\:-translate-x-80:hover {
+    --transform-translate-x: -20rem;
+  }
+
+  .x-large\:hover\:-translate-x-px:hover {
+    --transform-translate-x: -1px;
   }
 
   .x-large\:hover\:-translate-x-full:hover {
@@ -141050,12 +142700,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .x-large\:hover\:translate-y-px:hover {
-    --transform-translate-y: 1px;
+  .x-large\:hover\:translate-y-72:hover {
+    --transform-translate-y: 18rem;
   }
 
-  .x-large\:hover\:translate-y-md:hover {
-    --transform-translate-y: 28rem;
+  .x-large\:hover\:translate-y-80:hover {
+    --transform-translate-y: 20rem;
+  }
+
+  .x-large\:hover\:translate-y-px:hover {
+    --transform-translate-y: 1px;
   }
 
   .x-large\:hover\:-translate-y-1:hover {
@@ -141126,12 +142780,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .x-large\:hover\:-translate-y-px:hover {
-    --transform-translate-y: -1px;
+  .x-large\:hover\:-translate-y-72:hover {
+    --transform-translate-y: -18rem;
   }
 
-  .x-large\:hover\:-translate-y-md:hover {
-    --transform-translate-y: -28rem;
+  .x-large\:hover\:-translate-y-80:hover {
+    --transform-translate-y: -20rem;
+  }
+
+  .x-large\:hover\:-translate-y-px:hover {
+    --transform-translate-y: -1px;
   }
 
   .x-large\:hover\:-translate-y-full:hover {
@@ -141222,12 +142880,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
-  .x-large\:focus\:translate-x-px:focus {
-    --transform-translate-x: 1px;
+  .x-large\:focus\:translate-x-72:focus {
+    --transform-translate-x: 18rem;
   }
 
-  .x-large\:focus\:translate-x-md:focus {
-    --transform-translate-x: 28rem;
+  .x-large\:focus\:translate-x-80:focus {
+    --transform-translate-x: 20rem;
+  }
+
+  .x-large\:focus\:translate-x-px:focus {
+    --transform-translate-x: 1px;
   }
 
   .x-large\:focus\:-translate-x-1:focus {
@@ -141298,12 +142960,16 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
-  .x-large\:focus\:-translate-x-px:focus {
-    --transform-translate-x: -1px;
+  .x-large\:focus\:-translate-x-72:focus {
+    --transform-translate-x: -18rem;
   }
 
-  .x-large\:focus\:-translate-x-md:focus {
-    --transform-translate-x: -28rem;
+  .x-large\:focus\:-translate-x-80:focus {
+    --transform-translate-x: -20rem;
+  }
+
+  .x-large\:focus\:-translate-x-px:focus {
+    --transform-translate-x: -1px;
   }
 
   .x-large\:focus\:-translate-x-full:focus {
@@ -141394,12 +143060,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
-  .x-large\:focus\:translate-y-px:focus {
-    --transform-translate-y: 1px;
+  .x-large\:focus\:translate-y-72:focus {
+    --transform-translate-y: 18rem;
   }
 
-  .x-large\:focus\:translate-y-md:focus {
-    --transform-translate-y: 28rem;
+  .x-large\:focus\:translate-y-80:focus {
+    --transform-translate-y: 20rem;
+  }
+
+  .x-large\:focus\:translate-y-px:focus {
+    --transform-translate-y: 1px;
   }
 
   .x-large\:focus\:-translate-y-1:focus {
@@ -141470,12 +143140,16 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
-  .x-large\:focus\:-translate-y-px:focus {
-    --transform-translate-y: -1px;
+  .x-large\:focus\:-translate-y-72:focus {
+    --transform-translate-y: -18rem;
   }
 
-  .x-large\:focus\:-translate-y-md:focus {
-    --transform-translate-y: -28rem;
+  .x-large\:focus\:-translate-y-80:focus {
+    --transform-translate-y: -20rem;
+  }
+
+  .x-large\:focus\:-translate-y-px:focus {
+    --transform-translate-y: -1px;
   }
 
   .x-large\:focus\:-translate-y-full:focus {

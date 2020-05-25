@@ -23,6 +23,10 @@ module.exports = {
                 '1/9': '11.111111%',
                 medium: '64rem',
             },
+            spacing: {
+                '72': '18rem',
+                '80': '20rem',
+            },
             maxWidth: {
                 page: '97.5rem'
             },

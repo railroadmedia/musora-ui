@@ -1,6 +1,25 @@
 @php
     $skipCollapseStyle = $skipCollapseStyle ?? false;
     $skipCollapseScript = $skipCollapseScript ?? false;
+    $active = $active ?? 'edge';
+    $items = [
+        [
+            'title' => 'EDGE',
+            'active' => $active == 'edge' ? 'active': null,
+        ],
+        [
+            'title' => 'packs',
+            'active' => $active == 'packs' ? 'active': null,
+        ],
+        [
+            'title' => 'forums',
+            'active' => $active == 'forums' ? 'active': null,
+        ],
+        [
+            'title' => 'shop',
+            'active' => $active == 'shop' ? 'active': null,
+        ],
+    ];
 @endphp
 
 @push('styles')
@@ -13,6 +32,11 @@
     #nav {
         height: 65px;
     }
+}
+
+#nav .active {
+    color: #fff;
+    font-weight: 700;
 }
 
 #logo {
@@ -100,10 +124,9 @@
                 </a>
             </div>
             <div class="w-full h-full hidden small:flex flex-row items-center inline-box text-lg capitalize text-header-gray">
-                <a href="#" class="h-full w-1/4 flex items-center justify-center text-white uppercase font-bold"><span>edge</span></a>
-                <a href="#" class="h-full w-1/4 flex items-center justify-center hover:text-white hover:font-bold"><span>packs</span></a>
-                <a href="#" class="h-full w-1/4 flex items-center justify-center hover:text-white hover:font-bold"><span>forums</span></a>
-                <a href="#" class="h-full w-1/4 flex items-center justify-center hover:text-white hover:font-bold"><span>shop</span></a>
+                @foreach ($items as $item)
+                    <a href="#" class="h-full w-1/4 flex items-center justify-center hover:text-white hover:font-bold {{ $item['active'] }}"><span>{{ $item['title'] }}</span></a>
+                @endforeach
             </div>
             <div class="flex items-center pr-2 small:pr-0">
                 <div class="text-header-gray mx-2"><i class="icon-search text-lg font-bold"></i></div>

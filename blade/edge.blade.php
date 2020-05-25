@@ -3,7 +3,7 @@
 @section('title', 'Members - Edge')
 
 @section('menu')
-    @include('sections.menu')
+    @include('sections.menu', ['active' => 'edge'])
     @include('sections.edge-nav')
 @endsection
 
@@ -123,7 +123,6 @@ $lessons = [
     ['name' => 'gear', 'tab' => 10],
 ];
 
-// todo - add some default filters active
 $filterGroups = [
     [
         'title' => 'content type',
@@ -132,11 +131,13 @@ $filterGroups = [
             [
                 'name' => 'drumeo-method',
                 'label' => 'drumeo method',
-                'tab' => 11
+                'tab' => 11,
+                'active' => true,
             ],
             [
                 'name' => 'courses',
-                'tab' => 12
+                'tab' => 12,
+                'active' => true,
             ],
             [
                 'name' => 'packs',
@@ -159,7 +160,7 @@ $filterGroups = [
     ],
     [
         'title' => 'instructor',
-        'collapsed' => false,
+        'collapsed' => true,
         'items' => [
             [
                 'name' => 'aaron-edgar',
@@ -174,7 +175,8 @@ $filterGroups = [
             [
                 'name' => 'anika-nilles',
                 'label' => 'Anika Nilles',
-                'tab' => 11
+                'tab' => 11,
+                'active' => true,
             ],
             [
                 'name' => 'antonia-sanchez',
@@ -184,7 +186,8 @@ $filterGroups = [
             [
                 'name' => 'benny-greb',
                 'label' => 'Benny Greb',
-                'tab' => 11
+                'tab' => 11,
+                'active' => true,
             ],
             [
                 'name' => 'billy-cobham',
