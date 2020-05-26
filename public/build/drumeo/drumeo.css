@@ -950,6 +950,18 @@ textarea.floating-label ~ label {
   margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
 }
 
+.space-y-68 > :not(template) ~ :not(template) {
+  --space-y-reverse: 0;
+  margin-top: calc(17rem * calc(1 - var(--space-y-reverse)));
+  margin-bottom: calc(17rem * var(--space-y-reverse));
+}
+
+.space-x-68 > :not(template) ~ :not(template) {
+  --space-x-reverse: 0;
+  margin-right: calc(17rem * var(--space-x-reverse));
+  margin-left: calc(17rem * calc(1 - var(--space-x-reverse)));
+}
+
 .space-y-72 > :not(template) ~ :not(template) {
   --space-y-reverse: 0;
   margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
@@ -984,6 +996,18 @@ textarea.floating-label ~ label {
   --space-x-reverse: 0;
   margin-right: calc(1px * var(--space-x-reverse));
   margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
+}
+
+.space-y-md > :not(template) ~ :not(template) {
+  --space-y-reverse: 0;
+  margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
+  margin-bottom: calc(28rem * var(--space-y-reverse));
+}
+
+.space-x-md > :not(template) ~ :not(template) {
+  --space-x-reverse: 0;
+  margin-right: calc(28rem * var(--space-x-reverse));
+  margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
 }
 
 .-space-y-1 > :not(template) ~ :not(template) {
@@ -1190,6 +1214,18 @@ textarea.floating-label ~ label {
   margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
 }
 
+.-space-y-68 > :not(template) ~ :not(template) {
+  --space-y-reverse: 0;
+  margin-top: calc(-17rem * calc(1 - var(--space-y-reverse)));
+  margin-bottom: calc(-17rem * var(--space-y-reverse));
+}
+
+.-space-x-68 > :not(template) ~ :not(template) {
+  --space-x-reverse: 0;
+  margin-right: calc(-17rem * var(--space-x-reverse));
+  margin-left: calc(-17rem * calc(1 - var(--space-x-reverse)));
+}
+
 .-space-y-72 > :not(template) ~ :not(template) {
   --space-y-reverse: 0;
   margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
@@ -1224,6 +1260,18 @@ textarea.floating-label ~ label {
   --space-x-reverse: 0;
   margin-right: calc(-1px * var(--space-x-reverse));
   margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
+}
+
+.-space-y-md > :not(template) ~ :not(template) {
+  --space-y-reverse: 0;
+  margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
+  margin-bottom: calc(-28rem * var(--space-y-reverse));
+}
+
+.-space-x-md > :not(template) ~ :not(template) {
+  --space-x-reverse: 0;
+  margin-right: calc(-28rem * var(--space-x-reverse));
+  margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
 }
 
 .space-y-reverse > :not(template) ~ :not(template) {
@@ -5568,6 +5616,10 @@ textarea.floating-label ~ label {
   height: 16rem;
 }
 
+.h-68 {
+  height: 17rem;
+}
+
 .h-72 {
   height: 18rem;
 }
@@ -5582,6 +5634,10 @@ textarea.floating-label ~ label {
 
 .h-px {
   height: 1px;
+}
+
+.h-md {
+  height: 28rem;
 }
 
 .h-full {
@@ -5780,6 +5836,10 @@ textarea.floating-label ~ label {
   margin: 16rem;
 }
 
+.m-68 {
+  margin: 17rem;
+}
+
 .m-72 {
   margin: 18rem;
 }
@@ -5794,6 +5854,10 @@ textarea.floating-label ~ label {
 
 .m-px {
   margin: 1px;
+}
+
+.m-md {
+  margin: 28rem;
 }
 
 .-m-1 {
@@ -5864,6 +5928,10 @@ textarea.floating-label ~ label {
   margin: -16rem;
 }
 
+.-m-68 {
+  margin: -17rem;
+}
+
 .-m-72 {
   margin: -18rem;
 }
@@ -5874,6 +5942,10 @@ textarea.floating-label ~ label {
 
 .-m-px {
   margin: -1px;
+}
+
+.-m-md {
+  margin: -28rem;
 }
 
 .my-0 {
@@ -6056,6 +6128,16 @@ textarea.floating-label ~ label {
   margin-right: 16rem;
 }
 
+.my-68 {
+  margin-top: 17rem;
+  margin-bottom: 17rem;
+}
+
+.mx-68 {
+  margin-left: 17rem;
+  margin-right: 17rem;
+}
+
 .my-72 {
   margin-top: 18rem;
   margin-bottom: 18rem;
@@ -6094,6 +6176,16 @@ textarea.floating-label ~ label {
 .mx-px {
   margin-left: 1px;
   margin-right: 1px;
+}
+
+.my-md {
+  margin-top: 28rem;
+  margin-bottom: 28rem;
+}
+
+.mx-md {
+  margin-left: 28rem;
+  margin-right: 28rem;
 }
 
 .-my-1 {
@@ -6266,6 +6358,16 @@ textarea.floating-label ~ label {
   margin-right: -16rem;
 }
 
+.-my-68 {
+  margin-top: -17rem;
+  margin-bottom: -17rem;
+}
+
+.-mx-68 {
+  margin-left: -17rem;
+  margin-right: -17rem;
+}
+
 .-my-72 {
   margin-top: -18rem;
   margin-bottom: -18rem;
@@ -6294,6 +6396,16 @@ textarea.floating-label ~ label {
 .-mx-px {
   margin-left: -1px;
   margin-right: -1px;
+}
+
+.-my-md {
+  margin-top: -28rem;
+  margin-bottom: -28rem;
+}
+
+.-mx-md {
+  margin-left: -28rem;
+  margin-right: -28rem;
 }
 
 .mt-0 {
@@ -6584,6 +6696,22 @@ textarea.floating-label ~ label {
   margin-left: 16rem;
 }
 
+.mt-68 {
+  margin-top: 17rem;
+}
+
+.mr-68 {
+  margin-right: 17rem;
+}
+
+.mb-68 {
+  margin-bottom: 17rem;
+}
+
+.ml-68 {
+  margin-left: 17rem;
+}
+
 .mt-72 {
   margin-top: 18rem;
 }
@@ -6646,6 +6774,22 @@ textarea.floating-label ~ label {
 
 .ml-px {
   margin-left: 1px;
+}
+
+.mt-md {
+  margin-top: 28rem;
+}
+
+.mr-md {
+  margin-right: 28rem;
+}
+
+.mb-md {
+  margin-bottom: 28rem;
+}
+
+.ml-md {
+  margin-left: 28rem;
 }
 
 .-mt-1 {
@@ -6920,6 +7064,22 @@ textarea.floating-label ~ label {
   margin-left: -16rem;
 }
 
+.-mt-68 {
+  margin-top: -17rem;
+}
+
+.-mr-68 {
+  margin-right: -17rem;
+}
+
+.-mb-68 {
+  margin-bottom: -17rem;
+}
+
+.-ml-68 {
+  margin-left: -17rem;
+}
+
 .-mt-72 {
   margin-top: -18rem;
 }
@@ -6966,6 +7126,22 @@ textarea.floating-label ~ label {
 
 .-ml-px {
   margin-left: -1px;
+}
+
+.-mt-md {
+  margin-top: -28rem;
+}
+
+.-mr-md {
+  margin-right: -28rem;
+}
+
+.-mb-md {
+  margin-bottom: -28rem;
+}
+
+.-ml-md {
+  margin-left: -28rem;
 }
 
 .max-h-full {
@@ -7358,6 +7534,10 @@ textarea.floating-label ~ label {
   padding: 16rem;
 }
 
+.p-68 {
+  padding: 17rem;
+}
+
 .p-72 {
   padding: 18rem;
 }
@@ -7368,6 +7548,10 @@ textarea.floating-label ~ label {
 
 .p-px {
   padding: 1px;
+}
+
+.p-md {
+  padding: 28rem;
 }
 
 .py-0 {
@@ -7550,6 +7734,16 @@ textarea.floating-label ~ label {
   padding-right: 16rem;
 }
 
+.py-68 {
+  padding-top: 17rem;
+  padding-bottom: 17rem;
+}
+
+.px-68 {
+  padding-left: 17rem;
+  padding-right: 17rem;
+}
+
 .py-72 {
   padding-top: 18rem;
   padding-bottom: 18rem;
@@ -7578,6 +7772,16 @@ textarea.floating-label ~ label {
 .px-px {
   padding-left: 1px;
   padding-right: 1px;
+}
+
+.py-md {
+  padding-top: 28rem;
+  padding-bottom: 28rem;
+}
+
+.px-md {
+  padding-left: 28rem;
+  padding-right: 28rem;
 }
 
 .pt-0 {
@@ -7868,6 +8072,22 @@ textarea.floating-label ~ label {
   padding-left: 16rem;
 }
 
+.pt-68 {
+  padding-top: 17rem;
+}
+
+.pr-68 {
+  padding-right: 17rem;
+}
+
+.pb-68 {
+  padding-bottom: 17rem;
+}
+
+.pl-68 {
+  padding-left: 17rem;
+}
+
 .pt-72 {
   padding-top: 18rem;
 }
@@ -7914,6 +8134,22 @@ textarea.floating-label ~ label {
 
 .pl-px {
   padding-left: 1px;
+}
+
+.pt-md {
+  padding-top: 28rem;
+}
+
+.pr-md {
+  padding-right: 28rem;
+}
+
+.pb-md {
+  padding-bottom: 28rem;
+}
+
+.pl-md {
+  padding-left: 28rem;
 }
 
 .placeholder-transparent::-webkit-input-placeholder {
@@ -13856,6 +14092,10 @@ textarea.floating-label ~ label {
   width: 16rem;
 }
 
+.w-68 {
+  width: 17rem;
+}
+
 .w-72 {
   width: 18rem;
 }
@@ -13870,6 +14110,10 @@ textarea.floating-label ~ label {
 
 .w-px {
   width: 1px;
+}
+
+.w-md {
+  width: 28rem;
 }
 
 .w-1\/2 {
@@ -14110,6 +14354,11 @@ textarea.floating-label ~ label {
   gap: 16rem;
 }
 
+.gap-68 {
+  grid-gap: 17rem;
+  gap: 17rem;
+}
+
 .gap-72 {
   grid-gap: 18rem;
   gap: 18rem;
@@ -14123,6 +14372,11 @@ textarea.floating-label ~ label {
 .gap-px {
   grid-gap: 1px;
   gap: 1px;
+}
+
+.gap-md {
+  grid-gap: 28rem;
+  gap: 28rem;
 }
 
 .col-gap-0 {
@@ -14233,6 +14487,12 @@ textarea.floating-label ~ label {
        column-gap: 16rem;
 }
 
+.col-gap-68 {
+  grid-column-gap: 17rem;
+  -moz-column-gap: 17rem;
+       column-gap: 17rem;
+}
+
 .col-gap-72 {
   grid-column-gap: 18rem;
   -moz-column-gap: 18rem;
@@ -14249,6 +14509,12 @@ textarea.floating-label ~ label {
   grid-column-gap: 1px;
   -moz-column-gap: 1px;
        column-gap: 1px;
+}
+
+.col-gap-md {
+  grid-column-gap: 28rem;
+  -moz-column-gap: 28rem;
+       column-gap: 28rem;
 }
 
 .row-gap-0 {
@@ -14341,6 +14607,11 @@ textarea.floating-label ~ label {
   row-gap: 16rem;
 }
 
+.row-gap-68 {
+  grid-row-gap: 17rem;
+  row-gap: 17rem;
+}
+
 .row-gap-72 {
   grid-row-gap: 18rem;
   row-gap: 18rem;
@@ -14354,6 +14625,11 @@ textarea.floating-label ~ label {
 .row-gap-px {
   grid-row-gap: 1px;
   row-gap: 1px;
+}
+
+.row-gap-md {
+  grid-row-gap: 28rem;
+  row-gap: 28rem;
 }
 
 .grid-flow-row {
@@ -15305,6 +15581,10 @@ textarea.floating-label ~ label {
   --transform-translate-x: 16rem;
 }
 
+.translate-x-68 {
+  --transform-translate-x: 17rem;
+}
+
 .translate-x-72 {
   --transform-translate-x: 18rem;
 }
@@ -15315,6 +15595,10 @@ textarea.floating-label ~ label {
 
 .translate-x-px {
   --transform-translate-x: 1px;
+}
+
+.translate-x-md {
+  --transform-translate-x: 28rem;
 }
 
 .-translate-x-1 {
@@ -15385,6 +15669,10 @@ textarea.floating-label ~ label {
   --transform-translate-x: -16rem;
 }
 
+.-translate-x-68 {
+  --transform-translate-x: -17rem;
+}
+
 .-translate-x-72 {
   --transform-translate-x: -18rem;
 }
@@ -15395,6 +15683,10 @@ textarea.floating-label ~ label {
 
 .-translate-x-px {
   --transform-translate-x: -1px;
+}
+
+.-translate-x-md {
+  --transform-translate-x: -28rem;
 }
 
 .-translate-x-full {
@@ -15485,6 +15777,10 @@ textarea.floating-label ~ label {
   --transform-translate-y: 16rem;
 }
 
+.translate-y-68 {
+  --transform-translate-y: 17rem;
+}
+
 .translate-y-72 {
   --transform-translate-y: 18rem;
 }
@@ -15495,6 +15791,10 @@ textarea.floating-label ~ label {
 
 .translate-y-px {
   --transform-translate-y: 1px;
+}
+
+.translate-y-md {
+  --transform-translate-y: 28rem;
 }
 
 .-translate-y-1 {
@@ -15565,6 +15865,10 @@ textarea.floating-label ~ label {
   --transform-translate-y: -16rem;
 }
 
+.-translate-y-68 {
+  --transform-translate-y: -17rem;
+}
+
 .-translate-y-72 {
   --transform-translate-y: -18rem;
 }
@@ -15575,6 +15879,10 @@ textarea.floating-label ~ label {
 
 .-translate-y-px {
   --transform-translate-y: -1px;
+}
+
+.-translate-y-md {
+  --transform-translate-y: -28rem;
 }
 
 .-translate-y-full {
@@ -15665,6 +15973,10 @@ textarea.floating-label ~ label {
   --transform-translate-x: 16rem;
 }
 
+.hover\:translate-x-68:hover {
+  --transform-translate-x: 17rem;
+}
+
 .hover\:translate-x-72:hover {
   --transform-translate-x: 18rem;
 }
@@ -15675,6 +15987,10 @@ textarea.floating-label ~ label {
 
 .hover\:translate-x-px:hover {
   --transform-translate-x: 1px;
+}
+
+.hover\:translate-x-md:hover {
+  --transform-translate-x: 28rem;
 }
 
 .hover\:-translate-x-1:hover {
@@ -15745,6 +16061,10 @@ textarea.floating-label ~ label {
   --transform-translate-x: -16rem;
 }
 
+.hover\:-translate-x-68:hover {
+  --transform-translate-x: -17rem;
+}
+
 .hover\:-translate-x-72:hover {
   --transform-translate-x: -18rem;
 }
@@ -15755,6 +16075,10 @@ textarea.floating-label ~ label {
 
 .hover\:-translate-x-px:hover {
   --transform-translate-x: -1px;
+}
+
+.hover\:-translate-x-md:hover {
+  --transform-translate-x: -28rem;
 }
 
 .hover\:-translate-x-full:hover {
@@ -15845,6 +16169,10 @@ textarea.floating-label ~ label {
   --transform-translate-y: 16rem;
 }
 
+.hover\:translate-y-68:hover {
+  --transform-translate-y: 17rem;
+}
+
 .hover\:translate-y-72:hover {
   --transform-translate-y: 18rem;
 }
@@ -15855,6 +16183,10 @@ textarea.floating-label ~ label {
 
 .hover\:translate-y-px:hover {
   --transform-translate-y: 1px;
+}
+
+.hover\:translate-y-md:hover {
+  --transform-translate-y: 28rem;
 }
 
 .hover\:-translate-y-1:hover {
@@ -15925,6 +16257,10 @@ textarea.floating-label ~ label {
   --transform-translate-y: -16rem;
 }
 
+.hover\:-translate-y-68:hover {
+  --transform-translate-y: -17rem;
+}
+
 .hover\:-translate-y-72:hover {
   --transform-translate-y: -18rem;
 }
@@ -15935,6 +16271,10 @@ textarea.floating-label ~ label {
 
 .hover\:-translate-y-px:hover {
   --transform-translate-y: -1px;
+}
+
+.hover\:-translate-y-md:hover {
+  --transform-translate-y: -28rem;
 }
 
 .hover\:-translate-y-full:hover {
@@ -16025,6 +16365,10 @@ textarea.floating-label ~ label {
   --transform-translate-x: 16rem;
 }
 
+.focus\:translate-x-68:focus {
+  --transform-translate-x: 17rem;
+}
+
 .focus\:translate-x-72:focus {
   --transform-translate-x: 18rem;
 }
@@ -16035,6 +16379,10 @@ textarea.floating-label ~ label {
 
 .focus\:translate-x-px:focus {
   --transform-translate-x: 1px;
+}
+
+.focus\:translate-x-md:focus {
+  --transform-translate-x: 28rem;
 }
 
 .focus\:-translate-x-1:focus {
@@ -16105,6 +16453,10 @@ textarea.floating-label ~ label {
   --transform-translate-x: -16rem;
 }
 
+.focus\:-translate-x-68:focus {
+  --transform-translate-x: -17rem;
+}
+
 .focus\:-translate-x-72:focus {
   --transform-translate-x: -18rem;
 }
@@ -16115,6 +16467,10 @@ textarea.floating-label ~ label {
 
 .focus\:-translate-x-px:focus {
   --transform-translate-x: -1px;
+}
+
+.focus\:-translate-x-md:focus {
+  --transform-translate-x: -28rem;
 }
 
 .focus\:-translate-x-full:focus {
@@ -16205,6 +16561,10 @@ textarea.floating-label ~ label {
   --transform-translate-y: 16rem;
 }
 
+.focus\:translate-y-68:focus {
+  --transform-translate-y: 17rem;
+}
+
 .focus\:translate-y-72:focus {
   --transform-translate-y: 18rem;
 }
@@ -16215,6 +16575,10 @@ textarea.floating-label ~ label {
 
 .focus\:translate-y-px:focus {
   --transform-translate-y: 1px;
+}
+
+.focus\:translate-y-md:focus {
+  --transform-translate-y: 28rem;
 }
 
 .focus\:-translate-y-1:focus {
@@ -16285,6 +16649,10 @@ textarea.floating-label ~ label {
   --transform-translate-y: -16rem;
 }
 
+.focus\:-translate-y-68:focus {
+  --transform-translate-y: -17rem;
+}
+
 .focus\:-translate-y-72:focus {
   --transform-translate-y: -18rem;
 }
@@ -16295,6 +16663,10 @@ textarea.floating-label ~ label {
 
 .focus\:-translate-y-px:focus {
   --transform-translate-y: -1px;
+}
+
+.focus\:-translate-y-md:focus {
+  --transform-translate-y: -28rem;
 }
 
 .focus\:-translate-y-full:focus {
@@ -16806,6 +17178,18 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .sm\:space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(17rem * var(--space-y-reverse));
+  }
+
+  .sm\:space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(17rem * var(--space-x-reverse));
+    margin-left: calc(17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .sm\:space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
@@ -16840,6 +17224,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .sm\:space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(28rem * var(--space-y-reverse));
+  }
+
+  .sm\:space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(28rem * var(--space-x-reverse));
+    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .sm\:-space-y-1 > :not(template) ~ :not(template) {
@@ -17046,6 +17442,18 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .sm\:-space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-17rem * var(--space-y-reverse));
+  }
+
+  .sm\:-space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-17rem * var(--space-x-reverse));
+    margin-left: calc(-17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .sm\:-space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
@@ -17080,6 +17488,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .sm\:-space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-28rem * var(--space-y-reverse));
+  }
+
+  .sm\:-space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-28rem * var(--space-x-reverse));
+    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .sm\:space-y-reverse > :not(template) ~ :not(template) {
@@ -21424,6 +21844,10 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .sm\:h-68 {
+    height: 17rem;
+  }
+
   .sm\:h-72 {
     height: 18rem;
   }
@@ -21438,6 +21862,10 @@ textarea.floating-label ~ label {
 
   .sm\:h-px {
     height: 1px;
+  }
+
+  .sm\:h-md {
+    height: 28rem;
   }
 
   .sm\:h-full {
@@ -21636,6 +22064,10 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .sm\:m-68 {
+    margin: 17rem;
+  }
+
   .sm\:m-72 {
     margin: 18rem;
   }
@@ -21650,6 +22082,10 @@ textarea.floating-label ~ label {
 
   .sm\:m-px {
     margin: 1px;
+  }
+
+  .sm\:m-md {
+    margin: 28rem;
   }
 
   .sm\:-m-1 {
@@ -21720,6 +22156,10 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
+  .sm\:-m-68 {
+    margin: -17rem;
+  }
+
   .sm\:-m-72 {
     margin: -18rem;
   }
@@ -21730,6 +22170,10 @@ textarea.floating-label ~ label {
 
   .sm\:-m-px {
     margin: -1px;
+  }
+
+  .sm\:-m-md {
+    margin: -28rem;
   }
 
   .sm\:my-0 {
@@ -21912,6 +22356,16 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .sm\:my-68 {
+    margin-top: 17rem;
+    margin-bottom: 17rem;
+  }
+
+  .sm\:mx-68 {
+    margin-left: 17rem;
+    margin-right: 17rem;
+  }
+
   .sm\:my-72 {
     margin-top: 18rem;
     margin-bottom: 18rem;
@@ -21950,6 +22404,16 @@ textarea.floating-label ~ label {
   .sm\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
+  }
+
+  .sm\:my-md {
+    margin-top: 28rem;
+    margin-bottom: 28rem;
+  }
+
+  .sm\:mx-md {
+    margin-left: 28rem;
+    margin-right: 28rem;
   }
 
   .sm\:-my-1 {
@@ -22122,6 +22586,16 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .sm\:-my-68 {
+    margin-top: -17rem;
+    margin-bottom: -17rem;
+  }
+
+  .sm\:-mx-68 {
+    margin-left: -17rem;
+    margin-right: -17rem;
+  }
+
   .sm\:-my-72 {
     margin-top: -18rem;
     margin-bottom: -18rem;
@@ -22150,6 +22624,16 @@ textarea.floating-label ~ label {
   .sm\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
+  }
+
+  .sm\:-my-md {
+    margin-top: -28rem;
+    margin-bottom: -28rem;
+  }
+
+  .sm\:-mx-md {
+    margin-left: -28rem;
+    margin-right: -28rem;
   }
 
   .sm\:mt-0 {
@@ -22440,6 +22924,22 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .sm\:mt-68 {
+    margin-top: 17rem;
+  }
+
+  .sm\:mr-68 {
+    margin-right: 17rem;
+  }
+
+  .sm\:mb-68 {
+    margin-bottom: 17rem;
+  }
+
+  .sm\:ml-68 {
+    margin-left: 17rem;
+  }
+
   .sm\:mt-72 {
     margin-top: 18rem;
   }
@@ -22502,6 +23002,22 @@ textarea.floating-label ~ label {
 
   .sm\:ml-px {
     margin-left: 1px;
+  }
+
+  .sm\:mt-md {
+    margin-top: 28rem;
+  }
+
+  .sm\:mr-md {
+    margin-right: 28rem;
+  }
+
+  .sm\:mb-md {
+    margin-bottom: 28rem;
+  }
+
+  .sm\:ml-md {
+    margin-left: 28rem;
   }
 
   .sm\:-mt-1 {
@@ -22776,6 +23292,22 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .sm\:-mt-68 {
+    margin-top: -17rem;
+  }
+
+  .sm\:-mr-68 {
+    margin-right: -17rem;
+  }
+
+  .sm\:-mb-68 {
+    margin-bottom: -17rem;
+  }
+
+  .sm\:-ml-68 {
+    margin-left: -17rem;
+  }
+
   .sm\:-mt-72 {
     margin-top: -18rem;
   }
@@ -22822,6 +23354,22 @@ textarea.floating-label ~ label {
 
   .sm\:-ml-px {
     margin-left: -1px;
+  }
+
+  .sm\:-mt-md {
+    margin-top: -28rem;
+  }
+
+  .sm\:-mr-md {
+    margin-right: -28rem;
+  }
+
+  .sm\:-mb-md {
+    margin-bottom: -28rem;
+  }
+
+  .sm\:-ml-md {
+    margin-left: -28rem;
   }
 
   .sm\:max-h-full {
@@ -23214,6 +23762,10 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
+  .sm\:p-68 {
+    padding: 17rem;
+  }
+
   .sm\:p-72 {
     padding: 18rem;
   }
@@ -23224,6 +23776,10 @@ textarea.floating-label ~ label {
 
   .sm\:p-px {
     padding: 1px;
+  }
+
+  .sm\:p-md {
+    padding: 28rem;
   }
 
   .sm\:py-0 {
@@ -23406,6 +23962,16 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .sm\:py-68 {
+    padding-top: 17rem;
+    padding-bottom: 17rem;
+  }
+
+  .sm\:px-68 {
+    padding-left: 17rem;
+    padding-right: 17rem;
+  }
+
   .sm\:py-72 {
     padding-top: 18rem;
     padding-bottom: 18rem;
@@ -23434,6 +24000,16 @@ textarea.floating-label ~ label {
   .sm\:px-px {
     padding-left: 1px;
     padding-right: 1px;
+  }
+
+  .sm\:py-md {
+    padding-top: 28rem;
+    padding-bottom: 28rem;
+  }
+
+  .sm\:px-md {
+    padding-left: 28rem;
+    padding-right: 28rem;
   }
 
   .sm\:pt-0 {
@@ -23724,6 +24300,22 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .sm\:pt-68 {
+    padding-top: 17rem;
+  }
+
+  .sm\:pr-68 {
+    padding-right: 17rem;
+  }
+
+  .sm\:pb-68 {
+    padding-bottom: 17rem;
+  }
+
+  .sm\:pl-68 {
+    padding-left: 17rem;
+  }
+
   .sm\:pt-72 {
     padding-top: 18rem;
   }
@@ -23770,6 +24362,22 @@ textarea.floating-label ~ label {
 
   .sm\:pl-px {
     padding-left: 1px;
+  }
+
+  .sm\:pt-md {
+    padding-top: 28rem;
+  }
+
+  .sm\:pr-md {
+    padding-right: 28rem;
+  }
+
+  .sm\:pb-md {
+    padding-bottom: 28rem;
+  }
+
+  .sm\:pl-md {
+    padding-left: 28rem;
   }
 
   .sm\:placeholder-transparent::-webkit-input-placeholder {
@@ -29712,6 +30320,10 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .sm\:w-68 {
+    width: 17rem;
+  }
+
   .sm\:w-72 {
     width: 18rem;
   }
@@ -29726,6 +30338,10 @@ textarea.floating-label ~ label {
 
   .sm\:w-px {
     width: 1px;
+  }
+
+  .sm\:w-md {
+    width: 28rem;
   }
 
   .sm\:w-1\/2 {
@@ -29966,6 +30582,11 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .sm\:gap-68 {
+    grid-gap: 17rem;
+    gap: 17rem;
+  }
+
   .sm\:gap-72 {
     grid-gap: 18rem;
     gap: 18rem;
@@ -29979,6 +30600,11 @@ textarea.floating-label ~ label {
   .sm\:gap-px {
     grid-gap: 1px;
     gap: 1px;
+  }
+
+  .sm\:gap-md {
+    grid-gap: 28rem;
+    gap: 28rem;
   }
 
   .sm\:col-gap-0 {
@@ -30089,6 +30715,12 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .sm\:col-gap-68 {
+    grid-column-gap: 17rem;
+    -moz-column-gap: 17rem;
+         column-gap: 17rem;
+  }
+
   .sm\:col-gap-72 {
     grid-column-gap: 18rem;
     -moz-column-gap: 18rem;
@@ -30105,6 +30737,12 @@ textarea.floating-label ~ label {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
+  }
+
+  .sm\:col-gap-md {
+    grid-column-gap: 28rem;
+    -moz-column-gap: 28rem;
+         column-gap: 28rem;
   }
 
   .sm\:row-gap-0 {
@@ -30197,6 +30835,11 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .sm\:row-gap-68 {
+    grid-row-gap: 17rem;
+    row-gap: 17rem;
+  }
+
   .sm\:row-gap-72 {
     grid-row-gap: 18rem;
     row-gap: 18rem;
@@ -30210,6 +30853,11 @@ textarea.floating-label ~ label {
   .sm\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
+  }
+
+  .sm\:row-gap-md {
+    grid-row-gap: 28rem;
+    row-gap: 28rem;
   }
 
   .sm\:grid-flow-row {
@@ -31161,6 +31809,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .sm\:translate-x-68 {
+    --transform-translate-x: 17rem;
+  }
+
   .sm\:translate-x-72 {
     --transform-translate-x: 18rem;
   }
@@ -31171,6 +31823,10 @@ textarea.floating-label ~ label {
 
   .sm\:translate-x-px {
     --transform-translate-x: 1px;
+  }
+
+  .sm\:translate-x-md {
+    --transform-translate-x: 28rem;
   }
 
   .sm\:-translate-x-1 {
@@ -31241,6 +31897,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .sm\:-translate-x-68 {
+    --transform-translate-x: -17rem;
+  }
+
   .sm\:-translate-x-72 {
     --transform-translate-x: -18rem;
   }
@@ -31251,6 +31911,10 @@ textarea.floating-label ~ label {
 
   .sm\:-translate-x-px {
     --transform-translate-x: -1px;
+  }
+
+  .sm\:-translate-x-md {
+    --transform-translate-x: -28rem;
   }
 
   .sm\:-translate-x-full {
@@ -31341,6 +32005,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .sm\:translate-y-68 {
+    --transform-translate-y: 17rem;
+  }
+
   .sm\:translate-y-72 {
     --transform-translate-y: 18rem;
   }
@@ -31351,6 +32019,10 @@ textarea.floating-label ~ label {
 
   .sm\:translate-y-px {
     --transform-translate-y: 1px;
+  }
+
+  .sm\:translate-y-md {
+    --transform-translate-y: 28rem;
   }
 
   .sm\:-translate-y-1 {
@@ -31421,6 +32093,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .sm\:-translate-y-68 {
+    --transform-translate-y: -17rem;
+  }
+
   .sm\:-translate-y-72 {
     --transform-translate-y: -18rem;
   }
@@ -31431,6 +32107,10 @@ textarea.floating-label ~ label {
 
   .sm\:-translate-y-px {
     --transform-translate-y: -1px;
+  }
+
+  .sm\:-translate-y-md {
+    --transform-translate-y: -28rem;
   }
 
   .sm\:-translate-y-full {
@@ -31521,6 +32201,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .sm\:hover\:translate-x-68:hover {
+    --transform-translate-x: 17rem;
+  }
+
   .sm\:hover\:translate-x-72:hover {
     --transform-translate-x: 18rem;
   }
@@ -31531,6 +32215,10 @@ textarea.floating-label ~ label {
 
   .sm\:hover\:translate-x-px:hover {
     --transform-translate-x: 1px;
+  }
+
+  .sm\:hover\:translate-x-md:hover {
+    --transform-translate-x: 28rem;
   }
 
   .sm\:hover\:-translate-x-1:hover {
@@ -31601,6 +32289,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .sm\:hover\:-translate-x-68:hover {
+    --transform-translate-x: -17rem;
+  }
+
   .sm\:hover\:-translate-x-72:hover {
     --transform-translate-x: -18rem;
   }
@@ -31611,6 +32303,10 @@ textarea.floating-label ~ label {
 
   .sm\:hover\:-translate-x-px:hover {
     --transform-translate-x: -1px;
+  }
+
+  .sm\:hover\:-translate-x-md:hover {
+    --transform-translate-x: -28rem;
   }
 
   .sm\:hover\:-translate-x-full:hover {
@@ -31701,6 +32397,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .sm\:hover\:translate-y-68:hover {
+    --transform-translate-y: 17rem;
+  }
+
   .sm\:hover\:translate-y-72:hover {
     --transform-translate-y: 18rem;
   }
@@ -31711,6 +32411,10 @@ textarea.floating-label ~ label {
 
   .sm\:hover\:translate-y-px:hover {
     --transform-translate-y: 1px;
+  }
+
+  .sm\:hover\:translate-y-md:hover {
+    --transform-translate-y: 28rem;
   }
 
   .sm\:hover\:-translate-y-1:hover {
@@ -31781,6 +32485,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .sm\:hover\:-translate-y-68:hover {
+    --transform-translate-y: -17rem;
+  }
+
   .sm\:hover\:-translate-y-72:hover {
     --transform-translate-y: -18rem;
   }
@@ -31791,6 +32499,10 @@ textarea.floating-label ~ label {
 
   .sm\:hover\:-translate-y-px:hover {
     --transform-translate-y: -1px;
+  }
+
+  .sm\:hover\:-translate-y-md:hover {
+    --transform-translate-y: -28rem;
   }
 
   .sm\:hover\:-translate-y-full:hover {
@@ -31881,6 +32593,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .sm\:focus\:translate-x-68:focus {
+    --transform-translate-x: 17rem;
+  }
+
   .sm\:focus\:translate-x-72:focus {
     --transform-translate-x: 18rem;
   }
@@ -31891,6 +32607,10 @@ textarea.floating-label ~ label {
 
   .sm\:focus\:translate-x-px:focus {
     --transform-translate-x: 1px;
+  }
+
+  .sm\:focus\:translate-x-md:focus {
+    --transform-translate-x: 28rem;
   }
 
   .sm\:focus\:-translate-x-1:focus {
@@ -31961,6 +32681,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .sm\:focus\:-translate-x-68:focus {
+    --transform-translate-x: -17rem;
+  }
+
   .sm\:focus\:-translate-x-72:focus {
     --transform-translate-x: -18rem;
   }
@@ -31971,6 +32695,10 @@ textarea.floating-label ~ label {
 
   .sm\:focus\:-translate-x-px:focus {
     --transform-translate-x: -1px;
+  }
+
+  .sm\:focus\:-translate-x-md:focus {
+    --transform-translate-x: -28rem;
   }
 
   .sm\:focus\:-translate-x-full:focus {
@@ -32061,6 +32789,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .sm\:focus\:translate-y-68:focus {
+    --transform-translate-y: 17rem;
+  }
+
   .sm\:focus\:translate-y-72:focus {
     --transform-translate-y: 18rem;
   }
@@ -32071,6 +32803,10 @@ textarea.floating-label ~ label {
 
   .sm\:focus\:translate-y-px:focus {
     --transform-translate-y: 1px;
+  }
+
+  .sm\:focus\:translate-y-md:focus {
+    --transform-translate-y: 28rem;
   }
 
   .sm\:focus\:-translate-y-1:focus {
@@ -32141,6 +32877,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .sm\:focus\:-translate-y-68:focus {
+    --transform-translate-y: -17rem;
+  }
+
   .sm\:focus\:-translate-y-72:focus {
     --transform-translate-y: -18rem;
   }
@@ -32151,6 +32891,10 @@ textarea.floating-label ~ label {
 
   .sm\:focus\:-translate-y-px:focus {
     --transform-translate-y: -1px;
+  }
+
+  .sm\:focus\:-translate-y-md:focus {
+    --transform-translate-y: -28rem;
   }
 
   .sm\:focus\:-translate-y-full:focus {
@@ -32663,6 +33407,18 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .md\:space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(17rem * var(--space-y-reverse));
+  }
+
+  .md\:space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(17rem * var(--space-x-reverse));
+    margin-left: calc(17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .md\:space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
@@ -32697,6 +33453,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .md\:space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(28rem * var(--space-y-reverse));
+  }
+
+  .md\:space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(28rem * var(--space-x-reverse));
+    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .md\:-space-y-1 > :not(template) ~ :not(template) {
@@ -32903,6 +33671,18 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .md\:-space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-17rem * var(--space-y-reverse));
+  }
+
+  .md\:-space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-17rem * var(--space-x-reverse));
+    margin-left: calc(-17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .md\:-space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
@@ -32937,6 +33717,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .md\:-space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-28rem * var(--space-y-reverse));
+  }
+
+  .md\:-space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-28rem * var(--space-x-reverse));
+    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .md\:space-y-reverse > :not(template) ~ :not(template) {
@@ -37281,6 +38073,10 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .md\:h-68 {
+    height: 17rem;
+  }
+
   .md\:h-72 {
     height: 18rem;
   }
@@ -37295,6 +38091,10 @@ textarea.floating-label ~ label {
 
   .md\:h-px {
     height: 1px;
+  }
+
+  .md\:h-md {
+    height: 28rem;
   }
 
   .md\:h-full {
@@ -37493,6 +38293,10 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .md\:m-68 {
+    margin: 17rem;
+  }
+
   .md\:m-72 {
     margin: 18rem;
   }
@@ -37507,6 +38311,10 @@ textarea.floating-label ~ label {
 
   .md\:m-px {
     margin: 1px;
+  }
+
+  .md\:m-md {
+    margin: 28rem;
   }
 
   .md\:-m-1 {
@@ -37577,6 +38385,10 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
+  .md\:-m-68 {
+    margin: -17rem;
+  }
+
   .md\:-m-72 {
     margin: -18rem;
   }
@@ -37587,6 +38399,10 @@ textarea.floating-label ~ label {
 
   .md\:-m-px {
     margin: -1px;
+  }
+
+  .md\:-m-md {
+    margin: -28rem;
   }
 
   .md\:my-0 {
@@ -37769,6 +38585,16 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .md\:my-68 {
+    margin-top: 17rem;
+    margin-bottom: 17rem;
+  }
+
+  .md\:mx-68 {
+    margin-left: 17rem;
+    margin-right: 17rem;
+  }
+
   .md\:my-72 {
     margin-top: 18rem;
     margin-bottom: 18rem;
@@ -37807,6 +38633,16 @@ textarea.floating-label ~ label {
   .md\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
+  }
+
+  .md\:my-md {
+    margin-top: 28rem;
+    margin-bottom: 28rem;
+  }
+
+  .md\:mx-md {
+    margin-left: 28rem;
+    margin-right: 28rem;
   }
 
   .md\:-my-1 {
@@ -37979,6 +38815,16 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .md\:-my-68 {
+    margin-top: -17rem;
+    margin-bottom: -17rem;
+  }
+
+  .md\:-mx-68 {
+    margin-left: -17rem;
+    margin-right: -17rem;
+  }
+
   .md\:-my-72 {
     margin-top: -18rem;
     margin-bottom: -18rem;
@@ -38007,6 +38853,16 @@ textarea.floating-label ~ label {
   .md\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
+  }
+
+  .md\:-my-md {
+    margin-top: -28rem;
+    margin-bottom: -28rem;
+  }
+
+  .md\:-mx-md {
+    margin-left: -28rem;
+    margin-right: -28rem;
   }
 
   .md\:mt-0 {
@@ -38297,6 +39153,22 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .md\:mt-68 {
+    margin-top: 17rem;
+  }
+
+  .md\:mr-68 {
+    margin-right: 17rem;
+  }
+
+  .md\:mb-68 {
+    margin-bottom: 17rem;
+  }
+
+  .md\:ml-68 {
+    margin-left: 17rem;
+  }
+
   .md\:mt-72 {
     margin-top: 18rem;
   }
@@ -38359,6 +39231,22 @@ textarea.floating-label ~ label {
 
   .md\:ml-px {
     margin-left: 1px;
+  }
+
+  .md\:mt-md {
+    margin-top: 28rem;
+  }
+
+  .md\:mr-md {
+    margin-right: 28rem;
+  }
+
+  .md\:mb-md {
+    margin-bottom: 28rem;
+  }
+
+  .md\:ml-md {
+    margin-left: 28rem;
   }
 
   .md\:-mt-1 {
@@ -38633,6 +39521,22 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .md\:-mt-68 {
+    margin-top: -17rem;
+  }
+
+  .md\:-mr-68 {
+    margin-right: -17rem;
+  }
+
+  .md\:-mb-68 {
+    margin-bottom: -17rem;
+  }
+
+  .md\:-ml-68 {
+    margin-left: -17rem;
+  }
+
   .md\:-mt-72 {
     margin-top: -18rem;
   }
@@ -38679,6 +39583,22 @@ textarea.floating-label ~ label {
 
   .md\:-ml-px {
     margin-left: -1px;
+  }
+
+  .md\:-mt-md {
+    margin-top: -28rem;
+  }
+
+  .md\:-mr-md {
+    margin-right: -28rem;
+  }
+
+  .md\:-mb-md {
+    margin-bottom: -28rem;
+  }
+
+  .md\:-ml-md {
+    margin-left: -28rem;
   }
 
   .md\:max-h-full {
@@ -39071,6 +39991,10 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
+  .md\:p-68 {
+    padding: 17rem;
+  }
+
   .md\:p-72 {
     padding: 18rem;
   }
@@ -39081,6 +40005,10 @@ textarea.floating-label ~ label {
 
   .md\:p-px {
     padding: 1px;
+  }
+
+  .md\:p-md {
+    padding: 28rem;
   }
 
   .md\:py-0 {
@@ -39263,6 +40191,16 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .md\:py-68 {
+    padding-top: 17rem;
+    padding-bottom: 17rem;
+  }
+
+  .md\:px-68 {
+    padding-left: 17rem;
+    padding-right: 17rem;
+  }
+
   .md\:py-72 {
     padding-top: 18rem;
     padding-bottom: 18rem;
@@ -39291,6 +40229,16 @@ textarea.floating-label ~ label {
   .md\:px-px {
     padding-left: 1px;
     padding-right: 1px;
+  }
+
+  .md\:py-md {
+    padding-top: 28rem;
+    padding-bottom: 28rem;
+  }
+
+  .md\:px-md {
+    padding-left: 28rem;
+    padding-right: 28rem;
   }
 
   .md\:pt-0 {
@@ -39581,6 +40529,22 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .md\:pt-68 {
+    padding-top: 17rem;
+  }
+
+  .md\:pr-68 {
+    padding-right: 17rem;
+  }
+
+  .md\:pb-68 {
+    padding-bottom: 17rem;
+  }
+
+  .md\:pl-68 {
+    padding-left: 17rem;
+  }
+
   .md\:pt-72 {
     padding-top: 18rem;
   }
@@ -39627,6 +40591,22 @@ textarea.floating-label ~ label {
 
   .md\:pl-px {
     padding-left: 1px;
+  }
+
+  .md\:pt-md {
+    padding-top: 28rem;
+  }
+
+  .md\:pr-md {
+    padding-right: 28rem;
+  }
+
+  .md\:pb-md {
+    padding-bottom: 28rem;
+  }
+
+  .md\:pl-md {
+    padding-left: 28rem;
   }
 
   .md\:placeholder-transparent::-webkit-input-placeholder {
@@ -45569,6 +46549,10 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .md\:w-68 {
+    width: 17rem;
+  }
+
   .md\:w-72 {
     width: 18rem;
   }
@@ -45583,6 +46567,10 @@ textarea.floating-label ~ label {
 
   .md\:w-px {
     width: 1px;
+  }
+
+  .md\:w-md {
+    width: 28rem;
   }
 
   .md\:w-1\/2 {
@@ -45823,6 +46811,11 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .md\:gap-68 {
+    grid-gap: 17rem;
+    gap: 17rem;
+  }
+
   .md\:gap-72 {
     grid-gap: 18rem;
     gap: 18rem;
@@ -45836,6 +46829,11 @@ textarea.floating-label ~ label {
   .md\:gap-px {
     grid-gap: 1px;
     gap: 1px;
+  }
+
+  .md\:gap-md {
+    grid-gap: 28rem;
+    gap: 28rem;
   }
 
   .md\:col-gap-0 {
@@ -45946,6 +46944,12 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .md\:col-gap-68 {
+    grid-column-gap: 17rem;
+    -moz-column-gap: 17rem;
+         column-gap: 17rem;
+  }
+
   .md\:col-gap-72 {
     grid-column-gap: 18rem;
     -moz-column-gap: 18rem;
@@ -45962,6 +46966,12 @@ textarea.floating-label ~ label {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
+  }
+
+  .md\:col-gap-md {
+    grid-column-gap: 28rem;
+    -moz-column-gap: 28rem;
+         column-gap: 28rem;
   }
 
   .md\:row-gap-0 {
@@ -46054,6 +47064,11 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .md\:row-gap-68 {
+    grid-row-gap: 17rem;
+    row-gap: 17rem;
+  }
+
   .md\:row-gap-72 {
     grid-row-gap: 18rem;
     row-gap: 18rem;
@@ -46067,6 +47082,11 @@ textarea.floating-label ~ label {
   .md\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
+  }
+
+  .md\:row-gap-md {
+    grid-row-gap: 28rem;
+    row-gap: 28rem;
   }
 
   .md\:grid-flow-row {
@@ -47018,6 +48038,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .md\:translate-x-68 {
+    --transform-translate-x: 17rem;
+  }
+
   .md\:translate-x-72 {
     --transform-translate-x: 18rem;
   }
@@ -47028,6 +48052,10 @@ textarea.floating-label ~ label {
 
   .md\:translate-x-px {
     --transform-translate-x: 1px;
+  }
+
+  .md\:translate-x-md {
+    --transform-translate-x: 28rem;
   }
 
   .md\:-translate-x-1 {
@@ -47098,6 +48126,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .md\:-translate-x-68 {
+    --transform-translate-x: -17rem;
+  }
+
   .md\:-translate-x-72 {
     --transform-translate-x: -18rem;
   }
@@ -47108,6 +48140,10 @@ textarea.floating-label ~ label {
 
   .md\:-translate-x-px {
     --transform-translate-x: -1px;
+  }
+
+  .md\:-translate-x-md {
+    --transform-translate-x: -28rem;
   }
 
   .md\:-translate-x-full {
@@ -47198,6 +48234,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .md\:translate-y-68 {
+    --transform-translate-y: 17rem;
+  }
+
   .md\:translate-y-72 {
     --transform-translate-y: 18rem;
   }
@@ -47208,6 +48248,10 @@ textarea.floating-label ~ label {
 
   .md\:translate-y-px {
     --transform-translate-y: 1px;
+  }
+
+  .md\:translate-y-md {
+    --transform-translate-y: 28rem;
   }
 
   .md\:-translate-y-1 {
@@ -47278,6 +48322,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .md\:-translate-y-68 {
+    --transform-translate-y: -17rem;
+  }
+
   .md\:-translate-y-72 {
     --transform-translate-y: -18rem;
   }
@@ -47288,6 +48336,10 @@ textarea.floating-label ~ label {
 
   .md\:-translate-y-px {
     --transform-translate-y: -1px;
+  }
+
+  .md\:-translate-y-md {
+    --transform-translate-y: -28rem;
   }
 
   .md\:-translate-y-full {
@@ -47378,6 +48430,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .md\:hover\:translate-x-68:hover {
+    --transform-translate-x: 17rem;
+  }
+
   .md\:hover\:translate-x-72:hover {
     --transform-translate-x: 18rem;
   }
@@ -47388,6 +48444,10 @@ textarea.floating-label ~ label {
 
   .md\:hover\:translate-x-px:hover {
     --transform-translate-x: 1px;
+  }
+
+  .md\:hover\:translate-x-md:hover {
+    --transform-translate-x: 28rem;
   }
 
   .md\:hover\:-translate-x-1:hover {
@@ -47458,6 +48518,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .md\:hover\:-translate-x-68:hover {
+    --transform-translate-x: -17rem;
+  }
+
   .md\:hover\:-translate-x-72:hover {
     --transform-translate-x: -18rem;
   }
@@ -47468,6 +48532,10 @@ textarea.floating-label ~ label {
 
   .md\:hover\:-translate-x-px:hover {
     --transform-translate-x: -1px;
+  }
+
+  .md\:hover\:-translate-x-md:hover {
+    --transform-translate-x: -28rem;
   }
 
   .md\:hover\:-translate-x-full:hover {
@@ -47558,6 +48626,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .md\:hover\:translate-y-68:hover {
+    --transform-translate-y: 17rem;
+  }
+
   .md\:hover\:translate-y-72:hover {
     --transform-translate-y: 18rem;
   }
@@ -47568,6 +48640,10 @@ textarea.floating-label ~ label {
 
   .md\:hover\:translate-y-px:hover {
     --transform-translate-y: 1px;
+  }
+
+  .md\:hover\:translate-y-md:hover {
+    --transform-translate-y: 28rem;
   }
 
   .md\:hover\:-translate-y-1:hover {
@@ -47638,6 +48714,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .md\:hover\:-translate-y-68:hover {
+    --transform-translate-y: -17rem;
+  }
+
   .md\:hover\:-translate-y-72:hover {
     --transform-translate-y: -18rem;
   }
@@ -47648,6 +48728,10 @@ textarea.floating-label ~ label {
 
   .md\:hover\:-translate-y-px:hover {
     --transform-translate-y: -1px;
+  }
+
+  .md\:hover\:-translate-y-md:hover {
+    --transform-translate-y: -28rem;
   }
 
   .md\:hover\:-translate-y-full:hover {
@@ -47738,6 +48822,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .md\:focus\:translate-x-68:focus {
+    --transform-translate-x: 17rem;
+  }
+
   .md\:focus\:translate-x-72:focus {
     --transform-translate-x: 18rem;
   }
@@ -47748,6 +48836,10 @@ textarea.floating-label ~ label {
 
   .md\:focus\:translate-x-px:focus {
     --transform-translate-x: 1px;
+  }
+
+  .md\:focus\:translate-x-md:focus {
+    --transform-translate-x: 28rem;
   }
 
   .md\:focus\:-translate-x-1:focus {
@@ -47818,6 +48910,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .md\:focus\:-translate-x-68:focus {
+    --transform-translate-x: -17rem;
+  }
+
   .md\:focus\:-translate-x-72:focus {
     --transform-translate-x: -18rem;
   }
@@ -47828,6 +48924,10 @@ textarea.floating-label ~ label {
 
   .md\:focus\:-translate-x-px:focus {
     --transform-translate-x: -1px;
+  }
+
+  .md\:focus\:-translate-x-md:focus {
+    --transform-translate-x: -28rem;
   }
 
   .md\:focus\:-translate-x-full:focus {
@@ -47918,6 +49018,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .md\:focus\:translate-y-68:focus {
+    --transform-translate-y: 17rem;
+  }
+
   .md\:focus\:translate-y-72:focus {
     --transform-translate-y: 18rem;
   }
@@ -47928,6 +49032,10 @@ textarea.floating-label ~ label {
 
   .md\:focus\:translate-y-px:focus {
     --transform-translate-y: 1px;
+  }
+
+  .md\:focus\:translate-y-md:focus {
+    --transform-translate-y: 28rem;
   }
 
   .md\:focus\:-translate-y-1:focus {
@@ -47998,6 +49106,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .md\:focus\:-translate-y-68:focus {
+    --transform-translate-y: -17rem;
+  }
+
   .md\:focus\:-translate-y-72:focus {
     --transform-translate-y: -18rem;
   }
@@ -48008,6 +49120,10 @@ textarea.floating-label ~ label {
 
   .md\:focus\:-translate-y-px:focus {
     --transform-translate-y: -1px;
+  }
+
+  .md\:focus\:-translate-y-md:focus {
+    --transform-translate-y: -28rem;
   }
 
   .md\:focus\:-translate-y-full:focus {
@@ -48520,6 +49636,18 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .lg\:space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(17rem * var(--space-y-reverse));
+  }
+
+  .lg\:space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(17rem * var(--space-x-reverse));
+    margin-left: calc(17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .lg\:space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
@@ -48554,6 +49682,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .lg\:space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(28rem * var(--space-y-reverse));
+  }
+
+  .lg\:space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(28rem * var(--space-x-reverse));
+    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .lg\:-space-y-1 > :not(template) ~ :not(template) {
@@ -48760,6 +49900,18 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .lg\:-space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-17rem * var(--space-y-reverse));
+  }
+
+  .lg\:-space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-17rem * var(--space-x-reverse));
+    margin-left: calc(-17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .lg\:-space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
@@ -48794,6 +49946,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .lg\:-space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-28rem * var(--space-y-reverse));
+  }
+
+  .lg\:-space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-28rem * var(--space-x-reverse));
+    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .lg\:space-y-reverse > :not(template) ~ :not(template) {
@@ -53138,6 +54302,10 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .lg\:h-68 {
+    height: 17rem;
+  }
+
   .lg\:h-72 {
     height: 18rem;
   }
@@ -53152,6 +54320,10 @@ textarea.floating-label ~ label {
 
   .lg\:h-px {
     height: 1px;
+  }
+
+  .lg\:h-md {
+    height: 28rem;
   }
 
   .lg\:h-full {
@@ -53350,6 +54522,10 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .lg\:m-68 {
+    margin: 17rem;
+  }
+
   .lg\:m-72 {
     margin: 18rem;
   }
@@ -53364,6 +54540,10 @@ textarea.floating-label ~ label {
 
   .lg\:m-px {
     margin: 1px;
+  }
+
+  .lg\:m-md {
+    margin: 28rem;
   }
 
   .lg\:-m-1 {
@@ -53434,6 +54614,10 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
+  .lg\:-m-68 {
+    margin: -17rem;
+  }
+
   .lg\:-m-72 {
     margin: -18rem;
   }
@@ -53444,6 +54628,10 @@ textarea.floating-label ~ label {
 
   .lg\:-m-px {
     margin: -1px;
+  }
+
+  .lg\:-m-md {
+    margin: -28rem;
   }
 
   .lg\:my-0 {
@@ -53626,6 +54814,16 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .lg\:my-68 {
+    margin-top: 17rem;
+    margin-bottom: 17rem;
+  }
+
+  .lg\:mx-68 {
+    margin-left: 17rem;
+    margin-right: 17rem;
+  }
+
   .lg\:my-72 {
     margin-top: 18rem;
     margin-bottom: 18rem;
@@ -53664,6 +54862,16 @@ textarea.floating-label ~ label {
   .lg\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
+  }
+
+  .lg\:my-md {
+    margin-top: 28rem;
+    margin-bottom: 28rem;
+  }
+
+  .lg\:mx-md {
+    margin-left: 28rem;
+    margin-right: 28rem;
   }
 
   .lg\:-my-1 {
@@ -53836,6 +55044,16 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .lg\:-my-68 {
+    margin-top: -17rem;
+    margin-bottom: -17rem;
+  }
+
+  .lg\:-mx-68 {
+    margin-left: -17rem;
+    margin-right: -17rem;
+  }
+
   .lg\:-my-72 {
     margin-top: -18rem;
     margin-bottom: -18rem;
@@ -53864,6 +55082,16 @@ textarea.floating-label ~ label {
   .lg\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
+  }
+
+  .lg\:-my-md {
+    margin-top: -28rem;
+    margin-bottom: -28rem;
+  }
+
+  .lg\:-mx-md {
+    margin-left: -28rem;
+    margin-right: -28rem;
   }
 
   .lg\:mt-0 {
@@ -54154,6 +55382,22 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .lg\:mt-68 {
+    margin-top: 17rem;
+  }
+
+  .lg\:mr-68 {
+    margin-right: 17rem;
+  }
+
+  .lg\:mb-68 {
+    margin-bottom: 17rem;
+  }
+
+  .lg\:ml-68 {
+    margin-left: 17rem;
+  }
+
   .lg\:mt-72 {
     margin-top: 18rem;
   }
@@ -54216,6 +55460,22 @@ textarea.floating-label ~ label {
 
   .lg\:ml-px {
     margin-left: 1px;
+  }
+
+  .lg\:mt-md {
+    margin-top: 28rem;
+  }
+
+  .lg\:mr-md {
+    margin-right: 28rem;
+  }
+
+  .lg\:mb-md {
+    margin-bottom: 28rem;
+  }
+
+  .lg\:ml-md {
+    margin-left: 28rem;
   }
 
   .lg\:-mt-1 {
@@ -54490,6 +55750,22 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .lg\:-mt-68 {
+    margin-top: -17rem;
+  }
+
+  .lg\:-mr-68 {
+    margin-right: -17rem;
+  }
+
+  .lg\:-mb-68 {
+    margin-bottom: -17rem;
+  }
+
+  .lg\:-ml-68 {
+    margin-left: -17rem;
+  }
+
   .lg\:-mt-72 {
     margin-top: -18rem;
   }
@@ -54536,6 +55812,22 @@ textarea.floating-label ~ label {
 
   .lg\:-ml-px {
     margin-left: -1px;
+  }
+
+  .lg\:-mt-md {
+    margin-top: -28rem;
+  }
+
+  .lg\:-mr-md {
+    margin-right: -28rem;
+  }
+
+  .lg\:-mb-md {
+    margin-bottom: -28rem;
+  }
+
+  .lg\:-ml-md {
+    margin-left: -28rem;
   }
 
   .lg\:max-h-full {
@@ -54928,6 +56220,10 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
+  .lg\:p-68 {
+    padding: 17rem;
+  }
+
   .lg\:p-72 {
     padding: 18rem;
   }
@@ -54938,6 +56234,10 @@ textarea.floating-label ~ label {
 
   .lg\:p-px {
     padding: 1px;
+  }
+
+  .lg\:p-md {
+    padding: 28rem;
   }
 
   .lg\:py-0 {
@@ -55120,6 +56420,16 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .lg\:py-68 {
+    padding-top: 17rem;
+    padding-bottom: 17rem;
+  }
+
+  .lg\:px-68 {
+    padding-left: 17rem;
+    padding-right: 17rem;
+  }
+
   .lg\:py-72 {
     padding-top: 18rem;
     padding-bottom: 18rem;
@@ -55148,6 +56458,16 @@ textarea.floating-label ~ label {
   .lg\:px-px {
     padding-left: 1px;
     padding-right: 1px;
+  }
+
+  .lg\:py-md {
+    padding-top: 28rem;
+    padding-bottom: 28rem;
+  }
+
+  .lg\:px-md {
+    padding-left: 28rem;
+    padding-right: 28rem;
   }
 
   .lg\:pt-0 {
@@ -55438,6 +56758,22 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .lg\:pt-68 {
+    padding-top: 17rem;
+  }
+
+  .lg\:pr-68 {
+    padding-right: 17rem;
+  }
+
+  .lg\:pb-68 {
+    padding-bottom: 17rem;
+  }
+
+  .lg\:pl-68 {
+    padding-left: 17rem;
+  }
+
   .lg\:pt-72 {
     padding-top: 18rem;
   }
@@ -55484,6 +56820,22 @@ textarea.floating-label ~ label {
 
   .lg\:pl-px {
     padding-left: 1px;
+  }
+
+  .lg\:pt-md {
+    padding-top: 28rem;
+  }
+
+  .lg\:pr-md {
+    padding-right: 28rem;
+  }
+
+  .lg\:pb-md {
+    padding-bottom: 28rem;
+  }
+
+  .lg\:pl-md {
+    padding-left: 28rem;
   }
 
   .lg\:placeholder-transparent::-webkit-input-placeholder {
@@ -61426,6 +62778,10 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .lg\:w-68 {
+    width: 17rem;
+  }
+
   .lg\:w-72 {
     width: 18rem;
   }
@@ -61440,6 +62796,10 @@ textarea.floating-label ~ label {
 
   .lg\:w-px {
     width: 1px;
+  }
+
+  .lg\:w-md {
+    width: 28rem;
   }
 
   .lg\:w-1\/2 {
@@ -61680,6 +63040,11 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .lg\:gap-68 {
+    grid-gap: 17rem;
+    gap: 17rem;
+  }
+
   .lg\:gap-72 {
     grid-gap: 18rem;
     gap: 18rem;
@@ -61693,6 +63058,11 @@ textarea.floating-label ~ label {
   .lg\:gap-px {
     grid-gap: 1px;
     gap: 1px;
+  }
+
+  .lg\:gap-md {
+    grid-gap: 28rem;
+    gap: 28rem;
   }
 
   .lg\:col-gap-0 {
@@ -61803,6 +63173,12 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .lg\:col-gap-68 {
+    grid-column-gap: 17rem;
+    -moz-column-gap: 17rem;
+         column-gap: 17rem;
+  }
+
   .lg\:col-gap-72 {
     grid-column-gap: 18rem;
     -moz-column-gap: 18rem;
@@ -61819,6 +63195,12 @@ textarea.floating-label ~ label {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
+  }
+
+  .lg\:col-gap-md {
+    grid-column-gap: 28rem;
+    -moz-column-gap: 28rem;
+         column-gap: 28rem;
   }
 
   .lg\:row-gap-0 {
@@ -61911,6 +63293,11 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .lg\:row-gap-68 {
+    grid-row-gap: 17rem;
+    row-gap: 17rem;
+  }
+
   .lg\:row-gap-72 {
     grid-row-gap: 18rem;
     row-gap: 18rem;
@@ -61924,6 +63311,11 @@ textarea.floating-label ~ label {
   .lg\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
+  }
+
+  .lg\:row-gap-md {
+    grid-row-gap: 28rem;
+    row-gap: 28rem;
   }
 
   .lg\:grid-flow-row {
@@ -62875,6 +64267,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .lg\:translate-x-68 {
+    --transform-translate-x: 17rem;
+  }
+
   .lg\:translate-x-72 {
     --transform-translate-x: 18rem;
   }
@@ -62885,6 +64281,10 @@ textarea.floating-label ~ label {
 
   .lg\:translate-x-px {
     --transform-translate-x: 1px;
+  }
+
+  .lg\:translate-x-md {
+    --transform-translate-x: 28rem;
   }
 
   .lg\:-translate-x-1 {
@@ -62955,6 +64355,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .lg\:-translate-x-68 {
+    --transform-translate-x: -17rem;
+  }
+
   .lg\:-translate-x-72 {
     --transform-translate-x: -18rem;
   }
@@ -62965,6 +64369,10 @@ textarea.floating-label ~ label {
 
   .lg\:-translate-x-px {
     --transform-translate-x: -1px;
+  }
+
+  .lg\:-translate-x-md {
+    --transform-translate-x: -28rem;
   }
 
   .lg\:-translate-x-full {
@@ -63055,6 +64463,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .lg\:translate-y-68 {
+    --transform-translate-y: 17rem;
+  }
+
   .lg\:translate-y-72 {
     --transform-translate-y: 18rem;
   }
@@ -63065,6 +64477,10 @@ textarea.floating-label ~ label {
 
   .lg\:translate-y-px {
     --transform-translate-y: 1px;
+  }
+
+  .lg\:translate-y-md {
+    --transform-translate-y: 28rem;
   }
 
   .lg\:-translate-y-1 {
@@ -63135,6 +64551,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .lg\:-translate-y-68 {
+    --transform-translate-y: -17rem;
+  }
+
   .lg\:-translate-y-72 {
     --transform-translate-y: -18rem;
   }
@@ -63145,6 +64565,10 @@ textarea.floating-label ~ label {
 
   .lg\:-translate-y-px {
     --transform-translate-y: -1px;
+  }
+
+  .lg\:-translate-y-md {
+    --transform-translate-y: -28rem;
   }
 
   .lg\:-translate-y-full {
@@ -63235,6 +64659,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .lg\:hover\:translate-x-68:hover {
+    --transform-translate-x: 17rem;
+  }
+
   .lg\:hover\:translate-x-72:hover {
     --transform-translate-x: 18rem;
   }
@@ -63245,6 +64673,10 @@ textarea.floating-label ~ label {
 
   .lg\:hover\:translate-x-px:hover {
     --transform-translate-x: 1px;
+  }
+
+  .lg\:hover\:translate-x-md:hover {
+    --transform-translate-x: 28rem;
   }
 
   .lg\:hover\:-translate-x-1:hover {
@@ -63315,6 +64747,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .lg\:hover\:-translate-x-68:hover {
+    --transform-translate-x: -17rem;
+  }
+
   .lg\:hover\:-translate-x-72:hover {
     --transform-translate-x: -18rem;
   }
@@ -63325,6 +64761,10 @@ textarea.floating-label ~ label {
 
   .lg\:hover\:-translate-x-px:hover {
     --transform-translate-x: -1px;
+  }
+
+  .lg\:hover\:-translate-x-md:hover {
+    --transform-translate-x: -28rem;
   }
 
   .lg\:hover\:-translate-x-full:hover {
@@ -63415,6 +64855,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .lg\:hover\:translate-y-68:hover {
+    --transform-translate-y: 17rem;
+  }
+
   .lg\:hover\:translate-y-72:hover {
     --transform-translate-y: 18rem;
   }
@@ -63425,6 +64869,10 @@ textarea.floating-label ~ label {
 
   .lg\:hover\:translate-y-px:hover {
     --transform-translate-y: 1px;
+  }
+
+  .lg\:hover\:translate-y-md:hover {
+    --transform-translate-y: 28rem;
   }
 
   .lg\:hover\:-translate-y-1:hover {
@@ -63495,6 +64943,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .lg\:hover\:-translate-y-68:hover {
+    --transform-translate-y: -17rem;
+  }
+
   .lg\:hover\:-translate-y-72:hover {
     --transform-translate-y: -18rem;
   }
@@ -63505,6 +64957,10 @@ textarea.floating-label ~ label {
 
   .lg\:hover\:-translate-y-px:hover {
     --transform-translate-y: -1px;
+  }
+
+  .lg\:hover\:-translate-y-md:hover {
+    --transform-translate-y: -28rem;
   }
 
   .lg\:hover\:-translate-y-full:hover {
@@ -63595,6 +65051,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .lg\:focus\:translate-x-68:focus {
+    --transform-translate-x: 17rem;
+  }
+
   .lg\:focus\:translate-x-72:focus {
     --transform-translate-x: 18rem;
   }
@@ -63605,6 +65065,10 @@ textarea.floating-label ~ label {
 
   .lg\:focus\:translate-x-px:focus {
     --transform-translate-x: 1px;
+  }
+
+  .lg\:focus\:translate-x-md:focus {
+    --transform-translate-x: 28rem;
   }
 
   .lg\:focus\:-translate-x-1:focus {
@@ -63675,6 +65139,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .lg\:focus\:-translate-x-68:focus {
+    --transform-translate-x: -17rem;
+  }
+
   .lg\:focus\:-translate-x-72:focus {
     --transform-translate-x: -18rem;
   }
@@ -63685,6 +65153,10 @@ textarea.floating-label ~ label {
 
   .lg\:focus\:-translate-x-px:focus {
     --transform-translate-x: -1px;
+  }
+
+  .lg\:focus\:-translate-x-md:focus {
+    --transform-translate-x: -28rem;
   }
 
   .lg\:focus\:-translate-x-full:focus {
@@ -63775,6 +65247,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .lg\:focus\:translate-y-68:focus {
+    --transform-translate-y: 17rem;
+  }
+
   .lg\:focus\:translate-y-72:focus {
     --transform-translate-y: 18rem;
   }
@@ -63785,6 +65261,10 @@ textarea.floating-label ~ label {
 
   .lg\:focus\:translate-y-px:focus {
     --transform-translate-y: 1px;
+  }
+
+  .lg\:focus\:translate-y-md:focus {
+    --transform-translate-y: 28rem;
   }
 
   .lg\:focus\:-translate-y-1:focus {
@@ -63855,6 +65335,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .lg\:focus\:-translate-y-68:focus {
+    --transform-translate-y: -17rem;
+  }
+
   .lg\:focus\:-translate-y-72:focus {
     --transform-translate-y: -18rem;
   }
@@ -63865,6 +65349,10 @@ textarea.floating-label ~ label {
 
   .lg\:focus\:-translate-y-px:focus {
     --transform-translate-y: -1px;
+  }
+
+  .lg\:focus\:-translate-y-md:focus {
+    --transform-translate-y: -28rem;
   }
 
   .lg\:focus\:-translate-y-full:focus {
@@ -64377,6 +65865,18 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .xl\:space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(17rem * var(--space-y-reverse));
+  }
+
+  .xl\:space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(17rem * var(--space-x-reverse));
+    margin-left: calc(17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .xl\:space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
@@ -64411,6 +65911,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .xl\:space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(28rem * var(--space-y-reverse));
+  }
+
+  .xl\:space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(28rem * var(--space-x-reverse));
+    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .xl\:-space-y-1 > :not(template) ~ :not(template) {
@@ -64617,6 +66129,18 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .xl\:-space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-17rem * var(--space-y-reverse));
+  }
+
+  .xl\:-space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-17rem * var(--space-x-reverse));
+    margin-left: calc(-17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .xl\:-space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
@@ -64651,6 +66175,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .xl\:-space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-28rem * var(--space-y-reverse));
+  }
+
+  .xl\:-space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-28rem * var(--space-x-reverse));
+    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .xl\:space-y-reverse > :not(template) ~ :not(template) {
@@ -68995,6 +70531,10 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .xl\:h-68 {
+    height: 17rem;
+  }
+
   .xl\:h-72 {
     height: 18rem;
   }
@@ -69009,6 +70549,10 @@ textarea.floating-label ~ label {
 
   .xl\:h-px {
     height: 1px;
+  }
+
+  .xl\:h-md {
+    height: 28rem;
   }
 
   .xl\:h-full {
@@ -69207,6 +70751,10 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .xl\:m-68 {
+    margin: 17rem;
+  }
+
   .xl\:m-72 {
     margin: 18rem;
   }
@@ -69221,6 +70769,10 @@ textarea.floating-label ~ label {
 
   .xl\:m-px {
     margin: 1px;
+  }
+
+  .xl\:m-md {
+    margin: 28rem;
   }
 
   .xl\:-m-1 {
@@ -69291,6 +70843,10 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
+  .xl\:-m-68 {
+    margin: -17rem;
+  }
+
   .xl\:-m-72 {
     margin: -18rem;
   }
@@ -69301,6 +70857,10 @@ textarea.floating-label ~ label {
 
   .xl\:-m-px {
     margin: -1px;
+  }
+
+  .xl\:-m-md {
+    margin: -28rem;
   }
 
   .xl\:my-0 {
@@ -69483,6 +71043,16 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .xl\:my-68 {
+    margin-top: 17rem;
+    margin-bottom: 17rem;
+  }
+
+  .xl\:mx-68 {
+    margin-left: 17rem;
+    margin-right: 17rem;
+  }
+
   .xl\:my-72 {
     margin-top: 18rem;
     margin-bottom: 18rem;
@@ -69521,6 +71091,16 @@ textarea.floating-label ~ label {
   .xl\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
+  }
+
+  .xl\:my-md {
+    margin-top: 28rem;
+    margin-bottom: 28rem;
+  }
+
+  .xl\:mx-md {
+    margin-left: 28rem;
+    margin-right: 28rem;
   }
 
   .xl\:-my-1 {
@@ -69693,6 +71273,16 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .xl\:-my-68 {
+    margin-top: -17rem;
+    margin-bottom: -17rem;
+  }
+
+  .xl\:-mx-68 {
+    margin-left: -17rem;
+    margin-right: -17rem;
+  }
+
   .xl\:-my-72 {
     margin-top: -18rem;
     margin-bottom: -18rem;
@@ -69721,6 +71311,16 @@ textarea.floating-label ~ label {
   .xl\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
+  }
+
+  .xl\:-my-md {
+    margin-top: -28rem;
+    margin-bottom: -28rem;
+  }
+
+  .xl\:-mx-md {
+    margin-left: -28rem;
+    margin-right: -28rem;
   }
 
   .xl\:mt-0 {
@@ -70011,6 +71611,22 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .xl\:mt-68 {
+    margin-top: 17rem;
+  }
+
+  .xl\:mr-68 {
+    margin-right: 17rem;
+  }
+
+  .xl\:mb-68 {
+    margin-bottom: 17rem;
+  }
+
+  .xl\:ml-68 {
+    margin-left: 17rem;
+  }
+
   .xl\:mt-72 {
     margin-top: 18rem;
   }
@@ -70073,6 +71689,22 @@ textarea.floating-label ~ label {
 
   .xl\:ml-px {
     margin-left: 1px;
+  }
+
+  .xl\:mt-md {
+    margin-top: 28rem;
+  }
+
+  .xl\:mr-md {
+    margin-right: 28rem;
+  }
+
+  .xl\:mb-md {
+    margin-bottom: 28rem;
+  }
+
+  .xl\:ml-md {
+    margin-left: 28rem;
   }
 
   .xl\:-mt-1 {
@@ -70347,6 +71979,22 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .xl\:-mt-68 {
+    margin-top: -17rem;
+  }
+
+  .xl\:-mr-68 {
+    margin-right: -17rem;
+  }
+
+  .xl\:-mb-68 {
+    margin-bottom: -17rem;
+  }
+
+  .xl\:-ml-68 {
+    margin-left: -17rem;
+  }
+
   .xl\:-mt-72 {
     margin-top: -18rem;
   }
@@ -70393,6 +72041,22 @@ textarea.floating-label ~ label {
 
   .xl\:-ml-px {
     margin-left: -1px;
+  }
+
+  .xl\:-mt-md {
+    margin-top: -28rem;
+  }
+
+  .xl\:-mr-md {
+    margin-right: -28rem;
+  }
+
+  .xl\:-mb-md {
+    margin-bottom: -28rem;
+  }
+
+  .xl\:-ml-md {
+    margin-left: -28rem;
   }
 
   .xl\:max-h-full {
@@ -70785,6 +72449,10 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
+  .xl\:p-68 {
+    padding: 17rem;
+  }
+
   .xl\:p-72 {
     padding: 18rem;
   }
@@ -70795,6 +72463,10 @@ textarea.floating-label ~ label {
 
   .xl\:p-px {
     padding: 1px;
+  }
+
+  .xl\:p-md {
+    padding: 28rem;
   }
 
   .xl\:py-0 {
@@ -70977,6 +72649,16 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .xl\:py-68 {
+    padding-top: 17rem;
+    padding-bottom: 17rem;
+  }
+
+  .xl\:px-68 {
+    padding-left: 17rem;
+    padding-right: 17rem;
+  }
+
   .xl\:py-72 {
     padding-top: 18rem;
     padding-bottom: 18rem;
@@ -71005,6 +72687,16 @@ textarea.floating-label ~ label {
   .xl\:px-px {
     padding-left: 1px;
     padding-right: 1px;
+  }
+
+  .xl\:py-md {
+    padding-top: 28rem;
+    padding-bottom: 28rem;
+  }
+
+  .xl\:px-md {
+    padding-left: 28rem;
+    padding-right: 28rem;
   }
 
   .xl\:pt-0 {
@@ -71295,6 +72987,22 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .xl\:pt-68 {
+    padding-top: 17rem;
+  }
+
+  .xl\:pr-68 {
+    padding-right: 17rem;
+  }
+
+  .xl\:pb-68 {
+    padding-bottom: 17rem;
+  }
+
+  .xl\:pl-68 {
+    padding-left: 17rem;
+  }
+
   .xl\:pt-72 {
     padding-top: 18rem;
   }
@@ -71341,6 +73049,22 @@ textarea.floating-label ~ label {
 
   .xl\:pl-px {
     padding-left: 1px;
+  }
+
+  .xl\:pt-md {
+    padding-top: 28rem;
+  }
+
+  .xl\:pr-md {
+    padding-right: 28rem;
+  }
+
+  .xl\:pb-md {
+    padding-bottom: 28rem;
+  }
+
+  .xl\:pl-md {
+    padding-left: 28rem;
   }
 
   .xl\:placeholder-transparent::-webkit-input-placeholder {
@@ -77283,6 +79007,10 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .xl\:w-68 {
+    width: 17rem;
+  }
+
   .xl\:w-72 {
     width: 18rem;
   }
@@ -77297,6 +79025,10 @@ textarea.floating-label ~ label {
 
   .xl\:w-px {
     width: 1px;
+  }
+
+  .xl\:w-md {
+    width: 28rem;
   }
 
   .xl\:w-1\/2 {
@@ -77537,6 +79269,11 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .xl\:gap-68 {
+    grid-gap: 17rem;
+    gap: 17rem;
+  }
+
   .xl\:gap-72 {
     grid-gap: 18rem;
     gap: 18rem;
@@ -77550,6 +79287,11 @@ textarea.floating-label ~ label {
   .xl\:gap-px {
     grid-gap: 1px;
     gap: 1px;
+  }
+
+  .xl\:gap-md {
+    grid-gap: 28rem;
+    gap: 28rem;
   }
 
   .xl\:col-gap-0 {
@@ -77660,6 +79402,12 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .xl\:col-gap-68 {
+    grid-column-gap: 17rem;
+    -moz-column-gap: 17rem;
+         column-gap: 17rem;
+  }
+
   .xl\:col-gap-72 {
     grid-column-gap: 18rem;
     -moz-column-gap: 18rem;
@@ -77676,6 +79424,12 @@ textarea.floating-label ~ label {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
+  }
+
+  .xl\:col-gap-md {
+    grid-column-gap: 28rem;
+    -moz-column-gap: 28rem;
+         column-gap: 28rem;
   }
 
   .xl\:row-gap-0 {
@@ -77768,6 +79522,11 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .xl\:row-gap-68 {
+    grid-row-gap: 17rem;
+    row-gap: 17rem;
+  }
+
   .xl\:row-gap-72 {
     grid-row-gap: 18rem;
     row-gap: 18rem;
@@ -77781,6 +79540,11 @@ textarea.floating-label ~ label {
   .xl\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
+  }
+
+  .xl\:row-gap-md {
+    grid-row-gap: 28rem;
+    row-gap: 28rem;
   }
 
   .xl\:grid-flow-row {
@@ -78732,6 +80496,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .xl\:translate-x-68 {
+    --transform-translate-x: 17rem;
+  }
+
   .xl\:translate-x-72 {
     --transform-translate-x: 18rem;
   }
@@ -78742,6 +80510,10 @@ textarea.floating-label ~ label {
 
   .xl\:translate-x-px {
     --transform-translate-x: 1px;
+  }
+
+  .xl\:translate-x-md {
+    --transform-translate-x: 28rem;
   }
 
   .xl\:-translate-x-1 {
@@ -78812,6 +80584,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .xl\:-translate-x-68 {
+    --transform-translate-x: -17rem;
+  }
+
   .xl\:-translate-x-72 {
     --transform-translate-x: -18rem;
   }
@@ -78822,6 +80598,10 @@ textarea.floating-label ~ label {
 
   .xl\:-translate-x-px {
     --transform-translate-x: -1px;
+  }
+
+  .xl\:-translate-x-md {
+    --transform-translate-x: -28rem;
   }
 
   .xl\:-translate-x-full {
@@ -78912,6 +80692,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .xl\:translate-y-68 {
+    --transform-translate-y: 17rem;
+  }
+
   .xl\:translate-y-72 {
     --transform-translate-y: 18rem;
   }
@@ -78922,6 +80706,10 @@ textarea.floating-label ~ label {
 
   .xl\:translate-y-px {
     --transform-translate-y: 1px;
+  }
+
+  .xl\:translate-y-md {
+    --transform-translate-y: 28rem;
   }
 
   .xl\:-translate-y-1 {
@@ -78992,6 +80780,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .xl\:-translate-y-68 {
+    --transform-translate-y: -17rem;
+  }
+
   .xl\:-translate-y-72 {
     --transform-translate-y: -18rem;
   }
@@ -79002,6 +80794,10 @@ textarea.floating-label ~ label {
 
   .xl\:-translate-y-px {
     --transform-translate-y: -1px;
+  }
+
+  .xl\:-translate-y-md {
+    --transform-translate-y: -28rem;
   }
 
   .xl\:-translate-y-full {
@@ -79092,6 +80888,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .xl\:hover\:translate-x-68:hover {
+    --transform-translate-x: 17rem;
+  }
+
   .xl\:hover\:translate-x-72:hover {
     --transform-translate-x: 18rem;
   }
@@ -79102,6 +80902,10 @@ textarea.floating-label ~ label {
 
   .xl\:hover\:translate-x-px:hover {
     --transform-translate-x: 1px;
+  }
+
+  .xl\:hover\:translate-x-md:hover {
+    --transform-translate-x: 28rem;
   }
 
   .xl\:hover\:-translate-x-1:hover {
@@ -79172,6 +80976,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .xl\:hover\:-translate-x-68:hover {
+    --transform-translate-x: -17rem;
+  }
+
   .xl\:hover\:-translate-x-72:hover {
     --transform-translate-x: -18rem;
   }
@@ -79182,6 +80990,10 @@ textarea.floating-label ~ label {
 
   .xl\:hover\:-translate-x-px:hover {
     --transform-translate-x: -1px;
+  }
+
+  .xl\:hover\:-translate-x-md:hover {
+    --transform-translate-x: -28rem;
   }
 
   .xl\:hover\:-translate-x-full:hover {
@@ -79272,6 +81084,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .xl\:hover\:translate-y-68:hover {
+    --transform-translate-y: 17rem;
+  }
+
   .xl\:hover\:translate-y-72:hover {
     --transform-translate-y: 18rem;
   }
@@ -79282,6 +81098,10 @@ textarea.floating-label ~ label {
 
   .xl\:hover\:translate-y-px:hover {
     --transform-translate-y: 1px;
+  }
+
+  .xl\:hover\:translate-y-md:hover {
+    --transform-translate-y: 28rem;
   }
 
   .xl\:hover\:-translate-y-1:hover {
@@ -79352,6 +81172,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .xl\:hover\:-translate-y-68:hover {
+    --transform-translate-y: -17rem;
+  }
+
   .xl\:hover\:-translate-y-72:hover {
     --transform-translate-y: -18rem;
   }
@@ -79362,6 +81186,10 @@ textarea.floating-label ~ label {
 
   .xl\:hover\:-translate-y-px:hover {
     --transform-translate-y: -1px;
+  }
+
+  .xl\:hover\:-translate-y-md:hover {
+    --transform-translate-y: -28rem;
   }
 
   .xl\:hover\:-translate-y-full:hover {
@@ -79452,6 +81280,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .xl\:focus\:translate-x-68:focus {
+    --transform-translate-x: 17rem;
+  }
+
   .xl\:focus\:translate-x-72:focus {
     --transform-translate-x: 18rem;
   }
@@ -79462,6 +81294,10 @@ textarea.floating-label ~ label {
 
   .xl\:focus\:translate-x-px:focus {
     --transform-translate-x: 1px;
+  }
+
+  .xl\:focus\:translate-x-md:focus {
+    --transform-translate-x: 28rem;
   }
 
   .xl\:focus\:-translate-x-1:focus {
@@ -79532,6 +81368,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .xl\:focus\:-translate-x-68:focus {
+    --transform-translate-x: -17rem;
+  }
+
   .xl\:focus\:-translate-x-72:focus {
     --transform-translate-x: -18rem;
   }
@@ -79542,6 +81382,10 @@ textarea.floating-label ~ label {
 
   .xl\:focus\:-translate-x-px:focus {
     --transform-translate-x: -1px;
+  }
+
+  .xl\:focus\:-translate-x-md:focus {
+    --transform-translate-x: -28rem;
   }
 
   .xl\:focus\:-translate-x-full:focus {
@@ -79632,6 +81476,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .xl\:focus\:translate-y-68:focus {
+    --transform-translate-y: 17rem;
+  }
+
   .xl\:focus\:translate-y-72:focus {
     --transform-translate-y: 18rem;
   }
@@ -79642,6 +81490,10 @@ textarea.floating-label ~ label {
 
   .xl\:focus\:translate-y-px:focus {
     --transform-translate-y: 1px;
+  }
+
+  .xl\:focus\:translate-y-md:focus {
+    --transform-translate-y: 28rem;
   }
 
   .xl\:focus\:-translate-y-1:focus {
@@ -79712,6 +81564,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .xl\:focus\:-translate-y-68:focus {
+    --transform-translate-y: -17rem;
+  }
+
   .xl\:focus\:-translate-y-72:focus {
     --transform-translate-y: -18rem;
   }
@@ -79722,6 +81578,10 @@ textarea.floating-label ~ label {
 
   .xl\:focus\:-translate-y-px:focus {
     --transform-translate-y: -1px;
+  }
+
+  .xl\:focus\:-translate-y-md:focus {
+    --transform-translate-y: -28rem;
   }
 
   .xl\:focus\:-translate-y-full:focus {
@@ -80234,6 +82094,18 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .small\:space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(17rem * var(--space-y-reverse));
+  }
+
+  .small\:space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(17rem * var(--space-x-reverse));
+    margin-left: calc(17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .small\:space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
@@ -80268,6 +82140,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .small\:space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(28rem * var(--space-y-reverse));
+  }
+
+  .small\:space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(28rem * var(--space-x-reverse));
+    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .small\:-space-y-1 > :not(template) ~ :not(template) {
@@ -80474,6 +82358,18 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .small\:-space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-17rem * var(--space-y-reverse));
+  }
+
+  .small\:-space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-17rem * var(--space-x-reverse));
+    margin-left: calc(-17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .small\:-space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
@@ -80508,6 +82404,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .small\:-space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-28rem * var(--space-y-reverse));
+  }
+
+  .small\:-space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-28rem * var(--space-x-reverse));
+    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .small\:space-y-reverse > :not(template) ~ :not(template) {
@@ -84852,6 +86760,10 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .small\:h-68 {
+    height: 17rem;
+  }
+
   .small\:h-72 {
     height: 18rem;
   }
@@ -84866,6 +86778,10 @@ textarea.floating-label ~ label {
 
   .small\:h-px {
     height: 1px;
+  }
+
+  .small\:h-md {
+    height: 28rem;
   }
 
   .small\:h-full {
@@ -85064,6 +86980,10 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .small\:m-68 {
+    margin: 17rem;
+  }
+
   .small\:m-72 {
     margin: 18rem;
   }
@@ -85078,6 +86998,10 @@ textarea.floating-label ~ label {
 
   .small\:m-px {
     margin: 1px;
+  }
+
+  .small\:m-md {
+    margin: 28rem;
   }
 
   .small\:-m-1 {
@@ -85148,6 +87072,10 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
+  .small\:-m-68 {
+    margin: -17rem;
+  }
+
   .small\:-m-72 {
     margin: -18rem;
   }
@@ -85158,6 +87086,10 @@ textarea.floating-label ~ label {
 
   .small\:-m-px {
     margin: -1px;
+  }
+
+  .small\:-m-md {
+    margin: -28rem;
   }
 
   .small\:my-0 {
@@ -85340,6 +87272,16 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .small\:my-68 {
+    margin-top: 17rem;
+    margin-bottom: 17rem;
+  }
+
+  .small\:mx-68 {
+    margin-left: 17rem;
+    margin-right: 17rem;
+  }
+
   .small\:my-72 {
     margin-top: 18rem;
     margin-bottom: 18rem;
@@ -85378,6 +87320,16 @@ textarea.floating-label ~ label {
   .small\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
+  }
+
+  .small\:my-md {
+    margin-top: 28rem;
+    margin-bottom: 28rem;
+  }
+
+  .small\:mx-md {
+    margin-left: 28rem;
+    margin-right: 28rem;
   }
 
   .small\:-my-1 {
@@ -85550,6 +87502,16 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .small\:-my-68 {
+    margin-top: -17rem;
+    margin-bottom: -17rem;
+  }
+
+  .small\:-mx-68 {
+    margin-left: -17rem;
+    margin-right: -17rem;
+  }
+
   .small\:-my-72 {
     margin-top: -18rem;
     margin-bottom: -18rem;
@@ -85578,6 +87540,16 @@ textarea.floating-label ~ label {
   .small\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
+  }
+
+  .small\:-my-md {
+    margin-top: -28rem;
+    margin-bottom: -28rem;
+  }
+
+  .small\:-mx-md {
+    margin-left: -28rem;
+    margin-right: -28rem;
   }
 
   .small\:mt-0 {
@@ -85868,6 +87840,22 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .small\:mt-68 {
+    margin-top: 17rem;
+  }
+
+  .small\:mr-68 {
+    margin-right: 17rem;
+  }
+
+  .small\:mb-68 {
+    margin-bottom: 17rem;
+  }
+
+  .small\:ml-68 {
+    margin-left: 17rem;
+  }
+
   .small\:mt-72 {
     margin-top: 18rem;
   }
@@ -85930,6 +87918,22 @@ textarea.floating-label ~ label {
 
   .small\:ml-px {
     margin-left: 1px;
+  }
+
+  .small\:mt-md {
+    margin-top: 28rem;
+  }
+
+  .small\:mr-md {
+    margin-right: 28rem;
+  }
+
+  .small\:mb-md {
+    margin-bottom: 28rem;
+  }
+
+  .small\:ml-md {
+    margin-left: 28rem;
   }
 
   .small\:-mt-1 {
@@ -86204,6 +88208,22 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .small\:-mt-68 {
+    margin-top: -17rem;
+  }
+
+  .small\:-mr-68 {
+    margin-right: -17rem;
+  }
+
+  .small\:-mb-68 {
+    margin-bottom: -17rem;
+  }
+
+  .small\:-ml-68 {
+    margin-left: -17rem;
+  }
+
   .small\:-mt-72 {
     margin-top: -18rem;
   }
@@ -86250,6 +88270,22 @@ textarea.floating-label ~ label {
 
   .small\:-ml-px {
     margin-left: -1px;
+  }
+
+  .small\:-mt-md {
+    margin-top: -28rem;
+  }
+
+  .small\:-mr-md {
+    margin-right: -28rem;
+  }
+
+  .small\:-mb-md {
+    margin-bottom: -28rem;
+  }
+
+  .small\:-ml-md {
+    margin-left: -28rem;
   }
 
   .small\:max-h-full {
@@ -86642,6 +88678,10 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
+  .small\:p-68 {
+    padding: 17rem;
+  }
+
   .small\:p-72 {
     padding: 18rem;
   }
@@ -86652,6 +88692,10 @@ textarea.floating-label ~ label {
 
   .small\:p-px {
     padding: 1px;
+  }
+
+  .small\:p-md {
+    padding: 28rem;
   }
 
   .small\:py-0 {
@@ -86834,6 +88878,16 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .small\:py-68 {
+    padding-top: 17rem;
+    padding-bottom: 17rem;
+  }
+
+  .small\:px-68 {
+    padding-left: 17rem;
+    padding-right: 17rem;
+  }
+
   .small\:py-72 {
     padding-top: 18rem;
     padding-bottom: 18rem;
@@ -86862,6 +88916,16 @@ textarea.floating-label ~ label {
   .small\:px-px {
     padding-left: 1px;
     padding-right: 1px;
+  }
+
+  .small\:py-md {
+    padding-top: 28rem;
+    padding-bottom: 28rem;
+  }
+
+  .small\:px-md {
+    padding-left: 28rem;
+    padding-right: 28rem;
   }
 
   .small\:pt-0 {
@@ -87152,6 +89216,22 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .small\:pt-68 {
+    padding-top: 17rem;
+  }
+
+  .small\:pr-68 {
+    padding-right: 17rem;
+  }
+
+  .small\:pb-68 {
+    padding-bottom: 17rem;
+  }
+
+  .small\:pl-68 {
+    padding-left: 17rem;
+  }
+
   .small\:pt-72 {
     padding-top: 18rem;
   }
@@ -87198,6 +89278,22 @@ textarea.floating-label ~ label {
 
   .small\:pl-px {
     padding-left: 1px;
+  }
+
+  .small\:pt-md {
+    padding-top: 28rem;
+  }
+
+  .small\:pr-md {
+    padding-right: 28rem;
+  }
+
+  .small\:pb-md {
+    padding-bottom: 28rem;
+  }
+
+  .small\:pl-md {
+    padding-left: 28rem;
   }
 
   .small\:placeholder-transparent::-webkit-input-placeholder {
@@ -93140,6 +95236,10 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .small\:w-68 {
+    width: 17rem;
+  }
+
   .small\:w-72 {
     width: 18rem;
   }
@@ -93154,6 +95254,10 @@ textarea.floating-label ~ label {
 
   .small\:w-px {
     width: 1px;
+  }
+
+  .small\:w-md {
+    width: 28rem;
   }
 
   .small\:w-1\/2 {
@@ -93394,6 +95498,11 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .small\:gap-68 {
+    grid-gap: 17rem;
+    gap: 17rem;
+  }
+
   .small\:gap-72 {
     grid-gap: 18rem;
     gap: 18rem;
@@ -93407,6 +95516,11 @@ textarea.floating-label ~ label {
   .small\:gap-px {
     grid-gap: 1px;
     gap: 1px;
+  }
+
+  .small\:gap-md {
+    grid-gap: 28rem;
+    gap: 28rem;
   }
 
   .small\:col-gap-0 {
@@ -93517,6 +95631,12 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .small\:col-gap-68 {
+    grid-column-gap: 17rem;
+    -moz-column-gap: 17rem;
+         column-gap: 17rem;
+  }
+
   .small\:col-gap-72 {
     grid-column-gap: 18rem;
     -moz-column-gap: 18rem;
@@ -93533,6 +95653,12 @@ textarea.floating-label ~ label {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
+  }
+
+  .small\:col-gap-md {
+    grid-column-gap: 28rem;
+    -moz-column-gap: 28rem;
+         column-gap: 28rem;
   }
 
   .small\:row-gap-0 {
@@ -93625,6 +95751,11 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .small\:row-gap-68 {
+    grid-row-gap: 17rem;
+    row-gap: 17rem;
+  }
+
   .small\:row-gap-72 {
     grid-row-gap: 18rem;
     row-gap: 18rem;
@@ -93638,6 +95769,11 @@ textarea.floating-label ~ label {
   .small\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
+  }
+
+  .small\:row-gap-md {
+    grid-row-gap: 28rem;
+    row-gap: 28rem;
   }
 
   .small\:grid-flow-row {
@@ -94589,6 +96725,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .small\:translate-x-68 {
+    --transform-translate-x: 17rem;
+  }
+
   .small\:translate-x-72 {
     --transform-translate-x: 18rem;
   }
@@ -94599,6 +96739,10 @@ textarea.floating-label ~ label {
 
   .small\:translate-x-px {
     --transform-translate-x: 1px;
+  }
+
+  .small\:translate-x-md {
+    --transform-translate-x: 28rem;
   }
 
   .small\:-translate-x-1 {
@@ -94669,6 +96813,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .small\:-translate-x-68 {
+    --transform-translate-x: -17rem;
+  }
+
   .small\:-translate-x-72 {
     --transform-translate-x: -18rem;
   }
@@ -94679,6 +96827,10 @@ textarea.floating-label ~ label {
 
   .small\:-translate-x-px {
     --transform-translate-x: -1px;
+  }
+
+  .small\:-translate-x-md {
+    --transform-translate-x: -28rem;
   }
 
   .small\:-translate-x-full {
@@ -94769,6 +96921,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .small\:translate-y-68 {
+    --transform-translate-y: 17rem;
+  }
+
   .small\:translate-y-72 {
     --transform-translate-y: 18rem;
   }
@@ -94779,6 +96935,10 @@ textarea.floating-label ~ label {
 
   .small\:translate-y-px {
     --transform-translate-y: 1px;
+  }
+
+  .small\:translate-y-md {
+    --transform-translate-y: 28rem;
   }
 
   .small\:-translate-y-1 {
@@ -94849,6 +97009,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .small\:-translate-y-68 {
+    --transform-translate-y: -17rem;
+  }
+
   .small\:-translate-y-72 {
     --transform-translate-y: -18rem;
   }
@@ -94859,6 +97023,10 @@ textarea.floating-label ~ label {
 
   .small\:-translate-y-px {
     --transform-translate-y: -1px;
+  }
+
+  .small\:-translate-y-md {
+    --transform-translate-y: -28rem;
   }
 
   .small\:-translate-y-full {
@@ -94949,6 +97117,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .small\:hover\:translate-x-68:hover {
+    --transform-translate-x: 17rem;
+  }
+
   .small\:hover\:translate-x-72:hover {
     --transform-translate-x: 18rem;
   }
@@ -94959,6 +97131,10 @@ textarea.floating-label ~ label {
 
   .small\:hover\:translate-x-px:hover {
     --transform-translate-x: 1px;
+  }
+
+  .small\:hover\:translate-x-md:hover {
+    --transform-translate-x: 28rem;
   }
 
   .small\:hover\:-translate-x-1:hover {
@@ -95029,6 +97205,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .small\:hover\:-translate-x-68:hover {
+    --transform-translate-x: -17rem;
+  }
+
   .small\:hover\:-translate-x-72:hover {
     --transform-translate-x: -18rem;
   }
@@ -95039,6 +97219,10 @@ textarea.floating-label ~ label {
 
   .small\:hover\:-translate-x-px:hover {
     --transform-translate-x: -1px;
+  }
+
+  .small\:hover\:-translate-x-md:hover {
+    --transform-translate-x: -28rem;
   }
 
   .small\:hover\:-translate-x-full:hover {
@@ -95129,6 +97313,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .small\:hover\:translate-y-68:hover {
+    --transform-translate-y: 17rem;
+  }
+
   .small\:hover\:translate-y-72:hover {
     --transform-translate-y: 18rem;
   }
@@ -95139,6 +97327,10 @@ textarea.floating-label ~ label {
 
   .small\:hover\:translate-y-px:hover {
     --transform-translate-y: 1px;
+  }
+
+  .small\:hover\:translate-y-md:hover {
+    --transform-translate-y: 28rem;
   }
 
   .small\:hover\:-translate-y-1:hover {
@@ -95209,6 +97401,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .small\:hover\:-translate-y-68:hover {
+    --transform-translate-y: -17rem;
+  }
+
   .small\:hover\:-translate-y-72:hover {
     --transform-translate-y: -18rem;
   }
@@ -95219,6 +97415,10 @@ textarea.floating-label ~ label {
 
   .small\:hover\:-translate-y-px:hover {
     --transform-translate-y: -1px;
+  }
+
+  .small\:hover\:-translate-y-md:hover {
+    --transform-translate-y: -28rem;
   }
 
   .small\:hover\:-translate-y-full:hover {
@@ -95309,6 +97509,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .small\:focus\:translate-x-68:focus {
+    --transform-translate-x: 17rem;
+  }
+
   .small\:focus\:translate-x-72:focus {
     --transform-translate-x: 18rem;
   }
@@ -95319,6 +97523,10 @@ textarea.floating-label ~ label {
 
   .small\:focus\:translate-x-px:focus {
     --transform-translate-x: 1px;
+  }
+
+  .small\:focus\:translate-x-md:focus {
+    --transform-translate-x: 28rem;
   }
 
   .small\:focus\:-translate-x-1:focus {
@@ -95389,6 +97597,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .small\:focus\:-translate-x-68:focus {
+    --transform-translate-x: -17rem;
+  }
+
   .small\:focus\:-translate-x-72:focus {
     --transform-translate-x: -18rem;
   }
@@ -95399,6 +97611,10 @@ textarea.floating-label ~ label {
 
   .small\:focus\:-translate-x-px:focus {
     --transform-translate-x: -1px;
+  }
+
+  .small\:focus\:-translate-x-md:focus {
+    --transform-translate-x: -28rem;
   }
 
   .small\:focus\:-translate-x-full:focus {
@@ -95489,6 +97705,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .small\:focus\:translate-y-68:focus {
+    --transform-translate-y: 17rem;
+  }
+
   .small\:focus\:translate-y-72:focus {
     --transform-translate-y: 18rem;
   }
@@ -95499,6 +97719,10 @@ textarea.floating-label ~ label {
 
   .small\:focus\:translate-y-px:focus {
     --transform-translate-y: 1px;
+  }
+
+  .small\:focus\:translate-y-md:focus {
+    --transform-translate-y: 28rem;
   }
 
   .small\:focus\:-translate-y-1:focus {
@@ -95569,6 +97793,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .small\:focus\:-translate-y-68:focus {
+    --transform-translate-y: -17rem;
+  }
+
   .small\:focus\:-translate-y-72:focus {
     --transform-translate-y: -18rem;
   }
@@ -95579,6 +97807,10 @@ textarea.floating-label ~ label {
 
   .small\:focus\:-translate-y-px:focus {
     --transform-translate-y: -1px;
+  }
+
+  .small\:focus\:-translate-y-md:focus {
+    --transform-translate-y: -28rem;
   }
 
   .small\:focus\:-translate-y-full:focus {
@@ -96091,6 +98323,18 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .medium\:space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(17rem * var(--space-y-reverse));
+  }
+
+  .medium\:space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(17rem * var(--space-x-reverse));
+    margin-left: calc(17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .medium\:space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
@@ -96125,6 +98369,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .medium\:space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(28rem * var(--space-y-reverse));
+  }
+
+  .medium\:space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(28rem * var(--space-x-reverse));
+    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .medium\:-space-y-1 > :not(template) ~ :not(template) {
@@ -96331,6 +98587,18 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .medium\:-space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-17rem * var(--space-y-reverse));
+  }
+
+  .medium\:-space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-17rem * var(--space-x-reverse));
+    margin-left: calc(-17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .medium\:-space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
@@ -96365,6 +98633,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .medium\:-space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-28rem * var(--space-y-reverse));
+  }
+
+  .medium\:-space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-28rem * var(--space-x-reverse));
+    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .medium\:space-y-reverse > :not(template) ~ :not(template) {
@@ -100709,6 +102989,10 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .medium\:h-68 {
+    height: 17rem;
+  }
+
   .medium\:h-72 {
     height: 18rem;
   }
@@ -100723,6 +103007,10 @@ textarea.floating-label ~ label {
 
   .medium\:h-px {
     height: 1px;
+  }
+
+  .medium\:h-md {
+    height: 28rem;
   }
 
   .medium\:h-full {
@@ -100921,6 +103209,10 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .medium\:m-68 {
+    margin: 17rem;
+  }
+
   .medium\:m-72 {
     margin: 18rem;
   }
@@ -100935,6 +103227,10 @@ textarea.floating-label ~ label {
 
   .medium\:m-px {
     margin: 1px;
+  }
+
+  .medium\:m-md {
+    margin: 28rem;
   }
 
   .medium\:-m-1 {
@@ -101005,6 +103301,10 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
+  .medium\:-m-68 {
+    margin: -17rem;
+  }
+
   .medium\:-m-72 {
     margin: -18rem;
   }
@@ -101015,6 +103315,10 @@ textarea.floating-label ~ label {
 
   .medium\:-m-px {
     margin: -1px;
+  }
+
+  .medium\:-m-md {
+    margin: -28rem;
   }
 
   .medium\:my-0 {
@@ -101197,6 +103501,16 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .medium\:my-68 {
+    margin-top: 17rem;
+    margin-bottom: 17rem;
+  }
+
+  .medium\:mx-68 {
+    margin-left: 17rem;
+    margin-right: 17rem;
+  }
+
   .medium\:my-72 {
     margin-top: 18rem;
     margin-bottom: 18rem;
@@ -101235,6 +103549,16 @@ textarea.floating-label ~ label {
   .medium\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
+  }
+
+  .medium\:my-md {
+    margin-top: 28rem;
+    margin-bottom: 28rem;
+  }
+
+  .medium\:mx-md {
+    margin-left: 28rem;
+    margin-right: 28rem;
   }
 
   .medium\:-my-1 {
@@ -101407,6 +103731,16 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .medium\:-my-68 {
+    margin-top: -17rem;
+    margin-bottom: -17rem;
+  }
+
+  .medium\:-mx-68 {
+    margin-left: -17rem;
+    margin-right: -17rem;
+  }
+
   .medium\:-my-72 {
     margin-top: -18rem;
     margin-bottom: -18rem;
@@ -101435,6 +103769,16 @@ textarea.floating-label ~ label {
   .medium\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
+  }
+
+  .medium\:-my-md {
+    margin-top: -28rem;
+    margin-bottom: -28rem;
+  }
+
+  .medium\:-mx-md {
+    margin-left: -28rem;
+    margin-right: -28rem;
   }
 
   .medium\:mt-0 {
@@ -101725,6 +104069,22 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .medium\:mt-68 {
+    margin-top: 17rem;
+  }
+
+  .medium\:mr-68 {
+    margin-right: 17rem;
+  }
+
+  .medium\:mb-68 {
+    margin-bottom: 17rem;
+  }
+
+  .medium\:ml-68 {
+    margin-left: 17rem;
+  }
+
   .medium\:mt-72 {
     margin-top: 18rem;
   }
@@ -101787,6 +104147,22 @@ textarea.floating-label ~ label {
 
   .medium\:ml-px {
     margin-left: 1px;
+  }
+
+  .medium\:mt-md {
+    margin-top: 28rem;
+  }
+
+  .medium\:mr-md {
+    margin-right: 28rem;
+  }
+
+  .medium\:mb-md {
+    margin-bottom: 28rem;
+  }
+
+  .medium\:ml-md {
+    margin-left: 28rem;
   }
 
   .medium\:-mt-1 {
@@ -102061,6 +104437,22 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .medium\:-mt-68 {
+    margin-top: -17rem;
+  }
+
+  .medium\:-mr-68 {
+    margin-right: -17rem;
+  }
+
+  .medium\:-mb-68 {
+    margin-bottom: -17rem;
+  }
+
+  .medium\:-ml-68 {
+    margin-left: -17rem;
+  }
+
   .medium\:-mt-72 {
     margin-top: -18rem;
   }
@@ -102107,6 +104499,22 @@ textarea.floating-label ~ label {
 
   .medium\:-ml-px {
     margin-left: -1px;
+  }
+
+  .medium\:-mt-md {
+    margin-top: -28rem;
+  }
+
+  .medium\:-mr-md {
+    margin-right: -28rem;
+  }
+
+  .medium\:-mb-md {
+    margin-bottom: -28rem;
+  }
+
+  .medium\:-ml-md {
+    margin-left: -28rem;
   }
 
   .medium\:max-h-full {
@@ -102499,6 +104907,10 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
+  .medium\:p-68 {
+    padding: 17rem;
+  }
+
   .medium\:p-72 {
     padding: 18rem;
   }
@@ -102509,6 +104921,10 @@ textarea.floating-label ~ label {
 
   .medium\:p-px {
     padding: 1px;
+  }
+
+  .medium\:p-md {
+    padding: 28rem;
   }
 
   .medium\:py-0 {
@@ -102691,6 +105107,16 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .medium\:py-68 {
+    padding-top: 17rem;
+    padding-bottom: 17rem;
+  }
+
+  .medium\:px-68 {
+    padding-left: 17rem;
+    padding-right: 17rem;
+  }
+
   .medium\:py-72 {
     padding-top: 18rem;
     padding-bottom: 18rem;
@@ -102719,6 +105145,16 @@ textarea.floating-label ~ label {
   .medium\:px-px {
     padding-left: 1px;
     padding-right: 1px;
+  }
+
+  .medium\:py-md {
+    padding-top: 28rem;
+    padding-bottom: 28rem;
+  }
+
+  .medium\:px-md {
+    padding-left: 28rem;
+    padding-right: 28rem;
   }
 
   .medium\:pt-0 {
@@ -103009,6 +105445,22 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .medium\:pt-68 {
+    padding-top: 17rem;
+  }
+
+  .medium\:pr-68 {
+    padding-right: 17rem;
+  }
+
+  .medium\:pb-68 {
+    padding-bottom: 17rem;
+  }
+
+  .medium\:pl-68 {
+    padding-left: 17rem;
+  }
+
   .medium\:pt-72 {
     padding-top: 18rem;
   }
@@ -103055,6 +105507,22 @@ textarea.floating-label ~ label {
 
   .medium\:pl-px {
     padding-left: 1px;
+  }
+
+  .medium\:pt-md {
+    padding-top: 28rem;
+  }
+
+  .medium\:pr-md {
+    padding-right: 28rem;
+  }
+
+  .medium\:pb-md {
+    padding-bottom: 28rem;
+  }
+
+  .medium\:pl-md {
+    padding-left: 28rem;
   }
 
   .medium\:placeholder-transparent::-webkit-input-placeholder {
@@ -108997,6 +111465,10 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .medium\:w-68 {
+    width: 17rem;
+  }
+
   .medium\:w-72 {
     width: 18rem;
   }
@@ -109011,6 +111483,10 @@ textarea.floating-label ~ label {
 
   .medium\:w-px {
     width: 1px;
+  }
+
+  .medium\:w-md {
+    width: 28rem;
   }
 
   .medium\:w-1\/2 {
@@ -109251,6 +111727,11 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .medium\:gap-68 {
+    grid-gap: 17rem;
+    gap: 17rem;
+  }
+
   .medium\:gap-72 {
     grid-gap: 18rem;
     gap: 18rem;
@@ -109264,6 +111745,11 @@ textarea.floating-label ~ label {
   .medium\:gap-px {
     grid-gap: 1px;
     gap: 1px;
+  }
+
+  .medium\:gap-md {
+    grid-gap: 28rem;
+    gap: 28rem;
   }
 
   .medium\:col-gap-0 {
@@ -109374,6 +111860,12 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .medium\:col-gap-68 {
+    grid-column-gap: 17rem;
+    -moz-column-gap: 17rem;
+         column-gap: 17rem;
+  }
+
   .medium\:col-gap-72 {
     grid-column-gap: 18rem;
     -moz-column-gap: 18rem;
@@ -109390,6 +111882,12 @@ textarea.floating-label ~ label {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
+  }
+
+  .medium\:col-gap-md {
+    grid-column-gap: 28rem;
+    -moz-column-gap: 28rem;
+         column-gap: 28rem;
   }
 
   .medium\:row-gap-0 {
@@ -109482,6 +111980,11 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .medium\:row-gap-68 {
+    grid-row-gap: 17rem;
+    row-gap: 17rem;
+  }
+
   .medium\:row-gap-72 {
     grid-row-gap: 18rem;
     row-gap: 18rem;
@@ -109495,6 +111998,11 @@ textarea.floating-label ~ label {
   .medium\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
+  }
+
+  .medium\:row-gap-md {
+    grid-row-gap: 28rem;
+    row-gap: 28rem;
   }
 
   .medium\:grid-flow-row {
@@ -110446,6 +112954,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .medium\:translate-x-68 {
+    --transform-translate-x: 17rem;
+  }
+
   .medium\:translate-x-72 {
     --transform-translate-x: 18rem;
   }
@@ -110456,6 +112968,10 @@ textarea.floating-label ~ label {
 
   .medium\:translate-x-px {
     --transform-translate-x: 1px;
+  }
+
+  .medium\:translate-x-md {
+    --transform-translate-x: 28rem;
   }
 
   .medium\:-translate-x-1 {
@@ -110526,6 +113042,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .medium\:-translate-x-68 {
+    --transform-translate-x: -17rem;
+  }
+
   .medium\:-translate-x-72 {
     --transform-translate-x: -18rem;
   }
@@ -110536,6 +113056,10 @@ textarea.floating-label ~ label {
 
   .medium\:-translate-x-px {
     --transform-translate-x: -1px;
+  }
+
+  .medium\:-translate-x-md {
+    --transform-translate-x: -28rem;
   }
 
   .medium\:-translate-x-full {
@@ -110626,6 +113150,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .medium\:translate-y-68 {
+    --transform-translate-y: 17rem;
+  }
+
   .medium\:translate-y-72 {
     --transform-translate-y: 18rem;
   }
@@ -110636,6 +113164,10 @@ textarea.floating-label ~ label {
 
   .medium\:translate-y-px {
     --transform-translate-y: 1px;
+  }
+
+  .medium\:translate-y-md {
+    --transform-translate-y: 28rem;
   }
 
   .medium\:-translate-y-1 {
@@ -110706,6 +113238,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .medium\:-translate-y-68 {
+    --transform-translate-y: -17rem;
+  }
+
   .medium\:-translate-y-72 {
     --transform-translate-y: -18rem;
   }
@@ -110716,6 +113252,10 @@ textarea.floating-label ~ label {
 
   .medium\:-translate-y-px {
     --transform-translate-y: -1px;
+  }
+
+  .medium\:-translate-y-md {
+    --transform-translate-y: -28rem;
   }
 
   .medium\:-translate-y-full {
@@ -110806,6 +113346,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .medium\:hover\:translate-x-68:hover {
+    --transform-translate-x: 17rem;
+  }
+
   .medium\:hover\:translate-x-72:hover {
     --transform-translate-x: 18rem;
   }
@@ -110816,6 +113360,10 @@ textarea.floating-label ~ label {
 
   .medium\:hover\:translate-x-px:hover {
     --transform-translate-x: 1px;
+  }
+
+  .medium\:hover\:translate-x-md:hover {
+    --transform-translate-x: 28rem;
   }
 
   .medium\:hover\:-translate-x-1:hover {
@@ -110886,6 +113434,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .medium\:hover\:-translate-x-68:hover {
+    --transform-translate-x: -17rem;
+  }
+
   .medium\:hover\:-translate-x-72:hover {
     --transform-translate-x: -18rem;
   }
@@ -110896,6 +113448,10 @@ textarea.floating-label ~ label {
 
   .medium\:hover\:-translate-x-px:hover {
     --transform-translate-x: -1px;
+  }
+
+  .medium\:hover\:-translate-x-md:hover {
+    --transform-translate-x: -28rem;
   }
 
   .medium\:hover\:-translate-x-full:hover {
@@ -110986,6 +113542,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .medium\:hover\:translate-y-68:hover {
+    --transform-translate-y: 17rem;
+  }
+
   .medium\:hover\:translate-y-72:hover {
     --transform-translate-y: 18rem;
   }
@@ -110996,6 +113556,10 @@ textarea.floating-label ~ label {
 
   .medium\:hover\:translate-y-px:hover {
     --transform-translate-y: 1px;
+  }
+
+  .medium\:hover\:translate-y-md:hover {
+    --transform-translate-y: 28rem;
   }
 
   .medium\:hover\:-translate-y-1:hover {
@@ -111066,6 +113630,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .medium\:hover\:-translate-y-68:hover {
+    --transform-translate-y: -17rem;
+  }
+
   .medium\:hover\:-translate-y-72:hover {
     --transform-translate-y: -18rem;
   }
@@ -111076,6 +113644,10 @@ textarea.floating-label ~ label {
 
   .medium\:hover\:-translate-y-px:hover {
     --transform-translate-y: -1px;
+  }
+
+  .medium\:hover\:-translate-y-md:hover {
+    --transform-translate-y: -28rem;
   }
 
   .medium\:hover\:-translate-y-full:hover {
@@ -111166,6 +113738,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .medium\:focus\:translate-x-68:focus {
+    --transform-translate-x: 17rem;
+  }
+
   .medium\:focus\:translate-x-72:focus {
     --transform-translate-x: 18rem;
   }
@@ -111176,6 +113752,10 @@ textarea.floating-label ~ label {
 
   .medium\:focus\:translate-x-px:focus {
     --transform-translate-x: 1px;
+  }
+
+  .medium\:focus\:translate-x-md:focus {
+    --transform-translate-x: 28rem;
   }
 
   .medium\:focus\:-translate-x-1:focus {
@@ -111246,6 +113826,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .medium\:focus\:-translate-x-68:focus {
+    --transform-translate-x: -17rem;
+  }
+
   .medium\:focus\:-translate-x-72:focus {
     --transform-translate-x: -18rem;
   }
@@ -111256,6 +113840,10 @@ textarea.floating-label ~ label {
 
   .medium\:focus\:-translate-x-px:focus {
     --transform-translate-x: -1px;
+  }
+
+  .medium\:focus\:-translate-x-md:focus {
+    --transform-translate-x: -28rem;
   }
 
   .medium\:focus\:-translate-x-full:focus {
@@ -111346,6 +113934,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .medium\:focus\:translate-y-68:focus {
+    --transform-translate-y: 17rem;
+  }
+
   .medium\:focus\:translate-y-72:focus {
     --transform-translate-y: 18rem;
   }
@@ -111356,6 +113948,10 @@ textarea.floating-label ~ label {
 
   .medium\:focus\:translate-y-px:focus {
     --transform-translate-y: 1px;
+  }
+
+  .medium\:focus\:translate-y-md:focus {
+    --transform-translate-y: 28rem;
   }
 
   .medium\:focus\:-translate-y-1:focus {
@@ -111426,6 +114022,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .medium\:focus\:-translate-y-68:focus {
+    --transform-translate-y: -17rem;
+  }
+
   .medium\:focus\:-translate-y-72:focus {
     --transform-translate-y: -18rem;
   }
@@ -111436,6 +114036,10 @@ textarea.floating-label ~ label {
 
   .medium\:focus\:-translate-y-px:focus {
     --transform-translate-y: -1px;
+  }
+
+  .medium\:focus\:-translate-y-md:focus {
+    --transform-translate-y: -28rem;
   }
 
   .medium\:focus\:-translate-y-full:focus {
@@ -111948,6 +114552,18 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .large\:space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(17rem * var(--space-y-reverse));
+  }
+
+  .large\:space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(17rem * var(--space-x-reverse));
+    margin-left: calc(17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .large\:space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
@@ -111982,6 +114598,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .large\:space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(28rem * var(--space-y-reverse));
+  }
+
+  .large\:space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(28rem * var(--space-x-reverse));
+    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .large\:-space-y-1 > :not(template) ~ :not(template) {
@@ -112188,6 +114816,18 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .large\:-space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-17rem * var(--space-y-reverse));
+  }
+
+  .large\:-space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-17rem * var(--space-x-reverse));
+    margin-left: calc(-17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .large\:-space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
@@ -112222,6 +114862,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .large\:-space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-28rem * var(--space-y-reverse));
+  }
+
+  .large\:-space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-28rem * var(--space-x-reverse));
+    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .large\:space-y-reverse > :not(template) ~ :not(template) {
@@ -116566,6 +119218,10 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .large\:h-68 {
+    height: 17rem;
+  }
+
   .large\:h-72 {
     height: 18rem;
   }
@@ -116580,6 +119236,10 @@ textarea.floating-label ~ label {
 
   .large\:h-px {
     height: 1px;
+  }
+
+  .large\:h-md {
+    height: 28rem;
   }
 
   .large\:h-full {
@@ -116778,6 +119438,10 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .large\:m-68 {
+    margin: 17rem;
+  }
+
   .large\:m-72 {
     margin: 18rem;
   }
@@ -116792,6 +119456,10 @@ textarea.floating-label ~ label {
 
   .large\:m-px {
     margin: 1px;
+  }
+
+  .large\:m-md {
+    margin: 28rem;
   }
 
   .large\:-m-1 {
@@ -116862,6 +119530,10 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
+  .large\:-m-68 {
+    margin: -17rem;
+  }
+
   .large\:-m-72 {
     margin: -18rem;
   }
@@ -116872,6 +119544,10 @@ textarea.floating-label ~ label {
 
   .large\:-m-px {
     margin: -1px;
+  }
+
+  .large\:-m-md {
+    margin: -28rem;
   }
 
   .large\:my-0 {
@@ -117054,6 +119730,16 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .large\:my-68 {
+    margin-top: 17rem;
+    margin-bottom: 17rem;
+  }
+
+  .large\:mx-68 {
+    margin-left: 17rem;
+    margin-right: 17rem;
+  }
+
   .large\:my-72 {
     margin-top: 18rem;
     margin-bottom: 18rem;
@@ -117092,6 +119778,16 @@ textarea.floating-label ~ label {
   .large\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
+  }
+
+  .large\:my-md {
+    margin-top: 28rem;
+    margin-bottom: 28rem;
+  }
+
+  .large\:mx-md {
+    margin-left: 28rem;
+    margin-right: 28rem;
   }
 
   .large\:-my-1 {
@@ -117264,6 +119960,16 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .large\:-my-68 {
+    margin-top: -17rem;
+    margin-bottom: -17rem;
+  }
+
+  .large\:-mx-68 {
+    margin-left: -17rem;
+    margin-right: -17rem;
+  }
+
   .large\:-my-72 {
     margin-top: -18rem;
     margin-bottom: -18rem;
@@ -117292,6 +119998,16 @@ textarea.floating-label ~ label {
   .large\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
+  }
+
+  .large\:-my-md {
+    margin-top: -28rem;
+    margin-bottom: -28rem;
+  }
+
+  .large\:-mx-md {
+    margin-left: -28rem;
+    margin-right: -28rem;
   }
 
   .large\:mt-0 {
@@ -117582,6 +120298,22 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .large\:mt-68 {
+    margin-top: 17rem;
+  }
+
+  .large\:mr-68 {
+    margin-right: 17rem;
+  }
+
+  .large\:mb-68 {
+    margin-bottom: 17rem;
+  }
+
+  .large\:ml-68 {
+    margin-left: 17rem;
+  }
+
   .large\:mt-72 {
     margin-top: 18rem;
   }
@@ -117644,6 +120376,22 @@ textarea.floating-label ~ label {
 
   .large\:ml-px {
     margin-left: 1px;
+  }
+
+  .large\:mt-md {
+    margin-top: 28rem;
+  }
+
+  .large\:mr-md {
+    margin-right: 28rem;
+  }
+
+  .large\:mb-md {
+    margin-bottom: 28rem;
+  }
+
+  .large\:ml-md {
+    margin-left: 28rem;
   }
 
   .large\:-mt-1 {
@@ -117918,6 +120666,22 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .large\:-mt-68 {
+    margin-top: -17rem;
+  }
+
+  .large\:-mr-68 {
+    margin-right: -17rem;
+  }
+
+  .large\:-mb-68 {
+    margin-bottom: -17rem;
+  }
+
+  .large\:-ml-68 {
+    margin-left: -17rem;
+  }
+
   .large\:-mt-72 {
     margin-top: -18rem;
   }
@@ -117964,6 +120728,22 @@ textarea.floating-label ~ label {
 
   .large\:-ml-px {
     margin-left: -1px;
+  }
+
+  .large\:-mt-md {
+    margin-top: -28rem;
+  }
+
+  .large\:-mr-md {
+    margin-right: -28rem;
+  }
+
+  .large\:-mb-md {
+    margin-bottom: -28rem;
+  }
+
+  .large\:-ml-md {
+    margin-left: -28rem;
   }
 
   .large\:max-h-full {
@@ -118356,6 +121136,10 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
+  .large\:p-68 {
+    padding: 17rem;
+  }
+
   .large\:p-72 {
     padding: 18rem;
   }
@@ -118366,6 +121150,10 @@ textarea.floating-label ~ label {
 
   .large\:p-px {
     padding: 1px;
+  }
+
+  .large\:p-md {
+    padding: 28rem;
   }
 
   .large\:py-0 {
@@ -118548,6 +121336,16 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .large\:py-68 {
+    padding-top: 17rem;
+    padding-bottom: 17rem;
+  }
+
+  .large\:px-68 {
+    padding-left: 17rem;
+    padding-right: 17rem;
+  }
+
   .large\:py-72 {
     padding-top: 18rem;
     padding-bottom: 18rem;
@@ -118576,6 +121374,16 @@ textarea.floating-label ~ label {
   .large\:px-px {
     padding-left: 1px;
     padding-right: 1px;
+  }
+
+  .large\:py-md {
+    padding-top: 28rem;
+    padding-bottom: 28rem;
+  }
+
+  .large\:px-md {
+    padding-left: 28rem;
+    padding-right: 28rem;
   }
 
   .large\:pt-0 {
@@ -118866,6 +121674,22 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .large\:pt-68 {
+    padding-top: 17rem;
+  }
+
+  .large\:pr-68 {
+    padding-right: 17rem;
+  }
+
+  .large\:pb-68 {
+    padding-bottom: 17rem;
+  }
+
+  .large\:pl-68 {
+    padding-left: 17rem;
+  }
+
   .large\:pt-72 {
     padding-top: 18rem;
   }
@@ -118912,6 +121736,22 @@ textarea.floating-label ~ label {
 
   .large\:pl-px {
     padding-left: 1px;
+  }
+
+  .large\:pt-md {
+    padding-top: 28rem;
+  }
+
+  .large\:pr-md {
+    padding-right: 28rem;
+  }
+
+  .large\:pb-md {
+    padding-bottom: 28rem;
+  }
+
+  .large\:pl-md {
+    padding-left: 28rem;
   }
 
   .large\:placeholder-transparent::-webkit-input-placeholder {
@@ -124854,6 +127694,10 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .large\:w-68 {
+    width: 17rem;
+  }
+
   .large\:w-72 {
     width: 18rem;
   }
@@ -124868,6 +127712,10 @@ textarea.floating-label ~ label {
 
   .large\:w-px {
     width: 1px;
+  }
+
+  .large\:w-md {
+    width: 28rem;
   }
 
   .large\:w-1\/2 {
@@ -125108,6 +127956,11 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .large\:gap-68 {
+    grid-gap: 17rem;
+    gap: 17rem;
+  }
+
   .large\:gap-72 {
     grid-gap: 18rem;
     gap: 18rem;
@@ -125121,6 +127974,11 @@ textarea.floating-label ~ label {
   .large\:gap-px {
     grid-gap: 1px;
     gap: 1px;
+  }
+
+  .large\:gap-md {
+    grid-gap: 28rem;
+    gap: 28rem;
   }
 
   .large\:col-gap-0 {
@@ -125231,6 +128089,12 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .large\:col-gap-68 {
+    grid-column-gap: 17rem;
+    -moz-column-gap: 17rem;
+         column-gap: 17rem;
+  }
+
   .large\:col-gap-72 {
     grid-column-gap: 18rem;
     -moz-column-gap: 18rem;
@@ -125247,6 +128111,12 @@ textarea.floating-label ~ label {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
+  }
+
+  .large\:col-gap-md {
+    grid-column-gap: 28rem;
+    -moz-column-gap: 28rem;
+         column-gap: 28rem;
   }
 
   .large\:row-gap-0 {
@@ -125339,6 +128209,11 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .large\:row-gap-68 {
+    grid-row-gap: 17rem;
+    row-gap: 17rem;
+  }
+
   .large\:row-gap-72 {
     grid-row-gap: 18rem;
     row-gap: 18rem;
@@ -125352,6 +128227,11 @@ textarea.floating-label ~ label {
   .large\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
+  }
+
+  .large\:row-gap-md {
+    grid-row-gap: 28rem;
+    row-gap: 28rem;
   }
 
   .large\:grid-flow-row {
@@ -126303,6 +129183,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .large\:translate-x-68 {
+    --transform-translate-x: 17rem;
+  }
+
   .large\:translate-x-72 {
     --transform-translate-x: 18rem;
   }
@@ -126313,6 +129197,10 @@ textarea.floating-label ~ label {
 
   .large\:translate-x-px {
     --transform-translate-x: 1px;
+  }
+
+  .large\:translate-x-md {
+    --transform-translate-x: 28rem;
   }
 
   .large\:-translate-x-1 {
@@ -126383,6 +129271,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .large\:-translate-x-68 {
+    --transform-translate-x: -17rem;
+  }
+
   .large\:-translate-x-72 {
     --transform-translate-x: -18rem;
   }
@@ -126393,6 +129285,10 @@ textarea.floating-label ~ label {
 
   .large\:-translate-x-px {
     --transform-translate-x: -1px;
+  }
+
+  .large\:-translate-x-md {
+    --transform-translate-x: -28rem;
   }
 
   .large\:-translate-x-full {
@@ -126483,6 +129379,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .large\:translate-y-68 {
+    --transform-translate-y: 17rem;
+  }
+
   .large\:translate-y-72 {
     --transform-translate-y: 18rem;
   }
@@ -126493,6 +129393,10 @@ textarea.floating-label ~ label {
 
   .large\:translate-y-px {
     --transform-translate-y: 1px;
+  }
+
+  .large\:translate-y-md {
+    --transform-translate-y: 28rem;
   }
 
   .large\:-translate-y-1 {
@@ -126563,6 +129467,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .large\:-translate-y-68 {
+    --transform-translate-y: -17rem;
+  }
+
   .large\:-translate-y-72 {
     --transform-translate-y: -18rem;
   }
@@ -126573,6 +129481,10 @@ textarea.floating-label ~ label {
 
   .large\:-translate-y-px {
     --transform-translate-y: -1px;
+  }
+
+  .large\:-translate-y-md {
+    --transform-translate-y: -28rem;
   }
 
   .large\:-translate-y-full {
@@ -126663,6 +129575,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .large\:hover\:translate-x-68:hover {
+    --transform-translate-x: 17rem;
+  }
+
   .large\:hover\:translate-x-72:hover {
     --transform-translate-x: 18rem;
   }
@@ -126673,6 +129589,10 @@ textarea.floating-label ~ label {
 
   .large\:hover\:translate-x-px:hover {
     --transform-translate-x: 1px;
+  }
+
+  .large\:hover\:translate-x-md:hover {
+    --transform-translate-x: 28rem;
   }
 
   .large\:hover\:-translate-x-1:hover {
@@ -126743,6 +129663,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .large\:hover\:-translate-x-68:hover {
+    --transform-translate-x: -17rem;
+  }
+
   .large\:hover\:-translate-x-72:hover {
     --transform-translate-x: -18rem;
   }
@@ -126753,6 +129677,10 @@ textarea.floating-label ~ label {
 
   .large\:hover\:-translate-x-px:hover {
     --transform-translate-x: -1px;
+  }
+
+  .large\:hover\:-translate-x-md:hover {
+    --transform-translate-x: -28rem;
   }
 
   .large\:hover\:-translate-x-full:hover {
@@ -126843,6 +129771,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .large\:hover\:translate-y-68:hover {
+    --transform-translate-y: 17rem;
+  }
+
   .large\:hover\:translate-y-72:hover {
     --transform-translate-y: 18rem;
   }
@@ -126853,6 +129785,10 @@ textarea.floating-label ~ label {
 
   .large\:hover\:translate-y-px:hover {
     --transform-translate-y: 1px;
+  }
+
+  .large\:hover\:translate-y-md:hover {
+    --transform-translate-y: 28rem;
   }
 
   .large\:hover\:-translate-y-1:hover {
@@ -126923,6 +129859,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .large\:hover\:-translate-y-68:hover {
+    --transform-translate-y: -17rem;
+  }
+
   .large\:hover\:-translate-y-72:hover {
     --transform-translate-y: -18rem;
   }
@@ -126933,6 +129873,10 @@ textarea.floating-label ~ label {
 
   .large\:hover\:-translate-y-px:hover {
     --transform-translate-y: -1px;
+  }
+
+  .large\:hover\:-translate-y-md:hover {
+    --transform-translate-y: -28rem;
   }
 
   .large\:hover\:-translate-y-full:hover {
@@ -127023,6 +129967,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .large\:focus\:translate-x-68:focus {
+    --transform-translate-x: 17rem;
+  }
+
   .large\:focus\:translate-x-72:focus {
     --transform-translate-x: 18rem;
   }
@@ -127033,6 +129981,10 @@ textarea.floating-label ~ label {
 
   .large\:focus\:translate-x-px:focus {
     --transform-translate-x: 1px;
+  }
+
+  .large\:focus\:translate-x-md:focus {
+    --transform-translate-x: 28rem;
   }
 
   .large\:focus\:-translate-x-1:focus {
@@ -127103,6 +130055,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .large\:focus\:-translate-x-68:focus {
+    --transform-translate-x: -17rem;
+  }
+
   .large\:focus\:-translate-x-72:focus {
     --transform-translate-x: -18rem;
   }
@@ -127113,6 +130069,10 @@ textarea.floating-label ~ label {
 
   .large\:focus\:-translate-x-px:focus {
     --transform-translate-x: -1px;
+  }
+
+  .large\:focus\:-translate-x-md:focus {
+    --transform-translate-x: -28rem;
   }
 
   .large\:focus\:-translate-x-full:focus {
@@ -127203,6 +130163,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .large\:focus\:translate-y-68:focus {
+    --transform-translate-y: 17rem;
+  }
+
   .large\:focus\:translate-y-72:focus {
     --transform-translate-y: 18rem;
   }
@@ -127213,6 +130177,10 @@ textarea.floating-label ~ label {
 
   .large\:focus\:translate-y-px:focus {
     --transform-translate-y: 1px;
+  }
+
+  .large\:focus\:translate-y-md:focus {
+    --transform-translate-y: 28rem;
   }
 
   .large\:focus\:-translate-y-1:focus {
@@ -127283,6 +130251,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .large\:focus\:-translate-y-68:focus {
+    --transform-translate-y: -17rem;
+  }
+
   .large\:focus\:-translate-y-72:focus {
     --transform-translate-y: -18rem;
   }
@@ -127293,6 +130265,10 @@ textarea.floating-label ~ label {
 
   .large\:focus\:-translate-y-px:focus {
     --transform-translate-y: -1px;
+  }
+
+  .large\:focus\:-translate-y-md:focus {
+    --transform-translate-y: -28rem;
   }
 
   .large\:focus\:-translate-y-full:focus {
@@ -127805,6 +130781,18 @@ textarea.floating-label ~ label {
     margin-left: calc(16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .x-large\:space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(17rem * var(--space-y-reverse));
+  }
+
+  .x-large\:space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(17rem * var(--space-x-reverse));
+    margin-left: calc(17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .x-large\:space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(18rem * calc(1 - var(--space-y-reverse)));
@@ -127839,6 +130827,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(1px * var(--space-x-reverse));
     margin-left: calc(1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .x-large\:space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(28rem * var(--space-y-reverse));
+  }
+
+  .x-large\:space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(28rem * var(--space-x-reverse));
+    margin-left: calc(28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .x-large\:-space-y-1 > :not(template) ~ :not(template) {
@@ -128045,6 +131045,18 @@ textarea.floating-label ~ label {
     margin-left: calc(-16rem * calc(1 - var(--space-x-reverse)));
   }
 
+  .x-large\:-space-y-68 > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-17rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-17rem * var(--space-y-reverse));
+  }
+
+  .x-large\:-space-x-68 > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-17rem * var(--space-x-reverse));
+    margin-left: calc(-17rem * calc(1 - var(--space-x-reverse)));
+  }
+
   .x-large\:-space-y-72 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;
     margin-top: calc(-18rem * calc(1 - var(--space-y-reverse)));
@@ -128079,6 +131091,18 @@ textarea.floating-label ~ label {
     --space-x-reverse: 0;
     margin-right: calc(-1px * var(--space-x-reverse));
     margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
+  }
+
+  .x-large\:-space-y-md > :not(template) ~ :not(template) {
+    --space-y-reverse: 0;
+    margin-top: calc(-28rem * calc(1 - var(--space-y-reverse)));
+    margin-bottom: calc(-28rem * var(--space-y-reverse));
+  }
+
+  .x-large\:-space-x-md > :not(template) ~ :not(template) {
+    --space-x-reverse: 0;
+    margin-right: calc(-28rem * var(--space-x-reverse));
+    margin-left: calc(-28rem * calc(1 - var(--space-x-reverse)));
   }
 
   .x-large\:space-y-reverse > :not(template) ~ :not(template) {
@@ -132423,6 +135447,10 @@ textarea.floating-label ~ label {
     height: 16rem;
   }
 
+  .x-large\:h-68 {
+    height: 17rem;
+  }
+
   .x-large\:h-72 {
     height: 18rem;
   }
@@ -132437,6 +135465,10 @@ textarea.floating-label ~ label {
 
   .x-large\:h-px {
     height: 1px;
+  }
+
+  .x-large\:h-md {
+    height: 28rem;
   }
 
   .x-large\:h-full {
@@ -132635,6 +135667,10 @@ textarea.floating-label ~ label {
     margin: 16rem;
   }
 
+  .x-large\:m-68 {
+    margin: 17rem;
+  }
+
   .x-large\:m-72 {
     margin: 18rem;
   }
@@ -132649,6 +135685,10 @@ textarea.floating-label ~ label {
 
   .x-large\:m-px {
     margin: 1px;
+  }
+
+  .x-large\:m-md {
+    margin: 28rem;
   }
 
   .x-large\:-m-1 {
@@ -132719,6 +135759,10 @@ textarea.floating-label ~ label {
     margin: -16rem;
   }
 
+  .x-large\:-m-68 {
+    margin: -17rem;
+  }
+
   .x-large\:-m-72 {
     margin: -18rem;
   }
@@ -132729,6 +135773,10 @@ textarea.floating-label ~ label {
 
   .x-large\:-m-px {
     margin: -1px;
+  }
+
+  .x-large\:-m-md {
+    margin: -28rem;
   }
 
   .x-large\:my-0 {
@@ -132911,6 +135959,16 @@ textarea.floating-label ~ label {
     margin-right: 16rem;
   }
 
+  .x-large\:my-68 {
+    margin-top: 17rem;
+    margin-bottom: 17rem;
+  }
+
+  .x-large\:mx-68 {
+    margin-left: 17rem;
+    margin-right: 17rem;
+  }
+
   .x-large\:my-72 {
     margin-top: 18rem;
     margin-bottom: 18rem;
@@ -132949,6 +136007,16 @@ textarea.floating-label ~ label {
   .x-large\:mx-px {
     margin-left: 1px;
     margin-right: 1px;
+  }
+
+  .x-large\:my-md {
+    margin-top: 28rem;
+    margin-bottom: 28rem;
+  }
+
+  .x-large\:mx-md {
+    margin-left: 28rem;
+    margin-right: 28rem;
   }
 
   .x-large\:-my-1 {
@@ -133121,6 +136189,16 @@ textarea.floating-label ~ label {
     margin-right: -16rem;
   }
 
+  .x-large\:-my-68 {
+    margin-top: -17rem;
+    margin-bottom: -17rem;
+  }
+
+  .x-large\:-mx-68 {
+    margin-left: -17rem;
+    margin-right: -17rem;
+  }
+
   .x-large\:-my-72 {
     margin-top: -18rem;
     margin-bottom: -18rem;
@@ -133149,6 +136227,16 @@ textarea.floating-label ~ label {
   .x-large\:-mx-px {
     margin-left: -1px;
     margin-right: -1px;
+  }
+
+  .x-large\:-my-md {
+    margin-top: -28rem;
+    margin-bottom: -28rem;
+  }
+
+  .x-large\:-mx-md {
+    margin-left: -28rem;
+    margin-right: -28rem;
   }
 
   .x-large\:mt-0 {
@@ -133439,6 +136527,22 @@ textarea.floating-label ~ label {
     margin-left: 16rem;
   }
 
+  .x-large\:mt-68 {
+    margin-top: 17rem;
+  }
+
+  .x-large\:mr-68 {
+    margin-right: 17rem;
+  }
+
+  .x-large\:mb-68 {
+    margin-bottom: 17rem;
+  }
+
+  .x-large\:ml-68 {
+    margin-left: 17rem;
+  }
+
   .x-large\:mt-72 {
     margin-top: 18rem;
   }
@@ -133501,6 +136605,22 @@ textarea.floating-label ~ label {
 
   .x-large\:ml-px {
     margin-left: 1px;
+  }
+
+  .x-large\:mt-md {
+    margin-top: 28rem;
+  }
+
+  .x-large\:mr-md {
+    margin-right: 28rem;
+  }
+
+  .x-large\:mb-md {
+    margin-bottom: 28rem;
+  }
+
+  .x-large\:ml-md {
+    margin-left: 28rem;
   }
 
   .x-large\:-mt-1 {
@@ -133775,6 +136895,22 @@ textarea.floating-label ~ label {
     margin-left: -16rem;
   }
 
+  .x-large\:-mt-68 {
+    margin-top: -17rem;
+  }
+
+  .x-large\:-mr-68 {
+    margin-right: -17rem;
+  }
+
+  .x-large\:-mb-68 {
+    margin-bottom: -17rem;
+  }
+
+  .x-large\:-ml-68 {
+    margin-left: -17rem;
+  }
+
   .x-large\:-mt-72 {
     margin-top: -18rem;
   }
@@ -133821,6 +136957,22 @@ textarea.floating-label ~ label {
 
   .x-large\:-ml-px {
     margin-left: -1px;
+  }
+
+  .x-large\:-mt-md {
+    margin-top: -28rem;
+  }
+
+  .x-large\:-mr-md {
+    margin-right: -28rem;
+  }
+
+  .x-large\:-mb-md {
+    margin-bottom: -28rem;
+  }
+
+  .x-large\:-ml-md {
+    margin-left: -28rem;
   }
 
   .x-large\:max-h-full {
@@ -134213,6 +137365,10 @@ textarea.floating-label ~ label {
     padding: 16rem;
   }
 
+  .x-large\:p-68 {
+    padding: 17rem;
+  }
+
   .x-large\:p-72 {
     padding: 18rem;
   }
@@ -134223,6 +137379,10 @@ textarea.floating-label ~ label {
 
   .x-large\:p-px {
     padding: 1px;
+  }
+
+  .x-large\:p-md {
+    padding: 28rem;
   }
 
   .x-large\:py-0 {
@@ -134405,6 +137565,16 @@ textarea.floating-label ~ label {
     padding-right: 16rem;
   }
 
+  .x-large\:py-68 {
+    padding-top: 17rem;
+    padding-bottom: 17rem;
+  }
+
+  .x-large\:px-68 {
+    padding-left: 17rem;
+    padding-right: 17rem;
+  }
+
   .x-large\:py-72 {
     padding-top: 18rem;
     padding-bottom: 18rem;
@@ -134433,6 +137603,16 @@ textarea.floating-label ~ label {
   .x-large\:px-px {
     padding-left: 1px;
     padding-right: 1px;
+  }
+
+  .x-large\:py-md {
+    padding-top: 28rem;
+    padding-bottom: 28rem;
+  }
+
+  .x-large\:px-md {
+    padding-left: 28rem;
+    padding-right: 28rem;
   }
 
   .x-large\:pt-0 {
@@ -134723,6 +137903,22 @@ textarea.floating-label ~ label {
     padding-left: 16rem;
   }
 
+  .x-large\:pt-68 {
+    padding-top: 17rem;
+  }
+
+  .x-large\:pr-68 {
+    padding-right: 17rem;
+  }
+
+  .x-large\:pb-68 {
+    padding-bottom: 17rem;
+  }
+
+  .x-large\:pl-68 {
+    padding-left: 17rem;
+  }
+
   .x-large\:pt-72 {
     padding-top: 18rem;
   }
@@ -134769,6 +137965,22 @@ textarea.floating-label ~ label {
 
   .x-large\:pl-px {
     padding-left: 1px;
+  }
+
+  .x-large\:pt-md {
+    padding-top: 28rem;
+  }
+
+  .x-large\:pr-md {
+    padding-right: 28rem;
+  }
+
+  .x-large\:pb-md {
+    padding-bottom: 28rem;
+  }
+
+  .x-large\:pl-md {
+    padding-left: 28rem;
   }
 
   .x-large\:placeholder-transparent::-webkit-input-placeholder {
@@ -140711,6 +143923,10 @@ textarea.floating-label ~ label {
     width: 16rem;
   }
 
+  .x-large\:w-68 {
+    width: 17rem;
+  }
+
   .x-large\:w-72 {
     width: 18rem;
   }
@@ -140725,6 +143941,10 @@ textarea.floating-label ~ label {
 
   .x-large\:w-px {
     width: 1px;
+  }
+
+  .x-large\:w-md {
+    width: 28rem;
   }
 
   .x-large\:w-1\/2 {
@@ -140965,6 +144185,11 @@ textarea.floating-label ~ label {
     gap: 16rem;
   }
 
+  .x-large\:gap-68 {
+    grid-gap: 17rem;
+    gap: 17rem;
+  }
+
   .x-large\:gap-72 {
     grid-gap: 18rem;
     gap: 18rem;
@@ -140978,6 +144203,11 @@ textarea.floating-label ~ label {
   .x-large\:gap-px {
     grid-gap: 1px;
     gap: 1px;
+  }
+
+  .x-large\:gap-md {
+    grid-gap: 28rem;
+    gap: 28rem;
   }
 
   .x-large\:col-gap-0 {
@@ -141088,6 +144318,12 @@ textarea.floating-label ~ label {
          column-gap: 16rem;
   }
 
+  .x-large\:col-gap-68 {
+    grid-column-gap: 17rem;
+    -moz-column-gap: 17rem;
+         column-gap: 17rem;
+  }
+
   .x-large\:col-gap-72 {
     grid-column-gap: 18rem;
     -moz-column-gap: 18rem;
@@ -141104,6 +144340,12 @@ textarea.floating-label ~ label {
     grid-column-gap: 1px;
     -moz-column-gap: 1px;
          column-gap: 1px;
+  }
+
+  .x-large\:col-gap-md {
+    grid-column-gap: 28rem;
+    -moz-column-gap: 28rem;
+         column-gap: 28rem;
   }
 
   .x-large\:row-gap-0 {
@@ -141196,6 +144438,11 @@ textarea.floating-label ~ label {
     row-gap: 16rem;
   }
 
+  .x-large\:row-gap-68 {
+    grid-row-gap: 17rem;
+    row-gap: 17rem;
+  }
+
   .x-large\:row-gap-72 {
     grid-row-gap: 18rem;
     row-gap: 18rem;
@@ -141209,6 +144456,11 @@ textarea.floating-label ~ label {
   .x-large\:row-gap-px {
     grid-row-gap: 1px;
     row-gap: 1px;
+  }
+
+  .x-large\:row-gap-md {
+    grid-row-gap: 28rem;
+    row-gap: 28rem;
   }
 
   .x-large\:grid-flow-row {
@@ -142160,6 +145412,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .x-large\:translate-x-68 {
+    --transform-translate-x: 17rem;
+  }
+
   .x-large\:translate-x-72 {
     --transform-translate-x: 18rem;
   }
@@ -142170,6 +145426,10 @@ textarea.floating-label ~ label {
 
   .x-large\:translate-x-px {
     --transform-translate-x: 1px;
+  }
+
+  .x-large\:translate-x-md {
+    --transform-translate-x: 28rem;
   }
 
   .x-large\:-translate-x-1 {
@@ -142240,6 +145500,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .x-large\:-translate-x-68 {
+    --transform-translate-x: -17rem;
+  }
+
   .x-large\:-translate-x-72 {
     --transform-translate-x: -18rem;
   }
@@ -142250,6 +145514,10 @@ textarea.floating-label ~ label {
 
   .x-large\:-translate-x-px {
     --transform-translate-x: -1px;
+  }
+
+  .x-large\:-translate-x-md {
+    --transform-translate-x: -28rem;
   }
 
   .x-large\:-translate-x-full {
@@ -142340,6 +145608,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .x-large\:translate-y-68 {
+    --transform-translate-y: 17rem;
+  }
+
   .x-large\:translate-y-72 {
     --transform-translate-y: 18rem;
   }
@@ -142350,6 +145622,10 @@ textarea.floating-label ~ label {
 
   .x-large\:translate-y-px {
     --transform-translate-y: 1px;
+  }
+
+  .x-large\:translate-y-md {
+    --transform-translate-y: 28rem;
   }
 
   .x-large\:-translate-y-1 {
@@ -142420,6 +145696,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .x-large\:-translate-y-68 {
+    --transform-translate-y: -17rem;
+  }
+
   .x-large\:-translate-y-72 {
     --transform-translate-y: -18rem;
   }
@@ -142430,6 +145710,10 @@ textarea.floating-label ~ label {
 
   .x-large\:-translate-y-px {
     --transform-translate-y: -1px;
+  }
+
+  .x-large\:-translate-y-md {
+    --transform-translate-y: -28rem;
   }
 
   .x-large\:-translate-y-full {
@@ -142520,6 +145804,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .x-large\:hover\:translate-x-68:hover {
+    --transform-translate-x: 17rem;
+  }
+
   .x-large\:hover\:translate-x-72:hover {
     --transform-translate-x: 18rem;
   }
@@ -142530,6 +145818,10 @@ textarea.floating-label ~ label {
 
   .x-large\:hover\:translate-x-px:hover {
     --transform-translate-x: 1px;
+  }
+
+  .x-large\:hover\:translate-x-md:hover {
+    --transform-translate-x: 28rem;
   }
 
   .x-large\:hover\:-translate-x-1:hover {
@@ -142600,6 +145892,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .x-large\:hover\:-translate-x-68:hover {
+    --transform-translate-x: -17rem;
+  }
+
   .x-large\:hover\:-translate-x-72:hover {
     --transform-translate-x: -18rem;
   }
@@ -142610,6 +145906,10 @@ textarea.floating-label ~ label {
 
   .x-large\:hover\:-translate-x-px:hover {
     --transform-translate-x: -1px;
+  }
+
+  .x-large\:hover\:-translate-x-md:hover {
+    --transform-translate-x: -28rem;
   }
 
   .x-large\:hover\:-translate-x-full:hover {
@@ -142700,6 +146000,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .x-large\:hover\:translate-y-68:hover {
+    --transform-translate-y: 17rem;
+  }
+
   .x-large\:hover\:translate-y-72:hover {
     --transform-translate-y: 18rem;
   }
@@ -142710,6 +146014,10 @@ textarea.floating-label ~ label {
 
   .x-large\:hover\:translate-y-px:hover {
     --transform-translate-y: 1px;
+  }
+
+  .x-large\:hover\:translate-y-md:hover {
+    --transform-translate-y: 28rem;
   }
 
   .x-large\:hover\:-translate-y-1:hover {
@@ -142780,6 +146088,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .x-large\:hover\:-translate-y-68:hover {
+    --transform-translate-y: -17rem;
+  }
+
   .x-large\:hover\:-translate-y-72:hover {
     --transform-translate-y: -18rem;
   }
@@ -142790,6 +146102,10 @@ textarea.floating-label ~ label {
 
   .x-large\:hover\:-translate-y-px:hover {
     --transform-translate-y: -1px;
+  }
+
+  .x-large\:hover\:-translate-y-md:hover {
+    --transform-translate-y: -28rem;
   }
 
   .x-large\:hover\:-translate-y-full:hover {
@@ -142880,6 +146196,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: 16rem;
   }
 
+  .x-large\:focus\:translate-x-68:focus {
+    --transform-translate-x: 17rem;
+  }
+
   .x-large\:focus\:translate-x-72:focus {
     --transform-translate-x: 18rem;
   }
@@ -142890,6 +146210,10 @@ textarea.floating-label ~ label {
 
   .x-large\:focus\:translate-x-px:focus {
     --transform-translate-x: 1px;
+  }
+
+  .x-large\:focus\:translate-x-md:focus {
+    --transform-translate-x: 28rem;
   }
 
   .x-large\:focus\:-translate-x-1:focus {
@@ -142960,6 +146284,10 @@ textarea.floating-label ~ label {
     --transform-translate-x: -16rem;
   }
 
+  .x-large\:focus\:-translate-x-68:focus {
+    --transform-translate-x: -17rem;
+  }
+
   .x-large\:focus\:-translate-x-72:focus {
     --transform-translate-x: -18rem;
   }
@@ -142970,6 +146298,10 @@ textarea.floating-label ~ label {
 
   .x-large\:focus\:-translate-x-px:focus {
     --transform-translate-x: -1px;
+  }
+
+  .x-large\:focus\:-translate-x-md:focus {
+    --transform-translate-x: -28rem;
   }
 
   .x-large\:focus\:-translate-x-full:focus {
@@ -143060,6 +146392,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: 16rem;
   }
 
+  .x-large\:focus\:translate-y-68:focus {
+    --transform-translate-y: 17rem;
+  }
+
   .x-large\:focus\:translate-y-72:focus {
     --transform-translate-y: 18rem;
   }
@@ -143070,6 +146406,10 @@ textarea.floating-label ~ label {
 
   .x-large\:focus\:translate-y-px:focus {
     --transform-translate-y: 1px;
+  }
+
+  .x-large\:focus\:translate-y-md:focus {
+    --transform-translate-y: 28rem;
   }
 
   .x-large\:focus\:-translate-y-1:focus {
@@ -143140,6 +146480,10 @@ textarea.floating-label ~ label {
     --transform-translate-y: -16rem;
   }
 
+  .x-large\:focus\:-translate-y-68:focus {
+    --transform-translate-y: -17rem;
+  }
+
   .x-large\:focus\:-translate-y-72:focus {
     --transform-translate-y: -18rem;
   }
@@ -143150,6 +146494,10 @@ textarea.floating-label ~ label {
 
   .x-large\:focus\:-translate-y-px:focus {
     --transform-translate-y: -1px;
+  }
+
+  .x-large\:focus\:-translate-y-md:focus {
+    --transform-translate-y: -28rem;
   }
 
   .x-large\:focus\:-translate-y-full:focus {

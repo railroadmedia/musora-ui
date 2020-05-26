@@ -17,6 +17,9 @@
     if ($theme == 'blue') {
         $_inputClasses[] = 'bg-blue-600';
         $_inputClasses[] = 'text-white';
+    } else if ($theme == 'reversed') {
+        $_inputClasses[] = 'text-blue-600';
+        $_inputClasses[] = 'bg-white';
     } else {
         // theme gray, outlined
         $_inputClasses[] = 'border-2';

@@ -5,7 +5,10 @@ module.exports = {
                 '6': '1.5rem;'
             },
             spacing: {
-                md: '28rem'
+                md: '28rem',
+                '68': '17rem',
+                '72': '18rem',
+                '80': '20rem',
             },
             colors: {
                 'light-gray': '#F0F0F0',
@@ -22,10 +25,6 @@ module.exports = {
             width: {
                 '1/9': '11.111111%',
                 medium: '64rem',
-            },
-            spacing: {
-                '72': '18rem',
-                '80': '20rem',
             },
             maxWidth: {
                 page: '97.5rem'
