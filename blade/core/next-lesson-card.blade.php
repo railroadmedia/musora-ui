@@ -16,7 +16,7 @@
 @endpush
 
 <div class="flex flex-row">
-    <div class="flex-none relative w-48 rounded-lg overflow-hidden">
+    <div class="flex-none relative h-32 w-48 rounded-lg overflow-hidden">
         <img src="{{ $thumbnail }}" class="object-cover object-center h-full w-auto">
         <div class="absolute bottom-0 p-3 text-white font-medium uppercase text-xs w-full bg-gray bg-next-lesson-gradient">{{ $teacherName }}</div>
     </div>

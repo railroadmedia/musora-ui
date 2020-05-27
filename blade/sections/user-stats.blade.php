@@ -1,5 +1,5 @@
 <div class="w-full border-b-2 border-light-gray py-4">
-    <div class="mx-auto w-full container px-3 large:px-0 h-full flex flex-col medium:flex-row text-center leading-none uppercase">
+    <div class="mx-auto w-full container px-3 h-full flex flex-col medium:flex-row text-center leading-none uppercase">
         <div class="w-full medium:w-1/3 large:w-1/2 flex items-center">
             <div class="rounded-full overflow-hidden border-2 border-blue-500 mr-4">
                 <img src="https://musora.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fpianote%2Fdefaults%2Favatar.png?blur=2&fit=crop&h=50&ixlib=php-1.2.1&q=50&w=50&s=0a284a726ec34f3bca2bb253a0dfc869">

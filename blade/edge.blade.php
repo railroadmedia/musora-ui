@@ -442,7 +442,7 @@ $sectionVideos = [
 @section('content')
     @include('sections.user-stats')
 
-    <div class="mx-auto w-full container px-3 large:px-0 h-full pt-4">
+    <div class="mx-auto w-full container px-3 h-full pt-4">
         @include(
             'sections.video-row',
             [

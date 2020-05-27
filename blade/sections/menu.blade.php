@@ -116,7 +116,7 @@
 @endpush
 
 <header id="nav" class="bg-header fixed w-full top-0 left-0 border-b border-header-gray z-50">
-    <div class="mx-auto w-full container pl-3 small:pr-3 large:px-0 h-full">
+    <div class="mx-auto w-full container pl-3 small:pr-3 h-full">
         <div class="flex flex-row items-center h-full">
             <div class="flex">
                 <a id="logo" href="#" class="max-h-full inline-block">

@@ -9,7 +9,7 @@
     ];
 @endphp
 
-<div class="px-2">
+<div class="">
     @component('core.next-lesson-card', $nextLesson)
     @endcomponent
 </div>

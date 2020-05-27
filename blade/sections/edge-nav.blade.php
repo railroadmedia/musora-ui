@@ -16,7 +16,8 @@
 
 @media (min-width: 64rem) {
     #sub-nav {
-        padding: 0;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
     }
 }
 </style>

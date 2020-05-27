@@ -6,7 +6,7 @@
     }
 @endphp
 
-<a href="#" class="flex flex-row method-card p-2">
+<a href="#" class="flex flex-row method-card p-3">
     <div class="flex-none relative h-64 w-64 rounded-lg overflow-hidden">
         <img src="{{ $thumbnail }}" class="object-cover object-center h-full w-auto">
         <div class="bg-method-gradient absolute top-0 left-0 w-full h-full px-3 flex flex-col justify-center items-center leading-none z-10">
