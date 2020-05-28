@@ -39,7 +39,7 @@
                                 <span class="uppercase">{{ $title }}</span><i class="icon-home text-lg font-bold collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold collapse-trigger-close"></i>
                             </div>
                             <div class="collapse-container overflow-hidden">
-                                <div style="max-height: 230px;" class="mb-3 font-medium">
+                                <div style="max-height: 230px;" class="mb-3 font-medium" data-simplebar>
                                     @foreach ($items as $item)
                                         @component('core.icon-checkbox', [
                                             'inputId' => $item['name'],

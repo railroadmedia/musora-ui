@@ -23,46 +23,77 @@
 </style>
 @endpush
 
+@php
+$items = [
+    [
+        'name' => 'method',
+        'icon' => 'icon-drums2',
+        'url' => '/router.php/method',
+    ],
+    [
+        'name' => 'courses',
+        'icon' => 'icon-courses',
+        'url' => '/router.php/courses',
+    ],
+    [
+        'name' => 'shows',
+        'icon' => 'icon-shows',
+        'url' => '/router.php/shows',
+    ],
+    [
+        'name' => 'songs',
+        'icon' => 'icon-songs',
+        'url' => '/router.php/songs',
+    ],
+    [
+        'name' => 'play-alongs',
+        'icon' => 'icon-play-alongs',
+        'url' => '/router.php/play_alongs',
+    ],
+    [
+        'name' => 'student focus',
+        'icon' => 'icon-student-focus',
+        'url' => '/router.php/student_focus',
+    ],
+    [
+        'name' => 'rudiments',
+        'icon' => 'icon-rudiments',
+        'url' => '/router.php/rudiments',
+    ],
+    [
+        'name' => 'live',
+        'icon' => 'icon-live',
+        'url' => '#',
+    ],
+    [
+        'name' => 'schedule',
+        'icon' => 'icon-schedule',
+        'url' => '#',
+    ],
+];
+@endphp
+
 <div id="sub-nav-container" class="bg-header w-full border-b border-header-gray">
     <div id="sub-nav" class="mx-auto w-full container leading-none text-header-gray uppercase h-14 small:h-16 relative">
-        <div id="sub-nav-wrap" class="overflow-x-auto">
-            <div class="w-medium medium:w-full flex flex-row items-center text-center overflow-x-auto">
-                <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
-                    <i class="icon-drums2 text-lg font-bold"></i>
-                    <p class="text-xs font-semibold">method</p>
-                </a>
-                <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
-                    <i class="icon-courses text-lg"></i>
-                    <p class="text-xs font-semibold">courses</p>
-                </a>
-                <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
-                    <i class="icon-shows text-lg"></i>
-                    <p class="text-xs font-semibold">shows</p>
-                </a>
-                <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
-                    <i class="icon-songs text-lg"></i>
-                    <p class="text-xs font-semibold">songs</p>
-                </a>
-                <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
-                    <i class="icon-play-alongs text-lg"></i>
-                    <p class="text-xs font-semibold">play-alongs</p>
-                </a>
-                <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
-                    <i class="icon-student-focus text-lg"></i>
-                    <p class="text-xs font-semibold">student focus</p>
-                </a>
-                <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
-                    <i class="icon-rudiments text-lg"></i>
-                    <p class="text-xs font-semibold">rudiments</p>
-                </a>
-                <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
-                    <i class="icon-live text-lg"></i>
-                    <p class="text-xs font-semibold">live</p>
-                </a>
-                <a href="#" class="subnav-link flex-1 py-3 small:py-4 hover:bg-header-gray hover:text-white">
-                    <i class="icon-schedule text-lg"></i>
-                    <p class="text-xs font-semibold">schedule</p>
-                </a>
+        <div id="sub-nav-wrap" class="overflow-x-auto h-full">
+            <div class="w-medium medium:w-full flex flex-row items-center text-center overflow-x-auto h-full">
+                @foreach ($items as $item)
+                    @php
+                        $_iconClass = '';
+                        $_labelClass = '';
+
+                        if (isset($active) && $active == $item['name']) {
+                            $_iconClass = 'text-edge-blue';
+                            $_labelClass = 'text-white';
+                        }
+                    @endphp
+                    <a href="{{ $item['url'] }}" class="subnav-link flex-1 py-3 small:py-3 hover:bg-header-gray hover:text-white h-full">
+                        <i
+                            class="{{ $item['icon'] }} text-2xl {{ $_iconClass }}"
+                        ></i>
+                        <p class="text-xs font-semibold {{ $_labelClass }}">{{ $item['name'] }}</p>
+                    </a>
+                @endforeach
             </div>
         </div>
         <div id="scroll-sub-nav-left" class="h-full flex items-center justify-center border-l border-r border-header-gray cursor-pointer absolute left-0 top-0 z-10 medium:hidden" style="width: 35px;"><span>&lt;</span></div>

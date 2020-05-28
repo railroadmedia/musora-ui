@@ -6,18 +6,22 @@
         [
             'title' => 'EDGE',
             'active' => $active == 'edge' ? 'active': null,
+            'url' => '/router.php/edge'
         ],
         [
             'title' => 'packs',
             'active' => $active == 'packs' ? 'active': null,
+            'url' => '/router.php/packs'
         ],
         [
             'title' => 'forums',
             'active' => $active == 'forums' ? 'active': null,
+            'url' => '#'
         ],
         [
             'title' => 'shop',
             'active' => $active == 'shop' ? 'active': null,
+            'url' => '#'
         ],
     ];
 @endphp
@@ -125,7 +129,7 @@
             </div>
             <div class="w-full h-full hidden small:flex flex-row items-center inline-box text-lg capitalize text-header-gray">
                 @foreach ($items as $item)
-                    <a href="#" class="h-full w-1/4 flex items-center justify-center hover:text-white hover:font-bold {{ $item['active'] }}"><span>{{ $item['title'] }}</span></a>
+                    <a href="{{ $item['url'] }}" class="h-full w-1/4 flex items-center justify-center hover:text-white hover:font-bold {{ $item['active'] }}"><span>{{ $item['title'] }}</span></a>
                 @endforeach
             </div>
             <div class="flex items-center pr-2 small:pr-0">

@@ -1,10 +1,9 @@
 @extends('layouts.members')
 
-@section('title', 'Members - Edge')
+@section('title', 'Members - Drumeo Method')
 
 @section('menu')
     @include('sections.menu', ['active' => 'edge'])
-    <!-- todo: add sub-nav active class support -->
     @include('sections.edge-nav', ['active' => 'method'])
 @endsection
 
@@ -25,7 +24,7 @@ $lessonProgress = [
         </div>
     </div>
 
-    <div class="mx-auto w-full container h-full py-4 mb-20">
+    <div class="mx-auto w-full container h-full pt-4 pb-10 mb-40 sm:mb-24 sm:pb-16 md:mb-20 lg:pb-12 lg:mb-12">
         @include('sections.method-content')
     </div>
 
