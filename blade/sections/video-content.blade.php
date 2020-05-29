@@ -13,6 +13,17 @@
 </style>
 @endpush
 
+@php
+    // keys are the number of videos per row, values are the css classes
+    $_gridSetup = [
+        4 => 'grid-cols-1 gap-10 small:gap-4 small:row-gap-8 small:grid-cols-3 large:grid-cols-4',
+        5 => 'grid-cols-1 gap-10 small:gap-4 small:row-gap-8 small:grid-cols-3 large:grid-cols-5',
+    ];
+
+    $videosPerRow = $videosPerRow ?? 4;
+    $_gridClasses = $_gridSetup[$videosPerRow];
+@endphp
+
 <div class="flex flex-col medium:flex-row py-4">
     <div class="w-full mb-2 small:mb-0 medium:w-56 flex flex-col-reverse small:flex-col">
         <div class="collapse-trigger small:hidden text-center text-blue-500 uppercase font-semibold text-xs cursor-pointer"><span class="collapse-trigger-open">show filters</span><span class="collapse-trigger-close">hide filters</span></div>
@@ -95,7 +106,7 @@
             @endforeach
         </div>
         
-        <div class="grid grid-cols-1 gap-10 small:gap-4 small:row-gap-8 small:grid-cols-3 large:grid-cols-4 py-2">
+        <div class="grid {{ $_gridClasses }} py-2">
             @foreach ($videos as $videoCard)
                 <div class="">
                     @component('core.video-card', $videoCard)

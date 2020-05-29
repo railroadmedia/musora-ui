@@ -420,7 +420,15 @@ $sectionVideos = [
 
         <div class="w-full mb-6 space-y-4 flex flex-col large:flex-row large:space-x-3 large:space-y-0 large:mt-6 uppercase">
             <div class="large:flex-1 rounded-lg overflow-hidden bg-edge-blue">
-                @include('sections.badge-checkboxes-group', ['checkboxes' => $lessons, 'skipCollapseStyle' => true, 'skipCollapseScript' => true])
+                @include(
+                    'sections.badge-checkboxes-group',
+                    [
+                        'checkboxes' => $lessons,
+                        'skipCollapseStyle' => true,
+                        'skipCollapseScript' => true,
+                        'title' => 'what do you want to work on?',
+                    ]
+                )
             </div>
             <div class="large:flex-1 rounded-lg overflow-hidden bg-edge-blue">
                 @include('sections.level-selector', ['skipCollapseStyle' => true, 'skipCollapseScript' => true])
@@ -431,7 +439,8 @@ $sectionVideos = [
             'sections.video-content',
             [
                 'filters' => $filterGroups,
-                'videos' => $sectionVideos
+                'videos' => $sectionVideos,
+                'videosPerRow' => 4,
             ]
         )
     </div>

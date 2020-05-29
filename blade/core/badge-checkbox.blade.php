@@ -5,6 +5,8 @@
     $labelText = $labelText ?? '';
     $skipScript = $skipScript ?? false;
     $theme = $theme ?? 'white';
+    $active = $active ?? false;
+    $checked = $active ? 'checked=checked' : '';
 
     $_containerClasses = [];
     $_labelClasses = [];
@@ -45,10 +47,14 @@
         $_uncheckedClasses[] = 'border-edge-dark-blue';
     }
 
+    if ($active) {
+        $_containerClasses = array_merge($_containerClasses, $_checkedClasses);
+        $_containerClasses = array_diff($_containerClasses, $_uncheckedClasses);
+    }
+
     $_containerClasses = implode(' ', $_containerClasses);
     $_labelClasses = implode(' ', $_labelClasses);
 @endphp
-
 
 <div class="badge-checkbox rounded-full border-2 flex cursor-pointer uppercase font-medium {{ $_containerClasses }}">
     <input
@@ -57,6 +63,7 @@
         name="{{ $inputName }}"
         tabindex="{{ $tabIndex }}"
         class="hidden"
+        {{ $checked }}
     ><label
         for="{{ $inputId }}"
         class="cursor-pointer {{ $_labelClasses }}"

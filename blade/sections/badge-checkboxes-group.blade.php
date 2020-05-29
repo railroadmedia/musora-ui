@@ -35,7 +35,7 @@
 @endpush
 
 <div>
-    <h4 class="collapse-trigger py-2 px-2 cursor-pointer small:cursor-default small:px-0 flex justify-between small:block small:text-center text-white bg-edge-dark-blue font-semibold text-sm small:text-base"><span>what do you want to work on?</span><div class="small:hidden flex items-center"><i class="icon-home text-lg font-bold small:hidden collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold small:hidden collapse-trigger-close"></i></div></h4>
+    <h4 class="collapse-trigger py-2 px-2 cursor-pointer small:cursor-default small:px-0 flex justify-between small:block small:text-center text-white bg-edge-dark-blue font-semibold text-sm small:text-base"><span>{{ $title }}</span><div class="small:hidden flex items-center"><i class="icon-home text-lg font-bold small:hidden collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold small:hidden collapse-trigger-close"></i></div></h4>
     <div class="collapse-container small:expand">
         <div class="p-3 flex flex-wrap">
             @foreach ($checkboxes as $checkbox)
@@ -46,7 +46,8 @@
                         'name' => $checkbox['name'],
                         'tabIndex' => $checkbox['tab'] ?? null,
                         'theme' => 'blue',
-                        'skipScript' => !$loop->last
+                        'skipScript' => !$loop->last,
+                        'active' => $checkbox['active'] ?? false,
                     ])
                     @endcomponent
                 </div>
