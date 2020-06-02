@@ -4,14 +4,22 @@
     $tabIndex = $tabIndex ?? 1;
     $labelText = $labelText ?? '';
     $fullWidth = $fullWidth ?? false;
+    $smallCollapse = $smallCollapse ?? false;
 
     $_inputClasses = [];
 
     if ($fullWidth) {
         $_inputClasses[] = 'px-4';
         $_inputClasses[] = 'w-full';
+    } if ($smallCollapse) {
+        $_inputClasses[] = 'px-12';
     } else {
         $_inputClasses[] = 'px-16'; // maybe add inline-block
+    }
+
+    if ($smallCollapse) {
+        $_inputClasses[] = 'text-sm';
+        $_inputClasses[] = 'sm:text-base';
     }
 
     if ($theme == 'blue') {

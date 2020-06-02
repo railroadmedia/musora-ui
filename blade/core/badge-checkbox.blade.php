@@ -7,12 +7,17 @@
     $theme = $theme ?? 'white';
     $active = $active ?? false;
     $checked = $active ? 'checked=checked' : '';
+    $padding = $padding ?? false;
 
     $_containerClasses = [];
     $_labelClasses = [];
 
     $_checkedClasses = [];
     $_uncheckedClasses = [];
+
+    if ($padding) {
+        $_containerClasses[] = 'py-1';
+    }
 
     if ($theme == 'white') {
         $_containerClasses[] = 'border-blue-600';
