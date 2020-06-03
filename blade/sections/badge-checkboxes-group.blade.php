@@ -7,6 +7,12 @@
     if (count($checkboxes) < 6) {
         $_badgePadding = 'p-2';
     }
+
+    $_width = 'w-1/2 small:w-1/5';
+
+    if (count($checkboxes) < 5) {
+        $_width = 'w-full sm:w-1/' . count($checkboxes);
+    }
 @endphp
 
 @push('styles')
@@ -45,7 +51,7 @@
     <div class="collapse-container small:expand">
         <div class="p-3 flex flex-wrap">
             @foreach ($checkboxes as $checkbox)
-                <div class="w-1/2 small:w-1/5 {{ $_badgePadding }}">
+                <div class="{{ $_width }} {{ $_badgePadding }}">
                     @component('core.badge-checkbox', [
                         'labelText' => $checkbox['label'] ?? $checkbox['name'],
                         'id' => $checkbox['name'],
