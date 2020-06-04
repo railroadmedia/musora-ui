@@ -33,7 +33,6 @@
 </style>
 @endif
 @endpush
-
 <div id="{{ $containerId }}" class="icon-checkbox px-4 text-base {{ $_containerClasses }}">
     <input
         type="checkbox"

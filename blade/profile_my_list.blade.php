@@ -15,7 +15,119 @@ $lists = [
 ];
 
 $filters = [
-    
+    'title' => 'content type',
+    'items' => [
+        [
+            'name' => 'courses',
+            'tab' => 4,
+            'active' => true,
+        ],
+        [
+            'name' => 'drumeo-method',
+            'label' => 'drumeo method',
+            'tab' => 5,
+            'active' => true,
+        ],
+        [
+            'name' => 'songs',
+            'tab' => 6
+        ],
+        [
+            'name' => 'play-alongs',
+            'label' => 'play-alongs',
+            'tab' => 7
+        ],
+        [
+            'name' => 'rudiments',
+            'tab' => 8
+        ],
+        [
+            'name' => 'student focus',
+            'label' => 'student focus',
+            'tab' => 9
+        ],
+        [
+            'name' => 'show-live',
+            'label' => 'show - live',
+            'tab' => 10
+        ],
+        [
+            'name' => 'show-quick-tips',
+            'label' => 'show - quick tips',
+            'tab' => 11
+        ],
+        [
+            'name' => 'show-bootcamps',
+            'label' => 'show - bootcamps',
+            'tab' => 12
+        ],
+        [
+            'name' => 'show-live',
+            'label' => 'show - live',
+            'tab' => 13
+        ],
+        [
+            'name' => 'show-quick-tips',
+            'label' => 'show - quick tips',
+            'tab' => 14
+        ],
+        [
+            'name' => 'show-bootcamps',
+            'label' => 'show - bootcamps',
+            'tab' => 15
+        ],
+    ],
+];
+
+$sectionVideos = [
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor one',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video One',
+        'detail' => 'detail #1',
+        'date' => 'feb 21/20',
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Two',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Two',
+        'detail' => 'detail #1',
+        'date' => 'feb 21/20',
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Other Instructor',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Three',
+        'detail' => 'detail #1',
+        'date' => 'feb 21/20',
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Four',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Four',
+        'detail' => 'detail #1',
+        'date' => 'feb 21/20',
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor one',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video One',
+        'detail' => 'detail #1',
+        'date' => 'feb 21/20',
+    ],
+    [
+        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+        'teacherName' => 'Instructor Two',
+        'contentType' => 'content type',
+        'videoTitle' => 'Continue Video Two',
+        'detail' => 'detail #1',
+        'date' => 'feb 21/20',
+    ],
 ];
 @endphp
 
@@ -36,11 +148,13 @@ $filters = [
         </div>
     </div>
 
-    @include(
-        'sections.my-list-content',
-        [
-            'filters' => $filters,
-            'videos' => $sectionVideos,
-        ]
-    )
+    <div class="mx-auto w-full container lg:pl-3 h-full">
+        @include(
+            'sections.my-list-content',
+            [
+                'filters' => $filters,
+                'videos' => $sectionVideos,
+            ]
+        )
+    </div>
 @endsection
