@@ -9,7 +9,7 @@
             </div>
 
             @if (isset($comment['replies']) & count($comment['replies']))
-                <div class="ml-20 pl-6">
+                <div class="sm:ml-20 pl-6">
                     @foreach ($comment['replies'] as $reply)
                         <div class="py-3">
                             @component('core.comment', $reply)

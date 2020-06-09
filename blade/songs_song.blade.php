@@ -127,40 +127,105 @@ $breadcrumbs = [
 $songs = [
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1518.jpg',
+        'title' => 'this is the lesson title',
         'artist' => 'band name',
         'genre' => 'genre',
         'progress' => 0,
+        'skipStyle' => true,
     ],
     [
         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/220948-card-thumbnail-maxres-1551793218',
+        'title' => 'this is the lesson title',
         'artist' => 'band name',
         'genre' => 'genre',
-        'progress' => 0,
+        'progress' => 100,
+        'skipStyle' => true,
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1445.jpg',
+        'title' => 'this is the lesson title',
         'artist' => 'band name',
         'genre' => 'genre',
         'progress' => 0,
+        'skipStyle' => true,
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1575.jpg',
+        'title' => 'this is the lesson title',
         'artist' => 'band name',
         'genre' => 'genre',
-        'progress' => 0,
+        'progress' => 60,
+        'skipStyle' => true,
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-262.jpg',
+        'title' => 'this is the lesson title',
         'artist' => 'band name',
         'genre' => 'genre',
         'progress' => 0,
+        'skipStyle' => true,
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1469.jpg',
+        'title' => 'this is the lesson title',
         'artist' => 'band name',
         'genre' => 'genre',
         'progress' => 0,
+        'skipStyle' => true,
     ],
+    [
+        'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1518.jpg',
+        'title' => 'this is the lesson title',
+        'artist' => 'band name',
+        'genre' => 'genre',
+        'progress' => 0,
+        'skipStyle' => true,
+    ],
+    [
+        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/220948-card-thumbnail-maxres-1551793218',
+        'title' => 'this is the lesson title',
+        'artist' => 'band name',
+        'genre' => 'genre',
+        'progress' => 100,
+        'skipStyle' => true,
+    ],
+    [
+        'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1445.jpg',
+        'title' => 'this is the lesson title',
+        'artist' => 'band name',
+        'genre' => 'genre',
+        'progress' => 0,
+        'skipStyle' => true,
+    ],
+    [
+        'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1575.jpg',
+        'title' => 'this is the lesson title',
+        'artist' => 'band name',
+        'genre' => 'genre',
+        'progress' => 60,
+        'skipStyle' => true,
+    ],
+    [
+        'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-262.jpg',
+        'title' => 'this is the lesson title',
+        'artist' => 'band name',
+        'genre' => 'genre',
+        'progress' => 0,
+        'skipStyle' => true,
+    ],
+    [
+        'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1469.jpg',
+        'title' => 'this is the lesson title',
+        'artist' => 'band name',
+        'genre' => 'genre',
+        'progress' => 0,
+        'skipStyle' => true,
+    ],
+];
+
+$progress = [
+    'percent' => 10,
+    'nextUrl' => '#'
 ];
 @endphp
 
@@ -170,18 +235,17 @@ $songs = [
 @endsection
 
 @section('content')
-    <div class="mx-auto w-full container flex px-3 h-full">
-        <div class="flex-1">
-            <div class="">
-                @include('sections.song', $song)
-            </div>
-            <div class="">
-                @include('sections.comments', ['comments' => $comments])
-            </div>
+    <div class="mx-auto w-full container relative px-3 pb-24">
+        <div class="lg:mr-64">
+            @include('sections.song', $song)
         </div>
-        <div class="border border-black h-20 w-64">
-            <span>related</span>
-            @include('sections.related-songs', $songs)
+        <div class="lg:absolute top-0 right-0 lg:w-64">
+            @include('sections.related-songs', ['songs' => $songs])
+        </div>
+        <div class="lg:mr-64">
+            @include('sections.comments', ['comments' => $comments])
         </div>
     </div>
+
+    @include('sections.song-progress', $progress)
 @endsection

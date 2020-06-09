@@ -12,13 +12,13 @@ $thumbnail = 'https://s3.amazonaws.com/pianote/defaults/avatar.png';
         </div>
     </div>
 
-    <div class="flex my-8">
-        <div class="rounded-full overflow-hidden border-4 border-blue-500 h-20 w-20">
+    <div class="flex flex-col sm:flex-row my-8">
+        <div class="self-center sm:self-auto rounded-full overflow-hidden border-4 border-blue-500 h-20 w-20">
             <img src="{{ $thumbnail }}" class="h-full w-aut">
         </div>
         <div class="flex-1 flex flex-col">
-            <div class="ml-16 rounded-lg overflow-hidden border border-gray">
-                <div class="flex space-x-4 bg-gray p-3">
+            <div class="mt-4 sm:mt-0 sm:ml-16 rounded-lg overflow-hidden border border-gray">
+                <div class="flex  sm:flex-row space-x-1 sm:space-x-4 bg-gray p-3">
                     <div class="flex divide-x divide-medium-gray border border-medium-gray rounded-lg">
                         <div class="rounded-l-lg bg-white text-dark-gray leading-none p-3 flex items-center justify-center"><i class="icon-edit text-lg"></i></div>
                         <div class="bg-white text-dark-gray leading-none p-3 flex items-center justify-center"><i class="icon-info text-lg"></i></div>
@@ -34,7 +34,7 @@ $thumbnail = 'https://s3.amazonaws.com/pianote/defaults/avatar.png';
                     <textarea class="w-full h-full" rows="5"></textarea>
                 </div>
             </div>
-            <div class="pt-2 flex justify-end">
+            <div class="pt-2 flex justify-center sm:justify-end">
                 @component('core.button', [
                     'labelText' => 'comment',
                     'type' => 'button',

@@ -18,21 +18,23 @@ if (isset($author['border']) && $author['border'] == 'yellow') {
         @endif
     </div>
     <div class="flex flex-col">
-        <div class="flex items-center">
+        <div class="flex flex-col items-start sm:flex-row sm:items-center">
             <div class="capitalize font-semibold">{{ $author['name'] }}</div>
-            <div class="ml-2 rounded-lg px-3 bg-medium-gray uppercase text-xs text-white">level - {{ $author['level'] }}</div>
+            <div class="sm:ml-2 rounded-lg px-3 bg-medium-gray uppercase text-xs text-white">level - {{ $author['level'] }}</div>
         </div>
         <div class="my-2">{{ $comment }}</div>
-        <div class="flex items-center">
-            <a href="#" class="text-medium-gray uppercase flex items-center">
-                <i class="icon-applause mr-1"></i>
-                <span class="text-xs font-semibold">like</span>
-                @if ($likes > 0)
-                    <div class="rounded-full flex items-center justify-center ml-1 w-5 h-5 bg-edge-blue text-white text-xs"><span class="leading-none">{{ $likes }}</span></div>
-                @endif
-            </a>
-            <a href="#" class="px-6 text-medium-gray uppercase flex items-center"><i class="icon-chat mr-1"></i><span class="text-xs font-semibold">reply</span></a>
-            <div class="text-medium-gray uppercase text-xs">{{ $added }}</div>
+        <div class="flex flex-col-reverse items-start sm:flex-row sm:items-center">
+            <div class="flex">
+                <a href="#" class="text-medium-gray uppercase flex items-center">
+                    <i class="icon-applause mr-1"></i>
+                    <span class="text-xs font-semibold">like</span>
+                    @if ($likes > 0)
+                        <div class="rounded-full flex items-center justify-center ml-1 w-5 h-5 bg-edge-blue text-white text-xs"><span class="leading-none">{{ $likes }}</span></div>
+                    @endif
+                </a>
+                <a href="#" class="px-6 text-medium-gray uppercase flex items-center"><i class="icon-chat mr-1"></i><span class="text-xs font-semibold">reply</span></a>
+            </div>
+            <div class="mb-2 sm:mb-0 text-medium-gray uppercase text-xs">{{ $added }}</div>
         </div>
     </div>
 </div>
