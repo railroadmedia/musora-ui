@@ -40,6 +40,6 @@
 @endphp
 <a
     href="{{ $href }}"
-    class="py-3 rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase {{ $_inputClasses }}"
+    class="py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase {{ $_inputClasses }}"
     tabindex="{{ $tabIndex }}"
 >{{ $labelText }}</a>

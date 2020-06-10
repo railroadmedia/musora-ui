@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="w-full text-center pt-6 lg:w-1/6 lg:text-right lg:pt-0">
-        <div class="flex justify-end leading-none">
+        <div class="flex justify-center lg:justify-end leading-none">
             @component('core.anchor-button', [
                 'labelText' => 'skip',
                 'href' => '#',

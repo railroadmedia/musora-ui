@@ -134,9 +134,9 @@
             </div>
             <div class="flex items-center pr-2 small:pr-0">
                 <div class="text-header-gray mx-2"><i class="icon-search text-lg font-bold"></i></div>
-                <div class="rounded-full overflow-hidden border-2 border-header-gray w-8">
+                <a href="/router.php/profile_dashboard" class="rounded-full overflow-hidden border-2 border-header-gray w-8">
                     <img src="https://musora.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fpianote%2Fdefaults%2Favatar.png?blur=2&fit=crop&h=50&ixlib=php-1.2.1&q=50&w=50&s=0a284a726ec34f3bca2bb253a0dfc869">
-                </div>
+                </a>
             </div>
             <div id="side-menu" class="text-header-gray px-4 border-l border-header-gray h-full small:hidden flex items-center justify-center cursor-pointer open"><i id="icon-open" class="icon-home text-lg font-bold"></i><i id="icon-close" class="icon-hammer text-lg font-bold"></i></div>
         </div>

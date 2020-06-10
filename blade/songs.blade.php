@@ -15,7 +15,8 @@ $continueVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'Continue Video One',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/220948-card-thumbnail-maxres-1551793218',
@@ -23,7 +24,8 @@ $continueVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'Continue Video Two',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1445.jpg',
@@ -31,7 +33,8 @@ $continueVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'Continue Video Three',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1575.jpg',
@@ -39,7 +42,8 @@ $continueVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'Continue Video Four',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-262.jpg',
@@ -47,7 +51,8 @@ $continueVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'Continue Video Five',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1469.jpg',
@@ -55,7 +60,8 @@ $continueVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'Continue Video Six',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ]
 ];
 
@@ -160,7 +166,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/220948-card-thumbnail-maxres-1551793218',
@@ -168,7 +175,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'cstyle',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1445.jpg',
@@ -176,7 +184,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1575.jpg',
@@ -184,7 +193,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-262.jpg',
@@ -192,7 +202,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1469.jpg',
@@ -200,7 +211,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1518.jpg',
@@ -208,7 +220,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/220948-card-thumbnail-maxres-1551793218',
@@ -216,7 +229,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'cstyle',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1445.jpg',
@@ -224,7 +238,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1575.jpg',
@@ -232,7 +247,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-262.jpg',
@@ -240,7 +256,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1469.jpg',
@@ -248,7 +265,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1518.jpg',
@@ -256,7 +274,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/220948-card-thumbnail-maxres-1551793218',
@@ -264,7 +283,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'cstyle',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1445.jpg',
@@ -272,7 +292,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1575.jpg',
@@ -280,7 +301,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-262.jpg',
@@ -288,7 +310,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
     [
         'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1469.jpg',
@@ -296,7 +319,8 @@ $sectionVideos = [
         'icon' => 'icon-songs',
         'contentType' => 'style',
         'videoTitle' => 'this is the lesson title',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/songs_song',
     ],
 ];
 @endphp

@@ -61,7 +61,7 @@
     $_labelClasses = implode(' ', $_labelClasses);
 @endphp
 
-<div class="badge-checkbox rounded-full border-2 flex cursor-pointer uppercase font-medium {{ $_containerClasses }}">
+<div class="badge-checkbox rounded-full border-2 flex cursor-pointer uppercase {{ $_containerClasses }}">
     <input
         type="checkbox"
         id="{{ $inputId }}"
@@ -71,7 +71,8 @@
         {{ $checked }}
     ><label
         for="{{ $inputId }}"
-        class="cursor-pointer {{ $_labelClasses }}"
+        class="cursor-pointer font-medium {{ $_labelClasses }}"
+        style="-webkit-font-smoothing: antialiased;"
     >@isset($iconClass)<i
         class="{{ $iconClass }} text-lg pr-1"
     ></i> @endisset{{ $labelText }}</label>

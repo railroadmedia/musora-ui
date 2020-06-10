@@ -17,7 +17,7 @@
 
 <div class="flex flex-col sm:flex-row items-center">
     <div class="flex-none relative w-full h-auto sm:h-32 sm:w-48 rounded-lg overflow-hidden">
-        <img src="{{ $thumbnail }}" class="object-cover object-center h-full w-auto">
+        <img src="{{ $thumbnail }}" class="object-cover object-center w-auto sm:h-full">
         <div class="absolute bottom-0 p-3 text-white font-medium uppercase text-xs w-full bg-gray bg-next-lesson-gradient">{{ $teacherName }}</div>
     </div>
     <div class="flex flex-row pt-4 sm:pt-0 sm:pl-6 items-center">

@@ -38,7 +38,7 @@
 @endsection
 
 @section('pitch')
-<div class="pt-8">
+<div class="py-8">
     <p class="text-center text-white text-sm"><span class="font-semibold">Not a member yet?</span> <a href="/router.php/account_level" class="underline">Join the community here!</a></p>
 </div>
 @endsection

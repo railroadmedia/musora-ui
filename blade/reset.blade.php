@@ -17,6 +17,7 @@
     <div class="mt-4">
         @component('core.button', [
             'labelText' => 'get new password',
+            'fullWidth' => 'true',
             'type' => 'submit',
             'tabIndex' => 3,
         ])
@@ -29,7 +30,7 @@
 @endsection
 
 @section('pitch')
-<div class="pt-8">
+<div class="py-8">
     <p class="text-center text-white text-sm"><span class="font-semibold">Not a member yet?</span> <a href="/router.php/account_level" class="underline">Join the community here!</a></p>
 </div>
 @endsection

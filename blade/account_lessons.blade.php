@@ -105,18 +105,18 @@ $checkboxes = [
                     <i class="icon-approved-teacher"></i>
                 </div>
             </a><a href="#" class="rounded-r-full bg-green-400 text-white py-1">
-                <div class="leading-none text-xs text-center">
-                    <span>step 2</span><br><span class="font-semibold">choose lessons</span>
+                <div class="leading-none text-xs text-center flex flex-col">
+                    <div>step 2</div><div class="font-semibold">choose lessons</div>
                 </div>
             </a><a href="#" class="rounded-full text-gray py-1">
-                <div class="leading-none text-xs text-center">
-                    <span>step 3</span><br><span class="font-semibold">create profile</span>
+                <div class="leading-none text-xs text-center flex flex-col">
+                    <div>step 3</div><div class="font-semibold">create profile</div>
                 </div>
             </a>
         </div>
     </div>
     <div class="w-full text-center pt-6 lg:w-1/6 lg:text-right lg:pt-0">
-        <div class="flex justify-end leading-none">
+        <div class="flex justify-center lg:justify-end leading-none">
             @component('core.anchor-button', [
                 'labelText' => 'skip',
                 'href' => '#',

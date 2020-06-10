@@ -13,7 +13,7 @@
 <body class="bg-blue-600 box-border">
 
 <div class="flex flex-col h-screen">
-    <div class="m-auto w-md">
+    <div class="m-auto max-w-md md:w-md">
         <div class="pt-8">
             <img src="https://dpwjbsxqtam5n.cloudfront.net/logos/logo-white.png" class="mx-auto w-2/3">
         </div>

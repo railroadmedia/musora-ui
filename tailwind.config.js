@@ -54,6 +54,10 @@ module.exports = {
             '8': '8px',
             '16': '16px',
         },
+        // todo - setup an explicit font, original setup https://unpkg.com/tailwindcss@1.4.6/dist/base.css is not consistent
+        // fontFamily: {
+        //     ...
+        // },
     },
     variants: {
         backgroundColor: ['responsive', 'hover', 'focus', 'active'],

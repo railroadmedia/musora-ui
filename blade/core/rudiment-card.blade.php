@@ -1,6 +1,6 @@
 <a href="#" class="rudiment-card flex flex-row items-center px-3 py-1">
     <div class="w-32 rounded-lg overflow-hidden relative">
-        <img src="{{ $thumbnail }}" class="object-cover object-center h-full w-auto">
+        <img src="{{ $thumbnail }}" class="object-cover object-center w-full h-auto">
         <div class="absolute bottom-0 left-0 rudiment-card-teacher-gradient text-white pl-2 pb-1 uppercase text-xs font-semibold">{{ $teacherName }}</div>
         <div class="rudiment-card-play absolute inset-0 flex items-center justify-center invisible opacity-0 z-10"><i class="icon-live text-2xl text-white"></i></div>
     </div>

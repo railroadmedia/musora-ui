@@ -18,6 +18,6 @@
 
 <button
     type="{{ $type }}"
-    class="bg-blue-600 text-white py-3 px-16 rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase {{ $_inputClasses }}"
+    class="bg-blue-600 text-white py-3 rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase {{ $_inputClasses }}"
     tabindex="{{ $tabIndex }}"
 >{{ $labelText }}</button>

@@ -4,7 +4,6 @@
 
 @push('styles')
 <style type="text/css">
-/* todo - move the css from elements inline into classes, here */
 .level-select.level-checked .level-ind {
     display: block;
 }
@@ -17,7 +16,6 @@
 @section('content')
 <div class="m-10 w-full">
     <h2 class="font-extrabold text-center uppercase mb-6">set your skill level</h2>
-    <!-- todo: refactor the level selector into a component & theme it to reuse in edge page -->
     <div class="grid grid-cols-5">
         <div class="py-4 level-select">
             <div style="height: 8px;" class="border-2 border-blue-600 bg-blue-600 relative rounded-l-full level-bar">
@@ -87,23 +85,23 @@
     <div class="hide lg:w-1/6"></div>
     <div class="w-full lg:w-4/6">
         <div class="rounded-full border-2 border-gray p-1 m-auto max-w-xl leading-none grid grid-cols-3">
-            <a href="#" class="rounded-full bg-green-400 text-white py-1">
+            <a href="#" class="rounded-full bg-green-400 text-white py-1 flex flex-col justify-center">
                 <div class="leading-none text-xs text-center">
-                    <span>step 1</span><br><span class="font-semibold">set level</span>
+                    <div>step 1</div><div class="font-semibold">set level</div>
                 </div>
             </a><a href="#" class="rounded-full text-gray py-1">
-                <div class="leading-none text-xs text-center">
-                    <span>step 2</span><br><span class="font-semibold">choose lessons</span>
+                <div class="leading-none text-xs text-center flex flex-col">
+                    <div>step 2</div><div class="font-semibold">choose lessons</div>
                 </div>
             </a><a href="#" class="rounded-full text-gray py-1">
-                <div class="leading-none text-xs text-center">
-                    <span>step 3</span><br><span class="font-semibold">create profile</span>
+                <div class="leading-none text-xs text-center flex flex-col">
+                    <div>step 3</div><div class="font-semibold">create profile</div>
                 </div>
             </a>
         </div>
     </div>
     <div class="w-full text-center pt-6 lg:w-1/6 lg:text-right lg:pt-0">
-        <div class="flex justify-end leading-none">
+        <div class="flex justify-center lg:justify-end leading-none">
             @component('core.anchor-button', [
                 'labelText' => 'skip',
                 'href' => '#',
