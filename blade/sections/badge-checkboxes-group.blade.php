@@ -1,11 +1,13 @@
 @php
     $skipCollapseStyle = $skipCollapseStyle ?? false;
     $skipCollapseScript = $skipCollapseScript ?? false;
+    $padding = false;
 
     $_badgePadding = 'p-1';
 
     if (count($checkboxes) < 6) {
         $_badgePadding = 'p-2';
+        $padding = true;
     }
 
     $_width = 'w-1/2 small:w-1/5';
@@ -47,9 +49,9 @@
 @endpush
 
 <div>
-    <h4 class="collapse-trigger py-2 px-2 cursor-pointer small:cursor-default small:px-0 flex justify-between small:block small:text-center text-white bg-edge-dark-blue font-semibold text-sm small:text-base"><span>{{ $title }}</span><div class="small:hidden flex items-center"><i class="icon-home text-lg font-bold small:hidden collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold small:hidden collapse-trigger-close"></i></div></h4>
+    <h4 class="collapse-trigger py-2 px-2 cursor-pointer small:cursor-default small:px-0 flex justify-between small:block small:text-center text-white bg-edge-dark-blue font-bold text-sm small:text-lg"><span class="font-roboto">{{ $title }}</span><div class="small:hidden flex items-center"><i class="icon-home text-lg font-bold small:hidden collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold small:hidden collapse-trigger-close"></i></div></h4>
     <div class="collapse-container small:expand">
-        <div class="p-3 flex flex-wrap">
+        <div class="px-3 py-4 flex flex-wrap">
             @foreach ($checkboxes as $checkbox)
                 <div class="{{ $_width }} {{ $_badgePadding }}">
                     @component('core.badge-checkbox', [
@@ -60,7 +62,7 @@
                         'theme' => 'blue',
                         'skipScript' => !$loop->last,
                         'active' => $checkbox['active'] ?? false,
-                        'padding' => true
+                        'padding' => $padding
                     ])
                     @endcomponent
                 </div>

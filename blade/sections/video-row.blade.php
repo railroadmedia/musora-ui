@@ -1,10 +1,10 @@
 <div class="w-full small:mt-6">
-    <div class="flex flex-row justify-between items-center uppercase text-sm font-semibold">
+    <div class="flex flex-row justify-between items-center uppercase font-roboto">
         <div class="text-medium-gray">
-            <span>{{ $rowTitle }}</span>
+            <span class="font-bold">{{ $rowTitle }}</span>
         </div>
         <div class="">
-            <a href="{{ $url }}" class="text-blue-500 text-xs">see all</a>
+            <a href="{{ $url }}" class="text-edge-blue text-sm font-bold">see all</a>
         </div>
     </div>
     <div class="py-6 small:flex small:space-x-3">

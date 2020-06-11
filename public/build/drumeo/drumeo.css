@@ -435,7 +435,7 @@ ul {
  */
 
 html {
-  font-family: Arial; /* 1 */
+  font-family: "Open Sans", sans-serif; /* 1 */
   line-height: 1.5; /* 2 */
 }
 
@@ -579,7 +579,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 /**
@@ -5425,15 +5425,11 @@ textarea.floating-label ~ label {
 }
 
 .font-sans {
-  font-family: Arial;
+  font-family: "Open Sans", sans-serif;
 }
 
-.font-serif {
-  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-}
-
-.font-mono {
-  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+.font-roboto {
+  font-family: Roboto, sans-serif;
 }
 
 .font-hairline {
@@ -21653,15 +21649,11 @@ textarea.floating-label ~ label {
   }
 
   .sm\:font-sans {
-    font-family: Arial;
+    font-family: "Open Sans", sans-serif;
   }
 
-  .sm\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-  }
-
-  .sm\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  .sm\:font-roboto {
+    font-family: Roboto, sans-serif;
   }
 
   .sm\:font-hairline {
@@ -37882,15 +37874,11 @@ textarea.floating-label ~ label {
   }
 
   .md\:font-sans {
-    font-family: Arial;
+    font-family: "Open Sans", sans-serif;
   }
 
-  .md\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-  }
-
-  .md\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  .md\:font-roboto {
+    font-family: Roboto, sans-serif;
   }
 
   .md\:font-hairline {
@@ -54111,15 +54099,11 @@ textarea.floating-label ~ label {
   }
 
   .lg\:font-sans {
-    font-family: Arial;
+    font-family: "Open Sans", sans-serif;
   }
 
-  .lg\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-  }
-
-  .lg\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  .lg\:font-roboto {
+    font-family: Roboto, sans-serif;
   }
 
   .lg\:font-hairline {
@@ -70340,15 +70324,11 @@ textarea.floating-label ~ label {
   }
 
   .xl\:font-sans {
-    font-family: Arial;
+    font-family: "Open Sans", sans-serif;
   }
 
-  .xl\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-  }
-
-  .xl\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  .xl\:font-roboto {
+    font-family: Roboto, sans-serif;
   }
 
   .xl\:font-hairline {
@@ -86569,15 +86549,11 @@ textarea.floating-label ~ label {
   }
 
   .small\:font-sans {
-    font-family: Arial;
+    font-family: "Open Sans", sans-serif;
   }
 
-  .small\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-  }
-
-  .small\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  .small\:font-roboto {
+    font-family: Roboto, sans-serif;
   }
 
   .small\:font-hairline {
@@ -102798,15 +102774,11 @@ textarea.floating-label ~ label {
   }
 
   .medium\:font-sans {
-    font-family: Arial;
+    font-family: "Open Sans", sans-serif;
   }
 
-  .medium\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-  }
-
-  .medium\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  .medium\:font-roboto {
+    font-family: Roboto, sans-serif;
   }
 
   .medium\:font-hairline {
@@ -119027,15 +118999,11 @@ textarea.floating-label ~ label {
   }
 
   .large\:font-sans {
-    font-family: Arial;
+    font-family: "Open Sans", sans-serif;
   }
 
-  .large\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-  }
-
-  .large\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  .large\:font-roboto {
+    font-family: Roboto, sans-serif;
   }
 
   .large\:font-hairline {
@@ -135256,15 +135224,11 @@ textarea.floating-label ~ label {
   }
 
   .x-large\:font-sans {
-    font-family: Arial;
+    font-family: "Open Sans", sans-serif;
   }
 
-  .x-large\:font-serif {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-  }
-
-  .x-large\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  .x-large\:font-roboto {
+    font-family: Roboto, sans-serif;
   }
 
   .x-large\:font-hairline {

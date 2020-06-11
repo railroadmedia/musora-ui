@@ -21,9 +21,10 @@
 
     if ($theme == 'white') {
         $_containerClasses[] = 'border-blue-600';
-        $_containerClasses[] = 'py-1';
+        $_containerClasses[] = 'py-2';
         $_containerClasses[] = 'text-blue-600';
         $_containerClasses[] = 'text-sm';
+        $_containerClasses[] = 'font-medium';
 
         $_labelClasses[] = 'ml-2';
         $_labelClasses[] = 'flex';
@@ -31,7 +32,9 @@
 
         $_checkedClasses[] = 'bg-blue-600';
         $_checkedClasses[] = 'text-white';
+        $_checkedClasses[] = 'font-extrabold';
         $_uncheckedClasses[] = 'text-blue-600';
+        $_uncheckedClasses[] = 'font-medium';
     } else {
         // theme 'blue'
         $_containerClasses[] = 'justify-center';
@@ -39,6 +42,7 @@
         $_containerClasses[] = 'text-edge-dark-blue';
         $_containerClasses[] = 'text-xs';
         $_containerClasses[] = 'leading-none';
+        $_containerClasses[] = 'font-medium';
 
         $_labelClasses[] = 'py-2';
         $_labelClasses[] = 'text-xs';
@@ -46,10 +50,11 @@
         $_checkedClasses[] = 'bg-white';
         $_checkedClasses[] = 'text-edge-blue';
         $_checkedClasses[] = 'border-white';
-        $_checkedClasses[] = 'font-semibold';
+        $_checkedClasses[] = 'font-extrabold';
         $_uncheckedClasses[] = 'bg-edge-blue';
         $_uncheckedClasses[] = 'text-edge-dark-blue';
         $_uncheckedClasses[] = 'border-edge-dark-blue';
+        $_uncheckedClasses[] = 'font-medium';
     }
 
     if ($active) {
@@ -71,8 +76,7 @@
         {{ $checked }}
     ><label
         for="{{ $inputId }}"
-        class="cursor-pointer font-medium {{ $_labelClasses }}"
-        style="-webkit-font-smoothing: antialiased;"
+        class="cursor-pointer font-roboto {{ $_labelClasses }}"
     >@isset($iconClass)<i
         class="{{ $iconClass }} text-lg pr-1"
     ></i> @endisset{{ $labelText }}</label>

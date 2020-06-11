@@ -12,8 +12,7 @@ $continueVideos = [
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
         'teacherName' => 'Instructor one',
-        'icon' => 'icon-courses',
-        'contentType' => 'content type',
+        'contentType' => 'topic',
         'videoTitle' => 'Continue Video One',
         'difficulty' => 'Beginner - 1'
     ],
@@ -441,6 +440,10 @@ $sectionVideos = [
                 'filters' => $filterGroups,
                 'videos' => $sectionVideos,
                 'videosPerRow' => 4,
+                'results' => [
+                    'count' => 114,
+                    'type' => 'Lessons'
+                ],
             ]
         )
     </div>

@@ -253,6 +253,11 @@ $sectionVideos = [
                 'filters' => $filterGroups,
                 'videos' => $sectionVideos,
                 'videosPerRow' => 5,
+                'results' => [
+                    'count' => 114,
+                    'type' => 'Play-Alongs',
+                    'perPage' => 20
+                ],
             ]
         )
     </div>

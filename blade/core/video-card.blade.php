@@ -34,8 +34,8 @@
         @endif
     </div>
     <div class="pt-2">
-        <div class="py-1 text-xs text-dark-gray uppercase flex items-center"><i class="{{ $icon }} text-sm mr-1"></i> {{ $contentType }}</div>
-        <h3 class="pb-1 font-semibold">{{ $videoTitle }}</h3>
+        <div class="py-1 text-xs text-dark-gray uppercase flex items-center font-semibold">@if (isset($icon))<i class="{{ $icon }} text-sm mr-1"></i>@endif {{ $contentType }}</div>
+        <h3 class="pb-1 font-bold capitalize">{{ $videoTitle }}</h3>
         <p class="text-xs text-medium-gray">{{ $difficulty }}</p>
     </div>
 </a>

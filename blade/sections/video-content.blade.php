@@ -1,7 +1,7 @@
 @push('styles')
 <style type="text/css">
 .icon-checkbox.checked {
-    font-weight: 600;
+    font-weight: 700;
     color: #000;
 }
 .icon-checkbox.checked .checkbox-icon {
@@ -46,11 +46,11 @@
 
                     <div class="w-full mb-2">
                         <div class="text-dark-gray text-xs border-2 border-light-gray rounded-lg">
-                            <div class="collapse-trigger flex content-center justify-between px-3 py-2 font-semibold small:text-sm cursor-pointer {{ $_triggerClasses }}">
+                            <div class="collapse-trigger flex content-center justify-between px-3 py-2 font-semibold small:text-sm cursor-pointer font-roboto {{ $_triggerClasses }}">
                                 <span class="uppercase">{{ $title }}</span><i class="icon-home text-lg font-bold collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold collapse-trigger-close"></i>
                             </div>
                             <div class="collapse-container overflow-hidden">
-                                <div style="max-height: 230px;" class="mb-3 font-medium" data-simplebar>
+                                <div style="max-height: 230px;" class="mb-3 font-semibold" data-simplebar>
                                     @foreach ($items as $item)
                                         @component('core.icon-checkbox', [
                                             'inputId' => $item['name'],
@@ -71,20 +71,36 @@
             </div>
         </div>
     </div>
-    <div class="w-full medium:ml-4">
+    <div class="w-full medium:ml-8">
         <div class="my-4 medium:my-0">
-            <div class="flex content-center justify-between text-medium-gray text-xs">
-                <div>
-                    <span class="font-semibold">114</span> <span class="capitalize">lessons</span>
+            @if (isset($results['perPage']))
+                <div class="flex flex-col sm:flex-row content-center text-medium-gray text-sm">
+                    <div class="flex-1">
+                        <span class="font-bold">{{ $results['count'] }}</span> <span class="capitalize">{{ $results['type'] }}</span>
+                    </div>
+                    <div class="flex-none flex mt-2 sm:mt-0">
+                        <div>
+                            <span class="font-bold">Per Page:</span> <select class="bg-white"><option>{{ $results['perPage'] }}</option></select>
+                        </div>
+                        <div class="ml-8">
+                            <span class="font-bold">Sort by:</span> <select class="bg-white"><option>Newest First</option></select>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <span class="font-semibold">Sort by:</span> <select class="bg-white"><option>Newest First</option></select>
+            @else
+                <div class="flex content-center justify-between text-medium-gray text-sm">
+                    <div>
+                        <span class="font-bold">{{ $results['count'] }}</span> <span class="capitalize">{{ $results['type'] }}</span>
+                    </div>
+                    <div>
+                        <span class="font-bold">Sort by:</span> <select class="bg-white"><option>Newest First</option></select>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
 
-        <div class="hidden small:flex text-xs flex-wrap items-center text-medium-gray py-2">
-            <div class="py-2 mr-1"><a href="#" class="text-blue-500 uppercase font-semibold">clear all</a></div>
+        <div class="hidden small:flex text-xs flex-wrap items-center text-dark-gray py-2">
+            <div class="py-2 mr-1"><a href="#" class="text-edge-blue uppercase font-bold font-roboto">clear all</a></div>
             @foreach ($filterGroups as $filterGroup)
                 @foreach ($filterGroup['items'] ?? [] as $item)
                     @php
@@ -99,7 +115,7 @@
                         $_containerClasses = implode(' ', $_containerClasses);
                     @endphp
 
-                    <div id="badge-filter-{{ $item['name'] }}" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full {{ $_containerClasses }}">
+                    <div id="badge-filter-{{ $item['name'] }}" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full font-roboto {{ $_containerClasses }}">
                         <span class="capitalize">{{ $item['label'] ?? $item['name'] }}</span><i class="icon-info badge-filter text-dark-gray text-base ml-1 cursor-pointer"></i>
                     </div>
                 @endforeach

@@ -74,7 +74,7 @@ $items = [
 @endphp
 
 <div id="sub-nav-container" class="bg-header w-full border-b border-header-gray">
-    <div id="sub-nav" class="mx-auto w-full container leading-none text-header-gray uppercase h-14 small:h-16 relative">
+    <div id="sub-nav" class="mx-auto w-full container text-header-gray uppercase h-16 small:h-20 relative">
         <div id="sub-nav-wrap" class="overflow-x-auto h-full">
             <div class="w-medium medium:w-full flex flex-row items-center text-center overflow-x-auto h-full">
                 @foreach ($items as $item)
@@ -89,9 +89,9 @@ $items = [
                     @endphp
                     <a href="{{ $item['url'] }}" class="subnav-link flex-1 py-3 small:py-3 hover:bg-header-gray hover:text-white h-full">
                         <i
-                            class="{{ $item['icon'] }} text-2xl {{ $_iconClass }}"
+                            class="{{ $item['icon'] }} text-3xl {{ $_iconClass }}"
                         ></i>
-                        <p class="text-xs font-semibold {{ $_labelClass }}">{{ $item['name'] }}</p>
+                        <p class="text-xs font-bold {{ $_labelClass }}">{{ $item['name'] }}</p>
                     </a>
                 @endforeach
             </div>

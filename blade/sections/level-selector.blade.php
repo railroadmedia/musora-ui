@@ -41,7 +41,7 @@
 @endpush
 
 <div>
-    <h4 class="collapse-trigger py-2 px-2 cursor-pointer small:cursor-default small:px-0 flex justify-between small:block small:text-center text-white bg-edge-dark-blue font-semibold text-sm small:text-base"><span>set your skill level</span><div class="small:hidden flex items-center"><div class="flex items-center justify-center border rounded-full w-4 h-4 mr-2 text-xs text-medium-gray">?</div><i class="icon-home text-lg font-bold small:hidden collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold small:hidden collapse-trigger-close"></i></div></h4>
+    <h4 class="collapse-trigger py-2 px-2 cursor-pointer small:cursor-default small:px-0 flex justify-between small:block small:text-center text-white bg-edge-dark-blue font-bold text-sm small:text-lg"><span class="font-roboto">set your skill level</span><div class="small:hidden flex items-center"><div class="flex items-center justify-center border rounded-full w-4 h-4 mr-2 text-xs text-medium-gray">?</div><i class="icon-home text-lg font-bold small:hidden collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold small:hidden collapse-trigger-close"></i></div></h4>
     <div class="collapse-container small:expand">
         <div class="px-2 py-2 small:px-6">
             <div class="grid grid-cols-5 cursor-pointer">

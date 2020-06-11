@@ -355,6 +355,10 @@ $sectionVideos = [
                 'filters' => $filterGroups,
                 'videos' => $sectionVideos,
                 'videosPerRow' => 4,
+                'results' => [
+                    'count' => 114,
+                    'type' => 'Lessons'
+                ],
             ]
         )
     </div>

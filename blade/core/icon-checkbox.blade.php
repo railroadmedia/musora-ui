@@ -21,7 +21,7 @@
 @if (!$skipStyle)
 <style type="text/css">
 .icon-checkbox.checked {
-    font-weight: 600;
+    font-weight: 700;
     color: #000;
 }
 .icon-checkbox.checked .checkbox-icon {

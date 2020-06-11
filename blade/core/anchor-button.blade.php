@@ -26,7 +26,7 @@
         $_inputClasses[] = 'bg-blue-600';
         $_inputClasses[] = 'text-white';
     } else if ($theme == 'reversed') {
-        $_inputClasses[] = 'text-blue-600';
+        $_inputClasses[] = 'text-edge-blue';
         $_inputClasses[] = 'bg-white';
     } else {
         // theme gray, outlined
@@ -40,6 +40,6 @@
 @endphp
 <a
     href="{{ $href }}"
-    class="py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase {{ $_inputClasses }}"
+    class="py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase {{ $_inputClasses }} font-roboto"
     tabindex="{{ $tabIndex }}"
 >{{ $labelText }}</a>

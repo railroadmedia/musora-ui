@@ -1,7 +1,7 @@
 <div class="w-full border-b-2 border-light-gray py-4">
     <div class="mx-auto w-full container px-3 h-full flex flex-col sm:flex-row justify-between leading-none uppercase">
         <div class="flex items-center justify-center">
-            <div class="rounded-full overflow-hidden border-4 border-blue-500 mr-4 h-20 sm:24 md:h-32">
+            <div class="rounded-full overflow-hidden border-4 border-blue-500 mr-4 h-20 sm:h-24 md:h-32">
                 <img src="https://s3.amazonaws.com/pianote/defaults/avatar.png" class="h-full w-auto">
             </div>
             <div class="ml-2 sm:ml-6">
