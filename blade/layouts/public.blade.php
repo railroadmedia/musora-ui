@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../build/drumeo/drumeo.css">
     @stack('styles')
 </head>
-<body class="bg-blue-600 box-border">
+<body class="bg-edge-blue box-border">
 
 <div class="flex flex-col h-screen">
     <div class="m-auto max-w-md md:w-md">

@@ -23,11 +23,13 @@
     }
 
     if ($theme == 'blue') {
-        $_inputClasses[] = 'bg-blue-600';
+        $_inputClasses[] = 'bg-edge-blue';
         $_inputClasses[] = 'text-white';
     } else if ($theme == 'reversed') {
         $_inputClasses[] = 'text-edge-blue';
         $_inputClasses[] = 'bg-white';
+    } else if ($theme == 'blue-reversed') {
+        // todo - add theme classes for reversed + blue border, for songs_song complete button
     } else {
         // theme gray, outlined
         $_inputClasses[] = 'border-2';

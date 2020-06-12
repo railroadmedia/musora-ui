@@ -20,6 +20,7 @@
             @component('core.button', [
                 'labelText' => 'play',
                 'type' => 'button',
+                'iconClass' => 'icon-live',
             ])
             @endcomponent
         </div>

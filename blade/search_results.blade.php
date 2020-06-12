@@ -84,9 +84,9 @@ $filterGroups = [
 $sectionVideos = [
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-        'teacherName' => 'Instructor one',
+        'teacherName' => 'teacher name',
         'contentType' => 'content type',
-        'videoTitle' => 'Continue Video One',
+        'videoTitle' => 'This is the lesson title',
         'detail' => 'detail #1',
         'date' => 'feb 21/20',
         'showAddIcon' => true,

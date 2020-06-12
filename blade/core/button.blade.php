@@ -18,6 +18,6 @@
 
 <button
     type="{{ $type }}"
-    class="bg-blue-600 text-white py-3 rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase {{ $_inputClasses }}"
+    class="bg-edge-blue text-white py-3 rounded-full font-extrabold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase font-roboto {{ $_inputClasses }} flex items-center"
     tabindex="{{ $tabIndex }}"
->{{ $labelText }}</button>
+>@isset($iconClass)<i class="{{ $iconClass }} text-lg pr-3"></i> @endisset{{ $labelText }}</button>

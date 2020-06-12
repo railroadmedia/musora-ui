@@ -42,7 +42,7 @@ $items = [
     ],
     [
         'name' => 'songs',
-        'icon' => 'icon-songs',
+        'icon' => 'icon-headphones',
         'url' => '/router.php/songs',
     ],
     [

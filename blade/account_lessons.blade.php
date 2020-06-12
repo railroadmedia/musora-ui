@@ -105,11 +105,11 @@ $checkboxes = [
                     <i class="icon-approved-teacher"></i>
                 </div>
             </a><a href="#" class="rounded-r-full bg-green-400 text-white py-1">
-                <div class="leading-none text-xs text-center flex flex-col">
+                <div class="leading-none text-xs text-center flex flex-col font-roboto">
                     <div>step 2</div><div class="font-semibold">choose lessons</div>
                 </div>
             </a><a href="#" class="rounded-full text-gray py-1">
-                <div class="leading-none text-xs text-center flex flex-col">
+                <div class="leading-none text-xs text-center flex flex-col font-roboto">
                     <div>step 3</div><div class="font-semibold">create profile</div>
                 </div>
             </a>

@@ -47,7 +47,7 @@
 
                     <div class="w-full mb-2">
                         <div class="text-dark-gray text-xs border-2 border-light-gray rounded-lg">
-                            <div class="collapse-trigger flex content-center justify-between px-3 py-2 font-semibold small:text-sm cursor-pointer {{ $_triggerClasses }}">
+                            <div class="collapse-trigger flex content-center justify-between px-3 py-2 font-semibold small:text-sm cursor-pointer font-roboto{{ $_triggerClasses }}">
                                 <span class="uppercase">{{ $title }}</span><i class="icon-home text-lg font-bold collapse-trigger-open"></i><i class="icon-hammer text-lg font-bold collapse-trigger-close"></i>
                             </div>
                             <div class="collapse-container overflow-hidden">
@@ -84,7 +84,7 @@
             </div>
         </div>
         <div class="hidden small:flex text-xs flex-wrap items-center text-medium-gray py-2 px-3">
-            <div class="py-2 mr-1"><a href="#" class="text-blue-500 uppercase font-semibold">clear all</a></div>
+            <div class="py-2 mr-1"><a href="#" class="text-edge-blue uppercase font-bold font-roboto">clear all</a></div>
             @foreach ($filterGroups as $filterGroup)
                 @foreach ($filterGroup['items'] ?? [] as $item)
                     @php
@@ -99,7 +99,7 @@
                         $_containerClasses = implode(' ', $_containerClasses);
                     @endphp
 
-                    <div id="badge-filter-{{ $item['name'] }}" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full {{ $_containerClasses }}">
+                    <div id="badge-filter-{{ $item['name'] }}" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full font-roboto {{ $_containerClasses }}">
                         <span class="capitalize">{{ $item['label'] ?? $item['name'] }}</span><i class="icon-info badge-filter text-dark-gray text-base ml-1 cursor-pointer"></i>
                     </div>
                 @endforeach

@@ -15,7 +15,7 @@
 
 @section('content')
 <div class="m-10 w-full">
-    <h2 class="font-extrabold text-center uppercase mb-6">set your skill level</h2>
+    <h2 class="font-extrabold text-lg font-roboto text-center uppercase mb-6">set your skill level</h2>
     <div class="grid grid-cols-5">
         <div class="py-4 level-select">
             <div style="height: 8px;" class="border-2 border-blue-600 bg-blue-600 relative rounded-l-full level-bar">
@@ -50,23 +50,23 @@
     </div>
     <div class="mb-8">
         <div id="tab-1" class="text-center tab hidden">
-            <h3 class="py-2 font-medium">Level 1</h3>
+            <h3 class="py-2 font-medium font-roboto text-lg">Level 1</h3>
             <p class="text-sm">A "Level 1" should be able to play the rudiments blah di blah maecenas sodales tellus quis aliquam vulputate. Nam vehicula ultricies augue, a consequat tortor maximus ut. Sed a gravida dui, sit amet ullamcorper magna.</p>
         </div>
         <div id="tab-2" class="text-center tab">
-            <h3 class="py-2 font-medium">Level 2</h3>
-            <p class="text-sm">A "Level 2" should be able to play the rudiments blah di blah maecenas sodales tellus quis aliquam vulputate. Nam vehicula ultricies augue, a consequat tortor maximus ut. Sed a gravida dui, sit amet ullamcorper magna.</p>
+            <h3 class="py-2 font-medium font-roboto text-lg">Level 2</h3>
+            <div class="text-sm">A "Level 2" should be able to play the rudiments blah di blah maecenas sodales tellus quis aliquam vulputate. Nam vehicula ultricies augue, a consequat tortor maximus ut. Sed a gravida dui, sit amet ullamcorper magna.</div>
         </div>
         <div id="tab-3" class="text-center tab hidden">
-            <h3 class="py-2 font-medium">Level 3</h3>
+            <h3 class="py-2 font-medium font-roboto text-lg">Level 3</h3>
             <p class="text-sm">A "Level 3" should be able to play the rudiments blah di blah maecenas sodales tellus quis aliquam vulputate. Nam vehicula ultricies augue, a consequat tortor maximus ut. Sed a gravida dui, sit amet ullamcorper magna.</p>
         </div>
         <div id="tab-4" class="text-center tab hidden">
-            <h3 class="py-2 font-medium">Level 4</h3>
+            <h3 class="py-2 font-medium font-roboto text-lg">Level 4</h3>
             <p class="text-sm">A "Level 4" should be able to play the rudiments blah di blah maecenas sodales tellus quis aliquam vulputate. Nam vehicula ultricies augue, a consequat tortor maximus ut. Sed a gravida dui, sit amet ullamcorper magna.</p>
         </div>
         <div id="tab-5" class="text-center tab hidden">
-            <h3 class="py-2 font-medium">Level 5</h3>
+            <h3 class="py-2 font-medium font-roboto text-lg">Level 5</h3>
             <p class="text-sm">A "Level 5" should be able to play the rudiments blah di blah maecenas sodales tellus quis aliquam vulputate. Nam vehicula ultricies augue, a consequat tortor maximus ut. Sed a gravida dui, sit amet ullamcorper magna.</p>
         </div>
     </div>
@@ -84,7 +84,7 @@
 <div class="bg-white flex flex-wrap p-6 uppercase mt-8 lg:mt-0">
     <div class="hide lg:w-1/6"></div>
     <div class="w-full lg:w-4/6">
-        <div class="rounded-full border-2 border-gray p-1 m-auto max-w-xl leading-none grid grid-cols-3">
+        <div class="rounded-full border-2 border-gray p-1 m-auto max-w-xl leading-none grid grid-cols-3 font-roboto">
             <a href="#" class="rounded-full bg-green-400 text-white py-1 flex flex-col justify-center">
                 <div class="leading-none text-xs text-center">
                     <div>step 1</div><div class="font-semibold">set level</div>

@@ -13,7 +13,7 @@
         ])
         @endcomponent
     </div>
-    <div class="mb-2">
+    <div class="">
         @component('core.text-input', [
             'labelText' => 'Password',
             'inputId' => 'login-password',
@@ -23,16 +23,17 @@
         ])
         @endcomponent
     </div>
-    <div class="my-2">
+    <div class="my-4">
         @component('core.button', [
             'labelText' => 'sign in',
             'type' => 'submit',
             'tabIndex' => 3,
+            'fullWidth' => true,
         ])
         @endcomponent
     </div>
     <div class="mt-6">
-        <a href="/router.php/reset" class="w-full text-center text-gray-500 text-sm inline-block focus:outline-none focus:shadow-outline">Forgot your password?</a>
+        <a href="/router.php/reset" class="w-full text-center text-medium-gray text-sm inline-block focus:outline-none focus:shadow-outline">Forgot your password?</a>
     </div>
 </div>
 @endsection

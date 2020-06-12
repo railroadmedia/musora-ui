@@ -48,7 +48,7 @@
                     <i class="icon-approved-teacher"></i>
                 </div>
             </a><a href="#" class="rounded-r-full bg-green-400 text-white py-1">
-                <div class="leading-none text-xs text-center">
+                <div class="leading-none text-xs text-center font-roboto">
                     <span>step 3</span><br><span class="font-semibold">create profile</span>
                 </div>
             </a>

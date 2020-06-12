@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="m-10 w-full">
-    <p class="text-gray-500 text-sm">Please enter your email address and we will send you instructions to reset your password.</p>
+    <p class="text-medium-gray text-sm">Please enter your email address and we will send you instructions to reset your password.</p>
     <div class="mt-3">
         @component('core.text-input', [
             'labelText' => 'Email Address',
@@ -24,7 +24,7 @@
         @endcomponent
     </div>
     <div class="mt-8">
-        <a href="/router.php/login" class="w-full text-center text-gray-500 text-sm inline-block focus:outline-none focus:shadow-outline">Back to Login</a>
+        <a href="/router.php/login" class="w-full text-center text-medium-gray text-sm inline-block focus:outline-none focus:shadow-outline">Back to Login</a>
     </div>
 </div>
 @endsection

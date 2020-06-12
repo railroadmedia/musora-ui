@@ -20,9 +20,9 @@
     }
 
     if ($theme == 'white') {
-        $_containerClasses[] = 'border-blue-600';
+        $_containerClasses[] = 'border-edge-blue';
         $_containerClasses[] = 'py-2';
-        $_containerClasses[] = 'text-blue-600';
+        $_containerClasses[] = 'text-edge-blue';
         $_containerClasses[] = 'text-sm';
         $_containerClasses[] = 'font-medium';
 
@@ -30,10 +30,10 @@
         $_labelClasses[] = 'flex';
         $_labelClasses[] = 'content-center';
 
-        $_checkedClasses[] = 'bg-blue-600';
+        $_checkedClasses[] = 'bg-edge-blue';
         $_checkedClasses[] = 'text-white';
         $_checkedClasses[] = 'font-extrabold';
-        $_uncheckedClasses[] = 'text-blue-600';
+        $_uncheckedClasses[] = 'text-edge-blue';
         $_uncheckedClasses[] = 'font-medium';
     } else {
         // theme 'blue'

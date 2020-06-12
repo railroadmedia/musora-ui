@@ -8,13 +8,13 @@
         </div>
         <div class="flex-1 sm:ml-6">
             <div class="text-dark-gray uppercase text-xs">{{ $contentType }}</div>
-            <div class="font-semibold text-lg capitalize">{{ $videoTitle }}</div>
+            <div class="font-bold text-lg capitalize">{{ $videoTitle }}</div>
         </div>
     </div>
     <div class="flex w-full flex-1 items-center justify-between">
-        <div class="text-medium-gray text-sm capitalize">{{ $detail }}</div>
-        <div class="text-medium-gray text-sm capitalize">{{ $teacherName }}</div>
-        <div class="text-medium-gray text-sm capitalize">{{ $date }}</div>
+        <div class="text-medium-gray text-xs capitalize">{{ $detail }}</div>
+        <div class="text-medium-gray text-xs capitalize">{{ $teacherName }}</div>
+        <div class="text-medium-gray text-xs capitalize">{{ $date }}</div>
         @if (isset($showAddIcon) && $showAddIcon)
             <div class=""><i class="icon-add-to-list text-medium-gray hover:text-edge-blue text-xl"></i></div>
         @else

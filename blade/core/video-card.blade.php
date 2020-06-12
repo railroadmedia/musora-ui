@@ -23,7 +23,7 @@
         <div class="rounded-lg overflow-hidden">
             <img src="{{ $thumbnail }}">
         </div>
-        <div class="teacher-name absolute rounded-lg bottom-0 left-0 right-0 pt-6 pb-3 px-4 text-white uppercase text-xs font-semibold">{{ $teacherName }}</div>
+        <div class="teacher-name absolute rounded-lg bottom-0 left-0 right-0 pt-6 pb-3 px-4 text-white uppercase text-xs font-bold font-roboto">{{ $teacherName }}</div>
         @if (!isset($hideAddIcon))
             <div class="absolute top-0 right-0 mt-2 mr-2 cursor-pointer z-20"><i class="icon-add-to-list text-white"></i></div>
         @endif

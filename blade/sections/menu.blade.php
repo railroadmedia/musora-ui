@@ -61,6 +61,17 @@
 #side-menu:not(.open) #icon-open {
     display: none;
 }
+.search-bar {
+    -webkit-transition: width .5s;
+    transition: width .5s;
+}
+.search-bar.search-active {
+    width: 100%;
+}
+.search-bar.search-active .search-term,
+.search-bar.search-active .search-bar-close {
+    display: flex;
+}
 #overlay {
     background-color: rgba(0,0,0,.6);
     transition: opacity .2s ease-in-out,visibility .2s ease-in-out;
@@ -119,9 +130,9 @@
 </style>
 @endpush
 
-<header id="nav" class="bg-header fixed w-full top-0 left-0 border-b border-header-gray z-50">
+<header id="nav" class="bg-header fixed w-full top-0 left-0 border-b border-header-gray z-40">
     <div class="mx-auto w-full container pl-3 small:pr-3 h-full">
-        <div class="flex flex-row items-center h-full">
+        <div class="flex flex-row items-center h-full relative">
             <div class="flex">
                 <a id="logo" href="#" class="max-h-full inline-block">
                     <img src="https://dpwjbsxqtam5n.cloudfront.net/logos/logo-white.png" class="w-full h-auto">
@@ -132,18 +143,24 @@
                     <a href="{{ $item['url'] }}" class="h-full w-1/4 flex items-center justify-center hover:text-white hover:font-bold {{ $item['active'] }}"><span>{{ $item['title'] }}</span></a>
                 @endforeach
             </div>
-            <div class="flex items-center pr-2 small:pr-0">
-                <div class="text-header-gray mx-2"><i class="icon-search text-lg font-bold"></i></div>
-                <a href="/router.php/profile_dashboard" class="rounded-full overflow-hidden border-2 border-header-gray w-8">
-                    <img src="https://musora.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fpianote%2Fdefaults%2Favatar.png?blur=2&fit=crop&h=50&ixlib=php-1.2.1&q=50&w=50&s=0a284a726ec34f3bca2bb253a0dfc869">
+            <div class="search-bar h-full flex items-center absolute top-0 right-0 pr-2 small:pr-0 z-50 bg-header">
+                <a href="#" class="search-toggle h-full text-header-gray px-4 flex items-center"><i class="icon-search text-lg font-bold"></i></a>
+                <div class="hidden search-term flex-1 pl-1 pr-4">
+                    <input type="text" name="search" class="w-full text-white bg-header" placeholder="What would you like to learn?" autocomplete="off">
+                </div>
+                <a href="#" class="search-toggle hidden search-bar-close h-full px-4 flex items-center text-header-gray"><i class="icon-check text-lg font-bold"></i></a>
+                <a href="/router.php/profile_dashboard" class="h-full flex items-center">
+                    <div class="rounded-full overflow-hidden border-2 border-header-gray w-8">
+                        <img src="https://musora.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fpianote%2Fdefaults%2Favatar.png?blur=2&fit=crop&h=50&ixlib=php-1.2.1&q=50&w=50&s=0a284a726ec34f3bca2bb253a0dfc869">
+                    </div>
                 </a>
             </div>
             <div id="side-menu" class="text-header-gray px-4 border-l border-header-gray h-full small:hidden flex items-center justify-center cursor-pointer open"><i id="icon-open" class="icon-home text-lg font-bold"></i><i id="icon-close" class="icon-hammer text-lg font-bold"></i></div>
         </div>
     </div>
 </header>
-<div id="overlay" class="invisible fixed top-0 left-0 right-0 bottom-0 z-40 opacity-0"></div>
-<aside id="side-bar" class="fixed right-0 z-50 bg-white flex flex-col">
+<div id="overlay" class="invisible fixed top-0 left-0 right-0 bottom-0 z-30 opacity-0"></div>
+<aside id="side-bar" class="fixed right-0 z-40 bg-white flex flex-col">
     <a href="#" class="p-3 border-b border-medium-gray flex flex-row items-center"><i class="icon-home inline-block mr-2 text-edge-blue"></i>Home</a>
     <div class="">
         <span class="collapse-trigger p-3 border-b border-medium-gray flex flex-row items-center relative cursor-pointer"><i class="icon-live inline-block mr-2 text-edge-blue"></i>Drumeo Edge<i class="icon-learning-paths text-medium-gray absolute right-0 mr-3 collapse-trigger-open"></i><i class="icon-resources text-medium-gray absolute right-0 mr-3 collapse-trigger-close"></i></span>
@@ -180,6 +197,7 @@
 const sideMenu = document.getElementById('side-menu');
 const overlay = document.getElementById('overlay');
 const sideBar = document.getElementById('side-bar');
+const searchToggleElements = document.querySelectorAll('.search-toggle');
 
 function closeEverything(event) {
     event.stopPropagation();
@@ -202,6 +220,14 @@ sideMenu.addEventListener('click', (event) => {
 });
 
 overlay.addEventListener('click', closeEverything);
+
+if (searchToggleElements.length) {
+    Array.from(searchToggleElements).forEach((element) => {
+        element.addEventListener('click', (event) => {
+            element.parentElement.classList.toggle('search-active');
+        });
+    });
+}
 
 @if (!$skipCollapseScript)
 const collapseTriggers = document.querySelectorAll('.collapse-trigger');
