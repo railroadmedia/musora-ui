@@ -1,16 +1,16 @@
 @push('styles')
 @if (!$skipStyle)
 <style type="text/css">
-.vide-card-play {
+.video-card-play {
     -webkit-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
     background-color: rgba(0,0,0,.4);
 }
-.vide-card:hover .vide-card-play {
+.video-card:hover .video-card-play {
     visibility: visible;
     opacity: 1;
 }
-.vide-card .teacher-name {
+.video-card .teacher-name {
     background: -webkit-gradient(linear,left top,left bottom,from(transparent),to(#000));
     background: linear-gradient(180deg,transparent 0,#000);
 }
@@ -18,7 +18,7 @@
 @endif
 @endpush
 
-<a href="{{ $url ?? '#' }}" class="vide-card">
+<a href="{{ $url ?? '#' }}" class="video-card">
     <div class="relative">
         <div class="rounded-lg overflow-hidden">
             <img src="{{ $thumbnail }}">
@@ -30,7 +30,7 @@
         @if (isset($showCompleteIcon) && $showCompleteIcon)
             <div class="absolute rounded-lg inset-0 flex items-center justify-center z-10"><i class="icon-approved-teacher text-white text-4xl"></i></div>
         @else
-            <div class="vide-card-play absolute rounded-lg inset-0 flex items-center justify-center invisible opacity-0 z-10"><i class="icon-live text-white text-3xl"></i></div>
+            <div class="video-card-play absolute rounded-lg inset-0 flex items-center justify-center invisible opacity-0 z-10"><i class="icon-live text-white text-3xl"></i></div>
         @endif
     </div>
     <div class="pt-2">

@@ -10,15 +10,15 @@
 .icon-checkbox:not(.checked) .checkbox-icon {
     display: none;
 }
-.my-list-vide-card:hover {
+.my-list-video-card:hover {
     background-color: #f3f9ff;
 }
-.vide-card-play {
+.video-card-play {
     -webkit-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
     background-color: rgba(0,0,0,.4);
 }
-.my-list-vide-card:hover .vide-card-play {
+.my-list-video-card:hover .video-card-play {
     visibility: visible;
     opacity: 1;
 }

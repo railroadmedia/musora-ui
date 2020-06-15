@@ -1,10 +1,10 @@
-<a href="{{ $url ?? '#' }}" class="py-2 my-list-vide-card flex flex-col sm:flex-row items-center px-3 mb-6 sm:mb-0">
+<a href="{{ $url ?? '#' }}" class="py-2 my-list-video-card flex flex-col sm:flex-row items-center px-3 mb-6 sm:mb-0">
     <div class="flex flex-col sm:flex-row flex-1 sm:items-center">
         <div class="relative">
             <div class="rounded-lg overflow-hidden w-full sm:w-32">
                 <img src="{{ $thumbnail }}" class="w-full h-auto">
             </div>
-            <div class="vide-card-play absolute rounded-lg inset-0 flex items-center justify-center invisible opacity-0 z-10"><i class="icon-live text-white text-3xl"></i></div>
+            <div class="video-card-play absolute rounded-lg inset-0 flex items-center justify-center invisible opacity-0 z-10"><i class="icon-live text-white text-3xl"></i></div>
         </div>
         <div class="flex-1 sm:ml-6">
             <div class="text-dark-gray uppercase text-xs">{{ $contentType }}</div>
