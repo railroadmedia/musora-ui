@@ -6,7 +6,9 @@
   "scripts": {
     "build-drumeo-dev": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css",
     "bdd": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css",
-    "watch": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css --watch"
+    "watch": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css --watch",
+    "vue": "node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "vue-watch": "node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "keywords": [],
   "author": "",
@@ -14,13 +16,22 @@
   "dependencies": {
     "@musora/icons": "^1.0.3",
     "autoprefixer": "^9.7.6",
+    "laravel-mix": "^5.0.4",
+    "laravel-mix-purgecss": "^5.0.0",
     "postcss-cli": "^7.1.0",
     "simplebar": "^5.2.0",
-    "tailwindcss": "^1.4"
+    "tailwindcss": "^1.4",
+    "vue": "^2.6.11",
+    "webpack-cli": "^3.3.11"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "babel-loader": "^8.1.0",
     "postcss-import": "^12.0.1",
     "postcss-nested": "^4.2.1",
-    "postcss-simple-vars": "^5.0.2"
+    "postcss-simple-vars": "^5.0.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.43.0"
   }
 }
