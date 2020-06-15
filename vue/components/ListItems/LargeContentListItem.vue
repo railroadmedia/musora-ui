@@ -1,6 +1,6 @@
 <template>
     <div class="py-4 small:py-0 w-full small:w-1/3 medium:w-1/4 large:w-1/5 x-large:w-1/6">
-        <a :href="linkUrl" class="video-card">
+        <a :href="this.$store.state.linkUrl" class="video-card">
             <div class="relative">
 
                 <div class="rounded-lg overflow-hidden">
@@ -35,12 +35,6 @@
     export default {
         name: 'LargeContentListItem',
         props: {
-
-            // links
-            linkUrl: {
-                type: String,
-                default: () => '#',
-            },
             thumbnailUrl: {
                 type: String,
                 default: () => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',

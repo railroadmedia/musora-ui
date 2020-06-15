@@ -25,8 +25,8 @@
 <body class="box-border">
 
 <p>Example App</p>
-<div id="example-app">
-
+<div id="example-container">
+    <div class="vue-large-horizontal-content-list" id="edge-home-page-new-content-list"></div>
 </div>
 
 <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
