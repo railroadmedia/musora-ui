@@ -1,27 +1,32 @@
 <template>
     <div class="py-4 small:py-0 w-full small:w-1/3 medium:w-1/4 large:w-1/5 x-large:w-1/6">
-        <a href="#" class="video-card">
+        <a :href="linkUrl" class="video-card">
             <div class="relative">
 
                 <div class="rounded-lg overflow-hidden">
-                    <img src="https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg">
+                    <img :src="thumbnailUrl">
                 </div>
 
                 <div class="teacher-name absolute rounded-lg bottom-0 left-0 right-0 pt-6 pb-3 px-4 text-white uppercase text-xs font-bold font-roboto">
-                    Instructor one
+                    {{ textThumbnailBottomLeft }}
                 </div>
 
-                <div class="absolute top-0 right-0 mt-2 mr-2 cursor-pointer z-20">
+                <div v-if="canAddToList" class="absolute top-0 right-0 mt-2 mr-2 cursor-pointer z-20">
                     <i class="icon-add-to-list text-white"></i>
                 </div>
+
                 <div class="video-card-play absolute rounded-lg inset-0 flex items-center justify-center invisible opacity-0 z-10">
                     <i class="icon-live text-white text-3xl"></i>
                 </div>
             </div>
             <div class="pt-2">
-                <div class="py-1 text-xs text-dark-gray uppercase flex items-center font-semibold"> content type</div>
-                <h3 class="pb-1 font-bold capitalize">Continue Video One</h3>
-                <p class="text-xs text-medium-gray">Beginner - 1</p>
+                <div class="py-1 text-xs text-dark-gray uppercase flex items-center font-semibold">
+                    {{ textDetailsTop }}
+                </div>
+                <h3 class="pb-1 font-bold capitalize">
+                    {{ textDetailsMiddleHeader }}
+                </h3>
+                <p class="text-xs text-medium-gray">{{ textDetailsBottom }}</p>
             </div>
         </a>
     </div>
@@ -29,9 +34,44 @@
 <script>
     export default {
         name: 'LargeContentListItem',
-        computed: {},
-        beforeDestroy() {
+        props: {
+
+            // links
+            linkUrl: {
+                type: String,
+                default: () => '#',
+            },
+            thumbnailUrl: {
+                type: String,
+                default: () => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+            },
+
+            // text
+            textThumbnailBottomLeft: {
+                type: String,
+                default: () => 'Instructor',
+            },
+            textDetailsTop: {
+                type: String,
+                default: () => 'Content',
+            },
+            textDetailsMiddleHeader: {
+                type: String,
+                default: () => 'Title',
+            },
+            textDetailsBottom: {
+                type: String,
+                default: () => 'Difficulty',
+            },
+
+            // options
+            canAddToList: {
+                type: String,
+                default: () => true,
+            },
+
         },
+        computed: {},
     };
 </script>
 <style type="text/css">

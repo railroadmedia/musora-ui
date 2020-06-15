@@ -154,10 +154,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'LargeContentListItem',
-  computed: {},
-  beforeDestroy: function beforeDestroy() {}
+  props: {
+    // links
+    linkUrl: {
+      type: String,
+      "default": function _default() {
+        return '#';
+      }
+    },
+    thumbnailUrl: {
+      type: String,
+      "default": function _default() {
+        return 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg';
+      }
+    },
+    // text
+    textThumbnailBottomLeft: {
+      type: String,
+      "default": function _default() {
+        return 'Instructor';
+      }
+    },
+    textDetailsTop: {
+      type: String,
+      "default": function _default() {
+        return 'Content';
+      }
+    },
+    textDetailsMiddleHeader: {
+      type: String,
+      "default": function _default() {
+        return 'Title';
+      }
+    },
+    textDetailsBottom: {
+      type: String,
+      "default": function _default() {
+        return 'Difficulty';
+      }
+    },
+    // options
+    canAddToList: {
+      type: String,
+      "default": function _default() {
+        return true;
+      }
+    }
+  },
+  computed: {}
 });
 
 /***/ }),
@@ -1348,7 +1399,79 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    {
+      staticClass:
+        "py-4 small:py-0 w-full small:w-1/3 medium:w-1/4 large:w-1/5 x-large:w-1/6"
+    },
+    [
+      _c("a", { staticClass: "video-card", attrs: { href: _vm.linkUrl } }, [
+        _c("div", { staticClass: "relative" }, [
+          _c("div", { staticClass: "rounded-lg overflow-hidden" }, [
+            _c("img", { attrs: { src: _vm.thumbnailUrl } })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "teacher-name absolute rounded-lg bottom-0 left-0 right-0 pt-6 pb-3 px-4 text-white uppercase text-xs font-bold font-roboto"
+            },
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.textThumbnailBottomLeft) +
+                  "\n            "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm.canAddToList
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "absolute top-0 right-0 mt-2 mr-2 cursor-pointer z-20"
+                },
+                [_c("i", { staticClass: "icon-add-to-list text-white" })]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._m(0)
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "pt-2" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "py-1 text-xs text-dark-gray uppercase flex items-center font-semibold"
+            },
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.textDetailsTop) +
+                  "\n            "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("h3", { staticClass: "pb-1 font-bold capitalize" }, [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.textDetailsMiddleHeader) +
+                "\n            "
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-xs text-medium-gray" }, [
+            _vm._v(_vm._s(_vm.textDetailsBottom))
+          ])
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -1359,68 +1482,9 @@ var staticRenderFns = [
       "div",
       {
         staticClass:
-          "py-4 small:py-0 w-full small:w-1/3 medium:w-1/4 large:w-1/5 x-large:w-1/6"
+          "video-card-play absolute rounded-lg inset-0 flex items-center justify-center invisible opacity-0 z-10"
       },
-      [
-        _c("a", { staticClass: "video-card", attrs: { href: "#" } }, [
-          _c("div", { staticClass: "relative" }, [
-            _c("div", { staticClass: "rounded-lg overflow-hidden" }, [
-              _c("img", {
-                attrs: {
-                  src:
-                    "https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg"
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "teacher-name absolute rounded-lg bottom-0 left-0 right-0 pt-6 pb-3 px-4 text-white uppercase text-xs font-bold font-roboto"
-              },
-              [_vm._v("\n                Instructor one\n            ")]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "absolute top-0 right-0 mt-2 mr-2 cursor-pointer z-20"
-              },
-              [_c("i", { staticClass: "icon-add-to-list text-white" })]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "video-card-play absolute rounded-lg inset-0 flex items-center justify-center invisible opacity-0 z-10"
-              },
-              [_c("i", { staticClass: "icon-live text-white text-3xl" })]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "pt-2" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "py-1 text-xs text-dark-gray uppercase flex items-center font-semibold"
-              },
-              [_vm._v(" content type")]
-            ),
-            _vm._v(" "),
-            _c("h3", { staticClass: "pb-1 font-bold capitalize" }, [
-              _vm._v("Continue Video One")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "text-xs text-medium-gray" }, [
-              _vm._v("Beginner - 1")
-            ])
-          ])
-        ])
-      ]
+      [_c("i", { staticClass: "icon-live text-white text-3xl" })]
     )
   }
 ]
