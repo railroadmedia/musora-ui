@@ -16,6 +16,7 @@
   "dependencies": {
     "@musora/icons": "^1.0.3",
     "autoprefixer": "^9.7.6",
+    "axios": "^0.19.2",
     "laravel-mix": "^5.0.4",
     "laravel-mix-purgecss": "^5.0.0",
     "postcss-cli": "^7.1.0",
@@ -28,6 +29,7 @@
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
     "babel-loader": "^8.1.0",
+    "moxios": "^0.4.0",
     "postcss-import": "^12.0.1",
     "postcss-nested": "^4.2.1",
     "postcss-simple-vars": "^5.0.2",

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import App from './Example.vue'
-import LargeContentListItem from '../ListItems/LargeContentListItem.vue'
+import LargeContentListItem from '../../components/ListItems/LargeContentListItem.vue'
 
 Vue.config.productionTip = false
 
