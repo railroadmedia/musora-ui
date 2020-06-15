@@ -38,6 +38,7 @@ $thumbnail = 'https://s3.amazonaws.com/pianote/defaults/avatar.png';
                 @component('core.button', [
                     'labelText' => 'comment',
                     'type' => 'button',
+                    'fixedWidth' => true,
                 ])
                 @endcomponent
             </div>

@@ -4,6 +4,7 @@
     $tabIndex = $tabIndex ?? 1;
     $labelText = $labelText ?? '';
     $fullWidth = $fullWidth ?? false;
+    $fixedWidth = $fixedWidth ?? false;
     $smallCollapse = $smallCollapse ?? false;
 
     $_inputClasses = [];
@@ -11,7 +12,11 @@
     if ($fullWidth) {
         $_inputClasses[] = 'px-4';
         $_inputClasses[] = 'w-full';
-    } if ($smallCollapse) {
+    } else if ($fixedWidth) {
+        $_inputClasses[] = 'w-48';
+        $_inputClasses[] = 'flex';
+        $_inputClasses[] = 'justify-center';
+    } else if ($smallCollapse) {
         $_inputClasses[] = 'px-12';
     } else {
         $_inputClasses[] = 'px-16'; // maybe add inline-block
@@ -24,12 +29,17 @@
 
     if ($theme == 'blue') {
         $_inputClasses[] = 'bg-edge-blue';
+        $_inputClasses[] = 'border-2';
+        $_inputClasses[] = 'border-edge-blue';
         $_inputClasses[] = 'text-white';
     } else if ($theme == 'reversed') {
         $_inputClasses[] = 'text-edge-blue';
         $_inputClasses[] = 'bg-white';
     } else if ($theme == 'blue-reversed') {
         // todo - add theme classes for reversed + blue border, for songs_song complete button
+        $_inputClasses[] = 'border-2';
+        $_inputClasses[] = 'border-edge-blue';
+        $_inputClasses[] = 'text-edge-blue';
     } else {
         // theme gray, outlined
         $_inputClasses[] = 'border-2';
@@ -44,4 +54,4 @@
     href="{{ $href }}"
     class="py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase {{ $_inputClasses }} font-roboto"
     tabindex="{{ $tabIndex }}"
->{{ $labelText }}</a>
+>@isset($iconClass)<i class="{{ $iconClass }} text-lg pr-3"></i> @endisset{{ $labelText }}</a>

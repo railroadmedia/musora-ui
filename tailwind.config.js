@@ -6,9 +6,12 @@ module.exports = {
             },
             spacing: {
                 md: '28rem',
+                '14': '3.5rem',
+                '44': '11rem',
                 '68': '17rem',
                 '72': '18rem',
                 '80': '20rem',
+                '92': '23rem',
             },
             colors: {
                 'light-gray': '#F0F0F0',
@@ -54,7 +57,6 @@ module.exports = {
             '8': '8px',
             '16': '16px',
         },
-        // todo - setup an explicit font, original setup https://unpkg.com/tailwindcss@1.4.6/dist/base.css is not consistent
         fontFamily: {
             sans: ['"Open Sans"', 'sans-serif'],
             roboto: ['Roboto', 'sans-serif'],

@@ -16,11 +16,20 @@
     <div class="flex-1 flex flex-col pt-6 sm:pt-0 sm:pl-10 sm:justify-center">
         <div class="capitalize text-3xl font-semibold text-center sm:text-left">{{ $name }}</div>
         <div class="capitalize text-dark-gray pt-2 text-center sm:text-left">{{ $artist }} - {{ $genre }}</div>
-        <div class="py-8 text-center sm:text-left">
-            @component('core.button', [
+        <div class="py-8 flex items-center space-x-3">
+            @component('core.anchor-button', [
                 'labelText' => 'play',
                 'type' => 'button',
+                'fixedWidth' => true,
                 'iconClass' => 'icon-live',
+            ])
+            @endcomponent
+            @component('core.anchor-button', [
+                'labelText' => 'complete',
+                'type' => 'button',
+                'theme' => 'blue-reversed',
+                'fixedWidth' => true,
+                'iconClass' => 'icon-check',
             ])
             @endcomponent
         </div>

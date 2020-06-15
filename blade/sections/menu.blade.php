@@ -64,6 +64,11 @@
 .search-bar {
     -webkit-transition: width .5s;
     transition: width .5s;
+    right: 35px;
+}
+.search-bar .search-toggle {
+    -webkit-transition: all .5s ease-in-out 1.5s;
+    transition: all .5s ease-in-out 1.5s;
 }
 .search-bar.search-active {
     width: 100%;
@@ -143,18 +148,18 @@
                     <a href="{{ $item['url'] }}" class="h-full w-1/4 flex items-center justify-center hover:text-white hover:font-bold {{ $item['active'] }}"><span>{{ $item['title'] }}</span></a>
                 @endforeach
             </div>
-            <div class="search-bar h-full flex items-center absolute top-0 right-0 pr-2 small:pr-0 z-50 bg-header">
+            <div class="search-bar h-full flex items-center absolute top-0 pr-2 small:pr-0 z-50 bg-header w-12">
                 <a href="#" class="search-toggle h-full text-header-gray px-4 flex items-center"><i class="icon-search text-lg font-bold"></i></a>
                 <div class="hidden search-term flex-1 pl-1 pr-4">
                     <input type="text" name="search" class="w-full text-white bg-header" placeholder="What would you like to learn?" autocomplete="off">
                 </div>
                 <a href="#" class="search-toggle hidden search-bar-close h-full px-4 flex items-center text-header-gray"><i class="icon-check text-lg font-bold"></i></a>
-                <a href="/router.php/profile_dashboard" class="h-full flex items-center">
-                    <div class="rounded-full overflow-hidden border-2 border-header-gray w-8">
-                        <img src="https://musora.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fpianote%2Fdefaults%2Favatar.png?blur=2&fit=crop&h=50&ixlib=php-1.2.1&q=50&w=50&s=0a284a726ec34f3bca2bb253a0dfc869">
-                    </div>
-                </a>
             </div>
+            <a href="/router.php/profile_dashboard" class="h-full flex items-center">
+                <div class="rounded-full overflow-hidden border-2 border-header-gray w-8">
+                    <img src="https://musora.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fpianote%2Fdefaults%2Favatar.png?blur=2&fit=crop&h=50&ixlib=php-1.2.1&q=50&w=50&s=0a284a726ec34f3bca2bb253a0dfc869">
+                </div>
+            </a>
             <div id="side-menu" class="text-header-gray px-4 border-l border-header-gray h-full small:hidden flex items-center justify-center cursor-pointer open"><i id="icon-open" class="icon-home text-lg font-bold"></i><i id="icon-close" class="icon-hammer text-lg font-bold"></i></div>
         </div>
     </div>

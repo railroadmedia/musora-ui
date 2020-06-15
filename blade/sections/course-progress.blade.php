@@ -12,7 +12,7 @@
         </div>
         <div class="flex-none self-center">
             @component('core.anchor-button', [
-                'labelText' => 'complete & next',
+                'labelText' => 'next lesson',
                 'theme' => 'reversed',
                 'href' => $nextUrl,
             ])

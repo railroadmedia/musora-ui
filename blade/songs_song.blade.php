@@ -246,6 +246,4 @@ $progress = [
             @include('sections.comments', ['comments' => $comments])
         </div>
     </div>
-
-    @include('sections.song-progress', $progress)
 @endsection
