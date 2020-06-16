@@ -14,7 +14,8 @@ $continueVideos = [
         'teacherName' => 'Instructor one',
         'contentType' => 'topic',
         'videoTitle' => 'Continue Video One',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -22,7 +23,8 @@ $continueVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Two',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -30,7 +32,8 @@ $continueVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Three',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -38,7 +41,8 @@ $continueVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Four',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -46,7 +50,8 @@ $continueVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Five',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -54,58 +59,8 @@ $continueVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Six',
-        'difficulty' => 'Beginner - 1'
-    ]
-];
-
-$newVideos = [
-    [
-        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-        'teacherName' => 'Instructor one',
-        'icon' => 'icon-courses',
-        'contentType' => 'content type',
-        'videoTitle' => 'New Video One',
-        'difficulty' => 'Beginner - 1'
-    ],
-    [
-        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-        'teacherName' => 'Instructor Two',
-        'icon' => 'icon-courses',
-        'contentType' => 'content type',
-        'videoTitle' => 'New Video Two',
-        'difficulty' => 'Beginner - 1'
-    ],
-    [
-        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-        'teacherName' => 'Other Instructor',
-        'icon' => 'icon-courses',
-        'contentType' => 'content type',
-        'videoTitle' => 'New Video Three',
-        'difficulty' => 'Beginner - 1'
-    ],
-    [
-        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-        'teacherName' => 'Instructor one',
-        'icon' => 'icon-courses',
-        'contentType' => 'content type',
-        'videoTitle' => 'New Video Four',
-        'difficulty' => 'Beginner - 1'
-    ],
-    [
-        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-        'teacherName' => 'Instructor Two',
-        'icon' => 'icon-courses',
-        'contentType' => 'content type',
-        'videoTitle' => 'New Video Five',
-        'difficulty' => 'Beginner - 1'
-    ],
-    [
-        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-        'teacherName' => 'Other Instructor',
-        'icon' => 'icon-courses',
-        'contentType' => 'content type',
-        'videoTitle' => 'New Video Six',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ]
 ];
 
@@ -215,7 +170,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video One',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -223,7 +179,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Two',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -231,7 +188,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Three',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -239,7 +197,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Four',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -247,7 +206,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video One',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -255,7 +215,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Two',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -263,7 +224,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Three',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -271,7 +233,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Four',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -279,7 +242,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video One',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -287,7 +251,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Two',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -295,7 +260,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Three',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -303,7 +269,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Four',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -311,7 +278,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video One',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -319,7 +287,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Two',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -327,7 +296,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Three',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -335,7 +305,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Four',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -343,7 +314,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video One',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -351,7 +323,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Two',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -359,7 +332,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Three',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -367,7 +341,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Four',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -375,7 +350,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video One',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -383,7 +359,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Two',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -391,7 +368,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Three',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
     [
         'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
@@ -399,7 +377,8 @@ $sectionVideos = [
         'icon' => 'icon-courses',
         'contentType' => 'content type',
         'videoTitle' => 'Continue Video Four',
-        'difficulty' => 'Beginner - 1'
+        'difficulty' => 'Beginner - 1',
+        'url' => '/router.php/courses_course',
     ],
 ];
 @endphp

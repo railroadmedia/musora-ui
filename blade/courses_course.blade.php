@@ -16,7 +16,7 @@ $description = [
     'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-06.jpg',
 ];
 
-$stats = [
+$data = [
     [
         'stat' => 'lessons',
         'value' => 7,
@@ -86,7 +86,17 @@ $videos = [
 
 @section('content')
     @include('sections.course-description', $description)
-    @include('sections.course-data', ['stats' => $stats])
+    @include(
+        'sections.course-data',
+        [
+            'data' => $data,
+            'description' => [
+                'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.',
+                'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.',
+                'Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.',
+            ]
+        ]
+    )
 
     @include('sections.course-content', ['videos' => $videos])
 

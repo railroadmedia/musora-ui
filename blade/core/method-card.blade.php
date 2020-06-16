@@ -1,4 +1,5 @@
 @php
+    $url = $url ?? '#';
     if (strlen($lessonDescription) > 400) {
         $lessonDescriptionTruncated = substr($lessonDescription, 0, 400) . '...';
     } else {
@@ -6,7 +7,7 @@
     }
 @endphp
 
-<a href="#" class="flex flex-col sm:flex-row items-center method-card p-3">
+<a href="{{ $url }}" class="flex flex-col sm:flex-row items-center method-card p-3">
     <div class="flex-none relative w-full sm:h-64 sm:w-64 rounded-lg overflow-hidden">
         <img src="{{ $thumbnail }}" class="object-cover object-center w-auto sm:h-full">
         <div class="bg-method-gradient absolute top-0 left-0 w-full h-full px-3 flex flex-col justify-center items-center leading-none z-10">

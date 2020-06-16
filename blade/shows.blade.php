@@ -62,51 +62,51 @@ $continueVideos = [
 $shows = [
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/show-live.jpg',
-        'url' => '#',
+        'url' => '/router.php/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/behind-the-scenes.jpg',
-        'url' => '#',
+        'url' => '/router.php/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/bootcamps.jpg',
-        'url' => '#',
+        'url' => '/router.php/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/challenges.jpg',
-        'url' => '#',
+        'url' => '/router.php/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/sonor-drums.jpg',
-        'url' => '#',
+        'url' => '/router.php/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/exploring-beats.jpg',
-        'url' => '#',
+        'url' => '/router.php/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/gear.jpg',
-        'url' => '#',
+        'url' => '/router.php/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/on-the-road.jpg',
-        'url' => '#',
+        'url' => '/router.php/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/performances.jpg',
-        'url' => '#',
+        'url' => '/router.php/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/show-podcast.jpg',
-        'url' => '#',
+        'url' => '/router.php/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/show-quick-tips.jpg',
-        'url' => '#',
+        'url' => '/router.php/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/advent-calendar-show-card.jpg',
-        'url' => '#',
+        'url' => '/router.php/shows_show',
     ],
 ];
 @endphp
