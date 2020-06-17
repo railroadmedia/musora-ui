@@ -22,6 +22,8 @@
     "postcss-cli": "^7.1.0",
     "simplebar": "^5.2.0",
     "tailwindcss": "^1.4",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.5",
     "vue": "^2.6.11",
     "webpack-cli": "^3.3.11"
   },

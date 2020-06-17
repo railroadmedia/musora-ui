@@ -7,21 +7,30 @@ require('laravel-mix-purgecss');
 mix.setPublicPath('./public');
 
 mix.js(
-    path.join(__dirname, 'vue/apps/example/example.js'),
-    path.join(__dirname, 'public/js/example/example.js')
+    path.join(__dirname, 'vue/apps/generic/app.js'),
+    path.join(__dirname, 'public/js/generic/app.js')
 );
 
 mix.webpackConfig({
     module: {
-        rules: [{
-            test: /\.js?$/,
-            use: [{
-                loader: 'babel-loader',
-                options: Object.assign(mix.config.babel())
-            }]
-        }]
+        rules: [
+            {
+                test: /\.js?$/,
+                use: [{
+                    loader: 'babel-loader',
+                    options: Object.assign(mix.config.babel())
+                }]
+            },
+            {
+                test: /\.tsx?$/,
+                loader: "ts-loader",
+                options: { appendTsSuffixTo: [/\.vue$/] },
+                exclude: /node_modules/
+            }
+        ]
     },
     resolve: {
+        extensions: ["*", ".js", ".jsx", ".vue", ".ts", ".tsx"],
         modules: ['/app/musora-ui/node_modules'],
         symlinks: false
     },

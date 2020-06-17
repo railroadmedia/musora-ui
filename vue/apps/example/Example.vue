@@ -3,6 +3,8 @@
         <p>Hello from vue 4!</p>
 
         <large-content-list-item></large-content-list-item>
+
+        <videos-row></videos-row>
     </div>
 
 

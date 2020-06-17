@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import App from './Example.vue'
+
+
 import LargeContentListItem from '../../components/ListItems/LargeContentListItem.vue'
 
 Vue.config.productionTip = false
@@ -11,6 +13,10 @@ Array(LargeContentListItem)
             component,
         );
     });
+
+import VideosRow from '../../components/Content/VideosRow';
+
+Vue.component('videos-row', VideosRow);
 
 new Vue({
     el: '#example-app',
