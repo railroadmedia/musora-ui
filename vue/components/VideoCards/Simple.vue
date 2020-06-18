@@ -18,6 +18,8 @@
 </template>
 
 <script lang="ts">
+// todo - rename component
+// todo - add hover effect
 import Video from '../../models/video';
 
 export default {

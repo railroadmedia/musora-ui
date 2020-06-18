@@ -1,6 +1,6 @@
 export default class Video {
     constructor(
-        public id: number,
+        public id: string,
         public url: string,
         public thumbnail: string,
         public title: string,
