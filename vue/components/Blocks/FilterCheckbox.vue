@@ -1,6 +1,5 @@
 <template>
     <div
-        class="badge-checkbox rounded-full border-2 flex cursor-pointer uppercase"
         :class="$_containerClasses"
         @click.stop.prevent="handleClick()"
     >
@@ -13,10 +12,10 @@
             v-model="filter.active"
         ><label
             :for="filter.id"
-            class="cursor-pointer font-roboto"
+            class="cursor-pointer"
             :class="$_labelClasses"
         ><i
-            class="text-lg pr-1"
+            :class="$_iconClasses"
             v-if="filter.icon"
         ></i>{{ filter.label }}</label>
     </div>
@@ -30,9 +29,6 @@ export default {
         filter: {
             type: Filter,
         },
-        filterGroup: {
-            type: String,
-        },
         theme: {
             type: String,
             default: 'blue'
@@ -43,17 +39,45 @@ export default {
             classes: {
                 white: {
                     container: {
-                        checked: ['border-edge-blue', 'py-2', 'text-sm', 'bg-edge-blue', 'text-white', 'font-extrabold'],
-                        unchecked: ['border-edge-blue', 'py-2', 'text-edge-blue', 'text-sm', 'font-medium'],
+                        checked: ['badge-checkbox', 'rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'border-edge-blue', 'py-2', 'text-sm', 'bg-edge-blue', 'text-white', 'font-extrabold'],
+                        unchecked: ['badge-checkbox', 'rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'border-edge-blue', 'py-2', 'text-edge-blue', 'text-sm', 'font-medium'],
                     },
-                    label: ['ml-2', 'flex', 'content-center'],
+                    label: {
+                        checked: ['ml-2', 'flex', 'content-center', 'font-roboto'],
+                        unchecked: ['ml-2', 'flex', 'content-center', 'font-roboto'],
+                    },
+                    icon: {
+                        checked: ['text-lg', 'pr-1'],
+                        unchecked: ['text-lg', 'pr-1'],
+                    }
                 },
                 blue: {
                     container: {
-                        checked: ['justify-center', 'text-xs', 'leading-none', 'bg-white', 'text-edge-blue', 'border-white', 'font-extrabold'],
-                        unchecked: ['justify-center', 'border-edge-dark-blue', 'text-edge-dark-blue', 'text-xs', 'leading-none', 'font-medium'],
+                        checked: ['badge-checkbox', 'rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'justify-center', 'text-xs', 'leading-none', 'bg-white', 'text-edge-blue', 'border-white', 'font-extrabold'],
+                        unchecked: ['badge-checkbox', 'rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'justify-center', 'border-edge-dark-blue', 'text-edge-dark-blue', 'text-xs', 'leading-none', 'font-medium'],
                     },
-                    label: ['py-2', 'text-xs'],
+                    label:  {
+                        checked: ['py-2', 'text-xs', 'font-roboto'],
+                        unchecked: ['py-2', 'text-xs', 'font-roboto'],
+                    },
+                    icon: {
+                        checked: ['text-lg', 'pr-1'],
+                        unchecked: ['text-lg', 'pr-1'],
+                    }
+                },
+                side: {
+                    container: {
+                        checked: ['icon-checkbox', 'px-4', 'text-base'],
+                        unchecked: ['icon-checkbox', 'px-4', 'text-base'],
+                    },
+                    label: {
+                        checked: ['font-bold', 'text-black', 'cursor-pointer', 'flex', 'items-center', 'py-1', 'text-xs', 'capitalize'],
+                        unchecked: ['cursor-pointer', 'flex', 'items-center', 'py-1', 'text-xs', 'capitalize'],
+                    },
+                    icon: {
+                        checked: ['text-base', 'pr-1'],
+                        unchecked: ['hidden', 'text-base', 'pr-1'],
+                    }
                 }
             },
             defaultTheme: 'blue',
@@ -63,28 +87,32 @@ export default {
         $_containerClasses() {
             let state = this.filter.active ? 'checked' : 'unchecked';
 
-            return this.classes[this.$_theme]['container'][state];
+            return this.classes[this.$_theme].container[state];
         },
         $_labelClasses() {
-            return this.classes[this.$_theme]['label'];
+            let state = this.filter.active ? 'checked' : 'unchecked';
+
+            return this.classes[this.$_theme].label[state];
+        },
+        $_iconClasses() {
+            let state = this.filter.active ? 'checked' : 'unchecked';
+
+            return this.classes[this.$_theme].icon[state];
         },
         $_theme() {
-            const themes = {blue: true, white: true};
+            const themes = {blue: true, white: true, side: true};
 
             return themes[this.theme] ? this.theme : this.defaultTheme;
         },
     },
     mounted(): void {
+        if (this.filter.icon) {
+            this.classes[this.$_theme].icon.checked.push(this.filter.icon);
+        }
     },
     methods: {
         handleClick() {
-            this.$root.$emit(
-                'filterClicked',
-                {
-                    filter: this.filter,
-                    filterGroup: this.filterGroup,
-                }
-            );
+            this.$root.$emit('filterClicked', this.filter);
         },
     },
 };
