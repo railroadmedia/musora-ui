@@ -1,24 +1,32 @@
 <template>
-    <div class="container w-full h-full mx-auto px-3 pt-4">
-        <div class="w-full mb-6 space-y-4 flex flex-col large:flex-row large:space-x-3 large:space-y-0 large:mt-6">
+    <div class="container w-full h-full mx-auto px-3 pt-4 pb-20">
+        <div
+            class="w-full mb-6 space-y-4 flex flex-col large:flex-row large:space-x-3 large:space-y-0 large:mt-6"
+            v-if="!edgeFiltersDisabled || !levelSelectorDisabled"
+        >
             <edge-group-filters
                 :filters="edgeFilters"
                 :title="edgeFiltersTitle"
                 filterEventGroup="edgeFilterClick"
+                v-if="!edgeFiltersDisabled"
             ></edge-group-filters>
             <level-selector
                 :current-level="level"
                 title="set your skill level"
                 @levelSelected="handleLevelSelected"
+                v-if="!levelSelectorDisabled"
             ></level-selector>
         </div>
 
         <div class="flex flex-col medium:flex-row py-4">
             <div class="w-full mb-2 small:mb-0 medium:w-56 flex flex-col-reverse small:flex-col">
-                <div class="collapse-trigger small:hidden text-center text-blue-500 uppercase font-semibold text-xs cursor-pointer">
-                    <!-- todo: add logic for small screens filters toggle -->
-                    <span class="collapse-trigger-open">show filters</span>
-                    <span class="collapse-trigger-close">hide filters</span>
+                <div
+                    class="collapse-trigger small:hidden text-center text-blue-500 uppercase font-semibold text-xs cursor-pointer"
+                    :class="{active: !collapsed}"
+                    @click.stop.prevent="toggleCollapse()"
+                >
+                    <span v-show="collapsed">show filters</span>
+                    <span v-show="!collapsed">hide filters</span>
                 </div>
                 <div class="collapse-container small:expand overflow-hidden">
                     <div class="flex flex-col flex-no-wrap">
@@ -33,7 +41,36 @@
             </div>
             <div class="w-full medium:ml-8">
                 <div class="my-4 medium:my-0">
-                    <pre>results</pre>
+                    <div
+                        class="flex content-center text-medium-gray text-sm"
+                        :class="$_resultsClasses"
+                    >
+                        <div class="flex-1">
+                            <span class="font-bold">{{ results.count }}</span> <span class="capitalize">{{ results.type }}</span>
+                        </div>
+                        <div class="flex-none flex">
+                            <div v-if="results.perPage">
+                                <span class="font-bold">Per Page: </span>
+                                <select class="bg-white" v-model="results.perPage">
+                                    <option
+                                        v-for="option in perPageOptions"
+                                        :key="option"
+                                        :value="option"
+                                    >{{ option }}</option>
+                                </select>
+                            </div>
+                            <div class="ml-8">
+                                <span class="font-bold">Sort by: </span>
+                                <select class="bg-white">
+                                    <option
+                                        v-for="option in sortOptions"
+                                        :key="option"
+                                        :value="option"
+                                    >{{ option }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="hidden small:flex text-xs flex-wrap items-center text-dark-gray py-2">
@@ -51,6 +88,15 @@
                         @filterBadgeClicked="handleFilterBadgeClicked"
                     ></filter-badge>
                 </div>
+
+                <div class="grid py-2" :class="$_gridClasses">
+                    <div
+                        v-for="item in videos"
+                        :key="item.id"
+                    >
+                        <simple-video-card :video="item"></simple-video-card>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -66,6 +112,7 @@ import EdgeGroupFilters from '../Filters/EdgeGroup';
 import LevelSelector from '../Filters/LevelSelector';
 import FilterGroup from '../Filters/Group';
 import FilterBadge from '../Blocks/FilterBadge';
+import SimpleVideoCard from '../VideoCards/Simple'
 
 export default {
     components: {
@@ -73,23 +120,39 @@ export default {
         'level-selector': LevelSelector,
         'filter-group': FilterGroup,
         'filter-badge': FilterBadge,
+        'simple-video-card': SimpleVideoCard,
     },
     props: {
         videosList: {
             type: Array,
         },
+        edgeFiltersDisabled: {
+            type: Boolean,
+            default: () => false,
+        },
         edgeFiltersList: {
             type: Array,
+            default: () => [],
         },
         edgeFiltersTitle: {
             type: String,
+            default: () => '',
+        },
+        levelSelectorDisabled: {
+            type: Boolean,
+            default: () => false,
         },
         levelSelector: {
             type: Number,
+            default: () => 1,
         },
         filterGroups: {
             type: Array,
-        }
+        },
+        videosPerRow: {
+            type: Number,
+            default: () => 4,
+        },
     },
     data(): object {
         return {
@@ -97,6 +160,15 @@ export default {
             edgeFilters: [],
             filters: [],
             level: 1,
+            results: {
+                count: 114,
+                type: 'lessons',
+                // perPage: 20,
+                sort: 'Newest First'
+            },
+            perPageOptions: [10, 20, 30, 40, 50],
+            sortOptions: ['Newest First', 'Alphabetical'],
+            collapsed: true,
         };
     },
     computed: {
@@ -123,6 +195,26 @@ export default {
 
             return has;
         },
+
+        $_gridClasses(): string[] {
+            let classes = {
+                4: ['grid-cols-1', 'gap-10', 'small:gap-4', 'small:row-gap-8', 'small:grid-cols-3', 'large:grid-cols-4'],
+                5: ['grid-cols-1', 'gap-10', 'small:gap-4', 'small:row-gap-8', 'small:grid-cols-3', 'large:grid-cols-5'],
+            };
+            return classes[this.videosPerRow] ? classes[this.videosPerRow] : classes[4];
+        },
+
+        $_resultsClasses(): string[] {
+            let classes = [];
+
+            if (this.results.perPage) {
+                classes = ['flex-col', 'sm:flex-row'];
+            } else {
+                classes = ['flex-row'];
+            }
+
+            return classes;
+        },
     },
     mounted(): void {
         this.videos = VideosService.getVideosFromArray(this.videosList);
@@ -143,6 +235,7 @@ export default {
 
                 return group;
             });
+            // todo - update with API call
         },
 
         handleFilterClick(filter) {
@@ -204,6 +297,10 @@ export default {
 
                 return group;
             });
+        },
+
+        toggleCollapse(): void {
+            this.collapsed = !this.collapsed;
         },
     },
 };

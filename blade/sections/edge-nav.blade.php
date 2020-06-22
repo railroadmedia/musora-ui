@@ -1,7 +1,7 @@
 @push('styles')
 <style type="text/css">
 #sub-nav-container {
-    padding-top: 50px;
+    padding-top: 65px;
 }
 
 @media (min-width: 40rem) {
@@ -74,9 +74,9 @@ $items = [
 @endphp
 
 <div id="sub-nav-container" class="bg-header w-full border-b border-header-gray">
-    <div id="sub-nav" class="mx-auto w-full container text-header-gray uppercase h-16 small:h-20 relative">
-        <div id="sub-nav-wrap" class="overflow-x-auto h-full">
-            <div class="w-medium medium:w-full flex flex-row items-center text-center overflow-x-auto h-full">
+    <div id="sub-nav" class="mx-auto w-full container text-header-gray uppercase h-20 relative">
+        <div id="sub-nav-wrap" class="overflow-hidden h-full">
+            <div class="w-medium medium:w-full flex flex-row items-center text-center overflow-hidden h-full">
                 @foreach ($items as $item)
                     @php
                         $_iconClass = '';

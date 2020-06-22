@@ -19,7 +19,6 @@
 
 <script lang="ts">
 // todo - rename component
-// todo - add hover effect
 import Video from '../../models/video';
 
 export default {
@@ -36,3 +35,19 @@ export default {
     }
 };
 </script>
+
+<style type="text/css">
+.video-card-play {
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    background-color: rgba(0,0,0,.4);
+}
+.video-card:hover .video-card-play {
+    visibility: visible;
+    opacity: 1;
+}
+.video-card .teacher-name {
+    background: -webkit-gradient(linear,left top,left bottom,from(transparent),to(#000));
+    background: linear-gradient(180deg,transparent 0,#000);
+}
+</style>

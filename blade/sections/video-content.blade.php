@@ -122,7 +122,7 @@
             @endforeach
         </div>
         
-        <div class="grid {{ $_gridClasses }} py-2">
+        <div class="grid {{ $_gridClasses }} pt-2 pb-20">
             @foreach ($videos as $videoCard)
                 <div class="">
                     @component('core.video-card', $videoCard)

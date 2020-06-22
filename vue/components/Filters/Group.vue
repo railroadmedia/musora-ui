@@ -40,9 +40,6 @@ export default {
             type: FilterGroup,
         },
     },
-    mounted(): void {
-        this.collapsed = this.filterGroup.collapsed || false;
-    },
     methods: {
         toggleCollapse(): void {
             this.$emit('collapseToggle', this.filterGroup);

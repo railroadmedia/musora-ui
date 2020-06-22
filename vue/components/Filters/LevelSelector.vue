@@ -1,11 +1,15 @@
 <template>
     <div class="flex-1 rounded-lg overflow-hidden bg-edge-blue">
-        <h4 class="collapse-trigger py-2 px-2 cursor-pointer small:cursor-default small:px-0 flex justify-between small:block small:text-center text-white bg-edge-dark-blue font-bold text-sm small:text-lg">
+        <h4
+            class="collapse-trigger py-2 px-2 cursor-pointer small:cursor-default small:px-0 flex justify-between small:block small:text-center text-white bg-edge-dark-blue font-bold text-sm small:text-lg"
+            :class="{active: !collapsed}"
+            @click.stop.prevent="toggleCollapse()"
+        >
             <span class="font-roboto uppercase">{{ title }}</span>
             <div class="small:hidden flex items-center">
                 <div class="flex items-center justify-center border rounded-full w-4 h-4 mr-2 text-xs text-medium-gray">?</div>
-                <i class="icon-home text-lg font-bold small:hidden collapse-trigger-open"></i>
-                <i class="icon-hammer text-lg font-bold small:hidden collapse-trigger-close"></i>
+                <i class="icon-home text-lg font-bold small:hidden" v-show="collapsed"></i>
+                <i class="icon-hammer text-lg font-bold small:hidden" v-show="!collapsed"></i>
             </div>
         </h4>
         <div class="collapse-container small:expand">
@@ -115,7 +119,8 @@ export default {
                 3: "level 3",
                 4: "level 4",
                 5: "level 5",
-            }
+            },
+            collapsed: true,
         };
     },
     computed: {
@@ -126,7 +131,11 @@ export default {
     methods: {
         select(value): void {
             this.$emit('levelSelected', {level: value});
-        }
+        },
+
+        toggleCollapse(): void {
+            this.collapsed = !this.collapsed;
+        },
     }
 };
 </script>
