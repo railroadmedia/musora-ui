@@ -13,15 +13,16 @@
         </h4>
         <div class="collapse-container small:expand">
             <div class="px-3 py-4 flex flex-wrap bg-edge-blue">
-                <!-- todo: add width and badgePadding -->
+                <!-- todo: review width and badgePadding on my list template/component -->
                 <div
-                    class="w-1/2 small:w-1/5 p-1"
+                    :class="$_badgeClass"
                     v-for="item in filters"
                     :key="item.id"
                 >
                     <filter-checkbox
                         :filter="item"
                         theme="blue"
+                        :extra-padding="filters.length < 6"
                     ></filter-checkbox>
                 </div>
             </div>
@@ -48,6 +49,32 @@ export default {
         return {
             collapsed: true,
         };
+    },
+    computed: {
+        $_badgeClass(): string[] {
+            let classes = [];
+            let smallWidths = {
+                2: 'm:w-1/2',
+                3: 'm:w-1/3',
+                4: 'm:w-1/4',
+            };
+
+            if (this.filters.length < 6) {
+                classes.push('p-2');
+            } else {
+                classes.push('p-1');
+            }
+
+            if (this.filters.length < 5) {
+                classes.push('w-full');
+                classes.push(smallWidths[this.filters.length]);
+            } else {
+                classes.push('w-1/2');
+                classes.push('small:w-1/5');
+            }
+
+            return classes;
+        }
     },
     methods: {
         toggleCollapse(): void {

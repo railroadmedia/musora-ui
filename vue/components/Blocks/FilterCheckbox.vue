@@ -32,6 +32,10 @@ export default {
         theme: {
             type: String,
             default: 'blue'
+        },
+        extraPadding: {
+            type: Boolean,
+            default: false
         }
     },
     data(): object {
@@ -84,30 +88,36 @@ export default {
         };
     },
     computed: {
-        $_containerClasses() {
+        $_containerClasses(): string[] {
             let state = this.filter.active ? 'checked' : 'unchecked';
 
             return this.classes[this.$_theme].container[state];
         },
-        $_labelClasses() {
+        $_labelClasses(): string[] {
             let state = this.filter.active ? 'checked' : 'unchecked';
 
             return this.classes[this.$_theme].label[state];
         },
-        $_iconClasses() {
+        $_iconClasses(): string[] {
             let state = this.filter.active ? 'checked' : 'unchecked';
 
             return this.classes[this.$_theme].icon[state];
         },
-        $_theme() {
+        $_theme(): string {
             const themes = {blue: true, white: true, side: true};
 
             return themes[this.theme] ? this.theme : this.defaultTheme;
         },
     },
     mounted(): void {
+
         if (this.filter.icon) {
             this.classes[this.$_theme].icon.checked.push(this.filter.icon);
+        }
+
+        if (this.$_theme == 'blue' && this.extraPadding) {
+            this.classes.blue.container.checked.push('py-1');
+            this.classes.blue.container.unchecked.push('py-1');
         }
     },
     methods: {

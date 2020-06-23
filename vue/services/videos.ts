@@ -1,4 +1,5 @@
 import Video from '../models/video';
+import Rudiment from '../models/rudiment';
 
 export default class Videos {
     static getVideosFromArray(
@@ -30,6 +31,41 @@ export default class Videos {
                         value.difficulty,
                         value.contentIcon,
                         value.progress
+                    )
+                );
+            } catch (e) {
+                // todo - add exception handling
+            }
+        });
+
+        return result;
+    }
+
+    static getRudimentsFromArray(
+        list: {
+            url: string,
+            thumbnail: string,
+            title: string,
+            teacher: string,
+            sheet: string,
+            type?: string,
+            id?: string,
+        }[]
+    ): Rudiment[] {
+        let result = [];
+
+        list.forEach((value, index: number) => {
+            try {
+                let id = value.id || (index.toString() + value.title.substr(0, 3) + value.teacher.substr(0, 3));
+                result.push(
+                    new Rudiment(
+                        id,
+                        value.url,
+                        value.thumbnail,
+                        value.title,
+                        value.teacher,
+                        value.sheet,
+                        value.type
                     )
                 );
             } catch (e) {

@@ -30,23 +30,28 @@ $filterGroups = [
                 'name' => '50-90',
                 'tab' => 11,
                 'active' => true,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => '91-120',
                 'tab' => 12,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => '121-150',
-                'tab' => 13
+                'tab' => 13,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => '151-180',
-                'tab' => 14
+                'tab' => 14,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => '181',
                 'label' => '181+',
-                'tab' => 15
+                'tab' => 15,
+                'icon' => 'icon-info',
             ],
         ]
     ],

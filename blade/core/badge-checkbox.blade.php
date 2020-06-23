@@ -57,8 +57,6 @@
         $_uncheckedClasses[] = 'font-medium';
     }
 
-    echo "<!-- container:" . var_export($_containerClasses, true) . "-->";
-
     if ($active) {
         $_containerClasses = array_merge($_containerClasses, $_checkedClasses);
         $_containerClasses = array_diff($_containerClasses, $_uncheckedClasses);

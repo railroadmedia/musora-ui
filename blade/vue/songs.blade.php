@@ -86,69 +86,82 @@ $filterGroups = [
             [
                 'name' => 'aaron-edgar',
                 'label' => 'Aaron Edgar',
-                'tab' => 11
+                'tab' => 11,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => 'adam-marko',
                 'label' => 'Adam Marko',
-                'tab' => 11
+                'tab' => 11,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => 'anika-nilles',
                 'label' => 'Anika Nilles',
                 'tab' => 11,
                 'active' => true,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => 'antonia-sanchez',
                 'label' => 'Antonia Sanchez',
-                'tab' => 11
+                'tab' => 11,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => 'benny-greb',
                 'label' => 'Benny Greb',
                 'tab' => 11,
                 'active' => true,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => 'billy-cobham',
                 'label' => 'Billy Cobham',
-                'tab' => 11
+                'tab' => 11,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => 'billy-rymer',
                 'label' => 'Billy Rymer',
-                'tab' => 11
+                'tab' => 11,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => 'brandon-khoo',
                 'label' => 'Brandon Khoo',
-                'tab' => 11
+                'tab' => 11,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => 'brian-frasier-moore',
                 'label' => 'Brian Frasier-Moore',
-                'tab' => 11
+                'tab' => 11,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => 'brian-tichy',
                 'label' => 'Brian Tichy',
-                'tab' => 11
+                'tab' => 11,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => 'bruce-becker',
                 'label' => 'Bruce Becker',
-                'tab' => 11
+                'tab' => 11,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => 'camille-bigeault',
                 'label' => 'Camille Bigeault',
-                'tab' => 11
+                'tab' => 11,
+                'icon' => 'icon-info',
             ],
             [
                 'name' => 'carmine-appice',
                 'label' => 'Carmine Appice',
-                'tab' => 11
+                'tab' => 11,
+                'icon' => 'icon-info',
             ],
         ]
     ],
