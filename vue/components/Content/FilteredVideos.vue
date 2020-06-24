@@ -112,7 +112,7 @@ import EdgeGroupFilters from '../Filters/EdgeGroup';
 import LevelSelector from '../Filters/LevelSelector';
 import FilterGroup from '../Filters/Group';
 import FilterBadge from '../Blocks/FilterBadge';
-import SimpleVideoCard from '../VideoCards/Simple'
+import SimpleVideoCard from '../VideoCards/Simple';
 
 export default {
     components: {

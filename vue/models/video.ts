@@ -8,6 +8,7 @@ export default class Video {
         public contentType: string,
         public difficulty: string,
         public contentIcon?: string,
+        public date?: string,
         public progress = 0
     ) {
     }

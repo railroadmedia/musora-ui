@@ -4,12 +4,6 @@
     padding-top: 65px;
 }
 
-@media (min-width: 40rem) {
-    #sub-nav-container {
-        padding-top: 65px;
-    }
-}
-
 #sub-nav {
     padding: 0 35px;
 }

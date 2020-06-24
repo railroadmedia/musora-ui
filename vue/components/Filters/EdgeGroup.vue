@@ -13,7 +13,6 @@
         </h4>
         <div class="collapse-container small:expand">
             <div class="px-3 py-4 flex flex-wrap bg-edge-blue">
-                <!-- todo: review width and badgePadding on my list template/component -->
                 <div
                     :class="$_badgeClass"
                     v-for="item in filters"
@@ -54,9 +53,9 @@ export default {
         $_badgeClass(): string[] {
             let classes = [];
             let smallWidths = {
-                2: 'm:w-1/2',
-                3: 'm:w-1/3',
-                4: 'm:w-1/4',
+                2: 'small:w-1/2',
+                3: 'small:w-1/3',
+                4: 'small:w-1/4',
             };
 
             if (this.filters.length < 6) {

@@ -38,6 +38,9 @@ export default {
     props: {
         filterGroup: {
             type: FilterGroup,
+            default: () => {
+                return new FilterGroup('', '', []);
+            }
         },
     },
     methods: {

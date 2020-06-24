@@ -11,6 +11,7 @@ export default class Videos {
             contentType: string,
             difficulty: string,
             contentIcon?: string,
+            date?: string,
             id?: string,
             progress?: number,
         }[]
@@ -30,6 +31,7 @@ export default class Videos {
                         value.contentType,
                         value.difficulty,
                         value.contentIcon,
+                        value.date,
                         value.progress
                     )
                 );

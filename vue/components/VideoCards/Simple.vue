@@ -31,8 +31,6 @@ export default {
             default: () => true,
         },
     },
-    mounted(): void {
-    }
 };
 </script>
 
