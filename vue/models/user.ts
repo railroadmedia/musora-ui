@@ -4,7 +4,8 @@ export default class User {
         public avatar: string,
         public name: string,
         public level: number,
-        public border: string
+        public border: string,
+        public iconClass?: string
     ) {
     }
 }

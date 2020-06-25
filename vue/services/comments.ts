@@ -19,6 +19,7 @@ export default class Comments {
                         UserService.getUserFromObject(item.author),
                         item.comment,
                         item.likes,
+                        item.liked,
                         item.added,
                         replies
                     )

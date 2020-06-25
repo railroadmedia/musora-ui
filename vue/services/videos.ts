@@ -2,6 +2,40 @@ import Video from '../models/video';
 import Rudiment from '../models/rudiment';
 
 export default class Videos {
+    static getVideoFromObject(value: {
+        url: string,
+        thumbnail: string,
+        title: string,
+        teacher: string,
+        contentType: string,
+        difficulty: string,
+        contentIcon?: string,
+        date?: string,
+        artist?: string,
+        genre?: string,
+        likes?: number,
+        liked?: boolean,
+        id?: string,
+        progress?: number,
+    }): Video {
+        return new Video(
+            value.id,
+            value.url,
+            value.thumbnail,
+            value.title,
+            value.teacher,
+            value.contentType,
+            value.difficulty,
+            value.contentIcon,
+            value.date,
+            value.artist,
+            value.genre,
+            value.likes || 0,
+            value.liked || false,
+            value.progress
+        );
+    }
+
     static getVideosFromArray(
         list: {
             url: string,
@@ -12,6 +46,10 @@ export default class Videos {
             difficulty: string,
             contentIcon?: string,
             date?: string,
+            artist?: string,
+            genre?: string,
+            likes?: number,
+            liked?: boolean,
             id?: string,
             progress?: number,
         }[]
@@ -32,6 +70,10 @@ export default class Videos {
                         value.difficulty,
                         value.contentIcon,
                         value.date,
+                        value.artist,
+                        value.genre,
+                        value.likes,
+                        value.liked || false,
                         value.progress
                     )
                 );

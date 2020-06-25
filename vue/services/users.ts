@@ -6,14 +6,16 @@ export default class Users {
         avatar: string,
         name: string,
         level: number,
-        border: string
+        border: string,
+        iconClass?: string
     }): User {
         return new User(
             value.id,
             value.avatar,
             value.name,
             value.level,
-            value.border
+            value.border,
+            value.iconClass
         );
     }
 }

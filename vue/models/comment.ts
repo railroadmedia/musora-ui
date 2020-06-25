@@ -6,6 +6,7 @@ export default class Comment {
         public author: User,
         public comment: string,
         public likes: number,
+        public liked: boolean,
         public added: string,
         public replies: Comment[]
     ) {

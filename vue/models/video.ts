@@ -9,6 +9,10 @@ export default class Video {
         public difficulty: string,
         public contentIcon?: string,
         public date?: string,
+        public artist?: string,
+        public genre?: string,
+        public likes?: number,
+        public liked?: boolean,
         public progress = 0
     ) {
     }
