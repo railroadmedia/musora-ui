@@ -4,22 +4,13 @@
             <img :src="currentUser.avatar" class="h-full w-aut">
         </div>
         <div class="flex-1 flex flex-col">
-            <div class="mt-4 sm:mt-0 sm:ml-16 rounded-lg overflow-hidden border border-gray">
-                <div class="flex  sm:flex-row space-x-1 sm:space-x-4 bg-gray p-3">
-                    <div class="flex divide-x divide-medium-gray border border-medium-gray rounded-lg">
-                        <div class="rounded-l-lg bg-white text-dark-gray leading-none p-3 flex items-center justify-center"><i class="icon-edit text-lg"></i></div>
-                        <div class="bg-white text-dark-gray leading-none p-3 flex items-center justify-center"><i class="icon-info text-lg"></i></div>
-                        <div class="rounded-r-lg bg-white text-dark-gray leading-none p-3 flex items-center justify-center"><i class="icon-home text-lg"></i></div>
-                    </div>
-                    <div class="flex divide-x divide-medium-gray border border-medium-gray rounded-lg">
-                        <div class="rounded-l-lg bg-white text-dark-gray leading-none p-3 flex items-center justify-center"><i class="icon-grid text-lg"></i></div>
-                        <div class="rounded-r-lg bg-white text-dark-gray leading-none p-3 flex items-center justify-center"><i class="icon-sort text-lg"></i></div>
-                    </div>
-                    <div class="border border-medium-gray rounded-lg bg-white text-dark-gray leading-none p-3 flex items-center justify-center"><i class="icon-notation-key text-lg"></i></div>
-                </div>
-                <div class="">
-                    <textarea class="w-full h-full" rows="5" v-model="comment"></textarea>
-                </div>
+            <div class="mt-4 sm:mt-0 sm:ml-16">
+                <text-editor
+                    ref="textEditor"
+                    v-model="replyInterface"
+                    toolbar="bold italic underline | bullist numlist | link"
+                    :height="150"
+                ></text-editor>
             </div>
             <div class="pt-4 sm:pt-2 flex flex-col-reverse items-center sm:flex-row sm:justify-end sm:space-x-3">
                 <button-input
@@ -43,12 +34,12 @@
 <script lang="ts">
 import User from '../../models/user';
 import Button from '../Blocks/Button';
-
-// todo - add text editor functionality
+import TextEditor from '../Blocks/TextEditor';
 
 export default {
     components: {
         'button-input': Button,
+        'text-editor': TextEditor,
     },
     props: {
         currentUser: {
@@ -68,6 +59,16 @@ export default {
             }
 
             return label;
+        },
+
+        replyInterface: {
+            get() {
+                return this.reply;
+            },
+            set(val) {
+                console.log("replyInterface::set val: %s", JSON.stringify(val));
+                this.reply = val;
+            },
         },
     },
     data(): object {

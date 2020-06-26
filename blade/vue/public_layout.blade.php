@@ -1,7 +1,7 @@
-@extends('layouts.members')
+@extends('layouts.public')
 
 @section('content')
-    <div id="vue-app">
+    <div id="vue-app" class="my-10 sm:mx-10 w-full">
         @yield('app')
     </div>
 @endsection

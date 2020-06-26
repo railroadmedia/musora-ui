@@ -15,8 +15,11 @@
   "license": "ISC",
   "dependencies": {
     "@musora/icons": "^1.0.3",
+    "@tinymce/tinymce-vue": "^3.2.2",
     "autoprefixer": "^9.7.6",
     "axios": "^0.19.2",
+    "cropperjs": "^1.5.7",
+    "dropzone": "^5.7.1",
     "laravel-mix": "^5.0.4",
     "laravel-mix-purgecss": "^5.0.0",
     "postcss-cli": "^7.1.0",

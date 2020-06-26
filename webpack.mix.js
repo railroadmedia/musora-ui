@@ -30,7 +30,7 @@ mix.webpackConfig({
         ]
     },
     resolve: {
-        extensions: ["*", ".js", ".jsx", ".vue", ".ts", ".tsx"],
+        extensions: ["*", ".js", ".jsx", ".vue", ".ts", ".tsx", ".css"],
         modules: ['/app/musora-ui/node_modules'],
         symlinks: false
     },

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
 
-    <link rel="stylesheet" href="../build/drumeo/drumeo.css">
+    <link rel="stylesheet" href="/build/drumeo/drumeo.css">
     @stack('styles')
 </head>
 <body class="bg-edge-blue box-border">
