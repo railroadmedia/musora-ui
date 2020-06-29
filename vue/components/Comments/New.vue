@@ -63,11 +63,10 @@ export default {
 
         replyInterface: {
             get() {
-                return this.reply;
+                return this.comment;
             },
             set(val) {
-                console.log("replyInterface::set val: %s", JSON.stringify(val));
-                this.reply = val;
+                this.comment = val;
             },
         },
     },

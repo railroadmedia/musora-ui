@@ -97,9 +97,6 @@ export default {
             };
         },
     },
-    mounted() {
-        console.log("TextEditor::mounted");
-    },
     methods: {
 
         handleInput() {
@@ -118,7 +115,12 @@ export default {
 }
 .text-editor .tox .tox-toolbar__primary {
     background-color: #CCCCCC;
-    padding: 12px;
+    padding: 9px;
+}
+@media screen and (min-width:40rem) {
+    .text-editor .tox .tox-toolbar__primary {
+        padding: 12px;
+    }
 }
 .text-editor .tox .tox-tbtn {
     background-color: #fff;
@@ -140,5 +142,23 @@ export default {
 .text-editor .tox .tox-tbtn:last-child {
     border-top-right-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
+}
+
+.text-editor .tox .tox-tbtn,
+.text-editor .tox .tox-tbtn:hover {
+    border-top: 1px solid #999999;
+    border-bottom: 1px solid #999999;
+    border-left: 1px solid #999999;
+    cursor: pointer;
+}
+.text-editor .tox .tox-tbtn:last-child,
+.text-editor .tox .tox-tbtn:last-child:hover {
+    border-right: 1px solid #999999;
+    cursor: pointer;
+}
+@media screen and (min-width:40rem) {
+    .text-editor .tox .tox-toolbar__group ~ .tox-toolbar__group {
+        margin-left: 4px;
+    }
 }
 </style>

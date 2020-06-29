@@ -20413,7 +20413,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".text-editor .tox.tox-tinymce {\n  overflow: hidden;\n  border-radius: 0.5rem;\n}\n.text-editor .tox .tox-toolbar__primary {\n  background-color: #CCCCCC;\n  padding: 12px;\n}\n.text-editor .tox .tox-tbtn {\n  background-color: #fff;\n  padding: 20px;\n}\n.text-editor .tox .tox-tbtn:not(:last-child) {\n  border-top-right-radius: 0;\n  border-bottom-right-radius: 0;\n}\n.text-editor .tox .tox-tbtn ~ .tox-tbtn {\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.text-editor .tox .tox-tbtn:first-child {\n  border-top-left-radius: 0.5rem;\n  border-bottom-left-radius: 0.5rem;\n}\n.text-editor .tox .tox-tbtn:last-child {\n  border-top-right-radius: 0.5rem;\n  border-bottom-right-radius: 0.5rem;\n}\n", ""]);
+exports.push([module.i, ".text-editor .tox.tox-tinymce {\n  overflow: hidden;\n  border-radius: 0.5rem;\n}\n.text-editor .tox .tox-toolbar__primary {\n  background-color: #CCCCCC;\n  padding: 9px;\n}\n@media screen and (min-width:40rem) {\n.text-editor .tox .tox-toolbar__primary {\n    padding: 12px;\n}\n}\n.text-editor .tox .tox-tbtn {\n  background-color: #fff;\n  padding: 20px;\n}\n.text-editor .tox .tox-tbtn:not(:last-child) {\n  border-top-right-radius: 0;\n  border-bottom-right-radius: 0;\n}\n.text-editor .tox .tox-tbtn ~ .tox-tbtn {\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0;\n}\n.text-editor .tox .tox-tbtn:first-child {\n  border-top-left-radius: 0.5rem;\n  border-bottom-left-radius: 0.5rem;\n}\n.text-editor .tox .tox-tbtn:last-child {\n  border-top-right-radius: 0.5rem;\n  border-bottom-right-radius: 0.5rem;\n}\n.text-editor .tox .tox-tbtn,\n.text-editor .tox .tox-tbtn:hover {\n  border-top: 1px solid #999999;\n  border-bottom: 1px solid #999999;\n  border-left: 1px solid #999999;\n  cursor: pointer;\n}\n.text-editor .tox .tox-tbtn:last-child,\n.text-editor .tox .tox-tbtn:last-child:hover {\n  border-right: 1px solid #999999;\n  cursor: pointer;\n}\n@media screen and (min-width:40rem) {\n.text-editor .tox .tox-toolbar__group ~ .tox-toolbar__group {\n    margin-left: 4px;\n}\n}\n", ""]);
 
 // exports
 
@@ -21874,9 +21874,6 @@ exports.default = {
             };
         },
     },
-    mounted: function () {
-        console.log("TextEditor::mounted");
-    },
     methods: {
         handleInput: function () {
             this.$emit('input', {
@@ -22095,11 +22092,10 @@ exports.default = {
         },
         replyInterface: {
             get: function () {
-                return this.reply;
+                return this.comment;
             },
             set: function (val) {
-                console.log("replyInterface::set val: %s", JSON.stringify(val));
-                this.reply = val;
+                this.comment = val;
             },
         },
     },
@@ -24291,117 +24287,114 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.song
-    ? _c("div", { staticClass: "lg:mr-64" }, [
-        _c("div", { staticClass: "flex flex-col sm:flex-row py-16" }, [
-          _c("div", { staticClass: "relative" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "song-thumbnail rounded-lg overflow-hidden w-full sm:w-80"
-              },
-              [
-                _c("img", {
-                  staticClass: "w-full h-auto",
-                  attrs: { src: _vm.song.thumbnail }
-                })
-              ]
-            ),
-            _vm._v(" "),
-            _vm._m(0)
-          ]),
-          _vm._v(" "),
+    ? _c("div", { staticClass: "flex flex-col sm:flex-row py-16" }, [
+        _c("div", { staticClass: "relative" }, [
           _c(
             "div",
             {
               staticClass:
-                "flex-1 flex flex-col pt-6 sm:pt-0 sm:pl-10 sm:justify-center"
+                "song-thumbnail rounded-lg overflow-hidden w-full sm:w-80"
             },
             [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "capitalize text-3xl font-semibold text-center sm:text-left"
-                },
-                [_vm._v(_vm._s(_vm.song.name))]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "capitalize text-dark-gray pt-2 text-center sm:text-left"
-                },
-                [
-                  _vm._v(
-                    _vm._s(_vm.song.artist) + " - " + _vm._s(_vm.song.genre)
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "py-8 flex items-center space-x-3" },
-                [
-                  _c("button-input", {
-                    attrs: {
-                      label: "play",
-                      "icon-class": "icon-live",
-                      "fixed-width": true
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("button-input", {
-                    attrs: {
-                      label: "complete",
-                      theme: "blue-reversed",
-                      "icon-class": "icon-check",
-                      "fixed-width": true
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "grid grid-cols-2 row-gap-6 md:flex md:space-x-8"
-                },
-                [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "flex flex-col items-center",
-                      class: _vm.$_likeClasses,
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          $event.stopPropagation()
-                          $event.preventDefault()
-                          return _vm.toggleLike()
-                        }
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "icon-applause text-xl" }),
-                      _c("span", { staticClass: "text-xs font-semibold" }, [
-                        _vm._v(_vm._s(_vm.song.likes))
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _vm._m(3)
-                ]
-              )
+              _c("img", {
+                staticClass: "w-full h-auto",
+                attrs: { src: _vm.song.thumbnail }
+              })
             ]
-          )
-        ])
+          ),
+          _vm._v(" "),
+          _vm._m(0)
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "flex-1 flex flex-col pt-6 sm:pt-0 sm:pl-10 sm:justify-center"
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "capitalize text-3xl font-semibold text-center sm:text-left"
+              },
+              [_vm._v(_vm._s(_vm.song.title))]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "capitalize text-dark-gray pt-2 text-center sm:text-left"
+              },
+              [_vm._v(_vm._s(_vm.song.artist) + " - " + _vm._s(_vm.song.genre))]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "py-8 flex flex-col md:flex-row items-center space-y-3 md:space-y-0 md:space-x-3"
+              },
+              [
+                _c("button-input", {
+                  attrs: {
+                    label: "play",
+                    "icon-class": "icon-live",
+                    "fixed-width": true
+                  }
+                }),
+                _vm._v(" "),
+                _c("button-input", {
+                  attrs: {
+                    label: "complete",
+                    theme: "blue-reversed",
+                    "icon-class": "icon-check",
+                    "fixed-width": true
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "grid grid-cols-2 row-gap-6 md:flex md:space-x-8"
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "flex flex-col items-center",
+                    class: _vm.$_likeClasses,
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.stopPropagation()
+                        $event.preventDefault()
+                        return _vm.toggleLike()
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "icon-applause text-xl" }),
+                    _c("span", { staticClass: "text-xs font-semibold" }, [
+                      _vm._v(_vm._s(_vm.song.likes))
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._m(3)
+              ]
+            )
+          ]
+        )
       ])
     : _vm._e()
 }
