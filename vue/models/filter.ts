@@ -6,7 +6,8 @@ export default class Filter {
         public label: string,
         public tabIndex: number,
         public active: boolean,
-        public icon?: string
+        public icon?: string,
+        public value?: string
     ) {
     }
 }

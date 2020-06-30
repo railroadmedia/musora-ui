@@ -495,6 +495,1754 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/index.js":
+/*!**************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/index.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! ./lib/axios */ "../../../../../../../app/musora-ui/node_modules/axios/lib/axios.js");
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/adapters/xhr.js":
+/*!*************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/adapters/xhr.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "../../../../../../../app/musora-ui/node_modules/axios/lib/utils.js");
+
+var settle = __webpack_require__(/*! ./../core/settle */ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/settle.js");
+
+var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/buildURL.js");
+
+var buildFullPath = __webpack_require__(/*! ../core/buildFullPath */ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/buildFullPath.js");
+
+var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/parseHeaders.js");
+
+var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/isURLSameOrigin.js");
+
+var createError = __webpack_require__(/*! ../core/createError */ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/createError.js");
+
+module.exports = function xhrAdapter(config) {
+  return new Promise(function dispatchXhrRequest(resolve, reject) {
+    var requestData = config.data;
+    var requestHeaders = config.headers;
+
+    if (utils.isFormData(requestData)) {
+      delete requestHeaders['Content-Type']; // Let the browser set it
+    }
+
+    var request = new XMLHttpRequest(); // HTTP basic authentication
+
+    if (config.auth) {
+      var username = config.auth.username || '';
+      var password = config.auth.password || '';
+      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+    }
+
+    var fullPath = buildFullPath(config.baseURL, config.url);
+    request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true); // Set the request timeout in MS
+
+    request.timeout = config.timeout; // Listen for ready state
+
+    request.onreadystatechange = function handleLoad() {
+      if (!request || request.readyState !== 4) {
+        return;
+      } // The request errored out and we didn't get a response, this will be
+      // handled by onerror instead
+      // With one exception: request that using file: protocol, most browsers
+      // will return status as 0 even though it's a successful request
+
+
+      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+        return;
+      } // Prepare the response
+
+
+      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
+      var response = {
+        data: responseData,
+        status: request.status,
+        statusText: request.statusText,
+        headers: responseHeaders,
+        config: config,
+        request: request
+      };
+      settle(resolve, reject, response); // Clean up request
+
+      request = null;
+    }; // Handle browser request cancellation (as opposed to a manual cancellation)
+
+
+    request.onabort = function handleAbort() {
+      if (!request) {
+        return;
+      }
+
+      reject(createError('Request aborted', config, 'ECONNABORTED', request)); // Clean up request
+
+      request = null;
+    }; // Handle low level network errors
+
+
+    request.onerror = function handleError() {
+      // Real errors are hidden from us by the browser
+      // onerror should only fire if it's a network error
+      reject(createError('Network Error', config, null, request)); // Clean up request
+
+      request = null;
+    }; // Handle timeout
+
+
+    request.ontimeout = function handleTimeout() {
+      var timeoutErrorMessage = 'timeout of ' + config.timeout + 'ms exceeded';
+
+      if (config.timeoutErrorMessage) {
+        timeoutErrorMessage = config.timeoutErrorMessage;
+      }
+
+      reject(createError(timeoutErrorMessage, config, 'ECONNABORTED', request)); // Clean up request
+
+      request = null;
+    }; // Add xsrf header
+    // This is only done if running in a standard browser environment.
+    // Specifically not if we're in a web worker, or react-native.
+
+
+    if (utils.isStandardBrowserEnv()) {
+      var cookies = __webpack_require__(/*! ./../helpers/cookies */ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/cookies.js"); // Add xsrf header
+
+
+      var xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName ? cookies.read(config.xsrfCookieName) : undefined;
+
+      if (xsrfValue) {
+        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+      }
+    } // Add headers to the request
+
+
+    if ('setRequestHeader' in request) {
+      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+          // Remove Content-Type if data is undefined
+          delete requestHeaders[key];
+        } else {
+          // Otherwise add header to the request
+          request.setRequestHeader(key, val);
+        }
+      });
+    } // Add withCredentials to request if needed
+
+
+    if (!utils.isUndefined(config.withCredentials)) {
+      request.withCredentials = !!config.withCredentials;
+    } // Add responseType to request if needed
+
+
+    if (config.responseType) {
+      try {
+        request.responseType = config.responseType;
+      } catch (e) {
+        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
+        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
+        if (config.responseType !== 'json') {
+          throw e;
+        }
+      }
+    } // Handle progress if needed
+
+
+    if (typeof config.onDownloadProgress === 'function') {
+      request.addEventListener('progress', config.onDownloadProgress);
+    } // Not all browsers support upload events
+
+
+    if (typeof config.onUploadProgress === 'function' && request.upload) {
+      request.upload.addEventListener('progress', config.onUploadProgress);
+    }
+
+    if (config.cancelToken) {
+      // Handle cancellation
+      config.cancelToken.promise.then(function onCanceled(cancel) {
+        if (!request) {
+          return;
+        }
+
+        request.abort();
+        reject(cancel); // Clean up request
+
+        request = null;
+      });
+    }
+
+    if (requestData === undefined) {
+      requestData = null;
+    } // Send the request
+
+
+    request.send(requestData);
+  });
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/axios.js":
+/*!******************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/axios.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./utils */ "../../../../../../../app/musora-ui/node_modules/axios/lib/utils.js");
+
+var bind = __webpack_require__(/*! ./helpers/bind */ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/bind.js");
+
+var Axios = __webpack_require__(/*! ./core/Axios */ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/Axios.js");
+
+var mergeConfig = __webpack_require__(/*! ./core/mergeConfig */ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/mergeConfig.js");
+
+var defaults = __webpack_require__(/*! ./defaults */ "../../../../../../../app/musora-ui/node_modules/axios/lib/defaults.js");
+/**
+ * Create an instance of Axios
+ *
+ * @param {Object} defaultConfig The default config for the instance
+ * @return {Axios} A new instance of Axios
+ */
+
+
+function createInstance(defaultConfig) {
+  var context = new Axios(defaultConfig);
+  var instance = bind(Axios.prototype.request, context); // Copy axios.prototype to instance
+
+  utils.extend(instance, Axios.prototype, context); // Copy context to instance
+
+  utils.extend(instance, context);
+  return instance;
+} // Create the default instance to be exported
+
+
+var axios = createInstance(defaults); // Expose Axios class to allow class inheritance
+
+axios.Axios = Axios; // Factory for creating new instances
+
+axios.create = function create(instanceConfig) {
+  return createInstance(mergeConfig(axios.defaults, instanceConfig));
+}; // Expose Cancel & CancelToken
+
+
+axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ "../../../../../../../app/musora-ui/node_modules/axios/lib/cancel/Cancel.js");
+axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ "../../../../../../../app/musora-ui/node_modules/axios/lib/cancel/CancelToken.js");
+axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ "../../../../../../../app/musora-ui/node_modules/axios/lib/cancel/isCancel.js"); // Expose all/spread
+
+axios.all = function all(promises) {
+  return Promise.all(promises);
+};
+
+axios.spread = __webpack_require__(/*! ./helpers/spread */ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/spread.js");
+module.exports = axios; // Allow use of default import syntax in TypeScript
+
+module.exports["default"] = axios;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/cancel/Cancel.js":
+/*!**************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/cancel/Cancel.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * A `Cancel` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ */
+
+function Cancel(message) {
+  this.message = message;
+}
+
+Cancel.prototype.toString = function toString() {
+  return 'Cancel' + (this.message ? ': ' + this.message : '');
+};
+
+Cancel.prototype.__CANCEL__ = true;
+module.exports = Cancel;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/cancel/CancelToken.js":
+/*!*******************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/cancel/CancelToken.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Cancel = __webpack_require__(/*! ./Cancel */ "../../../../../../../app/musora-ui/node_modules/axios/lib/cancel/Cancel.js");
+/**
+ * A `CancelToken` is an object that can be used to request cancellation of an operation.
+ *
+ * @class
+ * @param {Function} executor The executor function.
+ */
+
+
+function CancelToken(executor) {
+  if (typeof executor !== 'function') {
+    throw new TypeError('executor must be a function.');
+  }
+
+  var resolvePromise;
+  this.promise = new Promise(function promiseExecutor(resolve) {
+    resolvePromise = resolve;
+  });
+  var token = this;
+  executor(function cancel(message) {
+    if (token.reason) {
+      // Cancellation has already been requested
+      return;
+    }
+
+    token.reason = new Cancel(message);
+    resolvePromise(token.reason);
+  });
+}
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+
+
+CancelToken.prototype.throwIfRequested = function throwIfRequested() {
+  if (this.reason) {
+    throw this.reason;
+  }
+};
+/**
+ * Returns an object that contains a new `CancelToken` and a function that, when called,
+ * cancels the `CancelToken`.
+ */
+
+
+CancelToken.source = function source() {
+  var cancel;
+  var token = new CancelToken(function executor(c) {
+    cancel = c;
+  });
+  return {
+    token: token,
+    cancel: cancel
+  };
+};
+
+module.exports = CancelToken;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/cancel/isCancel.js":
+/*!****************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/cancel/isCancel.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/Axios.js":
+/*!***********************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/core/Axios.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "../../../../../../../app/musora-ui/node_modules/axios/lib/utils.js");
+
+var buildURL = __webpack_require__(/*! ../helpers/buildURL */ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/buildURL.js");
+
+var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/InterceptorManager.js");
+
+var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/dispatchRequest.js");
+
+var mergeConfig = __webpack_require__(/*! ./mergeConfig */ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/mergeConfig.js");
+/**
+ * Create a new instance of Axios
+ *
+ * @param {Object} instanceConfig The default config for the instance
+ */
+
+
+function Axios(instanceConfig) {
+  this.defaults = instanceConfig;
+  this.interceptors = {
+    request: new InterceptorManager(),
+    response: new InterceptorManager()
+  };
+}
+/**
+ * Dispatch a request
+ *
+ * @param {Object} config The config specific for this request (merged with this.defaults)
+ */
+
+
+Axios.prototype.request = function request(config) {
+  /*eslint no-param-reassign:0*/
+  // Allow for axios('example/url'[, config]) a la fetch API
+  if (typeof config === 'string') {
+    config = arguments[1] || {};
+    config.url = arguments[0];
+  } else {
+    config = config || {};
+  }
+
+  config = mergeConfig(this.defaults, config); // Set config.method
+
+  if (config.method) {
+    config.method = config.method.toLowerCase();
+  } else if (this.defaults.method) {
+    config.method = this.defaults.method.toLowerCase();
+  } else {
+    config.method = 'get';
+  } // Hook up interceptors middleware
+
+
+  var chain = [dispatchRequest, undefined];
+  var promise = Promise.resolve(config);
+  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+    chain.unshift(interceptor.fulfilled, interceptor.rejected);
+  });
+  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+    chain.push(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  while (chain.length) {
+    promise = promise.then(chain.shift(), chain.shift());
+  }
+
+  return promise;
+};
+
+Axios.prototype.getUri = function getUri(config) {
+  config = mergeConfig(this.defaults, config);
+  return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');
+}; // Provide aliases for supported request methods
+
+
+utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function (url, config) {
+    return this.request(utils.merge(config || {}, {
+      method: method,
+      url: url
+    }));
+  };
+});
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function (url, data, config) {
+    return this.request(utils.merge(config || {}, {
+      method: method,
+      url: url,
+      data: data
+    }));
+  };
+});
+module.exports = Axios;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/InterceptorManager.js":
+/*!************************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/core/InterceptorManager.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "../../../../../../../app/musora-ui/node_modules/axios/lib/utils.js");
+
+function InterceptorManager() {
+  this.handlers = [];
+}
+/**
+ * Add a new interceptor to the stack
+ *
+ * @param {Function} fulfilled The function to handle `then` for a `Promise`
+ * @param {Function} rejected The function to handle `reject` for a `Promise`
+ *
+ * @return {Number} An ID used to remove interceptor later
+ */
+
+
+InterceptorManager.prototype.use = function use(fulfilled, rejected) {
+  this.handlers.push({
+    fulfilled: fulfilled,
+    rejected: rejected
+  });
+  return this.handlers.length - 1;
+};
+/**
+ * Remove an interceptor from the stack
+ *
+ * @param {Number} id The ID that was returned by `use`
+ */
+
+
+InterceptorManager.prototype.eject = function eject(id) {
+  if (this.handlers[id]) {
+    this.handlers[id] = null;
+  }
+};
+/**
+ * Iterate over all the registered interceptors
+ *
+ * This method is particularly useful for skipping over any
+ * interceptors that may have become `null` calling `eject`.
+ *
+ * @param {Function} fn The function to call for each interceptor
+ */
+
+
+InterceptorManager.prototype.forEach = function forEach(fn) {
+  utils.forEach(this.handlers, function forEachHandler(h) {
+    if (h !== null) {
+      fn(h);
+    }
+  });
+};
+
+module.exports = InterceptorManager;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/buildFullPath.js":
+/*!*******************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/core/buildFullPath.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var isAbsoluteURL = __webpack_require__(/*! ../helpers/isAbsoluteURL */ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/isAbsoluteURL.js");
+
+var combineURLs = __webpack_require__(/*! ../helpers/combineURLs */ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/combineURLs.js");
+/**
+ * Creates a new URL by combining the baseURL with the requestedURL,
+ * only when the requestedURL is not already an absolute URL.
+ * If the requestURL is absolute, this function returns the requestedURL untouched.
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} requestedURL Absolute or relative URL to combine
+ * @returns {string} The combined full path
+ */
+
+
+module.exports = function buildFullPath(baseURL, requestedURL) {
+  if (baseURL && !isAbsoluteURL(requestedURL)) {
+    return combineURLs(baseURL, requestedURL);
+  }
+
+  return requestedURL;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/createError.js":
+/*!*****************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/core/createError.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var enhanceError = __webpack_require__(/*! ./enhanceError */ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/enhanceError.js");
+/**
+ * Create an Error with the specified message, config, error code, request and response.
+ *
+ * @param {string} message The error message.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The created error.
+ */
+
+
+module.exports = function createError(message, config, code, request, response) {
+  var error = new Error(message);
+  return enhanceError(error, config, code, request, response);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/dispatchRequest.js":
+/*!*********************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/core/dispatchRequest.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "../../../../../../../app/musora-ui/node_modules/axios/lib/utils.js");
+
+var transformData = __webpack_require__(/*! ./transformData */ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/transformData.js");
+
+var isCancel = __webpack_require__(/*! ../cancel/isCancel */ "../../../../../../../app/musora-ui/node_modules/axios/lib/cancel/isCancel.js");
+
+var defaults = __webpack_require__(/*! ../defaults */ "../../../../../../../app/musora-ui/node_modules/axios/lib/defaults.js");
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+
+
+function throwIfCancellationRequested(config) {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested();
+  }
+}
+/**
+ * Dispatch a request to the server using the configured adapter.
+ *
+ * @param {object} config The config that is to be used for the request
+ * @returns {Promise} The Promise to be fulfilled
+ */
+
+
+module.exports = function dispatchRequest(config) {
+  throwIfCancellationRequested(config); // Ensure headers exist
+
+  config.headers = config.headers || {}; // Transform request data
+
+  config.data = transformData(config.data, config.headers, config.transformRequest); // Flatten headers
+
+  config.headers = utils.merge(config.headers.common || {}, config.headers[config.method] || {}, config.headers);
+  utils.forEach(['delete', 'get', 'head', 'post', 'put', 'patch', 'common'], function cleanHeaderConfig(method) {
+    delete config.headers[method];
+  });
+  var adapter = config.adapter || defaults.adapter;
+  return adapter(config).then(function onAdapterResolution(response) {
+    throwIfCancellationRequested(config); // Transform response data
+
+    response.data = transformData(response.data, response.headers, config.transformResponse);
+    return response;
+  }, function onAdapterRejection(reason) {
+    if (!isCancel(reason)) {
+      throwIfCancellationRequested(config); // Transform response data
+
+      if (reason && reason.response) {
+        reason.response.data = transformData(reason.response.data, reason.response.headers, config.transformResponse);
+      }
+    }
+
+    return Promise.reject(reason);
+  });
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/enhanceError.js":
+/*!******************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/core/enhanceError.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * Update an Error with the specified config, error code, and response.
+ *
+ * @param {Error} error The error to update.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The error.
+ */
+
+module.exports = function enhanceError(error, config, code, request, response) {
+  error.config = config;
+
+  if (code) {
+    error.code = code;
+  }
+
+  error.request = request;
+  error.response = response;
+  error.isAxiosError = true;
+
+  error.toJSON = function () {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: this.config,
+      code: this.code
+    };
+  };
+
+  return error;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/mergeConfig.js":
+/*!*****************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/core/mergeConfig.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ../utils */ "../../../../../../../app/musora-ui/node_modules/axios/lib/utils.js");
+/**
+ * Config-specific merge-function which creates a new config-object
+ * by merging two configuration objects together.
+ *
+ * @param {Object} config1
+ * @param {Object} config2
+ * @returns {Object} New object resulting from merging config2 to config1
+ */
+
+
+module.exports = function mergeConfig(config1, config2) {
+  // eslint-disable-next-line no-param-reassign
+  config2 = config2 || {};
+  var config = {};
+  var valueFromConfig2Keys = ['url', 'method', 'params', 'data'];
+  var mergeDeepPropertiesKeys = ['headers', 'auth', 'proxy'];
+  var defaultToConfig2Keys = ['baseURL', 'url', 'transformRequest', 'transformResponse', 'paramsSerializer', 'timeout', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName', 'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress', 'maxContentLength', 'validateStatus', 'maxRedirects', 'httpAgent', 'httpsAgent', 'cancelToken', 'socketPath'];
+  utils.forEach(valueFromConfig2Keys, function valueFromConfig2(prop) {
+    if (typeof config2[prop] !== 'undefined') {
+      config[prop] = config2[prop];
+    }
+  });
+  utils.forEach(mergeDeepPropertiesKeys, function mergeDeepProperties(prop) {
+    if (utils.isObject(config2[prop])) {
+      config[prop] = utils.deepMerge(config1[prop], config2[prop]);
+    } else if (typeof config2[prop] !== 'undefined') {
+      config[prop] = config2[prop];
+    } else if (utils.isObject(config1[prop])) {
+      config[prop] = utils.deepMerge(config1[prop]);
+    } else if (typeof config1[prop] !== 'undefined') {
+      config[prop] = config1[prop];
+    }
+  });
+  utils.forEach(defaultToConfig2Keys, function defaultToConfig2(prop) {
+    if (typeof config2[prop] !== 'undefined') {
+      config[prop] = config2[prop];
+    } else if (typeof config1[prop] !== 'undefined') {
+      config[prop] = config1[prop];
+    }
+  });
+  var axiosKeys = valueFromConfig2Keys.concat(mergeDeepPropertiesKeys).concat(defaultToConfig2Keys);
+  var otherKeys = Object.keys(config2).filter(function filterAxiosKeys(key) {
+    return axiosKeys.indexOf(key) === -1;
+  });
+  utils.forEach(otherKeys, function otherKeysDefaultToConfig2(prop) {
+    if (typeof config2[prop] !== 'undefined') {
+      config[prop] = config2[prop];
+    } else if (typeof config1[prop] !== 'undefined') {
+      config[prop] = config1[prop];
+    }
+  });
+  return config;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/settle.js":
+/*!************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/core/settle.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var createError = __webpack_require__(/*! ./createError */ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/createError.js");
+/**
+ * Resolve or reject a Promise based on response status.
+ *
+ * @param {Function} resolve A function that resolves the promise.
+ * @param {Function} reject A function that rejects the promise.
+ * @param {object} response The response.
+ */
+
+
+module.exports = function settle(resolve, reject, response) {
+  var validateStatus = response.config.validateStatus;
+
+  if (!validateStatus || validateStatus(response.status)) {
+    resolve(response);
+  } else {
+    reject(createError('Request failed with status code ' + response.status, response.config, null, response.request, response));
+  }
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/core/transformData.js":
+/*!*******************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/core/transformData.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "../../../../../../../app/musora-ui/node_modules/axios/lib/utils.js");
+/**
+ * Transform the data for a request or a response
+ *
+ * @param {Object|String} data The data to be transformed
+ * @param {Array} headers The headers for the request or response
+ * @param {Array|Function} fns A single function or Array of functions
+ * @returns {*} The resulting transformed data
+ */
+
+
+module.exports = function transformData(data, headers, fns) {
+  /*eslint no-param-reassign:0*/
+  utils.forEach(fns, function transform(fn) {
+    data = fn(data, headers);
+  });
+  return data;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/defaults.js":
+/*!*********************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/defaults.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(/*! ./utils */ "../../../../../../../app/musora-ui/node_modules/axios/lib/utils.js");
+
+var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/normalizeHeaderName.js");
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(/*! ./adapters/xhr */ "../../../../../../../app/musora-ui/node_modules/axios/lib/adapters/xhr.js");
+  } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(/*! ./adapters/http */ "../../../../../../../app/musora-ui/node_modules/axios/lib/adapters/xhr.js");
+  }
+
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Accept');
+    normalizeHeaderName(headers, 'Content-Type');
+
+    if (utils.isFormData(data) || utils.isArrayBuffer(data) || utils.isBuffer(data) || utils.isStream(data) || utils.isFile(data) || utils.isBlob(data)) {
+      return data;
+    }
+
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+
+    return data;
+  }],
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) {
+        /* Ignore */
+      }
+    }
+
+    return data;
+  }],
+
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+  maxContentLength: -1,
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+module.exports = defaults;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../mnt/7A34EDB034ED7015/projects/drumeo/railenvironment/applications/musora-ui/node_modules/process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/bind.js":
+/*!*************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/helpers/bind.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function bind(fn, thisArg) {
+  return function wrap() {
+    var args = new Array(arguments.length);
+
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+
+    return fn.apply(thisArg, args);
+  };
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/buildURL.js":
+/*!*****************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/helpers/buildURL.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "../../../../../../../app/musora-ui/node_modules/axios/lib/utils.js");
+
+function encode(val) {
+  return encodeURIComponent(val).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, '+').replace(/%5B/gi, '[').replace(/%5D/gi, ']');
+}
+/**
+ * Build a URL by appending params to the end
+ *
+ * @param {string} url The base of the url (e.g., http://www.google.com)
+ * @param {object} [params] The params to be appended
+ * @returns {string} The formatted url
+ */
+
+
+module.exports = function buildURL(url, params, paramsSerializer) {
+  /*eslint no-param-reassign:0*/
+  if (!params) {
+    return url;
+  }
+
+  var serializedParams;
+
+  if (paramsSerializer) {
+    serializedParams = paramsSerializer(params);
+  } else if (utils.isURLSearchParams(params)) {
+    serializedParams = params.toString();
+  } else {
+    var parts = [];
+    utils.forEach(params, function serialize(val, key) {
+      if (val === null || typeof val === 'undefined') {
+        return;
+      }
+
+      if (utils.isArray(val)) {
+        key = key + '[]';
+      } else {
+        val = [val];
+      }
+
+      utils.forEach(val, function parseValue(v) {
+        if (utils.isDate(v)) {
+          v = v.toISOString();
+        } else if (utils.isObject(v)) {
+          v = JSON.stringify(v);
+        }
+
+        parts.push(encode(key) + '=' + encode(v));
+      });
+    });
+    serializedParams = parts.join('&');
+  }
+
+  if (serializedParams) {
+    var hashmarkIndex = url.indexOf('#');
+
+    if (hashmarkIndex !== -1) {
+      url = url.slice(0, hashmarkIndex);
+    }
+
+    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
+  }
+
+  return url;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/combineURLs.js":
+/*!********************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/helpers/combineURLs.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * Creates a new URL by combining the specified URLs
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} relativeURL The relative URL
+ * @returns {string} The combined URL
+ */
+
+module.exports = function combineURLs(baseURL, relativeURL) {
+  return relativeURL ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') : baseURL;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/cookies.js":
+/*!****************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/helpers/cookies.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "../../../../../../../app/musora-ui/node_modules/axios/lib/utils.js");
+
+module.exports = utils.isStandardBrowserEnv() ? // Standard browser envs support document.cookie
+function standardBrowserEnv() {
+  return {
+    write: function write(name, value, expires, path, domain, secure) {
+      var cookie = [];
+      cookie.push(name + '=' + encodeURIComponent(value));
+
+      if (utils.isNumber(expires)) {
+        cookie.push('expires=' + new Date(expires).toGMTString());
+      }
+
+      if (utils.isString(path)) {
+        cookie.push('path=' + path);
+      }
+
+      if (utils.isString(domain)) {
+        cookie.push('domain=' + domain);
+      }
+
+      if (secure === true) {
+        cookie.push('secure');
+      }
+
+      document.cookie = cookie.join('; ');
+    },
+    read: function read(name) {
+      var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+      return match ? decodeURIComponent(match[3]) : null;
+    },
+    remove: function remove(name) {
+      this.write(name, '', Date.now() - 86400000);
+    }
+  };
+}() : // Non standard browser env (web workers, react-native) lack needed support.
+function nonStandardBrowserEnv() {
+  return {
+    write: function write() {},
+    read: function read() {
+      return null;
+    },
+    remove: function remove() {}
+  };
+}();
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/isAbsoluteURL.js":
+/*!**********************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * Determines whether the specified URL is absolute
+ *
+ * @param {string} url The URL to test
+ * @returns {boolean} True if the specified URL is absolute, otherwise false
+ */
+
+module.exports = function isAbsoluteURL(url) {
+  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+  // by any combination of letters, digits, plus, period, or hyphen.
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/isURLSameOrigin.js":
+/*!************************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "../../../../../../../app/musora-ui/node_modules/axios/lib/utils.js");
+
+module.exports = utils.isStandardBrowserEnv() ? // Standard browser envs have full support of the APIs needed to test
+// whether the request URL is of the same origin as current location.
+function standardBrowserEnv() {
+  var msie = /(msie|trident)/i.test(navigator.userAgent);
+  var urlParsingNode = document.createElement('a');
+  var originURL;
+  /**
+  * Parse a URL to discover it's components
+  *
+  * @param {String} url The URL to be parsed
+  * @returns {Object}
+  */
+
+  function resolveURL(url) {
+    var href = url;
+
+    if (msie) {
+      // IE needs attribute set twice to normalize properties
+      urlParsingNode.setAttribute('href', href);
+      href = urlParsingNode.href;
+    }
+
+    urlParsingNode.setAttribute('href', href); // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+
+    return {
+      href: urlParsingNode.href,
+      protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+      host: urlParsingNode.host,
+      search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+      hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+      hostname: urlParsingNode.hostname,
+      port: urlParsingNode.port,
+      pathname: urlParsingNode.pathname.charAt(0) === '/' ? urlParsingNode.pathname : '/' + urlParsingNode.pathname
+    };
+  }
+
+  originURL = resolveURL(window.location.href);
+  /**
+  * Determine if a URL shares the same origin as the current location
+  *
+  * @param {String} requestURL The URL to test
+  * @returns {boolean} True if URL shares the same origin, otherwise false
+  */
+
+  return function isURLSameOrigin(requestURL) {
+    var parsed = utils.isString(requestURL) ? resolveURL(requestURL) : requestURL;
+    return parsed.protocol === originURL.protocol && parsed.host === originURL.host;
+  };
+}() : // Non standard browser envs (web workers, react-native) lack needed support.
+function nonStandardBrowserEnv() {
+  return function isURLSameOrigin() {
+    return true;
+  };
+}();
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/normalizeHeaderName.js":
+/*!****************************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ../utils */ "../../../../../../../app/musora-ui/node_modules/axios/lib/utils.js");
+
+module.exports = function normalizeHeaderName(headers, normalizedName) {
+  utils.forEach(headers, function processHeader(value, name) {
+    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+      headers[normalizedName] = value;
+      delete headers[name];
+    }
+  });
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/parseHeaders.js":
+/*!*********************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ "../../../../../../../app/musora-ui/node_modules/axios/lib/utils.js"); // Headers whose duplicates are ignored by node
+// c.f. https://nodejs.org/api/http.html#http_message_headers
+
+
+var ignoreDuplicateOf = ['age', 'authorization', 'content-length', 'content-type', 'etag', 'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since', 'last-modified', 'location', 'max-forwards', 'proxy-authorization', 'referer', 'retry-after', 'user-agent'];
+/**
+ * Parse headers into an object
+ *
+ * ```
+ * Date: Wed, 27 Aug 2014 08:58:49 GMT
+ * Content-Type: application/json
+ * Connection: keep-alive
+ * Transfer-Encoding: chunked
+ * ```
+ *
+ * @param {String} headers Headers needing to be parsed
+ * @returns {Object} Headers parsed into an object
+ */
+
+module.exports = function parseHeaders(headers) {
+  var parsed = {};
+  var key;
+  var val;
+  var i;
+
+  if (!headers) {
+    return parsed;
+  }
+
+  utils.forEach(headers.split('\n'), function parser(line) {
+    i = line.indexOf(':');
+    key = utils.trim(line.substr(0, i)).toLowerCase();
+    val = utils.trim(line.substr(i + 1));
+
+    if (key) {
+      if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
+        return;
+      }
+
+      if (key === 'set-cookie') {
+        parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
+      } else {
+        parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+      }
+    }
+  });
+  return parsed;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/spread.js":
+/*!***************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/helpers/spread.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * Syntactic sugar for invoking a function and expanding an array for arguments.
+ *
+ * Common use case would be to use `Function.prototype.apply`.
+ *
+ *  ```js
+ *  function f(x, y, z) {}
+ *  var args = [1, 2, 3];
+ *  f.apply(null, args);
+ *  ```
+ *
+ * With `spread` this example can be re-written.
+ *
+ *  ```js
+ *  spread(function(x, y, z) {})([1, 2, 3]);
+ *  ```
+ *
+ * @param {Function} callback
+ * @returns {Function}
+ */
+
+module.exports = function spread(callback) {
+  return function wrap(arr) {
+    return callback.apply(null, arr);
+  };
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios/lib/utils.js":
+/*!******************************************************!*\
+  !*** /app/musora-ui/node_modules/axios/lib/utils.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var bind = __webpack_require__(/*! ./helpers/bind */ "../../../../../../../app/musora-ui/node_modules/axios/lib/helpers/bind.js");
+/*global toString:true*/
+// utils is a library of generic helper functions non-specific to axios
+
+
+var toString = Object.prototype.toString;
+/**
+ * Determine if a value is an Array
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Array, otherwise false
+ */
+
+function isArray(val) {
+  return toString.call(val) === '[object Array]';
+}
+/**
+ * Determine if a value is undefined
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if the value is undefined, otherwise false
+ */
+
+
+function isUndefined(val) {
+  return typeof val === 'undefined';
+}
+/**
+ * Determine if a value is a Buffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Buffer, otherwise false
+ */
+
+
+function isBuffer(val) {
+  return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor) && typeof val.constructor.isBuffer === 'function' && val.constructor.isBuffer(val);
+}
+/**
+ * Determine if a value is an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+ */
+
+
+function isArrayBuffer(val) {
+  return toString.call(val) === '[object ArrayBuffer]';
+}
+/**
+ * Determine if a value is a FormData
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an FormData, otherwise false
+ */
+
+
+function isFormData(val) {
+  return typeof FormData !== 'undefined' && val instanceof FormData;
+}
+/**
+ * Determine if a value is a view on an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+ */
+
+
+function isArrayBufferView(val) {
+  var result;
+
+  if (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView) {
+    result = ArrayBuffer.isView(val);
+  } else {
+    result = val && val.buffer && val.buffer instanceof ArrayBuffer;
+  }
+
+  return result;
+}
+/**
+ * Determine if a value is a String
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a String, otherwise false
+ */
+
+
+function isString(val) {
+  return typeof val === 'string';
+}
+/**
+ * Determine if a value is a Number
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Number, otherwise false
+ */
+
+
+function isNumber(val) {
+  return typeof val === 'number';
+}
+/**
+ * Determine if a value is an Object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Object, otherwise false
+ */
+
+
+function isObject(val) {
+  return val !== null && _typeof(val) === 'object';
+}
+/**
+ * Determine if a value is a Date
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Date, otherwise false
+ */
+
+
+function isDate(val) {
+  return toString.call(val) === '[object Date]';
+}
+/**
+ * Determine if a value is a File
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a File, otherwise false
+ */
+
+
+function isFile(val) {
+  return toString.call(val) === '[object File]';
+}
+/**
+ * Determine if a value is a Blob
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Blob, otherwise false
+ */
+
+
+function isBlob(val) {
+  return toString.call(val) === '[object Blob]';
+}
+/**
+ * Determine if a value is a Function
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Function, otherwise false
+ */
+
+
+function isFunction(val) {
+  return toString.call(val) === '[object Function]';
+}
+/**
+ * Determine if a value is a Stream
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Stream, otherwise false
+ */
+
+
+function isStream(val) {
+  return isObject(val) && isFunction(val.pipe);
+}
+/**
+ * Determine if a value is a URLSearchParams object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a URLSearchParams object, otherwise false
+ */
+
+
+function isURLSearchParams(val) {
+  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+}
+/**
+ * Trim excess whitespace off the beginning and end of a string
+ *
+ * @param {String} str The String to trim
+ * @returns {String} The String freed of excess whitespace
+ */
+
+
+function trim(str) {
+  return str.replace(/^\s*/, '').replace(/\s*$/, '');
+}
+/**
+ * Determine if we're running in a standard browser environment
+ *
+ * This allows axios to run in a web worker, and react-native.
+ * Both environments support XMLHttpRequest, but not fully standard globals.
+ *
+ * web workers:
+ *  typeof window -> undefined
+ *  typeof document -> undefined
+ *
+ * react-native:
+ *  navigator.product -> 'ReactNative'
+ * nativescript
+ *  navigator.product -> 'NativeScript' or 'NS'
+ */
+
+
+function isStandardBrowserEnv() {
+  if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' || navigator.product === 'NativeScript' || navigator.product === 'NS')) {
+    return false;
+  }
+
+  return typeof window !== 'undefined' && typeof document !== 'undefined';
+}
+/**
+ * Iterate over an Array or an Object invoking a function for each item.
+ *
+ * If `obj` is an Array callback will be called passing
+ * the value, index, and complete array for each item.
+ *
+ * If 'obj' is an Object callback will be called passing
+ * the value, key, and complete object for each property.
+ *
+ * @param {Object|Array} obj The object to iterate
+ * @param {Function} fn The callback to invoke for each item
+ */
+
+
+function forEach(obj, fn) {
+  // Don't bother if no value provided
+  if (obj === null || typeof obj === 'undefined') {
+    return;
+  } // Force an array if not already something iterable
+
+
+  if (_typeof(obj) !== 'object') {
+    /*eslint no-param-reassign:0*/
+    obj = [obj];
+  }
+
+  if (isArray(obj)) {
+    // Iterate over array values
+    for (var i = 0, l = obj.length; i < l; i++) {
+      fn.call(null, obj[i], i, obj);
+    }
+  } else {
+    // Iterate over object keys
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        fn.call(null, obj[key], key, obj);
+      }
+    }
+  }
+}
+/**
+ * Accepts varargs expecting each argument to be an object, then
+ * immutably merges the properties of each object and returns result.
+ *
+ * When multiple objects contain the same key the later object in
+ * the arguments list will take precedence.
+ *
+ * Example:
+ *
+ * ```js
+ * var result = merge({foo: 123}, {foo: 456});
+ * console.log(result.foo); // outputs 456
+ * ```
+ *
+ * @param {Object} obj1 Object to merge
+ * @returns {Object} Result of all merge properties
+ */
+
+
+function merge()
+/* obj1, obj2, obj3, ... */
+{
+  var result = {};
+
+  function assignValue(val, key) {
+    if (_typeof(result[key]) === 'object' && _typeof(val) === 'object') {
+      result[key] = merge(result[key], val);
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+
+  return result;
+}
+/**
+ * Function equal to merge with the difference being that no reference
+ * to original objects is kept.
+ *
+ * @see merge
+ * @param {Object} obj1 Object to merge
+ * @returns {Object} Result of all merge properties
+ */
+
+
+function deepMerge()
+/* obj1, obj2, obj3, ... */
+{
+  var result = {};
+
+  function assignValue(val, key) {
+    if (_typeof(result[key]) === 'object' && _typeof(val) === 'object') {
+      result[key] = deepMerge(result[key], val);
+    } else if (_typeof(val) === 'object') {
+      result[key] = deepMerge({}, val);
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+
+  return result;
+}
+/**
+ * Extends object a by mutably adding to it the properties of object b.
+ *
+ * @param {Object} a The object to be extended
+ * @param {Object} b The object to copy properties from
+ * @param {Object} thisArg The object to bind function to
+ * @return {Object} The resulting value of object a
+ */
+
+
+function extend(a, b, thisArg) {
+  forEach(b, function assignValue(val, key) {
+    if (thisArg && typeof val === 'function') {
+      a[key] = bind(val, thisArg);
+    } else {
+      a[key] = val;
+    }
+  });
+  return a;
+}
+
+module.exports = {
+  isArray: isArray,
+  isArrayBuffer: isArrayBuffer,
+  isBuffer: isBuffer,
+  isFormData: isFormData,
+  isArrayBufferView: isArrayBufferView,
+  isString: isString,
+  isNumber: isNumber,
+  isObject: isObject,
+  isUndefined: isUndefined,
+  isDate: isDate,
+  isFile: isFile,
+  isBlob: isBlob,
+  isFunction: isFunction,
+  isStream: isStream,
+  isURLSearchParams: isURLSearchParams,
+  isStandardBrowserEnv: isStandardBrowserEnv,
+  forEach: forEach,
+  merge: merge,
+  deepMerge: deepMerge,
+  extend: extend,
+  trim: trim
+};
+
+/***/ }),
+
 /***/ "../../../../../../../app/musora-ui/node_modules/cropperjs/dist/cropper.css":
 /*!**************************************************************!*\
   !*** /app/musora-ui/node_modules/cropperjs/dist/cropper.css ***!
@@ -8089,6 +9837,1318 @@ function __guardMethod__(obj, methodName, transform) {
     return undefined;
   }
 }
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../mnt/7A34EDB034ED7015/projects/drumeo/railenvironment/applications/musora-ui/node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/moxios/dist/moxios.js":
+/*!*********************************************************!*\
+  !*** /app/musora-ui/node_modules/moxios/dist/moxios.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+(function webpackUniversalModuleDefinition(root, factory) {
+  if (( false ? undefined : _typeof(exports)) === 'object' && ( false ? undefined : _typeof(module)) === 'object') module.exports = factory(__webpack_require__(/*! axios */ "../../../../../../../app/musora-ui/node_modules/axios/index.js"));else if (true) !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! axios */ "../../../../../../../app/musora-ui/node_modules/axios/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else {}
+})(this, function (__WEBPACK_EXTERNAL_MODULE_1__) {
+  return (
+    /******/
+    function (modules) {
+      // webpackBootstrap
+
+      /******/
+      // The module cache
+
+      /******/
+      var installedModules = {};
+      /******/
+
+      /******/
+      // The require function
+
+      /******/
+
+      function __webpack_require__(moduleId) {
+        /******/
+
+        /******/
+        // Check if module is in cache
+
+        /******/
+        if (installedModules[moduleId])
+          /******/
+          return installedModules[moduleId].exports;
+        /******/
+
+        /******/
+        // Create a new module (and put it into the cache)
+
+        /******/
+
+        var module = installedModules[moduleId] = {
+          /******/
+          exports: {},
+
+          /******/
+          id: moduleId,
+
+          /******/
+          loaded: false
+          /******/
+
+        };
+        /******/
+
+        /******/
+        // Execute the module function
+
+        /******/
+
+        modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+        /******/
+
+        /******/
+        // Flag the module as loaded
+
+        /******/
+
+        module.loaded = true;
+        /******/
+
+        /******/
+        // Return the exports of the module
+
+        /******/
+
+        return module.exports;
+        /******/
+      }
+      /******/
+
+      /******/
+
+      /******/
+      // expose the modules object (__webpack_modules__)
+
+      /******/
+
+
+      __webpack_require__.m = modules;
+      /******/
+
+      /******/
+      // expose the module cache
+
+      /******/
+
+      __webpack_require__.c = installedModules;
+      /******/
+
+      /******/
+      // __webpack_public_path__
+
+      /******/
+
+      __webpack_require__.p = "";
+      /******/
+
+      /******/
+      // Load entry module and return exports
+
+      /******/
+
+      return __webpack_require__(0);
+      /******/
+    }(
+    /************************************************************************/
+
+    /******/
+    [
+    /* 0 */
+
+    /***/
+    function (module, exports, __webpack_require__) {
+      'use strict';
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      var _createClass = function () {
+        function defineProperties(target, props) {
+          for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
+            descriptor.enumerable = descriptor.enumerable || false;
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+          }
+        }
+
+        return function (Constructor, protoProps, staticProps) {
+          if (protoProps) defineProperties(Constructor.prototype, protoProps);
+          if (staticProps) defineProperties(Constructor, staticProps);
+          return Constructor;
+        };
+      }();
+
+      var _axios = __webpack_require__(1);
+
+      var _axios2 = _interopRequireDefault(_axios);
+
+      var _buildURL = __webpack_require__(2);
+
+      var _buildURL2 = _interopRequireDefault(_buildURL);
+
+      var _isURLSameOrigin = __webpack_require__(5);
+
+      var _isURLSameOrigin2 = _interopRequireDefault(_isURLSameOrigin);
+
+      var _btoa = __webpack_require__(6);
+
+      var _btoa2 = _interopRequireDefault(_btoa);
+
+      var _cookies = __webpack_require__(7);
+
+      var _cookies2 = _interopRequireDefault(_cookies);
+
+      var _settle = __webpack_require__(8);
+
+      var _settle2 = _interopRequireDefault(_settle);
+
+      var _createError = __webpack_require__(9);
+
+      var _createError2 = _interopRequireDefault(_createError);
+
+      function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+          "default": obj
+        };
+      }
+
+      function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+          throw new TypeError("Cannot call a class as a function");
+        }
+      }
+
+      var TimeoutException = new Error('Timeout: Stub function not called.');
+      var DEFAULT_WAIT_DELAY = 100; // The default adapter
+
+      var defaultAdapter = void 0;
+      /**
+       * The mock adapter that gets installed.
+       *
+       * @param {Function} resolve The function to call when Promise is resolved
+       * @param {Function} reject The function to call when Promise is rejected
+       * @param {Object} config The config object to be used for the request
+       */
+
+      var mockAdapter = function mockAdapter(config) {
+        return new Promise(function (resolve, reject) {
+          var request = new Request(resolve, reject, config);
+          moxios.requests.track(request); // Check for matching stub to auto respond with
+
+          for (var i = 0, l = moxios.stubs.count(); i < l; i++) {
+            var stub = moxios.stubs.at(i);
+            var correctURL = stub.url instanceof RegExp ? stub.url.test(request.url) : stub.url === request.url;
+            var correctMethod = true;
+
+            if (stub.method !== undefined) {
+              correctMethod = stub.method.toLowerCase() === request.config.method.toLowerCase();
+            }
+
+            if (correctURL && correctMethod) {
+              if (stub.timeout) {
+                throwTimeout(config);
+              }
+
+              request.respondWith(stub.response);
+              stub.resolve();
+              break;
+            }
+          }
+        });
+      };
+      /**
+       * create common object for timeout response
+       *
+       * @param {object} config The config object to be used for the request
+       */
+
+
+      var createTimeout = function createTimeout(config) {
+        return (0, _createError2["default"])('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED');
+      };
+      /**
+       * throw common error for timeout response
+       *
+       * @param {object} config The config object to be used for the request
+       */
+
+
+      var throwTimeout = function throwTimeout(config) {
+        throw createTimeout(config);
+      };
+
+      var Tracker = function () {
+        function Tracker() {
+          _classCallCheck(this, Tracker);
+
+          this.__items = [];
+        }
+        /**
+         * Reset all the items being tracked
+         */
+
+
+        _createClass(Tracker, [{
+          key: 'reset',
+          value: function reset() {
+            this.__items.splice(0);
+          }
+          /**
+           * Add an item to be tracked
+           *
+           * @param {Object} item An item to be tracked
+           */
+
+        }, {
+          key: 'track',
+          value: function track(item) {
+            this.__items.push(item);
+          }
+          /**
+           * The count of items being tracked
+           *
+           * @return {Number}
+           */
+
+        }, {
+          key: 'count',
+          value: function count() {
+            return this.__items.length;
+          }
+          /**
+           * Get an item being tracked at a given index
+           *
+           * @param {Number} index The index for the item to retrieve
+           * @return {Object}
+           */
+
+        }, {
+          key: 'at',
+          value: function at(index) {
+            return this.__items[index];
+          }
+          /**
+           * Get the first item being tracked
+           *
+           * @return {Object}
+           */
+
+        }, {
+          key: 'first',
+          value: function first() {
+            return this.at(0);
+          }
+          /**
+           * Get the most recent (last) item being tracked
+           *
+           * @return {Object}
+           */
+
+        }, {
+          key: 'mostRecent',
+          value: function mostRecent() {
+            return this.at(this.count() - 1);
+          }
+          /**
+           * Dump the items being tracked to the console.
+           */
+
+        }, {
+          key: 'debug',
+          value: function debug() {
+            console.log();
+
+            this.__items.forEach(function (element) {
+              var output = void 0;
+
+              if (element.config) {
+                // request
+                output = element.config.method.toLowerCase() + ', ';
+                output += element.config.url;
+              } else {
+                // stub
+                output = element.method.toLowerCase() + ', ';
+                output += element.url + ', ';
+                output += element.response.status + ', ';
+
+                if (element.response.response) {
+                  output += JSON.stringify(element.response.response);
+                } else {
+                  output += '{}';
+                }
+              }
+
+              console.log(output);
+            });
+          }
+          /**
+           * Find and return element given the HTTP method and the URL.
+           */
+
+        }, {
+          key: 'get',
+          value: function get(method, url) {
+            function getElem(element, index, array) {
+              var matchedUrl = element.url instanceof RegExp ? element.url.test(element.url) : element.url === url;
+              var matchedMethod = void 0;
+
+              if (element.config) {
+                // request tracking
+                matchedMethod = method.toLowerCase() === element.config.method.toLowerCase();
+              } else {
+                // stub tracking
+                matchedMethod = method.toLowerCase() === element.method.toLowerCase();
+              }
+
+              if (matchedUrl && matchedMethod) {
+                return element;
+              }
+            }
+
+            return this.__items.find(getElem);
+          }
+          /**
+           * Stop an element from being tracked by removing it. Finds and returns the element,
+           * given the HTTP method and the URL.
+           */
+
+        }, {
+          key: 'remove',
+          value: function remove(method, url) {
+            var elem = this.get(method, url);
+
+            var index = this.__items.indexOf(elem);
+
+            return this.__items.splice(index, 1)[0];
+          }
+        }]);
+
+        return Tracker;
+      }();
+
+      var Request = function () {
+        /**
+         * Create a new Request object
+         *
+         * @param {Function} resolve The function to call when Promise is resolved
+         * @param {Function} reject The function to call when Promise is rejected
+         * @param {Object} config The config object to be used for the request
+         */
+        function Request(resolve, reject, config) {
+          _classCallCheck(this, Request);
+
+          this.resolve = resolve;
+          this.reject = reject;
+          this.config = config;
+          this.headers = config.headers;
+          this.url = (0, _buildURL2["default"])(config.url, config.params, config.paramsSerializer);
+          this.timeout = config.timeout;
+          this.withCredentials = config.withCredentials || false;
+          this.responseType = config.responseType; // Set auth header
+
+          if (config.auth) {
+            var username = config.auth.username || '';
+            var password = config.auth.password || '';
+            this.headers.Authorization = 'Basic ' + (0, _btoa2["default"])(username + ':' + password);
+          } // Set xsrf header
+
+
+          if (typeof document !== 'undefined' && typeof document.cookie !== 'undefined') {
+            var xsrfValue = config.withCredentials || (0, _isURLSameOrigin2["default"])(config.url) ? _cookies2["default"].read(config.xsrfCookieName) : undefined;
+
+            if (xsrfValue) {
+              this.headers[config.xsrfHeaderName] = xsrfValue;
+            }
+          }
+        }
+        /**
+         * Respond to this request with a timeout result
+         *
+         * @return {Promise} A Promise that rejects with a timeout result
+         */
+
+
+        _createClass(Request, [{
+          key: 'respondWithTimeout',
+          value: function respondWithTimeout() {
+            var response = new Response(this, createTimeout(this.config));
+            (0, _settle2["default"])(this.resolve, this.reject, response);
+            return new Promise(function (resolve, reject) {
+              moxios.wait(function () {
+                reject(response);
+              });
+            });
+          }
+          /**
+           * Respond to this request with a specified result
+           *
+           * @param {Object} res The data representing the result of the request
+           * @return {Promise} A Promise that resolves once the response is ready
+           */
+
+        }, {
+          key: 'respondWith',
+          value: function respondWith(res) {
+            var response = new Response(this, res);
+            (0, _settle2["default"])(this.resolve, this.reject, response);
+            return new Promise(function (resolve) {
+              moxios.wait(function () {
+                resolve(response);
+              });
+            });
+          }
+        }]);
+
+        return Request;
+      }();
+
+      var Response =
+      /**
+       * Create a new Response object
+       *
+       * @param {Request} req The Request that this Response is associated with
+       * @param {Object} res The data representing the result of the request
+       */
+      function Response(req, res) {
+        _classCallCheck(this, Response);
+
+        this.config = req.config;
+        this.data = res.responseText || res.response;
+        this.status = res.status;
+        this.statusText = res.statusText;
+        /* lowecase all headers keys to be consistent with Axios */
+
+        if ('headers' in res) {
+          var newHeaders = {};
+
+          for (var header in res.headers) {
+            newHeaders[header.toLowerCase()] = res.headers[header];
+          }
+
+          res.headers = newHeaders;
+        }
+
+        this.headers = res.headers;
+        this.request = req;
+        this.code = res.code;
+      };
+
+      var moxios = {
+        stubs: new Tracker(),
+        requests: new Tracker(),
+        delay: DEFAULT_WAIT_DELAY,
+        timeoutException: TimeoutException,
+
+        /**
+         * Install the mock adapter for axios
+         */
+        install: function install() {
+          var instance = arguments.length <= 0 || arguments[0] === undefined ? _axios2["default"] : arguments[0];
+          defaultAdapter = instance.defaults.adapter;
+          instance.defaults.adapter = mockAdapter;
+        },
+
+        /**
+         * Uninstall the mock adapter and reset state
+         */
+        uninstall: function uninstall() {
+          var instance = arguments.length <= 0 || arguments[0] === undefined ? _axios2["default"] : arguments[0];
+          instance.defaults.adapter = defaultAdapter;
+          this.stubs.reset();
+          this.requests.reset();
+        },
+
+        /**
+         * Stub a response to be used to respond to a request matching a method and a URL or RegExp
+         *
+         * @param {String} method An axios command
+         * @param {String|RegExp} urlOrRegExp A URL or RegExp to test against
+         * @param {Object} response The response to use when a match is made
+         */
+        stubRequest: function stubRequest(urlOrRegExp, response) {
+          this.stubs.track({
+            url: urlOrRegExp,
+            response: response
+          });
+        },
+
+        /**
+         * Stub a response to be used one or more times to respond to a request matching a
+         * method and a URL or RegExp.
+         *
+         * @param {String} method An axios command
+         * @param {String|RegExp} urlOrRegExp A URL or RegExp to test against
+         * @param {Object} response The response to use when a match is made
+         */
+        stubOnce: function stubOnce(method, urlOrRegExp, response) {
+          var _this = this;
+
+          return new Promise(function (resolve) {
+            _this.stubs.track({
+              url: urlOrRegExp,
+              method: method,
+              response: response,
+              resolve: resolve
+            });
+          });
+        },
+
+        /**
+         * Stub a timed response to a request matching a method and a URL or RegExp. If
+         * timer fires, reject with a TimeoutException for simple assertions. The goal is
+         * to show that a certain request was not made.
+         *
+         * @param {String} method An axios command
+         * @param {String|RegExp} urlOrRegExp A URL or RegExp to test against
+         * @param {Object} response The response to use when a match is made
+         */
+        stubFailure: function stubFailure(method, urlOrRegExp, response) {
+          var _this2 = this;
+
+          return new Promise(function (resolve, reject) {
+            _this2.stubs.track({
+              url: urlOrRegExp,
+              method: method,
+              response: response,
+              resolve: resolve
+            });
+
+            setTimeout(function () {
+              reject(TimeoutException);
+            }, 500);
+          });
+        },
+
+        /**
+         * Stub a timeout to be used to respond to a request matching a URL or RegExp
+         *
+         * @param {String|RegExp} urlOrRegExp A URL or RegExp to test against
+         */
+        stubTimeout: function stubTimeout(urlOrRegExp) {
+          this.stubs.track({
+            url: urlOrRegExp,
+            timeout: true
+          });
+        },
+
+        /**
+         * Run a single test with mock adapter installed.
+         * This will install the mock adapter, execute the function provided,
+         * then uninstall the mock adapter once complete.
+         *
+         * @param {Function} fn The function to be executed
+         */
+        withMock: function withMock(fn) {
+          this.install();
+
+          try {
+            fn();
+          } finally {
+            this.uninstall();
+          }
+        },
+
+        /**
+         * Wait for request to be made before proceding.
+         * This is naively using a `setTimeout`.
+         * May need to beef this up a bit in the future.
+         *
+         * @param {Function} fn The function to execute once waiting is over
+         * @param {Number} delay How much time in milliseconds to wait
+         */
+        wait: function wait(fn) {
+          var delay = arguments.length <= 1 || arguments[1] === undefined ? this.delay : arguments[1];
+          setTimeout(fn, delay);
+        }
+      };
+      exports["default"] = moxios;
+      module.exports = exports['default'];
+      /***/
+    },
+    /* 1 */
+
+    /***/
+    function (module, exports) {
+      module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+      /***/
+    },
+    /* 2 */
+
+    /***/
+    function (module, exports, __webpack_require__) {
+      'use strict';
+
+      var utils = __webpack_require__(3);
+
+      function encode(val) {
+        return encodeURIComponent(val).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, '+').replace(/%5B/gi, '[').replace(/%5D/gi, ']');
+      }
+      /**
+       * Build a URL by appending params to the end
+       *
+       * @param {string} url The base of the url (e.g., http://www.google.com)
+       * @param {object} [params] The params to be appended
+       * @returns {string} The formatted url
+       */
+
+
+      module.exports = function buildURL(url, params, paramsSerializer) {
+        /*eslint no-param-reassign:0*/
+        if (!params) {
+          return url;
+        }
+
+        var serializedParams;
+
+        if (paramsSerializer) {
+          serializedParams = paramsSerializer(params);
+        } else if (utils.isURLSearchParams(params)) {
+          serializedParams = params.toString();
+        } else {
+          var parts = [];
+          utils.forEach(params, function serialize(val, key) {
+            if (val === null || typeof val === 'undefined') {
+              return;
+            }
+
+            if (utils.isArray(val)) {
+              key = key + '[]';
+            }
+
+            if (!utils.isArray(val)) {
+              val = [val];
+            }
+
+            utils.forEach(val, function parseValue(v) {
+              if (utils.isDate(v)) {
+                v = v.toISOString();
+              } else if (utils.isObject(v)) {
+                v = JSON.stringify(v);
+              }
+
+              parts.push(encode(key) + '=' + encode(v));
+            });
+          });
+          serializedParams = parts.join('&');
+        }
+
+        if (serializedParams) {
+          url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
+        }
+
+        return url;
+      };
+      /***/
+
+    },
+    /* 3 */
+
+    /***/
+    function (module, exports, __webpack_require__) {
+      'use strict';
+
+      var bind = __webpack_require__(4);
+      /*global toString:true*/
+      // utils is a library of generic helper functions non-specific to axios
+
+
+      var toString = Object.prototype.toString;
+      /**
+       * Determine if a value is an Array
+       *
+       * @param {Object} val The value to test
+       * @returns {boolean} True if value is an Array, otherwise false
+       */
+
+      function isArray(val) {
+        return toString.call(val) === '[object Array]';
+      }
+      /**
+       * Determine if a value is an ArrayBuffer
+       *
+       * @param {Object} val The value to test
+       * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+       */
+
+
+      function isArrayBuffer(val) {
+        return toString.call(val) === '[object ArrayBuffer]';
+      }
+      /**
+       * Determine if a value is a FormData
+       *
+       * @param {Object} val The value to test
+       * @returns {boolean} True if value is an FormData, otherwise false
+       */
+
+
+      function isFormData(val) {
+        return typeof FormData !== 'undefined' && val instanceof FormData;
+      }
+      /**
+       * Determine if a value is a view on an ArrayBuffer
+       *
+       * @param {Object} val The value to test
+       * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+       */
+
+
+      function isArrayBufferView(val) {
+        var result;
+
+        if (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView) {
+          result = ArrayBuffer.isView(val);
+        } else {
+          result = val && val.buffer && val.buffer instanceof ArrayBuffer;
+        }
+
+        return result;
+      }
+      /**
+       * Determine if a value is a String
+       *
+       * @param {Object} val The value to test
+       * @returns {boolean} True if value is a String, otherwise false
+       */
+
+
+      function isString(val) {
+        return typeof val === 'string';
+      }
+      /**
+       * Determine if a value is a Number
+       *
+       * @param {Object} val The value to test
+       * @returns {boolean} True if value is a Number, otherwise false
+       */
+
+
+      function isNumber(val) {
+        return typeof val === 'number';
+      }
+      /**
+       * Determine if a value is undefined
+       *
+       * @param {Object} val The value to test
+       * @returns {boolean} True if the value is undefined, otherwise false
+       */
+
+
+      function isUndefined(val) {
+        return typeof val === 'undefined';
+      }
+      /**
+       * Determine if a value is an Object
+       *
+       * @param {Object} val The value to test
+       * @returns {boolean} True if value is an Object, otherwise false
+       */
+
+
+      function isObject(val) {
+        return val !== null && _typeof(val) === 'object';
+      }
+      /**
+       * Determine if a value is a Date
+       *
+       * @param {Object} val The value to test
+       * @returns {boolean} True if value is a Date, otherwise false
+       */
+
+
+      function isDate(val) {
+        return toString.call(val) === '[object Date]';
+      }
+      /**
+       * Determine if a value is a File
+       *
+       * @param {Object} val The value to test
+       * @returns {boolean} True if value is a File, otherwise false
+       */
+
+
+      function isFile(val) {
+        return toString.call(val) === '[object File]';
+      }
+      /**
+       * Determine if a value is a Blob
+       *
+       * @param {Object} val The value to test
+       * @returns {boolean} True if value is a Blob, otherwise false
+       */
+
+
+      function isBlob(val) {
+        return toString.call(val) === '[object Blob]';
+      }
+      /**
+       * Determine if a value is a Function
+       *
+       * @param {Object} val The value to test
+       * @returns {boolean} True if value is a Function, otherwise false
+       */
+
+
+      function isFunction(val) {
+        return toString.call(val) === '[object Function]';
+      }
+      /**
+       * Determine if a value is a Stream
+       *
+       * @param {Object} val The value to test
+       * @returns {boolean} True if value is a Stream, otherwise false
+       */
+
+
+      function isStream(val) {
+        return isObject(val) && isFunction(val.pipe);
+      }
+      /**
+       * Determine if a value is a URLSearchParams object
+       *
+       * @param {Object} val The value to test
+       * @returns {boolean} True if value is a URLSearchParams object, otherwise false
+       */
+
+
+      function isURLSearchParams(val) {
+        return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+      }
+      /**
+       * Trim excess whitespace off the beginning and end of a string
+       *
+       * @param {String} str The String to trim
+       * @returns {String} The String freed of excess whitespace
+       */
+
+
+      function trim(str) {
+        return str.replace(/^\s*/, '').replace(/\s*$/, '');
+      }
+      /**
+       * Determine if we're running in a standard browser environment
+       *
+       * This allows axios to run in a web worker, and react-native.
+       * Both environments support XMLHttpRequest, but not fully standard globals.
+       *
+       * web workers:
+       *  typeof window -> undefined
+       *  typeof document -> undefined
+       *
+       * react-native:
+       *  typeof document.createElement -> undefined
+       */
+
+
+      function isStandardBrowserEnv() {
+        return typeof window !== 'undefined' && typeof document !== 'undefined' && typeof document.createElement === 'function';
+      }
+      /**
+       * Iterate over an Array or an Object invoking a function for each item.
+       *
+       * If `obj` is an Array callback will be called passing
+       * the value, index, and complete array for each item.
+       *
+       * If 'obj' is an Object callback will be called passing
+       * the value, key, and complete object for each property.
+       *
+       * @param {Object|Array} obj The object to iterate
+       * @param {Function} fn The callback to invoke for each item
+       */
+
+
+      function forEach(obj, fn) {
+        // Don't bother if no value provided
+        if (obj === null || typeof obj === 'undefined') {
+          return;
+        } // Force an array if not already something iterable
+
+
+        if (_typeof(obj) !== 'object' && !isArray(obj)) {
+          /*eslint no-param-reassign:0*/
+          obj = [obj];
+        }
+
+        if (isArray(obj)) {
+          // Iterate over array values
+          for (var i = 0, l = obj.length; i < l; i++) {
+            fn.call(null, obj[i], i, obj);
+          }
+        } else {
+          // Iterate over object keys
+          for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+              fn.call(null, obj[key], key, obj);
+            }
+          }
+        }
+      }
+      /**
+       * Accepts varargs expecting each argument to be an object, then
+       * immutably merges the properties of each object and returns result.
+       *
+       * When multiple objects contain the same key the later object in
+       * the arguments list will take precedence.
+       *
+       * Example:
+       *
+       * ```js
+       * var result = merge({foo: 123}, {foo: 456});
+       * console.log(result.foo); // outputs 456
+       * ```
+       *
+       * @param {Object} obj1 Object to merge
+       * @returns {Object} Result of all merge properties
+       */
+
+
+      function merge()
+      /* obj1, obj2, obj3, ... */
+      {
+        var result = {};
+
+        function assignValue(val, key) {
+          if (_typeof(result[key]) === 'object' && _typeof(val) === 'object') {
+            result[key] = merge(result[key], val);
+          } else {
+            result[key] = val;
+          }
+        }
+
+        for (var i = 0, l = arguments.length; i < l; i++) {
+          forEach(arguments[i], assignValue);
+        }
+
+        return result;
+      }
+      /**
+       * Extends object a by mutably adding to it the properties of object b.
+       *
+       * @param {Object} a The object to be extended
+       * @param {Object} b The object to copy properties from
+       * @param {Object} thisArg The object to bind function to
+       * @return {Object} The resulting value of object a
+       */
+
+
+      function extend(a, b, thisArg) {
+        forEach(b, function assignValue(val, key) {
+          if (thisArg && typeof val === 'function') {
+            a[key] = bind(val, thisArg);
+          } else {
+            a[key] = val;
+          }
+        });
+        return a;
+      }
+
+      module.exports = {
+        isArray: isArray,
+        isArrayBuffer: isArrayBuffer,
+        isFormData: isFormData,
+        isArrayBufferView: isArrayBufferView,
+        isString: isString,
+        isNumber: isNumber,
+        isObject: isObject,
+        isUndefined: isUndefined,
+        isDate: isDate,
+        isFile: isFile,
+        isBlob: isBlob,
+        isFunction: isFunction,
+        isStream: isStream,
+        isURLSearchParams: isURLSearchParams,
+        isStandardBrowserEnv: isStandardBrowserEnv,
+        forEach: forEach,
+        merge: merge,
+        extend: extend,
+        trim: trim
+      };
+      /***/
+    },
+    /* 4 */
+
+    /***/
+    function (module, exports) {
+      'use strict';
+
+      module.exports = function bind(fn, thisArg) {
+        return function wrap() {
+          var args = new Array(arguments.length);
+
+          for (var i = 0; i < args.length; i++) {
+            args[i] = arguments[i];
+          }
+
+          return fn.apply(thisArg, args);
+        };
+      };
+      /***/
+
+    },
+    /* 5 */
+
+    /***/
+    function (module, exports, __webpack_require__) {
+      'use strict';
+
+      var utils = __webpack_require__(3);
+
+      module.exports = utils.isStandardBrowserEnv() ? // Standard browser envs have full support of the APIs needed to test
+      // whether the request URL is of the same origin as current location.
+      function standardBrowserEnv() {
+        var msie = /(msie|trident)/i.test(navigator.userAgent);
+        var urlParsingNode = document.createElement('a');
+        var originURL;
+        /**
+        * Parse a URL to discover it's components
+        *
+        * @param {String} url The URL to be parsed
+        * @returns {Object}
+        */
+
+        function resolveURL(url) {
+          var href = url;
+
+          if (msie) {
+            // IE needs attribute set twice to normalize properties
+            urlParsingNode.setAttribute('href', href);
+            href = urlParsingNode.href;
+          }
+
+          urlParsingNode.setAttribute('href', href); // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+
+          return {
+            href: urlParsingNode.href,
+            protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+            host: urlParsingNode.host,
+            search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+            hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+            hostname: urlParsingNode.hostname,
+            port: urlParsingNode.port,
+            pathname: urlParsingNode.pathname.charAt(0) === '/' ? urlParsingNode.pathname : '/' + urlParsingNode.pathname
+          };
+        }
+
+        originURL = resolveURL(window.location.href);
+        /**
+        * Determine if a URL shares the same origin as the current location
+        *
+        * @param {String} requestURL The URL to test
+        * @returns {boolean} True if URL shares the same origin, otherwise false
+        */
+
+        return function isURLSameOrigin(requestURL) {
+          var parsed = utils.isString(requestURL) ? resolveURL(requestURL) : requestURL;
+          return parsed.protocol === originURL.protocol && parsed.host === originURL.host;
+        };
+      }() : // Non standard browser envs (web workers, react-native) lack needed support.
+      function nonStandardBrowserEnv() {
+        return function isURLSameOrigin() {
+          return true;
+        };
+      }();
+      /***/
+    },
+    /* 6 */
+
+    /***/
+    function (module, exports) {
+      'use strict'; // btoa polyfill for IE<10 courtesy https://github.com/davidchambers/Base64.js
+
+      var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+      function E() {
+        this.message = 'String contains an invalid character';
+      }
+
+      E.prototype = new Error();
+      E.prototype.code = 5;
+      E.prototype.name = 'InvalidCharacterError';
+
+      function btoa(input) {
+        var str = String(input);
+        var output = '';
+
+        for ( // initialize result and counter
+        var block, charCode, idx = 0, map = chars; // if the next str index does not exist:
+        //   change the mapping table to "="
+        //   check if d has no fractional digits
+        str.charAt(idx | 0) || (map = '=', idx % 1); // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
+        output += map.charAt(63 & block >> 8 - idx % 1 * 8)) {
+          charCode = str.charCodeAt(idx += 3 / 4);
+
+          if (charCode > 0xFF) {
+            throw new E();
+          }
+
+          block = block << 8 | charCode;
+        }
+
+        return output;
+      }
+
+      module.exports = btoa;
+      /***/
+    },
+    /* 7 */
+
+    /***/
+    function (module, exports, __webpack_require__) {
+      'use strict';
+
+      var utils = __webpack_require__(3);
+
+      module.exports = utils.isStandardBrowserEnv() ? // Standard browser envs support document.cookie
+      function standardBrowserEnv() {
+        return {
+          write: function write(name, value, expires, path, domain, secure) {
+            var cookie = [];
+            cookie.push(name + '=' + encodeURIComponent(value));
+
+            if (utils.isNumber(expires)) {
+              cookie.push('expires=' + new Date(expires).toGMTString());
+            }
+
+            if (utils.isString(path)) {
+              cookie.push('path=' + path);
+            }
+
+            if (utils.isString(domain)) {
+              cookie.push('domain=' + domain);
+            }
+
+            if (secure === true) {
+              cookie.push('secure');
+            }
+
+            document.cookie = cookie.join('; ');
+          },
+          read: function read(name) {
+            var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+            return match ? decodeURIComponent(match[3]) : null;
+          },
+          remove: function remove(name) {
+            this.write(name, '', Date.now() - 86400000);
+          }
+        };
+      }() : // Non standard browser env (web workers, react-native) lack needed support.
+      function nonStandardBrowserEnv() {
+        return {
+          write: function write() {},
+          read: function read() {
+            return null;
+          },
+          remove: function remove() {}
+        };
+      }();
+      /***/
+    },
+    /* 8 */
+
+    /***/
+    function (module, exports, __webpack_require__) {
+      'use strict';
+
+      var createError = __webpack_require__(9);
+      /**
+       * Resolve or reject a Promise based on response status.
+       *
+       * @param {Function} resolve A function that resolves the promise.
+       * @param {Function} reject A function that rejects the promise.
+       * @param {object} response The response.
+       */
+
+
+      module.exports = function settle(resolve, reject, response) {
+        var validateStatus = response.config.validateStatus; // Note: status is not exposed by XDomainRequest
+
+        if (!response.status || !validateStatus || validateStatus(response.status)) {
+          resolve(response);
+        } else {
+          reject(createError('Request failed with status code ' + response.status, response.config, null, response));
+        }
+      };
+      /***/
+
+    },
+    /* 9 */
+
+    /***/
+    function (module, exports, __webpack_require__) {
+      'use strict';
+
+      var enhanceError = __webpack_require__(10);
+      /**
+       * Create an Error with the specified message, config, error code, and response.
+       *
+       * @param {string} message The error message.
+       * @param {Object} config The config.
+       * @param {string} [code] The error code (for example, 'ECONNABORTED').
+       @ @param {Object} [response] The response.
+       * @returns {Error} The created error.
+       */
+
+
+      module.exports = function createError(message, config, code, response) {
+        var error = new Error(message);
+        return enhanceError(error, config, code, response);
+      };
+      /***/
+
+    },
+    /* 10 */
+
+    /***/
+    function (module, exports) {
+      'use strict';
+      /**
+       * Update an Error with the specified config, error code, and response.
+       *
+       * @param {Error} error The error to update.
+       * @param {Object} config The config.
+       * @param {string} [code] The error code (for example, 'ECONNABORTED').
+       @ @param {Object} [response] The response.
+       * @returns {Error} The error.
+       */
+
+      module.exports = function enhanceError(error, config, code, response) {
+        error.config = config;
+
+        if (code) {
+          error.code = code;
+        }
+
+        error.response = response;
+        return error;
+      };
+      /***/
+
+    }
+    /******/
+    ])
+  );
+});
+
+;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../mnt/7A34EDB034ED7015/projects/drumeo/railenvironment/applications/musora-ui/node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
 
 /***/ }),
@@ -21656,8 +24716,11 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var filter_1 = __webpack_require__(/*! ../../models/filter */ "./vue/models/filter.ts");
+var filter_1 = __importDefault(__webpack_require__(/*! ../../models/filter */ "./vue/models/filter.ts"));
 exports.default = {
     props: {
         filter: {
@@ -21683,8 +24746,11 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var filter_1 = __webpack_require__(/*! ../../models/filter */ "./vue/models/filter.ts");
+var filter_1 = __importDefault(__webpack_require__(/*! ../../models/filter */ "./vue/models/filter.ts"));
 exports.default = {
     props: {
         filter: {
@@ -21794,8 +24860,11 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var tinymce_vue_1 = __webpack_require__(/*! @tinymce/tinymce-vue */ "../../../../../../../app/musora-ui/node_modules/@tinymce/tinymce-vue/lib/es2015/main/ts/index.js");
+var tinymce_vue_1 = __importDefault(__webpack_require__(/*! @tinymce/tinymce-vue */ "../../../../../../../app/musora-ui/node_modules/@tinymce/tinymce-vue/lib/es2015/main/ts/index.js"));
 exports.default = {
     components: {
         'tinymce-editor': tinymce_vue_1.default,
@@ -21895,10 +24964,13 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var comment_1 = __webpack_require__(/*! ../../models/comment */ "./vue/models/comment.ts");
-var user_1 = __webpack_require__(/*! ../../models/user */ "./vue/models/user.ts");
-var New_1 = __webpack_require__(/*! ./New */ "./vue/components/Comments/New.vue");
+var comment_1 = __importDefault(__webpack_require__(/*! ../../models/comment */ "./vue/models/comment.ts"));
+var user_1 = __importDefault(__webpack_require__(/*! ../../models/user */ "./vue/models/user.ts"));
+var New_1 = __importDefault(__webpack_require__(/*! ./New */ "./vue/components/Comments/New.vue"));
 exports.default = {
     components: {
         'new-comment': New_1.default,
@@ -21986,11 +25058,14 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var users_1 = __webpack_require__(/*! ../../services/users */ "./vue/services/users.ts");
-var comments_1 = __webpack_require__(/*! ../../services/comments */ "./vue/services/comments.ts");
-var New_1 = __webpack_require__(/*! ./New */ "./vue/components/Comments/New.vue");
-var Item_1 = __webpack_require__(/*! ./Item */ "./vue/components/Comments/Item.vue");
+var users_1 = __importDefault(__webpack_require__(/*! ../../services/users */ "./vue/services/users.ts"));
+var comments_1 = __importDefault(__webpack_require__(/*! ../../services/comments */ "./vue/services/comments.ts"));
+var New_1 = __importDefault(__webpack_require__(/*! ./New */ "./vue/components/Comments/New.vue"));
+var Item_1 = __importDefault(__webpack_require__(/*! ./Item */ "./vue/components/Comments/Item.vue"));
 exports.default = {
     components: {
         'new-comment': New_1.default,
@@ -22064,10 +25139,13 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var user_1 = __webpack_require__(/*! ../../models/user */ "./vue/models/user.ts");
-var Button_1 = __webpack_require__(/*! ../Blocks/Button */ "./vue/components/Blocks/Button.vue");
-var TextEditor_1 = __webpack_require__(/*! ../Blocks/TextEditor */ "./vue/components/Blocks/TextEditor.vue");
+var user_1 = __importDefault(__webpack_require__(/*! ../../models/user */ "./vue/models/user.ts"));
+var Button_1 = __importDefault(__webpack_require__(/*! ../Blocks/Button */ "./vue/components/Blocks/Button.vue"));
+var TextEditor_1 = __importDefault(__webpack_require__(/*! ../Blocks/TextEditor */ "./vue/components/Blocks/TextEditor.vue"));
 exports.default = {
     components: {
         'button-input': Button_1.default,
@@ -22131,14 +25209,18 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var filters_1 = __webpack_require__(/*! ../../services/filters */ "./vue/services/filters.ts");
-var videos_1 = __webpack_require__(/*! ../../services/videos */ "./vue/services/videos.ts");
-var EdgeGroup_1 = __webpack_require__(/*! ../Filters/EdgeGroup */ "./vue/components/Filters/EdgeGroup.vue");
-var LevelSelector_1 = __webpack_require__(/*! ../Filters/LevelSelector */ "./vue/components/Filters/LevelSelector.vue");
-var Group_1 = __webpack_require__(/*! ../Filters/Group */ "./vue/components/Filters/Group.vue");
-var FilterBadge_1 = __webpack_require__(/*! ../Blocks/FilterBadge */ "./vue/components/Blocks/FilterBadge.vue");
-var Simple_1 = __webpack_require__(/*! ../VideoCards/Simple */ "./vue/components/VideoCards/Simple.vue");
+var content_1 = __importDefault(__webpack_require__(/*! ../../services/content */ "./vue/services/content.ts"));
+var filters_1 = __importDefault(__webpack_require__(/*! ../../services/filters */ "./vue/services/filters.ts"));
+var videos_1 = __importDefault(__webpack_require__(/*! ../../services/videos */ "./vue/services/videos.ts"));
+var EdgeGroup_1 = __importDefault(__webpack_require__(/*! ../Filters/EdgeGroup */ "./vue/components/Filters/EdgeGroup.vue"));
+var LevelSelector_1 = __importDefault(__webpack_require__(/*! ../Filters/LevelSelector */ "./vue/components/Filters/LevelSelector.vue"));
+var Group_1 = __importDefault(__webpack_require__(/*! ../Filters/Group */ "./vue/components/Filters/Group.vue"));
+var FilterBadge_1 = __importDefault(__webpack_require__(/*! ../Blocks/FilterBadge */ "./vue/components/Blocks/FilterBadge.vue"));
+var Simple_1 = __importDefault(__webpack_require__(/*! ../VideoCards/Simple */ "./vue/components/VideoCards/Simple.vue"));
 exports.default = {
     components: {
         'edge-group-filters': EdgeGroup_1.default,
@@ -22239,6 +25321,13 @@ exports.default = {
         this.level = this.levelSelector || 1;
         this.filters = filters_1.default.getFilterGroupsFromArray(this.filterGroups);
         this.$root.$on('filterClicked', this.handleFilterClick);
+        content_1.default
+            .getContent({})
+            .then(function (response) {
+            // console.log("response: %s", JSON.stringify(response));
+            var filters = filters_1.default.getFilterGroupsFromResponse(response);
+            console.log("filters: %s", JSON.stringify(filters));
+        });
     },
     methods: {
         clearFilters: function () {
@@ -22249,10 +25338,9 @@ exports.default = {
                 });
                 return group;
             });
-            // todo - update with API call
+            this.fetchData();
         },
         handleFilterClick: function (filter) {
-            // todo - update with API call
             if (filter.groupId == 'edge-group') {
                 this.edgeFilters = this.edgeFilters.map(function (item) {
                     if (item.id == filter.id) {
@@ -22274,10 +25362,11 @@ exports.default = {
                     return group;
                 });
             }
+            this.fetchData();
         },
         handleLevelSelected: function (event) {
-            // todo - update with API call
             this.level = event.level;
+            this.fetchData();
         },
         handleCollapseToggle: function (filterGroup) {
             this.filters = this.filters.map(function (group) {
@@ -22299,9 +25388,25 @@ exports.default = {
                 }
                 return group;
             });
+            this.fetchData();
         },
         toggleCollapse: function () {
             this.collapsed = !this.collapsed;
+        },
+        fetchData: function () {
+            var _this = this;
+            var payload = {};
+            // todo - add payload logic
+            content_1.default
+                .getContent(payload)
+                .then(function (response) {
+                // this.edgeFilters = FiltersService.getFiltersFromArray(this.edgeFiltersList, 'edge-group');
+                // this.level = this.levelSelector || 1;
+                // this.filters = FiltersService.getFilterGroupsFromArray(this.filterGroups);
+                _this.filters = filters_1.default.getFilterGroupsFromResponse(response);
+                // this.videos = VideosService.getVideosFromResponse(response);
+            });
+            // todo - add error handling
         },
     },
 };
@@ -22318,13 +25423,16 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var filters_1 = __webpack_require__(/*! ../../services/filters */ "./vue/services/filters.ts");
-var videos_1 = __webpack_require__(/*! ../../services/videos */ "./vue/services/videos.ts");
-var EdgeGroup_1 = __webpack_require__(/*! ../Filters/EdgeGroup */ "./vue/components/Filters/EdgeGroup.vue");
-var Group_1 = __webpack_require__(/*! ../Filters/Group */ "./vue/components/Filters/Group.vue");
-var FilterBadge_1 = __webpack_require__(/*! ../Blocks/FilterBadge */ "./vue/components/Blocks/FilterBadge.vue");
-var MyList_1 = __webpack_require__(/*! ../VideoCards/MyList */ "./vue/components/VideoCards/MyList.vue");
+var filters_1 = __importDefault(__webpack_require__(/*! ../../services/filters */ "./vue/services/filters.ts"));
+var videos_1 = __importDefault(__webpack_require__(/*! ../../services/videos */ "./vue/services/videos.ts"));
+var EdgeGroup_1 = __importDefault(__webpack_require__(/*! ../Filters/EdgeGroup */ "./vue/components/Filters/EdgeGroup.vue"));
+var Group_1 = __importDefault(__webpack_require__(/*! ../Filters/Group */ "./vue/components/Filters/Group.vue"));
+var FilterBadge_1 = __importDefault(__webpack_require__(/*! ../Blocks/FilterBadge */ "./vue/components/Blocks/FilterBadge.vue"));
+var MyList_1 = __importDefault(__webpack_require__(/*! ../VideoCards/MyList */ "./vue/components/VideoCards/MyList.vue"));
 exports.default = {
     components: {
         'edge-group-filters': EdgeGroup_1.default,
@@ -22429,11 +25537,14 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var filters_1 = __webpack_require__(/*! ../../services/filters */ "./vue/services/filters.ts");
-var videos_1 = __webpack_require__(/*! ../../services/videos */ "./vue/services/videos.ts");
-var EdgeGroup_1 = __webpack_require__(/*! ../Filters/EdgeGroup */ "./vue/components/Filters/EdgeGroup.vue");
-var Rudiment_1 = __webpack_require__(/*! ../VideoCards/Rudiment */ "./vue/components/VideoCards/Rudiment.vue");
+var filters_1 = __importDefault(__webpack_require__(/*! ../../services/filters */ "./vue/services/filters.ts"));
+var videos_1 = __importDefault(__webpack_require__(/*! ../../services/videos */ "./vue/services/videos.ts"));
+var EdgeGroup_1 = __importDefault(__webpack_require__(/*! ../Filters/EdgeGroup */ "./vue/components/Filters/EdgeGroup.vue"));
+var Rudiment_1 = __importDefault(__webpack_require__(/*! ../VideoCards/Rudiment */ "./vue/components/VideoCards/Rudiment.vue"));
 exports.default = {
     components: {
         'edge-group-filters': EdgeGroup_1.default,
@@ -22490,9 +25601,12 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var videos_1 = __webpack_require__(/*! ../../services/videos */ "./vue/services/videos.ts");
-var Button_1 = __webpack_require__(/*! ../Blocks/Button */ "./vue/components/Blocks/Button.vue");
+var videos_1 = __importDefault(__webpack_require__(/*! ../../services/videos */ "./vue/services/videos.ts"));
+var Button_1 = __importDefault(__webpack_require__(/*! ../Blocks/Button */ "./vue/components/Blocks/Button.vue"));
 exports.default = {
     components: {
         'button-input': Button_1.default,
@@ -22543,9 +25657,12 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var videos_1 = __webpack_require__(/*! ../../services/videos */ "./vue/services/videos.ts");
-var Simple_1 = __webpack_require__(/*! ../VideoCards/Simple */ "./vue/components/VideoCards/Simple.vue");
+var videos_1 = __importDefault(__webpack_require__(/*! ../../services/videos */ "./vue/services/videos.ts"));
+var Simple_1 = __importDefault(__webpack_require__(/*! ../VideoCards/Simple */ "./vue/components/VideoCards/Simple.vue"));
 exports.default = {
     components: {
         'simple-video-card': Simple_1.default,
@@ -22591,8 +25708,11 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var FilterCheckbox_1 = __webpack_require__(/*! ../Blocks/FilterCheckbox */ "./vue/components/Blocks/FilterCheckbox.vue");
+var FilterCheckbox_1 = __importDefault(__webpack_require__(/*! ../Blocks/FilterCheckbox */ "./vue/components/Blocks/FilterCheckbox.vue"));
 exports.default = {
     components: {
         'filter-checkbox': FilterCheckbox_1.default,
@@ -22654,9 +25774,12 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var FilterCheckbox_1 = __webpack_require__(/*! ../Blocks/FilterCheckbox */ "./vue/components/Blocks/FilterCheckbox.vue");
-var filterGroup_1 = __webpack_require__(/*! ../../models/filterGroup */ "./vue/models/filterGroup.ts");
+var FilterCheckbox_1 = __importDefault(__webpack_require__(/*! ../Blocks/FilterCheckbox */ "./vue/components/Blocks/FilterCheckbox.vue"));
+var filterGroup_1 = __importDefault(__webpack_require__(/*! ../../models/filterGroup */ "./vue/models/filterGroup.ts"));
 // todo - update global css for collapsable
 exports.default = {
     components: {
@@ -22738,8 +25861,11 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var video_1 = __webpack_require__(/*! ../../models/video */ "./vue/models/video.ts");
+var video_1 = __importDefault(__webpack_require__(/*! ../../models/video */ "./vue/models/video.ts"));
 exports.default = {
     props: {
         video: {
@@ -22764,8 +25890,11 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var rudiment_1 = __webpack_require__(/*! ../../models/rudiment */ "./vue/models/rudiment.ts");
+var rudiment_1 = __importDefault(__webpack_require__(/*! ../../models/rudiment */ "./vue/models/rudiment.ts"));
 exports.default = {
     props: {
         video: {
@@ -22792,9 +25921,12 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 // todo - rename component
-var video_1 = __webpack_require__(/*! ../../models/video */ "./vue/models/video.ts");
+var video_1 = __importDefault(__webpack_require__(/*! ../../models/video */ "./vue/models/video.ts"));
 exports.default = {
     props: {
         video: {
@@ -27150,6 +30282,60 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/maps/filtersType.ts":
+/*!*********************************!*\
+  !*** ./vue/maps/filtersType.ts ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var filter_1 = __importDefault(__webpack_require__(/*! ../models/filter */ "./vue/models/filter.ts"));
+exports.default = {
+    artist: {
+        type: 'string',
+        label: 'Artist',
+        icon: 'icon-info',
+    },
+    bpm: {
+        type: 'string',
+        label: 'Tempo',
+        icon: 'icon-info',
+    },
+    style: {
+        type: 'string',
+        label: 'Style',
+        icon: 'icon-info',
+    },
+    difficulty: {
+        type: 'string',
+        label: 'difficulty'
+    },
+    topic: {
+        type: 'string',
+        label: 'Topic'
+    },
+    instructor: {
+        type: 'entity',
+        label: 'Instructor',
+        icon: 'icon-info',
+        constructor: function (value) {
+            return new filter_1.default(value.id, '', // group id will be set later
+            value.slug, value.name, 0, false, // todo - fix active
+            '', // icon will be set later
+            value.id);
+        }
+    },
+};
+
+
+/***/ }),
+
 /***/ "./vue/models/comment.ts":
 /*!*******************************!*\
   !*** ./vue/models/comment.ts ***!
@@ -27188,7 +30374,7 @@ exports.default = Comment;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Filter = /** @class */ (function () {
-    function Filter(id, groupId, name, label, tabIndex, active, icon) {
+    function Filter(id, groupId, name, label, tabIndex, active, icon, value) {
         this.id = id;
         this.groupId = groupId;
         this.name = name;
@@ -27196,6 +30382,7 @@ var Filter = /** @class */ (function () {
         this.tabIndex = tabIndex;
         this.active = active;
         this.icon = icon;
+        this.value = value;
     }
     return Filter;
 }());
@@ -27317,6 +30504,47 @@ exports.default = Video;
 
 /***/ }),
 
+/***/ "./vue/moxios/course.json":
+/*!********************************!*\
+  !*** ./vue/moxios/course.json ***!
+  \********************************/
+/*! exports provided: data, included, meta, links, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"data\":[],\"included\":[],\"meta\":{\"filterOptions\":{\"content_type\":[\"course\"],\"instructor\":[{\"id\":197077,\"slug\":\"brett-ziegler\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-28 17:01:25\",\"archived_on\":null,\"created_on\":\"2018-02-28 17:01:25\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Brett Ziegler\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":197087,\"slug\":\"cassi-falk\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-28 17:01:26\",\"archived_on\":null,\"created_on\":\"2018-02-28 17:01:26\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Cassi Falk\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":218895,\"slug\":\"gabriel-palatchi\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-01-20 20:00:00\",\"archived_on\":null,\"created_on\":\"2019-01-21 12:21:54\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Gabriel Palatchi\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":202588,\"slug\":\"jay-oliver\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-04-15 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-04-16 09:06:35\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jay Oliver\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":196994,\"slug\":\"jordan-leibel\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-28 17:01:11\",\"archived_on\":null,\"created_on\":\"2018-02-28 17:01:11\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jordan Leibel\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":221245,\"slug\":\"josh-dion\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-03-04 20:10:07\",\"archived_on\":null,\"created_on\":\"2019-03-04 20:10:07\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":\"Josh Dion\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Josh Dion\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":196999,\"slug\":\"lisa-witt\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-28 17:01:11\",\"archived_on\":null,\"created_on\":\"2018-02-28 17:01:11\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Lisa Witt\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null}],\"topic\":[\"Boogie Woogie\",\"Gospel\",\"Improvisation\",\"Jazz\",\"Latin Jazz\",\"Practice Mindset\",\"Rhythm\",\"Songwriting\",\"Technique\"],\"difficulty\":[\"1\",\"2\",\"3\",\"4\",\"6\"]},\"pagination\":{\"total\":13,\"count\":13,\"per_page\":20,\"current_page\":1,\"total_pages\":1}},\"links\":{\"self\":\"https://dev.musora.com/railcontent/content?brand=pianote&limit=20&statuses%5B0%5D=published&statuses%5B1%5D=scheduled&statuses%5B2%5D=draft&sort=-created_on&included_types%5B0%5D=course&page=1\",\"first\":\"https://dev.musora.com/railcontent/content?brand=pianote&limit=20&statuses%5B0%5D=published&statuses%5B1%5D=scheduled&statuses%5B2%5D=draft&sort=-created_on&included_types%5B0%5D=course&page=1\",\"last\":\"https://dev.musora.com/railcontent/content?brand=pianote&limit=20&statuses%5B0%5D=published&statuses%5B1%5D=scheduled&statuses%5B2%5D=draft&sort=-created_on&included_types%5B0%5D=course&page=1\"}}");
+
+/***/ }),
+
+/***/ "./vue/moxios/mock.ts":
+/*!****************************!*\
+  !*** ./vue/moxios/mock.ts ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var course_json_1 = __importDefault(__webpack_require__(/*! ./course.json */ "./vue/moxios/course.json"));
+var Mock = /** @class */ (function () {
+    function Mock() {
+    }
+    Mock.setupMoxios = function (moxios) {
+        moxios.stubRequest('/railcontent/content', {
+            status: 200,
+            responseText: course_json_1.default
+        });
+    };
+    return Mock;
+}());
+exports.default = Mock;
+
+
+/***/ }),
+
 /***/ "./vue/services/comments.ts":
 /*!**********************************!*\
   !*** ./vue/services/comments.ts ***!
@@ -27326,9 +30554,12 @@ exports.default = Video;
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var comment_1 = __webpack_require__(/*! ../models/comment */ "./vue/models/comment.ts");
-var users_1 = __webpack_require__(/*! ../services/users */ "./vue/services/users.ts");
+var comment_1 = __importDefault(__webpack_require__(/*! ../models/comment */ "./vue/models/comment.ts"));
+var users_1 = __importDefault(__webpack_require__(/*! ../services/users */ "./vue/services/users.ts"));
 var Comments = /** @class */ (function () {
     function Comments() {
     }
@@ -27355,6 +30586,33 @@ exports.default = Comments;
 
 /***/ }),
 
+/***/ "./vue/services/content.ts":
+/*!*********************************!*\
+  !*** ./vue/services/content.ts ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var http_1 = __importDefault(__webpack_require__(/*! ./http */ "./vue/services/http.ts"));
+var Content = /** @class */ (function () {
+    function Content() {
+    }
+    Content.getContent = function (payload) {
+        return http_1.default.get('/railcontent/content', { params: payload });
+    };
+    return Content;
+}());
+exports.default = Content;
+
+
+/***/ }),
+
 /***/ "./vue/services/filters.ts":
 /*!*********************************!*\
   !*** ./vue/services/filters.ts ***!
@@ -27364,12 +30622,57 @@ exports.default = Comments;
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var filter_1 = __webpack_require__(/*! ../models/filter */ "./vue/models/filter.ts");
-var filterGroup_1 = __webpack_require__(/*! ../models/filterGroup */ "./vue/models/filterGroup.ts");
+var filter_1 = __importDefault(__webpack_require__(/*! ../models/filter */ "./vue/models/filter.ts"));
+var filterGroup_1 = __importDefault(__webpack_require__(/*! ../models/filterGroup */ "./vue/models/filterGroup.ts"));
+var filtersType_1 = __importDefault(__webpack_require__(/*! ../maps/filtersType */ "./vue/maps/filtersType.ts"));
 var Filters = /** @class */ (function () {
     function Filters() {
     }
+    Filters.getFilterGroupsFromResponse = function (response) {
+        var result = [];
+        var filterOptions = response.data.meta.filterOptions;
+        var keys = Object.keys(filterOptions);
+        keys.forEach(function (key) {
+            if (filtersType_1.default[key]) {
+                var filterGroup = null;
+                if (filtersType_1.default[key].type == 'string') {
+                    filterGroup = Filters.getFilterGroupFromArray(key, filterOptions[key]);
+                }
+                if (filtersType_1.default[key].type == 'entity') {
+                    filterGroup = Filters.getFilterGroupFromEntity(key, filterOptions[key]);
+                }
+                result.push(filterGroup);
+            }
+        });
+        return result;
+    };
+    Filters.getFilterGroupFromArray = function (groupId, data) {
+        var filters = [];
+        var icon = filtersType_1.default[groupId].icon;
+        data.forEach(function (item) {
+            var id = item.toLowerCase().replace(/ |\//g, '-');
+            var value = encodeURI(item);
+            filters.push(new filter_1.default(id, groupId, id, item, 0, false, // todo - fix active
+            icon, value));
+        });
+        return new filterGroup_1.default(groupId, filtersType_1.default[groupId].label, filters);
+    };
+    Filters.getFilterGroupFromEntity = function (groupId, data) {
+        var filters = [];
+        var icon = filtersType_1.default[groupId].icon;
+        data.forEach(function (item) {
+            var filter = filtersType_1.default[groupId].constructor(item);
+            filter.groupId = groupId;
+            filter.icon = icon;
+            filters.push(filter);
+        });
+        return new filterGroup_1.default(groupId, filtersType_1.default[groupId].label, filters);
+    };
+    // todo - review and remove below
     Filters.getFiltersFromArray = function (list, groupId) {
         var result = [];
         list.forEach(function (value) {
@@ -27400,6 +30703,33 @@ exports.default = Filters;
 
 /***/ }),
 
+/***/ "./vue/services/http.ts":
+/*!******************************!*\
+  !*** ./vue/services/http.ts ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BASE_URL = void 0;
+var axios_1 = __importDefault(__webpack_require__(/*! axios */ "../../../../../../../app/musora-ui/node_modules/axios/index.js"));
+var moxios_1 = __importDefault(__webpack_require__(/*! moxios */ "../../../../../../../app/musora-ui/node_modules/moxios/dist/moxios.js"));
+var mock_1 = __importDefault(__webpack_require__(/*! ../moxios/mock */ "./vue/moxios/mock.ts"));
+exports.BASE_URL = 'http://dev.musora.com';
+moxios_1.default.install(axios_1.default);
+mock_1.default.setupMoxios(moxios_1.default);
+exports.default = axios_1.default.create({
+    baseURL: exports.BASE_URL
+});
+
+
+/***/ }),
+
 /***/ "./vue/services/users.ts":
 /*!*******************************!*\
   !*** ./vue/services/users.ts ***!
@@ -27409,8 +30739,11 @@ exports.default = Filters;
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var user_1 = __webpack_require__(/*! ../models/user */ "./vue/models/user.ts");
+var user_1 = __importDefault(__webpack_require__(/*! ../models/user */ "./vue/models/user.ts"));
 var Users = /** @class */ (function () {
     function Users() {
     }
@@ -27433,9 +30766,12 @@ exports.default = Users;
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var video_1 = __webpack_require__(/*! ../models/video */ "./vue/models/video.ts");
-var rudiment_1 = __webpack_require__(/*! ../models/rudiment */ "./vue/models/rudiment.ts");
+var video_1 = __importDefault(__webpack_require__(/*! ../models/video */ "./vue/models/video.ts"));
+var rudiment_1 = __importDefault(__webpack_require__(/*! ../models/rudiment */ "./vue/models/rudiment.ts"));
 var Videos = /** @class */ (function () {
     function Videos() {
     }

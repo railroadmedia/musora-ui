@@ -103,6 +103,7 @@
 </template>
 
 <script lang="ts">
+import ContentService from '../../services/content';
 import FiltersService from '../../services/filters';
 import VideosService from '../../services/videos';
 
@@ -223,6 +224,17 @@ export default {
         this.filters = FiltersService.getFilterGroupsFromArray(this.filterGroups);
 
         this.$root.$on('filterClicked', this.handleFilterClick);
+
+        ContentService
+            .getContent({})
+            .then((response) => {
+
+                // console.log("response: %s", JSON.stringify(response));
+
+                let filters = FiltersService.getFilterGroupsFromResponse(response);
+
+                console.log("filters: %s", JSON.stringify(filters));
+            });
     },
     methods: {
         clearFilters() {
@@ -235,12 +247,10 @@ export default {
 
                 return group;
             });
-            // todo - update with API call
+            this.fetchData();
         },
 
         handleFilterClick(filter) {
-            // todo - update with API call
-
             if (filter.groupId == 'edge-group') {
                 this.edgeFilters = this.edgeFilters.map((item) => {
                     if (item.id == filter.id) {
@@ -265,11 +275,13 @@ export default {
                     return group;
                 });
             }
+
+            this.fetchData();
         },
 
         handleLevelSelected(event) {
-            // todo - update with API call
             this.level = event.level;
+            this.fetchData();
         },
 
         handleCollapseToggle(filterGroup) {
@@ -297,10 +309,30 @@ export default {
 
                 return group;
             });
+            this.fetchData();
         },
 
         toggleCollapse(): void {
             this.collapsed = !this.collapsed;
+        },
+
+        fetchData() {
+            let payload = {};
+            // todo - add payload logic
+
+            ContentService
+                .getContent(payload)
+                .then((response) => {
+
+                    // this.edgeFilters = FiltersService.getFiltersFromArray(this.edgeFiltersList, 'edge-group');
+                    // this.level = this.levelSelector || 1;
+                    // this.filters = FiltersService.getFilterGroupsFromArray(this.filterGroups);
+
+                    this.filters = FiltersService.getFilterGroupsFromResponse(response);
+                    // this.videos = VideosService.getVideosFromResponse(response);
+                });
+
+            // todo - add error handling
         },
     },
 };
