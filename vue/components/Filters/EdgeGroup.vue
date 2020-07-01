@@ -15,13 +15,13 @@
             <div class="px-3 py-4 flex flex-wrap bg-edge-blue">
                 <div
                     :class="$_badgeClass"
-                    v-for="item in filters"
+                    v-for="item in filterGroup.filters"
                     :key="item.id"
                 >
                     <filter-checkbox
                         :filter="item"
                         theme="blue"
-                        :extra-padding="filters.length < 6"
+                        :extra-padding="filterGroup.filters.length < 6"
                     ></filter-checkbox>
                 </div>
             </div>
@@ -31,18 +31,22 @@
 
 <script lang="ts">
 import FilterCheckbox from '../Blocks/FilterCheckbox';
+import FilterGroup from '../../models/filterGroup';
 
 export default {
     components: {
         'filter-checkbox': FilterCheckbox,
     },
     props: {
-        filters: {
-            type: Array,
-        },
+        // filters: {
+        //     type: Array,
+        // },
         title: {
             type: String,
         },
+        filterGroup: {
+            type: FilterGroup,
+        }
     },
     data(): object {
         return {
@@ -58,15 +62,15 @@ export default {
                 4: 'small:w-1/4',
             };
 
-            if (this.filters.length < 6) {
+            if (this.filterGroup.filters.length < 6) {
                 classes.push('p-2');
             } else {
                 classes.push('p-1');
             }
 
-            if (this.filters.length < 5) {
+            if (this.filterGroup.filters.length < 5) {
                 classes.push('w-full');
-                classes.push(smallWidths[this.filters.length]);
+                classes.push(smallWidths[this.filterGroup.filters.length]);
             } else {
                 classes.push('w-1/2');
                 classes.push('small:w-1/5');

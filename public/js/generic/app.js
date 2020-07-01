@@ -25237,10 +25237,6 @@ exports.default = {
             type: Boolean,
             default: function () { return false; },
         },
-        edgeFiltersList: {
-            type: Array,
-            default: function () { return []; },
-        },
         edgeFiltersTitle: {
             type: String,
             default: function () { return ''; },
@@ -25250,23 +25246,22 @@ exports.default = {
             default: function () { return false; },
         },
         levelSelector: {
-            type: Number,
+            type: String,
             default: function () { return 1; },
-        },
-        filterGroups: {
-            type: Array,
         },
         videosPerRow: {
             type: Number,
             default: function () { return 4; },
         },
+        preloadData: {
+            type: Object
+        }
     },
     data: function () {
         return {
             videos: [],
-            edgeFilters: [],
             filters: [],
-            level: 1,
+            level: "1",
             results: {
                 count: 114,
                 type: 'lessons',
@@ -25281,10 +25276,37 @@ exports.default = {
     computed: {
         $_filters: function () {
             var result = [];
-            this.filters.forEach(function (group) {
+            this.$_sideFilters.forEach(function (group) {
                 group.filters.forEach(function (filter) {
                     result.push(filter);
                 });
+            });
+            return result;
+        },
+        $_topics: function () {
+            var result;
+            this.filters.forEach(function (group) {
+                if (group.id == 'topic') {
+                    result = group;
+                }
+            });
+            return result;
+        },
+        $_difficulty: function () {
+            var result;
+            this.filters.forEach(function (group) {
+                if (group.id == 'difficulty') {
+                    result = group;
+                }
+            });
+            return result;
+        },
+        $_sideFilters: function () {
+            var result = [];
+            this.filters.forEach(function (group) {
+                if (group.id != 'topic' && group.id != 'difficulty') {
+                    result.push(group);
+                }
             });
             return result;
         },
@@ -25317,17 +25339,9 @@ exports.default = {
     },
     mounted: function () {
         this.videos = videos_1.default.getVideosFromArray(this.videosList);
-        this.edgeFilters = filters_1.default.getFiltersFromArray(this.edgeFiltersList, 'edge-group');
         this.level = this.levelSelector || 1;
-        this.filters = filters_1.default.getFilterGroupsFromArray(this.filterGroups);
         this.$root.$on('filterClicked', this.handleFilterClick);
-        content_1.default
-            .getContent({})
-            .then(function (response) {
-            // console.log("response: %s", JSON.stringify(response));
-            var filters = filters_1.default.getFilterGroupsFromResponse(response);
-            console.log("filters: %s", JSON.stringify(filters));
-        });
+        this.setupFilters(this.preloadData.meta.filterOptions);
     },
     methods: {
         clearFilters: function () {
@@ -25341,30 +25355,21 @@ exports.default = {
             this.fetchData();
         },
         handleFilterClick: function (filter) {
-            if (filter.groupId == 'edge-group') {
-                this.edgeFilters = this.edgeFilters.map(function (item) {
-                    if (item.id == filter.id) {
-                        item.active = !item.active;
-                    }
-                    return item;
-                });
-            }
-            else {
-                this.filters = this.filters.map(function (group) {
-                    if (group.id == filter.groupId) {
-                        group.filters = group.filters.map(function (item) {
-                            if (item.id == filter.id) {
-                                item.active = !item.active;
-                            }
-                            return item;
-                        });
-                    }
-                    return group;
-                });
-            }
+            this.filters = this.filters.map(function (group) {
+                if (group.id == filter.groupId) {
+                    group.filters = group.filters.map(function (item) {
+                        if (item.id == filter.id) {
+                            item.active = !item.active;
+                        }
+                        return item;
+                    });
+                }
+                return group;
+            });
             this.fetchData();
         },
         handleLevelSelected: function (event) {
+            // todo - refactor
             this.level = event.level;
             this.fetchData();
         },
@@ -25393,17 +25398,16 @@ exports.default = {
         toggleCollapse: function () {
             this.collapsed = !this.collapsed;
         },
+        setupFilters: function (filterOptions) {
+            this.filters = filters_1.default.getFilterGroupsFromResponse(filterOptions);
+        },
         fetchData: function () {
-            var _this = this;
             var payload = {};
             // todo - add payload logic
             content_1.default
                 .getContent(payload)
                 .then(function (response) {
-                // this.edgeFilters = FiltersService.getFiltersFromArray(this.edgeFiltersList, 'edge-group');
-                // this.level = this.levelSelector || 1;
-                // this.filters = FiltersService.getFilterGroupsFromArray(this.filterGroups);
-                _this.filters = filters_1.default.getFilterGroupsFromResponse(response);
+                // this.setupFilters(response.data.meta.filterOptions);
                 // this.videos = VideosService.getVideosFromResponse(response);
             });
             // todo - add error handling
@@ -25713,17 +25717,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var FilterCheckbox_1 = __importDefault(__webpack_require__(/*! ../Blocks/FilterCheckbox */ "./vue/components/Blocks/FilterCheckbox.vue"));
+var filterGroup_1 = __importDefault(__webpack_require__(/*! ../../models/filterGroup */ "./vue/models/filterGroup.ts"));
 exports.default = {
     components: {
         'filter-checkbox': FilterCheckbox_1.default,
     },
     props: {
-        filters: {
-            type: Array,
-        },
+        // filters: {
+        //     type: Array,
+        // },
         title: {
             type: String,
         },
+        filterGroup: {
+            type: filterGroup_1.default,
+        }
     },
     data: function () {
         return {
@@ -25738,15 +25746,15 @@ exports.default = {
                 3: 'small:w-1/3',
                 4: 'small:w-1/4',
             };
-            if (this.filters.length < 6) {
+            if (this.filterGroup.filters.length < 6) {
                 classes.push('p-2');
             }
             else {
                 classes.push('p-1');
             }
-            if (this.filters.length < 5) {
+            if (this.filterGroup.filters.length < 5) {
                 classes.push('w-full');
-                classes.push(smallWidths[this.filters.length]);
+                classes.push(smallWidths[this.filterGroup.filters.length]);
             }
             else {
                 classes.push('w-1/2');
@@ -25812,39 +25820,65 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var filterGroup_1 = __importDefault(__webpack_require__(/*! ../../models/filterGroup */ "./vue/models/filterGroup.ts"));
 exports.default = {
     props: {
         currentLevel: {
-            type: Number,
+            type: String,
         },
         title: {
             type: String,
         },
+        filterGroup: {
+            type: filterGroup_1.default,
+        }
     },
     data: function () {
         return {
-            levelLabels: {
-                1: "level 1",
-                2: "level 2",
-                3: "level 3",
-                4: "level 4",
-                5: "level 5",
-            },
             collapsed: true,
         };
     },
     computed: {
         $_levelLabel: function () {
-            return this.levelLabels[this.currentLevel];
+            var _this = this;
+            var label;
+            this.filterGroup.filters.forEach(function (filter) {
+                if (filter.value == _this.currentLevel) {
+                    label = filter.label;
+                }
+            });
+            return 'LEVEL ' + label;
+        },
+        $_gridColsClass: function () {
+            return 'grid-cols-' + this.filterGroup.filters.length;
         },
     },
     methods: {
-        select: function (value) {
-            this.$emit('levelSelected', { level: value });
+        select: function (filter) {
+            this.$emit('levelSelected', { level: filter.value });
         },
         toggleCollapse: function () {
             this.collapsed = !this.collapsed;
+        },
+        getFilterClasses: function (filter, index) {
+            var classes = [];
+            if (index == 0) {
+                classes.push('rounded-l-full');
+            }
+            if (index == this.filterGroup.filters.length - 1) {
+                classes.push('rounded-r-full');
+            }
+            if (this.currentLevel < filter.value) {
+                classes.push('bg-edge-dark-blue');
+            }
+            else {
+                classes.push('bg-white');
+            }
+            return classes;
         },
     }
 };
@@ -26902,21 +26936,22 @@ var render = function() {
                 "w-full mb-6 space-y-4 flex flex-col large:flex-row large:space-x-3 large:space-y-0 large:mt-6"
             },
             [
-              !_vm.edgeFiltersDisabled
+              !_vm.edgeFiltersDisabled && _vm.$_topics
                 ? _c("edge-group-filters", {
                     attrs: {
-                      filters: _vm.edgeFilters,
                       title: _vm.edgeFiltersTitle,
+                      "filter-group": _vm.$_topics,
                       filterEventGroup: "edgeFilterClick"
                     }
                   })
                 : _vm._e(),
               _vm._v(" "),
-              !_vm.levelSelectorDisabled
+              !_vm.levelSelectorDisabled && _vm.$_difficulty
                 ? _c("level-selector", {
                     attrs: {
                       "current-level": _vm.level,
-                      title: "set your skill level"
+                      title: "set your skill level",
+                      "filter-group": _vm.$_difficulty
                     },
                     on: { levelSelected: _vm.handleLevelSelected }
                   })
@@ -26990,7 +27025,7 @@ var render = function() {
                 _c(
                   "div",
                   { staticClass: "flex flex-col flex-no-wrap" },
-                  _vm._l(_vm.filters, function(group) {
+                  _vm._l(_vm.$_sideFilters, function(group) {
                     return _c("filter-group", {
                       key: group.id,
                       attrs: { "filter-group": group },
@@ -27734,7 +27769,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "px-3 py-4 flex flex-wrap bg-edge-blue" },
-        _vm._l(_vm.filters, function(item) {
+        _vm._l(_vm.filterGroup.filters, function(item) {
           return _c(
             "div",
             { key: item.id, class: _vm.$_badgeClass },
@@ -27743,7 +27778,7 @@ var render = function() {
                 attrs: {
                   filter: item,
                   theme: "blue",
-                  "extra-padding": _vm.filters.length < 6
+                  "extra-padding": _vm.filterGroup.filters.length < 6
                 }
               })
             ],
@@ -27939,297 +27974,68 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "collapse-container small:expand" }, [
         _c("div", { staticClass: "px-2 py-2 small:px-6" }, [
-          _c("div", { staticClass: "grid grid-cols-5 cursor-pointer" }, [
-            _c(
-              "div",
-              {
-                staticClass: "py-4",
-                on: {
-                  click: function($event) {
-                    $event.stopPropagation()
-                    $event.preventDefault()
-                    return _vm.select(1)
+          _c(
+            "div",
+            { staticClass: "grid cursor-pointer", class: _vm.$_gridColsClass },
+            _vm._l(_vm.filterGroup.filters, function(filter, index) {
+              return _c(
+                "div",
+                {
+                  key: filter.id,
+                  staticClass: "py-4",
+                  on: {
+                    click: function($event) {
+                      $event.stopPropagation()
+                      $event.preventDefault()
+                      return _vm.select(filter)
+                    }
                   }
-                }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "border-2 border-edge-blue bg-white relative rounded-l-full",
-                    class: {
-                      "bg-white": _vm.currentLevel >= 1,
-                      "bg-edge-dark-blue": _vm.currentLevel < 1
-                    },
-                    staticStyle: { height: "12px" }
-                  },
-                  [
-                    _c("input", {
-                      staticClass: "hidden",
-                      attrs: {
-                        type: "radio",
-                        id: "level-one",
-                        name: "level",
-                        value: "1"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.currentLevel == 1,
-                          expression: "currentLevel == 1"
-                        }
-                      ],
+                },
+                [
+                  _c(
+                    "div",
+                    {
                       staticClass:
-                        "border-4 border-edge-blue bg-white rounded-full absolute z-10",
-                      staticStyle: {
-                        height: "30px",
-                        width: "30px",
-                        top: "-11px",
-                        right: "-11px"
-                      }
-                    })
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "py-4",
-                on: {
-                  click: function($event) {
-                    $event.stopPropagation()
-                    $event.preventDefault()
-                    return _vm.select(2)
-                  }
-                }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "border-2 border-l-0 border-edge-blue bg-white relative",
-                    class: {
-                      "bg-white": _vm.currentLevel >= 2,
-                      "bg-edge-dark-blue": _vm.currentLevel < 2
+                        "border-2 border-edge-blue bg-white relative",
+                      class: _vm.getFilterClasses(filter, index),
+                      staticStyle: { height: "12px" }
                     },
-                    staticStyle: { height: "12px" }
-                  },
-                  [
-                    _c("input", {
-                      staticClass: "hidden",
-                      attrs: {
-                        type: "radio",
-                        id: "level-two",
-                        name: "level",
-                        value: "2"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.currentLevel == 2,
-                          expression: "currentLevel == 2"
+                    [
+                      _c("input", {
+                        staticClass: "hidden",
+                        attrs: {
+                          type: "radio",
+                          id: "level-one",
+                          name: "level",
+                          value: "1"
                         }
-                      ],
-                      staticClass:
-                        "border-4 border-edge-blue bg-white rounded-full absolute z-10",
-                      staticStyle: {
-                        height: "30px",
-                        width: "30px",
-                        top: "-11px",
-                        right: "-11px"
-                      }
-                    })
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "py-4",
-                on: {
-                  click: function($event) {
-                    $event.stopPropagation()
-                    $event.preventDefault()
-                    return _vm.select(3)
-                  }
-                }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "border-2 border-l-0 border-edge-blue bg-white relative",
-                    class: {
-                      "bg-white": _vm.currentLevel >= 3,
-                      "bg-edge-dark-blue": _vm.currentLevel < 3
-                    },
-                    staticStyle: { height: "12px" }
-                  },
-                  [
-                    _c("input", {
-                      staticClass: "hidden",
-                      attrs: {
-                        type: "radio",
-                        id: "level-three",
-                        name: "level",
-                        value: "3"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.currentLevel == 3,
-                          expression: "currentLevel == 3"
+                      }),
+                      _vm._v(" "),
+                      _c("div", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.currentLevel == filter.value,
+                            expression: "currentLevel == filter.value"
+                          }
+                        ],
+                        staticClass:
+                          "border-4 border-edge-blue bg-white rounded-full absolute z-10",
+                        staticStyle: {
+                          height: "30px",
+                          width: "30px",
+                          top: "-11px",
+                          right: "-11px"
                         }
-                      ],
-                      staticClass:
-                        "border-4 border-edge-blue bg-white rounded-full absolute z-10",
-                      staticStyle: {
-                        height: "30px",
-                        width: "30px",
-                        top: "-11px",
-                        right: "-11px"
-                      }
-                    })
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "py-4",
-                on: {
-                  click: function($event) {
-                    $event.stopPropagation()
-                    $event.preventDefault()
-                    return _vm.select(4)
-                  }
-                }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "border-2 border-l-0 border-edge-blue bg-white relative",
-                    class: {
-                      "bg-white": _vm.currentLevel >= 4,
-                      "bg-edge-dark-blue": _vm.currentLevel < 4
-                    },
-                    staticStyle: { height: "12px" }
-                  },
-                  [
-                    _c("input", {
-                      staticClass: "hidden",
-                      attrs: {
-                        type: "radio",
-                        id: "level-four",
-                        name: "level",
-                        value: "4"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.currentLevel == 4,
-                          expression: "currentLevel == 4"
-                        }
-                      ],
-                      staticClass:
-                        "border-4 border-edge-blue bg-white rounded-full absolute z-10",
-                      staticStyle: {
-                        height: "30px",
-                        width: "30px",
-                        top: "-11px",
-                        right: "-11px"
-                      }
-                    })
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "py-4",
-                on: {
-                  click: function($event) {
-                    $event.stopPropagation()
-                    $event.preventDefault()
-                    return _vm.select(5)
-                  }
-                }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "border-2 border-l-0 border-edge-blue bg-white relative rounded-r-full",
-                    class: {
-                      "bg-white": _vm.currentLevel >= 5,
-                      "bg-edge-dark-blue": _vm.currentLevel < 5
-                    },
-                    staticStyle: { height: "12px" }
-                  },
-                  [
-                    _c("input", {
-                      staticClass: "hidden",
-                      attrs: {
-                        type: "radio",
-                        id: "level-five",
-                        name: "level",
-                        value: "5"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.currentLevel == 5,
-                          expression: "currentLevel == 5"
-                        }
-                      ],
-                      staticClass:
-                        "border-4 border-edge-blue bg-white rounded-full absolute z-10",
-                      staticStyle: {
-                        height: "30px",
-                        width: "30px",
-                        top: "-11px",
-                        right: "-11px"
-                      }
-                    })
-                  ]
-                )
-              ]
-            )
-          ]),
+                      })
+                    ]
+                  )
+                ]
+              )
+            }),
+            0
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -30282,6 +30088,28 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/maps/filtersContentType.ts":
+/*!****************************************!*\
+  !*** ./vue/maps/filtersContentType.ts ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = {
+    'course': 'Courses',
+    'learning-path': 'Drumeo Method',
+    'pack': 'Packs',
+    'quick-tips': 'Quick Tips',
+    'live': 'Live',
+    'boot-camps': 'Bootcamp',
+};
+
+
+/***/ }),
+
 /***/ "./vue/maps/filtersType.ts":
 /*!*********************************!*\
   !*** ./vue/maps/filtersType.ts ***!
@@ -30324,10 +30152,10 @@ exports.default = {
         type: 'entity',
         label: 'Instructor',
         icon: 'icon-info',
-        constructor: function (value) {
-            return new filter_1.default(value.id, '', // group id will be set later
+        constructor: function (value, groupId) {
+            return new filter_1.default(value.id, 'instructor', // current block key
             value.slug, value.name, 0, false, // todo - fix active
-            '', // icon will be set later
+            'icon-info', // this.instructor.icon value
             value.id);
         }
     },
@@ -30629,12 +30457,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var filter_1 = __importDefault(__webpack_require__(/*! ../models/filter */ "./vue/models/filter.ts"));
 var filterGroup_1 = __importDefault(__webpack_require__(/*! ../models/filterGroup */ "./vue/models/filterGroup.ts"));
 var filtersType_1 = __importDefault(__webpack_require__(/*! ../maps/filtersType */ "./vue/maps/filtersType.ts"));
+var filtersContentType_1 = __importDefault(__webpack_require__(/*! ../maps/filtersContentType */ "./vue/maps/filtersContentType.ts"));
 var Filters = /** @class */ (function () {
     function Filters() {
     }
-    Filters.getFilterGroupsFromResponse = function (response) {
+    Filters.getFilterGroupsFromResponse = function (filterOptions) {
         var result = [];
-        var filterOptions = response.data.meta.filterOptions;
         var keys = Object.keys(filterOptions);
         keys.forEach(function (key) {
             if (filtersType_1.default[key]) {
@@ -30663,14 +30491,22 @@ var Filters = /** @class */ (function () {
     };
     Filters.getFilterGroupFromEntity = function (groupId, data) {
         var filters = [];
-        var icon = filtersType_1.default[groupId].icon;
         data.forEach(function (item) {
-            var filter = filtersType_1.default[groupId].constructor(item);
-            filter.groupId = groupId;
-            filter.icon = icon;
-            filters.push(filter);
+            filters.push(filtersType_1.default[groupId].constructor(item));
         });
         return new filterGroup_1.default(groupId, filtersType_1.default[groupId].label, filters);
+    };
+    Filters.getEdgeContentTypeFilterGroup = function () {
+        var groupId = 'content-type';
+        var icon = 'icon-info';
+        var keys = Object.keys(filtersContentType_1.default);
+        var filters = [];
+        keys.forEach(function (key) {
+            var id = key;
+            filters.push(new filter_1.default(id, groupId, id, filtersContentType_1.default[key], 0, false, // todo - fix active
+            icon, id));
+        });
+        return new filterGroup_1.default(groupId, icon, filters);
     };
     // todo - review and remove below
     Filters.getFiltersFromArray = function (list, groupId) {

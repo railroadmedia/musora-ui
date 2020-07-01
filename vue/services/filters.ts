@@ -1,12 +1,12 @@
 import Filter from '../models/filter';
 import FilterGroup from '../models/filterGroup';
 import FiltersType from '../maps/filtersType';
+import FiltersContentType from '../maps/filtersContentType';
 
 export default class Filters {
 
-    static getFilterGroupsFromResponse(response): FilterGroup[] {
+    static getFilterGroupsFromResponse(filterOptions): FilterGroup[] {
         let result = [];
-        const filterOptions = response.data.meta.filterOptions;
         const keys = Object.keys(filterOptions);
 
         keys.forEach((key) => {
@@ -79,6 +79,36 @@ export default class Filters {
         return new FilterGroup(
             groupId,
             FiltersType[groupId].label,
+            filters
+        );
+    }
+
+    static getEdgeContentTypeFilterGroup(): FilterGroup {
+        let groupId = 'content-type';
+        let icon = 'icon-info';
+        let keys = Object.keys(FiltersContentType);
+        let filters = [];
+
+        keys.forEach(key => {
+            let id = key;
+
+            filters.push(
+                new Filter(
+                    id,
+                    groupId,
+                    id,
+                    FiltersContentType[key],
+                    0,
+                    false, // todo - fix active
+                    icon,
+                    id
+                )
+            );
+        });
+
+        return new FilterGroup(
+            groupId,
+            icon,
             filters
         );
     }

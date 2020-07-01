@@ -14,74 +14,26 @@
         </h4>
         <div class="collapse-container small:expand">
             <div class="px-2 py-2 small:px-6">
-                <div class="grid grid-cols-5 cursor-pointer">
-                    <div class="py-4" @click.stop.prevent="select(1)">
+                <div
+                    class="grid cursor-pointer"
+                    :class="$_gridColsClass"
+                >
+                    <div
+                        class="py-4"
+                        v-for="(filter, index) in filterGroup.filters"
+                        :key="filter.id"
+                        @click.stop.prevent="select(filter)"
+                    >
                         <div
                             style="height: 12px;"
-                            class="border-2 border-edge-blue bg-white relative rounded-l-full"
-                            :class="{'bg-white': (currentLevel >= 1), 'bg-edge-dark-blue': (currentLevel < 1)}"
+                            class="border-2 border-edge-blue bg-white relative"
+                            :class="getFilterClasses(filter, index)"
                         >
                             <input type="radio" class="hidden" id="level-one" name="level" value="1">
                             <div
                                 style="height: 30px; width: 30px; top: -11px; right: -11px"
                                 class="border-4 border-edge-blue bg-white rounded-full absolute z-10"
-                                v-show="currentLevel == 1"
-                            ></div>
-                        </div>
-                    </div>
-                    <div class="py-4" @click.stop.prevent="select(2)">
-                        <div
-                            style="height: 12px;"
-                            class="border-2 border-l-0 border-edge-blue bg-white relative"
-                            :class="{'bg-white': (currentLevel >= 2), 'bg-edge-dark-blue': (currentLevel < 2)}"
-                        >
-                            <input type="radio" class="hidden" id="level-two" name="level" value="2">
-                            <div
-                                style="height: 30px; width: 30px; top: -11px; right: -11px"
-                                class="border-4 border-edge-blue bg-white rounded-full absolute z-10"
-                                v-show="currentLevel == 2"
-                            ></div>
-                        </div>
-                    </div>
-                    <div class="py-4" @click.stop.prevent="select(3)">
-                        <div
-                            style="height: 12px;"
-                            class="border-2 border-l-0 border-edge-blue bg-white relative"
-                            :class="{'bg-white': (currentLevel >= 3), 'bg-edge-dark-blue': (currentLevel < 3)}"
-                        >
-                            <input type="radio" class="hidden" id="level-three" name="level" value="3">
-                            <div
-                                style="height: 30px; width: 30px; top: -11px; right: -11px"
-                                class="border-4 border-edge-blue bg-white rounded-full absolute z-10"
-                                v-show="currentLevel == 3"
-                            ></div>
-                        </div>
-                    </div>
-                    <div class="py-4" @click.stop.prevent="select(4)">
-                        <div
-                            style="height: 12px;"
-                            class="border-2 border-l-0 border-edge-blue bg-white relative"
-                            :class="{'bg-white': (currentLevel >= 4), 'bg-edge-dark-blue': (currentLevel < 4)}"
-                        >
-                            <input type="radio" class="hidden" id="level-four" name="level" value="4">
-                            <div
-                                style="height: 30px; width: 30px; top: -11px; right: -11px"
-                                class="border-4 border-edge-blue bg-white rounded-full absolute z-10"
-                                v-show="currentLevel == 4"
-                            ></div>
-                        </div>
-                    </div>
-                    <div class="py-4" @click.stop.prevent="select(5)">
-                        <div
-                            style="height: 12px;"
-                            class="border-2 border-l-0 border-edge-blue bg-white relative rounded-r-full"
-                            :class="{'bg-white': (currentLevel >= 5), 'bg-edge-dark-blue': (currentLevel < 5)}"
-                        >
-                            <input type="radio" class="hidden" id="level-five" name="level" value="5">
-                            <div
-                                style="height: 30px; width: 30px; top: -11px; right: -11px"
-                                class="border-4 border-edge-blue bg-white rounded-full absolute z-10"
-                                v-show="currentLevel == 5"
+                                v-show="currentLevel == filter.value"
                             ></div>
                         </div>
                     </div>
@@ -101,40 +53,70 @@
 </template>
 
 <script lang="ts">
+import Filter from '../../models/filter';
+import FilterGroup from '../../models/filterGroup';
 
 export default {
     props: {
         currentLevel: {
-            type: Number,
+            type: String,
         },
         title: {
             type: String,
         },
+        filterGroup: {
+            type: FilterGroup,
+        }
     },
     data(): object {
         return {
-            levelLabels: {
-                1: "level 1",
-                2: "level 2",
-                3: "level 3",
-                4: "level 4",
-                5: "level 5",
-            },
             collapsed: true,
         };
     },
     computed: {
         $_levelLabel() {
-            return this.levelLabels[this.currentLevel];
+            let label;
+
+            this.filterGroup.filters.forEach((filter) => {
+                if (filter.value == this.currentLevel) {
+                    label = filter.label;
+                }
+            });
+
+            return 'LEVEL ' + label;
+        },
+
+        $_gridColsClass() {
+            return 'grid-cols-' + this.filterGroup.filters.length;
         },
     },
     methods: {
-        select(value): void {
-            this.$emit('levelSelected', {level: value});
+        select(filter: Filter): void {
+            this.$emit('levelSelected', {level: filter.value});
         },
 
         toggleCollapse(): void {
             this.collapsed = !this.collapsed;
+        },
+
+        getFilterClasses(filter: Filter, index: number): string[] {
+            let classes = [];
+
+            if (index == 0) {
+                classes.push('rounded-l-full');
+            }
+
+            if (index == this.filterGroup.filters.length - 1) {
+                classes.push('rounded-r-full');
+            }
+
+            if (this.currentLevel < filter.value) {
+                classes.push('bg-edge-dark-blue');
+            } else {
+                classes.push('bg-white');
+            }
+
+            return classes;
         },
     }
 };

@@ -5,6 +5,6 @@ export default class Mock {
         moxios.stubRequest('/railcontent/content', {
             status: 200,
             responseText: data
-        })
+        });
     }
 }

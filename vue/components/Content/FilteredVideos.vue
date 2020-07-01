@@ -5,16 +5,17 @@
             v-if="!edgeFiltersDisabled || !levelSelectorDisabled"
         >
             <edge-group-filters
-                :filters="edgeFilters"
                 :title="edgeFiltersTitle"
+                :filter-group="$_topics"
                 filterEventGroup="edgeFilterClick"
-                v-if="!edgeFiltersDisabled"
+                v-if="!edgeFiltersDisabled && $_topics"
             ></edge-group-filters>
             <level-selector
                 :current-level="level"
                 title="set your skill level"
                 @levelSelected="handleLevelSelected"
-                v-if="!levelSelectorDisabled"
+                :filter-group="$_difficulty"
+                v-if="!levelSelectorDisabled && $_difficulty"
             ></level-selector>
         </div>
 
@@ -31,7 +32,7 @@
                 <div class="collapse-container small:expand overflow-hidden">
                     <div class="flex flex-col flex-no-wrap">
                         <filter-group
-                            v-for="group in filters"
+                            v-for="group in $_sideFilters"
                             :key="group.id"
                             :filter-group="group"
                             @collapseToggle="handleCollapseToggle"
@@ -108,10 +109,11 @@ import FiltersService from '../../services/filters';
 import VideosService from '../../services/videos';
 
 import Filter from '../../models/filter';
+import FilterGroup from '../../models/filterGroup';
 
 import EdgeGroupFilters from '../Filters/EdgeGroup';
 import LevelSelector from '../Filters/LevelSelector';
-import FilterGroup from '../Filters/Group';
+import FilterGroupComponent from '../Filters/Group';
 import FilterBadge from '../Blocks/FilterBadge';
 import SimpleVideoCard from '../VideoCards/Simple';
 
@@ -119,7 +121,7 @@ export default {
     components: {
         'edge-group-filters': EdgeGroupFilters,
         'level-selector': LevelSelector,
-        'filter-group': FilterGroup,
+        'filter-group': FilterGroupComponent,
         'filter-badge': FilterBadge,
         'simple-video-card': SimpleVideoCard,
     },
@@ -131,10 +133,6 @@ export default {
             type: Boolean,
             default: () => false,
         },
-        edgeFiltersList: {
-            type: Array,
-            default: () => [],
-        },
         edgeFiltersTitle: {
             type: String,
             default: () => '',
@@ -144,23 +142,22 @@ export default {
             default: () => false,
         },
         levelSelector: {
-            type: Number,
+            type: String,
             default: () => 1,
-        },
-        filterGroups: {
-            type: Array,
         },
         videosPerRow: {
             type: Number,
             default: () => 4,
         },
+        preloadData: {
+            type: Object
+        }
     },
     data(): object {
         return {
             videos: [],
-            edgeFilters: [],
             filters: [],
-            level: 1,
+            level: "1",
             results: {
                 count: 114,
                 type: 'lessons',
@@ -176,10 +173,46 @@ export default {
         $_filters(): Filter[] {
             let result = [];
 
-            this.filters.forEach((group) => {
+            this.$_sideFilters.forEach((group) => {
                 group.filters.forEach((filter) => {
                     result.push(filter);
                 });
+            });
+
+            return result;
+        },
+
+        $_topics(): FilterGroup {
+            let result;
+
+            this.filters.forEach((group) => {
+                if (group.id == 'topic') {
+                    result = group;
+                }
+            });
+
+            return result;
+        },
+
+        $_difficulty(): FilterGroup {
+            let result;
+
+            this.filters.forEach((group) => {
+                if (group.id == 'difficulty') {
+                    result = group;
+                }
+            });
+
+            return result;
+        },
+
+        $_sideFilters(): FilterGroup[] {
+            let result = [];
+
+            this.filters.forEach((group) => {
+                if (group.id != 'topic' && group.id != 'difficulty') {
+                    result.push(group);
+                }
             });
 
             return result;
@@ -219,22 +252,11 @@ export default {
     },
     mounted(): void {
         this.videos = VideosService.getVideosFromArray(this.videosList);
-        this.edgeFilters = FiltersService.getFiltersFromArray(this.edgeFiltersList, 'edge-group');
         this.level = this.levelSelector || 1;
-        this.filters = FiltersService.getFilterGroupsFromArray(this.filterGroups);
 
         this.$root.$on('filterClicked', this.handleFilterClick);
 
-        ContentService
-            .getContent({})
-            .then((response) => {
-
-                // console.log("response: %s", JSON.stringify(response));
-
-                let filters = FiltersService.getFilterGroupsFromResponse(response);
-
-                console.log("filters: %s", JSON.stringify(filters));
-            });
+        this.setupFilters(this.preloadData.meta.filterOptions);
     },
     methods: {
         clearFilters() {
@@ -251,35 +273,27 @@ export default {
         },
 
         handleFilterClick(filter) {
-            if (filter.groupId == 'edge-group') {
-                this.edgeFilters = this.edgeFilters.map((item) => {
-                    if (item.id == filter.id) {
-                        item.active = !item.active;
-                    }
 
-                    return item;
-                });
-            } else {
-                this.filters = this.filters.map((group) => {
+            this.filters = this.filters.map((group) => {
 
-                    if (group.id == filter.groupId) {
+                if (group.id == filter.groupId) {
 
-                        group.filters = group.filters.map((item) => {
-                            if (item.id == filter.id) {
-                                item.active = !item.active;
-                            }
-                            return item;
-                        });
-                    }
+                    group.filters = group.filters.map((item) => {
+                        if (item.id == filter.id) {
+                            item.active = !item.active;
+                        }
+                        return item;
+                    });
+                }
 
-                    return group;
-                });
-            }
+                return group;
+            });
 
             this.fetchData();
         },
 
         handleLevelSelected(event) {
+            // todo - refactor
             this.level = event.level;
             this.fetchData();
         },
@@ -316,6 +330,10 @@ export default {
             this.collapsed = !this.collapsed;
         },
 
+        setupFilters(filterOptions) {
+            this.filters = FiltersService.getFilterGroupsFromResponse(filterOptions);
+        },
+
         fetchData() {
             let payload = {};
             // todo - add payload logic
@@ -324,11 +342,7 @@ export default {
                 .getContent(payload)
                 .then((response) => {
 
-                    // this.edgeFilters = FiltersService.getFiltersFromArray(this.edgeFiltersList, 'edge-group');
-                    // this.level = this.levelSelector || 1;
-                    // this.filters = FiltersService.getFilterGroupsFromArray(this.filterGroups);
-
-                    this.filters = FiltersService.getFilterGroupsFromResponse(response);
+                    // this.setupFilters(response.data.meta.filterOptions);
                     // this.videos = VideosService.getVideosFromResponse(response);
                 });
 
