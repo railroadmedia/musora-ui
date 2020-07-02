@@ -12,13 +12,15 @@
             </div>
             <div class="collapse-container overflow-hidden">
                 <div style="max-height: 230px;" class="mb-3 font-semibold" data-simplebar>
-                    <filter-checkbox
-                        v-for="filter in filterGroup.filters"
-                        :key="filter.id"
-                        :filter="filter"
-                        :filter-group="filterGroup.id"
-                        theme="side"
-                    ></filter-checkbox>
+                    <simplebar>
+                        <filter-checkbox
+                            v-for="(filter, index) in filterGroup.filters"
+                            :key="index"
+                            :filter="filter"
+                            :filter-group="filterGroup.id"
+                            theme="side"
+                        ></filter-checkbox>
+                    </simplebar>
                 </div>
             </div>
         </div>
@@ -28,12 +30,14 @@
 <script lang="ts">
 import FilterCheckbox from '../Blocks/FilterCheckbox';
 import FilterGroup from '../../models/filterGroup';
+import simplebar from 'simplebar-vue';
 
 // todo - update global css for collapsable
 
 export default {
     components: {
         'filter-checkbox': FilterCheckbox,
+        simplebar
     },
     props: {
         filterGroup: {

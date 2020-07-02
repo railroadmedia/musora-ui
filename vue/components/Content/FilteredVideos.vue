@@ -117,6 +117,8 @@ import FilterGroupComponent from '../Filters/Group';
 import FilterBadge from '../Blocks/FilterBadge';
 import SimpleVideoCard from '../VideoCards/Simple';
 
+import ContentMixin from '../../mixins/content';
+
 export default {
     components: {
         'edge-group-filters': EdgeGroupFilters,
@@ -125,6 +127,7 @@ export default {
         'filter-badge': FilterBadge,
         'simple-video-card': SimpleVideoCard,
     },
+    mixins: [ContentMixin],
     props: {
         videosList: {
             type: Array,
@@ -256,7 +259,9 @@ export default {
 
         this.$root.$on('filterClicked', this.handleFilterClick);
 
-        this.setupFilters(this.preloadData.meta.filterOptions);
+        this.setupFilters(this.preloadData);
+
+        // this.fetchData();
     },
     methods: {
         clearFilters() {
@@ -330,19 +335,21 @@ export default {
             this.collapsed = !this.collapsed;
         },
 
-        setupFilters(filterOptions) {
-            this.filters = FiltersService.getFilterGroupsFromResponse(filterOptions);
+        setupFilters(response) {
+            this.filters = FiltersService.getFilterGroupsFromResponse(response);
         },
 
         fetchData() {
-            let payload = {};
-            // todo - add payload logic
+            let payload = this.getPayload();
+
+            payload = FiltersService.decorateRequestParams(payload, this.filters);
 
             ContentService
                 .getContent(payload)
                 .then((response) => {
 
-                    // this.setupFilters(response.data.meta.filterOptions);
+                    this.setupFilters(response.data);
+
                     // this.videos = VideosService.getVideosFromResponse(response);
                 });
 

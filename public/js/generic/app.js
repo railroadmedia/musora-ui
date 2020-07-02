@@ -495,6 +495,459 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../../../../../../../app/musora-ui/node_modules/axios-mock-adapter/src/handle_request.js":
+/*!****************************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios-mock-adapter/src/handle_request.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./utils */ "../../../../../../../app/musora-ui/node_modules/axios-mock-adapter/src/utils.js");
+
+function transformRequest(data) {
+  if (utils.isArrayBuffer(data) || utils.isBuffer(data) || utils.isStream(data)) {
+    return data;
+  } // Object and Array: returns a deep copy
+
+
+  if (utils.isObjectOrArray(data)) {
+    return JSON.parse(JSON.stringify(data));
+  } // for primitives like string, undefined, null, number
+
+
+  return data;
+}
+
+function makeResponse(result, config) {
+  return {
+    status: result[0],
+    data: transformRequest(result[1]),
+    headers: result[2],
+    config: config,
+    request: {
+      responseUrl: config.url
+    }
+  };
+}
+
+function handleRequest(mockAdapter, resolve, reject, config) {
+  var url = config.url; // TODO we're not hitting this `if` in any of the tests, investigate
+
+  if (config.baseURL && config.url.substr(0, config.baseURL.length) === config.baseURL) {
+    url = config.url.slice(config.baseURL.length);
+  }
+
+  delete config.adapter;
+  mockAdapter.history[config.method].push(config);
+  var handler = utils.findHandler(mockAdapter.handlers, config.method, url, config.data, config.params, config.headers, config.baseURL);
+
+  if (handler) {
+    if (handler.length === 7) {
+      utils.purgeIfReplyOnce(mockAdapter, handler);
+    }
+
+    if (handler.length === 2) {
+      // passThrough handler
+      mockAdapter.originalAdapter(config).then(resolve, reject);
+    } else if (typeof handler[3] !== "function") {
+      utils.settle(resolve, reject, makeResponse(handler.slice(3), config), mockAdapter.delayResponse);
+    } else {
+      var result = handler[3](config); // TODO throw a sane exception when return value is incorrect
+
+      if (typeof result.then !== "function") {
+        utils.settle(resolve, reject, makeResponse(result, config), mockAdapter.delayResponse);
+      } else {
+        result.then(function (result) {
+          if (result.config && result.status) {
+            utils.settle(resolve, reject, makeResponse([result.status, result.data, result.headers], result.config), 0);
+          } else {
+            utils.settle(resolve, reject, makeResponse(result, config), mockAdapter.delayResponse);
+          }
+        }, function (error) {
+          if (mockAdapter.delayResponse > 0) {
+            setTimeout(function () {
+              reject(error);
+            }, mockAdapter.delayResponse);
+          } else {
+            reject(error);
+          }
+        });
+      }
+    }
+  } else {
+    // handler not found
+    switch (mockAdapter.onNoMatch) {
+      case "passthrough":
+        mockAdapter.originalAdapter(config).then(resolve, reject);
+        break;
+
+      default:
+        utils.settle(resolve, reject, {
+          status: 404,
+          config: config
+        }, mockAdapter.delayResponse);
+    }
+  }
+}
+
+module.exports = handleRequest;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios-mock-adapter/src/index.js":
+/*!*******************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios-mock-adapter/src/index.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var handleRequest = __webpack_require__(/*! ./handle_request */ "../../../../../../../app/musora-ui/node_modules/axios-mock-adapter/src/handle_request.js");
+
+var utils = __webpack_require__(/*! ./utils */ "../../../../../../../app/musora-ui/node_modules/axios-mock-adapter/src/utils.js");
+
+var VERBS = ["get", "post", "head", "delete", "patch", "put", "options", "list"];
+
+function adapter() {
+  return function (config) {
+    var mockAdapter = this; // axios >= 0.13.0 only passes the config and expects a promise to be
+    // returned. axios < 0.13.0 passes (config, resolve, reject).
+
+    if (arguments.length === 3) {
+      handleRequest(mockAdapter, arguments[0], arguments[1], arguments[2]);
+    } else {
+      return new Promise(function (resolve, reject) {
+        handleRequest(mockAdapter, resolve, reject, config);
+      });
+    }
+  }.bind(this);
+}
+
+function getVerbObject() {
+  return VERBS.reduce(function (accumulator, verb) {
+    accumulator[verb] = [];
+    return accumulator;
+  }, {});
+}
+
+function reset() {
+  resetHandlers.call(this);
+  resetHistory.call(this);
+}
+
+function resetHandlers() {
+  this.handlers = getVerbObject();
+}
+
+function resetHistory() {
+  this.history = getVerbObject();
+}
+
+function MockAdapter(axiosInstance, options) {
+  reset.call(this); // TODO throw error instead when no axios instance is provided
+
+  if (axiosInstance) {
+    this.axiosInstance = axiosInstance;
+    this.originalAdapter = axiosInstance.defaults.adapter;
+    this.delayResponse = options && options.delayResponse > 0 ? options.delayResponse : null;
+    this.onNoMatch = options && options.onNoMatch || null;
+    axiosInstance.defaults.adapter = this.adapter.call(this);
+  }
+}
+
+MockAdapter.prototype.adapter = adapter;
+
+MockAdapter.prototype.restore = function restore() {
+  if (this.axiosInstance) {
+    this.axiosInstance.defaults.adapter = this.originalAdapter;
+    this.axiosInstance = undefined;
+  }
+};
+
+MockAdapter.prototype.reset = reset;
+MockAdapter.prototype.resetHandlers = resetHandlers;
+MockAdapter.prototype.resetHistory = resetHistory;
+VERBS.concat("any").forEach(function (method) {
+  var methodName = "on" + method.charAt(0).toUpperCase() + method.slice(1);
+
+  MockAdapter.prototype[methodName] = function (matcher, body, requestHeaders) {
+    var _this = this;
+
+    var matcher = matcher === undefined ? /.*/ : matcher;
+
+    function reply(code, response, headers) {
+      var handler = [matcher, body, requestHeaders, code, response, headers];
+      addHandler(method, _this.handlers, handler);
+      return _this;
+    }
+
+    function replyOnce(code, response, headers) {
+      var handler = [matcher, body, requestHeaders, code, response, headers, true];
+      addHandler(method, _this.handlers, handler);
+      return _this;
+    }
+
+    return {
+      reply: reply,
+      replyOnce: replyOnce,
+      passThrough: function passThrough() {
+        var handler = [matcher, body];
+        addHandler(method, _this.handlers, handler);
+        return _this;
+      },
+      abortRequest: function abortRequest() {
+        return reply(function (config) {
+          var error = utils.createAxiosError("Request aborted", config, undefined, "ECONNABORTED");
+          return Promise.reject(error);
+        });
+      },
+      abortRequestOnce: function abortRequestOnce() {
+        return replyOnce(function (config) {
+          var error = utils.createAxiosError("Request aborted", config, undefined, "ECONNABORTED");
+          return Promise.reject(error);
+        });
+      },
+      networkError: function networkError() {
+        return reply(function (config) {
+          var error = utils.createAxiosError("Network Error", config);
+          return Promise.reject(error);
+        });
+      },
+      networkErrorOnce: function networkErrorOnce() {
+        return replyOnce(function (config) {
+          var error = utils.createAxiosError("Network Error", config);
+          return Promise.reject(error);
+        });
+      },
+      timeout: function timeout() {
+        return reply(function (config) {
+          var error = utils.createAxiosError(config.timeoutErrorMessage || "timeout of " + config.timeout + "ms exceeded", config, undefined, "ECONNABORTED");
+          return Promise.reject(error);
+        });
+      },
+      timeoutOnce: function timeoutOnce() {
+        return replyOnce(function (config) {
+          var error = utils.createAxiosError(config.timeoutErrorMessage || "timeout of " + config.timeout + "ms exceeded", config, undefined, "ECONNABORTED");
+          return Promise.reject(error);
+        });
+      }
+    };
+  };
+});
+
+function findInHandlers(method, handlers, handler) {
+  var index = -1;
+
+  for (var i = 0; i < handlers[method].length; i += 1) {
+    var item = handlers[method][i];
+    var isReplyOnce = item.length === 7;
+    var comparePaths = item[0] instanceof RegExp && handler[0] instanceof RegExp ? String(item[0]) === String(handler[0]) : item[0] === handler[0];
+    var isSame = comparePaths && utils.isEqual(item[1], handler[1]) && utils.isEqual(item[2], handler[2]);
+
+    if (isSame && !isReplyOnce) {
+      index = i;
+    }
+  }
+
+  return index;
+}
+
+function addHandler(method, handlers, handler) {
+  if (method === "any") {
+    VERBS.forEach(function (verb) {
+      handlers[verb].push(handler);
+    });
+  } else {
+    var indexOfExistingHandler = findInHandlers(method, handlers, handler);
+
+    if (indexOfExistingHandler > -1 && handler.length < 7) {
+      handlers[method].splice(indexOfExistingHandler, 1, handler);
+    } else {
+      handlers[method].push(handler);
+    }
+  }
+}
+
+module.exports = MockAdapter;
+module.exports["default"] = MockAdapter;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/axios-mock-adapter/src/utils.js":
+/*!*******************************************************************!*\
+  !*** /app/musora-ui/node_modules/axios-mock-adapter/src/utils.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var axios = __webpack_require__(/*! axios */ "../../../../../../../app/musora-ui/node_modules/axios/index.js");
+
+var isEqual = __webpack_require__(/*! fast-deep-equal */ "../../../../../../../app/musora-ui/node_modules/fast-deep-equal/index.js");
+
+var isBuffer = __webpack_require__(/*! is-buffer */ "../../../../../../../app/musora-ui/node_modules/is-buffer/index.js"); // < 0.13.0 will not have default headers set on a custom instance
+
+
+var rejectWithError = !!axios.create().defaults.headers;
+
+function find(array, predicate) {
+  var length = array.length;
+
+  for (var i = 0; i < length; i++) {
+    var value = array[i];
+    if (predicate(value)) return value;
+  }
+}
+
+function isFunction(val) {
+  return toString.call(val) === "[object Function]";
+}
+
+function isObjectOrArray(val) {
+  return val !== null && _typeof(val) === "object";
+}
+
+function isStream(val) {
+  return isObjectOrArray(val) && isFunction(val.pipe);
+}
+
+function isArrayBuffer(val) {
+  return toString.call(val) === "[object ArrayBuffer]";
+}
+
+function combineUrls(baseURL, url) {
+  if (baseURL) {
+    return baseURL.replace(/\/+$/, "") + "/" + url.replace(/^\/+/, "");
+  }
+
+  return url;
+}
+
+function findHandler(handlers, method, url, body, parameters, headers, baseURL) {
+  return find(handlers[method.toLowerCase()], function (handler) {
+    if (typeof handler[0] === "string") {
+      return (isUrlMatching(url, handler[0]) || isUrlMatching(combineUrls(baseURL, url), handler[0])) && isBodyOrParametersMatching(method, body, parameters, handler[1]) && isObjectMatching(headers, handler[2]);
+    } else if (handler[0] instanceof RegExp) {
+      return (handler[0].test(url) || handler[0].test(combineUrls(baseURL, url))) && isBodyOrParametersMatching(method, body, parameters, handler[1]) && isObjectMatching(headers, handler[2]);
+    }
+  });
+}
+
+function isUrlMatching(url, required) {
+  var noSlashUrl = url[0] === "/" ? url.substr(1) : url;
+  var noSlashRequired = required[0] === "/" ? required.substr(1) : required;
+  return noSlashUrl === noSlashRequired;
+}
+
+function isBodyOrParametersMatching(method, body, parameters, required) {
+  var allowedParamsMethods = ["delete", "get", "head", "options"];
+
+  if (allowedParamsMethods.indexOf(method.toLowerCase()) >= 0) {
+    var params = required ? required.params : undefined;
+    return isObjectMatching(parameters, params);
+  } else {
+    return isBodyMatching(body, required);
+  }
+}
+
+function isObjectMatching(actual, expected) {
+  if (expected === undefined) return true;
+
+  if (typeof expected.asymmetricMatch === "function") {
+    return expected.asymmetricMatch(actual);
+  }
+
+  return isEqual(actual, expected);
+}
+
+function isBodyMatching(body, requiredBody) {
+  if (requiredBody === undefined) {
+    return true;
+  }
+
+  var parsedBody;
+
+  try {
+    parsedBody = JSON.parse(body);
+  } catch (e) {}
+
+  return isObjectMatching(parsedBody ? parsedBody : body, requiredBody);
+}
+
+function purgeIfReplyOnce(mock, handler) {
+  Object.keys(mock.handlers).forEach(function (key) {
+    var index = mock.handlers[key].indexOf(handler);
+
+    if (index > -1) {
+      mock.handlers[key].splice(index, 1);
+    }
+  });
+}
+
+function settle(resolve, reject, response, delay) {
+  if (delay > 0) {
+    setTimeout(function () {
+      settle(resolve, reject, response);
+    }, delay);
+    return;
+  }
+
+  if (response.config && response.config.validateStatus) {
+    response.config.validateStatus(response.status) ? resolve(response) : reject(createAxiosError("Request failed with status code " + response.status, response.config, response));
+    return;
+  } // Support for axios < 0.11
+
+
+  if (response.status >= 200 && response.status < 300) {
+    resolve(response);
+  } else {
+    reject(response);
+  }
+}
+
+function createAxiosError(message, config, response, code) {
+  // Support for axios < 0.13.0
+  if (!rejectWithError) return response;
+  var error = new Error(message);
+  error.isAxiosError = true;
+  error.config = config;
+
+  if (response !== undefined) {
+    error.response = response;
+  }
+
+  if (code !== undefined) {
+    error.code = code;
+  }
+
+  return error;
+}
+
+module.exports = {
+  find: find,
+  findHandler: findHandler,
+  purgeIfReplyOnce: purgeIfReplyOnce,
+  settle: settle,
+  isStream: isStream,
+  isArrayBuffer: isArrayBuffer,
+  isFunction: isFunction,
+  isObjectOrArray: isObjectOrArray,
+  isBuffer: isBuffer,
+  isEqual: isEqual,
+  createAxiosError: createAxiosError
+};
+
+/***/ }),
+
 /***/ "../../../../../../../app/musora-ui/node_modules/axios/index.js":
 /*!**************************************************!*\
   !*** /app/musora-ui/node_modules/axios/index.js ***!
@@ -2240,6 +2693,4318 @@ module.exports = {
   extend: extend,
   trim: trim
 };
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/can-use-dom/index.js":
+/*!********************************************************!*\
+  !*** /app/musora-ui/node_modules/can-use-dom/index.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+module.exports = canUseDOM;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/a-function.js":
+/*!*******************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/a-function.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  if (typeof it != 'function') {
+    throw TypeError(String(it) + ' is not a function');
+  }
+
+  return it;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/a-possible-prototype.js":
+/*!*****************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/a-possible-prototype.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-object.js");
+
+module.exports = function (it) {
+  if (!isObject(it) && it !== null) {
+    throw TypeError("Can't set " + String(it) + ' as a prototype');
+  }
+
+  return it;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/add-to-unscopables.js":
+/*!***************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/add-to-unscopables.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js");
+
+var create = __webpack_require__(/*! ../internals/object-create */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-create.js");
+
+var definePropertyModule = __webpack_require__(/*! ../internals/object-define-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-define-property.js");
+
+var UNSCOPABLES = wellKnownSymbol('unscopables');
+var ArrayPrototype = Array.prototype; // Array.prototype[@@unscopables]
+// https://tc39.github.io/ecma262/#sec-array.prototype-@@unscopables
+
+if (ArrayPrototype[UNSCOPABLES] == undefined) {
+  definePropertyModule.f(ArrayPrototype, UNSCOPABLES, {
+    configurable: true,
+    value: create(null)
+  });
+} // add a key to Array.prototype[@@unscopables]
+
+
+module.exports = function (key) {
+  ArrayPrototype[UNSCOPABLES][key] = true;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/advance-string-index.js":
+/*!*****************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/advance-string-index.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var charAt = __webpack_require__(/*! ../internals/string-multibyte */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/string-multibyte.js").charAt; // `AdvanceStringIndex` abstract operation
+// https://tc39.github.io/ecma262/#sec-advancestringindex
+
+
+module.exports = function (S, index, unicode) {
+  return index + (unicode ? charAt(S, index).length : 1);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-instance.js":
+/*!********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/an-instance.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function (it, Constructor, name) {
+  if (!(it instanceof Constructor)) {
+    throw TypeError('Incorrect ' + (name ? name + ' ' : '') + 'invocation');
+  }
+
+  return it;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-object.js":
+/*!******************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/an-object.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-object.js");
+
+module.exports = function (it) {
+  if (!isObject(it)) {
+    throw TypeError(String(it) + ' is not an object');
+  }
+
+  return it;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-for-each.js":
+/*!***********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/array-for-each.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var $forEach = __webpack_require__(/*! ../internals/array-iteration */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-iteration.js").forEach;
+
+var arrayMethodIsStrict = __webpack_require__(/*! ../internals/array-method-is-strict */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-method-is-strict.js");
+
+var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-method-uses-to-length.js");
+
+var STRICT_METHOD = arrayMethodIsStrict('forEach');
+var USES_TO_LENGTH = arrayMethodUsesToLength('forEach'); // `Array.prototype.forEach` method implementation
+// https://tc39.github.io/ecma262/#sec-array.prototype.foreach
+
+module.exports = !STRICT_METHOD || !USES_TO_LENGTH ? function forEach(callbackfn
+/* , thisArg */
+) {
+  return $forEach(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+} : [].forEach;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-includes.js":
+/*!***********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/array-includes.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toIndexedObject = __webpack_require__(/*! ../internals/to-indexed-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-indexed-object.js");
+
+var toLength = __webpack_require__(/*! ../internals/to-length */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-length.js");
+
+var toAbsoluteIndex = __webpack_require__(/*! ../internals/to-absolute-index */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-absolute-index.js"); // `Array.prototype.{ indexOf, includes }` methods implementation
+
+
+var createMethod = function createMethod(IS_INCLUDES) {
+  return function ($this, el, fromIndex) {
+    var O = toIndexedObject($this);
+    var length = toLength(O.length);
+    var index = toAbsoluteIndex(fromIndex, length);
+    var value; // Array#includes uses SameValueZero equality algorithm
+    // eslint-disable-next-line no-self-compare
+
+    if (IS_INCLUDES && el != el) while (length > index) {
+      value = O[index++]; // eslint-disable-next-line no-self-compare
+
+      if (value != value) return true; // Array#indexOf ignores holes, Array#includes - not
+    } else for (; length > index; index++) {
+      if ((IS_INCLUDES || index in O) && O[index] === el) return IS_INCLUDES || index || 0;
+    }
+    return !IS_INCLUDES && -1;
+  };
+};
+
+module.exports = {
+  // `Array.prototype.includes` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.includes
+  includes: createMethod(true),
+  // `Array.prototype.indexOf` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.indexof
+  indexOf: createMethod(false)
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-iteration.js":
+/*!************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/array-iteration.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var bind = __webpack_require__(/*! ../internals/function-bind-context */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/function-bind-context.js");
+
+var IndexedObject = __webpack_require__(/*! ../internals/indexed-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/indexed-object.js");
+
+var toObject = __webpack_require__(/*! ../internals/to-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-object.js");
+
+var toLength = __webpack_require__(/*! ../internals/to-length */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-length.js");
+
+var arraySpeciesCreate = __webpack_require__(/*! ../internals/array-species-create */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-species-create.js");
+
+var push = [].push; // `Array.prototype.{ forEach, map, filter, some, every, find, findIndex }` methods implementation
+
+var createMethod = function createMethod(TYPE) {
+  var IS_MAP = TYPE == 1;
+  var IS_FILTER = TYPE == 2;
+  var IS_SOME = TYPE == 3;
+  var IS_EVERY = TYPE == 4;
+  var IS_FIND_INDEX = TYPE == 6;
+  var NO_HOLES = TYPE == 5 || IS_FIND_INDEX;
+  return function ($this, callbackfn, that, specificCreate) {
+    var O = toObject($this);
+    var self = IndexedObject(O);
+    var boundFunction = bind(callbackfn, that, 3);
+    var length = toLength(self.length);
+    var index = 0;
+    var create = specificCreate || arraySpeciesCreate;
+    var target = IS_MAP ? create($this, length) : IS_FILTER ? create($this, 0) : undefined;
+    var value, result;
+
+    for (; length > index; index++) {
+      if (NO_HOLES || index in self) {
+        value = self[index];
+        result = boundFunction(value, index, O);
+
+        if (TYPE) {
+          if (IS_MAP) target[index] = result; // map
+          else if (result) switch (TYPE) {
+              case 3:
+                return true;
+              // some
+
+              case 5:
+                return value;
+              // find
+
+              case 6:
+                return index;
+              // findIndex
+
+              case 2:
+                push.call(target, value);
+              // filter
+            } else if (IS_EVERY) return false; // every
+        }
+      }
+    }
+
+    return IS_FIND_INDEX ? -1 : IS_SOME || IS_EVERY ? IS_EVERY : target;
+  };
+};
+
+module.exports = {
+  // `Array.prototype.forEach` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.foreach
+  forEach: createMethod(0),
+  // `Array.prototype.map` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.map
+  map: createMethod(1),
+  // `Array.prototype.filter` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.filter
+  filter: createMethod(2),
+  // `Array.prototype.some` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.some
+  some: createMethod(3),
+  // `Array.prototype.every` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.every
+  every: createMethod(4),
+  // `Array.prototype.find` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.find
+  find: createMethod(5),
+  // `Array.prototype.findIndex` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.findIndex
+  findIndex: createMethod(6)
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-method-has-species-support.js":
+/*!*****************************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/array-method-has-species-support.js ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js");
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js");
+
+var V8_VERSION = __webpack_require__(/*! ../internals/engine-v8-version */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/engine-v8-version.js");
+
+var SPECIES = wellKnownSymbol('species');
+
+module.exports = function (METHOD_NAME) {
+  // We can't use this feature detection in V8 since it causes
+  // deoptimization and serious performance degradation
+  // https://github.com/zloirock/core-js/issues/677
+  return V8_VERSION >= 51 || !fails(function () {
+    var array = [];
+    var constructor = array.constructor = {};
+
+    constructor[SPECIES] = function () {
+      return {
+        foo: 1
+      };
+    };
+
+    return array[METHOD_NAME](Boolean).foo !== 1;
+  });
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-method-is-strict.js":
+/*!*******************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/array-method-is-strict.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js");
+
+module.exports = function (METHOD_NAME, argument) {
+  var method = [][METHOD_NAME];
+  return !!method && fails(function () {
+    // eslint-disable-next-line no-useless-call,no-throw-literal
+    method.call(null, argument || function () {
+      throw 1;
+    }, 1);
+  });
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-method-uses-to-length.js":
+/*!************************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/array-method-uses-to-length.js ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/descriptors.js");
+
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js");
+
+var has = __webpack_require__(/*! ../internals/has */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/has.js");
+
+var defineProperty = Object.defineProperty;
+var cache = {};
+
+var thrower = function thrower(it) {
+  throw it;
+};
+
+module.exports = function (METHOD_NAME, options) {
+  if (has(cache, METHOD_NAME)) return cache[METHOD_NAME];
+  if (!options) options = {};
+  var method = [][METHOD_NAME];
+  var ACCESSORS = has(options, 'ACCESSORS') ? options.ACCESSORS : false;
+  var argument0 = has(options, 0) ? options[0] : thrower;
+  var argument1 = has(options, 1) ? options[1] : undefined;
+  return cache[METHOD_NAME] = !!method && !fails(function () {
+    if (ACCESSORS && !DESCRIPTORS) return true;
+    var O = {
+      length: -1
+    };
+    if (ACCESSORS) defineProperty(O, 1, {
+      enumerable: true,
+      get: thrower
+    });else O[1] = 1;
+    method.call(O, argument0, argument1);
+  });
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-reduce.js":
+/*!*********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/array-reduce.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var aFunction = __webpack_require__(/*! ../internals/a-function */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/a-function.js");
+
+var toObject = __webpack_require__(/*! ../internals/to-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-object.js");
+
+var IndexedObject = __webpack_require__(/*! ../internals/indexed-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/indexed-object.js");
+
+var toLength = __webpack_require__(/*! ../internals/to-length */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-length.js"); // `Array.prototype.{ reduce, reduceRight }` methods implementation
+
+
+var createMethod = function createMethod(IS_RIGHT) {
+  return function (that, callbackfn, argumentsLength, memo) {
+    aFunction(callbackfn);
+    var O = toObject(that);
+    var self = IndexedObject(O);
+    var length = toLength(O.length);
+    var index = IS_RIGHT ? length - 1 : 0;
+    var i = IS_RIGHT ? -1 : 1;
+    if (argumentsLength < 2) while (true) {
+      if (index in self) {
+        memo = self[index];
+        index += i;
+        break;
+      }
+
+      index += i;
+
+      if (IS_RIGHT ? index < 0 : length <= index) {
+        throw TypeError('Reduce of empty array with no initial value');
+      }
+    }
+
+    for (; IS_RIGHT ? index >= 0 : length > index; index += i) {
+      if (index in self) {
+        memo = callbackfn(memo, self[index], index, O);
+      }
+    }
+
+    return memo;
+  };
+};
+
+module.exports = {
+  // `Array.prototype.reduce` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.reduce
+  left: createMethod(false),
+  // `Array.prototype.reduceRight` method
+  // https://tc39.github.io/ecma262/#sec-array.prototype.reduceright
+  right: createMethod(true)
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-species-create.js":
+/*!*****************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/array-species-create.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-object.js");
+
+var isArray = __webpack_require__(/*! ../internals/is-array */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-array.js");
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js");
+
+var SPECIES = wellKnownSymbol('species'); // `ArraySpeciesCreate` abstract operation
+// https://tc39.github.io/ecma262/#sec-arrayspeciescreate
+
+module.exports = function (originalArray, length) {
+  var C;
+
+  if (isArray(originalArray)) {
+    C = originalArray.constructor; // cross-realm fallback
+
+    if (typeof C == 'function' && (C === Array || isArray(C.prototype))) C = undefined;else if (isObject(C)) {
+      C = C[SPECIES];
+      if (C === null) C = undefined;
+    }
+  }
+
+  return new (C === undefined ? Array : C)(length === 0 ? 0 : length);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/call-with-safe-iteration-closing.js":
+/*!*****************************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/call-with-safe-iteration-closing.js ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-object.js"); // call something on iterator step with safe closing on error
+
+
+module.exports = function (iterator, fn, value, ENTRIES) {
+  try {
+    return ENTRIES ? fn(anObject(value)[0], value[1]) : fn(value); // 7.4.6 IteratorClose(iterator, completion)
+  } catch (error) {
+    var returnMethod = iterator['return'];
+    if (returnMethod !== undefined) anObject(returnMethod.call(iterator));
+    throw error;
+  }
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/check-correctness-of-iteration.js":
+/*!***************************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/check-correctness-of-iteration.js ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js");
+
+var ITERATOR = wellKnownSymbol('iterator');
+var SAFE_CLOSING = false;
+
+try {
+  var called = 0;
+  var iteratorWithReturn = {
+    next: function next() {
+      return {
+        done: !!called++
+      };
+    },
+    'return': function _return() {
+      SAFE_CLOSING = true;
+    }
+  };
+
+  iteratorWithReturn[ITERATOR] = function () {
+    return this;
+  }; // eslint-disable-next-line no-throw-literal
+
+
+  Array.from(iteratorWithReturn, function () {
+    throw 2;
+  });
+} catch (error) {
+  /* empty */
+}
+
+module.exports = function (exec, SKIP_CLOSING) {
+  if (!SKIP_CLOSING && !SAFE_CLOSING) return false;
+  var ITERATION_SUPPORT = false;
+
+  try {
+    var object = {};
+
+    object[ITERATOR] = function () {
+      return {
+        next: function next() {
+          return {
+            done: ITERATION_SUPPORT = true
+          };
+        }
+      };
+    };
+
+    exec(object);
+  } catch (error) {
+    /* empty */
+  }
+
+  return ITERATION_SUPPORT;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/classof-raw.js":
+/*!********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/classof-raw.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = function (it) {
+  return toString.call(it).slice(8, -1);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/classof.js":
+/*!****************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/classof.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var TO_STRING_TAG_SUPPORT = __webpack_require__(/*! ../internals/to-string-tag-support */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-string-tag-support.js");
+
+var classofRaw = __webpack_require__(/*! ../internals/classof-raw */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/classof-raw.js");
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js");
+
+var TO_STRING_TAG = wellKnownSymbol('toStringTag'); // ES3 wrong here
+
+var CORRECT_ARGUMENTS = classofRaw(function () {
+  return arguments;
+}()) == 'Arguments'; // fallback for IE11 Script Access Denied error
+
+var tryGet = function tryGet(it, key) {
+  try {
+    return it[key];
+  } catch (error) {
+    /* empty */
+  }
+}; // getting tag from ES6+ `Object.prototype.toString`
+
+
+module.exports = TO_STRING_TAG_SUPPORT ? classofRaw : function (it) {
+  var O, tag, result;
+  return it === undefined ? 'Undefined' : it === null ? 'Null' // @@toStringTag case
+  : typeof (tag = tryGet(O = Object(it), TO_STRING_TAG)) == 'string' ? tag // builtinTag case
+  : CORRECT_ARGUMENTS ? classofRaw(O) // ES3 arguments fallback
+  : (result = classofRaw(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : result;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/collection-weak.js":
+/*!************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/collection-weak.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var redefineAll = __webpack_require__(/*! ../internals/redefine-all */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/redefine-all.js");
+
+var getWeakData = __webpack_require__(/*! ../internals/internal-metadata */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/internal-metadata.js").getWeakData;
+
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-object.js");
+
+var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-object.js");
+
+var anInstance = __webpack_require__(/*! ../internals/an-instance */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-instance.js");
+
+var iterate = __webpack_require__(/*! ../internals/iterate */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/iterate.js");
+
+var ArrayIterationModule = __webpack_require__(/*! ../internals/array-iteration */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-iteration.js");
+
+var $has = __webpack_require__(/*! ../internals/has */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/has.js");
+
+var InternalStateModule = __webpack_require__(/*! ../internals/internal-state */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/internal-state.js");
+
+var setInternalState = InternalStateModule.set;
+var internalStateGetterFor = InternalStateModule.getterFor;
+var find = ArrayIterationModule.find;
+var findIndex = ArrayIterationModule.findIndex;
+var id = 0; // fallback for uncaught frozen keys
+
+var uncaughtFrozenStore = function uncaughtFrozenStore(store) {
+  return store.frozen || (store.frozen = new UncaughtFrozenStore());
+};
+
+var UncaughtFrozenStore = function UncaughtFrozenStore() {
+  this.entries = [];
+};
+
+var findUncaughtFrozen = function findUncaughtFrozen(store, key) {
+  return find(store.entries, function (it) {
+    return it[0] === key;
+  });
+};
+
+UncaughtFrozenStore.prototype = {
+  get: function get(key) {
+    var entry = findUncaughtFrozen(this, key);
+    if (entry) return entry[1];
+  },
+  has: function has(key) {
+    return !!findUncaughtFrozen(this, key);
+  },
+  set: function set(key, value) {
+    var entry = findUncaughtFrozen(this, key);
+    if (entry) entry[1] = value;else this.entries.push([key, value]);
+  },
+  'delete': function _delete(key) {
+    var index = findIndex(this.entries, function (it) {
+      return it[0] === key;
+    });
+    if (~index) this.entries.splice(index, 1);
+    return !!~index;
+  }
+};
+module.exports = {
+  getConstructor: function getConstructor(wrapper, CONSTRUCTOR_NAME, IS_MAP, ADDER) {
+    var C = wrapper(function (that, iterable) {
+      anInstance(that, C, CONSTRUCTOR_NAME);
+      setInternalState(that, {
+        type: CONSTRUCTOR_NAME,
+        id: id++,
+        frozen: undefined
+      });
+      if (iterable != undefined) iterate(iterable, that[ADDER], that, IS_MAP);
+    });
+    var getInternalState = internalStateGetterFor(CONSTRUCTOR_NAME);
+
+    var define = function define(that, key, value) {
+      var state = getInternalState(that);
+      var data = getWeakData(anObject(key), true);
+      if (data === true) uncaughtFrozenStore(state).set(key, value);else data[state.id] = value;
+      return that;
+    };
+
+    redefineAll(C.prototype, {
+      // 23.3.3.2 WeakMap.prototype.delete(key)
+      // 23.4.3.3 WeakSet.prototype.delete(value)
+      'delete': function _delete(key) {
+        var state = getInternalState(this);
+        if (!isObject(key)) return false;
+        var data = getWeakData(key);
+        if (data === true) return uncaughtFrozenStore(state)['delete'](key);
+        return data && $has(data, state.id) && delete data[state.id];
+      },
+      // 23.3.3.4 WeakMap.prototype.has(key)
+      // 23.4.3.4 WeakSet.prototype.has(value)
+      has: function has(key) {
+        var state = getInternalState(this);
+        if (!isObject(key)) return false;
+        var data = getWeakData(key);
+        if (data === true) return uncaughtFrozenStore(state).has(key);
+        return data && $has(data, state.id);
+      }
+    });
+    redefineAll(C.prototype, IS_MAP ? {
+      // 23.3.3.3 WeakMap.prototype.get(key)
+      get: function get(key) {
+        var state = getInternalState(this);
+
+        if (isObject(key)) {
+          var data = getWeakData(key);
+          if (data === true) return uncaughtFrozenStore(state).get(key);
+          return data ? data[state.id] : undefined;
+        }
+      },
+      // 23.3.3.5 WeakMap.prototype.set(key, value)
+      set: function set(key, value) {
+        return define(this, key, value);
+      }
+    } : {
+      // 23.4.3.1 WeakSet.prototype.add(value)
+      add: function add(value) {
+        return define(this, value, true);
+      }
+    });
+    return C;
+  }
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/collection.js":
+/*!*******************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/collection.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/export.js");
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var isForced = __webpack_require__(/*! ../internals/is-forced */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-forced.js");
+
+var redefine = __webpack_require__(/*! ../internals/redefine */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/redefine.js");
+
+var InternalMetadataModule = __webpack_require__(/*! ../internals/internal-metadata */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/internal-metadata.js");
+
+var iterate = __webpack_require__(/*! ../internals/iterate */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/iterate.js");
+
+var anInstance = __webpack_require__(/*! ../internals/an-instance */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-instance.js");
+
+var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-object.js");
+
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js");
+
+var checkCorrectnessOfIteration = __webpack_require__(/*! ../internals/check-correctness-of-iteration */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/check-correctness-of-iteration.js");
+
+var setToStringTag = __webpack_require__(/*! ../internals/set-to-string-tag */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/set-to-string-tag.js");
+
+var inheritIfRequired = __webpack_require__(/*! ../internals/inherit-if-required */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/inherit-if-required.js");
+
+module.exports = function (CONSTRUCTOR_NAME, wrapper, common) {
+  var IS_MAP = CONSTRUCTOR_NAME.indexOf('Map') !== -1;
+  var IS_WEAK = CONSTRUCTOR_NAME.indexOf('Weak') !== -1;
+  var ADDER = IS_MAP ? 'set' : 'add';
+  var NativeConstructor = global[CONSTRUCTOR_NAME];
+  var NativePrototype = NativeConstructor && NativeConstructor.prototype;
+  var Constructor = NativeConstructor;
+  var exported = {};
+
+  var fixMethod = function fixMethod(KEY) {
+    var nativeMethod = NativePrototype[KEY];
+    redefine(NativePrototype, KEY, KEY == 'add' ? function add(value) {
+      nativeMethod.call(this, value === 0 ? 0 : value);
+      return this;
+    } : KEY == 'delete' ? function (key) {
+      return IS_WEAK && !isObject(key) ? false : nativeMethod.call(this, key === 0 ? 0 : key);
+    } : KEY == 'get' ? function get(key) {
+      return IS_WEAK && !isObject(key) ? undefined : nativeMethod.call(this, key === 0 ? 0 : key);
+    } : KEY == 'has' ? function has(key) {
+      return IS_WEAK && !isObject(key) ? false : nativeMethod.call(this, key === 0 ? 0 : key);
+    } : function set(key, value) {
+      nativeMethod.call(this, key === 0 ? 0 : key, value);
+      return this;
+    });
+  }; // eslint-disable-next-line max-len
+
+
+  if (isForced(CONSTRUCTOR_NAME, typeof NativeConstructor != 'function' || !(IS_WEAK || NativePrototype.forEach && !fails(function () {
+    new NativeConstructor().entries().next();
+  })))) {
+    // create collection constructor
+    Constructor = common.getConstructor(wrapper, CONSTRUCTOR_NAME, IS_MAP, ADDER);
+    InternalMetadataModule.REQUIRED = true;
+  } else if (isForced(CONSTRUCTOR_NAME, true)) {
+    var instance = new Constructor(); // early implementations not supports chaining
+
+    var HASNT_CHAINING = instance[ADDER](IS_WEAK ? {} : -0, 1) != instance; // V8 ~ Chromium 40- weak-collections throws on primitives, but should return false
+
+    var THROWS_ON_PRIMITIVES = fails(function () {
+      instance.has(1);
+    }); // most early implementations doesn't supports iterables, most modern - not close it correctly
+    // eslint-disable-next-line no-new
+
+    var ACCEPT_ITERABLES = checkCorrectnessOfIteration(function (iterable) {
+      new NativeConstructor(iterable);
+    }); // for early implementations -0 and +0 not the same
+
+    var BUGGY_ZERO = !IS_WEAK && fails(function () {
+      // V8 ~ Chromium 42- fails only with 5+ elements
+      var $instance = new NativeConstructor();
+      var index = 5;
+
+      while (index--) {
+        $instance[ADDER](index, index);
+      }
+
+      return !$instance.has(-0);
+    });
+
+    if (!ACCEPT_ITERABLES) {
+      Constructor = wrapper(function (dummy, iterable) {
+        anInstance(dummy, Constructor, CONSTRUCTOR_NAME);
+        var that = inheritIfRequired(new NativeConstructor(), dummy, Constructor);
+        if (iterable != undefined) iterate(iterable, that[ADDER], that, IS_MAP);
+        return that;
+      });
+      Constructor.prototype = NativePrototype;
+      NativePrototype.constructor = Constructor;
+    }
+
+    if (THROWS_ON_PRIMITIVES || BUGGY_ZERO) {
+      fixMethod('delete');
+      fixMethod('has');
+      IS_MAP && fixMethod('get');
+    }
+
+    if (BUGGY_ZERO || HASNT_CHAINING) fixMethod(ADDER); // weak collections should not contains .clear method
+
+    if (IS_WEAK && NativePrototype.clear) delete NativePrototype.clear;
+  }
+
+  exported[CONSTRUCTOR_NAME] = Constructor;
+  $({
+    global: true,
+    forced: Constructor != NativeConstructor
+  }, exported);
+  setToStringTag(Constructor, CONSTRUCTOR_NAME);
+  if (!IS_WEAK) common.setStrong(Constructor, CONSTRUCTOR_NAME, IS_MAP);
+  return Constructor;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/copy-constructor-properties.js":
+/*!************************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/copy-constructor-properties.js ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var has = __webpack_require__(/*! ../internals/has */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/has.js");
+
+var ownKeys = __webpack_require__(/*! ../internals/own-keys */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/own-keys.js");
+
+var getOwnPropertyDescriptorModule = __webpack_require__(/*! ../internals/object-get-own-property-descriptor */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-get-own-property-descriptor.js");
+
+var definePropertyModule = __webpack_require__(/*! ../internals/object-define-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-define-property.js");
+
+module.exports = function (target, source) {
+  var keys = ownKeys(source);
+  var defineProperty = definePropertyModule.f;
+  var getOwnPropertyDescriptor = getOwnPropertyDescriptorModule.f;
+
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i];
+    if (!has(target, key)) defineProperty(target, key, getOwnPropertyDescriptor(source, key));
+  }
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/correct-prototype-getter.js":
+/*!*********************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/correct-prototype-getter.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js");
+
+module.exports = !fails(function () {
+  function F() {
+    /* empty */
+  }
+
+  F.prototype.constructor = null;
+  return Object.getPrototypeOf(new F()) !== F.prototype;
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-iterator-constructor.js":
+/*!************************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/create-iterator-constructor.js ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var IteratorPrototype = __webpack_require__(/*! ../internals/iterators-core */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/iterators-core.js").IteratorPrototype;
+
+var create = __webpack_require__(/*! ../internals/object-create */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-create.js");
+
+var createPropertyDescriptor = __webpack_require__(/*! ../internals/create-property-descriptor */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-property-descriptor.js");
+
+var setToStringTag = __webpack_require__(/*! ../internals/set-to-string-tag */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/set-to-string-tag.js");
+
+var Iterators = __webpack_require__(/*! ../internals/iterators */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/iterators.js");
+
+var returnThis = function returnThis() {
+  return this;
+};
+
+module.exports = function (IteratorConstructor, NAME, next) {
+  var TO_STRING_TAG = NAME + ' Iterator';
+  IteratorConstructor.prototype = create(IteratorPrototype, {
+    next: createPropertyDescriptor(1, next)
+  });
+  setToStringTag(IteratorConstructor, TO_STRING_TAG, false, true);
+  Iterators[TO_STRING_TAG] = returnThis;
+  return IteratorConstructor;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-non-enumerable-property.js":
+/*!***************************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/create-non-enumerable-property.js ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/descriptors.js");
+
+var definePropertyModule = __webpack_require__(/*! ../internals/object-define-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-define-property.js");
+
+var createPropertyDescriptor = __webpack_require__(/*! ../internals/create-property-descriptor */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-property-descriptor.js");
+
+module.exports = DESCRIPTORS ? function (object, key, value) {
+  return definePropertyModule.f(object, key, createPropertyDescriptor(1, value));
+} : function (object, key, value) {
+  object[key] = value;
+  return object;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-property-descriptor.js":
+/*!***********************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/create-property-descriptor.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function (bitmap, value) {
+  return {
+    enumerable: !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable: !(bitmap & 4),
+    value: value
+  };
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-property.js":
+/*!************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/create-property.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var toPrimitive = __webpack_require__(/*! ../internals/to-primitive */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-primitive.js");
+
+var definePropertyModule = __webpack_require__(/*! ../internals/object-define-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-define-property.js");
+
+var createPropertyDescriptor = __webpack_require__(/*! ../internals/create-property-descriptor */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-property-descriptor.js");
+
+module.exports = function (object, key, value) {
+  var propertyKey = toPrimitive(key);
+  if (propertyKey in object) definePropertyModule.f(object, propertyKey, createPropertyDescriptor(0, value));else object[propertyKey] = value;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/define-iterator.js":
+/*!************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/define-iterator.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/export.js");
+
+var createIteratorConstructor = __webpack_require__(/*! ../internals/create-iterator-constructor */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-iterator-constructor.js");
+
+var getPrototypeOf = __webpack_require__(/*! ../internals/object-get-prototype-of */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-get-prototype-of.js");
+
+var setPrototypeOf = __webpack_require__(/*! ../internals/object-set-prototype-of */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-set-prototype-of.js");
+
+var setToStringTag = __webpack_require__(/*! ../internals/set-to-string-tag */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/set-to-string-tag.js");
+
+var createNonEnumerableProperty = __webpack_require__(/*! ../internals/create-non-enumerable-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-non-enumerable-property.js");
+
+var redefine = __webpack_require__(/*! ../internals/redefine */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/redefine.js");
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js");
+
+var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-pure.js");
+
+var Iterators = __webpack_require__(/*! ../internals/iterators */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/iterators.js");
+
+var IteratorsCore = __webpack_require__(/*! ../internals/iterators-core */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/iterators-core.js");
+
+var IteratorPrototype = IteratorsCore.IteratorPrototype;
+var BUGGY_SAFARI_ITERATORS = IteratorsCore.BUGGY_SAFARI_ITERATORS;
+var ITERATOR = wellKnownSymbol('iterator');
+var KEYS = 'keys';
+var VALUES = 'values';
+var ENTRIES = 'entries';
+
+var returnThis = function returnThis() {
+  return this;
+};
+
+module.exports = function (Iterable, NAME, IteratorConstructor, next, DEFAULT, IS_SET, FORCED) {
+  createIteratorConstructor(IteratorConstructor, NAME, next);
+
+  var getIterationMethod = function getIterationMethod(KIND) {
+    if (KIND === DEFAULT && defaultIterator) return defaultIterator;
+    if (!BUGGY_SAFARI_ITERATORS && KIND in IterablePrototype) return IterablePrototype[KIND];
+
+    switch (KIND) {
+      case KEYS:
+        return function keys() {
+          return new IteratorConstructor(this, KIND);
+        };
+
+      case VALUES:
+        return function values() {
+          return new IteratorConstructor(this, KIND);
+        };
+
+      case ENTRIES:
+        return function entries() {
+          return new IteratorConstructor(this, KIND);
+        };
+    }
+
+    return function () {
+      return new IteratorConstructor(this);
+    };
+  };
+
+  var TO_STRING_TAG = NAME + ' Iterator';
+  var INCORRECT_VALUES_NAME = false;
+  var IterablePrototype = Iterable.prototype;
+  var nativeIterator = IterablePrototype[ITERATOR] || IterablePrototype['@@iterator'] || DEFAULT && IterablePrototype[DEFAULT];
+  var defaultIterator = !BUGGY_SAFARI_ITERATORS && nativeIterator || getIterationMethod(DEFAULT);
+  var anyNativeIterator = NAME == 'Array' ? IterablePrototype.entries || nativeIterator : nativeIterator;
+  var CurrentIteratorPrototype, methods, KEY; // fix native
+
+  if (anyNativeIterator) {
+    CurrentIteratorPrototype = getPrototypeOf(anyNativeIterator.call(new Iterable()));
+
+    if (IteratorPrototype !== Object.prototype && CurrentIteratorPrototype.next) {
+      if (!IS_PURE && getPrototypeOf(CurrentIteratorPrototype) !== IteratorPrototype) {
+        if (setPrototypeOf) {
+          setPrototypeOf(CurrentIteratorPrototype, IteratorPrototype);
+        } else if (typeof CurrentIteratorPrototype[ITERATOR] != 'function') {
+          createNonEnumerableProperty(CurrentIteratorPrototype, ITERATOR, returnThis);
+        }
+      } // Set @@toStringTag to native iterators
+
+
+      setToStringTag(CurrentIteratorPrototype, TO_STRING_TAG, true, true);
+      if (IS_PURE) Iterators[TO_STRING_TAG] = returnThis;
+    }
+  } // fix Array#{values, @@iterator}.name in V8 / FF
+
+
+  if (DEFAULT == VALUES && nativeIterator && nativeIterator.name !== VALUES) {
+    INCORRECT_VALUES_NAME = true;
+
+    defaultIterator = function values() {
+      return nativeIterator.call(this);
+    };
+  } // define iterator
+
+
+  if ((!IS_PURE || FORCED) && IterablePrototype[ITERATOR] !== defaultIterator) {
+    createNonEnumerableProperty(IterablePrototype, ITERATOR, defaultIterator);
+  }
+
+  Iterators[NAME] = defaultIterator; // export additional methods
+
+  if (DEFAULT) {
+    methods = {
+      values: getIterationMethod(VALUES),
+      keys: IS_SET ? defaultIterator : getIterationMethod(KEYS),
+      entries: getIterationMethod(ENTRIES)
+    };
+    if (FORCED) for (KEY in methods) {
+      if (BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME || !(KEY in IterablePrototype)) {
+        redefine(IterablePrototype, KEY, methods[KEY]);
+      }
+    } else $({
+      target: NAME,
+      proto: true,
+      forced: BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME
+    }, methods);
+  }
+
+  return methods;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/descriptors.js":
+/*!********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/descriptors.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js"); // Thank's IE8 for his funny defineProperty
+
+
+module.exports = !fails(function () {
+  return Object.defineProperty({}, 1, {
+    get: function get() {
+      return 7;
+    }
+  })[1] != 7;
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/document-create-element.js":
+/*!********************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/document-create-element.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-object.js");
+
+var document = global.document; // typeof document.createElement is 'object' in old IE
+
+var EXISTS = isObject(document) && isObject(document.createElement);
+
+module.exports = function (it) {
+  return EXISTS ? document.createElement(it) : {};
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/dom-iterables.js":
+/*!**********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/dom-iterables.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// iterable DOM collections
+// flag - `iterable` interface - 'entries', 'keys', 'values', 'forEach' methods
+module.exports = {
+  CSSRuleList: 0,
+  CSSStyleDeclaration: 0,
+  CSSValueList: 0,
+  ClientRectList: 0,
+  DOMRectList: 0,
+  DOMStringList: 0,
+  DOMTokenList: 1,
+  DataTransferItemList: 0,
+  FileList: 0,
+  HTMLAllCollection: 0,
+  HTMLCollection: 0,
+  HTMLFormElement: 0,
+  HTMLSelectElement: 0,
+  MediaList: 0,
+  MimeTypeArray: 0,
+  NamedNodeMap: 0,
+  NodeList: 1,
+  PaintRequestList: 0,
+  Plugin: 0,
+  PluginArray: 0,
+  SVGLengthList: 0,
+  SVGNumberList: 0,
+  SVGPathSegList: 0,
+  SVGPointList: 0,
+  SVGStringList: 0,
+  SVGTransformList: 0,
+  SourceBufferList: 0,
+  StyleSheetList: 0,
+  TextTrackCueList: 0,
+  TextTrackList: 0,
+  TouchList: 0
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/engine-user-agent.js":
+/*!**************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/engine-user-agent.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getBuiltIn = __webpack_require__(/*! ../internals/get-built-in */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/get-built-in.js");
+
+module.exports = getBuiltIn('navigator', 'userAgent') || '';
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/engine-v8-version.js":
+/*!**************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/engine-v8-version.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var userAgent = __webpack_require__(/*! ../internals/engine-user-agent */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/engine-user-agent.js");
+
+var process = global.process;
+var versions = process && process.versions;
+var v8 = versions && versions.v8;
+var match, version;
+
+if (v8) {
+  match = v8.split('.');
+  version = match[0] + match[1];
+} else if (userAgent) {
+  match = userAgent.match(/Edge\/(\d+)/);
+
+  if (!match || match[1] >= 74) {
+    match = userAgent.match(/Chrome\/(\d+)/);
+    if (match) version = match[1];
+  }
+}
+
+module.exports = version && +version;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/enum-bug-keys.js":
+/*!**********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/enum-bug-keys.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// IE8- don't enum bug keys
+module.exports = ['constructor', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'valueOf'];
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/export.js":
+/*!***************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/export.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var getOwnPropertyDescriptor = __webpack_require__(/*! ../internals/object-get-own-property-descriptor */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-get-own-property-descriptor.js").f;
+
+var createNonEnumerableProperty = __webpack_require__(/*! ../internals/create-non-enumerable-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-non-enumerable-property.js");
+
+var redefine = __webpack_require__(/*! ../internals/redefine */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/redefine.js");
+
+var setGlobal = __webpack_require__(/*! ../internals/set-global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/set-global.js");
+
+var copyConstructorProperties = __webpack_require__(/*! ../internals/copy-constructor-properties */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/copy-constructor-properties.js");
+
+var isForced = __webpack_require__(/*! ../internals/is-forced */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-forced.js");
+/*
+  options.target      - name of the target object
+  options.global      - target is the global object
+  options.stat        - export as static methods of target
+  options.proto       - export as prototype methods of target
+  options.real        - real prototype method for the `pure` version
+  options.forced      - export even if the native feature is available
+  options.bind        - bind methods to the target, required for the `pure` version
+  options.wrap        - wrap constructors to preventing global pollution, required for the `pure` version
+  options.unsafe      - use the simple assignment of property instead of delete + defineProperty
+  options.sham        - add a flag to not completely full polyfills
+  options.enumerable  - export as enumerable property
+  options.noTargetGet - prevent calling a getter on target
+*/
+
+
+module.exports = function (options, source) {
+  var TARGET = options.target;
+  var GLOBAL = options.global;
+  var STATIC = options.stat;
+  var FORCED, target, key, targetProperty, sourceProperty, descriptor;
+
+  if (GLOBAL) {
+    target = global;
+  } else if (STATIC) {
+    target = global[TARGET] || setGlobal(TARGET, {});
+  } else {
+    target = (global[TARGET] || {}).prototype;
+  }
+
+  if (target) for (key in source) {
+    sourceProperty = source[key];
+
+    if (options.noTargetGet) {
+      descriptor = getOwnPropertyDescriptor(target, key);
+      targetProperty = descriptor && descriptor.value;
+    } else targetProperty = target[key];
+
+    FORCED = isForced(GLOBAL ? key : TARGET + (STATIC ? '.' : '#') + key, options.forced); // contained in target
+
+    if (!FORCED && targetProperty !== undefined) {
+      if (_typeof(sourceProperty) === _typeof(targetProperty)) continue;
+      copyConstructorProperties(sourceProperty, targetProperty);
+    } // add a flag to not completely full polyfills
+
+
+    if (options.sham || targetProperty && targetProperty.sham) {
+      createNonEnumerableProperty(sourceProperty, 'sham', true);
+    } // extend global
+
+
+    redefine(target, key, sourceProperty, options);
+  }
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js":
+/*!**************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/fails.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (error) {
+    return true;
+  }
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fix-regexp-well-known-symbol-logic.js":
+/*!*******************************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/fix-regexp-well-known-symbol-logic.js ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+ // TODO: Remove from `core-js@4` since it's moved to entry points
+
+__webpack_require__(/*! ../modules/es.regexp.exec */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.regexp.exec.js");
+
+var redefine = __webpack_require__(/*! ../internals/redefine */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/redefine.js");
+
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js");
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js");
+
+var regexpExec = __webpack_require__(/*! ../internals/regexp-exec */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/regexp-exec.js");
+
+var createNonEnumerableProperty = __webpack_require__(/*! ../internals/create-non-enumerable-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-non-enumerable-property.js");
+
+var SPECIES = wellKnownSymbol('species');
+var REPLACE_SUPPORTS_NAMED_GROUPS = !fails(function () {
+  // #replace needs built-in support for named groups.
+  // #match works fine because it just return the exec results, even if it has
+  // a "grops" property.
+  var re = /./;
+
+  re.exec = function () {
+    var result = [];
+    result.groups = {
+      a: '7'
+    };
+    return result;
+  };
+
+  return ''.replace(re, '$<a>') !== '7';
+}); // IE <= 11 replaces $0 with the whole match, as if it was $&
+// https://stackoverflow.com/questions/6024666/getting-ie-to-replace-a-regex-with-the-literal-string-0
+
+var REPLACE_KEEPS_$0 = function () {
+  return 'a'.replace(/./, '$0') === '$0';
+}();
+
+var REPLACE = wellKnownSymbol('replace'); // Safari <= 13.0.3(?) substitutes nth capture where n>m with an empty string
+
+var REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE = function () {
+  if (/./[REPLACE]) {
+    return /./[REPLACE]('a', '$0') === '';
+  }
+
+  return false;
+}(); // Chrome 51 has a buggy "split" implementation when RegExp#exec !== nativeExec
+// Weex JS has frozen built-in prototypes, so use try / catch wrapper
+
+
+var SPLIT_WORKS_WITH_OVERWRITTEN_EXEC = !fails(function () {
+  var re = /(?:)/;
+  var originalExec = re.exec;
+
+  re.exec = function () {
+    return originalExec.apply(this, arguments);
+  };
+
+  var result = 'ab'.split(re);
+  return result.length !== 2 || result[0] !== 'a' || result[1] !== 'b';
+});
+
+module.exports = function (KEY, length, exec, sham) {
+  var SYMBOL = wellKnownSymbol(KEY);
+  var DELEGATES_TO_SYMBOL = !fails(function () {
+    // String methods call symbol-named RegEp methods
+    var O = {};
+
+    O[SYMBOL] = function () {
+      return 7;
+    };
+
+    return ''[KEY](O) != 7;
+  });
+  var DELEGATES_TO_EXEC = DELEGATES_TO_SYMBOL && !fails(function () {
+    // Symbol-named RegExp methods call .exec
+    var execCalled = false;
+    var re = /a/;
+
+    if (KEY === 'split') {
+      // We can't use real regex here since it causes deoptimization
+      // and serious performance degradation in V8
+      // https://github.com/zloirock/core-js/issues/306
+      re = {}; // RegExp[@@split] doesn't call the regex's exec method, but first creates
+      // a new one. We need to return the patched regex when creating the new one.
+
+      re.constructor = {};
+
+      re.constructor[SPECIES] = function () {
+        return re;
+      };
+
+      re.flags = '';
+      re[SYMBOL] = /./[SYMBOL];
+    }
+
+    re.exec = function () {
+      execCalled = true;
+      return null;
+    };
+
+    re[SYMBOL]('');
+    return !execCalled;
+  });
+
+  if (!DELEGATES_TO_SYMBOL || !DELEGATES_TO_EXEC || KEY === 'replace' && !(REPLACE_SUPPORTS_NAMED_GROUPS && REPLACE_KEEPS_$0 && !REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE) || KEY === 'split' && !SPLIT_WORKS_WITH_OVERWRITTEN_EXEC) {
+    var nativeRegExpMethod = /./[SYMBOL];
+    var methods = exec(SYMBOL, ''[KEY], function (nativeMethod, regexp, str, arg2, forceStringMethod) {
+      if (regexp.exec === regexpExec) {
+        if (DELEGATES_TO_SYMBOL && !forceStringMethod) {
+          // The native String method already delegates to @@method (this
+          // polyfilled function), leasing to infinite recursion.
+          // We avoid it by directly calling the native @@method method.
+          return {
+            done: true,
+            value: nativeRegExpMethod.call(regexp, str, arg2)
+          };
+        }
+
+        return {
+          done: true,
+          value: nativeMethod.call(str, regexp, arg2)
+        };
+      }
+
+      return {
+        done: false
+      };
+    }, {
+      REPLACE_KEEPS_$0: REPLACE_KEEPS_$0,
+      REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE: REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE
+    });
+    var stringMethod = methods[0];
+    var regexMethod = methods[1];
+    redefine(String.prototype, KEY, stringMethod);
+    redefine(RegExp.prototype, SYMBOL, length == 2 // 21.2.5.8 RegExp.prototype[@@replace](string, replaceValue)
+    // 21.2.5.11 RegExp.prototype[@@split](string, limit)
+    ? function (string, arg) {
+      return regexMethod.call(string, this, arg);
+    } // 21.2.5.6 RegExp.prototype[@@match](string)
+    // 21.2.5.9 RegExp.prototype[@@search](string)
+    : function (string) {
+      return regexMethod.call(string, this);
+    });
+  }
+
+  if (sham) createNonEnumerableProperty(RegExp.prototype[SYMBOL], 'sham', true);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/freezing.js":
+/*!*****************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/freezing.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js");
+
+module.exports = !fails(function () {
+  return Object.isExtensible(Object.preventExtensions({}));
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/function-bind-context.js":
+/*!******************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/function-bind-context.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var aFunction = __webpack_require__(/*! ../internals/a-function */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/a-function.js"); // optional / simple context binding
+
+
+module.exports = function (fn, that, length) {
+  aFunction(fn);
+  if (that === undefined) return fn;
+
+  switch (length) {
+    case 0:
+      return function () {
+        return fn.call(that);
+      };
+
+    case 1:
+      return function (a) {
+        return fn.call(that, a);
+      };
+
+    case 2:
+      return function (a, b) {
+        return fn.call(that, a, b);
+      };
+
+    case 3:
+      return function (a, b, c) {
+        return fn.call(that, a, b, c);
+      };
+  }
+
+  return function ()
+  /* ...args */
+  {
+    return fn.apply(that, arguments);
+  };
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/get-built-in.js":
+/*!*********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/get-built-in.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var path = __webpack_require__(/*! ../internals/path */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/path.js");
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var aFunction = function aFunction(variable) {
+  return typeof variable == 'function' ? variable : undefined;
+};
+
+module.exports = function (namespace, method) {
+  return arguments.length < 2 ? aFunction(path[namespace]) || aFunction(global[namespace]) : path[namespace] && path[namespace][method] || global[namespace] && global[namespace][method];
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/get-iterator-method.js":
+/*!****************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/get-iterator-method.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var classof = __webpack_require__(/*! ../internals/classof */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/classof.js");
+
+var Iterators = __webpack_require__(/*! ../internals/iterators */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/iterators.js");
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js");
+
+var ITERATOR = wellKnownSymbol('iterator');
+
+module.exports = function (it) {
+  if (it != undefined) return it[ITERATOR] || it['@@iterator'] || Iterators[classof(it)];
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js":
+/*!***************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/global.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var check = function check(it) {
+  return it && it.Math == Math && it;
+}; // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+
+
+module.exports = // eslint-disable-next-line no-undef
+check((typeof globalThis === "undefined" ? "undefined" : _typeof(globalThis)) == 'object' && globalThis) || check((typeof window === "undefined" ? "undefined" : _typeof(window)) == 'object' && window) || check((typeof self === "undefined" ? "undefined" : _typeof(self)) == 'object' && self) || check((typeof global === "undefined" ? "undefined" : _typeof(global)) == 'object' && global) || // eslint-disable-next-line no-new-func
+Function('return this')();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../mnt/7A34EDB034ED7015/projects/drumeo/railenvironment/applications/musora-ui/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/has.js":
+/*!************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/has.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var hasOwnProperty = {}.hasOwnProperty;
+
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/hidden-keys.js":
+/*!********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/hidden-keys.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = {};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/html.js":
+/*!*************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/html.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getBuiltIn = __webpack_require__(/*! ../internals/get-built-in */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/get-built-in.js");
+
+module.exports = getBuiltIn('document', 'documentElement');
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/ie8-dom-define.js":
+/*!***********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/ie8-dom-define.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/descriptors.js");
+
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js");
+
+var createElement = __webpack_require__(/*! ../internals/document-create-element */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/document-create-element.js"); // Thank's IE8 for his funny defineProperty
+
+
+module.exports = !DESCRIPTORS && !fails(function () {
+  return Object.defineProperty(createElement('div'), 'a', {
+    get: function get() {
+      return 7;
+    }
+  }).a != 7;
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/indexed-object.js":
+/*!***********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/indexed-object.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js");
+
+var classof = __webpack_require__(/*! ../internals/classof-raw */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/classof-raw.js");
+
+var split = ''.split; // fallback for non-array-like ES3 and non-enumerable old V8 strings
+
+module.exports = fails(function () {
+  // throws an error in rhino, see https://github.com/mozilla/rhino/issues/346
+  // eslint-disable-next-line no-prototype-builtins
+  return !Object('z').propertyIsEnumerable(0);
+}) ? function (it) {
+  return classof(it) == 'String' ? split.call(it, '') : Object(it);
+} : Object;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/inherit-if-required.js":
+/*!****************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/inherit-if-required.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-object.js");
+
+var setPrototypeOf = __webpack_require__(/*! ../internals/object-set-prototype-of */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-set-prototype-of.js"); // makes subclassing work correct for wrapped built-ins
+
+
+module.exports = function ($this, dummy, Wrapper) {
+  var NewTarget, NewTargetPrototype;
+  if ( // it can work only with native `setPrototypeOf`
+  setPrototypeOf && // we haven't completely correct pre-ES6 way for getting `new.target`, so use this
+  typeof (NewTarget = dummy.constructor) == 'function' && NewTarget !== Wrapper && isObject(NewTargetPrototype = NewTarget.prototype) && NewTargetPrototype !== Wrapper.prototype) setPrototypeOf($this, NewTargetPrototype);
+  return $this;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/inspect-source.js":
+/*!***********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/inspect-source.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var store = __webpack_require__(/*! ../internals/shared-store */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/shared-store.js");
+
+var functionToString = Function.toString; // this helper broken in `3.4.1-3.4.4`, so we can't use `shared` helper
+
+if (typeof store.inspectSource != 'function') {
+  store.inspectSource = function (it) {
+    return functionToString.call(it);
+  };
+}
+
+module.exports = store.inspectSource;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/internal-metadata.js":
+/*!**************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/internal-metadata.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var hiddenKeys = __webpack_require__(/*! ../internals/hidden-keys */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/hidden-keys.js");
+
+var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-object.js");
+
+var has = __webpack_require__(/*! ../internals/has */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/has.js");
+
+var defineProperty = __webpack_require__(/*! ../internals/object-define-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-define-property.js").f;
+
+var uid = __webpack_require__(/*! ../internals/uid */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/uid.js");
+
+var FREEZING = __webpack_require__(/*! ../internals/freezing */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/freezing.js");
+
+var METADATA = uid('meta');
+var id = 0;
+
+var isExtensible = Object.isExtensible || function () {
+  return true;
+};
+
+var setMetadata = function setMetadata(it) {
+  defineProperty(it, METADATA, {
+    value: {
+      objectID: 'O' + ++id,
+      // object ID
+      weakData: {} // weak collections IDs
+
+    }
+  });
+};
+
+var fastKey = function fastKey(it, create) {
+  // return a primitive with prefix
+  if (!isObject(it)) return _typeof(it) == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+
+  if (!has(it, METADATA)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return 'F'; // not necessary to add metadata
+
+    if (!create) return 'E'; // add missing metadata
+
+    setMetadata(it); // return object ID
+  }
+
+  return it[METADATA].objectID;
+};
+
+var getWeakData = function getWeakData(it, create) {
+  if (!has(it, METADATA)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return true; // not necessary to add metadata
+
+    if (!create) return false; // add missing metadata
+
+    setMetadata(it); // return the store of weak collections IDs
+  }
+
+  return it[METADATA].weakData;
+}; // add metadata on freeze-family methods calling
+
+
+var onFreeze = function onFreeze(it) {
+  if (FREEZING && meta.REQUIRED && isExtensible(it) && !has(it, METADATA)) setMetadata(it);
+  return it;
+};
+
+var meta = module.exports = {
+  REQUIRED: false,
+  fastKey: fastKey,
+  getWeakData: getWeakData,
+  onFreeze: onFreeze
+};
+hiddenKeys[METADATA] = true;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/internal-state.js":
+/*!***********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/internal-state.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var NATIVE_WEAK_MAP = __webpack_require__(/*! ../internals/native-weak-map */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/native-weak-map.js");
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-object.js");
+
+var createNonEnumerableProperty = __webpack_require__(/*! ../internals/create-non-enumerable-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-non-enumerable-property.js");
+
+var objectHas = __webpack_require__(/*! ../internals/has */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/has.js");
+
+var sharedKey = __webpack_require__(/*! ../internals/shared-key */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/shared-key.js");
+
+var hiddenKeys = __webpack_require__(/*! ../internals/hidden-keys */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/hidden-keys.js");
+
+var WeakMap = global.WeakMap;
+var set, get, has;
+
+var enforce = function enforce(it) {
+  return has(it) ? get(it) : set(it, {});
+};
+
+var getterFor = function getterFor(TYPE) {
+  return function (it) {
+    var state;
+
+    if (!isObject(it) || (state = get(it)).type !== TYPE) {
+      throw TypeError('Incompatible receiver, ' + TYPE + ' required');
+    }
+
+    return state;
+  };
+};
+
+if (NATIVE_WEAK_MAP) {
+  var store = new WeakMap();
+  var wmget = store.get;
+  var wmhas = store.has;
+  var wmset = store.set;
+
+  set = function set(it, metadata) {
+    wmset.call(store, it, metadata);
+    return metadata;
+  };
+
+  get = function get(it) {
+    return wmget.call(store, it) || {};
+  };
+
+  has = function has(it) {
+    return wmhas.call(store, it);
+  };
+} else {
+  var STATE = sharedKey('state');
+  hiddenKeys[STATE] = true;
+
+  set = function set(it, metadata) {
+    createNonEnumerableProperty(it, STATE, metadata);
+    return metadata;
+  };
+
+  get = function get(it) {
+    return objectHas(it, STATE) ? it[STATE] : {};
+  };
+
+  has = function has(it) {
+    return objectHas(it, STATE);
+  };
+}
+
+module.exports = {
+  set: set,
+  get: get,
+  has: has,
+  enforce: enforce,
+  getterFor: getterFor
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-array-iterator-method.js":
+/*!*********************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/is-array-iterator-method.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js");
+
+var Iterators = __webpack_require__(/*! ../internals/iterators */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/iterators.js");
+
+var ITERATOR = wellKnownSymbol('iterator');
+var ArrayPrototype = Array.prototype; // check on default Array iterator
+
+module.exports = function (it) {
+  return it !== undefined && (Iterators.Array === it || ArrayPrototype[ITERATOR] === it);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-array.js":
+/*!*****************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/is-array.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var classof = __webpack_require__(/*! ../internals/classof-raw */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/classof-raw.js"); // `IsArray` abstract operation
+// https://tc39.github.io/ecma262/#sec-isarray
+
+
+module.exports = Array.isArray || function isArray(arg) {
+  return classof(arg) == 'Array';
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-forced.js":
+/*!******************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/is-forced.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js");
+
+var replacement = /#|\.prototype\./;
+
+var isForced = function isForced(feature, detection) {
+  var value = data[normalize(feature)];
+  return value == POLYFILL ? true : value == NATIVE ? false : typeof detection == 'function' ? fails(detection) : !!detection;
+};
+
+var normalize = isForced.normalize = function (string) {
+  return String(string).replace(replacement, '.').toLowerCase();
+};
+
+var data = isForced.data = {};
+var NATIVE = isForced.NATIVE = 'N';
+var POLYFILL = isForced.POLYFILL = 'P';
+module.exports = isForced;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-object.js":
+/*!******************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/is-object.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+module.exports = function (it) {
+  return _typeof(it) === 'object' ? it !== null : typeof it === 'function';
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-pure.js":
+/*!****************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/is-pure.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = false;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/iterate.js":
+/*!****************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/iterate.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-object.js");
+
+var isArrayIteratorMethod = __webpack_require__(/*! ../internals/is-array-iterator-method */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-array-iterator-method.js");
+
+var toLength = __webpack_require__(/*! ../internals/to-length */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-length.js");
+
+var bind = __webpack_require__(/*! ../internals/function-bind-context */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/function-bind-context.js");
+
+var getIteratorMethod = __webpack_require__(/*! ../internals/get-iterator-method */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/get-iterator-method.js");
+
+var callWithSafeIterationClosing = __webpack_require__(/*! ../internals/call-with-safe-iteration-closing */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/call-with-safe-iteration-closing.js");
+
+var Result = function Result(stopped, result) {
+  this.stopped = stopped;
+  this.result = result;
+};
+
+var iterate = module.exports = function (iterable, fn, that, AS_ENTRIES, IS_ITERATOR) {
+  var boundFunction = bind(fn, that, AS_ENTRIES ? 2 : 1);
+  var iterator, iterFn, index, length, result, next, step;
+
+  if (IS_ITERATOR) {
+    iterator = iterable;
+  } else {
+    iterFn = getIteratorMethod(iterable);
+    if (typeof iterFn != 'function') throw TypeError('Target is not iterable'); // optimisation for array iterators
+
+    if (isArrayIteratorMethod(iterFn)) {
+      for (index = 0, length = toLength(iterable.length); length > index; index++) {
+        result = AS_ENTRIES ? boundFunction(anObject(step = iterable[index])[0], step[1]) : boundFunction(iterable[index]);
+        if (result && result instanceof Result) return result;
+      }
+
+      return new Result(false);
+    }
+
+    iterator = iterFn.call(iterable);
+  }
+
+  next = iterator.next;
+
+  while (!(step = next.call(iterator)).done) {
+    result = callWithSafeIterationClosing(iterator, boundFunction, step.value, AS_ENTRIES);
+    if (_typeof(result) == 'object' && result && result instanceof Result) return result;
+  }
+
+  return new Result(false);
+};
+
+iterate.stop = function (result) {
+  return new Result(true, result);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/iterators-core.js":
+/*!***********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/iterators-core.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var getPrototypeOf = __webpack_require__(/*! ../internals/object-get-prototype-of */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-get-prototype-of.js");
+
+var createNonEnumerableProperty = __webpack_require__(/*! ../internals/create-non-enumerable-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-non-enumerable-property.js");
+
+var has = __webpack_require__(/*! ../internals/has */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/has.js");
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js");
+
+var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-pure.js");
+
+var ITERATOR = wellKnownSymbol('iterator');
+var BUGGY_SAFARI_ITERATORS = false;
+
+var returnThis = function returnThis() {
+  return this;
+}; // `%IteratorPrototype%` object
+// https://tc39.github.io/ecma262/#sec-%iteratorprototype%-object
+
+
+var IteratorPrototype, PrototypeOfArrayIteratorPrototype, arrayIterator;
+
+if ([].keys) {
+  arrayIterator = [].keys(); // Safari 8 has buggy iterators w/o `next`
+
+  if (!('next' in arrayIterator)) BUGGY_SAFARI_ITERATORS = true;else {
+    PrototypeOfArrayIteratorPrototype = getPrototypeOf(getPrototypeOf(arrayIterator));
+    if (PrototypeOfArrayIteratorPrototype !== Object.prototype) IteratorPrototype = PrototypeOfArrayIteratorPrototype;
+  }
+}
+
+if (IteratorPrototype == undefined) IteratorPrototype = {}; // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+
+if (!IS_PURE && !has(IteratorPrototype, ITERATOR)) {
+  createNonEnumerableProperty(IteratorPrototype, ITERATOR, returnThis);
+}
+
+module.exports = {
+  IteratorPrototype: IteratorPrototype,
+  BUGGY_SAFARI_ITERATORS: BUGGY_SAFARI_ITERATORS
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/iterators.js":
+/*!******************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/iterators.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = {};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/native-symbol.js":
+/*!**********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/native-symbol.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js");
+
+module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
+  // Chrome 38 Symbol has incorrect toString conversion
+  // eslint-disable-next-line no-undef
+  return !String(Symbol());
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/native-weak-map.js":
+/*!************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/native-weak-map.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var inspectSource = __webpack_require__(/*! ../internals/inspect-source */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/inspect-source.js");
+
+var WeakMap = global.WeakMap;
+module.exports = typeof WeakMap === 'function' && /native code/.test(inspectSource(WeakMap));
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/number-parse-int.js":
+/*!*************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/number-parse-int.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var trim = __webpack_require__(/*! ../internals/string-trim */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/string-trim.js").trim;
+
+var whitespaces = __webpack_require__(/*! ../internals/whitespaces */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/whitespaces.js");
+
+var $parseInt = global.parseInt;
+var hex = /^[+-]?0[Xx]/;
+var FORCED = $parseInt(whitespaces + '08') !== 8 || $parseInt(whitespaces + '0x16') !== 22; // `parseInt` method
+// https://tc39.github.io/ecma262/#sec-parseint-string-radix
+
+module.exports = FORCED ? function parseInt(string, radix) {
+  var S = trim(String(string));
+  return $parseInt(S, radix >>> 0 || (hex.test(S) ? 16 : 10));
+} : $parseInt;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-assign.js":
+/*!**********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/object-assign.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/descriptors.js");
+
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js");
+
+var objectKeys = __webpack_require__(/*! ../internals/object-keys */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-keys.js");
+
+var getOwnPropertySymbolsModule = __webpack_require__(/*! ../internals/object-get-own-property-symbols */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-get-own-property-symbols.js");
+
+var propertyIsEnumerableModule = __webpack_require__(/*! ../internals/object-property-is-enumerable */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-property-is-enumerable.js");
+
+var toObject = __webpack_require__(/*! ../internals/to-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-object.js");
+
+var IndexedObject = __webpack_require__(/*! ../internals/indexed-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/indexed-object.js");
+
+var nativeAssign = Object.assign;
+var defineProperty = Object.defineProperty; // `Object.assign` method
+// https://tc39.github.io/ecma262/#sec-object.assign
+
+module.exports = !nativeAssign || fails(function () {
+  // should have correct order of operations (Edge bug)
+  if (DESCRIPTORS && nativeAssign({
+    b: 1
+  }, nativeAssign(defineProperty({}, 'a', {
+    enumerable: true,
+    get: function get() {
+      defineProperty(this, 'b', {
+        value: 3,
+        enumerable: false
+      });
+    }
+  }), {
+    b: 2
+  })).b !== 1) return true; // should work with symbols and should have deterministic property order (V8 bug)
+
+  var A = {};
+  var B = {}; // eslint-disable-next-line no-undef
+
+  var symbol = Symbol();
+  var alphabet = 'abcdefghijklmnopqrst';
+  A[symbol] = 7;
+  alphabet.split('').forEach(function (chr) {
+    B[chr] = chr;
+  });
+  return nativeAssign({}, A)[symbol] != 7 || objectKeys(nativeAssign({}, B)).join('') != alphabet;
+}) ? function assign(target, source) {
+  // eslint-disable-line no-unused-vars
+  var T = toObject(target);
+  var argumentsLength = arguments.length;
+  var index = 1;
+  var getOwnPropertySymbols = getOwnPropertySymbolsModule.f;
+  var propertyIsEnumerable = propertyIsEnumerableModule.f;
+
+  while (argumentsLength > index) {
+    var S = IndexedObject(arguments[index++]);
+    var keys = getOwnPropertySymbols ? objectKeys(S).concat(getOwnPropertySymbols(S)) : objectKeys(S);
+    var length = keys.length;
+    var j = 0;
+    var key;
+
+    while (length > j) {
+      key = keys[j++];
+      if (!DESCRIPTORS || propertyIsEnumerable.call(S, key)) T[key] = S[key];
+    }
+  }
+
+  return T;
+} : nativeAssign;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-create.js":
+/*!**********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/object-create.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-object.js");
+
+var defineProperties = __webpack_require__(/*! ../internals/object-define-properties */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-define-properties.js");
+
+var enumBugKeys = __webpack_require__(/*! ../internals/enum-bug-keys */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/enum-bug-keys.js");
+
+var hiddenKeys = __webpack_require__(/*! ../internals/hidden-keys */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/hidden-keys.js");
+
+var html = __webpack_require__(/*! ../internals/html */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/html.js");
+
+var documentCreateElement = __webpack_require__(/*! ../internals/document-create-element */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/document-create-element.js");
+
+var sharedKey = __webpack_require__(/*! ../internals/shared-key */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/shared-key.js");
+
+var GT = '>';
+var LT = '<';
+var PROTOTYPE = 'prototype';
+var SCRIPT = 'script';
+var IE_PROTO = sharedKey('IE_PROTO');
+
+var EmptyConstructor = function EmptyConstructor() {
+  /* empty */
+};
+
+var scriptTag = function scriptTag(content) {
+  return LT + SCRIPT + GT + content + LT + '/' + SCRIPT + GT;
+}; // Create object with fake `null` prototype: use ActiveX Object with cleared prototype
+
+
+var NullProtoObjectViaActiveX = function NullProtoObjectViaActiveX(activeXDocument) {
+  activeXDocument.write(scriptTag(''));
+  activeXDocument.close();
+  var temp = activeXDocument.parentWindow.Object;
+  activeXDocument = null; // avoid memory leak
+
+  return temp;
+}; // Create object with fake `null` prototype: use iframe Object with cleared prototype
+
+
+var NullProtoObjectViaIFrame = function NullProtoObjectViaIFrame() {
+  // Thrash, waste and sodomy: IE GC bug
+  var iframe = documentCreateElement('iframe');
+  var JS = 'java' + SCRIPT + ':';
+  var iframeDocument;
+  iframe.style.display = 'none';
+  html.appendChild(iframe); // https://github.com/zloirock/core-js/issues/475
+
+  iframe.src = String(JS);
+  iframeDocument = iframe.contentWindow.document;
+  iframeDocument.open();
+  iframeDocument.write(scriptTag('document.F=Object'));
+  iframeDocument.close();
+  return iframeDocument.F;
+}; // Check for document.domain and active x support
+// No need to use active x approach when document.domain is not set
+// see https://github.com/es-shims/es5-shim/issues/150
+// variation of https://github.com/kitcambridge/es5-shim/commit/4f738ac066346
+// avoid IE GC bug
+
+
+var activeXDocument;
+
+var _NullProtoObject = function NullProtoObject() {
+  try {
+    /* global ActiveXObject */
+    activeXDocument = document.domain && new ActiveXObject('htmlfile');
+  } catch (error) {
+    /* ignore */
+  }
+
+  _NullProtoObject = activeXDocument ? NullProtoObjectViaActiveX(activeXDocument) : NullProtoObjectViaIFrame();
+  var length = enumBugKeys.length;
+
+  while (length--) {
+    delete _NullProtoObject[PROTOTYPE][enumBugKeys[length]];
+  }
+
+  return _NullProtoObject();
+};
+
+hiddenKeys[IE_PROTO] = true; // `Object.create` method
+// https://tc39.github.io/ecma262/#sec-object.create
+
+module.exports = Object.create || function create(O, Properties) {
+  var result;
+
+  if (O !== null) {
+    EmptyConstructor[PROTOTYPE] = anObject(O);
+    result = new EmptyConstructor();
+    EmptyConstructor[PROTOTYPE] = null; // add "__proto__" for Object.getPrototypeOf polyfill
+
+    result[IE_PROTO] = O;
+  } else result = _NullProtoObject();
+
+  return Properties === undefined ? result : defineProperties(result, Properties);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-define-properties.js":
+/*!*********************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/object-define-properties.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/descriptors.js");
+
+var definePropertyModule = __webpack_require__(/*! ../internals/object-define-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-define-property.js");
+
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-object.js");
+
+var objectKeys = __webpack_require__(/*! ../internals/object-keys */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-keys.js"); // `Object.defineProperties` method
+// https://tc39.github.io/ecma262/#sec-object.defineproperties
+
+
+module.exports = DESCRIPTORS ? Object.defineProperties : function defineProperties(O, Properties) {
+  anObject(O);
+  var keys = objectKeys(Properties);
+  var length = keys.length;
+  var index = 0;
+  var key;
+
+  while (length > index) {
+    definePropertyModule.f(O, key = keys[index++], Properties[key]);
+  }
+
+  return O;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-define-property.js":
+/*!*******************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/object-define-property.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/descriptors.js");
+
+var IE8_DOM_DEFINE = __webpack_require__(/*! ../internals/ie8-dom-define */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/ie8-dom-define.js");
+
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-object.js");
+
+var toPrimitive = __webpack_require__(/*! ../internals/to-primitive */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-primitive.js");
+
+var nativeDefineProperty = Object.defineProperty; // `Object.defineProperty` method
+// https://tc39.github.io/ecma262/#sec-object.defineproperty
+
+exports.f = DESCRIPTORS ? nativeDefineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return nativeDefineProperty(O, P, Attributes);
+  } catch (error) {
+    /* empty */
+  }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-get-own-property-descriptor.js":
+/*!*******************************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/object-get-own-property-descriptor.js ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/descriptors.js");
+
+var propertyIsEnumerableModule = __webpack_require__(/*! ../internals/object-property-is-enumerable */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-property-is-enumerable.js");
+
+var createPropertyDescriptor = __webpack_require__(/*! ../internals/create-property-descriptor */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-property-descriptor.js");
+
+var toIndexedObject = __webpack_require__(/*! ../internals/to-indexed-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-indexed-object.js");
+
+var toPrimitive = __webpack_require__(/*! ../internals/to-primitive */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-primitive.js");
+
+var has = __webpack_require__(/*! ../internals/has */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/has.js");
+
+var IE8_DOM_DEFINE = __webpack_require__(/*! ../internals/ie8-dom-define */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/ie8-dom-define.js");
+
+var nativeGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor; // `Object.getOwnPropertyDescriptor` method
+// https://tc39.github.io/ecma262/#sec-object.getownpropertydescriptor
+
+exports.f = DESCRIPTORS ? nativeGetOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
+  O = toIndexedObject(O);
+  P = toPrimitive(P, true);
+  if (IE8_DOM_DEFINE) try {
+    return nativeGetOwnPropertyDescriptor(O, P);
+  } catch (error) {
+    /* empty */
+  }
+  if (has(O, P)) return createPropertyDescriptor(!propertyIsEnumerableModule.f.call(O, P), O[P]);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-get-own-property-names.js":
+/*!**************************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/object-get-own-property-names.js ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var internalObjectKeys = __webpack_require__(/*! ../internals/object-keys-internal */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-keys-internal.js");
+
+var enumBugKeys = __webpack_require__(/*! ../internals/enum-bug-keys */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/enum-bug-keys.js");
+
+var hiddenKeys = enumBugKeys.concat('length', 'prototype'); // `Object.getOwnPropertyNames` method
+// https://tc39.github.io/ecma262/#sec-object.getownpropertynames
+
+exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
+  return internalObjectKeys(O, hiddenKeys);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-get-own-property-symbols.js":
+/*!****************************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/object-get-own-property-symbols.js ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+exports.f = Object.getOwnPropertySymbols;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-get-prototype-of.js":
+/*!********************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/object-get-prototype-of.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var has = __webpack_require__(/*! ../internals/has */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/has.js");
+
+var toObject = __webpack_require__(/*! ../internals/to-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-object.js");
+
+var sharedKey = __webpack_require__(/*! ../internals/shared-key */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/shared-key.js");
+
+var CORRECT_PROTOTYPE_GETTER = __webpack_require__(/*! ../internals/correct-prototype-getter */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/correct-prototype-getter.js");
+
+var IE_PROTO = sharedKey('IE_PROTO');
+var ObjectPrototype = Object.prototype; // `Object.getPrototypeOf` method
+// https://tc39.github.io/ecma262/#sec-object.getprototypeof
+
+module.exports = CORRECT_PROTOTYPE_GETTER ? Object.getPrototypeOf : function (O) {
+  O = toObject(O);
+  if (has(O, IE_PROTO)) return O[IE_PROTO];
+
+  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
+    return O.constructor.prototype;
+  }
+
+  return O instanceof Object ? ObjectPrototype : null;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-keys-internal.js":
+/*!*****************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/object-keys-internal.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var has = __webpack_require__(/*! ../internals/has */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/has.js");
+
+var toIndexedObject = __webpack_require__(/*! ../internals/to-indexed-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-indexed-object.js");
+
+var indexOf = __webpack_require__(/*! ../internals/array-includes */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-includes.js").indexOf;
+
+var hiddenKeys = __webpack_require__(/*! ../internals/hidden-keys */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/hidden-keys.js");
+
+module.exports = function (object, names) {
+  var O = toIndexedObject(object);
+  var i = 0;
+  var result = [];
+  var key;
+
+  for (key in O) {
+    !has(hiddenKeys, key) && has(O, key) && result.push(key);
+  } // Don't enum bug & hidden keys
+
+
+  while (names.length > i) {
+    if (has(O, key = names[i++])) {
+      ~indexOf(result, key) || result.push(key);
+    }
+  }
+
+  return result;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-keys.js":
+/*!********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/object-keys.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var internalObjectKeys = __webpack_require__(/*! ../internals/object-keys-internal */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-keys-internal.js");
+
+var enumBugKeys = __webpack_require__(/*! ../internals/enum-bug-keys */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/enum-bug-keys.js"); // `Object.keys` method
+// https://tc39.github.io/ecma262/#sec-object.keys
+
+
+module.exports = Object.keys || function keys(O) {
+  return internalObjectKeys(O, enumBugKeys);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-property-is-enumerable.js":
+/*!**************************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/object-property-is-enumerable.js ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var nativePropertyIsEnumerable = {}.propertyIsEnumerable;
+var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor; // Nashorn ~ JDK8 bug
+
+var NASHORN_BUG = getOwnPropertyDescriptor && !nativePropertyIsEnumerable.call({
+  1: 2
+}, 1); // `Object.prototype.propertyIsEnumerable` method implementation
+// https://tc39.github.io/ecma262/#sec-object.prototype.propertyisenumerable
+
+exports.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
+  var descriptor = getOwnPropertyDescriptor(this, V);
+  return !!descriptor && descriptor.enumerable;
+} : nativePropertyIsEnumerable;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-set-prototype-of.js":
+/*!********************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/object-set-prototype-of.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-object.js");
+
+var aPossiblePrototype = __webpack_require__(/*! ../internals/a-possible-prototype */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/a-possible-prototype.js"); // `Object.setPrototypeOf` method
+// https://tc39.github.io/ecma262/#sec-object.setprototypeof
+// Works with __proto__ only. Old v8 can't work with null proto objects.
+
+/* eslint-disable no-proto */
+
+
+module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
+  var CORRECT_SETTER = false;
+  var test = {};
+  var setter;
+
+  try {
+    setter = Object.getOwnPropertyDescriptor(Object.prototype, '__proto__').set;
+    setter.call(test, []);
+    CORRECT_SETTER = test instanceof Array;
+  } catch (error) {
+    /* empty */
+  }
+
+  return function setPrototypeOf(O, proto) {
+    anObject(O);
+    aPossiblePrototype(proto);
+    if (CORRECT_SETTER) setter.call(O, proto);else O.__proto__ = proto;
+    return O;
+  };
+}() : undefined);
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-to-string.js":
+/*!*************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/object-to-string.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var TO_STRING_TAG_SUPPORT = __webpack_require__(/*! ../internals/to-string-tag-support */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-string-tag-support.js");
+
+var classof = __webpack_require__(/*! ../internals/classof */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/classof.js"); // `Object.prototype.toString` method implementation
+// https://tc39.github.io/ecma262/#sec-object.prototype.tostring
+
+
+module.exports = TO_STRING_TAG_SUPPORT ? {}.toString : function toString() {
+  return '[object ' + classof(this) + ']';
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/own-keys.js":
+/*!*****************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/own-keys.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getBuiltIn = __webpack_require__(/*! ../internals/get-built-in */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/get-built-in.js");
+
+var getOwnPropertyNamesModule = __webpack_require__(/*! ../internals/object-get-own-property-names */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-get-own-property-names.js");
+
+var getOwnPropertySymbolsModule = __webpack_require__(/*! ../internals/object-get-own-property-symbols */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-get-own-property-symbols.js");
+
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-object.js"); // all object keys, includes non-enumerable and symbols
+
+
+module.exports = getBuiltIn('Reflect', 'ownKeys') || function ownKeys(it) {
+  var keys = getOwnPropertyNamesModule.f(anObject(it));
+  var getOwnPropertySymbols = getOwnPropertySymbolsModule.f;
+  return getOwnPropertySymbols ? keys.concat(getOwnPropertySymbols(it)) : keys;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/path.js":
+/*!*************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/path.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+module.exports = global;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/redefine-all.js":
+/*!*********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/redefine-all.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var redefine = __webpack_require__(/*! ../internals/redefine */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/redefine.js");
+
+module.exports = function (target, src, options) {
+  for (var key in src) {
+    redefine(target, key, src[key], options);
+  }
+
+  return target;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/redefine.js":
+/*!*****************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/redefine.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var createNonEnumerableProperty = __webpack_require__(/*! ../internals/create-non-enumerable-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-non-enumerable-property.js");
+
+var has = __webpack_require__(/*! ../internals/has */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/has.js");
+
+var setGlobal = __webpack_require__(/*! ../internals/set-global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/set-global.js");
+
+var inspectSource = __webpack_require__(/*! ../internals/inspect-source */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/inspect-source.js");
+
+var InternalStateModule = __webpack_require__(/*! ../internals/internal-state */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/internal-state.js");
+
+var getInternalState = InternalStateModule.get;
+var enforceInternalState = InternalStateModule.enforce;
+var TEMPLATE = String(String).split('String');
+(module.exports = function (O, key, value, options) {
+  var unsafe = options ? !!options.unsafe : false;
+  var simple = options ? !!options.enumerable : false;
+  var noTargetGet = options ? !!options.noTargetGet : false;
+
+  if (typeof value == 'function') {
+    if (typeof key == 'string' && !has(value, 'name')) createNonEnumerableProperty(value, 'name', key);
+    enforceInternalState(value).source = TEMPLATE.join(typeof key == 'string' ? key : '');
+  }
+
+  if (O === global) {
+    if (simple) O[key] = value;else setGlobal(key, value);
+    return;
+  } else if (!unsafe) {
+    delete O[key];
+  } else if (!noTargetGet && O[key]) {
+    simple = true;
+  }
+
+  if (simple) O[key] = value;else createNonEnumerableProperty(O, key, value); // add fake Function#toString for correct work wrapped methods / constructors with methods like LoDash isNative
+})(Function.prototype, 'toString', function toString() {
+  return typeof this == 'function' && getInternalState(this).source || inspectSource(this);
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/regexp-exec-abstract.js":
+/*!*****************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/regexp-exec-abstract.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var classof = __webpack_require__(/*! ./classof-raw */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/classof-raw.js");
+
+var regexpExec = __webpack_require__(/*! ./regexp-exec */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/regexp-exec.js"); // `RegExpExec` abstract operation
+// https://tc39.github.io/ecma262/#sec-regexpexec
+
+
+module.exports = function (R, S) {
+  var exec = R.exec;
+
+  if (typeof exec === 'function') {
+    var result = exec.call(R, S);
+
+    if (_typeof(result) !== 'object') {
+      throw TypeError('RegExp exec method returned something other than an Object or null');
+    }
+
+    return result;
+  }
+
+  if (classof(R) !== 'RegExp') {
+    throw TypeError('RegExp#exec called on incompatible receiver');
+  }
+
+  return regexpExec.call(R, S);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/regexp-exec.js":
+/*!********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/regexp-exec.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var regexpFlags = __webpack_require__(/*! ./regexp-flags */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/regexp-flags.js");
+
+var stickyHelpers = __webpack_require__(/*! ./regexp-sticky-helpers */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/regexp-sticky-helpers.js");
+
+var nativeExec = RegExp.prototype.exec; // This always refers to the native implementation, because the
+// String#replace polyfill uses ./fix-regexp-well-known-symbol-logic.js,
+// which loads this file before patching the method.
+
+var nativeReplace = String.prototype.replace;
+var patchedExec = nativeExec;
+
+var UPDATES_LAST_INDEX_WRONG = function () {
+  var re1 = /a/;
+  var re2 = /b*/g;
+  nativeExec.call(re1, 'a');
+  nativeExec.call(re2, 'a');
+  return re1.lastIndex !== 0 || re2.lastIndex !== 0;
+}();
+
+var UNSUPPORTED_Y = stickyHelpers.UNSUPPORTED_Y || stickyHelpers.BROKEN_CARET; // nonparticipating capturing group, copied from es5-shim's String#split patch.
+
+var NPCG_INCLUDED = /()??/.exec('')[1] !== undefined;
+var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y;
+
+if (PATCH) {
+  patchedExec = function exec(str) {
+    var re = this;
+    var lastIndex, reCopy, match, i;
+    var sticky = UNSUPPORTED_Y && re.sticky;
+    var flags = regexpFlags.call(re);
+    var source = re.source;
+    var charsAdded = 0;
+    var strCopy = str;
+
+    if (sticky) {
+      flags = flags.replace('y', '');
+
+      if (flags.indexOf('g') === -1) {
+        flags += 'g';
+      }
+
+      strCopy = String(str).slice(re.lastIndex); // Support anchored sticky behavior.
+
+      if (re.lastIndex > 0 && (!re.multiline || re.multiline && str[re.lastIndex - 1] !== '\n')) {
+        source = '(?: ' + source + ')';
+        strCopy = ' ' + strCopy;
+        charsAdded++;
+      } // ^(? + rx + ) is needed, in combination with some str slicing, to
+      // simulate the 'y' flag.
+
+
+      reCopy = new RegExp('^(?:' + source + ')', flags);
+    }
+
+    if (NPCG_INCLUDED) {
+      reCopy = new RegExp('^' + source + '$(?!\\s)', flags);
+    }
+
+    if (UPDATES_LAST_INDEX_WRONG) lastIndex = re.lastIndex;
+    match = nativeExec.call(sticky ? reCopy : re, strCopy);
+
+    if (sticky) {
+      if (match) {
+        match.input = match.input.slice(charsAdded);
+        match[0] = match[0].slice(charsAdded);
+        match.index = re.lastIndex;
+        re.lastIndex += match[0].length;
+      } else re.lastIndex = 0;
+    } else if (UPDATES_LAST_INDEX_WRONG && match) {
+      re.lastIndex = re.global ? match.index + match[0].length : lastIndex;
+    }
+
+    if (NPCG_INCLUDED && match && match.length > 1) {
+      // Fix browsers whose `exec` methods don't consistently return `undefined`
+      // for NPCG, like IE8. NOTE: This doesn' work for /(.?)?/
+      nativeReplace.call(match[0], reCopy, function () {
+        for (i = 1; i < arguments.length - 2; i++) {
+          if (arguments[i] === undefined) match[i] = undefined;
+        }
+      });
+    }
+
+    return match;
+  };
+}
+
+module.exports = patchedExec;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/regexp-flags.js":
+/*!*********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/regexp-flags.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-object.js"); // `RegExp.prototype.flags` getter implementation
+// https://tc39.github.io/ecma262/#sec-get-regexp.prototype.flags
+
+
+module.exports = function () {
+  var that = anObject(this);
+  var result = '';
+  if (that.global) result += 'g';
+  if (that.ignoreCase) result += 'i';
+  if (that.multiline) result += 'm';
+  if (that.dotAll) result += 's';
+  if (that.unicode) result += 'u';
+  if (that.sticky) result += 'y';
+  return result;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/regexp-sticky-helpers.js":
+/*!******************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/regexp-sticky-helpers.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var fails = __webpack_require__(/*! ./fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js"); // babel-minify transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError,
+// so we use an intermediate function.
+
+
+function RE(s, f) {
+  return RegExp(s, f);
+}
+
+exports.UNSUPPORTED_Y = fails(function () {
+  // babel-minify transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError
+  var re = RE('a', 'y');
+  re.lastIndex = 2;
+  return re.exec('abcd') != null;
+});
+exports.BROKEN_CARET = fails(function () {
+  // https://bugzilla.mozilla.org/show_bug.cgi?id=773687
+  var re = RE('^r', 'gy');
+  re.lastIndex = 2;
+  return re.exec('str') != null;
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/require-object-coercible.js":
+/*!*********************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/require-object-coercible.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// `RequireObjectCoercible` abstract operation
+// https://tc39.github.io/ecma262/#sec-requireobjectcoercible
+module.exports = function (it) {
+  if (it == undefined) throw TypeError("Can't call method on " + it);
+  return it;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/set-global.js":
+/*!*******************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/set-global.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var createNonEnumerableProperty = __webpack_require__(/*! ../internals/create-non-enumerable-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-non-enumerable-property.js");
+
+module.exports = function (key, value) {
+  try {
+    createNonEnumerableProperty(global, key, value);
+  } catch (error) {
+    global[key] = value;
+  }
+
+  return value;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/set-to-string-tag.js":
+/*!**************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/set-to-string-tag.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var defineProperty = __webpack_require__(/*! ../internals/object-define-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-define-property.js").f;
+
+var has = __webpack_require__(/*! ../internals/has */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/has.js");
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js");
+
+var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+
+module.exports = function (it, TAG, STATIC) {
+  if (it && !has(it = STATIC ? it : it.prototype, TO_STRING_TAG)) {
+    defineProperty(it, TO_STRING_TAG, {
+      configurable: true,
+      value: TAG
+    });
+  }
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/shared-key.js":
+/*!*******************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/shared-key.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var shared = __webpack_require__(/*! ../internals/shared */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/shared.js");
+
+var uid = __webpack_require__(/*! ../internals/uid */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/uid.js");
+
+var keys = shared('keys');
+
+module.exports = function (key) {
+  return keys[key] || (keys[key] = uid(key));
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/shared-store.js":
+/*!*********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/shared-store.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var setGlobal = __webpack_require__(/*! ../internals/set-global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/set-global.js");
+
+var SHARED = '__core-js_shared__';
+var store = global[SHARED] || setGlobal(SHARED, {});
+module.exports = store;
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/shared.js":
+/*!***************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/shared.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-pure.js");
+
+var store = __webpack_require__(/*! ../internals/shared-store */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/shared-store.js");
+
+(module.exports = function (key, value) {
+  return store[key] || (store[key] = value !== undefined ? value : {});
+})('versions', []).push({
+  version: '3.6.5',
+  mode: IS_PURE ? 'pure' : 'global',
+  copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/string-multibyte.js":
+/*!*************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/string-multibyte.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(/*! ../internals/to-integer */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-integer.js");
+
+var requireObjectCoercible = __webpack_require__(/*! ../internals/require-object-coercible */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/require-object-coercible.js"); // `String.prototype.{ codePointAt, at }` methods implementation
+
+
+var createMethod = function createMethod(CONVERT_TO_STRING) {
+  return function ($this, pos) {
+    var S = String(requireObjectCoercible($this));
+    var position = toInteger(pos);
+    var size = S.length;
+    var first, second;
+    if (position < 0 || position >= size) return CONVERT_TO_STRING ? '' : undefined;
+    first = S.charCodeAt(position);
+    return first < 0xD800 || first > 0xDBFF || position + 1 === size || (second = S.charCodeAt(position + 1)) < 0xDC00 || second > 0xDFFF ? CONVERT_TO_STRING ? S.charAt(position) : first : CONVERT_TO_STRING ? S.slice(position, position + 2) : (first - 0xD800 << 10) + (second - 0xDC00) + 0x10000;
+  };
+};
+
+module.exports = {
+  // `String.prototype.codePointAt` method
+  // https://tc39.github.io/ecma262/#sec-string.prototype.codepointat
+  codeAt: createMethod(false),
+  // `String.prototype.at` method
+  // https://github.com/mathiasbynens/String.prototype.at
+  charAt: createMethod(true)
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/string-trim.js":
+/*!********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/string-trim.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var requireObjectCoercible = __webpack_require__(/*! ../internals/require-object-coercible */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/require-object-coercible.js");
+
+var whitespaces = __webpack_require__(/*! ../internals/whitespaces */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/whitespaces.js");
+
+var whitespace = '[' + whitespaces + ']';
+var ltrim = RegExp('^' + whitespace + whitespace + '*');
+var rtrim = RegExp(whitespace + whitespace + '*$'); // `String.prototype.{ trim, trimStart, trimEnd, trimLeft, trimRight }` methods implementation
+
+var createMethod = function createMethod(TYPE) {
+  return function ($this) {
+    var string = String(requireObjectCoercible($this));
+    if (TYPE & 1) string = string.replace(ltrim, '');
+    if (TYPE & 2) string = string.replace(rtrim, '');
+    return string;
+  };
+};
+
+module.exports = {
+  // `String.prototype.{ trimLeft, trimStart }` methods
+  // https://tc39.github.io/ecma262/#sec-string.prototype.trimstart
+  start: createMethod(1),
+  // `String.prototype.{ trimRight, trimEnd }` methods
+  // https://tc39.github.io/ecma262/#sec-string.prototype.trimend
+  end: createMethod(2),
+  // `String.prototype.trim` method
+  // https://tc39.github.io/ecma262/#sec-string.prototype.trim
+  trim: createMethod(3)
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-absolute-index.js":
+/*!**************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/to-absolute-index.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(/*! ../internals/to-integer */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-integer.js");
+
+var max = Math.max;
+var min = Math.min; // Helper for a popular repeating case of the spec:
+// Let integer be ? ToInteger(index).
+// If integer < 0, let result be max((length + integer), 0); else let result be min(integer, length).
+
+module.exports = function (index, length) {
+  var integer = toInteger(index);
+  return integer < 0 ? max(integer + length, 0) : min(integer, length);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-indexed-object.js":
+/*!**************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/to-indexed-object.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// toObject with fallback for non-array-like ES3 strings
+var IndexedObject = __webpack_require__(/*! ../internals/indexed-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/indexed-object.js");
+
+var requireObjectCoercible = __webpack_require__(/*! ../internals/require-object-coercible */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/require-object-coercible.js");
+
+module.exports = function (it) {
+  return IndexedObject(requireObjectCoercible(it));
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-integer.js":
+/*!*******************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/to-integer.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var ceil = Math.ceil;
+var floor = Math.floor; // `ToInteger` abstract operation
+// https://tc39.github.io/ecma262/#sec-tointeger
+
+module.exports = function (argument) {
+  return isNaN(argument = +argument) ? 0 : (argument > 0 ? floor : ceil)(argument);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-length.js":
+/*!******************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/to-length.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(/*! ../internals/to-integer */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-integer.js");
+
+var min = Math.min; // `ToLength` abstract operation
+// https://tc39.github.io/ecma262/#sec-tolength
+
+module.exports = function (argument) {
+  return argument > 0 ? min(toInteger(argument), 0x1FFFFFFFFFFFFF) : 0; // 2 ** 53 - 1 == 9007199254740991
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-object.js":
+/*!******************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/to-object.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var requireObjectCoercible = __webpack_require__(/*! ../internals/require-object-coercible */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/require-object-coercible.js"); // `ToObject` abstract operation
+// https://tc39.github.io/ecma262/#sec-toobject
+
+
+module.exports = function (argument) {
+  return Object(requireObjectCoercible(argument));
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-primitive.js":
+/*!*********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/to-primitive.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-object.js"); // `ToPrimitive` abstract operation
+// https://tc39.github.io/ecma262/#sec-toprimitive
+// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+// and the second argument - flag - preferred type is a string
+
+
+module.exports = function (input, PREFERRED_STRING) {
+  if (!isObject(input)) return input;
+  var fn, val;
+  if (PREFERRED_STRING && typeof (fn = input.toString) == 'function' && !isObject(val = fn.call(input))) return val;
+  if (typeof (fn = input.valueOf) == 'function' && !isObject(val = fn.call(input))) return val;
+  if (!PREFERRED_STRING && typeof (fn = input.toString) == 'function' && !isObject(val = fn.call(input))) return val;
+  throw TypeError("Can't convert object to primitive value");
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-string-tag-support.js":
+/*!******************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/to-string-tag-support.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js");
+
+var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+var test = {};
+test[TO_STRING_TAG] = 'z';
+module.exports = String(test) === '[object z]';
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/uid.js":
+/*!************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/uid.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var id = 0;
+var postfix = Math.random();
+
+module.exports = function (key) {
+  return 'Symbol(' + String(key === undefined ? '' : key) + ')_' + (++id + postfix).toString(36);
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/use-symbol-as-uid.js":
+/*!**************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/use-symbol-as-uid.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var NATIVE_SYMBOL = __webpack_require__(/*! ../internals/native-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/native-symbol.js");
+
+module.exports = NATIVE_SYMBOL // eslint-disable-next-line no-undef
+&& !Symbol.sham // eslint-disable-next-line no-undef
+&& _typeof(Symbol.iterator) == 'symbol';
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js":
+/*!**************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/well-known-symbol.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var shared = __webpack_require__(/*! ../internals/shared */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/shared.js");
+
+var has = __webpack_require__(/*! ../internals/has */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/has.js");
+
+var uid = __webpack_require__(/*! ../internals/uid */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/uid.js");
+
+var NATIVE_SYMBOL = __webpack_require__(/*! ../internals/native-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/native-symbol.js");
+
+var USE_SYMBOL_AS_UID = __webpack_require__(/*! ../internals/use-symbol-as-uid */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/use-symbol-as-uid.js");
+
+var WellKnownSymbolsStore = shared('wks');
+var _Symbol = global.Symbol;
+var createWellKnownSymbol = USE_SYMBOL_AS_UID ? _Symbol : _Symbol && _Symbol.withoutSetter || uid;
+
+module.exports = function (name) {
+  if (!has(WellKnownSymbolsStore, name)) {
+    if (NATIVE_SYMBOL && has(_Symbol, name)) WellKnownSymbolsStore[name] = _Symbol[name];else WellKnownSymbolsStore[name] = createWellKnownSymbol('Symbol.' + name);
+  }
+
+  return WellKnownSymbolsStore[name];
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/internals/whitespaces.js":
+/*!********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/internals/whitespaces.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// a string of all valid unicode whitespaces
+// eslint-disable-next-line max-len
+module.exports = "\t\n\x0B\f\r \xA0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF";
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.array.concat.js":
+/*!**********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/es.array.concat.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/export.js");
+
+var fails = __webpack_require__(/*! ../internals/fails */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fails.js");
+
+var isArray = __webpack_require__(/*! ../internals/is-array */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-array.js");
+
+var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-object.js");
+
+var toObject = __webpack_require__(/*! ../internals/to-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-object.js");
+
+var toLength = __webpack_require__(/*! ../internals/to-length */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-length.js");
+
+var createProperty = __webpack_require__(/*! ../internals/create-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-property.js");
+
+var arraySpeciesCreate = __webpack_require__(/*! ../internals/array-species-create */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-species-create.js");
+
+var arrayMethodHasSpeciesSupport = __webpack_require__(/*! ../internals/array-method-has-species-support */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-method-has-species-support.js");
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js");
+
+var V8_VERSION = __webpack_require__(/*! ../internals/engine-v8-version */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/engine-v8-version.js");
+
+var IS_CONCAT_SPREADABLE = wellKnownSymbol('isConcatSpreadable');
+var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
+var MAXIMUM_ALLOWED_INDEX_EXCEEDED = 'Maximum allowed index exceeded'; // We can't use this feature detection in V8 since it causes
+// deoptimization and serious performance degradation
+// https://github.com/zloirock/core-js/issues/679
+
+var IS_CONCAT_SPREADABLE_SUPPORT = V8_VERSION >= 51 || !fails(function () {
+  var array = [];
+  array[IS_CONCAT_SPREADABLE] = false;
+  return array.concat()[0] !== array;
+});
+var SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('concat');
+
+var isConcatSpreadable = function isConcatSpreadable(O) {
+  if (!isObject(O)) return false;
+  var spreadable = O[IS_CONCAT_SPREADABLE];
+  return spreadable !== undefined ? !!spreadable : isArray(O);
+};
+
+var FORCED = !IS_CONCAT_SPREADABLE_SUPPORT || !SPECIES_SUPPORT; // `Array.prototype.concat` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.concat
+// with adding support of @@isConcatSpreadable and @@species
+
+$({
+  target: 'Array',
+  proto: true,
+  forced: FORCED
+}, {
+  concat: function concat(arg) {
+    // eslint-disable-line no-unused-vars
+    var O = toObject(this);
+    var A = arraySpeciesCreate(O, 0);
+    var n = 0;
+    var i, k, length, len, E;
+
+    for (i = -1, length = arguments.length; i < length; i++) {
+      E = i === -1 ? O : arguments[i];
+
+      if (isConcatSpreadable(E)) {
+        len = toLength(E.length);
+        if (n + len > MAX_SAFE_INTEGER) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
+
+        for (k = 0; k < len; k++, n++) {
+          if (k in E) createProperty(A, n, E[k]);
+        }
+      } else {
+        if (n >= MAX_SAFE_INTEGER) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
+        createProperty(A, n++, E);
+      }
+    }
+
+    A.length = n;
+    return A;
+  }
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.array.filter.js":
+/*!**********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/es.array.filter.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/export.js");
+
+var $filter = __webpack_require__(/*! ../internals/array-iteration */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-iteration.js").filter;
+
+var arrayMethodHasSpeciesSupport = __webpack_require__(/*! ../internals/array-method-has-species-support */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-method-has-species-support.js");
+
+var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-method-uses-to-length.js");
+
+var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('filter'); // Edge 14- issue
+
+var USES_TO_LENGTH = arrayMethodUsesToLength('filter'); // `Array.prototype.filter` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.filter
+// with adding support of @@species
+
+$({
+  target: 'Array',
+  proto: true,
+  forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH
+}, {
+  filter: function filter(callbackfn
+  /* , thisArg */
+  ) {
+    return $filter(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.array.for-each.js":
+/*!************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/es.array.for-each.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/export.js");
+
+var forEach = __webpack_require__(/*! ../internals/array-for-each */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-for-each.js"); // `Array.prototype.forEach` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.foreach
+
+
+$({
+  target: 'Array',
+  proto: true,
+  forced: [].forEach != forEach
+}, {
+  forEach: forEach
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.array.iterator.js":
+/*!************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/es.array.iterator.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var toIndexedObject = __webpack_require__(/*! ../internals/to-indexed-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-indexed-object.js");
+
+var addToUnscopables = __webpack_require__(/*! ../internals/add-to-unscopables */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/add-to-unscopables.js");
+
+var Iterators = __webpack_require__(/*! ../internals/iterators */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/iterators.js");
+
+var InternalStateModule = __webpack_require__(/*! ../internals/internal-state */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/internal-state.js");
+
+var defineIterator = __webpack_require__(/*! ../internals/define-iterator */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/define-iterator.js");
+
+var ARRAY_ITERATOR = 'Array Iterator';
+var setInternalState = InternalStateModule.set;
+var getInternalState = InternalStateModule.getterFor(ARRAY_ITERATOR); // `Array.prototype.entries` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.entries
+// `Array.prototype.keys` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.keys
+// `Array.prototype.values` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.values
+// `Array.prototype[@@iterator]` method
+// https://tc39.github.io/ecma262/#sec-array.prototype-@@iterator
+// `CreateArrayIterator` internal method
+// https://tc39.github.io/ecma262/#sec-createarrayiterator
+
+module.exports = defineIterator(Array, 'Array', function (iterated, kind) {
+  setInternalState(this, {
+    type: ARRAY_ITERATOR,
+    target: toIndexedObject(iterated),
+    // target
+    index: 0,
+    // next index
+    kind: kind // kind
+
+  }); // `%ArrayIteratorPrototype%.next` method
+  // https://tc39.github.io/ecma262/#sec-%arrayiteratorprototype%.next
+}, function () {
+  var state = getInternalState(this);
+  var target = state.target;
+  var kind = state.kind;
+  var index = state.index++;
+
+  if (!target || index >= target.length) {
+    state.target = undefined;
+    return {
+      value: undefined,
+      done: true
+    };
+  }
+
+  if (kind == 'keys') return {
+    value: index,
+    done: false
+  };
+  if (kind == 'values') return {
+    value: target[index],
+    done: false
+  };
+  return {
+    value: [index, target[index]],
+    done: false
+  };
+}, 'values'); // argumentsList[@@iterator] is %ArrayProto_values%
+// https://tc39.github.io/ecma262/#sec-createunmappedargumentsobject
+// https://tc39.github.io/ecma262/#sec-createmappedargumentsobject
+
+Iterators.Arguments = Iterators.Array; // https://tc39.github.io/ecma262/#sec-array.prototype-@@unscopables
+
+addToUnscopables('keys');
+addToUnscopables('values');
+addToUnscopables('entries');
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.array.reduce.js":
+/*!**********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/es.array.reduce.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/export.js");
+
+var $reduce = __webpack_require__(/*! ../internals/array-reduce */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-reduce.js").left;
+
+var arrayMethodIsStrict = __webpack_require__(/*! ../internals/array-method-is-strict */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-method-is-strict.js");
+
+var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-method-uses-to-length.js");
+
+var STRICT_METHOD = arrayMethodIsStrict('reduce');
+var USES_TO_LENGTH = arrayMethodUsesToLength('reduce', {
+  1: 0
+}); // `Array.prototype.reduce` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.reduce
+
+$({
+  target: 'Array',
+  proto: true,
+  forced: !STRICT_METHOD || !USES_TO_LENGTH
+}, {
+  reduce: function reduce(callbackfn
+  /* , initialValue */
+  ) {
+    return $reduce(this, callbackfn, arguments.length, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.function.name.js":
+/*!***********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/es.function.name.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/descriptors.js");
+
+var defineProperty = __webpack_require__(/*! ../internals/object-define-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-define-property.js").f;
+
+var FunctionPrototype = Function.prototype;
+var FunctionPrototypeToString = FunctionPrototype.toString;
+var nameRE = /^\s*function ([^ (]*)/;
+var NAME = 'name'; // Function instances `.name` property
+// https://tc39.github.io/ecma262/#sec-function-instances-name
+
+if (DESCRIPTORS && !(NAME in FunctionPrototype)) {
+  defineProperty(FunctionPrototype, NAME, {
+    configurable: true,
+    get: function get() {
+      try {
+        return FunctionPrototypeToString.call(this).match(nameRE)[1];
+      } catch (error) {
+        return '';
+      }
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.object.assign.js":
+/*!***********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/es.object.assign.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/export.js");
+
+var assign = __webpack_require__(/*! ../internals/object-assign */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-assign.js"); // `Object.assign` method
+// https://tc39.github.io/ecma262/#sec-object.assign
+
+
+$({
+  target: 'Object',
+  stat: true,
+  forced: Object.assign !== assign
+}, {
+  assign: assign
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.object.to-string.js":
+/*!**************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/es.object.to-string.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var TO_STRING_TAG_SUPPORT = __webpack_require__(/*! ../internals/to-string-tag-support */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-string-tag-support.js");
+
+var redefine = __webpack_require__(/*! ../internals/redefine */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/redefine.js");
+
+var toString = __webpack_require__(/*! ../internals/object-to-string */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/object-to-string.js"); // `Object.prototype.toString` method
+// https://tc39.github.io/ecma262/#sec-object.prototype.tostring
+
+
+if (!TO_STRING_TAG_SUPPORT) {
+  redefine(Object.prototype, 'toString', toString, {
+    unsafe: true
+  });
+}
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.parse-int.js":
+/*!*******************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/es.parse-int.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/export.js");
+
+var parseIntImplementation = __webpack_require__(/*! ../internals/number-parse-int */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/number-parse-int.js"); // `parseInt` method
+// https://tc39.github.io/ecma262/#sec-parseint-string-radix
+
+
+$({
+  global: true,
+  forced: parseInt != parseIntImplementation
+}, {
+  parseInt: parseIntImplementation
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.regexp.exec.js":
+/*!*********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/es.regexp.exec.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var $ = __webpack_require__(/*! ../internals/export */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/export.js");
+
+var exec = __webpack_require__(/*! ../internals/regexp-exec */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/regexp-exec.js");
+
+$({
+  target: 'RegExp',
+  proto: true,
+  forced: /./.exec !== exec
+}, {
+  exec: exec
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.string.iterator.js":
+/*!*************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/es.string.iterator.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var charAt = __webpack_require__(/*! ../internals/string-multibyte */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/string-multibyte.js").charAt;
+
+var InternalStateModule = __webpack_require__(/*! ../internals/internal-state */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/internal-state.js");
+
+var defineIterator = __webpack_require__(/*! ../internals/define-iterator */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/define-iterator.js");
+
+var STRING_ITERATOR = 'String Iterator';
+var setInternalState = InternalStateModule.set;
+var getInternalState = InternalStateModule.getterFor(STRING_ITERATOR); // `String.prototype[@@iterator]` method
+// https://tc39.github.io/ecma262/#sec-string.prototype-@@iterator
+
+defineIterator(String, 'String', function (iterated) {
+  setInternalState(this, {
+    type: STRING_ITERATOR,
+    string: String(iterated),
+    index: 0
+  }); // `%StringIteratorPrototype%.next` method
+  // https://tc39.github.io/ecma262/#sec-%stringiteratorprototype%.next
+}, function next() {
+  var state = getInternalState(this);
+  var string = state.string;
+  var index = state.index;
+  var point;
+  if (index >= string.length) return {
+    value: undefined,
+    done: true
+  };
+  point = charAt(string, index);
+  state.index += point.length;
+  return {
+    value: point,
+    done: false
+  };
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.string.match.js":
+/*!**********************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/es.string.match.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var fixRegExpWellKnownSymbolLogic = __webpack_require__(/*! ../internals/fix-regexp-well-known-symbol-logic */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fix-regexp-well-known-symbol-logic.js");
+
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-object.js");
+
+var toLength = __webpack_require__(/*! ../internals/to-length */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-length.js");
+
+var requireObjectCoercible = __webpack_require__(/*! ../internals/require-object-coercible */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/require-object-coercible.js");
+
+var advanceStringIndex = __webpack_require__(/*! ../internals/advance-string-index */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/advance-string-index.js");
+
+var regExpExec = __webpack_require__(/*! ../internals/regexp-exec-abstract */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/regexp-exec-abstract.js"); // @@match logic
+
+
+fixRegExpWellKnownSymbolLogic('match', 1, function (MATCH, nativeMatch, maybeCallNative) {
+  return [// `String.prototype.match` method
+  // https://tc39.github.io/ecma262/#sec-string.prototype.match
+  function match(regexp) {
+    var O = requireObjectCoercible(this);
+    var matcher = regexp == undefined ? undefined : regexp[MATCH];
+    return matcher !== undefined ? matcher.call(regexp, O) : new RegExp(regexp)[MATCH](String(O));
+  }, // `RegExp.prototype[@@match]` method
+  // https://tc39.github.io/ecma262/#sec-regexp.prototype-@@match
+  function (regexp) {
+    var res = maybeCallNative(nativeMatch, regexp, this);
+    if (res.done) return res.value;
+    var rx = anObject(regexp);
+    var S = String(this);
+    if (!rx.global) return regExpExec(rx, S);
+    var fullUnicode = rx.unicode;
+    rx.lastIndex = 0;
+    var A = [];
+    var n = 0;
+    var result;
+
+    while ((result = regExpExec(rx, S)) !== null) {
+      var matchStr = String(result[0]);
+      A[n] = matchStr;
+      if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
+      n++;
+    }
+
+    return n === 0 ? null : A;
+  }];
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.string.replace.js":
+/*!************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/es.string.replace.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var fixRegExpWellKnownSymbolLogic = __webpack_require__(/*! ../internals/fix-regexp-well-known-symbol-logic */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/fix-regexp-well-known-symbol-logic.js");
+
+var anObject = __webpack_require__(/*! ../internals/an-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/an-object.js");
+
+var toObject = __webpack_require__(/*! ../internals/to-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-object.js");
+
+var toLength = __webpack_require__(/*! ../internals/to-length */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-length.js");
+
+var toInteger = __webpack_require__(/*! ../internals/to-integer */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/to-integer.js");
+
+var requireObjectCoercible = __webpack_require__(/*! ../internals/require-object-coercible */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/require-object-coercible.js");
+
+var advanceStringIndex = __webpack_require__(/*! ../internals/advance-string-index */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/advance-string-index.js");
+
+var regExpExec = __webpack_require__(/*! ../internals/regexp-exec-abstract */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/regexp-exec-abstract.js");
+
+var max = Math.max;
+var min = Math.min;
+var floor = Math.floor;
+var SUBSTITUTION_SYMBOLS = /\$([$&'`]|\d\d?|<[^>]*>)/g;
+var SUBSTITUTION_SYMBOLS_NO_NAMED = /\$([$&'`]|\d\d?)/g;
+
+var maybeToString = function maybeToString(it) {
+  return it === undefined ? it : String(it);
+}; // @@replace logic
+
+
+fixRegExpWellKnownSymbolLogic('replace', 2, function (REPLACE, nativeReplace, maybeCallNative, reason) {
+  var REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE = reason.REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE;
+  var REPLACE_KEEPS_$0 = reason.REPLACE_KEEPS_$0;
+  var UNSAFE_SUBSTITUTE = REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE ? '$' : '$0';
+  return [// `String.prototype.replace` method
+  // https://tc39.github.io/ecma262/#sec-string.prototype.replace
+  function replace(searchValue, replaceValue) {
+    var O = requireObjectCoercible(this);
+    var replacer = searchValue == undefined ? undefined : searchValue[REPLACE];
+    return replacer !== undefined ? replacer.call(searchValue, O, replaceValue) : nativeReplace.call(String(O), searchValue, replaceValue);
+  }, // `RegExp.prototype[@@replace]` method
+  // https://tc39.github.io/ecma262/#sec-regexp.prototype-@@replace
+  function (regexp, replaceValue) {
+    if (!REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE && REPLACE_KEEPS_$0 || typeof replaceValue === 'string' && replaceValue.indexOf(UNSAFE_SUBSTITUTE) === -1) {
+      var res = maybeCallNative(nativeReplace, regexp, this, replaceValue);
+      if (res.done) return res.value;
+    }
+
+    var rx = anObject(regexp);
+    var S = String(this);
+    var functionalReplace = typeof replaceValue === 'function';
+    if (!functionalReplace) replaceValue = String(replaceValue);
+    var global = rx.global;
+
+    if (global) {
+      var fullUnicode = rx.unicode;
+      rx.lastIndex = 0;
+    }
+
+    var results = [];
+
+    while (true) {
+      var result = regExpExec(rx, S);
+      if (result === null) break;
+      results.push(result);
+      if (!global) break;
+      var matchStr = String(result[0]);
+      if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
+    }
+
+    var accumulatedResult = '';
+    var nextSourcePosition = 0;
+
+    for (var i = 0; i < results.length; i++) {
+      result = results[i];
+      var matched = String(result[0]);
+      var position = max(min(toInteger(result.index), S.length), 0);
+      var captures = []; // NOTE: This is equivalent to
+      //   captures = result.slice(1).map(maybeToString)
+      // but for some reason `nativeSlice.call(result, 1, result.length)` (called in
+      // the slice polyfill when slicing native arrays) "doesn't work" in safari 9 and
+      // causes a crash (https://pastebin.com/N21QzeQA) when trying to debug it.
+
+      for (var j = 1; j < result.length; j++) {
+        captures.push(maybeToString(result[j]));
+      }
+
+      var namedCaptures = result.groups;
+
+      if (functionalReplace) {
+        var replacerArgs = [matched].concat(captures, position, S);
+        if (namedCaptures !== undefined) replacerArgs.push(namedCaptures);
+        var replacement = String(replaceValue.apply(undefined, replacerArgs));
+      } else {
+        replacement = getSubstitution(matched, S, position, captures, namedCaptures, replaceValue);
+      }
+
+      if (position >= nextSourcePosition) {
+        accumulatedResult += S.slice(nextSourcePosition, position) + replacement;
+        nextSourcePosition = position + matched.length;
+      }
+    }
+
+    return accumulatedResult + S.slice(nextSourcePosition);
+  }]; // https://tc39.github.io/ecma262/#sec-getsubstitution
+
+  function getSubstitution(matched, str, position, captures, namedCaptures, replacement) {
+    var tailPos = position + matched.length;
+    var m = captures.length;
+    var symbols = SUBSTITUTION_SYMBOLS_NO_NAMED;
+
+    if (namedCaptures !== undefined) {
+      namedCaptures = toObject(namedCaptures);
+      symbols = SUBSTITUTION_SYMBOLS;
+    }
+
+    return nativeReplace.call(replacement, symbols, function (match, ch) {
+      var capture;
+
+      switch (ch.charAt(0)) {
+        case '$':
+          return '$';
+
+        case '&':
+          return matched;
+
+        case '`':
+          return str.slice(0, position);
+
+        case "'":
+          return str.slice(tailPos);
+
+        case '<':
+          capture = namedCaptures[ch.slice(1, -1)];
+          break;
+
+        default:
+          // \d\d?
+          var n = +ch;
+          if (n === 0) return match;
+
+          if (n > m) {
+            var f = floor(n / 10);
+            if (f === 0) return match;
+            if (f <= m) return captures[f - 1] === undefined ? ch.charAt(1) : captures[f - 1] + ch.charAt(1);
+            return match;
+          }
+
+          capture = captures[n - 1];
+      }
+
+      return capture === undefined ? '' : capture;
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.weak-map.js":
+/*!******************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/es.weak-map.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var redefineAll = __webpack_require__(/*! ../internals/redefine-all */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/redefine-all.js");
+
+var InternalMetadataModule = __webpack_require__(/*! ../internals/internal-metadata */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/internal-metadata.js");
+
+var collection = __webpack_require__(/*! ../internals/collection */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/collection.js");
+
+var collectionWeak = __webpack_require__(/*! ../internals/collection-weak */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/collection-weak.js");
+
+var isObject = __webpack_require__(/*! ../internals/is-object */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/is-object.js");
+
+var enforceIternalState = __webpack_require__(/*! ../internals/internal-state */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/internal-state.js").enforce;
+
+var NATIVE_WEAK_MAP = __webpack_require__(/*! ../internals/native-weak-map */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/native-weak-map.js");
+
+var IS_IE11 = !global.ActiveXObject && 'ActiveXObject' in global;
+var isExtensible = Object.isExtensible;
+var InternalWeakMap;
+
+var wrapper = function wrapper(init) {
+  return function WeakMap() {
+    return init(this, arguments.length ? arguments[0] : undefined);
+  };
+}; // `WeakMap` constructor
+// https://tc39.github.io/ecma262/#sec-weakmap-constructor
+
+
+var $WeakMap = module.exports = collection('WeakMap', wrapper, collectionWeak); // IE11 WeakMap frozen keys fix
+// We can't use feature detection because it crash some old IE builds
+// https://github.com/zloirock/core-js/issues/485
+
+if (NATIVE_WEAK_MAP && IS_IE11) {
+  InternalWeakMap = collectionWeak.getConstructor(wrapper, 'WeakMap', true);
+  InternalMetadataModule.REQUIRED = true;
+  var WeakMapPrototype = $WeakMap.prototype;
+  var nativeDelete = WeakMapPrototype['delete'];
+  var nativeHas = WeakMapPrototype.has;
+  var nativeGet = WeakMapPrototype.get;
+  var nativeSet = WeakMapPrototype.set;
+  redefineAll(WeakMapPrototype, {
+    'delete': function _delete(key) {
+      if (isObject(key) && !isExtensible(key)) {
+        var state = enforceIternalState(this);
+        if (!state.frozen) state.frozen = new InternalWeakMap();
+        return nativeDelete.call(this, key) || state.frozen['delete'](key);
+      }
+
+      return nativeDelete.call(this, key);
+    },
+    has: function has(key) {
+      if (isObject(key) && !isExtensible(key)) {
+        var state = enforceIternalState(this);
+        if (!state.frozen) state.frozen = new InternalWeakMap();
+        return nativeHas.call(this, key) || state.frozen.has(key);
+      }
+
+      return nativeHas.call(this, key);
+    },
+    get: function get(key) {
+      if (isObject(key) && !isExtensible(key)) {
+        var state = enforceIternalState(this);
+        if (!state.frozen) state.frozen = new InternalWeakMap();
+        return nativeHas.call(this, key) ? nativeGet.call(this, key) : state.frozen.get(key);
+      }
+
+      return nativeGet.call(this, key);
+    },
+    set: function set(key, value) {
+      if (isObject(key) && !isExtensible(key)) {
+        var state = enforceIternalState(this);
+        if (!state.frozen) state.frozen = new InternalWeakMap();
+        nativeHas.call(this, key) ? nativeSet.call(this, key, value) : state.frozen.set(key, value);
+      } else nativeSet.call(this, key, value);
+
+      return this;
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/web.dom-collections.for-each.js":
+/*!***********************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/web.dom-collections.for-each.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var DOMIterables = __webpack_require__(/*! ../internals/dom-iterables */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/dom-iterables.js");
+
+var forEach = __webpack_require__(/*! ../internals/array-for-each */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/array-for-each.js");
+
+var createNonEnumerableProperty = __webpack_require__(/*! ../internals/create-non-enumerable-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-non-enumerable-property.js");
+
+for (var COLLECTION_NAME in DOMIterables) {
+  var Collection = global[COLLECTION_NAME];
+  var CollectionPrototype = Collection && Collection.prototype; // some Chrome versions have non-configurable methods on DOMTokenList
+
+  if (CollectionPrototype && CollectionPrototype.forEach !== forEach) try {
+    createNonEnumerableProperty(CollectionPrototype, 'forEach', forEach);
+  } catch (error) {
+    CollectionPrototype.forEach = forEach;
+  }
+}
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/core-js/modules/web.dom-collections.iterator.js":
+/*!***********************************************************************************!*\
+  !*** /app/musora-ui/node_modules/core-js/modules/web.dom-collections.iterator.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(/*! ../internals/global */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/global.js");
+
+var DOMIterables = __webpack_require__(/*! ../internals/dom-iterables */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/dom-iterables.js");
+
+var ArrayIteratorMethods = __webpack_require__(/*! ../modules/es.array.iterator */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.array.iterator.js");
+
+var createNonEnumerableProperty = __webpack_require__(/*! ../internals/create-non-enumerable-property */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/create-non-enumerable-property.js");
+
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "../../../../../../../app/musora-ui/node_modules/core-js/internals/well-known-symbol.js");
+
+var ITERATOR = wellKnownSymbol('iterator');
+var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+var ArrayValues = ArrayIteratorMethods.values;
+
+for (var COLLECTION_NAME in DOMIterables) {
+  var Collection = global[COLLECTION_NAME];
+  var CollectionPrototype = Collection && Collection.prototype;
+
+  if (CollectionPrototype) {
+    // some Chrome versions have non-configurable methods on DOMTokenList
+    if (CollectionPrototype[ITERATOR] !== ArrayValues) try {
+      createNonEnumerableProperty(CollectionPrototype, ITERATOR, ArrayValues);
+    } catch (error) {
+      CollectionPrototype[ITERATOR] = ArrayValues;
+    }
+
+    if (!CollectionPrototype[TO_STRING_TAG]) {
+      createNonEnumerableProperty(CollectionPrototype, TO_STRING_TAG, COLLECTION_NAME);
+    }
+
+    if (DOMIterables[COLLECTION_NAME]) for (var METHOD_NAME in ArrayIteratorMethods) {
+      // some Chrome versions have non-configurable methods on DOMTokenList
+      if (CollectionPrototype[METHOD_NAME] !== ArrayIteratorMethods[METHOD_NAME]) try {
+        createNonEnumerableProperty(CollectionPrototype, METHOD_NAME, ArrayIteratorMethods[METHOD_NAME]);
+      } catch (error) {
+        CollectionPrototype[METHOD_NAME] = ArrayIteratorMethods[METHOD_NAME];
+      }
+    }
+  }
+}
 
 /***/ }),
 
@@ -9841,1315 +14606,2806 @@ function __guardMethod__(obj, methodName, transform) {
 
 /***/ }),
 
-/***/ "../../../../../../../app/musora-ui/node_modules/moxios/dist/moxios.js":
-/*!*********************************************************!*\
-  !*** /app/musora-ui/node_modules/moxios/dist/moxios.js ***!
-  \*********************************************************/
+/***/ "../../../../../../../app/musora-ui/node_modules/fast-deep-equal/index.js":
+/*!************************************************************!*\
+  !*** /app/musora-ui/node_modules/fast-deep-equal/index.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+"use strict";
+ // do not edit .js files directly - edit src/index.jst
 
-(function webpackUniversalModuleDefinition(root, factory) {
-  if (( false ? undefined : _typeof(exports)) === 'object' && ( false ? undefined : _typeof(module)) === 'object') module.exports = factory(__webpack_require__(/*! axios */ "../../../../../../../app/musora-ui/node_modules/axios/index.js"));else if (true) !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! axios */ "../../../../../../../app/musora-ui/node_modules/axios/index.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else {}
-})(this, function (__WEBPACK_EXTERNAL_MODULE_1__) {
-  return (
-    /******/
-    function (modules) {
-      // webpackBootstrap
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-      /******/
-      // The module cache
+module.exports = function equal(a, b) {
+  if (a === b) return true;
 
-      /******/
-      var installedModules = {};
-      /******/
+  if (a && b && _typeof(a) == 'object' && _typeof(b) == 'object') {
+    if (a.constructor !== b.constructor) return false;
+    var length, i, keys;
 
-      /******/
-      // The require function
+    if (Array.isArray(a)) {
+      length = a.length;
+      if (length != b.length) return false;
 
-      /******/
-
-      function __webpack_require__(moduleId) {
-        /******/
-
-        /******/
-        // Check if module is in cache
-
-        /******/
-        if (installedModules[moduleId])
-          /******/
-          return installedModules[moduleId].exports;
-        /******/
-
-        /******/
-        // Create a new module (and put it into the cache)
-
-        /******/
-
-        var module = installedModules[moduleId] = {
-          /******/
-          exports: {},
-
-          /******/
-          id: moduleId,
-
-          /******/
-          loaded: false
-          /******/
-
-        };
-        /******/
-
-        /******/
-        // Execute the module function
-
-        /******/
-
-        modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-        /******/
-
-        /******/
-        // Flag the module as loaded
-
-        /******/
-
-        module.loaded = true;
-        /******/
-
-        /******/
-        // Return the exports of the module
-
-        /******/
-
-        return module.exports;
-        /******/
-      }
-      /******/
-
-      /******/
-
-      /******/
-      // expose the modules object (__webpack_modules__)
-
-      /******/
-
-
-      __webpack_require__.m = modules;
-      /******/
-
-      /******/
-      // expose the module cache
-
-      /******/
-
-      __webpack_require__.c = installedModules;
-      /******/
-
-      /******/
-      // __webpack_public_path__
-
-      /******/
-
-      __webpack_require__.p = "";
-      /******/
-
-      /******/
-      // Load entry module and return exports
-
-      /******/
-
-      return __webpack_require__(0);
-      /******/
-    }(
-    /************************************************************************/
-
-    /******/
-    [
-    /* 0 */
-
-    /***/
-    function (module, exports, __webpack_require__) {
-      'use strict';
-
-      Object.defineProperty(exports, "__esModule", {
-        value: true
-      });
-
-      var _createClass = function () {
-        function defineProperties(target, props) {
-          for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-          }
-        }
-
-        return function (Constructor, protoProps, staticProps) {
-          if (protoProps) defineProperties(Constructor.prototype, protoProps);
-          if (staticProps) defineProperties(Constructor, staticProps);
-          return Constructor;
-        };
-      }();
-
-      var _axios = __webpack_require__(1);
-
-      var _axios2 = _interopRequireDefault(_axios);
-
-      var _buildURL = __webpack_require__(2);
-
-      var _buildURL2 = _interopRequireDefault(_buildURL);
-
-      var _isURLSameOrigin = __webpack_require__(5);
-
-      var _isURLSameOrigin2 = _interopRequireDefault(_isURLSameOrigin);
-
-      var _btoa = __webpack_require__(6);
-
-      var _btoa2 = _interopRequireDefault(_btoa);
-
-      var _cookies = __webpack_require__(7);
-
-      var _cookies2 = _interopRequireDefault(_cookies);
-
-      var _settle = __webpack_require__(8);
-
-      var _settle2 = _interopRequireDefault(_settle);
-
-      var _createError = __webpack_require__(9);
-
-      var _createError2 = _interopRequireDefault(_createError);
-
-      function _interopRequireDefault(obj) {
-        return obj && obj.__esModule ? obj : {
-          "default": obj
-        };
+      for (i = length; i-- !== 0;) {
+        if (!equal(a[i], b[i])) return false;
       }
 
-      function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-          throw new TypeError("Cannot call a class as a function");
-        }
-      }
-
-      var TimeoutException = new Error('Timeout: Stub function not called.');
-      var DEFAULT_WAIT_DELAY = 100; // The default adapter
-
-      var defaultAdapter = void 0;
-      /**
-       * The mock adapter that gets installed.
-       *
-       * @param {Function} resolve The function to call when Promise is resolved
-       * @param {Function} reject The function to call when Promise is rejected
-       * @param {Object} config The config object to be used for the request
-       */
-
-      var mockAdapter = function mockAdapter(config) {
-        return new Promise(function (resolve, reject) {
-          var request = new Request(resolve, reject, config);
-          moxios.requests.track(request); // Check for matching stub to auto respond with
-
-          for (var i = 0, l = moxios.stubs.count(); i < l; i++) {
-            var stub = moxios.stubs.at(i);
-            var correctURL = stub.url instanceof RegExp ? stub.url.test(request.url) : stub.url === request.url;
-            var correctMethod = true;
-
-            if (stub.method !== undefined) {
-              correctMethod = stub.method.toLowerCase() === request.config.method.toLowerCase();
-            }
-
-            if (correctURL && correctMethod) {
-              if (stub.timeout) {
-                throwTimeout(config);
-              }
-
-              request.respondWith(stub.response);
-              stub.resolve();
-              break;
-            }
-          }
-        });
-      };
-      /**
-       * create common object for timeout response
-       *
-       * @param {object} config The config object to be used for the request
-       */
-
-
-      var createTimeout = function createTimeout(config) {
-        return (0, _createError2["default"])('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED');
-      };
-      /**
-       * throw common error for timeout response
-       *
-       * @param {object} config The config object to be used for the request
-       */
-
-
-      var throwTimeout = function throwTimeout(config) {
-        throw createTimeout(config);
-      };
-
-      var Tracker = function () {
-        function Tracker() {
-          _classCallCheck(this, Tracker);
-
-          this.__items = [];
-        }
-        /**
-         * Reset all the items being tracked
-         */
-
-
-        _createClass(Tracker, [{
-          key: 'reset',
-          value: function reset() {
-            this.__items.splice(0);
-          }
-          /**
-           * Add an item to be tracked
-           *
-           * @param {Object} item An item to be tracked
-           */
-
-        }, {
-          key: 'track',
-          value: function track(item) {
-            this.__items.push(item);
-          }
-          /**
-           * The count of items being tracked
-           *
-           * @return {Number}
-           */
-
-        }, {
-          key: 'count',
-          value: function count() {
-            return this.__items.length;
-          }
-          /**
-           * Get an item being tracked at a given index
-           *
-           * @param {Number} index The index for the item to retrieve
-           * @return {Object}
-           */
-
-        }, {
-          key: 'at',
-          value: function at(index) {
-            return this.__items[index];
-          }
-          /**
-           * Get the first item being tracked
-           *
-           * @return {Object}
-           */
-
-        }, {
-          key: 'first',
-          value: function first() {
-            return this.at(0);
-          }
-          /**
-           * Get the most recent (last) item being tracked
-           *
-           * @return {Object}
-           */
-
-        }, {
-          key: 'mostRecent',
-          value: function mostRecent() {
-            return this.at(this.count() - 1);
-          }
-          /**
-           * Dump the items being tracked to the console.
-           */
-
-        }, {
-          key: 'debug',
-          value: function debug() {
-            console.log();
-
-            this.__items.forEach(function (element) {
-              var output = void 0;
-
-              if (element.config) {
-                // request
-                output = element.config.method.toLowerCase() + ', ';
-                output += element.config.url;
-              } else {
-                // stub
-                output = element.method.toLowerCase() + ', ';
-                output += element.url + ', ';
-                output += element.response.status + ', ';
-
-                if (element.response.response) {
-                  output += JSON.stringify(element.response.response);
-                } else {
-                  output += '{}';
-                }
-              }
-
-              console.log(output);
-            });
-          }
-          /**
-           * Find and return element given the HTTP method and the URL.
-           */
-
-        }, {
-          key: 'get',
-          value: function get(method, url) {
-            function getElem(element, index, array) {
-              var matchedUrl = element.url instanceof RegExp ? element.url.test(element.url) : element.url === url;
-              var matchedMethod = void 0;
-
-              if (element.config) {
-                // request tracking
-                matchedMethod = method.toLowerCase() === element.config.method.toLowerCase();
-              } else {
-                // stub tracking
-                matchedMethod = method.toLowerCase() === element.method.toLowerCase();
-              }
-
-              if (matchedUrl && matchedMethod) {
-                return element;
-              }
-            }
-
-            return this.__items.find(getElem);
-          }
-          /**
-           * Stop an element from being tracked by removing it. Finds and returns the element,
-           * given the HTTP method and the URL.
-           */
-
-        }, {
-          key: 'remove',
-          value: function remove(method, url) {
-            var elem = this.get(method, url);
-
-            var index = this.__items.indexOf(elem);
-
-            return this.__items.splice(index, 1)[0];
-          }
-        }]);
-
-        return Tracker;
-      }();
-
-      var Request = function () {
-        /**
-         * Create a new Request object
-         *
-         * @param {Function} resolve The function to call when Promise is resolved
-         * @param {Function} reject The function to call when Promise is rejected
-         * @param {Object} config The config object to be used for the request
-         */
-        function Request(resolve, reject, config) {
-          _classCallCheck(this, Request);
-
-          this.resolve = resolve;
-          this.reject = reject;
-          this.config = config;
-          this.headers = config.headers;
-          this.url = (0, _buildURL2["default"])(config.url, config.params, config.paramsSerializer);
-          this.timeout = config.timeout;
-          this.withCredentials = config.withCredentials || false;
-          this.responseType = config.responseType; // Set auth header
-
-          if (config.auth) {
-            var username = config.auth.username || '';
-            var password = config.auth.password || '';
-            this.headers.Authorization = 'Basic ' + (0, _btoa2["default"])(username + ':' + password);
-          } // Set xsrf header
-
-
-          if (typeof document !== 'undefined' && typeof document.cookie !== 'undefined') {
-            var xsrfValue = config.withCredentials || (0, _isURLSameOrigin2["default"])(config.url) ? _cookies2["default"].read(config.xsrfCookieName) : undefined;
-
-            if (xsrfValue) {
-              this.headers[config.xsrfHeaderName] = xsrfValue;
-            }
-          }
-        }
-        /**
-         * Respond to this request with a timeout result
-         *
-         * @return {Promise} A Promise that rejects with a timeout result
-         */
-
-
-        _createClass(Request, [{
-          key: 'respondWithTimeout',
-          value: function respondWithTimeout() {
-            var response = new Response(this, createTimeout(this.config));
-            (0, _settle2["default"])(this.resolve, this.reject, response);
-            return new Promise(function (resolve, reject) {
-              moxios.wait(function () {
-                reject(response);
-              });
-            });
-          }
-          /**
-           * Respond to this request with a specified result
-           *
-           * @param {Object} res The data representing the result of the request
-           * @return {Promise} A Promise that resolves once the response is ready
-           */
-
-        }, {
-          key: 'respondWith',
-          value: function respondWith(res) {
-            var response = new Response(this, res);
-            (0, _settle2["default"])(this.resolve, this.reject, response);
-            return new Promise(function (resolve) {
-              moxios.wait(function () {
-                resolve(response);
-              });
-            });
-          }
-        }]);
-
-        return Request;
-      }();
-
-      var Response =
-      /**
-       * Create a new Response object
-       *
-       * @param {Request} req The Request that this Response is associated with
-       * @param {Object} res The data representing the result of the request
-       */
-      function Response(req, res) {
-        _classCallCheck(this, Response);
-
-        this.config = req.config;
-        this.data = res.responseText || res.response;
-        this.status = res.status;
-        this.statusText = res.statusText;
-        /* lowecase all headers keys to be consistent with Axios */
-
-        if ('headers' in res) {
-          var newHeaders = {};
-
-          for (var header in res.headers) {
-            newHeaders[header.toLowerCase()] = res.headers[header];
-          }
-
-          res.headers = newHeaders;
-        }
-
-        this.headers = res.headers;
-        this.request = req;
-        this.code = res.code;
-      };
-
-      var moxios = {
-        stubs: new Tracker(),
-        requests: new Tracker(),
-        delay: DEFAULT_WAIT_DELAY,
-        timeoutException: TimeoutException,
-
-        /**
-         * Install the mock adapter for axios
-         */
-        install: function install() {
-          var instance = arguments.length <= 0 || arguments[0] === undefined ? _axios2["default"] : arguments[0];
-          defaultAdapter = instance.defaults.adapter;
-          instance.defaults.adapter = mockAdapter;
-        },
-
-        /**
-         * Uninstall the mock adapter and reset state
-         */
-        uninstall: function uninstall() {
-          var instance = arguments.length <= 0 || arguments[0] === undefined ? _axios2["default"] : arguments[0];
-          instance.defaults.adapter = defaultAdapter;
-          this.stubs.reset();
-          this.requests.reset();
-        },
-
-        /**
-         * Stub a response to be used to respond to a request matching a method and a URL or RegExp
-         *
-         * @param {String} method An axios command
-         * @param {String|RegExp} urlOrRegExp A URL or RegExp to test against
-         * @param {Object} response The response to use when a match is made
-         */
-        stubRequest: function stubRequest(urlOrRegExp, response) {
-          this.stubs.track({
-            url: urlOrRegExp,
-            response: response
-          });
-        },
-
-        /**
-         * Stub a response to be used one or more times to respond to a request matching a
-         * method and a URL or RegExp.
-         *
-         * @param {String} method An axios command
-         * @param {String|RegExp} urlOrRegExp A URL or RegExp to test against
-         * @param {Object} response The response to use when a match is made
-         */
-        stubOnce: function stubOnce(method, urlOrRegExp, response) {
-          var _this = this;
-
-          return new Promise(function (resolve) {
-            _this.stubs.track({
-              url: urlOrRegExp,
-              method: method,
-              response: response,
-              resolve: resolve
-            });
-          });
-        },
-
-        /**
-         * Stub a timed response to a request matching a method and a URL or RegExp. If
-         * timer fires, reject with a TimeoutException for simple assertions. The goal is
-         * to show that a certain request was not made.
-         *
-         * @param {String} method An axios command
-         * @param {String|RegExp} urlOrRegExp A URL or RegExp to test against
-         * @param {Object} response The response to use when a match is made
-         */
-        stubFailure: function stubFailure(method, urlOrRegExp, response) {
-          var _this2 = this;
-
-          return new Promise(function (resolve, reject) {
-            _this2.stubs.track({
-              url: urlOrRegExp,
-              method: method,
-              response: response,
-              resolve: resolve
-            });
-
-            setTimeout(function () {
-              reject(TimeoutException);
-            }, 500);
-          });
-        },
-
-        /**
-         * Stub a timeout to be used to respond to a request matching a URL or RegExp
-         *
-         * @param {String|RegExp} urlOrRegExp A URL or RegExp to test against
-         */
-        stubTimeout: function stubTimeout(urlOrRegExp) {
-          this.stubs.track({
-            url: urlOrRegExp,
-            timeout: true
-          });
-        },
-
-        /**
-         * Run a single test with mock adapter installed.
-         * This will install the mock adapter, execute the function provided,
-         * then uninstall the mock adapter once complete.
-         *
-         * @param {Function} fn The function to be executed
-         */
-        withMock: function withMock(fn) {
-          this.install();
-
-          try {
-            fn();
-          } finally {
-            this.uninstall();
-          }
-        },
-
-        /**
-         * Wait for request to be made before proceding.
-         * This is naively using a `setTimeout`.
-         * May need to beef this up a bit in the future.
-         *
-         * @param {Function} fn The function to execute once waiting is over
-         * @param {Number} delay How much time in milliseconds to wait
-         */
-        wait: function wait(fn) {
-          var delay = arguments.length <= 1 || arguments[1] === undefined ? this.delay : arguments[1];
-          setTimeout(fn, delay);
-        }
-      };
-      exports["default"] = moxios;
-      module.exports = exports['default'];
-      /***/
-    },
-    /* 1 */
-
-    /***/
-    function (module, exports) {
-      module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
-      /***/
-    },
-    /* 2 */
-
-    /***/
-    function (module, exports, __webpack_require__) {
-      'use strict';
-
-      var utils = __webpack_require__(3);
-
-      function encode(val) {
-        return encodeURIComponent(val).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, '+').replace(/%5B/gi, '[').replace(/%5D/gi, ']');
-      }
-      /**
-       * Build a URL by appending params to the end
-       *
-       * @param {string} url The base of the url (e.g., http://www.google.com)
-       * @param {object} [params] The params to be appended
-       * @returns {string} The formatted url
-       */
-
-
-      module.exports = function buildURL(url, params, paramsSerializer) {
-        /*eslint no-param-reassign:0*/
-        if (!params) {
-          return url;
-        }
-
-        var serializedParams;
-
-        if (paramsSerializer) {
-          serializedParams = paramsSerializer(params);
-        } else if (utils.isURLSearchParams(params)) {
-          serializedParams = params.toString();
-        } else {
-          var parts = [];
-          utils.forEach(params, function serialize(val, key) {
-            if (val === null || typeof val === 'undefined') {
-              return;
-            }
-
-            if (utils.isArray(val)) {
-              key = key + '[]';
-            }
-
-            if (!utils.isArray(val)) {
-              val = [val];
-            }
-
-            utils.forEach(val, function parseValue(v) {
-              if (utils.isDate(v)) {
-                v = v.toISOString();
-              } else if (utils.isObject(v)) {
-                v = JSON.stringify(v);
-              }
-
-              parts.push(encode(key) + '=' + encode(v));
-            });
-          });
-          serializedParams = parts.join('&');
-        }
-
-        if (serializedParams) {
-          url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
-        }
-
-        return url;
-      };
-      /***/
-
-    },
-    /* 3 */
-
-    /***/
-    function (module, exports, __webpack_require__) {
-      'use strict';
-
-      var bind = __webpack_require__(4);
-      /*global toString:true*/
-      // utils is a library of generic helper functions non-specific to axios
-
-
-      var toString = Object.prototype.toString;
-      /**
-       * Determine if a value is an Array
-       *
-       * @param {Object} val The value to test
-       * @returns {boolean} True if value is an Array, otherwise false
-       */
-
-      function isArray(val) {
-        return toString.call(val) === '[object Array]';
-      }
-      /**
-       * Determine if a value is an ArrayBuffer
-       *
-       * @param {Object} val The value to test
-       * @returns {boolean} True if value is an ArrayBuffer, otherwise false
-       */
-
-
-      function isArrayBuffer(val) {
-        return toString.call(val) === '[object ArrayBuffer]';
-      }
-      /**
-       * Determine if a value is a FormData
-       *
-       * @param {Object} val The value to test
-       * @returns {boolean} True if value is an FormData, otherwise false
-       */
-
-
-      function isFormData(val) {
-        return typeof FormData !== 'undefined' && val instanceof FormData;
-      }
-      /**
-       * Determine if a value is a view on an ArrayBuffer
-       *
-       * @param {Object} val The value to test
-       * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
-       */
-
-
-      function isArrayBufferView(val) {
-        var result;
-
-        if (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView) {
-          result = ArrayBuffer.isView(val);
-        } else {
-          result = val && val.buffer && val.buffer instanceof ArrayBuffer;
-        }
-
-        return result;
-      }
-      /**
-       * Determine if a value is a String
-       *
-       * @param {Object} val The value to test
-       * @returns {boolean} True if value is a String, otherwise false
-       */
-
-
-      function isString(val) {
-        return typeof val === 'string';
-      }
-      /**
-       * Determine if a value is a Number
-       *
-       * @param {Object} val The value to test
-       * @returns {boolean} True if value is a Number, otherwise false
-       */
-
-
-      function isNumber(val) {
-        return typeof val === 'number';
-      }
-      /**
-       * Determine if a value is undefined
-       *
-       * @param {Object} val The value to test
-       * @returns {boolean} True if the value is undefined, otherwise false
-       */
-
-
-      function isUndefined(val) {
-        return typeof val === 'undefined';
-      }
-      /**
-       * Determine if a value is an Object
-       *
-       * @param {Object} val The value to test
-       * @returns {boolean} True if value is an Object, otherwise false
-       */
-
-
-      function isObject(val) {
-        return val !== null && _typeof(val) === 'object';
-      }
-      /**
-       * Determine if a value is a Date
-       *
-       * @param {Object} val The value to test
-       * @returns {boolean} True if value is a Date, otherwise false
-       */
-
-
-      function isDate(val) {
-        return toString.call(val) === '[object Date]';
-      }
-      /**
-       * Determine if a value is a File
-       *
-       * @param {Object} val The value to test
-       * @returns {boolean} True if value is a File, otherwise false
-       */
-
-
-      function isFile(val) {
-        return toString.call(val) === '[object File]';
-      }
-      /**
-       * Determine if a value is a Blob
-       *
-       * @param {Object} val The value to test
-       * @returns {boolean} True if value is a Blob, otherwise false
-       */
-
-
-      function isBlob(val) {
-        return toString.call(val) === '[object Blob]';
-      }
-      /**
-       * Determine if a value is a Function
-       *
-       * @param {Object} val The value to test
-       * @returns {boolean} True if value is a Function, otherwise false
-       */
-
-
-      function isFunction(val) {
-        return toString.call(val) === '[object Function]';
-      }
-      /**
-       * Determine if a value is a Stream
-       *
-       * @param {Object} val The value to test
-       * @returns {boolean} True if value is a Stream, otherwise false
-       */
-
-
-      function isStream(val) {
-        return isObject(val) && isFunction(val.pipe);
-      }
-      /**
-       * Determine if a value is a URLSearchParams object
-       *
-       * @param {Object} val The value to test
-       * @returns {boolean} True if value is a URLSearchParams object, otherwise false
-       */
-
-
-      function isURLSearchParams(val) {
-        return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
-      }
-      /**
-       * Trim excess whitespace off the beginning and end of a string
-       *
-       * @param {String} str The String to trim
-       * @returns {String} The String freed of excess whitespace
-       */
-
-
-      function trim(str) {
-        return str.replace(/^\s*/, '').replace(/\s*$/, '');
-      }
-      /**
-       * Determine if we're running in a standard browser environment
-       *
-       * This allows axios to run in a web worker, and react-native.
-       * Both environments support XMLHttpRequest, but not fully standard globals.
-       *
-       * web workers:
-       *  typeof window -> undefined
-       *  typeof document -> undefined
-       *
-       * react-native:
-       *  typeof document.createElement -> undefined
-       */
-
-
-      function isStandardBrowserEnv() {
-        return typeof window !== 'undefined' && typeof document !== 'undefined' && typeof document.createElement === 'function';
-      }
-      /**
-       * Iterate over an Array or an Object invoking a function for each item.
-       *
-       * If `obj` is an Array callback will be called passing
-       * the value, index, and complete array for each item.
-       *
-       * If 'obj' is an Object callback will be called passing
-       * the value, key, and complete object for each property.
-       *
-       * @param {Object|Array} obj The object to iterate
-       * @param {Function} fn The callback to invoke for each item
-       */
-
-
-      function forEach(obj, fn) {
-        // Don't bother if no value provided
-        if (obj === null || typeof obj === 'undefined') {
-          return;
-        } // Force an array if not already something iterable
-
-
-        if (_typeof(obj) !== 'object' && !isArray(obj)) {
-          /*eslint no-param-reassign:0*/
-          obj = [obj];
-        }
-
-        if (isArray(obj)) {
-          // Iterate over array values
-          for (var i = 0, l = obj.length; i < l; i++) {
-            fn.call(null, obj[i], i, obj);
-          }
-        } else {
-          // Iterate over object keys
-          for (var key in obj) {
-            if (obj.hasOwnProperty(key)) {
-              fn.call(null, obj[key], key, obj);
-            }
-          }
-        }
-      }
-      /**
-       * Accepts varargs expecting each argument to be an object, then
-       * immutably merges the properties of each object and returns result.
-       *
-       * When multiple objects contain the same key the later object in
-       * the arguments list will take precedence.
-       *
-       * Example:
-       *
-       * ```js
-       * var result = merge({foo: 123}, {foo: 456});
-       * console.log(result.foo); // outputs 456
-       * ```
-       *
-       * @param {Object} obj1 Object to merge
-       * @returns {Object} Result of all merge properties
-       */
-
-
-      function merge()
-      /* obj1, obj2, obj3, ... */
-      {
-        var result = {};
-
-        function assignValue(val, key) {
-          if (_typeof(result[key]) === 'object' && _typeof(val) === 'object') {
-            result[key] = merge(result[key], val);
-          } else {
-            result[key] = val;
-          }
-        }
-
-        for (var i = 0, l = arguments.length; i < l; i++) {
-          forEach(arguments[i], assignValue);
-        }
-
-        return result;
-      }
-      /**
-       * Extends object a by mutably adding to it the properties of object b.
-       *
-       * @param {Object} a The object to be extended
-       * @param {Object} b The object to copy properties from
-       * @param {Object} thisArg The object to bind function to
-       * @return {Object} The resulting value of object a
-       */
-
-
-      function extend(a, b, thisArg) {
-        forEach(b, function assignValue(val, key) {
-          if (thisArg && typeof val === 'function') {
-            a[key] = bind(val, thisArg);
-          } else {
-            a[key] = val;
-          }
-        });
-        return a;
-      }
-
-      module.exports = {
-        isArray: isArray,
-        isArrayBuffer: isArrayBuffer,
-        isFormData: isFormData,
-        isArrayBufferView: isArrayBufferView,
-        isString: isString,
-        isNumber: isNumber,
-        isObject: isObject,
-        isUndefined: isUndefined,
-        isDate: isDate,
-        isFile: isFile,
-        isBlob: isBlob,
-        isFunction: isFunction,
-        isStream: isStream,
-        isURLSearchParams: isURLSearchParams,
-        isStandardBrowserEnv: isStandardBrowserEnv,
-        forEach: forEach,
-        merge: merge,
-        extend: extend,
-        trim: trim
-      };
-      /***/
-    },
-    /* 4 */
-
-    /***/
-    function (module, exports) {
-      'use strict';
-
-      module.exports = function bind(fn, thisArg) {
-        return function wrap() {
-          var args = new Array(arguments.length);
-
-          for (var i = 0; i < args.length; i++) {
-            args[i] = arguments[i];
-          }
-
-          return fn.apply(thisArg, args);
-        };
-      };
-      /***/
-
-    },
-    /* 5 */
-
-    /***/
-    function (module, exports, __webpack_require__) {
-      'use strict';
-
-      var utils = __webpack_require__(3);
-
-      module.exports = utils.isStandardBrowserEnv() ? // Standard browser envs have full support of the APIs needed to test
-      // whether the request URL is of the same origin as current location.
-      function standardBrowserEnv() {
-        var msie = /(msie|trident)/i.test(navigator.userAgent);
-        var urlParsingNode = document.createElement('a');
-        var originURL;
-        /**
-        * Parse a URL to discover it's components
-        *
-        * @param {String} url The URL to be parsed
-        * @returns {Object}
-        */
-
-        function resolveURL(url) {
-          var href = url;
-
-          if (msie) {
-            // IE needs attribute set twice to normalize properties
-            urlParsingNode.setAttribute('href', href);
-            href = urlParsingNode.href;
-          }
-
-          urlParsingNode.setAttribute('href', href); // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
-
-          return {
-            href: urlParsingNode.href,
-            protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
-            host: urlParsingNode.host,
-            search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
-            hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
-            hostname: urlParsingNode.hostname,
-            port: urlParsingNode.port,
-            pathname: urlParsingNode.pathname.charAt(0) === '/' ? urlParsingNode.pathname : '/' + urlParsingNode.pathname
-          };
-        }
-
-        originURL = resolveURL(window.location.href);
-        /**
-        * Determine if a URL shares the same origin as the current location
-        *
-        * @param {String} requestURL The URL to test
-        * @returns {boolean} True if URL shares the same origin, otherwise false
-        */
-
-        return function isURLSameOrigin(requestURL) {
-          var parsed = utils.isString(requestURL) ? resolveURL(requestURL) : requestURL;
-          return parsed.protocol === originURL.protocol && parsed.host === originURL.host;
-        };
-      }() : // Non standard browser envs (web workers, react-native) lack needed support.
-      function nonStandardBrowserEnv() {
-        return function isURLSameOrigin() {
-          return true;
-        };
-      }();
-      /***/
-    },
-    /* 6 */
-
-    /***/
-    function (module, exports) {
-      'use strict'; // btoa polyfill for IE<10 courtesy https://github.com/davidchambers/Base64.js
-
-      var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-
-      function E() {
-        this.message = 'String contains an invalid character';
-      }
-
-      E.prototype = new Error();
-      E.prototype.code = 5;
-      E.prototype.name = 'InvalidCharacterError';
-
-      function btoa(input) {
-        var str = String(input);
-        var output = '';
-
-        for ( // initialize result and counter
-        var block, charCode, idx = 0, map = chars; // if the next str index does not exist:
-        //   change the mapping table to "="
-        //   check if d has no fractional digits
-        str.charAt(idx | 0) || (map = '=', idx % 1); // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
-        output += map.charAt(63 & block >> 8 - idx % 1 * 8)) {
-          charCode = str.charCodeAt(idx += 3 / 4);
-
-          if (charCode > 0xFF) {
-            throw new E();
-          }
-
-          block = block << 8 | charCode;
-        }
-
-        return output;
-      }
-
-      module.exports = btoa;
-      /***/
-    },
-    /* 7 */
-
-    /***/
-    function (module, exports, __webpack_require__) {
-      'use strict';
-
-      var utils = __webpack_require__(3);
-
-      module.exports = utils.isStandardBrowserEnv() ? // Standard browser envs support document.cookie
-      function standardBrowserEnv() {
-        return {
-          write: function write(name, value, expires, path, domain, secure) {
-            var cookie = [];
-            cookie.push(name + '=' + encodeURIComponent(value));
-
-            if (utils.isNumber(expires)) {
-              cookie.push('expires=' + new Date(expires).toGMTString());
-            }
-
-            if (utils.isString(path)) {
-              cookie.push('path=' + path);
-            }
-
-            if (utils.isString(domain)) {
-              cookie.push('domain=' + domain);
-            }
-
-            if (secure === true) {
-              cookie.push('secure');
-            }
-
-            document.cookie = cookie.join('; ');
-          },
-          read: function read(name) {
-            var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
-            return match ? decodeURIComponent(match[3]) : null;
-          },
-          remove: function remove(name) {
-            this.write(name, '', Date.now() - 86400000);
-          }
-        };
-      }() : // Non standard browser env (web workers, react-native) lack needed support.
-      function nonStandardBrowserEnv() {
-        return {
-          write: function write() {},
-          read: function read() {
-            return null;
-          },
-          remove: function remove() {}
-        };
-      }();
-      /***/
-    },
-    /* 8 */
-
-    /***/
-    function (module, exports, __webpack_require__) {
-      'use strict';
-
-      var createError = __webpack_require__(9);
-      /**
-       * Resolve or reject a Promise based on response status.
-       *
-       * @param {Function} resolve A function that resolves the promise.
-       * @param {Function} reject A function that rejects the promise.
-       * @param {object} response The response.
-       */
-
-
-      module.exports = function settle(resolve, reject, response) {
-        var validateStatus = response.config.validateStatus; // Note: status is not exposed by XDomainRequest
-
-        if (!response.status || !validateStatus || validateStatus(response.status)) {
-          resolve(response);
-        } else {
-          reject(createError('Request failed with status code ' + response.status, response.config, null, response));
-        }
-      };
-      /***/
-
-    },
-    /* 9 */
-
-    /***/
-    function (module, exports, __webpack_require__) {
-      'use strict';
-
-      var enhanceError = __webpack_require__(10);
-      /**
-       * Create an Error with the specified message, config, error code, and response.
-       *
-       * @param {string} message The error message.
-       * @param {Object} config The config.
-       * @param {string} [code] The error code (for example, 'ECONNABORTED').
-       @ @param {Object} [response] The response.
-       * @returns {Error} The created error.
-       */
-
-
-      module.exports = function createError(message, config, code, response) {
-        var error = new Error(message);
-        return enhanceError(error, config, code, response);
-      };
-      /***/
-
-    },
-    /* 10 */
-
-    /***/
-    function (module, exports) {
-      'use strict';
-      /**
-       * Update an Error with the specified config, error code, and response.
-       *
-       * @param {Error} error The error to update.
-       * @param {Object} config The config.
-       * @param {string} [code] The error code (for example, 'ECONNABORTED').
-       @ @param {Object} [response] The response.
-       * @returns {Error} The error.
-       */
-
-      module.exports = function enhanceError(error, config, code, response) {
-        error.config = config;
-
-        if (code) {
-          error.code = code;
-        }
-
-        error.response = response;
-        return error;
-      };
-      /***/
-
+      return true;
     }
-    /******/
-    ])
+
+    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
+    if (a.valueOf !== Object.prototype.valueOf) return a.valueOf() === b.valueOf();
+    if (a.toString !== Object.prototype.toString) return a.toString() === b.toString();
+    keys = Object.keys(a);
+    length = keys.length;
+    if (length !== Object.keys(b).length) return false;
+
+    for (i = length; i-- !== 0;) {
+      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
+    }
+
+    for (i = length; i-- !== 0;) {
+      var key = keys[i];
+      if (!equal(a[key], b[key])) return false;
+    }
+
+    return true;
+  } // true if both NaN, false otherwise
+
+
+  return a !== a && b !== b;
+};
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/is-buffer/index.js":
+/*!******************************************************!*\
+  !*** /app/musora-ui/node_modules/is-buffer/index.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+// The _isBuffer check is for Safari 5-7 support, because it's missing
+// Object.prototype.constructor. Remove this eventually
+module.exports = function (obj) {
+  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer);
+};
+
+function isBuffer(obj) {
+  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj);
+} // For Node v0.10 support. Remove this eventually.
+
+
+function isSlowBuffer(obj) {
+  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0));
+}
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/lodash.debounce/index.js":
+/*!************************************************************!*\
+  !*** /app/musora-ui/node_modules/lodash.debounce/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/**
+ * lodash (Custom Build) <https://lodash.com/>
+ * Build: `lodash modularize exports="npm" -o ./`
+ * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/** Used as the `TypeError` message for "Functions" methods. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+/** Used as references for various `Number` constants. */
+
+var NAN = 0 / 0;
+/** `Object#toString` result references. */
+
+var symbolTag = '[object Symbol]';
+/** Used to match leading and trailing whitespace. */
+
+var reTrim = /^\s+|\s+$/g;
+/** Used to detect bad signed hexadecimal string values. */
+
+var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+/** Used to detect binary string values. */
+
+var reIsBinary = /^0b[01]+$/i;
+/** Used to detect octal string values. */
+
+var reIsOctal = /^0o[0-7]+$/i;
+/** Built-in method references without a dependency on `root`. */
+
+var freeParseInt = parseInt;
+/** Detect free variable `global` from Node.js. */
+
+var freeGlobal = (typeof global === "undefined" ? "undefined" : _typeof(global)) == 'object' && global && global.Object === Object && global;
+/** Detect free variable `self`. */
+
+var freeSelf = (typeof self === "undefined" ? "undefined" : _typeof(self)) == 'object' && self && self.Object === Object && self;
+/** Used as a reference to the global object. */
+
+var root = freeGlobal || freeSelf || Function('return this')();
+/** Used for built-in method references. */
+
+var objectProto = Object.prototype;
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+
+var objectToString = objectProto.toString;
+/* Built-in method references for those with the same name as other `lodash` methods. */
+
+var nativeMax = Math.max,
+    nativeMin = Math.min;
+/**
+ * Gets the timestamp of the number of milliseconds that have elapsed since
+ * the Unix epoch (1 January 1970 00:00:00 UTC).
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Date
+ * @returns {number} Returns the timestamp.
+ * @example
+ *
+ * _.defer(function(stamp) {
+ *   console.log(_.now() - stamp);
+ * }, _.now());
+ * // => Logs the number of milliseconds it took for the deferred invocation.
+ */
+
+var now = function now() {
+  return root.Date.now();
+};
+/**
+ * Creates a debounced function that delays invoking `func` until after `wait`
+ * milliseconds have elapsed since the last time the debounced function was
+ * invoked. The debounced function comes with a `cancel` method to cancel
+ * delayed `func` invocations and a `flush` method to immediately invoke them.
+ * Provide `options` to indicate whether `func` should be invoked on the
+ * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
+ * with the last arguments provided to the debounced function. Subsequent
+ * calls to the debounced function return the result of the last `func`
+ * invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the debounced function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.debounce` and `_.throttle`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to debounce.
+ * @param {number} [wait=0] The number of milliseconds to delay.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=false]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {number} [options.maxWait]
+ *  The maximum time `func` is allowed to be delayed before it's invoked.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new debounced function.
+ * @example
+ *
+ * // Avoid costly calculations while the window size is in flux.
+ * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+ *
+ * // Invoke `sendMail` when clicked, debouncing subsequent calls.
+ * jQuery(element).on('click', _.debounce(sendMail, 300, {
+ *   'leading': true,
+ *   'trailing': false
+ * }));
+ *
+ * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
+ * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
+ * var source = new EventSource('/stream');
+ * jQuery(source).on('message', debounced);
+ *
+ * // Cancel the trailing debounced invocation.
+ * jQuery(window).on('popstate', debounced.cancel);
+ */
+
+
+function debounce(func, wait, options) {
+  var lastArgs,
+      lastThis,
+      maxWait,
+      result,
+      timerId,
+      lastCallTime,
+      lastInvokeTime = 0,
+      leading = false,
+      maxing = false,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+
+  wait = toNumber(wait) || 0;
+
+  if (isObject(options)) {
+    leading = !!options.leading;
+    maxing = 'maxWait' in options;
+    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+
+  function invokeFunc(time) {
+    var args = lastArgs,
+        thisArg = lastThis;
+    lastArgs = lastThis = undefined;
+    lastInvokeTime = time;
+    result = func.apply(thisArg, args);
+    return result;
+  }
+
+  function leadingEdge(time) {
+    // Reset any `maxWait` timer.
+    lastInvokeTime = time; // Start the timer for the trailing edge.
+
+    timerId = setTimeout(timerExpired, wait); // Invoke the leading edge.
+
+    return leading ? invokeFunc(time) : result;
+  }
+
+  function remainingWait(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime,
+        result = wait - timeSinceLastCall;
+    return maxing ? nativeMin(result, maxWait - timeSinceLastInvoke) : result;
+  }
+
+  function shouldInvoke(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime; // Either this is the first call, activity has stopped and we're at the
+    // trailing edge, the system time has gone backwards and we're treating
+    // it as the trailing edge, or we've hit the `maxWait` limit.
+
+    return lastCallTime === undefined || timeSinceLastCall >= wait || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
+  }
+
+  function timerExpired() {
+    var time = now();
+
+    if (shouldInvoke(time)) {
+      return trailingEdge(time);
+    } // Restart the timer.
+
+
+    timerId = setTimeout(timerExpired, remainingWait(time));
+  }
+
+  function trailingEdge(time) {
+    timerId = undefined; // Only invoke if we have `lastArgs` which means `func` has been
+    // debounced at least once.
+
+    if (trailing && lastArgs) {
+      return invokeFunc(time);
+    }
+
+    lastArgs = lastThis = undefined;
+    return result;
+  }
+
+  function cancel() {
+    if (timerId !== undefined) {
+      clearTimeout(timerId);
+    }
+
+    lastInvokeTime = 0;
+    lastArgs = lastCallTime = lastThis = timerId = undefined;
+  }
+
+  function flush() {
+    return timerId === undefined ? result : trailingEdge(now());
+  }
+
+  function debounced() {
+    var time = now(),
+        isInvoking = shouldInvoke(time);
+    lastArgs = arguments;
+    lastThis = this;
+    lastCallTime = time;
+
+    if (isInvoking) {
+      if (timerId === undefined) {
+        return leadingEdge(lastCallTime);
+      }
+
+      if (maxing) {
+        // Handle invocations in a tight loop.
+        timerId = setTimeout(timerExpired, wait);
+        return invokeFunc(lastCallTime);
+      }
+    }
+
+    if (timerId === undefined) {
+      timerId = setTimeout(timerExpired, wait);
+    }
+
+    return result;
+  }
+
+  debounced.cancel = cancel;
+  debounced.flush = flush;
+  return debounced;
+}
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+
+
+function isObject(value) {
+  var type = _typeof(value);
+
+  return !!value && (type == 'object' || type == 'function');
+}
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+
+
+function isObjectLike(value) {
+  return !!value && _typeof(value) == 'object';
+}
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+
+
+function isSymbol(value) {
+  return _typeof(value) == 'symbol' || isObjectLike(value) && objectToString.call(value) == symbolTag;
+}
+/**
+ * Converts `value` to a number.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to process.
+ * @returns {number} Returns the number.
+ * @example
+ *
+ * _.toNumber(3.2);
+ * // => 3.2
+ *
+ * _.toNumber(Number.MIN_VALUE);
+ * // => 5e-324
+ *
+ * _.toNumber(Infinity);
+ * // => Infinity
+ *
+ * _.toNumber('3.2');
+ * // => 3.2
+ */
+
+
+function toNumber(value) {
+  if (typeof value == 'number') {
+    return value;
+  }
+
+  if (isSymbol(value)) {
+    return NAN;
+  }
+
+  if (isObject(value)) {
+    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+    value = isObject(other) ? other + '' : other;
+  }
+
+  if (typeof value != 'string') {
+    return value === 0 ? value : +value;
+  }
+
+  value = value.replace(reTrim, '');
+  var isBinary = reIsBinary.test(value);
+  return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
+}
+
+module.exports = debounce;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../mnt/7A34EDB034ED7015/projects/drumeo/railenvironment/applications/musora-ui/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/lodash.memoize/index.js":
+/*!***********************************************************!*\
+  !*** /app/musora-ui/node_modules/lodash.memoize/index.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/**
+ * lodash (Custom Build) <https://lodash.com/>
+ * Build: `lodash modularize exports="npm" -o ./`
+ * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/** Used as the `TypeError` message for "Functions" methods. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+/** Used to stand-in for `undefined` hash values. */
+
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+/** `Object#toString` result references. */
+
+var funcTag = '[object Function]',
+    genTag = '[object GeneratorFunction]';
+/**
+ * Used to match `RegExp`
+ * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+ */
+
+var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+/** Used to detect host constructors (Safari). */
+
+var reIsHostCtor = /^\[object .+?Constructor\]$/;
+/** Detect free variable `global` from Node.js. */
+
+var freeGlobal = (typeof global === "undefined" ? "undefined" : _typeof(global)) == 'object' && global && global.Object === Object && global;
+/** Detect free variable `self`. */
+
+var freeSelf = (typeof self === "undefined" ? "undefined" : _typeof(self)) == 'object' && self && self.Object === Object && self;
+/** Used as a reference to the global object. */
+
+var root = freeGlobal || freeSelf || Function('return this')();
+/**
+ * Gets the value at `key` of `object`.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+
+function getValue(object, key) {
+  return object == null ? undefined : object[key];
+}
+/**
+ * Checks if `value` is a host object in IE < 9.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+ */
+
+
+function isHostObject(value) {
+  // Many host objects are `Object` objects that can coerce to strings
+  // despite having improperly defined `toString` methods.
+  var result = false;
+
+  if (value != null && typeof value.toString != 'function') {
+    try {
+      result = !!(value + '');
+    } catch (e) {}
+  }
+
+  return result;
+}
+/** Used for built-in method references. */
+
+
+var arrayProto = Array.prototype,
+    funcProto = Function.prototype,
+    objectProto = Object.prototype;
+/** Used to detect overreaching core-js shims. */
+
+var coreJsData = root['__core-js_shared__'];
+/** Used to detect methods masquerading as native. */
+
+var maskSrcKey = function () {
+  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+  return uid ? 'Symbol(src)_1.' + uid : '';
+}();
+/** Used to resolve the decompiled source of functions. */
+
+
+var funcToString = funcProto.toString;
+/** Used to check objects for own properties. */
+
+var hasOwnProperty = objectProto.hasOwnProperty;
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+
+var objectToString = objectProto.toString;
+/** Used to detect if a method is native. */
+
+var reIsNative = RegExp('^' + funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&').replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
+/** Built-in value references. */
+
+var splice = arrayProto.splice;
+/* Built-in method references that are verified to be native. */
+
+var Map = getNative(root, 'Map'),
+    nativeCreate = getNative(Object, 'create');
+/**
+ * Creates a hash object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+
+function Hash(entries) {
+  var index = -1,
+      length = entries ? entries.length : 0;
+  this.clear();
+
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+/**
+ * Removes all key-value entries from the hash.
+ *
+ * @private
+ * @name clear
+ * @memberOf Hash
+ */
+
+
+function hashClear() {
+  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+}
+/**
+ * Removes `key` and its value from the hash.
+ *
+ * @private
+ * @name delete
+ * @memberOf Hash
+ * @param {Object} hash The hash to modify.
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+
+
+function hashDelete(key) {
+  return this.has(key) && delete this.__data__[key];
+}
+/**
+ * Gets the hash value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Hash
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+
+
+function hashGet(key) {
+  var data = this.__data__;
+
+  if (nativeCreate) {
+    var result = data[key];
+    return result === HASH_UNDEFINED ? undefined : result;
+  }
+
+  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+}
+/**
+ * Checks if a hash value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Hash
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+
+
+function hashHas(key) {
+  var data = this.__data__;
+  return nativeCreate ? data[key] !== undefined : hasOwnProperty.call(data, key);
+}
+/**
+ * Sets the hash `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Hash
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the hash instance.
+ */
+
+
+function hashSet(key, value) {
+  var data = this.__data__;
+  data[key] = nativeCreate && value === undefined ? HASH_UNDEFINED : value;
+  return this;
+} // Add methods to `Hash`.
+
+
+Hash.prototype.clear = hashClear;
+Hash.prototype['delete'] = hashDelete;
+Hash.prototype.get = hashGet;
+Hash.prototype.has = hashHas;
+Hash.prototype.set = hashSet;
+/**
+ * Creates an list cache object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+
+function ListCache(entries) {
+  var index = -1,
+      length = entries ? entries.length : 0;
+  this.clear();
+
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+/**
+ * Removes all key-value entries from the list cache.
+ *
+ * @private
+ * @name clear
+ * @memberOf ListCache
+ */
+
+
+function listCacheClear() {
+  this.__data__ = [];
+}
+/**
+ * Removes `key` and its value from the list cache.
+ *
+ * @private
+ * @name delete
+ * @memberOf ListCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+
+
+function listCacheDelete(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    return false;
+  }
+
+  var lastIndex = data.length - 1;
+
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+
+  return true;
+}
+/**
+ * Gets the list cache value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf ListCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+
+
+function listCacheGet(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+  return index < 0 ? undefined : data[index][1];
+}
+/**
+ * Checks if a list cache value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf ListCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+
+
+function listCacheHas(key) {
+  return assocIndexOf(this.__data__, key) > -1;
+}
+/**
+ * Sets the list cache `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf ListCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the list cache instance.
+ */
+
+
+function listCacheSet(key, value) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+
+  return this;
+} // Add methods to `ListCache`.
+
+
+ListCache.prototype.clear = listCacheClear;
+ListCache.prototype['delete'] = listCacheDelete;
+ListCache.prototype.get = listCacheGet;
+ListCache.prototype.has = listCacheHas;
+ListCache.prototype.set = listCacheSet;
+/**
+ * Creates a map cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+
+function MapCache(entries) {
+  var index = -1,
+      length = entries ? entries.length : 0;
+  this.clear();
+
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+/**
+ * Removes all key-value entries from the map.
+ *
+ * @private
+ * @name clear
+ * @memberOf MapCache
+ */
+
+
+function mapCacheClear() {
+  this.__data__ = {
+    'hash': new Hash(),
+    'map': new (Map || ListCache)(),
+    'string': new Hash()
+  };
+}
+/**
+ * Removes `key` and its value from the map.
+ *
+ * @private
+ * @name delete
+ * @memberOf MapCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+
+
+function mapCacheDelete(key) {
+  return getMapData(this, key)['delete'](key);
+}
+/**
+ * Gets the map value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf MapCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+
+
+function mapCacheGet(key) {
+  return getMapData(this, key).get(key);
+}
+/**
+ * Checks if a map value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf MapCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+
+
+function mapCacheHas(key) {
+  return getMapData(this, key).has(key);
+}
+/**
+ * Sets the map `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf MapCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the map cache instance.
+ */
+
+
+function mapCacheSet(key, value) {
+  getMapData(this, key).set(key, value);
+  return this;
+} // Add methods to `MapCache`.
+
+
+MapCache.prototype.clear = mapCacheClear;
+MapCache.prototype['delete'] = mapCacheDelete;
+MapCache.prototype.get = mapCacheGet;
+MapCache.prototype.has = mapCacheHas;
+MapCache.prototype.set = mapCacheSet;
+/**
+ * Gets the index at which the `key` is found in `array` of key-value pairs.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} key The key to search for.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+
+function assocIndexOf(array, key) {
+  var length = array.length;
+
+  while (length--) {
+    if (eq(array[length][0], key)) {
+      return length;
+    }
+  }
+
+  return -1;
+}
+/**
+ * The base implementation of `_.isNative` without bad shim checks.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a native function,
+ *  else `false`.
+ */
+
+
+function baseIsNative(value) {
+  if (!isObject(value) || isMasked(value)) {
+    return false;
+  }
+
+  var pattern = isFunction(value) || isHostObject(value) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource(value));
+}
+/**
+ * Gets the data for `map`.
+ *
+ * @private
+ * @param {Object} map The map to query.
+ * @param {string} key The reference key.
+ * @returns {*} Returns the map data.
+ */
+
+
+function getMapData(map, key) {
+  var data = map.__data__;
+  return isKeyable(key) ? data[typeof key == 'string' ? 'string' : 'hash'] : data.map;
+}
+/**
+ * Gets the native function at `key` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the method to get.
+ * @returns {*} Returns the function if it's native, else `undefined`.
+ */
+
+
+function getNative(object, key) {
+  var value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+/**
+ * Checks if `value` is suitable for use as unique object key.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+ */
+
+
+function isKeyable(value) {
+  var type = _typeof(value);
+
+  return type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean' ? value !== '__proto__' : value === null;
+}
+/**
+ * Checks if `func` has its source masked.
+ *
+ * @private
+ * @param {Function} func The function to check.
+ * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+ */
+
+
+function isMasked(func) {
+  return !!maskSrcKey && maskSrcKey in func;
+}
+/**
+ * Converts `func` to its source code.
+ *
+ * @private
+ * @param {Function} func The function to process.
+ * @returns {string} Returns the source code.
+ */
+
+
+function toSource(func) {
+  if (func != null) {
+    try {
+      return funcToString.call(func);
+    } catch (e) {}
+
+    try {
+      return func + '';
+    } catch (e) {}
+  }
+
+  return '';
+}
+/**
+ * Creates a function that memoizes the result of `func`. If `resolver` is
+ * provided, it determines the cache key for storing the result based on the
+ * arguments provided to the memoized function. By default, the first argument
+ * provided to the memoized function is used as the map cache key. The `func`
+ * is invoked with the `this` binding of the memoized function.
+ *
+ * **Note:** The cache is exposed as the `cache` property on the memoized
+ * function. Its creation may be customized by replacing the `_.memoize.Cache`
+ * constructor with one whose instances implement the
+ * [`Map`](http://ecma-international.org/ecma-262/7.0/#sec-properties-of-the-map-prototype-object)
+ * method interface of `delete`, `get`, `has`, and `set`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to have its output memoized.
+ * @param {Function} [resolver] The function to resolve the cache key.
+ * @returns {Function} Returns the new memoized function.
+ * @example
+ *
+ * var object = { 'a': 1, 'b': 2 };
+ * var other = { 'c': 3, 'd': 4 };
+ *
+ * var values = _.memoize(_.values);
+ * values(object);
+ * // => [1, 2]
+ *
+ * values(other);
+ * // => [3, 4]
+ *
+ * object.a = 2;
+ * values(object);
+ * // => [1, 2]
+ *
+ * // Modify the result cache.
+ * values.cache.set(object, ['a', 'b']);
+ * values(object);
+ * // => ['a', 'b']
+ *
+ * // Replace `_.memoize.Cache`.
+ * _.memoize.Cache = WeakMap;
+ */
+
+
+function memoize(func, resolver) {
+  if (typeof func != 'function' || resolver && typeof resolver != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+
+  var memoized = function memoized() {
+    var args = arguments,
+        key = resolver ? resolver.apply(this, args) : args[0],
+        cache = memoized.cache;
+
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+
+    var result = func.apply(this, args);
+    memoized.cache = cache.set(key, result);
+    return result;
+  };
+
+  memoized.cache = new (memoize.Cache || MapCache)();
+  return memoized;
+} // Assign cache to `_.memoize`.
+
+
+memoize.Cache = MapCache;
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+
+function eq(value, other) {
+  return value === other || value !== value && other !== other;
+}
+/**
+ * Checks if `value` is classified as a `Function` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ *
+ * _.isFunction(/abc/);
+ * // => false
+ */
+
+
+function isFunction(value) {
+  // The use of `Object#toString` avoids issues with the `typeof` operator
+  // in Safari 8-9 which returns 'object' for typed array and other constructors.
+  var tag = isObject(value) ? objectToString.call(value) : '';
+  return tag == funcTag || tag == genTag;
+}
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+
+
+function isObject(value) {
+  var type = _typeof(value);
+
+  return !!value && (type == 'object' || type == 'function');
+}
+
+module.exports = memoize;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../mnt/7A34EDB034ED7015/projects/drumeo/railenvironment/applications/musora-ui/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/lodash.throttle/index.js":
+/*!************************************************************!*\
+  !*** /app/musora-ui/node_modules/lodash.throttle/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/**
+ * lodash (Custom Build) <https://lodash.com/>
+ * Build: `lodash modularize exports="npm" -o ./`
+ * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/** Used as the `TypeError` message for "Functions" methods. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+/** Used as references for various `Number` constants. */
+
+var NAN = 0 / 0;
+/** `Object#toString` result references. */
+
+var symbolTag = '[object Symbol]';
+/** Used to match leading and trailing whitespace. */
+
+var reTrim = /^\s+|\s+$/g;
+/** Used to detect bad signed hexadecimal string values. */
+
+var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+/** Used to detect binary string values. */
+
+var reIsBinary = /^0b[01]+$/i;
+/** Used to detect octal string values. */
+
+var reIsOctal = /^0o[0-7]+$/i;
+/** Built-in method references without a dependency on `root`. */
+
+var freeParseInt = parseInt;
+/** Detect free variable `global` from Node.js. */
+
+var freeGlobal = (typeof global === "undefined" ? "undefined" : _typeof(global)) == 'object' && global && global.Object === Object && global;
+/** Detect free variable `self`. */
+
+var freeSelf = (typeof self === "undefined" ? "undefined" : _typeof(self)) == 'object' && self && self.Object === Object && self;
+/** Used as a reference to the global object. */
+
+var root = freeGlobal || freeSelf || Function('return this')();
+/** Used for built-in method references. */
+
+var objectProto = Object.prototype;
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+
+var objectToString = objectProto.toString;
+/* Built-in method references for those with the same name as other `lodash` methods. */
+
+var nativeMax = Math.max,
+    nativeMin = Math.min;
+/**
+ * Gets the timestamp of the number of milliseconds that have elapsed since
+ * the Unix epoch (1 January 1970 00:00:00 UTC).
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Date
+ * @returns {number} Returns the timestamp.
+ * @example
+ *
+ * _.defer(function(stamp) {
+ *   console.log(_.now() - stamp);
+ * }, _.now());
+ * // => Logs the number of milliseconds it took for the deferred invocation.
+ */
+
+var now = function now() {
+  return root.Date.now();
+};
+/**
+ * Creates a debounced function that delays invoking `func` until after `wait`
+ * milliseconds have elapsed since the last time the debounced function was
+ * invoked. The debounced function comes with a `cancel` method to cancel
+ * delayed `func` invocations and a `flush` method to immediately invoke them.
+ * Provide `options` to indicate whether `func` should be invoked on the
+ * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
+ * with the last arguments provided to the debounced function. Subsequent
+ * calls to the debounced function return the result of the last `func`
+ * invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the debounced function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.debounce` and `_.throttle`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to debounce.
+ * @param {number} [wait=0] The number of milliseconds to delay.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=false]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {number} [options.maxWait]
+ *  The maximum time `func` is allowed to be delayed before it's invoked.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new debounced function.
+ * @example
+ *
+ * // Avoid costly calculations while the window size is in flux.
+ * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+ *
+ * // Invoke `sendMail` when clicked, debouncing subsequent calls.
+ * jQuery(element).on('click', _.debounce(sendMail, 300, {
+ *   'leading': true,
+ *   'trailing': false
+ * }));
+ *
+ * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
+ * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
+ * var source = new EventSource('/stream');
+ * jQuery(source).on('message', debounced);
+ *
+ * // Cancel the trailing debounced invocation.
+ * jQuery(window).on('popstate', debounced.cancel);
+ */
+
+
+function debounce(func, wait, options) {
+  var lastArgs,
+      lastThis,
+      maxWait,
+      result,
+      timerId,
+      lastCallTime,
+      lastInvokeTime = 0,
+      leading = false,
+      maxing = false,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+
+  wait = toNumber(wait) || 0;
+
+  if (isObject(options)) {
+    leading = !!options.leading;
+    maxing = 'maxWait' in options;
+    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+
+  function invokeFunc(time) {
+    var args = lastArgs,
+        thisArg = lastThis;
+    lastArgs = lastThis = undefined;
+    lastInvokeTime = time;
+    result = func.apply(thisArg, args);
+    return result;
+  }
+
+  function leadingEdge(time) {
+    // Reset any `maxWait` timer.
+    lastInvokeTime = time; // Start the timer for the trailing edge.
+
+    timerId = setTimeout(timerExpired, wait); // Invoke the leading edge.
+
+    return leading ? invokeFunc(time) : result;
+  }
+
+  function remainingWait(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime,
+        result = wait - timeSinceLastCall;
+    return maxing ? nativeMin(result, maxWait - timeSinceLastInvoke) : result;
+  }
+
+  function shouldInvoke(time) {
+    var timeSinceLastCall = time - lastCallTime,
+        timeSinceLastInvoke = time - lastInvokeTime; // Either this is the first call, activity has stopped and we're at the
+    // trailing edge, the system time has gone backwards and we're treating
+    // it as the trailing edge, or we've hit the `maxWait` limit.
+
+    return lastCallTime === undefined || timeSinceLastCall >= wait || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
+  }
+
+  function timerExpired() {
+    var time = now();
+
+    if (shouldInvoke(time)) {
+      return trailingEdge(time);
+    } // Restart the timer.
+
+
+    timerId = setTimeout(timerExpired, remainingWait(time));
+  }
+
+  function trailingEdge(time) {
+    timerId = undefined; // Only invoke if we have `lastArgs` which means `func` has been
+    // debounced at least once.
+
+    if (trailing && lastArgs) {
+      return invokeFunc(time);
+    }
+
+    lastArgs = lastThis = undefined;
+    return result;
+  }
+
+  function cancel() {
+    if (timerId !== undefined) {
+      clearTimeout(timerId);
+    }
+
+    lastInvokeTime = 0;
+    lastArgs = lastCallTime = lastThis = timerId = undefined;
+  }
+
+  function flush() {
+    return timerId === undefined ? result : trailingEdge(now());
+  }
+
+  function debounced() {
+    var time = now(),
+        isInvoking = shouldInvoke(time);
+    lastArgs = arguments;
+    lastThis = this;
+    lastCallTime = time;
+
+    if (isInvoking) {
+      if (timerId === undefined) {
+        return leadingEdge(lastCallTime);
+      }
+
+      if (maxing) {
+        // Handle invocations in a tight loop.
+        timerId = setTimeout(timerExpired, wait);
+        return invokeFunc(lastCallTime);
+      }
+    }
+
+    if (timerId === undefined) {
+      timerId = setTimeout(timerExpired, wait);
+    }
+
+    return result;
+  }
+
+  debounced.cancel = cancel;
+  debounced.flush = flush;
+  return debounced;
+}
+/**
+ * Creates a throttled function that only invokes `func` at most once per
+ * every `wait` milliseconds. The throttled function comes with a `cancel`
+ * method to cancel delayed `func` invocations and a `flush` method to
+ * immediately invoke them. Provide `options` to indicate whether `func`
+ * should be invoked on the leading and/or trailing edge of the `wait`
+ * timeout. The `func` is invoked with the last arguments provided to the
+ * throttled function. Subsequent calls to the throttled function return the
+ * result of the last `func` invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the throttled function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.throttle` and `_.debounce`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to throttle.
+ * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=true]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new throttled function.
+ * @example
+ *
+ * // Avoid excessively updating the position while scrolling.
+ * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
+ *
+ * // Invoke `renewToken` when the click event is fired, but not more than once every 5 minutes.
+ * var throttled = _.throttle(renewToken, 300000, { 'trailing': false });
+ * jQuery(element).on('click', throttled);
+ *
+ * // Cancel the trailing throttled invocation.
+ * jQuery(window).on('popstate', throttled.cancel);
+ */
+
+
+function throttle(func, wait, options) {
+  var leading = true,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+
+  if (isObject(options)) {
+    leading = 'leading' in options ? !!options.leading : leading;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+
+  return debounce(func, wait, {
+    'leading': leading,
+    'maxWait': wait,
+    'trailing': trailing
+  });
+}
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+
+
+function isObject(value) {
+  var type = _typeof(value);
+
+  return !!value && (type == 'object' || type == 'function');
+}
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+
+
+function isObjectLike(value) {
+  return !!value && _typeof(value) == 'object';
+}
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+
+
+function isSymbol(value) {
+  return _typeof(value) == 'symbol' || isObjectLike(value) && objectToString.call(value) == symbolTag;
+}
+/**
+ * Converts `value` to a number.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to process.
+ * @returns {number} Returns the number.
+ * @example
+ *
+ * _.toNumber(3.2);
+ * // => 3.2
+ *
+ * _.toNumber(Number.MIN_VALUE);
+ * // => 5e-324
+ *
+ * _.toNumber(Infinity);
+ * // => Infinity
+ *
+ * _.toNumber('3.2');
+ * // => 3.2
+ */
+
+
+function toNumber(value) {
+  if (typeof value == 'number') {
+    return value;
+  }
+
+  if (isSymbol(value)) {
+    return NAN;
+  }
+
+  if (isObject(value)) {
+    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+    value = isObject(other) ? other + '' : other;
+  }
+
+  if (typeof value != 'string') {
+    return value === 0 ? value : +value;
+  }
+
+  value = value.replace(reTrim, '');
+  var isBinary = reIsBinary.test(value);
+  return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
+}
+
+module.exports = throttle;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../mnt/7A34EDB034ED7015/projects/drumeo/railenvironment/applications/musora-ui/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js":
+/*!**************************************************************************************!*\
+  !*** /app/musora-ui/node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * A collection of shims that provide minimal functionality of the ES6 collections.
+ *
+ * These implementations are not meant to be used outside of the ResizeObserver
+ * modules as they cover only a limited range of use cases.
+ */
+
+/* eslint-disable require-jsdoc, valid-jsdoc */
+var MapShim = function () {
+  if (typeof Map !== 'undefined') {
+    return Map;
+  }
+  /**
+   * Returns index in provided array that matches the specified key.
+   *
+   * @param {Array<Array>} arr
+   * @param {*} key
+   * @returns {number}
+   */
+
+
+  function getIndex(arr, key) {
+    var result = -1;
+    arr.some(function (entry, index) {
+      if (entry[0] === key) {
+        result = index;
+        return true;
+      }
+
+      return false;
+    });
+    return result;
+  }
+
+  return (
+    /** @class */
+    function () {
+      function class_1() {
+        this.__entries__ = [];
+      }
+
+      Object.defineProperty(class_1.prototype, "size", {
+        /**
+         * @returns {boolean}
+         */
+        get: function get() {
+          return this.__entries__.length;
+        },
+        enumerable: true,
+        configurable: true
+      });
+      /**
+       * @param {*} key
+       * @returns {*}
+       */
+
+      class_1.prototype.get = function (key) {
+        var index = getIndex(this.__entries__, key);
+        var entry = this.__entries__[index];
+        return entry && entry[1];
+      };
+      /**
+       * @param {*} key
+       * @param {*} value
+       * @returns {void}
+       */
+
+
+      class_1.prototype.set = function (key, value) {
+        var index = getIndex(this.__entries__, key);
+
+        if (~index) {
+          this.__entries__[index][1] = value;
+        } else {
+          this.__entries__.push([key, value]);
+        }
+      };
+      /**
+       * @param {*} key
+       * @returns {void}
+       */
+
+
+      class_1.prototype["delete"] = function (key) {
+        var entries = this.__entries__;
+        var index = getIndex(entries, key);
+
+        if (~index) {
+          entries.splice(index, 1);
+        }
+      };
+      /**
+       * @param {*} key
+       * @returns {void}
+       */
+
+
+      class_1.prototype.has = function (key) {
+        return !!~getIndex(this.__entries__, key);
+      };
+      /**
+       * @returns {void}
+       */
+
+
+      class_1.prototype.clear = function () {
+        this.__entries__.splice(0);
+      };
+      /**
+       * @param {Function} callback
+       * @param {*} [ctx=null]
+       * @returns {void}
+       */
+
+
+      class_1.prototype.forEach = function (callback, ctx) {
+        if (ctx === void 0) {
+          ctx = null;
+        }
+
+        for (var _i = 0, _a = this.__entries__; _i < _a.length; _i++) {
+          var entry = _a[_i];
+          callback.call(ctx, entry[1], entry[0]);
+        }
+      };
+
+      return class_1;
+    }()
   );
+}();
+/**
+ * Detects whether window and document objects are available in current environment.
+ */
+
+
+var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined' && window.document === document; // Returns global object of a current environment.
+
+var global$1 = function () {
+  if (typeof global !== 'undefined' && global.Math === Math) {
+    return global;
+  }
+
+  if (typeof self !== 'undefined' && self.Math === Math) {
+    return self;
+  }
+
+  if (typeof window !== 'undefined' && window.Math === Math) {
+    return window;
+  } // eslint-disable-next-line no-new-func
+
+
+  return Function('return this')();
+}();
+/**
+ * A shim for the requestAnimationFrame which falls back to the setTimeout if
+ * first one is not supported.
+ *
+ * @returns {number} Requests' identifier.
+ */
+
+
+var requestAnimationFrame$1 = function () {
+  if (typeof requestAnimationFrame === 'function') {
+    // It's required to use a bounded function because IE sometimes throws
+    // an "Invalid calling object" error if rAF is invoked without the global
+    // object on the left hand side.
+    return requestAnimationFrame.bind(global$1);
+  }
+
+  return function (callback) {
+    return setTimeout(function () {
+      return callback(Date.now());
+    }, 1000 / 60);
+  };
+}(); // Defines minimum timeout before adding a trailing call.
+
+
+var trailingTimeout = 2;
+/**
+ * Creates a wrapper function which ensures that provided callback will be
+ * invoked only once during the specified delay period.
+ *
+ * @param {Function} callback - Function to be invoked after the delay period.
+ * @param {number} delay - Delay after which to invoke callback.
+ * @returns {Function}
+ */
+
+function throttle(callback, delay) {
+  var leadingCall = false,
+      trailingCall = false,
+      lastCallTime = 0;
+  /**
+   * Invokes the original callback function and schedules new invocation if
+   * the "proxy" was called during current request.
+   *
+   * @returns {void}
+   */
+
+  function resolvePending() {
+    if (leadingCall) {
+      leadingCall = false;
+      callback();
+    }
+
+    if (trailingCall) {
+      proxy();
+    }
+  }
+  /**
+   * Callback invoked after the specified delay. It will further postpone
+   * invocation of the original function delegating it to the
+   * requestAnimationFrame.
+   *
+   * @returns {void}
+   */
+
+
+  function timeoutCallback() {
+    requestAnimationFrame$1(resolvePending);
+  }
+  /**
+   * Schedules invocation of the original function.
+   *
+   * @returns {void}
+   */
+
+
+  function proxy() {
+    var timeStamp = Date.now();
+
+    if (leadingCall) {
+      // Reject immediately following calls.
+      if (timeStamp - lastCallTime < trailingTimeout) {
+        return;
+      } // Schedule new call to be in invoked when the pending one is resolved.
+      // This is important for "transitions" which never actually start
+      // immediately so there is a chance that we might miss one if change
+      // happens amids the pending invocation.
+
+
+      trailingCall = true;
+    } else {
+      leadingCall = true;
+      trailingCall = false;
+      setTimeout(timeoutCallback, delay);
+    }
+
+    lastCallTime = timeStamp;
+  }
+
+  return proxy;
+} // Minimum delay before invoking the update of observers.
+
+
+var REFRESH_DELAY = 20; // A list of substrings of CSS properties used to find transition events that
+// might affect dimensions of observed elements.
+
+var transitionKeys = ['top', 'right', 'bottom', 'left', 'width', 'height', 'size', 'weight']; // Check if MutationObserver is available.
+
+var mutationObserverSupported = typeof MutationObserver !== 'undefined';
+/**
+ * Singleton controller class which handles updates of ResizeObserver instances.
+ */
+
+var ResizeObserverController =
+/** @class */
+function () {
+  /**
+   * Creates a new instance of ResizeObserverController.
+   *
+   * @private
+   */
+  function ResizeObserverController() {
+    /**
+     * Indicates whether DOM listeners have been added.
+     *
+     * @private {boolean}
+     */
+    this.connected_ = false;
+    /**
+     * Tells that controller has subscribed for Mutation Events.
+     *
+     * @private {boolean}
+     */
+
+    this.mutationEventsAdded_ = false;
+    /**
+     * Keeps reference to the instance of MutationObserver.
+     *
+     * @private {MutationObserver}
+     */
+
+    this.mutationsObserver_ = null;
+    /**
+     * A list of connected observers.
+     *
+     * @private {Array<ResizeObserverSPI>}
+     */
+
+    this.observers_ = [];
+    this.onTransitionEnd_ = this.onTransitionEnd_.bind(this);
+    this.refresh = throttle(this.refresh.bind(this), REFRESH_DELAY);
+  }
+  /**
+   * Adds observer to observers list.
+   *
+   * @param {ResizeObserverSPI} observer - Observer to be added.
+   * @returns {void}
+   */
+
+
+  ResizeObserverController.prototype.addObserver = function (observer) {
+    if (!~this.observers_.indexOf(observer)) {
+      this.observers_.push(observer);
+    } // Add listeners if they haven't been added yet.
+
+
+    if (!this.connected_) {
+      this.connect_();
+    }
+  };
+  /**
+   * Removes observer from observers list.
+   *
+   * @param {ResizeObserverSPI} observer - Observer to be removed.
+   * @returns {void}
+   */
+
+
+  ResizeObserverController.prototype.removeObserver = function (observer) {
+    var observers = this.observers_;
+    var index = observers.indexOf(observer); // Remove observer if it's present in registry.
+
+    if (~index) {
+      observers.splice(index, 1);
+    } // Remove listeners if controller has no connected observers.
+
+
+    if (!observers.length && this.connected_) {
+      this.disconnect_();
+    }
+  };
+  /**
+   * Invokes the update of observers. It will continue running updates insofar
+   * it detects changes.
+   *
+   * @returns {void}
+   */
+
+
+  ResizeObserverController.prototype.refresh = function () {
+    var changesDetected = this.updateObservers_(); // Continue running updates if changes have been detected as there might
+    // be future ones caused by CSS transitions.
+
+    if (changesDetected) {
+      this.refresh();
+    }
+  };
+  /**
+   * Updates every observer from observers list and notifies them of queued
+   * entries.
+   *
+   * @private
+   * @returns {boolean} Returns "true" if any observer has detected changes in
+   *      dimensions of it's elements.
+   */
+
+
+  ResizeObserverController.prototype.updateObservers_ = function () {
+    // Collect observers that have active observations.
+    var activeObservers = this.observers_.filter(function (observer) {
+      return observer.gatherActive(), observer.hasActive();
+    }); // Deliver notifications in a separate cycle in order to avoid any
+    // collisions between observers, e.g. when multiple instances of
+    // ResizeObserver are tracking the same element and the callback of one
+    // of them changes content dimensions of the observed target. Sometimes
+    // this may result in notifications being blocked for the rest of observers.
+
+    activeObservers.forEach(function (observer) {
+      return observer.broadcastActive();
+    });
+    return activeObservers.length > 0;
+  };
+  /**
+   * Initializes DOM listeners.
+   *
+   * @private
+   * @returns {void}
+   */
+
+
+  ResizeObserverController.prototype.connect_ = function () {
+    // Do nothing if running in a non-browser environment or if listeners
+    // have been already added.
+    if (!isBrowser || this.connected_) {
+      return;
+    } // Subscription to the "Transitionend" event is used as a workaround for
+    // delayed transitions. This way it's possible to capture at least the
+    // final state of an element.
+
+
+    document.addEventListener('transitionend', this.onTransitionEnd_);
+    window.addEventListener('resize', this.refresh);
+
+    if (mutationObserverSupported) {
+      this.mutationsObserver_ = new MutationObserver(this.refresh);
+      this.mutationsObserver_.observe(document, {
+        attributes: true,
+        childList: true,
+        characterData: true,
+        subtree: true
+      });
+    } else {
+      document.addEventListener('DOMSubtreeModified', this.refresh);
+      this.mutationEventsAdded_ = true;
+    }
+
+    this.connected_ = true;
+  };
+  /**
+   * Removes DOM listeners.
+   *
+   * @private
+   * @returns {void}
+   */
+
+
+  ResizeObserverController.prototype.disconnect_ = function () {
+    // Do nothing if running in a non-browser environment or if listeners
+    // have been already removed.
+    if (!isBrowser || !this.connected_) {
+      return;
+    }
+
+    document.removeEventListener('transitionend', this.onTransitionEnd_);
+    window.removeEventListener('resize', this.refresh);
+
+    if (this.mutationsObserver_) {
+      this.mutationsObserver_.disconnect();
+    }
+
+    if (this.mutationEventsAdded_) {
+      document.removeEventListener('DOMSubtreeModified', this.refresh);
+    }
+
+    this.mutationsObserver_ = null;
+    this.mutationEventsAdded_ = false;
+    this.connected_ = false;
+  };
+  /**
+   * "Transitionend" event handler.
+   *
+   * @private
+   * @param {TransitionEvent} event
+   * @returns {void}
+   */
+
+
+  ResizeObserverController.prototype.onTransitionEnd_ = function (_a) {
+    var _b = _a.propertyName,
+        propertyName = _b === void 0 ? '' : _b; // Detect whether transition may affect dimensions of an element.
+
+    var isReflowProperty = transitionKeys.some(function (key) {
+      return !!~propertyName.indexOf(key);
+    });
+
+    if (isReflowProperty) {
+      this.refresh();
+    }
+  };
+  /**
+   * Returns instance of the ResizeObserverController.
+   *
+   * @returns {ResizeObserverController}
+   */
+
+
+  ResizeObserverController.getInstance = function () {
+    if (!this.instance_) {
+      this.instance_ = new ResizeObserverController();
+    }
+
+    return this.instance_;
+  };
+  /**
+   * Holds reference to the controller's instance.
+   *
+   * @private {ResizeObserverController}
+   */
+
+
+  ResizeObserverController.instance_ = null;
+  return ResizeObserverController;
+}();
+/**
+ * Defines non-writable/enumerable properties of the provided target object.
+ *
+ * @param {Object} target - Object for which to define properties.
+ * @param {Object} props - Properties to be defined.
+ * @returns {Object} Target object.
+ */
+
+
+var defineConfigurable = function defineConfigurable(target, props) {
+  for (var _i = 0, _a = Object.keys(props); _i < _a.length; _i++) {
+    var key = _a[_i];
+    Object.defineProperty(target, key, {
+      value: props[key],
+      enumerable: false,
+      writable: false,
+      configurable: true
+    });
+  }
+
+  return target;
+};
+/**
+ * Returns the global object associated with provided element.
+ *
+ * @param {Object} target
+ * @returns {Object}
+ */
+
+
+var getWindowOf = function getWindowOf(target) {
+  // Assume that the element is an instance of Node, which means that it
+  // has the "ownerDocument" property from which we can retrieve a
+  // corresponding global object.
+  var ownerGlobal = target && target.ownerDocument && target.ownerDocument.defaultView; // Return the local global object if it's not possible extract one from
+  // provided element.
+
+  return ownerGlobal || global$1;
+}; // Placeholder of an empty content rectangle.
+
+
+var emptyRect = createRectInit(0, 0, 0, 0);
+/**
+ * Converts provided string to a number.
+ *
+ * @param {number|string} value
+ * @returns {number}
+ */
+
+function toFloat(value) {
+  return parseFloat(value) || 0;
+}
+/**
+ * Extracts borders size from provided styles.
+ *
+ * @param {CSSStyleDeclaration} styles
+ * @param {...string} positions - Borders positions (top, right, ...)
+ * @returns {number}
+ */
+
+
+function getBordersSize(styles) {
+  var positions = [];
+
+  for (var _i = 1; _i < arguments.length; _i++) {
+    positions[_i - 1] = arguments[_i];
+  }
+
+  return positions.reduce(function (size, position) {
+    var value = styles['border-' + position + '-width'];
+    return size + toFloat(value);
+  }, 0);
+}
+/**
+ * Extracts paddings sizes from provided styles.
+ *
+ * @param {CSSStyleDeclaration} styles
+ * @returns {Object} Paddings box.
+ */
+
+
+function getPaddings(styles) {
+  var positions = ['top', 'right', 'bottom', 'left'];
+  var paddings = {};
+
+  for (var _i = 0, positions_1 = positions; _i < positions_1.length; _i++) {
+    var position = positions_1[_i];
+    var value = styles['padding-' + position];
+    paddings[position] = toFloat(value);
+  }
+
+  return paddings;
+}
+/**
+ * Calculates content rectangle of provided SVG element.
+ *
+ * @param {SVGGraphicsElement} target - Element content rectangle of which needs
+ *      to be calculated.
+ * @returns {DOMRectInit}
+ */
+
+
+function getSVGContentRect(target) {
+  var bbox = target.getBBox();
+  return createRectInit(0, 0, bbox.width, bbox.height);
+}
+/**
+ * Calculates content rectangle of provided HTMLElement.
+ *
+ * @param {HTMLElement} target - Element for which to calculate the content rectangle.
+ * @returns {DOMRectInit}
+ */
+
+
+function getHTMLElementContentRect(target) {
+  // Client width & height properties can't be
+  // used exclusively as they provide rounded values.
+  var clientWidth = target.clientWidth,
+      clientHeight = target.clientHeight; // By this condition we can catch all non-replaced inline, hidden and
+  // detached elements. Though elements with width & height properties less
+  // than 0.5 will be discarded as well.
+  //
+  // Without it we would need to implement separate methods for each of
+  // those cases and it's not possible to perform a precise and performance
+  // effective test for hidden elements. E.g. even jQuery's ':visible' filter
+  // gives wrong results for elements with width & height less than 0.5.
+
+  if (!clientWidth && !clientHeight) {
+    return emptyRect;
+  }
+
+  var styles = getWindowOf(target).getComputedStyle(target);
+  var paddings = getPaddings(styles);
+  var horizPad = paddings.left + paddings.right;
+  var vertPad = paddings.top + paddings.bottom; // Computed styles of width & height are being used because they are the
+  // only dimensions available to JS that contain non-rounded values. It could
+  // be possible to utilize the getBoundingClientRect if only it's data wasn't
+  // affected by CSS transformations let alone paddings, borders and scroll bars.
+
+  var width = toFloat(styles.width),
+      height = toFloat(styles.height); // Width & height include paddings and borders when the 'border-box' box
+  // model is applied (except for IE).
+
+  if (styles.boxSizing === 'border-box') {
+    // Following conditions are required to handle Internet Explorer which
+    // doesn't include paddings and borders to computed CSS dimensions.
+    //
+    // We can say that if CSS dimensions + paddings are equal to the "client"
+    // properties then it's either IE, and thus we don't need to subtract
+    // anything, or an element merely doesn't have paddings/borders styles.
+    if (Math.round(width + horizPad) !== clientWidth) {
+      width -= getBordersSize(styles, 'left', 'right') + horizPad;
+    }
+
+    if (Math.round(height + vertPad) !== clientHeight) {
+      height -= getBordersSize(styles, 'top', 'bottom') + vertPad;
+    }
+  } // Following steps can't be applied to the document's root element as its
+  // client[Width/Height] properties represent viewport area of the window.
+  // Besides, it's as well not necessary as the <html> itself neither has
+  // rendered scroll bars nor it can be clipped.
+
+
+  if (!isDocumentElement(target)) {
+    // In some browsers (only in Firefox, actually) CSS width & height
+    // include scroll bars size which can be removed at this step as scroll
+    // bars are the only difference between rounded dimensions + paddings
+    // and "client" properties, though that is not always true in Chrome.
+    var vertScrollbar = Math.round(width + horizPad) - clientWidth;
+    var horizScrollbar = Math.round(height + vertPad) - clientHeight; // Chrome has a rather weird rounding of "client" properties.
+    // E.g. for an element with content width of 314.2px it sometimes gives
+    // the client width of 315px and for the width of 314.7px it may give
+    // 314px. And it doesn't happen all the time. So just ignore this delta
+    // as a non-relevant.
+
+    if (Math.abs(vertScrollbar) !== 1) {
+      width -= vertScrollbar;
+    }
+
+    if (Math.abs(horizScrollbar) !== 1) {
+      height -= horizScrollbar;
+    }
+  }
+
+  return createRectInit(paddings.left, paddings.top, width, height);
+}
+/**
+ * Checks whether provided element is an instance of the SVGGraphicsElement.
+ *
+ * @param {Element} target - Element to be checked.
+ * @returns {boolean}
+ */
+
+
+var isSVGGraphicsElement = function () {
+  // Some browsers, namely IE and Edge, don't have the SVGGraphicsElement
+  // interface.
+  if (typeof SVGGraphicsElement !== 'undefined') {
+    return function (target) {
+      return target instanceof getWindowOf(target).SVGGraphicsElement;
+    };
+  } // If it's so, then check that element is at least an instance of the
+  // SVGElement and that it has the "getBBox" method.
+  // eslint-disable-next-line no-extra-parens
+
+
+  return function (target) {
+    return target instanceof getWindowOf(target).SVGElement && typeof target.getBBox === 'function';
+  };
+}();
+/**
+ * Checks whether provided element is a document element (<html>).
+ *
+ * @param {Element} target - Element to be checked.
+ * @returns {boolean}
+ */
+
+
+function isDocumentElement(target) {
+  return target === getWindowOf(target).document.documentElement;
+}
+/**
+ * Calculates an appropriate content rectangle for provided html or svg element.
+ *
+ * @param {Element} target - Element content rectangle of which needs to be calculated.
+ * @returns {DOMRectInit}
+ */
+
+
+function getContentRect(target) {
+  if (!isBrowser) {
+    return emptyRect;
+  }
+
+  if (isSVGGraphicsElement(target)) {
+    return getSVGContentRect(target);
+  }
+
+  return getHTMLElementContentRect(target);
+}
+/**
+ * Creates rectangle with an interface of the DOMRectReadOnly.
+ * Spec: https://drafts.fxtf.org/geometry/#domrectreadonly
+ *
+ * @param {DOMRectInit} rectInit - Object with rectangle's x/y coordinates and dimensions.
+ * @returns {DOMRectReadOnly}
+ */
+
+
+function createReadOnlyRect(_a) {
+  var x = _a.x,
+      y = _a.y,
+      width = _a.width,
+      height = _a.height; // If DOMRectReadOnly is available use it as a prototype for the rectangle.
+
+  var Constr = typeof DOMRectReadOnly !== 'undefined' ? DOMRectReadOnly : Object;
+  var rect = Object.create(Constr.prototype); // Rectangle's properties are not writable and non-enumerable.
+
+  defineConfigurable(rect, {
+    x: x,
+    y: y,
+    width: width,
+    height: height,
+    top: y,
+    right: x + width,
+    bottom: height + y,
+    left: x
+  });
+  return rect;
+}
+/**
+ * Creates DOMRectInit object based on the provided dimensions and the x/y coordinates.
+ * Spec: https://drafts.fxtf.org/geometry/#dictdef-domrectinit
+ *
+ * @param {number} x - X coordinate.
+ * @param {number} y - Y coordinate.
+ * @param {number} width - Rectangle's width.
+ * @param {number} height - Rectangle's height.
+ * @returns {DOMRectInit}
+ */
+
+
+function createRectInit(x, y, width, height) {
+  return {
+    x: x,
+    y: y,
+    width: width,
+    height: height
+  };
+}
+/**
+ * Class that is responsible for computations of the content rectangle of
+ * provided DOM element and for keeping track of it's changes.
+ */
+
+
+var ResizeObservation =
+/** @class */
+function () {
+  /**
+   * Creates an instance of ResizeObservation.
+   *
+   * @param {Element} target - Element to be observed.
+   */
+  function ResizeObservation(target) {
+    /**
+     * Broadcasted width of content rectangle.
+     *
+     * @type {number}
+     */
+    this.broadcastWidth = 0;
+    /**
+     * Broadcasted height of content rectangle.
+     *
+     * @type {number}
+     */
+
+    this.broadcastHeight = 0;
+    /**
+     * Reference to the last observed content rectangle.
+     *
+     * @private {DOMRectInit}
+     */
+
+    this.contentRect_ = createRectInit(0, 0, 0, 0);
+    this.target = target;
+  }
+  /**
+   * Updates content rectangle and tells whether it's width or height properties
+   * have changed since the last broadcast.
+   *
+   * @returns {boolean}
+   */
+
+
+  ResizeObservation.prototype.isActive = function () {
+    var rect = getContentRect(this.target);
+    this.contentRect_ = rect;
+    return rect.width !== this.broadcastWidth || rect.height !== this.broadcastHeight;
+  };
+  /**
+   * Updates 'broadcastWidth' and 'broadcastHeight' properties with a data
+   * from the corresponding properties of the last observed content rectangle.
+   *
+   * @returns {DOMRectInit} Last observed content rectangle.
+   */
+
+
+  ResizeObservation.prototype.broadcastRect = function () {
+    var rect = this.contentRect_;
+    this.broadcastWidth = rect.width;
+    this.broadcastHeight = rect.height;
+    return rect;
+  };
+
+  return ResizeObservation;
+}();
+
+var ResizeObserverEntry =
+/** @class */
+function () {
+  /**
+   * Creates an instance of ResizeObserverEntry.
+   *
+   * @param {Element} target - Element that is being observed.
+   * @param {DOMRectInit} rectInit - Data of the element's content rectangle.
+   */
+  function ResizeObserverEntry(target, rectInit) {
+    var contentRect = createReadOnlyRect(rectInit); // According to the specification following properties are not writable
+    // and are also not enumerable in the native implementation.
+    //
+    // Property accessors are not being used as they'd require to define a
+    // private WeakMap storage which may cause memory leaks in browsers that
+    // don't support this type of collections.
+
+    defineConfigurable(this, {
+      target: target,
+      contentRect: contentRect
+    });
+  }
+
+  return ResizeObserverEntry;
+}();
+
+var ResizeObserverSPI =
+/** @class */
+function () {
+  /**
+   * Creates a new instance of ResizeObserver.
+   *
+   * @param {ResizeObserverCallback} callback - Callback function that is invoked
+   *      when one of the observed elements changes it's content dimensions.
+   * @param {ResizeObserverController} controller - Controller instance which
+   *      is responsible for the updates of observer.
+   * @param {ResizeObserver} callbackCtx - Reference to the public
+   *      ResizeObserver instance which will be passed to callback function.
+   */
+  function ResizeObserverSPI(callback, controller, callbackCtx) {
+    /**
+     * Collection of resize observations that have detected changes in dimensions
+     * of elements.
+     *
+     * @private {Array<ResizeObservation>}
+     */
+    this.activeObservations_ = [];
+    /**
+     * Registry of the ResizeObservation instances.
+     *
+     * @private {Map<Element, ResizeObservation>}
+     */
+
+    this.observations_ = new MapShim();
+
+    if (typeof callback !== 'function') {
+      throw new TypeError('The callback provided as parameter 1 is not a function.');
+    }
+
+    this.callback_ = callback;
+    this.controller_ = controller;
+    this.callbackCtx_ = callbackCtx;
+  }
+  /**
+   * Starts observing provided element.
+   *
+   * @param {Element} target - Element to be observed.
+   * @returns {void}
+   */
+
+
+  ResizeObserverSPI.prototype.observe = function (target) {
+    if (!arguments.length) {
+      throw new TypeError('1 argument required, but only 0 present.');
+    } // Do nothing if current environment doesn't have the Element interface.
+
+
+    if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+      return;
+    }
+
+    if (!(target instanceof getWindowOf(target).Element)) {
+      throw new TypeError('parameter 1 is not of type "Element".');
+    }
+
+    var observations = this.observations_; // Do nothing if element is already being observed.
+
+    if (observations.has(target)) {
+      return;
+    }
+
+    observations.set(target, new ResizeObservation(target));
+    this.controller_.addObserver(this); // Force the update of observations.
+
+    this.controller_.refresh();
+  };
+  /**
+   * Stops observing provided element.
+   *
+   * @param {Element} target - Element to stop observing.
+   * @returns {void}
+   */
+
+
+  ResizeObserverSPI.prototype.unobserve = function (target) {
+    if (!arguments.length) {
+      throw new TypeError('1 argument required, but only 0 present.');
+    } // Do nothing if current environment doesn't have the Element interface.
+
+
+    if (typeof Element === 'undefined' || !(Element instanceof Object)) {
+      return;
+    }
+
+    if (!(target instanceof getWindowOf(target).Element)) {
+      throw new TypeError('parameter 1 is not of type "Element".');
+    }
+
+    var observations = this.observations_; // Do nothing if element is not being observed.
+
+    if (!observations.has(target)) {
+      return;
+    }
+
+    observations["delete"](target);
+
+    if (!observations.size) {
+      this.controller_.removeObserver(this);
+    }
+  };
+  /**
+   * Stops observing all elements.
+   *
+   * @returns {void}
+   */
+
+
+  ResizeObserverSPI.prototype.disconnect = function () {
+    this.clearActive();
+    this.observations_.clear();
+    this.controller_.removeObserver(this);
+  };
+  /**
+   * Collects observation instances the associated element of which has changed
+   * it's content rectangle.
+   *
+   * @returns {void}
+   */
+
+
+  ResizeObserverSPI.prototype.gatherActive = function () {
+    var _this = this;
+
+    this.clearActive();
+    this.observations_.forEach(function (observation) {
+      if (observation.isActive()) {
+        _this.activeObservations_.push(observation);
+      }
+    });
+  };
+  /**
+   * Invokes initial callback function with a list of ResizeObserverEntry
+   * instances collected from active resize observations.
+   *
+   * @returns {void}
+   */
+
+
+  ResizeObserverSPI.prototype.broadcastActive = function () {
+    // Do nothing if observer doesn't have active observations.
+    if (!this.hasActive()) {
+      return;
+    }
+
+    var ctx = this.callbackCtx_; // Create ResizeObserverEntry instance for every active observation.
+
+    var entries = this.activeObservations_.map(function (observation) {
+      return new ResizeObserverEntry(observation.target, observation.broadcastRect());
+    });
+    this.callback_.call(ctx, entries, ctx);
+    this.clearActive();
+  };
+  /**
+   * Clears the collection of active observations.
+   *
+   * @returns {void}
+   */
+
+
+  ResizeObserverSPI.prototype.clearActive = function () {
+    this.activeObservations_.splice(0);
+  };
+  /**
+   * Tells whether observer has active observations.
+   *
+   * @returns {boolean}
+   */
+
+
+  ResizeObserverSPI.prototype.hasActive = function () {
+    return this.activeObservations_.length > 0;
+  };
+
+  return ResizeObserverSPI;
+}(); // Registry of internal observers. If WeakMap is not available use current shim
+// for the Map collection as it has all required methods and because WeakMap
+// can't be fully polyfilled anyway.
+
+
+var observers = typeof WeakMap !== 'undefined' ? new WeakMap() : new MapShim();
+/**
+ * ResizeObserver API. Encapsulates the ResizeObserver SPI implementation
+ * exposing only those methods and properties that are defined in the spec.
+ */
+
+var ResizeObserver =
+/** @class */
+function () {
+  /**
+   * Creates a new instance of ResizeObserver.
+   *
+   * @param {ResizeObserverCallback} callback - Callback that is invoked when
+   *      dimensions of the observed elements change.
+   */
+  function ResizeObserver(callback) {
+    if (!(this instanceof ResizeObserver)) {
+      throw new TypeError('Cannot call a class as a function.');
+    }
+
+    if (!arguments.length) {
+      throw new TypeError('1 argument required, but only 0 present.');
+    }
+
+    var controller = ResizeObserverController.getInstance();
+    var observer = new ResizeObserverSPI(callback, controller, this);
+    observers.set(this, observer);
+  }
+
+  return ResizeObserver;
+}(); // Expose public methods of ResizeObserver.
+
+
+['observe', 'unobserve', 'disconnect'].forEach(function (method) {
+  ResizeObserver.prototype[method] = function () {
+    var _a;
+
+    return (_a = observers.get(this))[method].apply(_a, arguments);
+  };
 });
 
-;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../mnt/7A34EDB034ED7015/projects/drumeo/railenvironment/applications/musora-ui/node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+var index = function () {
+  // Export existing implementation if available.
+  if (typeof global$1.ResizeObserver !== 'undefined') {
+    return global$1.ResizeObserver;
+  }
+
+  return ResizeObserver;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (index);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../mnt/7A34EDB034ED7015/projects/drumeo/railenvironment/applications/musora-ui/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -11362,6 +17618,1182 @@ function __guardMethod__(obj, methodName, transform) {
   attachTo.clearImmediate = clearImmediate;
 })(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../mnt/7A34EDB034ED7015/projects/drumeo/railenvironment/applications/musora-ui/node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../../../mnt/7A34EDB034ED7015/projects/drumeo/railenvironment/applications/musora-ui/node_modules/process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/simplebar-vue/dist/simplebar-vue.esm.js":
+/*!***************************************************************************!*\
+  !*** /app/musora-ui/node_modules/simplebar-vue/dist/simplebar-vue.esm.js ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.concat */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.array.concat.js");
+/* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var simplebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! simplebar */ "../../../../../../../app/musora-ui/node_modules/simplebar/dist/simplebar.esm.js");
+/**
+ * simplebar-vue - v1.5.1
+ * Vue component for SimpleBar
+ * https://grsmto.github.io/simplebar/
+ *
+ * Made by Piers Olenski
+ * Under MIT License
+ */
+
+ //
+
+var script = {
+  name: 'simplebar-vue',
+  mounted: function mounted() {
+    var options = simplebar__WEBPACK_IMPORTED_MODULE_1__["default"].getOptions(this.$refs.element.attributes);
+    this.SimpleBar = new simplebar__WEBPACK_IMPORTED_MODULE_1__["default"](this.$refs.element, options);
+  },
+  computed: {
+    scrollElement: function scrollElement() {
+      return this.$refs.scrollElement;
+    },
+    contentElement: function contentElement() {
+      return this.$refs.contentElement;
+    }
+  }
+};
+var __vue_script__ = script;
+/* template */
+
+var __vue_render__ = function __vue_render__() {
+  var _vm = this;
+
+  var _h = _vm.$createElement;
+
+  var _c = _vm._self._c || _h;
+
+  return _c("div", {
+    ref: "element"
+  }, [_c("div", {
+    staticClass: "simplebar-wrapper"
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
+    staticClass: "simplebar-mask"
+  }, [_c("div", {
+    staticClass: "simplebar-offset"
+  }, [_c("div", {
+    ref: "scrollElement",
+    staticClass: "simplebar-content-wrapper"
+  }, [_c("div", {
+    ref: "contentElement",
+    staticClass: "simplebar-content"
+  }, [_vm._t("default")], 2)])])]), _vm._v(" "), _c("div", {
+    staticClass: "simplebar-placeholder"
+  })]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)]);
+};
+
+var __vue_staticRenderFns__ = [function () {
+  var _vm = this;
+
+  var _h = _vm.$createElement;
+
+  var _c = _vm._self._c || _h;
+
+  return _c("div", {
+    staticClass: "simplebar-height-auto-observer-wrapper"
+  }, [_c("div", {
+    staticClass: "simplebar-height-auto-observer"
+  })]);
+}, function () {
+  var _vm = this;
+
+  var _h = _vm.$createElement;
+
+  var _c = _vm._self._c || _h;
+
+  return _c("div", {
+    staticClass: "simplebar-track simplebar-horizontal"
+  }, [_c("div", {
+    staticClass: "simplebar-scrollbar"
+  })]);
+}, function () {
+  var _vm = this;
+
+  var _h = _vm.$createElement;
+
+  var _c = _vm._self._c || _h;
+
+  return _c("div", {
+    staticClass: "simplebar-track simplebar-vertical"
+  }, [_c("div", {
+    staticClass: "simplebar-scrollbar"
+  })]);
+}];
+__vue_render__._withStripped = true;
+/* style */
+
+var __vue_inject_styles__ = undefined;
+/* scoped */
+
+var __vue_scope_id__ = undefined;
+/* functional template */
+
+var __vue_is_functional_template__ = false;
+/* component normalizer */
+
+function __vue_normalize__(template, style, script, scope, functional, moduleIdentifier, createInjector, createInjectorSSR) {
+  var component = (typeof script === 'function' ? script.options : script) || {}; // For security concerns, we use only base name in production mode.
+
+  component.__file = "/Users/adriendenat/Sites/simplebar/packages/simplebar-vue/index.vue";
+
+  if (!component.render) {
+    component.render = template.render;
+    component.staticRenderFns = template.staticRenderFns;
+    component._compiled = true;
+    if (functional) component.functional = true;
+  }
+
+  component._scopeId = scope;
+  return component;
+}
+/* style inject */
+
+/* style inject SSR */
+
+
+var simplebar = __vue_normalize__({
+  render: __vue_render__,
+  staticRenderFns: __vue_staticRenderFns__
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__);
+
+/* harmony default export */ __webpack_exports__["default"] = (simplebar);
+
+/***/ }),
+
+/***/ "../../../../../../../app/musora-ui/node_modules/simplebar/dist/simplebar.esm.js":
+/*!*******************************************************************!*\
+  !*** /app/musora-ui/node_modules/simplebar/dist/simplebar.esm.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.for-each */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var can_use_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! can-use-dom */ "../../../../../../../app/musora-ui/node_modules/can-use-dom/index.js");
+/* harmony import */ var can_use_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(can_use_dom__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.array.filter */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.array.filter.js");
+/* harmony import */ var core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.iterator */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_object_assign__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.object.assign */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.object.assign.js");
+/* harmony import */ var core_js_modules_es_object_assign__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_assign__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.object.to-string */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_es_parse_int__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.parse-int */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.parse-int.js");
+/* harmony import */ var core_js_modules_es_parse_int__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_parse_int__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.string.iterator */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_weak_map__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.weak-map */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.weak-map.js");
+/* harmony import */ var core_js_modules_es_weak_map__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_weak_map__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/web.dom-collections.iterator.js");
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lodash.throttle */ "../../../../../../../app/musora-ui/node_modules/lodash.throttle/index.js");
+/* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(lodash_throttle__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lodash.debounce */ "../../../../../../../app/musora-ui/node_modules/lodash.debounce/index.js");
+/* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(lodash_debounce__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var lodash_memoize__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! lodash.memoize */ "../../../../../../../app/musora-ui/node_modules/lodash.memoize/index.js");
+/* harmony import */ var lodash_memoize__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(lodash_memoize__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var resize_observer_polyfill__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! resize-observer-polyfill */ "../../../../../../../app/musora-ui/node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js");
+/* harmony import */ var core_js_modules_es_array_reduce__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! core-js/modules/es.array.reduce */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.array.reduce.js");
+/* harmony import */ var core_js_modules_es_array_reduce__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reduce__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var core_js_modules_es_function_name__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! core-js/modules/es.function.name */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.function.name.js");
+/* harmony import */ var core_js_modules_es_function_name__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! core-js/modules/es.regexp.exec */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.regexp.exec.js");
+/* harmony import */ var core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var core_js_modules_es_string_match__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! core-js/modules/es.string.match */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.string.match.js");
+/* harmony import */ var core_js_modules_es_string_match__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_match__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! core-js/modules/es.string.replace */ "../../../../../../../app/musora-ui/node_modules/core-js/modules/es.string.replace.js");
+/* harmony import */ var core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_replace__WEBPACK_IMPORTED_MODULE_19__);
+/**
+ * SimpleBar.js - v5.2.0
+ * Scrollbars, simpler.
+ * https://grsmto.github.io/simplebar/
+ *
+ * Made by Adrien Denat from a fork by Jonathan Nicol
+ * Under MIT License
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var cachedScrollbarWidth = null;
+var cachedDevicePixelRatio = null;
+
+if (can_use_dom__WEBPACK_IMPORTED_MODULE_2___default.a) {
+  window.addEventListener('resize', function () {
+    if (cachedDevicePixelRatio !== window.devicePixelRatio) {
+      cachedDevicePixelRatio = window.devicePixelRatio;
+      cachedScrollbarWidth = null;
+    }
+  });
+}
+
+function scrollbarWidth() {
+  if (cachedScrollbarWidth === null) {
+    if (typeof document === 'undefined') {
+      cachedScrollbarWidth = 0;
+      return cachedScrollbarWidth;
+    }
+
+    var body = document.body;
+    var box = document.createElement('div');
+    box.classList.add('simplebar-hide-scrollbar');
+    body.appendChild(box);
+    var width = box.getBoundingClientRect().right;
+    body.removeChild(box);
+    cachedScrollbarWidth = width;
+  }
+
+  return cachedScrollbarWidth;
+} // Helper function to retrieve options from element attributes
+
+
+var getOptions = function getOptions(obj) {
+  var options = Array.prototype.reduce.call(obj, function (acc, attribute) {
+    var option = attribute.name.match(/data-simplebar-(.+)/);
+
+    if (option) {
+      var key = option[1].replace(/\W+(.)/g, function (x, chr) {
+        return chr.toUpperCase();
+      });
+
+      switch (attribute.value) {
+        case 'true':
+          acc[key] = true;
+          break;
+
+        case 'false':
+          acc[key] = false;
+          break;
+
+        case undefined:
+          acc[key] = true;
+          break;
+
+        default:
+          acc[key] = attribute.value;
+      }
+    }
+
+    return acc;
+  }, {});
+  return options;
+};
+
+function getElementWindow(element) {
+  if (!element || !element.ownerDocument || !element.ownerDocument.defaultView) {
+    return window;
+  }
+
+  return element.ownerDocument.defaultView;
+}
+
+function getElementDocument(element) {
+  if (!element || !element.ownerDocument) {
+    return document;
+  }
+
+  return element.ownerDocument;
+}
+
+var SimpleBar = /*#__PURE__*/function () {
+  function SimpleBar(element, options) {
+    var _this = this;
+
+    this.onScroll = function () {
+      var elWindow = getElementWindow(_this.el);
+
+      if (!_this.scrollXTicking) {
+        elWindow.requestAnimationFrame(_this.scrollX);
+        _this.scrollXTicking = true;
+      }
+
+      if (!_this.scrollYTicking) {
+        elWindow.requestAnimationFrame(_this.scrollY);
+        _this.scrollYTicking = true;
+      }
+    };
+
+    this.scrollX = function () {
+      if (_this.axis.x.isOverflowing) {
+        _this.showScrollbar('x');
+
+        _this.positionScrollbar('x');
+      }
+
+      _this.scrollXTicking = false;
+    };
+
+    this.scrollY = function () {
+      if (_this.axis.y.isOverflowing) {
+        _this.showScrollbar('y');
+
+        _this.positionScrollbar('y');
+      }
+
+      _this.scrollYTicking = false;
+    };
+
+    this.onMouseEnter = function () {
+      _this.showScrollbar('x');
+
+      _this.showScrollbar('y');
+    };
+
+    this.onMouseMove = function (e) {
+      _this.mouseX = e.clientX;
+      _this.mouseY = e.clientY;
+
+      if (_this.axis.x.isOverflowing || _this.axis.x.forceVisible) {
+        _this.onMouseMoveForAxis('x');
+      }
+
+      if (_this.axis.y.isOverflowing || _this.axis.y.forceVisible) {
+        _this.onMouseMoveForAxis('y');
+      }
+    };
+
+    this.onMouseLeave = function () {
+      _this.onMouseMove.cancel();
+
+      if (_this.axis.x.isOverflowing || _this.axis.x.forceVisible) {
+        _this.onMouseLeaveForAxis('x');
+      }
+
+      if (_this.axis.y.isOverflowing || _this.axis.y.forceVisible) {
+        _this.onMouseLeaveForAxis('y');
+      }
+
+      _this.mouseX = -1;
+      _this.mouseY = -1;
+    };
+
+    this.onWindowResize = function () {
+      // Recalculate scrollbarWidth in case it's a zoom
+      _this.scrollbarWidth = _this.getScrollbarWidth();
+
+      _this.hideNativeScrollbar();
+    };
+
+    this.hideScrollbars = function () {
+      _this.axis.x.track.rect = _this.axis.x.track.el.getBoundingClientRect();
+      _this.axis.y.track.rect = _this.axis.y.track.el.getBoundingClientRect();
+
+      if (!_this.isWithinBounds(_this.axis.y.track.rect)) {
+        _this.axis.y.scrollbar.el.classList.remove(_this.classNames.visible);
+
+        _this.axis.y.isVisible = false;
+      }
+
+      if (!_this.isWithinBounds(_this.axis.x.track.rect)) {
+        _this.axis.x.scrollbar.el.classList.remove(_this.classNames.visible);
+
+        _this.axis.x.isVisible = false;
+      }
+    };
+
+    this.onPointerEvent = function (e) {
+      var isWithinTrackXBounds, isWithinTrackYBounds;
+      _this.axis.x.track.rect = _this.axis.x.track.el.getBoundingClientRect();
+      _this.axis.y.track.rect = _this.axis.y.track.el.getBoundingClientRect();
+
+      if (_this.axis.x.isOverflowing || _this.axis.x.forceVisible) {
+        isWithinTrackXBounds = _this.isWithinBounds(_this.axis.x.track.rect);
+      }
+
+      if (_this.axis.y.isOverflowing || _this.axis.y.forceVisible) {
+        isWithinTrackYBounds = _this.isWithinBounds(_this.axis.y.track.rect);
+      } // If any pointer event is called on the scrollbar
+
+
+      if (isWithinTrackXBounds || isWithinTrackYBounds) {
+        // Preventing the event's default action stops text being
+        // selectable during the drag.
+        e.preventDefault(); // Prevent event leaking
+
+        e.stopPropagation();
+
+        if (e.type === 'mousedown') {
+          if (isWithinTrackXBounds) {
+            _this.axis.x.scrollbar.rect = _this.axis.x.scrollbar.el.getBoundingClientRect();
+
+            if (_this.isWithinBounds(_this.axis.x.scrollbar.rect)) {
+              _this.onDragStart(e, 'x');
+            } else {
+              _this.onTrackClick(e, 'x');
+            }
+          }
+
+          if (isWithinTrackYBounds) {
+            _this.axis.y.scrollbar.rect = _this.axis.y.scrollbar.el.getBoundingClientRect();
+
+            if (_this.isWithinBounds(_this.axis.y.scrollbar.rect)) {
+              _this.onDragStart(e, 'y');
+            } else {
+              _this.onTrackClick(e, 'y');
+            }
+          }
+        }
+      }
+    };
+
+    this.drag = function (e) {
+      var eventOffset;
+      var track = _this.axis[_this.draggedAxis].track;
+      var trackSize = track.rect[_this.axis[_this.draggedAxis].sizeAttr];
+      var scrollbar = _this.axis[_this.draggedAxis].scrollbar;
+      var contentSize = _this.contentWrapperEl[_this.axis[_this.draggedAxis].scrollSizeAttr];
+      var hostSize = parseInt(_this.elStyles[_this.axis[_this.draggedAxis].sizeAttr], 10);
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (_this.draggedAxis === 'y') {
+        eventOffset = e.pageY;
+      } else {
+        eventOffset = e.pageX;
+      } // Calculate how far the user's mouse is from the top/left of the scrollbar (minus the dragOffset).
+
+
+      var dragPos = eventOffset - track.rect[_this.axis[_this.draggedAxis].offsetAttr] - _this.axis[_this.draggedAxis].dragOffset; // Convert the mouse position into a percentage of the scrollbar height/width.
+
+      var dragPerc = dragPos / (trackSize - scrollbar.size); // Scroll the content by the same percentage.
+
+      var scrollPos = dragPerc * (contentSize - hostSize); // Fix browsers inconsistency on RTL
+
+      if (_this.draggedAxis === 'x') {
+        scrollPos = _this.isRtl && SimpleBar.getRtlHelpers().isRtlScrollbarInverted ? scrollPos - (trackSize + scrollbar.size) : scrollPos;
+        scrollPos = _this.isRtl && SimpleBar.getRtlHelpers().isRtlScrollingInverted ? -scrollPos : scrollPos;
+      }
+
+      _this.contentWrapperEl[_this.axis[_this.draggedAxis].scrollOffsetAttr] = scrollPos;
+    };
+
+    this.onEndDrag = function (e) {
+      var elDocument = getElementDocument(_this.el);
+      var elWindow = getElementWindow(_this.el);
+      e.preventDefault();
+      e.stopPropagation();
+
+      _this.el.classList.remove(_this.classNames.dragging);
+
+      elDocument.removeEventListener('mousemove', _this.drag, true);
+      elDocument.removeEventListener('mouseup', _this.onEndDrag, true);
+      _this.removePreventClickId = elWindow.setTimeout(function () {
+        // Remove these asynchronously so we still suppress click events
+        // generated simultaneously with mouseup.
+        elDocument.removeEventListener('click', _this.preventClick, true);
+        elDocument.removeEventListener('dblclick', _this.preventClick, true);
+        _this.removePreventClickId = null;
+      });
+    };
+
+    this.preventClick = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    this.el = element;
+    this.minScrollbarWidth = 20;
+    this.options = Object.assign({}, SimpleBar.defaultOptions, {}, options);
+    this.classNames = Object.assign({}, SimpleBar.defaultOptions.classNames, {}, this.options.classNames);
+    this.axis = {
+      x: {
+        scrollOffsetAttr: 'scrollLeft',
+        sizeAttr: 'width',
+        scrollSizeAttr: 'scrollWidth',
+        offsetSizeAttr: 'offsetWidth',
+        offsetAttr: 'left',
+        overflowAttr: 'overflowX',
+        dragOffset: 0,
+        isOverflowing: true,
+        isVisible: false,
+        forceVisible: false,
+        track: {},
+        scrollbar: {}
+      },
+      y: {
+        scrollOffsetAttr: 'scrollTop',
+        sizeAttr: 'height',
+        scrollSizeAttr: 'scrollHeight',
+        offsetSizeAttr: 'offsetHeight',
+        offsetAttr: 'top',
+        overflowAttr: 'overflowY',
+        dragOffset: 0,
+        isOverflowing: true,
+        isVisible: false,
+        forceVisible: false,
+        track: {},
+        scrollbar: {}
+      }
+    };
+    this.removePreventClickId = null; // Don't re-instantiate over an existing one
+
+    if (SimpleBar.instances.has(this.el)) {
+      return;
+    }
+
+    this.recalculate = lodash_throttle__WEBPACK_IMPORTED_MODULE_11___default()(this.recalculate.bind(this), 64);
+    this.onMouseMove = lodash_throttle__WEBPACK_IMPORTED_MODULE_11___default()(this.onMouseMove.bind(this), 64);
+    this.hideScrollbars = lodash_debounce__WEBPACK_IMPORTED_MODULE_12___default()(this.hideScrollbars.bind(this), this.options.timeout);
+    this.onWindowResize = lodash_debounce__WEBPACK_IMPORTED_MODULE_12___default()(this.onWindowResize.bind(this), 64, {
+      leading: true
+    });
+    SimpleBar.getRtlHelpers = lodash_memoize__WEBPACK_IMPORTED_MODULE_13___default()(SimpleBar.getRtlHelpers);
+    this.init();
+  }
+  /**
+   * Static properties
+   */
+
+  /**
+   * Helper to fix browsers inconsistency on RTL:
+   *  - Firefox inverts the scrollbar initial position
+   *  - IE11 inverts both scrollbar position and scrolling offset
+   * Directly inspired by @KingSora's OverlayScrollbars https://github.com/KingSora/OverlayScrollbars/blob/master/js/OverlayScrollbars.js#L1634
+   */
+
+
+  SimpleBar.getRtlHelpers = function getRtlHelpers() {
+    var dummyDiv = document.createElement('div');
+    dummyDiv.innerHTML = '<div class="hs-dummy-scrollbar-size"><div style="height: 200%; width: 200%; margin: 10px 0;"></div></div>';
+    var scrollbarDummyEl = dummyDiv.firstElementChild;
+    document.body.appendChild(scrollbarDummyEl);
+    var dummyContainerChild = scrollbarDummyEl.firstElementChild;
+    scrollbarDummyEl.scrollLeft = 0;
+    var dummyContainerOffset = SimpleBar.getOffset(scrollbarDummyEl);
+    var dummyContainerChildOffset = SimpleBar.getOffset(dummyContainerChild);
+    scrollbarDummyEl.scrollLeft = 999;
+    var dummyContainerScrollOffsetAfterScroll = SimpleBar.getOffset(dummyContainerChild);
+    return {
+      // determines if the scrolling is responding with negative values
+      isRtlScrollingInverted: dummyContainerOffset.left !== dummyContainerChildOffset.left && dummyContainerChildOffset.left - dummyContainerScrollOffsetAfterScroll.left !== 0,
+      // determines if the origin scrollbar position is inverted or not (positioned on left or right)
+      isRtlScrollbarInverted: dummyContainerOffset.left !== dummyContainerChildOffset.left
+    };
+  };
+
+  SimpleBar.getOffset = function getOffset(el) {
+    var rect = el.getBoundingClientRect();
+    var elDocument = getElementDocument(el);
+    var elWindow = getElementWindow(el);
+    return {
+      top: rect.top + (elWindow.pageYOffset || elDocument.documentElement.scrollTop),
+      left: rect.left + (elWindow.pageXOffset || elDocument.documentElement.scrollLeft)
+    };
+  };
+
+  var _proto = SimpleBar.prototype;
+
+  _proto.init = function init() {
+    // Save a reference to the instance, so we know this DOM node has already been instancied
+    SimpleBar.instances.set(this.el, this); // We stop here on server-side
+
+    if (can_use_dom__WEBPACK_IMPORTED_MODULE_2___default.a) {
+      this.initDOM();
+      this.scrollbarWidth = this.getScrollbarWidth();
+      this.recalculate();
+      this.initListeners();
+    }
+  };
+
+  _proto.initDOM = function initDOM() {
+    var _this2 = this; // make sure this element doesn't have the elements yet
+
+
+    if (Array.prototype.filter.call(this.el.children, function (child) {
+      return child.classList.contains(_this2.classNames.wrapper);
+    }).length) {
+      // assume that element has his DOM already initiated
+      this.wrapperEl = this.el.querySelector("." + this.classNames.wrapper);
+      this.contentWrapperEl = this.options.scrollableNode || this.el.querySelector("." + this.classNames.contentWrapper);
+      this.contentEl = this.options.contentNode || this.el.querySelector("." + this.classNames.contentEl);
+      this.offsetEl = this.el.querySelector("." + this.classNames.offset);
+      this.maskEl = this.el.querySelector("." + this.classNames.mask);
+      this.placeholderEl = this.findChild(this.wrapperEl, "." + this.classNames.placeholder);
+      this.heightAutoObserverWrapperEl = this.el.querySelector("." + this.classNames.heightAutoObserverWrapperEl);
+      this.heightAutoObserverEl = this.el.querySelector("." + this.classNames.heightAutoObserverEl);
+      this.axis.x.track.el = this.findChild(this.el, "." + this.classNames.track + "." + this.classNames.horizontal);
+      this.axis.y.track.el = this.findChild(this.el, "." + this.classNames.track + "." + this.classNames.vertical);
+    } else {
+      // Prepare DOM
+      this.wrapperEl = document.createElement('div');
+      this.contentWrapperEl = document.createElement('div');
+      this.offsetEl = document.createElement('div');
+      this.maskEl = document.createElement('div');
+      this.contentEl = document.createElement('div');
+      this.placeholderEl = document.createElement('div');
+      this.heightAutoObserverWrapperEl = document.createElement('div');
+      this.heightAutoObserverEl = document.createElement('div');
+      this.wrapperEl.classList.add(this.classNames.wrapper);
+      this.contentWrapperEl.classList.add(this.classNames.contentWrapper);
+      this.offsetEl.classList.add(this.classNames.offset);
+      this.maskEl.classList.add(this.classNames.mask);
+      this.contentEl.classList.add(this.classNames.contentEl);
+      this.placeholderEl.classList.add(this.classNames.placeholder);
+      this.heightAutoObserverWrapperEl.classList.add(this.classNames.heightAutoObserverWrapperEl);
+      this.heightAutoObserverEl.classList.add(this.classNames.heightAutoObserverEl);
+
+      while (this.el.firstChild) {
+        this.contentEl.appendChild(this.el.firstChild);
+      }
+
+      this.contentWrapperEl.appendChild(this.contentEl);
+      this.offsetEl.appendChild(this.contentWrapperEl);
+      this.maskEl.appendChild(this.offsetEl);
+      this.heightAutoObserverWrapperEl.appendChild(this.heightAutoObserverEl);
+      this.wrapperEl.appendChild(this.heightAutoObserverWrapperEl);
+      this.wrapperEl.appendChild(this.maskEl);
+      this.wrapperEl.appendChild(this.placeholderEl);
+      this.el.appendChild(this.wrapperEl);
+    }
+
+    if (!this.axis.x.track.el || !this.axis.y.track.el) {
+      var track = document.createElement('div');
+      var scrollbar = document.createElement('div');
+      track.classList.add(this.classNames.track);
+      scrollbar.classList.add(this.classNames.scrollbar);
+      track.appendChild(scrollbar);
+      this.axis.x.track.el = track.cloneNode(true);
+      this.axis.x.track.el.classList.add(this.classNames.horizontal);
+      this.axis.y.track.el = track.cloneNode(true);
+      this.axis.y.track.el.classList.add(this.classNames.vertical);
+      this.el.appendChild(this.axis.x.track.el);
+      this.el.appendChild(this.axis.y.track.el);
+    }
+
+    this.axis.x.scrollbar.el = this.axis.x.track.el.querySelector("." + this.classNames.scrollbar);
+    this.axis.y.scrollbar.el = this.axis.y.track.el.querySelector("." + this.classNames.scrollbar);
+
+    if (!this.options.autoHide) {
+      this.axis.x.scrollbar.el.classList.add(this.classNames.visible);
+      this.axis.y.scrollbar.el.classList.add(this.classNames.visible);
+    }
+
+    this.el.setAttribute('data-simplebar', 'init');
+  };
+
+  _proto.initListeners = function initListeners() {
+    var _this3 = this;
+
+    var elWindow = getElementWindow(this.el); // Event listeners
+
+    if (this.options.autoHide) {
+      this.el.addEventListener('mouseenter', this.onMouseEnter);
+    }
+
+    ['mousedown', 'click', 'dblclick'].forEach(function (e) {
+      _this3.el.addEventListener(e, _this3.onPointerEvent, true);
+    });
+    ['touchstart', 'touchend', 'touchmove'].forEach(function (e) {
+      _this3.el.addEventListener(e, _this3.onPointerEvent, {
+        capture: true,
+        passive: true
+      });
+    });
+    this.el.addEventListener('mousemove', this.onMouseMove);
+    this.el.addEventListener('mouseleave', this.onMouseLeave);
+    this.contentWrapperEl.addEventListener('scroll', this.onScroll); // Browser zoom triggers a window resize
+
+    elWindow.addEventListener('resize', this.onWindowResize); // Hack for https://github.com/WICG/ResizeObserver/issues/38
+
+    var resizeObserverStarted = false;
+    var resizeObserver = elWindow.ResizeObserver || resize_observer_polyfill__WEBPACK_IMPORTED_MODULE_14__["default"];
+    this.resizeObserver = new resizeObserver(function () {
+      if (!resizeObserverStarted) return;
+
+      _this3.recalculate();
+    });
+    this.resizeObserver.observe(this.el);
+    this.resizeObserver.observe(this.contentEl);
+    elWindow.requestAnimationFrame(function () {
+      resizeObserverStarted = true;
+    }); // This is required to detect horizontal scroll. Vertical scroll only needs the resizeObserver.
+
+    this.mutationObserver = new elWindow.MutationObserver(this.recalculate);
+    this.mutationObserver.observe(this.contentEl, {
+      childList: true,
+      subtree: true,
+      characterData: true
+    });
+  };
+
+  _proto.recalculate = function recalculate() {
+    var elWindow = getElementWindow(this.el);
+    this.elStyles = elWindow.getComputedStyle(this.el);
+    this.isRtl = this.elStyles.direction === 'rtl';
+    var contentElOffsetWidth = this.contentEl.offsetWidth;
+    var isHeightAuto = this.heightAutoObserverEl.offsetHeight <= 1;
+    var isWidthAuto = this.heightAutoObserverEl.offsetWidth <= 1 || contentElOffsetWidth > 0;
+    var contentWrapperElOffsetWidth = this.contentWrapperEl.offsetWidth;
+    var elOverflowX = this.elStyles.overflowX;
+    var elOverflowY = this.elStyles.overflowY;
+    this.contentEl.style.padding = this.elStyles.paddingTop + " " + this.elStyles.paddingRight + " " + this.elStyles.paddingBottom + " " + this.elStyles.paddingLeft;
+    this.wrapperEl.style.margin = "-" + this.elStyles.paddingTop + " -" + this.elStyles.paddingRight + " -" + this.elStyles.paddingBottom + " -" + this.elStyles.paddingLeft;
+    var contentElScrollHeight = this.contentEl.scrollHeight;
+    var contentElScrollWidth = this.contentEl.scrollWidth;
+    this.contentWrapperEl.style.height = isHeightAuto ? 'auto' : '100%'; // Determine placeholder size
+
+    this.placeholderEl.style.width = isWidthAuto ? (contentElOffsetWidth || contentElScrollWidth) + "px" : 'auto';
+    this.placeholderEl.style.height = contentElScrollHeight + "px";
+    var contentWrapperElOffsetHeight = this.contentWrapperEl.offsetHeight;
+    this.axis.x.isOverflowing = contentElOffsetWidth !== 0 && contentElScrollWidth > contentElOffsetWidth;
+    this.axis.y.isOverflowing = contentElScrollHeight > contentWrapperElOffsetHeight; // Set isOverflowing to false if user explicitely set hidden overflow
+
+    this.axis.x.isOverflowing = elOverflowX === 'hidden' ? false : this.axis.x.isOverflowing;
+    this.axis.y.isOverflowing = elOverflowY === 'hidden' ? false : this.axis.y.isOverflowing;
+    this.axis.x.forceVisible = this.options.forceVisible === 'x' || this.options.forceVisible === true;
+    this.axis.y.forceVisible = this.options.forceVisible === 'y' || this.options.forceVisible === true;
+    this.hideNativeScrollbar(); // Set isOverflowing to false if scrollbar is not necessary (content is shorter than offset)
+
+    var offsetForXScrollbar = this.axis.x.isOverflowing ? this.scrollbarWidth : 0;
+    var offsetForYScrollbar = this.axis.y.isOverflowing ? this.scrollbarWidth : 0;
+    this.axis.x.isOverflowing = this.axis.x.isOverflowing && contentElScrollWidth > contentWrapperElOffsetWidth - offsetForYScrollbar;
+    this.axis.y.isOverflowing = this.axis.y.isOverflowing && contentElScrollHeight > contentWrapperElOffsetHeight - offsetForXScrollbar;
+    this.axis.x.scrollbar.size = this.getScrollbarSize('x');
+    this.axis.y.scrollbar.size = this.getScrollbarSize('y');
+    this.axis.x.scrollbar.el.style.width = this.axis.x.scrollbar.size + "px";
+    this.axis.y.scrollbar.el.style.height = this.axis.y.scrollbar.size + "px";
+    this.positionScrollbar('x');
+    this.positionScrollbar('y');
+    this.toggleTrackVisibility('x');
+    this.toggleTrackVisibility('y');
+  }
+  /**
+   * Calculate scrollbar size
+   */
+  ;
+
+  _proto.getScrollbarSize = function getScrollbarSize(axis) {
+    if (axis === void 0) {
+      axis = 'y';
+    }
+
+    if (!this.axis[axis].isOverflowing) {
+      return 0;
+    }
+
+    var contentSize = this.contentEl[this.axis[axis].scrollSizeAttr];
+    var trackSize = this.axis[axis].track.el[this.axis[axis].offsetSizeAttr];
+    var scrollbarSize;
+    var scrollbarRatio = trackSize / contentSize; // Calculate new height/position of drag handle.
+
+    scrollbarSize = Math.max(~~(scrollbarRatio * trackSize), this.options.scrollbarMinSize);
+
+    if (this.options.scrollbarMaxSize) {
+      scrollbarSize = Math.min(scrollbarSize, this.options.scrollbarMaxSize);
+    }
+
+    return scrollbarSize;
+  };
+
+  _proto.positionScrollbar = function positionScrollbar(axis) {
+    if (axis === void 0) {
+      axis = 'y';
+    }
+
+    if (!this.axis[axis].isOverflowing) {
+      return;
+    }
+
+    var contentSize = this.contentWrapperEl[this.axis[axis].scrollSizeAttr];
+    var trackSize = this.axis[axis].track.el[this.axis[axis].offsetSizeAttr];
+    var hostSize = parseInt(this.elStyles[this.axis[axis].sizeAttr], 10);
+    var scrollbar = this.axis[axis].scrollbar;
+    var scrollOffset = this.contentWrapperEl[this.axis[axis].scrollOffsetAttr];
+    scrollOffset = axis === 'x' && this.isRtl && SimpleBar.getRtlHelpers().isRtlScrollingInverted ? -scrollOffset : scrollOffset;
+    var scrollPourcent = scrollOffset / (contentSize - hostSize);
+    var handleOffset = ~~((trackSize - scrollbar.size) * scrollPourcent);
+    handleOffset = axis === 'x' && this.isRtl && SimpleBar.getRtlHelpers().isRtlScrollbarInverted ? handleOffset + (trackSize - scrollbar.size) : handleOffset;
+    scrollbar.el.style.transform = axis === 'x' ? "translate3d(" + handleOffset + "px, 0, 0)" : "translate3d(0, " + handleOffset + "px, 0)";
+  };
+
+  _proto.toggleTrackVisibility = function toggleTrackVisibility(axis) {
+    if (axis === void 0) {
+      axis = 'y';
+    }
+
+    var track = this.axis[axis].track.el;
+    var scrollbar = this.axis[axis].scrollbar.el;
+
+    if (this.axis[axis].isOverflowing || this.axis[axis].forceVisible) {
+      track.style.visibility = 'visible';
+      this.contentWrapperEl.style[this.axis[axis].overflowAttr] = 'scroll';
+    } else {
+      track.style.visibility = 'hidden';
+      this.contentWrapperEl.style[this.axis[axis].overflowAttr] = 'hidden';
+    } // Even if forceVisible is enabled, scrollbar itself should be hidden
+
+
+    if (this.axis[axis].isOverflowing) {
+      scrollbar.style.display = 'block';
+    } else {
+      scrollbar.style.display = 'none';
+    }
+  };
+
+  _proto.hideNativeScrollbar = function hideNativeScrollbar() {
+    this.offsetEl.style[this.isRtl ? 'left' : 'right'] = this.axis.y.isOverflowing || this.axis.y.forceVisible ? "-" + this.scrollbarWidth + "px" : 0;
+    this.offsetEl.style.bottom = this.axis.x.isOverflowing || this.axis.x.forceVisible ? "-" + this.scrollbarWidth + "px" : 0;
+  }
+  /**
+   * On scroll event handling
+   */
+  ;
+
+  _proto.onMouseMoveForAxis = function onMouseMoveForAxis(axis) {
+    if (axis === void 0) {
+      axis = 'y';
+    }
+
+    this.axis[axis].track.rect = this.axis[axis].track.el.getBoundingClientRect();
+    this.axis[axis].scrollbar.rect = this.axis[axis].scrollbar.el.getBoundingClientRect();
+    var isWithinScrollbarBoundsX = this.isWithinBounds(this.axis[axis].scrollbar.rect);
+
+    if (isWithinScrollbarBoundsX) {
+      this.axis[axis].scrollbar.el.classList.add(this.classNames.hover);
+    } else {
+      this.axis[axis].scrollbar.el.classList.remove(this.classNames.hover);
+    }
+
+    if (this.isWithinBounds(this.axis[axis].track.rect)) {
+      this.showScrollbar(axis);
+      this.axis[axis].track.el.classList.add(this.classNames.hover);
+    } else {
+      this.axis[axis].track.el.classList.remove(this.classNames.hover);
+    }
+  };
+
+  _proto.onMouseLeaveForAxis = function onMouseLeaveForAxis(axis) {
+    if (axis === void 0) {
+      axis = 'y';
+    }
+
+    this.axis[axis].track.el.classList.remove(this.classNames.hover);
+    this.axis[axis].scrollbar.el.classList.remove(this.classNames.hover);
+  };
+  /**
+   * Show scrollbar
+   */
+
+
+  _proto.showScrollbar = function showScrollbar(axis) {
+    if (axis === void 0) {
+      axis = 'y';
+    }
+
+    var scrollbar = this.axis[axis].scrollbar.el;
+
+    if (!this.axis[axis].isVisible) {
+      scrollbar.classList.add(this.classNames.visible);
+      this.axis[axis].isVisible = true;
+    }
+
+    if (this.options.autoHide) {
+      this.hideScrollbars();
+    }
+  }
+  /**
+   * Hide Scrollbar
+   */
+  ;
+  /**
+   * on scrollbar handle drag movement starts
+   */
+
+
+  _proto.onDragStart = function onDragStart(e, axis) {
+    if (axis === void 0) {
+      axis = 'y';
+    }
+
+    var elDocument = getElementDocument(this.el);
+    var elWindow = getElementWindow(this.el);
+    var scrollbar = this.axis[axis].scrollbar; // Measure how far the user's mouse is from the top of the scrollbar drag handle.
+
+    var eventOffset = axis === 'y' ? e.pageY : e.pageX;
+    this.axis[axis].dragOffset = eventOffset - scrollbar.rect[this.axis[axis].offsetAttr];
+    this.draggedAxis = axis;
+    this.el.classList.add(this.classNames.dragging);
+    elDocument.addEventListener('mousemove', this.drag, true);
+    elDocument.addEventListener('mouseup', this.onEndDrag, true);
+
+    if (this.removePreventClickId === null) {
+      elDocument.addEventListener('click', this.preventClick, true);
+      elDocument.addEventListener('dblclick', this.preventClick, true);
+    } else {
+      elWindow.clearTimeout(this.removePreventClickId);
+      this.removePreventClickId = null;
+    }
+  }
+  /**
+   * Drag scrollbar handle
+   */
+  ;
+
+  _proto.onTrackClick = function onTrackClick(e, axis) {
+    var _this4 = this;
+
+    if (axis === void 0) {
+      axis = 'y';
+    }
+
+    if (!this.options.clickOnTrack) return;
+    var elWindow = getElementWindow(this.el);
+    this.axis[axis].scrollbar.rect = this.axis[axis].scrollbar.el.getBoundingClientRect();
+    var scrollbar = this.axis[axis].scrollbar;
+    var scrollbarOffset = scrollbar.rect[this.axis[axis].offsetAttr];
+    var hostSize = parseInt(this.elStyles[this.axis[axis].sizeAttr], 10);
+    var scrolled = this.contentWrapperEl[this.axis[axis].scrollOffsetAttr];
+    var t = axis === 'y' ? this.mouseY - scrollbarOffset : this.mouseX - scrollbarOffset;
+    var dir = t < 0 ? -1 : 1;
+    var scrollSize = dir === -1 ? scrolled - hostSize : scrolled + hostSize;
+    var speed = 40;
+
+    var scrollTo = function scrollTo() {
+      if (dir === -1) {
+        if (scrolled > scrollSize) {
+          var _this4$contentWrapper;
+
+          scrolled -= speed;
+
+          _this4.contentWrapperEl.scrollTo((_this4$contentWrapper = {}, _this4$contentWrapper[_this4.axis[axis].offsetAttr] = scrolled, _this4$contentWrapper));
+
+          elWindow.requestAnimationFrame(scrollTo);
+        }
+      } else {
+        if (scrolled < scrollSize) {
+          var _this4$contentWrapper2;
+
+          scrolled += speed;
+
+          _this4.contentWrapperEl.scrollTo((_this4$contentWrapper2 = {}, _this4$contentWrapper2[_this4.axis[axis].offsetAttr] = scrolled, _this4$contentWrapper2));
+
+          elWindow.requestAnimationFrame(scrollTo);
+        }
+      }
+    };
+
+    scrollTo();
+  }
+  /**
+   * Getter for content element
+   */
+  ;
+
+  _proto.getContentElement = function getContentElement() {
+    return this.contentEl;
+  }
+  /**
+   * Getter for original scrolling element
+   */
+  ;
+
+  _proto.getScrollElement = function getScrollElement() {
+    return this.contentWrapperEl;
+  };
+
+  _proto.getScrollbarWidth = function getScrollbarWidth() {
+    // Try/catch for FF 56 throwing on undefined computedStyles
+    try {
+      // Detect browsers supporting CSS scrollbar styling and do not calculate
+      if (getComputedStyle(this.contentWrapperEl, '::-webkit-scrollbar').display === 'none' || 'scrollbarWidth' in document.documentElement.style || '-ms-overflow-style' in document.documentElement.style) {
+        return 0;
+      } else {
+        return scrollbarWidth();
+      }
+    } catch (e) {
+      return scrollbarWidth();
+    }
+  };
+
+  _proto.removeListeners = function removeListeners() {
+    var _this5 = this;
+
+    var elWindow = getElementWindow(this.el); // Event listeners
+
+    if (this.options.autoHide) {
+      this.el.removeEventListener('mouseenter', this.onMouseEnter);
+    }
+
+    ['mousedown', 'click', 'dblclick'].forEach(function (e) {
+      _this5.el.removeEventListener(e, _this5.onPointerEvent, true);
+    });
+    ['touchstart', 'touchend', 'touchmove'].forEach(function (e) {
+      _this5.el.removeEventListener(e, _this5.onPointerEvent, {
+        capture: true,
+        passive: true
+      });
+    });
+    this.el.removeEventListener('mousemove', this.onMouseMove);
+    this.el.removeEventListener('mouseleave', this.onMouseLeave);
+    this.contentWrapperEl.removeEventListener('scroll', this.onScroll);
+    elWindow.removeEventListener('resize', this.onWindowResize);
+    this.mutationObserver.disconnect();
+    this.resizeObserver.disconnect(); // Cancel all debounced functions
+
+    this.recalculate.cancel();
+    this.onMouseMove.cancel();
+    this.hideScrollbars.cancel();
+    this.onWindowResize.cancel();
+  }
+  /**
+   * UnMount mutation observer and delete SimpleBar instance from DOM element
+   */
+  ;
+
+  _proto.unMount = function unMount() {
+    this.removeListeners();
+    SimpleBar.instances["delete"](this.el);
+  }
+  /**
+   * Check if mouse is within bounds
+   */
+  ;
+
+  _proto.isWithinBounds = function isWithinBounds(bbox) {
+    return this.mouseX >= bbox.left && this.mouseX <= bbox.left + bbox.width && this.mouseY >= bbox.top && this.mouseY <= bbox.top + bbox.height;
+  }
+  /**
+   * Find element children matches query
+   */
+  ;
+
+  _proto.findChild = function findChild(el, query) {
+    var matches = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
+    return Array.prototype.filter.call(el.children, function (child) {
+      return matches.call(child, query);
+    })[0];
+  };
+
+  return SimpleBar;
+}();
+
+SimpleBar.defaultOptions = {
+  autoHide: true,
+  forceVisible: false,
+  clickOnTrack: true,
+  classNames: {
+    contentEl: 'simplebar-content',
+    contentWrapper: 'simplebar-content-wrapper',
+    offset: 'simplebar-offset',
+    mask: 'simplebar-mask',
+    wrapper: 'simplebar-wrapper',
+    placeholder: 'simplebar-placeholder',
+    scrollbar: 'simplebar-scrollbar',
+    track: 'simplebar-track',
+    heightAutoObserverWrapperEl: 'simplebar-height-auto-observer-wrapper',
+    heightAutoObserverEl: 'simplebar-height-auto-observer',
+    visible: 'simplebar-visible',
+    horizontal: 'simplebar-horizontal',
+    vertical: 'simplebar-vertical',
+    hover: 'simplebar-hover',
+    dragging: 'simplebar-dragging'
+  },
+  scrollbarMinSize: 25,
+  scrollbarMaxSize: 0,
+  timeout: 1000
+};
+SimpleBar.instances = new WeakMap();
+
+SimpleBar.initDOMLoadedElements = function () {
+  document.removeEventListener('DOMContentLoaded', this.initDOMLoadedElements);
+  window.removeEventListener('load', this.initDOMLoadedElements);
+  Array.prototype.forEach.call(document.querySelectorAll('[data-simplebar]:not([data-simplebar="init"])'), function (el) {
+    if (!SimpleBar.instances.has(el)) new SimpleBar(el, getOptions(el.attributes));
+  });
+};
+
+SimpleBar.removeObserver = function () {
+  this.globalObserver.disconnect();
+};
+
+SimpleBar.initHtmlApi = function () {
+  this.initDOMLoadedElements = this.initDOMLoadedElements.bind(this); // MutationObserver is IE11+
+
+  if (typeof MutationObserver !== 'undefined') {
+    // Mutation observer to observe dynamically added elements
+    this.globalObserver = new MutationObserver(SimpleBar.handleMutations);
+    this.globalObserver.observe(document, {
+      childList: true,
+      subtree: true
+    });
+  } // Taken from jQuery `ready` function
+  // Instantiate elements already present on the page
+
+
+  if (document.readyState === 'complete' || document.readyState !== 'loading' && !document.documentElement.doScroll) {
+    // Handle it asynchronously to allow scripts the opportunity to delay init
+    window.setTimeout(this.initDOMLoadedElements);
+  } else {
+    document.addEventListener('DOMContentLoaded', this.initDOMLoadedElements);
+    window.addEventListener('load', this.initDOMLoadedElements);
+  }
+};
+
+SimpleBar.handleMutations = function (mutations) {
+  mutations.forEach(function (mutation) {
+    Array.prototype.forEach.call(mutation.addedNodes, function (addedNode) {
+      if (addedNode.nodeType === 1) {
+        if (addedNode.hasAttribute('data-simplebar')) {
+          !SimpleBar.instances.has(addedNode) && new SimpleBar(addedNode, getOptions(addedNode.attributes));
+        } else {
+          Array.prototype.forEach.call(addedNode.querySelectorAll('[data-simplebar]:not([data-simplebar="init"])'), function (el) {
+            !SimpleBar.instances.has(el) && new SimpleBar(el, getOptions(el.attributes));
+          });
+        }
+      }
+    });
+    Array.prototype.forEach.call(mutation.removedNodes, function (removedNode) {
+      if (removedNode.nodeType === 1) {
+        if (removedNode.hasAttribute('[data-simplebar="init"]')) {
+          SimpleBar.instances.has(removedNode) && SimpleBar.instances.get(removedNode).unMount();
+        } else {
+          Array.prototype.forEach.call(removedNode.querySelectorAll('[data-simplebar="init"]'), function (el) {
+            SimpleBar.instances.has(el) && SimpleBar.instances.get(el).unMount();
+          });
+        }
+      }
+    });
+  });
+};
+
+SimpleBar.getOptions = getOptions;
+/**
+ * HTML API
+ * Called only in a browser env.
+ */
+
+if (can_use_dom__WEBPACK_IMPORTED_MODULE_2___default.a) {
+  SimpleBar.initHtmlApi();
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (SimpleBar);
 
 /***/ }),
 
@@ -25221,6 +32653,7 @@ var LevelSelector_1 = __importDefault(__webpack_require__(/*! ../Filters/LevelSe
 var Group_1 = __importDefault(__webpack_require__(/*! ../Filters/Group */ "./vue/components/Filters/Group.vue"));
 var FilterBadge_1 = __importDefault(__webpack_require__(/*! ../Blocks/FilterBadge */ "./vue/components/Blocks/FilterBadge.vue"));
 var Simple_1 = __importDefault(__webpack_require__(/*! ../VideoCards/Simple */ "./vue/components/VideoCards/Simple.vue"));
+var content_2 = __importDefault(__webpack_require__(/*! ../../mixins/content */ "./vue/mixins/content.ts"));
 exports.default = {
     components: {
         'edge-group-filters': EdgeGroup_1.default,
@@ -25229,6 +32662,7 @@ exports.default = {
         'filter-badge': FilterBadge_1.default,
         'simple-video-card': Simple_1.default,
     },
+    mixins: [content_2.default],
     props: {
         videosList: {
             type: Array,
@@ -25341,7 +32775,8 @@ exports.default = {
         this.videos = videos_1.default.getVideosFromArray(this.videosList);
         this.level = this.levelSelector || 1;
         this.$root.$on('filterClicked', this.handleFilterClick);
-        this.setupFilters(this.preloadData.meta.filterOptions);
+        this.setupFilters(this.preloadData);
+        // this.fetchData();
     },
     methods: {
         clearFilters: function () {
@@ -25398,16 +32833,17 @@ exports.default = {
         toggleCollapse: function () {
             this.collapsed = !this.collapsed;
         },
-        setupFilters: function (filterOptions) {
-            this.filters = filters_1.default.getFilterGroupsFromResponse(filterOptions);
+        setupFilters: function (response) {
+            this.filters = filters_1.default.getFilterGroupsFromResponse(response);
         },
         fetchData: function () {
-            var payload = {};
-            // todo - add payload logic
+            var _this = this;
+            var payload = this.getPayload();
+            payload = filters_1.default.decorateRequestParams(payload, this.filters);
             content_1.default
                 .getContent(payload)
                 .then(function (response) {
-                // this.setupFilters(response.data.meta.filterOptions);
+                _this.setupFilters(response.data);
                 // this.videos = VideosService.getVideosFromResponse(response);
             });
             // todo - add error handling
@@ -25788,10 +33224,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var FilterCheckbox_1 = __importDefault(__webpack_require__(/*! ../Blocks/FilterCheckbox */ "./vue/components/Blocks/FilterCheckbox.vue"));
 var filterGroup_1 = __importDefault(__webpack_require__(/*! ../../models/filterGroup */ "./vue/models/filterGroup.ts"));
+var simplebar_vue_1 = __importDefault(__webpack_require__(/*! simplebar-vue */ "../../../../../../../app/musora-ui/node_modules/simplebar-vue/dist/simplebar-vue.esm.js"));
 // todo - update global css for collapsable
 exports.default = {
     components: {
         'filter-checkbox': FilterCheckbox_1.default,
+        simplebar: simplebar_vue_1.default
     },
     props: {
         filterGroup: {
@@ -27873,16 +35311,22 @@ var render = function() {
               staticStyle: { "max-height": "230px" },
               attrs: { "data-simplebar": "" }
             },
-            _vm._l(_vm.filterGroup.filters, function(filter) {
-              return _c("filter-checkbox", {
-                key: filter.id,
-                attrs: {
-                  filter: filter,
-                  "filter-group": _vm.filterGroup.id,
-                  theme: "side"
-                }
-              })
-            }),
+            [
+              _c(
+                "simplebar",
+                _vm._l(_vm.filterGroup.filters, function(filter, index) {
+                  return _c("filter-checkbox", {
+                    key: index,
+                    attrs: {
+                      filter: filter,
+                      "filter-group": _vm.filterGroup.id,
+                      theme: "side"
+                    }
+                  })
+                }),
+                1
+              )
+            ],
             1
           )
         ])
@@ -30164,6 +37608,148 @@ exports.default = {
 
 /***/ }),
 
+/***/ "./vue/mixins/content.ts":
+/*!*******************************!*\
+  !*** ./vue/mixins/content.ts ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = {
+    props: {
+        brand: {
+            type: String,
+            default: function () { return 'drumeo'; },
+        },
+        initialLimit: {
+            type: String,
+            default: function () { return '10'; },
+        },
+        statuses: {
+            type: Array,
+            default: function () { return ['published']; },
+        },
+    },
+    computed: {},
+    data: function () {
+        return {
+            limit: this.initialLimit,
+            sortBy: '-published_on',
+            page: 1,
+        };
+    },
+    methods: {
+        getPayload: function () {
+            var payload = {
+                brand: this.brand,
+                limit: this.limit,
+                page: this.page,
+                statuses: this.statuses,
+            };
+            return payload;
+        },
+    },
+};
+
+
+/***/ }),
+
+/***/ "./vue/mocking/full_response.json":
+/*!****************************************!*\
+  !*** ./vue/mocking/full_response.json ***!
+  \****************************************/
+/*! exports provided: data, included, meta, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"data\":[{\"type\":\"content\",\"id\":\"20516\",\"attributes\":{\"slug\":\"single-stroke-roll\",\"type\":\"course\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-17 10:56:35\",\"archivedOn\":null,\"createdOn\":\"2014-02-17 10:56:35\",\"difficulty\":\"4\",\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20516,\"qnaVideo\":null,\"style\":null,\"title\":\"Single Stroke Roll\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":null,\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":null,\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2570\"},{\"type\":\"contentData\",\"id\":\"12128\"},{\"type\":\"contentData\",\"id\":\"41626\"},{\"type\":\"contentData\",\"id\":\"41627\"},{\"type\":\"contentData\",\"id\":\"41628\"},{\"type\":\"contentData\",\"id\":\"41629\"}]},\"instructor\":{\"data\":[{\"type\":\"instructor\",\"id\":\"7037\"},{\"type\":\"instructor\",\"id\":\"15032\"},{\"type\":\"instructor\",\"id\":\"23027\"}]},\"topic\":{\"data\":[{\"type\":\"topic\",\"id\":\"5969\"},{\"type\":\"topic\",\"id\":\"13283\"},{\"type\":\"topic\",\"id\":\"20597\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78976\"},{\"type\":\"tag\",\"id\":\"78977\"},{\"type\":\"tag\",\"id\":\"78978\"},{\"type\":\"tag\",\"id\":\"78979\"},{\"type\":\"tag\",\"id\":\"78980\"},{\"type\":\"tag\",\"id\":\"78981\"},{\"type\":\"tag\",\"id\":\"78982\"},{\"type\":\"tag\",\"id\":\"78983\"},{\"type\":\"tag\",\"id\":\"78984\"},{\"type\":\"tag\",\"id\":\"78985\"},{\"type\":\"tag\",\"id\":\"78986\"},{\"type\":\"tag\",\"id\":\"78987\"},{\"type\":\"tag\",\"id\":\"78988\"},{\"type\":\"tag\",\"id\":\"78989\"},{\"type\":\"tag\",\"id\":\"78990\"},{\"type\":\"tag\",\"id\":\"78991\"},{\"type\":\"tag\",\"id\":\"78992\"},{\"type\":\"tag\",\"id\":\"78993\"},{\"type\":\"tag\",\"id\":\"78994\"},{\"type\":\"tag\",\"id\":\"78995\"},{\"type\":\"tag\",\"id\":\"168116\"},{\"type\":\"tag\",\"id\":\"168117\"},{\"type\":\"tag\",\"id\":\"168118\"},{\"type\":\"tag\",\"id\":\"168119\"},{\"type\":\"tag\",\"id\":\"168120\"},{\"type\":\"tag\",\"id\":\"168121\"},{\"type\":\"tag\",\"id\":\"168122\"},{\"type\":\"tag\",\"id\":\"168123\"},{\"type\":\"tag\",\"id\":\"168124\"},{\"type\":\"tag\",\"id\":\"168125\"},{\"type\":\"tag\",\"id\":\"168126\"},{\"type\":\"tag\",\"id\":\"168127\"},{\"type\":\"tag\",\"id\":\"168128\"},{\"type\":\"tag\",\"id\":\"168129\"},{\"type\":\"tag\",\"id\":\"168130\"},{\"type\":\"tag\",\"id\":\"168131\"},{\"type\":\"tag\",\"id\":\"168132\"},{\"type\":\"tag\",\"id\":\"168133\"},{\"type\":\"tag\",\"id\":\"168134\"},{\"type\":\"tag\",\"id\":\"168135\"},{\"type\":\"tag\",\"id\":\"257256\"},{\"type\":\"tag\",\"id\":\"257257\"},{\"type\":\"tag\",\"id\":\"257258\"},{\"type\":\"tag\",\"id\":\"257259\"},{\"type\":\"tag\",\"id\":\"257260\"},{\"type\":\"tag\",\"id\":\"257261\"},{\"type\":\"tag\",\"id\":\"257262\"},{\"type\":\"tag\",\"id\":\"257263\"},{\"type\":\"tag\",\"id\":\"257264\"},{\"type\":\"tag\",\"id\":\"257265\"},{\"type\":\"tag\",\"id\":\"257266\"},{\"type\":\"tag\",\"id\":\"257267\"},{\"type\":\"tag\",\"id\":\"257268\"},{\"type\":\"tag\",\"id\":\"257269\"},{\"type\":\"tag\",\"id\":\"257270\"},{\"type\":\"tag\",\"id\":\"257271\"},{\"type\":\"tag\",\"id\":\"257272\"},{\"type\":\"tag\",\"id\":\"257273\"},{\"type\":\"tag\",\"id\":\"257274\"},{\"type\":\"tag\",\"id\":\"257275\"}]}}},{\"type\":\"content\",\"id\":\"20522\",\"attributes\":{\"slug\":\"01-introduction-21\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-17 13:11:05\",\"archivedOn\":null,\"createdOn\":\"2014-02-17 13:11:05\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20522,\"qnaVideo\":null,\"style\":null,\"title\":\"Introduction\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":\"90\",\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":\"60\",\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2571\"},{\"type\":\"contentData\",\"id\":\"12130\"},{\"type\":\"contentData\",\"id\":\"23716\"},{\"type\":\"contentData\",\"id\":\"23718\"},{\"type\":\"contentData\",\"id\":\"23719\"},{\"type\":\"contentData\",\"id\":\"23720\"},{\"type\":\"contentData\",\"id\":\"23722\"},{\"type\":\"contentData\",\"id\":\"23723\"},{\"type\":\"contentData\",\"id\":\"23724\"},{\"type\":\"contentData\",\"id\":\"23726\"},{\"type\":\"contentData\",\"id\":\"23727\"},{\"type\":\"contentData\",\"id\":\"23728\"},{\"type\":\"contentData\",\"id\":\"23730\"},{\"type\":\"contentData\",\"id\":\"23731\"},{\"type\":\"contentData\",\"id\":\"43638\"},{\"type\":\"contentData\",\"id\":\"43639\"},{\"type\":\"contentData\",\"id\":\"43640\"},{\"type\":\"contentData\",\"id\":\"43641\"},{\"type\":\"contentData\",\"id\":\"72500\"},{\"type\":\"contentData\",\"id\":\"85754\"},{\"type\":\"contentData\",\"id\":\"85755\"},{\"type\":\"contentData\",\"id\":\"85756\"},{\"type\":\"contentData\",\"id\":\"85757\"},{\"type\":\"contentData\",\"id\":\"85758\"},{\"type\":\"contentData\",\"id\":\"85759\"},{\"type\":\"contentData\",\"id\":\"85760\"},{\"type\":\"contentData\",\"id\":\"85761\"},{\"type\":\"contentData\",\"id\":\"145899\"},{\"type\":\"contentData\",\"id\":\"145900\"},{\"type\":\"contentData\",\"id\":\"145901\"},{\"type\":\"contentData\",\"id\":\"145902\"},{\"type\":\"contentData\",\"id\":\"145903\"},{\"type\":\"contentData\",\"id\":\"145904\"},{\"type\":\"contentData\",\"id\":\"145905\"},{\"type\":\"contentData\",\"id\":\"145906\"},{\"type\":\"contentData\",\"id\":\"145907\"},{\"type\":\"contentData\",\"id\":\"145908\"},{\"type\":\"contentData\",\"id\":\"145909\"},{\"type\":\"contentData\",\"id\":\"145910\"},{\"type\":\"contentData\",\"id\":\"145911\"},{\"type\":\"contentData\",\"id\":\"145912\"},{\"type\":\"contentData\",\"id\":\"145913\"},{\"type\":\"contentData\",\"id\":\"145914\"},{\"type\":\"contentData\",\"id\":\"153378\"},{\"type\":\"contentData\",\"id\":\"153379\"},{\"type\":\"contentData\",\"id\":\"153380\"},{\"type\":\"contentData\",\"id\":\"153381\"},{\"type\":\"contentData\",\"id\":\"153382\"},{\"type\":\"contentData\",\"id\":\"153383\"},{\"type\":\"contentData\",\"id\":\"153384\"},{\"type\":\"contentData\",\"id\":\"153385\"},{\"type\":\"contentData\",\"id\":\"153386\"},{\"type\":\"contentData\",\"id\":\"153387\"},{\"type\":\"contentData\",\"id\":\"153388\"},{\"type\":\"contentData\",\"id\":\"153389\"},{\"type\":\"contentData\",\"id\":\"153390\"},{\"type\":\"contentData\",\"id\":\"153391\"},{\"type\":\"contentData\",\"id\":\"153392\"},{\"type\":\"contentData\",\"id\":\"153393\"},{\"type\":\"contentData\",\"id\":\"160857\"},{\"type\":\"contentData\",\"id\":\"160858\"},{\"type\":\"contentData\",\"id\":\"160859\"},{\"type\":\"contentData\",\"id\":\"160860\"},{\"type\":\"contentData\",\"id\":\"160861\"},{\"type\":\"contentData\",\"id\":\"160862\"},{\"type\":\"contentData\",\"id\":\"160863\"},{\"type\":\"contentData\",\"id\":\"160864\"},{\"type\":\"contentData\",\"id\":\"160865\"},{\"type\":\"contentData\",\"id\":\"160866\"},{\"type\":\"contentData\",\"id\":\"160867\"},{\"type\":\"contentData\",\"id\":\"160868\"},{\"type\":\"contentData\",\"id\":\"160869\"},{\"type\":\"contentData\",\"id\":\"160870\"},{\"type\":\"contentData\",\"id\":\"160871\"},{\"type\":\"contentData\",\"id\":\"160872\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78963\"},{\"type\":\"tag\",\"id\":\"78964\"},{\"type\":\"tag\",\"id\":\"78965\"},{\"type\":\"tag\",\"id\":\"78966\"},{\"type\":\"tag\",\"id\":\"78967\"},{\"type\":\"tag\",\"id\":\"78968\"},{\"type\":\"tag\",\"id\":\"78969\"},{\"type\":\"tag\",\"id\":\"78970\"},{\"type\":\"tag\",\"id\":\"78971\"},{\"type\":\"tag\",\"id\":\"78972\"},{\"type\":\"tag\",\"id\":\"78973\"},{\"type\":\"tag\",\"id\":\"78974\"},{\"type\":\"tag\",\"id\":\"78975\"},{\"type\":\"tag\",\"id\":\"168103\"},{\"type\":\"tag\",\"id\":\"168104\"},{\"type\":\"tag\",\"id\":\"168105\"},{\"type\":\"tag\",\"id\":\"168106\"},{\"type\":\"tag\",\"id\":\"168107\"},{\"type\":\"tag\",\"id\":\"168108\"},{\"type\":\"tag\",\"id\":\"168109\"},{\"type\":\"tag\",\"id\":\"168110\"},{\"type\":\"tag\",\"id\":\"168111\"},{\"type\":\"tag\",\"id\":\"168112\"},{\"type\":\"tag\",\"id\":\"168113\"},{\"type\":\"tag\",\"id\":\"168114\"},{\"type\":\"tag\",\"id\":\"168115\"},{\"type\":\"tag\",\"id\":\"257243\"},{\"type\":\"tag\",\"id\":\"257244\"},{\"type\":\"tag\",\"id\":\"257245\"},{\"type\":\"tag\",\"id\":\"257246\"},{\"type\":\"tag\",\"id\":\"257247\"},{\"type\":\"tag\",\"id\":\"257248\"},{\"type\":\"tag\",\"id\":\"257249\"},{\"type\":\"tag\",\"id\":\"257250\"},{\"type\":\"tag\",\"id\":\"257251\"},{\"type\":\"tag\",\"id\":\"257252\"},{\"type\":\"tag\",\"id\":\"257253\"},{\"type\":\"tag\",\"id\":\"257254\"},{\"type\":\"tag\",\"id\":\"257255\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"741\"}]}}},{\"type\":\"content\",\"id\":\"20548\",\"attributes\":{\"slug\":\"02-speed-control\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-18 11:12:55\",\"archivedOn\":null,\"createdOn\":\"2014-02-18 11:12:55\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20548,\"qnaVideo\":null,\"style\":null,\"title\":\"Speed & Control\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":\"120\",\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":\"60\",\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2572\"},{\"type\":\"contentData\",\"id\":\"12155\"},{\"type\":\"contentData\",\"id\":\"23732\"},{\"type\":\"contentData\",\"id\":\"23734\"},{\"type\":\"contentData\",\"id\":\"23735\"},{\"type\":\"contentData\",\"id\":\"23736\"},{\"type\":\"contentData\",\"id\":\"23738\"},{\"type\":\"contentData\",\"id\":\"23739\"},{\"type\":\"contentData\",\"id\":\"23740\"},{\"type\":\"contentData\",\"id\":\"23742\"},{\"type\":\"contentData\",\"id\":\"23743\"},{\"type\":\"contentData\",\"id\":\"23744\"},{\"type\":\"contentData\",\"id\":\"23746\"},{\"type\":\"contentData\",\"id\":\"23747\"},{\"type\":\"contentData\",\"id\":\"23748\"},{\"type\":\"contentData\",\"id\":\"23750\"},{\"type\":\"contentData\",\"id\":\"23751\"},{\"type\":\"contentData\",\"id\":\"43634\"},{\"type\":\"contentData\",\"id\":\"43635\"},{\"type\":\"contentData\",\"id\":\"43636\"},{\"type\":\"contentData\",\"id\":\"43637\"},{\"type\":\"contentData\",\"id\":\"72496\"},{\"type\":\"contentData\",\"id\":\"85881\"},{\"type\":\"contentData\",\"id\":\"85882\"},{\"type\":\"contentData\",\"id\":\"85883\"},{\"type\":\"contentData\",\"id\":\"85884\"},{\"type\":\"contentData\",\"id\":\"85885\"},{\"type\":\"contentData\",\"id\":\"85886\"},{\"type\":\"contentData\",\"id\":\"85887\"},{\"type\":\"contentData\",\"id\":\"85888\"},{\"type\":\"contentData\",\"id\":\"85889\"},{\"type\":\"contentData\",\"id\":\"85890\"},{\"type\":\"contentData\",\"id\":\"145879\"},{\"type\":\"contentData\",\"id\":\"145880\"},{\"type\":\"contentData\",\"id\":\"145881\"},{\"type\":\"contentData\",\"id\":\"145882\"},{\"type\":\"contentData\",\"id\":\"145883\"},{\"type\":\"contentData\",\"id\":\"145884\"},{\"type\":\"contentData\",\"id\":\"145885\"},{\"type\":\"contentData\",\"id\":\"145886\"},{\"type\":\"contentData\",\"id\":\"145887\"},{\"type\":\"contentData\",\"id\":\"145888\"},{\"type\":\"contentData\",\"id\":\"145889\"},{\"type\":\"contentData\",\"id\":\"145890\"},{\"type\":\"contentData\",\"id\":\"145891\"},{\"type\":\"contentData\",\"id\":\"145892\"},{\"type\":\"contentData\",\"id\":\"145893\"},{\"type\":\"contentData\",\"id\":\"145894\"},{\"type\":\"contentData\",\"id\":\"145895\"},{\"type\":\"contentData\",\"id\":\"145896\"},{\"type\":\"contentData\",\"id\":\"145897\"},{\"type\":\"contentData\",\"id\":\"145898\"},{\"type\":\"contentData\",\"id\":\"153358\"},{\"type\":\"contentData\",\"id\":\"153359\"},{\"type\":\"contentData\",\"id\":\"153360\"},{\"type\":\"contentData\",\"id\":\"153361\"},{\"type\":\"contentData\",\"id\":\"153362\"},{\"type\":\"contentData\",\"id\":\"153363\"},{\"type\":\"contentData\",\"id\":\"153364\"},{\"type\":\"contentData\",\"id\":\"153365\"},{\"type\":\"contentData\",\"id\":\"153366\"},{\"type\":\"contentData\",\"id\":\"153367\"},{\"type\":\"contentData\",\"id\":\"153368\"},{\"type\":\"contentData\",\"id\":\"153369\"},{\"type\":\"contentData\",\"id\":\"153370\"},{\"type\":\"contentData\",\"id\":\"153371\"},{\"type\":\"contentData\",\"id\":\"153372\"},{\"type\":\"contentData\",\"id\":\"153373\"},{\"type\":\"contentData\",\"id\":\"153374\"},{\"type\":\"contentData\",\"id\":\"153375\"},{\"type\":\"contentData\",\"id\":\"153376\"},{\"type\":\"contentData\",\"id\":\"153377\"},{\"type\":\"contentData\",\"id\":\"160837\"},{\"type\":\"contentData\",\"id\":\"160838\"},{\"type\":\"contentData\",\"id\":\"160839\"},{\"type\":\"contentData\",\"id\":\"160840\"},{\"type\":\"contentData\",\"id\":\"160841\"},{\"type\":\"contentData\",\"id\":\"160842\"},{\"type\":\"contentData\",\"id\":\"160843\"},{\"type\":\"contentData\",\"id\":\"160844\"},{\"type\":\"contentData\",\"id\":\"160845\"},{\"type\":\"contentData\",\"id\":\"160846\"},{\"type\":\"contentData\",\"id\":\"160847\"},{\"type\":\"contentData\",\"id\":\"160848\"},{\"type\":\"contentData\",\"id\":\"160849\"},{\"type\":\"contentData\",\"id\":\"160850\"},{\"type\":\"contentData\",\"id\":\"160851\"},{\"type\":\"contentData\",\"id\":\"160852\"},{\"type\":\"contentData\",\"id\":\"160853\"},{\"type\":\"contentData\",\"id\":\"160854\"},{\"type\":\"contentData\",\"id\":\"160855\"},{\"type\":\"contentData\",\"id\":\"160856\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78857\"},{\"type\":\"tag\",\"id\":\"78858\"},{\"type\":\"tag\",\"id\":\"78859\"},{\"type\":\"tag\",\"id\":\"78860\"},{\"type\":\"tag\",\"id\":\"78861\"},{\"type\":\"tag\",\"id\":\"78862\"},{\"type\":\"tag\",\"id\":\"78863\"},{\"type\":\"tag\",\"id\":\"78864\"},{\"type\":\"tag\",\"id\":\"78865\"},{\"type\":\"tag\",\"id\":\"78866\"},{\"type\":\"tag\",\"id\":\"78867\"},{\"type\":\"tag\",\"id\":\"78868\"},{\"type\":\"tag\",\"id\":\"78869\"},{\"type\":\"tag\",\"id\":\"167997\"},{\"type\":\"tag\",\"id\":\"167998\"},{\"type\":\"tag\",\"id\":\"167999\"},{\"type\":\"tag\",\"id\":\"168000\"},{\"type\":\"tag\",\"id\":\"168001\"},{\"type\":\"tag\",\"id\":\"168002\"},{\"type\":\"tag\",\"id\":\"168003\"},{\"type\":\"tag\",\"id\":\"168004\"},{\"type\":\"tag\",\"id\":\"168005\"},{\"type\":\"tag\",\"id\":\"168006\"},{\"type\":\"tag\",\"id\":\"168007\"},{\"type\":\"tag\",\"id\":\"168008\"},{\"type\":\"tag\",\"id\":\"168009\"},{\"type\":\"tag\",\"id\":\"257137\"},{\"type\":\"tag\",\"id\":\"257138\"},{\"type\":\"tag\",\"id\":\"257139\"},{\"type\":\"tag\",\"id\":\"257140\"},{\"type\":\"tag\",\"id\":\"257141\"},{\"type\":\"tag\",\"id\":\"257142\"},{\"type\":\"tag\",\"id\":\"257143\"},{\"type\":\"tag\",\"id\":\"257144\"},{\"type\":\"tag\",\"id\":\"257145\"},{\"type\":\"tag\",\"id\":\"257146\"},{\"type\":\"tag\",\"id\":\"257147\"},{\"type\":\"tag\",\"id\":\"257148\"},{\"type\":\"tag\",\"id\":\"257149\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"742\"}]}}},{\"type\":\"content\",\"id\":\"20550\",\"attributes\":{\"slug\":\"03-application-beats\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-18 11:43:26\",\"archivedOn\":null,\"createdOn\":\"2014-02-18 11:43:26\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20550,\"qnaVideo\":null,\"style\":null,\"title\":\"Application - Beats\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":\"90\",\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":\"60\",\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2573\"},{\"type\":\"contentData\",\"id\":\"12157\"},{\"type\":\"contentData\",\"id\":\"23752\"},{\"type\":\"contentData\",\"id\":\"23754\"},{\"type\":\"contentData\",\"id\":\"23755\"},{\"type\":\"contentData\",\"id\":\"23756\"},{\"type\":\"contentData\",\"id\":\"23758\"},{\"type\":\"contentData\",\"id\":\"23759\"},{\"type\":\"contentData\",\"id\":\"23760\"},{\"type\":\"contentData\",\"id\":\"23762\"},{\"type\":\"contentData\",\"id\":\"23763\"},{\"type\":\"contentData\",\"id\":\"23764\"},{\"type\":\"contentData\",\"id\":\"23766\"},{\"type\":\"contentData\",\"id\":\"23767\"},{\"type\":\"contentData\",\"id\":\"23768\"},{\"type\":\"contentData\",\"id\":\"23770\"},{\"type\":\"contentData\",\"id\":\"23771\"},{\"type\":\"contentData\",\"id\":\"43630\"},{\"type\":\"contentData\",\"id\":\"43631\"},{\"type\":\"contentData\",\"id\":\"43632\"},{\"type\":\"contentData\",\"id\":\"43633\"},{\"type\":\"contentData\",\"id\":\"72495\"},{\"type\":\"contentData\",\"id\":\"85901\"},{\"type\":\"contentData\",\"id\":\"85902\"},{\"type\":\"contentData\",\"id\":\"85903\"},{\"type\":\"contentData\",\"id\":\"85904\"},{\"type\":\"contentData\",\"id\":\"85905\"},{\"type\":\"contentData\",\"id\":\"85906\"},{\"type\":\"contentData\",\"id\":\"85907\"},{\"type\":\"contentData\",\"id\":\"85908\"},{\"type\":\"contentData\",\"id\":\"85909\"},{\"type\":\"contentData\",\"id\":\"85910\"},{\"type\":\"contentData\",\"id\":\"145859\"},{\"type\":\"contentData\",\"id\":\"145860\"},{\"type\":\"contentData\",\"id\":\"145861\"},{\"type\":\"contentData\",\"id\":\"145862\"},{\"type\":\"contentData\",\"id\":\"145863\"},{\"type\":\"contentData\",\"id\":\"145864\"},{\"type\":\"contentData\",\"id\":\"145865\"},{\"type\":\"contentData\",\"id\":\"145866\"},{\"type\":\"contentData\",\"id\":\"145867\"},{\"type\":\"contentData\",\"id\":\"145868\"},{\"type\":\"contentData\",\"id\":\"145869\"},{\"type\":\"contentData\",\"id\":\"145870\"},{\"type\":\"contentData\",\"id\":\"145871\"},{\"type\":\"contentData\",\"id\":\"145872\"},{\"type\":\"contentData\",\"id\":\"145873\"},{\"type\":\"contentData\",\"id\":\"145874\"},{\"type\":\"contentData\",\"id\":\"145875\"},{\"type\":\"contentData\",\"id\":\"145876\"},{\"type\":\"contentData\",\"id\":\"145877\"},{\"type\":\"contentData\",\"id\":\"145878\"},{\"type\":\"contentData\",\"id\":\"153338\"},{\"type\":\"contentData\",\"id\":\"153339\"},{\"type\":\"contentData\",\"id\":\"153340\"},{\"type\":\"contentData\",\"id\":\"153341\"},{\"type\":\"contentData\",\"id\":\"153342\"},{\"type\":\"contentData\",\"id\":\"153343\"},{\"type\":\"contentData\",\"id\":\"153344\"},{\"type\":\"contentData\",\"id\":\"153345\"},{\"type\":\"contentData\",\"id\":\"153346\"},{\"type\":\"contentData\",\"id\":\"153347\"},{\"type\":\"contentData\",\"id\":\"153348\"},{\"type\":\"contentData\",\"id\":\"153349\"},{\"type\":\"contentData\",\"id\":\"153350\"},{\"type\":\"contentData\",\"id\":\"153351\"},{\"type\":\"contentData\",\"id\":\"153352\"},{\"type\":\"contentData\",\"id\":\"153353\"},{\"type\":\"contentData\",\"id\":\"153354\"},{\"type\":\"contentData\",\"id\":\"153355\"},{\"type\":\"contentData\",\"id\":\"153356\"},{\"type\":\"contentData\",\"id\":\"153357\"},{\"type\":\"contentData\",\"id\":\"160817\"},{\"type\":\"contentData\",\"id\":\"160818\"},{\"type\":\"contentData\",\"id\":\"160819\"},{\"type\":\"contentData\",\"id\":\"160820\"},{\"type\":\"contentData\",\"id\":\"160821\"},{\"type\":\"contentData\",\"id\":\"160822\"},{\"type\":\"contentData\",\"id\":\"160823\"},{\"type\":\"contentData\",\"id\":\"160824\"},{\"type\":\"contentData\",\"id\":\"160825\"},{\"type\":\"contentData\",\"id\":\"160826\"},{\"type\":\"contentData\",\"id\":\"160827\"},{\"type\":\"contentData\",\"id\":\"160828\"},{\"type\":\"contentData\",\"id\":\"160829\"},{\"type\":\"contentData\",\"id\":\"160830\"},{\"type\":\"contentData\",\"id\":\"160831\"},{\"type\":\"contentData\",\"id\":\"160832\"},{\"type\":\"contentData\",\"id\":\"160833\"},{\"type\":\"contentData\",\"id\":\"160834\"},{\"type\":\"contentData\",\"id\":\"160835\"},{\"type\":\"contentData\",\"id\":\"160836\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78840\"},{\"type\":\"tag\",\"id\":\"78841\"},{\"type\":\"tag\",\"id\":\"78842\"},{\"type\":\"tag\",\"id\":\"78843\"},{\"type\":\"tag\",\"id\":\"78844\"},{\"type\":\"tag\",\"id\":\"78845\"},{\"type\":\"tag\",\"id\":\"78846\"},{\"type\":\"tag\",\"id\":\"78847\"},{\"type\":\"tag\",\"id\":\"78848\"},{\"type\":\"tag\",\"id\":\"78849\"},{\"type\":\"tag\",\"id\":\"78850\"},{\"type\":\"tag\",\"id\":\"78851\"},{\"type\":\"tag\",\"id\":\"78852\"},{\"type\":\"tag\",\"id\":\"78853\"},{\"type\":\"tag\",\"id\":\"78854\"},{\"type\":\"tag\",\"id\":\"78855\"},{\"type\":\"tag\",\"id\":\"78856\"},{\"type\":\"tag\",\"id\":\"167980\"},{\"type\":\"tag\",\"id\":\"167981\"},{\"type\":\"tag\",\"id\":\"167982\"},{\"type\":\"tag\",\"id\":\"167983\"},{\"type\":\"tag\",\"id\":\"167984\"},{\"type\":\"tag\",\"id\":\"167985\"},{\"type\":\"tag\",\"id\":\"167986\"},{\"type\":\"tag\",\"id\":\"167987\"},{\"type\":\"tag\",\"id\":\"167988\"},{\"type\":\"tag\",\"id\":\"167989\"},{\"type\":\"tag\",\"id\":\"167990\"},{\"type\":\"tag\",\"id\":\"167991\"},{\"type\":\"tag\",\"id\":\"167992\"},{\"type\":\"tag\",\"id\":\"167993\"},{\"type\":\"tag\",\"id\":\"167994\"},{\"type\":\"tag\",\"id\":\"167995\"},{\"type\":\"tag\",\"id\":\"167996\"},{\"type\":\"tag\",\"id\":\"257120\"},{\"type\":\"tag\",\"id\":\"257121\"},{\"type\":\"tag\",\"id\":\"257122\"},{\"type\":\"tag\",\"id\":\"257123\"},{\"type\":\"tag\",\"id\":\"257124\"},{\"type\":\"tag\",\"id\":\"257125\"},{\"type\":\"tag\",\"id\":\"257126\"},{\"type\":\"tag\",\"id\":\"257127\"},{\"type\":\"tag\",\"id\":\"257128\"},{\"type\":\"tag\",\"id\":\"257129\"},{\"type\":\"tag\",\"id\":\"257130\"},{\"type\":\"tag\",\"id\":\"257131\"},{\"type\":\"tag\",\"id\":\"257132\"},{\"type\":\"tag\",\"id\":\"257133\"},{\"type\":\"tag\",\"id\":\"257134\"},{\"type\":\"tag\",\"id\":\"257135\"},{\"type\":\"tag\",\"id\":\"257136\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"743\"}]}}},{\"type\":\"content\",\"id\":\"20552\",\"attributes\":{\"slug\":\"04-application-fills\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-18 11:45:42\",\"archivedOn\":null,\"createdOn\":\"2014-02-18 11:45:42\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20552,\"qnaVideo\":null,\"style\":null,\"title\":\"Application - Fills\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":\"90\",\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":\"60\",\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2574\"},{\"type\":\"contentData\",\"id\":\"12159\"},{\"type\":\"contentData\",\"id\":\"23772\"},{\"type\":\"contentData\",\"id\":\"23774\"},{\"type\":\"contentData\",\"id\":\"23775\"},{\"type\":\"contentData\",\"id\":\"23776\"},{\"type\":\"contentData\",\"id\":\"23778\"},{\"type\":\"contentData\",\"id\":\"23779\"},{\"type\":\"contentData\",\"id\":\"23780\"},{\"type\":\"contentData\",\"id\":\"23782\"},{\"type\":\"contentData\",\"id\":\"23783\"},{\"type\":\"contentData\",\"id\":\"23784\"},{\"type\":\"contentData\",\"id\":\"23786\"},{\"type\":\"contentData\",\"id\":\"23787\"},{\"type\":\"contentData\",\"id\":\"23788\"},{\"type\":\"contentData\",\"id\":\"23790\"},{\"type\":\"contentData\",\"id\":\"23791\"},{\"type\":\"contentData\",\"id\":\"43626\"},{\"type\":\"contentData\",\"id\":\"43627\"},{\"type\":\"contentData\",\"id\":\"43628\"},{\"type\":\"contentData\",\"id\":\"43629\"},{\"type\":\"contentData\",\"id\":\"72494\"},{\"type\":\"contentData\",\"id\":\"85921\"},{\"type\":\"contentData\",\"id\":\"85922\"},{\"type\":\"contentData\",\"id\":\"85923\"},{\"type\":\"contentData\",\"id\":\"85924\"},{\"type\":\"contentData\",\"id\":\"85925\"},{\"type\":\"contentData\",\"id\":\"85926\"},{\"type\":\"contentData\",\"id\":\"85927\"},{\"type\":\"contentData\",\"id\":\"85928\"},{\"type\":\"contentData\",\"id\":\"85929\"},{\"type\":\"contentData\",\"id\":\"85930\"},{\"type\":\"contentData\",\"id\":\"145839\"},{\"type\":\"contentData\",\"id\":\"145840\"},{\"type\":\"contentData\",\"id\":\"145841\"},{\"type\":\"contentData\",\"id\":\"145842\"},{\"type\":\"contentData\",\"id\":\"145843\"},{\"type\":\"contentData\",\"id\":\"145844\"},{\"type\":\"contentData\",\"id\":\"145845\"},{\"type\":\"contentData\",\"id\":\"145846\"},{\"type\":\"contentData\",\"id\":\"145847\"},{\"type\":\"contentData\",\"id\":\"145848\"},{\"type\":\"contentData\",\"id\":\"145849\"},{\"type\":\"contentData\",\"id\":\"145850\"},{\"type\":\"contentData\",\"id\":\"145851\"},{\"type\":\"contentData\",\"id\":\"145852\"},{\"type\":\"contentData\",\"id\":\"145853\"},{\"type\":\"contentData\",\"id\":\"145854\"},{\"type\":\"contentData\",\"id\":\"145855\"},{\"type\":\"contentData\",\"id\":\"145856\"},{\"type\":\"contentData\",\"id\":\"145857\"},{\"type\":\"contentData\",\"id\":\"145858\"},{\"type\":\"contentData\",\"id\":\"153318\"},{\"type\":\"contentData\",\"id\":\"153319\"},{\"type\":\"contentData\",\"id\":\"153320\"},{\"type\":\"contentData\",\"id\":\"153321\"},{\"type\":\"contentData\",\"id\":\"153322\"},{\"type\":\"contentData\",\"id\":\"153323\"},{\"type\":\"contentData\",\"id\":\"153324\"},{\"type\":\"contentData\",\"id\":\"153325\"},{\"type\":\"contentData\",\"id\":\"153326\"},{\"type\":\"contentData\",\"id\":\"153327\"},{\"type\":\"contentData\",\"id\":\"153328\"},{\"type\":\"contentData\",\"id\":\"153329\"},{\"type\":\"contentData\",\"id\":\"153330\"},{\"type\":\"contentData\",\"id\":\"153331\"},{\"type\":\"contentData\",\"id\":\"153332\"},{\"type\":\"contentData\",\"id\":\"153333\"},{\"type\":\"contentData\",\"id\":\"153334\"},{\"type\":\"contentData\",\"id\":\"153335\"},{\"type\":\"contentData\",\"id\":\"153336\"},{\"type\":\"contentData\",\"id\":\"153337\"},{\"type\":\"contentData\",\"id\":\"160797\"},{\"type\":\"contentData\",\"id\":\"160798\"},{\"type\":\"contentData\",\"id\":\"160799\"},{\"type\":\"contentData\",\"id\":\"160800\"},{\"type\":\"contentData\",\"id\":\"160801\"},{\"type\":\"contentData\",\"id\":\"160802\"},{\"type\":\"contentData\",\"id\":\"160803\"},{\"type\":\"contentData\",\"id\":\"160804\"},{\"type\":\"contentData\",\"id\":\"160805\"},{\"type\":\"contentData\",\"id\":\"160806\"},{\"type\":\"contentData\",\"id\":\"160807\"},{\"type\":\"contentData\",\"id\":\"160808\"},{\"type\":\"contentData\",\"id\":\"160809\"},{\"type\":\"contentData\",\"id\":\"160810\"},{\"type\":\"contentData\",\"id\":\"160811\"},{\"type\":\"contentData\",\"id\":\"160812\"},{\"type\":\"contentData\",\"id\":\"160813\"},{\"type\":\"contentData\",\"id\":\"160814\"},{\"type\":\"contentData\",\"id\":\"160815\"},{\"type\":\"contentData\",\"id\":\"160816\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78825\"},{\"type\":\"tag\",\"id\":\"78826\"},{\"type\":\"tag\",\"id\":\"78827\"},{\"type\":\"tag\",\"id\":\"78828\"},{\"type\":\"tag\",\"id\":\"78829\"},{\"type\":\"tag\",\"id\":\"78830\"},{\"type\":\"tag\",\"id\":\"78831\"},{\"type\":\"tag\",\"id\":\"78832\"},{\"type\":\"tag\",\"id\":\"78833\"},{\"type\":\"tag\",\"id\":\"78834\"},{\"type\":\"tag\",\"id\":\"78835\"},{\"type\":\"tag\",\"id\":\"78836\"},{\"type\":\"tag\",\"id\":\"78837\"},{\"type\":\"tag\",\"id\":\"78838\"},{\"type\":\"tag\",\"id\":\"78839\"},{\"type\":\"tag\",\"id\":\"167965\"},{\"type\":\"tag\",\"id\":\"167966\"},{\"type\":\"tag\",\"id\":\"167967\"},{\"type\":\"tag\",\"id\":\"167968\"},{\"type\":\"tag\",\"id\":\"167969\"},{\"type\":\"tag\",\"id\":\"167970\"},{\"type\":\"tag\",\"id\":\"167971\"},{\"type\":\"tag\",\"id\":\"167972\"},{\"type\":\"tag\",\"id\":\"167973\"},{\"type\":\"tag\",\"id\":\"167974\"},{\"type\":\"tag\",\"id\":\"167975\"},{\"type\":\"tag\",\"id\":\"167976\"},{\"type\":\"tag\",\"id\":\"167977\"},{\"type\":\"tag\",\"id\":\"167978\"},{\"type\":\"tag\",\"id\":\"167979\"},{\"type\":\"tag\",\"id\":\"257105\"},{\"type\":\"tag\",\"id\":\"257106\"},{\"type\":\"tag\",\"id\":\"257107\"},{\"type\":\"tag\",\"id\":\"257108\"},{\"type\":\"tag\",\"id\":\"257109\"},{\"type\":\"tag\",\"id\":\"257110\"},{\"type\":\"tag\",\"id\":\"257111\"},{\"type\":\"tag\",\"id\":\"257112\"},{\"type\":\"tag\",\"id\":\"257113\"},{\"type\":\"tag\",\"id\":\"257114\"},{\"type\":\"tag\",\"id\":\"257115\"},{\"type\":\"tag\",\"id\":\"257116\"},{\"type\":\"tag\",\"id\":\"257117\"},{\"type\":\"tag\",\"id\":\"257118\"},{\"type\":\"tag\",\"id\":\"257119\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"744\"}]}}},{\"type\":\"content\",\"id\":\"20554\",\"attributes\":{\"slug\":\"05-application-play-along\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-18 11:47:38\",\"archivedOn\":null,\"createdOn\":\"2014-02-18 11:47:38\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20554,\"qnaVideo\":null,\"style\":null,\"title\":\"Application - Play-Along\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":null,\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":null,\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2575\"},{\"type\":\"contentData\",\"id\":\"12161\"},{\"type\":\"contentData\",\"id\":\"43620\"},{\"type\":\"contentData\",\"id\":\"43621\"},{\"type\":\"contentData\",\"id\":\"43622\"},{\"type\":\"contentData\",\"id\":\"43623\"},{\"type\":\"contentData\",\"id\":\"43624\"},{\"type\":\"contentData\",\"id\":\"43625\"},{\"type\":\"contentData\",\"id\":\"72493\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78807\"},{\"type\":\"tag\",\"id\":\"78808\"},{\"type\":\"tag\",\"id\":\"78809\"},{\"type\":\"tag\",\"id\":\"78810\"},{\"type\":\"tag\",\"id\":\"78811\"},{\"type\":\"tag\",\"id\":\"78812\"},{\"type\":\"tag\",\"id\":\"78813\"},{\"type\":\"tag\",\"id\":\"78814\"},{\"type\":\"tag\",\"id\":\"78815\"},{\"type\":\"tag\",\"id\":\"78816\"},{\"type\":\"tag\",\"id\":\"78817\"},{\"type\":\"tag\",\"id\":\"78818\"},{\"type\":\"tag\",\"id\":\"78819\"},{\"type\":\"tag\",\"id\":\"78820\"},{\"type\":\"tag\",\"id\":\"78821\"},{\"type\":\"tag\",\"id\":\"78822\"},{\"type\":\"tag\",\"id\":\"78823\"},{\"type\":\"tag\",\"id\":\"78824\"},{\"type\":\"tag\",\"id\":\"167947\"},{\"type\":\"tag\",\"id\":\"167948\"},{\"type\":\"tag\",\"id\":\"167949\"},{\"type\":\"tag\",\"id\":\"167950\"},{\"type\":\"tag\",\"id\":\"167951\"},{\"type\":\"tag\",\"id\":\"167952\"},{\"type\":\"tag\",\"id\":\"167953\"},{\"type\":\"tag\",\"id\":\"167954\"},{\"type\":\"tag\",\"id\":\"167955\"},{\"type\":\"tag\",\"id\":\"167956\"},{\"type\":\"tag\",\"id\":\"167957\"},{\"type\":\"tag\",\"id\":\"167958\"},{\"type\":\"tag\",\"id\":\"167959\"},{\"type\":\"tag\",\"id\":\"167960\"},{\"type\":\"tag\",\"id\":\"167961\"},{\"type\":\"tag\",\"id\":\"167962\"},{\"type\":\"tag\",\"id\":\"167963\"},{\"type\":\"tag\",\"id\":\"167964\"},{\"type\":\"tag\",\"id\":\"257087\"},{\"type\":\"tag\",\"id\":\"257088\"},{\"type\":\"tag\",\"id\":\"257089\"},{\"type\":\"tag\",\"id\":\"257090\"},{\"type\":\"tag\",\"id\":\"257091\"},{\"type\":\"tag\",\"id\":\"257092\"},{\"type\":\"tag\",\"id\":\"257093\"},{\"type\":\"tag\",\"id\":\"257094\"},{\"type\":\"tag\",\"id\":\"257095\"},{\"type\":\"tag\",\"id\":\"257096\"},{\"type\":\"tag\",\"id\":\"257097\"},{\"type\":\"tag\",\"id\":\"257098\"},{\"type\":\"tag\",\"id\":\"257099\"},{\"type\":\"tag\",\"id\":\"257100\"},{\"type\":\"tag\",\"id\":\"257101\"},{\"type\":\"tag\",\"id\":\"257102\"},{\"type\":\"tag\",\"id\":\"257103\"},{\"type\":\"tag\",\"id\":\"257104\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"745\"}]}}},{\"type\":\"content\",\"id\":\"20556\",\"attributes\":{\"slug\":\"single-stroke-four\",\"type\":\"course\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-18 13:19:59\",\"archivedOn\":null,\"createdOn\":\"2014-02-18 13:19:59\",\"difficulty\":\"4\",\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20556,\"qnaVideo\":null,\"style\":null,\"title\":\"Single Stroke Four\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":null,\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":null,\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2569\"},{\"type\":\"contentData\",\"id\":\"12164\"},{\"type\":\"contentData\",\"id\":\"41622\"},{\"type\":\"contentData\",\"id\":\"41623\"},{\"type\":\"contentData\",\"id\":\"41624\"},{\"type\":\"contentData\",\"id\":\"41625\"}]},\"instructor\":{\"data\":[{\"type\":\"instructor\",\"id\":\"7029\"},{\"type\":\"instructor\",\"id\":\"15024\"},{\"type\":\"instructor\",\"id\":\"23019\"}]},\"topic\":{\"data\":[{\"type\":\"topic\",\"id\":\"5955\"},{\"type\":\"topic\",\"id\":\"13269\"},{\"type\":\"topic\",\"id\":\"20583\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78787\"},{\"type\":\"tag\",\"id\":\"78788\"},{\"type\":\"tag\",\"id\":\"78789\"},{\"type\":\"tag\",\"id\":\"78790\"},{\"type\":\"tag\",\"id\":\"78791\"},{\"type\":\"tag\",\"id\":\"78792\"},{\"type\":\"tag\",\"id\":\"78793\"},{\"type\":\"tag\",\"id\":\"78794\"},{\"type\":\"tag\",\"id\":\"78795\"},{\"type\":\"tag\",\"id\":\"78796\"},{\"type\":\"tag\",\"id\":\"78797\"},{\"type\":\"tag\",\"id\":\"78798\"},{\"type\":\"tag\",\"id\":\"78799\"},{\"type\":\"tag\",\"id\":\"78800\"},{\"type\":\"tag\",\"id\":\"78801\"},{\"type\":\"tag\",\"id\":\"78802\"},{\"type\":\"tag\",\"id\":\"78803\"},{\"type\":\"tag\",\"id\":\"78804\"},{\"type\":\"tag\",\"id\":\"78805\"},{\"type\":\"tag\",\"id\":\"78806\"},{\"type\":\"tag\",\"id\":\"167927\"},{\"type\":\"tag\",\"id\":\"167928\"},{\"type\":\"tag\",\"id\":\"167929\"},{\"type\":\"tag\",\"id\":\"167930\"},{\"type\":\"tag\",\"id\":\"167931\"},{\"type\":\"tag\",\"id\":\"167932\"},{\"type\":\"tag\",\"id\":\"167933\"},{\"type\":\"tag\",\"id\":\"167934\"},{\"type\":\"tag\",\"id\":\"167935\"},{\"type\":\"tag\",\"id\":\"167936\"},{\"type\":\"tag\",\"id\":\"167937\"},{\"type\":\"tag\",\"id\":\"167938\"},{\"type\":\"tag\",\"id\":\"167939\"},{\"type\":\"tag\",\"id\":\"167940\"},{\"type\":\"tag\",\"id\":\"167941\"},{\"type\":\"tag\",\"id\":\"167942\"},{\"type\":\"tag\",\"id\":\"167943\"},{\"type\":\"tag\",\"id\":\"167944\"},{\"type\":\"tag\",\"id\":\"167945\"},{\"type\":\"tag\",\"id\":\"167946\"},{\"type\":\"tag\",\"id\":\"257067\"},{\"type\":\"tag\",\"id\":\"257068\"},{\"type\":\"tag\",\"id\":\"257069\"},{\"type\":\"tag\",\"id\":\"257070\"},{\"type\":\"tag\",\"id\":\"257071\"},{\"type\":\"tag\",\"id\":\"257072\"},{\"type\":\"tag\",\"id\":\"257073\"},{\"type\":\"tag\",\"id\":\"257074\"},{\"type\":\"tag\",\"id\":\"257075\"},{\"type\":\"tag\",\"id\":\"257076\"},{\"type\":\"tag\",\"id\":\"257077\"},{\"type\":\"tag\",\"id\":\"257078\"},{\"type\":\"tag\",\"id\":\"257079\"},{\"type\":\"tag\",\"id\":\"257080\"},{\"type\":\"tag\",\"id\":\"257081\"},{\"type\":\"tag\",\"id\":\"257082\"},{\"type\":\"tag\",\"id\":\"257083\"},{\"type\":\"tag\",\"id\":\"257084\"},{\"type\":\"tag\",\"id\":\"257085\"},{\"type\":\"tag\",\"id\":\"257086\"}]}}},{\"type\":\"content\",\"id\":\"20558\",\"attributes\":{\"slug\":\"01-introduction-22\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-18 13:22:54\",\"archivedOn\":null,\"createdOn\":\"2014-02-18 13:22:54\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20558,\"qnaVideo\":null,\"style\":null,\"title\":\"Introduction\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":\"90\",\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":\"60\",\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2576\"},{\"type\":\"contentData\",\"id\":\"12166\"},{\"type\":\"contentData\",\"id\":\"23654\"},{\"type\":\"contentData\",\"id\":\"23656\"},{\"type\":\"contentData\",\"id\":\"23657\"},{\"type\":\"contentData\",\"id\":\"23658\"},{\"type\":\"contentData\",\"id\":\"23660\"},{\"type\":\"contentData\",\"id\":\"23661\"},{\"type\":\"contentData\",\"id\":\"23662\"},{\"type\":\"contentData\",\"id\":\"23664\"},{\"type\":\"contentData\",\"id\":\"23665\"},{\"type\":\"contentData\",\"id\":\"43616\"},{\"type\":\"contentData\",\"id\":\"43617\"},{\"type\":\"contentData\",\"id\":\"43618\"},{\"type\":\"contentData\",\"id\":\"43619\"},{\"type\":\"contentData\",\"id\":\"72492\"},{\"type\":\"contentData\",\"id\":\"84955\"},{\"type\":\"contentData\",\"id\":\"84956\"},{\"type\":\"contentData\",\"id\":\"84957\"},{\"type\":\"contentData\",\"id\":\"84958\"},{\"type\":\"contentData\",\"id\":\"84959\"},{\"type\":\"contentData\",\"id\":\"84960\"},{\"type\":\"contentData\",\"id\":\"145827\"},{\"type\":\"contentData\",\"id\":\"145828\"},{\"type\":\"contentData\",\"id\":\"145829\"},{\"type\":\"contentData\",\"id\":\"145830\"},{\"type\":\"contentData\",\"id\":\"145831\"},{\"type\":\"contentData\",\"id\":\"145832\"},{\"type\":\"contentData\",\"id\":\"145833\"},{\"type\":\"contentData\",\"id\":\"145834\"},{\"type\":\"contentData\",\"id\":\"145835\"},{\"type\":\"contentData\",\"id\":\"145836\"},{\"type\":\"contentData\",\"id\":\"145837\"},{\"type\":\"contentData\",\"id\":\"145838\"},{\"type\":\"contentData\",\"id\":\"153306\"},{\"type\":\"contentData\",\"id\":\"153307\"},{\"type\":\"contentData\",\"id\":\"153308\"},{\"type\":\"contentData\",\"id\":\"153309\"},{\"type\":\"contentData\",\"id\":\"153310\"},{\"type\":\"contentData\",\"id\":\"153311\"},{\"type\":\"contentData\",\"id\":\"153312\"},{\"type\":\"contentData\",\"id\":\"153313\"},{\"type\":\"contentData\",\"id\":\"153314\"},{\"type\":\"contentData\",\"id\":\"153315\"},{\"type\":\"contentData\",\"id\":\"153316\"},{\"type\":\"contentData\",\"id\":\"153317\"},{\"type\":\"contentData\",\"id\":\"160785\"},{\"type\":\"contentData\",\"id\":\"160786\"},{\"type\":\"contentData\",\"id\":\"160787\"},{\"type\":\"contentData\",\"id\":\"160788\"},{\"type\":\"contentData\",\"id\":\"160789\"},{\"type\":\"contentData\",\"id\":\"160790\"},{\"type\":\"contentData\",\"id\":\"160791\"},{\"type\":\"contentData\",\"id\":\"160792\"},{\"type\":\"contentData\",\"id\":\"160793\"},{\"type\":\"contentData\",\"id\":\"160794\"},{\"type\":\"contentData\",\"id\":\"160795\"},{\"type\":\"contentData\",\"id\":\"160796\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78774\"},{\"type\":\"tag\",\"id\":\"78775\"},{\"type\":\"tag\",\"id\":\"78776\"},{\"type\":\"tag\",\"id\":\"78777\"},{\"type\":\"tag\",\"id\":\"78778\"},{\"type\":\"tag\",\"id\":\"78779\"},{\"type\":\"tag\",\"id\":\"78780\"},{\"type\":\"tag\",\"id\":\"78781\"},{\"type\":\"tag\",\"id\":\"78782\"},{\"type\":\"tag\",\"id\":\"78783\"},{\"type\":\"tag\",\"id\":\"78784\"},{\"type\":\"tag\",\"id\":\"78785\"},{\"type\":\"tag\",\"id\":\"78786\"},{\"type\":\"tag\",\"id\":\"167914\"},{\"type\":\"tag\",\"id\":\"167915\"},{\"type\":\"tag\",\"id\":\"167916\"},{\"type\":\"tag\",\"id\":\"167917\"},{\"type\":\"tag\",\"id\":\"167918\"},{\"type\":\"tag\",\"id\":\"167919\"},{\"type\":\"tag\",\"id\":\"167920\"},{\"type\":\"tag\",\"id\":\"167921\"},{\"type\":\"tag\",\"id\":\"167922\"},{\"type\":\"tag\",\"id\":\"167923\"},{\"type\":\"tag\",\"id\":\"167924\"},{\"type\":\"tag\",\"id\":\"167925\"},{\"type\":\"tag\",\"id\":\"167926\"},{\"type\":\"tag\",\"id\":\"257054\"},{\"type\":\"tag\",\"id\":\"257055\"},{\"type\":\"tag\",\"id\":\"257056\"},{\"type\":\"tag\",\"id\":\"257057\"},{\"type\":\"tag\",\"id\":\"257058\"},{\"type\":\"tag\",\"id\":\"257059\"},{\"type\":\"tag\",\"id\":\"257060\"},{\"type\":\"tag\",\"id\":\"257061\"},{\"type\":\"tag\",\"id\":\"257062\"},{\"type\":\"tag\",\"id\":\"257063\"},{\"type\":\"tag\",\"id\":\"257064\"},{\"type\":\"tag\",\"id\":\"257065\"},{\"type\":\"tag\",\"id\":\"257066\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"746\"}]}}},{\"type\":\"content\",\"id\":\"20560\",\"attributes\":{\"slug\":\"02-speed-control-2\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-18 13:25:12\",\"archivedOn\":null,\"createdOn\":\"2014-02-18 13:25:12\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20560,\"qnaVideo\":null,\"style\":null,\"title\":\"Speed & Control\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":\"90\",\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":\"60\",\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2577\"},{\"type\":\"contentData\",\"id\":\"12168\"},{\"type\":\"contentData\",\"id\":\"23666\"},{\"type\":\"contentData\",\"id\":\"23668\"},{\"type\":\"contentData\",\"id\":\"23669\"},{\"type\":\"contentData\",\"id\":\"23670\"},{\"type\":\"contentData\",\"id\":\"23672\"},{\"type\":\"contentData\",\"id\":\"23673\"},{\"type\":\"contentData\",\"id\":\"23674\"},{\"type\":\"contentData\",\"id\":\"23676\"},{\"type\":\"contentData\",\"id\":\"23677\"},{\"type\":\"contentData\",\"id\":\"43612\"},{\"type\":\"contentData\",\"id\":\"43613\"},{\"type\":\"contentData\",\"id\":\"43614\"},{\"type\":\"contentData\",\"id\":\"43615\"},{\"type\":\"contentData\",\"id\":\"72491\"},{\"type\":\"contentData\",\"id\":\"84963\"},{\"type\":\"contentData\",\"id\":\"84964\"},{\"type\":\"contentData\",\"id\":\"84965\"},{\"type\":\"contentData\",\"id\":\"84966\"},{\"type\":\"contentData\",\"id\":\"84967\"},{\"type\":\"contentData\",\"id\":\"84968\"},{\"type\":\"contentData\",\"id\":\"145815\"},{\"type\":\"contentData\",\"id\":\"145816\"},{\"type\":\"contentData\",\"id\":\"145817\"},{\"type\":\"contentData\",\"id\":\"145818\"},{\"type\":\"contentData\",\"id\":\"145819\"},{\"type\":\"contentData\",\"id\":\"145820\"},{\"type\":\"contentData\",\"id\":\"145821\"},{\"type\":\"contentData\",\"id\":\"145822\"},{\"type\":\"contentData\",\"id\":\"145823\"},{\"type\":\"contentData\",\"id\":\"145824\"},{\"type\":\"contentData\",\"id\":\"145825\"},{\"type\":\"contentData\",\"id\":\"145826\"},{\"type\":\"contentData\",\"id\":\"153294\"},{\"type\":\"contentData\",\"id\":\"153295\"},{\"type\":\"contentData\",\"id\":\"153296\"},{\"type\":\"contentData\",\"id\":\"153297\"},{\"type\":\"contentData\",\"id\":\"153298\"},{\"type\":\"contentData\",\"id\":\"153299\"},{\"type\":\"contentData\",\"id\":\"153300\"},{\"type\":\"contentData\",\"id\":\"153301\"},{\"type\":\"contentData\",\"id\":\"153302\"},{\"type\":\"contentData\",\"id\":\"153303\"},{\"type\":\"contentData\",\"id\":\"153304\"},{\"type\":\"contentData\",\"id\":\"153305\"},{\"type\":\"contentData\",\"id\":\"160773\"},{\"type\":\"contentData\",\"id\":\"160774\"},{\"type\":\"contentData\",\"id\":\"160775\"},{\"type\":\"contentData\",\"id\":\"160776\"},{\"type\":\"contentData\",\"id\":\"160777\"},{\"type\":\"contentData\",\"id\":\"160778\"},{\"type\":\"contentData\",\"id\":\"160779\"},{\"type\":\"contentData\",\"id\":\"160780\"},{\"type\":\"contentData\",\"id\":\"160781\"},{\"type\":\"contentData\",\"id\":\"160782\"},{\"type\":\"contentData\",\"id\":\"160783\"},{\"type\":\"contentData\",\"id\":\"160784\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78759\"},{\"type\":\"tag\",\"id\":\"78760\"},{\"type\":\"tag\",\"id\":\"78761\"},{\"type\":\"tag\",\"id\":\"78762\"},{\"type\":\"tag\",\"id\":\"78763\"},{\"type\":\"tag\",\"id\":\"78764\"},{\"type\":\"tag\",\"id\":\"78765\"},{\"type\":\"tag\",\"id\":\"78766\"},{\"type\":\"tag\",\"id\":\"78767\"},{\"type\":\"tag\",\"id\":\"78768\"},{\"type\":\"tag\",\"id\":\"78769\"},{\"type\":\"tag\",\"id\":\"78770\"},{\"type\":\"tag\",\"id\":\"78771\"},{\"type\":\"tag\",\"id\":\"78772\"},{\"type\":\"tag\",\"id\":\"78773\"},{\"type\":\"tag\",\"id\":\"167899\"},{\"type\":\"tag\",\"id\":\"167900\"},{\"type\":\"tag\",\"id\":\"167901\"},{\"type\":\"tag\",\"id\":\"167902\"},{\"type\":\"tag\",\"id\":\"167903\"},{\"type\":\"tag\",\"id\":\"167904\"},{\"type\":\"tag\",\"id\":\"167905\"},{\"type\":\"tag\",\"id\":\"167906\"},{\"type\":\"tag\",\"id\":\"167907\"},{\"type\":\"tag\",\"id\":\"167908\"},{\"type\":\"tag\",\"id\":\"167909\"},{\"type\":\"tag\",\"id\":\"167910\"},{\"type\":\"tag\",\"id\":\"167911\"},{\"type\":\"tag\",\"id\":\"167912\"},{\"type\":\"tag\",\"id\":\"167913\"},{\"type\":\"tag\",\"id\":\"257039\"},{\"type\":\"tag\",\"id\":\"257040\"},{\"type\":\"tag\",\"id\":\"257041\"},{\"type\":\"tag\",\"id\":\"257042\"},{\"type\":\"tag\",\"id\":\"257043\"},{\"type\":\"tag\",\"id\":\"257044\"},{\"type\":\"tag\",\"id\":\"257045\"},{\"type\":\"tag\",\"id\":\"257046\"},{\"type\":\"tag\",\"id\":\"257047\"},{\"type\":\"tag\",\"id\":\"257048\"},{\"type\":\"tag\",\"id\":\"257049\"},{\"type\":\"tag\",\"id\":\"257050\"},{\"type\":\"tag\",\"id\":\"257051\"},{\"type\":\"tag\",\"id\":\"257052\"},{\"type\":\"tag\",\"id\":\"257053\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"747\"}]}}},{\"type\":\"content\",\"id\":\"20563\",\"attributes\":{\"slug\":\"03-application-beats-2\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-18 15:46:52\",\"archivedOn\":null,\"createdOn\":\"2014-02-18 15:46:52\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20563,\"qnaVideo\":null,\"style\":null,\"title\":\"Application - Beats\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":\"90\",\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":\"60\",\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2578\"},{\"type\":\"contentData\",\"id\":\"12170\"},{\"type\":\"contentData\",\"id\":\"12171\"},{\"type\":\"contentData\",\"id\":\"23678\"},{\"type\":\"contentData\",\"id\":\"23680\"},{\"type\":\"contentData\",\"id\":\"23681\"},{\"type\":\"contentData\",\"id\":\"23682\"},{\"type\":\"contentData\",\"id\":\"23684\"},{\"type\":\"contentData\",\"id\":\"23685\"},{\"type\":\"contentData\",\"id\":\"23686\"},{\"type\":\"contentData\",\"id\":\"23688\"},{\"type\":\"contentData\",\"id\":\"23689\"},{\"type\":\"contentData\",\"id\":\"23690\"},{\"type\":\"contentData\",\"id\":\"23692\"},{\"type\":\"contentData\",\"id\":\"23693\"},{\"type\":\"contentData\",\"id\":\"23694\"},{\"type\":\"contentData\",\"id\":\"23696\"},{\"type\":\"contentData\",\"id\":\"23697\"},{\"type\":\"contentData\",\"id\":\"43608\"},{\"type\":\"contentData\",\"id\":\"43609\"},{\"type\":\"contentData\",\"id\":\"43610\"},{\"type\":\"contentData\",\"id\":\"43611\"},{\"type\":\"contentData\",\"id\":\"72490\"},{\"type\":\"contentData\",\"id\":\"84969\"},{\"type\":\"contentData\",\"id\":\"84971\"},{\"type\":\"contentData\",\"id\":\"84973\"},{\"type\":\"contentData\",\"id\":\"84975\"},{\"type\":\"contentData\",\"id\":\"84977\"},{\"type\":\"contentData\",\"id\":\"84978\"},{\"type\":\"contentData\",\"id\":\"84979\"},{\"type\":\"contentData\",\"id\":\"84980\"},{\"type\":\"contentData\",\"id\":\"84981\"},{\"type\":\"contentData\",\"id\":\"84982\"},{\"type\":\"contentData\",\"id\":\"145795\"},{\"type\":\"contentData\",\"id\":\"145796\"},{\"type\":\"contentData\",\"id\":\"145797\"},{\"type\":\"contentData\",\"id\":\"145798\"},{\"type\":\"contentData\",\"id\":\"145799\"},{\"type\":\"contentData\",\"id\":\"145800\"},{\"type\":\"contentData\",\"id\":\"145801\"},{\"type\":\"contentData\",\"id\":\"145802\"},{\"type\":\"contentData\",\"id\":\"145803\"},{\"type\":\"contentData\",\"id\":\"145804\"},{\"type\":\"contentData\",\"id\":\"145805\"},{\"type\":\"contentData\",\"id\":\"145806\"},{\"type\":\"contentData\",\"id\":\"145807\"},{\"type\":\"contentData\",\"id\":\"145808\"},{\"type\":\"contentData\",\"id\":\"145809\"},{\"type\":\"contentData\",\"id\":\"145810\"},{\"type\":\"contentData\",\"id\":\"145811\"},{\"type\":\"contentData\",\"id\":\"145812\"},{\"type\":\"contentData\",\"id\":\"145813\"},{\"type\":\"contentData\",\"id\":\"145814\"},{\"type\":\"contentData\",\"id\":\"153274\"},{\"type\":\"contentData\",\"id\":\"153275\"},{\"type\":\"contentData\",\"id\":\"153276\"},{\"type\":\"contentData\",\"id\":\"153277\"},{\"type\":\"contentData\",\"id\":\"153278\"},{\"type\":\"contentData\",\"id\":\"153279\"},{\"type\":\"contentData\",\"id\":\"153280\"},{\"type\":\"contentData\",\"id\":\"153281\"},{\"type\":\"contentData\",\"id\":\"153282\"},{\"type\":\"contentData\",\"id\":\"153283\"},{\"type\":\"contentData\",\"id\":\"153284\"},{\"type\":\"contentData\",\"id\":\"153285\"},{\"type\":\"contentData\",\"id\":\"153286\"},{\"type\":\"contentData\",\"id\":\"153287\"},{\"type\":\"contentData\",\"id\":\"153288\"},{\"type\":\"contentData\",\"id\":\"153289\"},{\"type\":\"contentData\",\"id\":\"153290\"},{\"type\":\"contentData\",\"id\":\"153291\"},{\"type\":\"contentData\",\"id\":\"153292\"},{\"type\":\"contentData\",\"id\":\"153293\"},{\"type\":\"contentData\",\"id\":\"160753\"},{\"type\":\"contentData\",\"id\":\"160754\"},{\"type\":\"contentData\",\"id\":\"160755\"},{\"type\":\"contentData\",\"id\":\"160756\"},{\"type\":\"contentData\",\"id\":\"160757\"},{\"type\":\"contentData\",\"id\":\"160758\"},{\"type\":\"contentData\",\"id\":\"160759\"},{\"type\":\"contentData\",\"id\":\"160760\"},{\"type\":\"contentData\",\"id\":\"160761\"},{\"type\":\"contentData\",\"id\":\"160762\"},{\"type\":\"contentData\",\"id\":\"160763\"},{\"type\":\"contentData\",\"id\":\"160764\"},{\"type\":\"contentData\",\"id\":\"160765\"},{\"type\":\"contentData\",\"id\":\"160766\"},{\"type\":\"contentData\",\"id\":\"160767\"},{\"type\":\"contentData\",\"id\":\"160768\"},{\"type\":\"contentData\",\"id\":\"160769\"},{\"type\":\"contentData\",\"id\":\"160770\"},{\"type\":\"contentData\",\"id\":\"160771\"},{\"type\":\"contentData\",\"id\":\"160772\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78742\"},{\"type\":\"tag\",\"id\":\"78743\"},{\"type\":\"tag\",\"id\":\"78744\"},{\"type\":\"tag\",\"id\":\"78745\"},{\"type\":\"tag\",\"id\":\"78746\"},{\"type\":\"tag\",\"id\":\"78747\"},{\"type\":\"tag\",\"id\":\"78748\"},{\"type\":\"tag\",\"id\":\"78749\"},{\"type\":\"tag\",\"id\":\"78750\"},{\"type\":\"tag\",\"id\":\"78751\"},{\"type\":\"tag\",\"id\":\"78752\"},{\"type\":\"tag\",\"id\":\"78753\"},{\"type\":\"tag\",\"id\":\"78754\"},{\"type\":\"tag\",\"id\":\"78755\"},{\"type\":\"tag\",\"id\":\"78756\"},{\"type\":\"tag\",\"id\":\"78757\"},{\"type\":\"tag\",\"id\":\"78758\"},{\"type\":\"tag\",\"id\":\"167882\"},{\"type\":\"tag\",\"id\":\"167883\"},{\"type\":\"tag\",\"id\":\"167884\"},{\"type\":\"tag\",\"id\":\"167885\"},{\"type\":\"tag\",\"id\":\"167886\"},{\"type\":\"tag\",\"id\":\"167887\"},{\"type\":\"tag\",\"id\":\"167888\"},{\"type\":\"tag\",\"id\":\"167889\"},{\"type\":\"tag\",\"id\":\"167890\"},{\"type\":\"tag\",\"id\":\"167891\"},{\"type\":\"tag\",\"id\":\"167892\"},{\"type\":\"tag\",\"id\":\"167893\"},{\"type\":\"tag\",\"id\":\"167894\"},{\"type\":\"tag\",\"id\":\"167895\"},{\"type\":\"tag\",\"id\":\"167896\"},{\"type\":\"tag\",\"id\":\"167897\"},{\"type\":\"tag\",\"id\":\"167898\"},{\"type\":\"tag\",\"id\":\"257022\"},{\"type\":\"tag\",\"id\":\"257023\"},{\"type\":\"tag\",\"id\":\"257024\"},{\"type\":\"tag\",\"id\":\"257025\"},{\"type\":\"tag\",\"id\":\"257026\"},{\"type\":\"tag\",\"id\":\"257027\"},{\"type\":\"tag\",\"id\":\"257028\"},{\"type\":\"tag\",\"id\":\"257029\"},{\"type\":\"tag\",\"id\":\"257030\"},{\"type\":\"tag\",\"id\":\"257031\"},{\"type\":\"tag\",\"id\":\"257032\"},{\"type\":\"tag\",\"id\":\"257033\"},{\"type\":\"tag\",\"id\":\"257034\"},{\"type\":\"tag\",\"id\":\"257035\"},{\"type\":\"tag\",\"id\":\"257036\"},{\"type\":\"tag\",\"id\":\"257037\"},{\"type\":\"tag\",\"id\":\"257038\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"748\"}]}}},{\"type\":\"content\",\"id\":\"20565\",\"attributes\":{\"slug\":\"04-application-fills-2\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-18 15:48:59\",\"archivedOn\":null,\"createdOn\":\"2014-02-18 15:48:59\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20565,\"qnaVideo\":null,\"style\":null,\"title\":\"Application - Fills\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":\"90\",\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":\"60\",\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2579\"},{\"type\":\"contentData\",\"id\":\"12173\"},{\"type\":\"contentData\",\"id\":\"23698\"},{\"type\":\"contentData\",\"id\":\"23700\"},{\"type\":\"contentData\",\"id\":\"23701\"},{\"type\":\"contentData\",\"id\":\"23702\"},{\"type\":\"contentData\",\"id\":\"23704\"},{\"type\":\"contentData\",\"id\":\"23705\"},{\"type\":\"contentData\",\"id\":\"23706\"},{\"type\":\"contentData\",\"id\":\"23708\"},{\"type\":\"contentData\",\"id\":\"23709\"},{\"type\":\"contentData\",\"id\":\"23710\"},{\"type\":\"contentData\",\"id\":\"23711\"},{\"type\":\"contentData\",\"id\":\"23712\"},{\"type\":\"contentData\",\"id\":\"23714\"},{\"type\":\"contentData\",\"id\":\"23715\"},{\"type\":\"contentData\",\"id\":\"43604\"},{\"type\":\"contentData\",\"id\":\"43605\"},{\"type\":\"contentData\",\"id\":\"43606\"},{\"type\":\"contentData\",\"id\":\"43607\"},{\"type\":\"contentData\",\"id\":\"72489\"},{\"type\":\"contentData\",\"id\":\"84983\"},{\"type\":\"contentData\",\"id\":\"84984\"},{\"type\":\"contentData\",\"id\":\"84985\"},{\"type\":\"contentData\",\"id\":\"84986\"},{\"type\":\"contentData\",\"id\":\"84987\"},{\"type\":\"contentData\",\"id\":\"84988\"},{\"type\":\"contentData\",\"id\":\"84989\"},{\"type\":\"contentData\",\"id\":\"84990\"},{\"type\":\"contentData\",\"id\":\"84991\"},{\"type\":\"contentData\",\"id\":\"84992\"},{\"type\":\"contentData\",\"id\":\"145777\"},{\"type\":\"contentData\",\"id\":\"145778\"},{\"type\":\"contentData\",\"id\":\"145779\"},{\"type\":\"contentData\",\"id\":\"145780\"},{\"type\":\"contentData\",\"id\":\"145781\"},{\"type\":\"contentData\",\"id\":\"145782\"},{\"type\":\"contentData\",\"id\":\"145783\"},{\"type\":\"contentData\",\"id\":\"145784\"},{\"type\":\"contentData\",\"id\":\"145785\"},{\"type\":\"contentData\",\"id\":\"145786\"},{\"type\":\"contentData\",\"id\":\"145787\"},{\"type\":\"contentData\",\"id\":\"145788\"},{\"type\":\"contentData\",\"id\":\"145789\"},{\"type\":\"contentData\",\"id\":\"145790\"},{\"type\":\"contentData\",\"id\":\"145791\"},{\"type\":\"contentData\",\"id\":\"145792\"},{\"type\":\"contentData\",\"id\":\"145793\"},{\"type\":\"contentData\",\"id\":\"145794\"},{\"type\":\"contentData\",\"id\":\"153256\"},{\"type\":\"contentData\",\"id\":\"153257\"},{\"type\":\"contentData\",\"id\":\"153258\"},{\"type\":\"contentData\",\"id\":\"153259\"},{\"type\":\"contentData\",\"id\":\"153260\"},{\"type\":\"contentData\",\"id\":\"153261\"},{\"type\":\"contentData\",\"id\":\"153262\"},{\"type\":\"contentData\",\"id\":\"153263\"},{\"type\":\"contentData\",\"id\":\"153264\"},{\"type\":\"contentData\",\"id\":\"153265\"},{\"type\":\"contentData\",\"id\":\"153266\"},{\"type\":\"contentData\",\"id\":\"153267\"},{\"type\":\"contentData\",\"id\":\"153268\"},{\"type\":\"contentData\",\"id\":\"153269\"},{\"type\":\"contentData\",\"id\":\"153270\"},{\"type\":\"contentData\",\"id\":\"153271\"},{\"type\":\"contentData\",\"id\":\"153272\"},{\"type\":\"contentData\",\"id\":\"153273\"},{\"type\":\"contentData\",\"id\":\"160735\"},{\"type\":\"contentData\",\"id\":\"160736\"},{\"type\":\"contentData\",\"id\":\"160737\"},{\"type\":\"contentData\",\"id\":\"160738\"},{\"type\":\"contentData\",\"id\":\"160739\"},{\"type\":\"contentData\",\"id\":\"160740\"},{\"type\":\"contentData\",\"id\":\"160741\"},{\"type\":\"contentData\",\"id\":\"160742\"},{\"type\":\"contentData\",\"id\":\"160743\"},{\"type\":\"contentData\",\"id\":\"160744\"},{\"type\":\"contentData\",\"id\":\"160745\"},{\"type\":\"contentData\",\"id\":\"160746\"},{\"type\":\"contentData\",\"id\":\"160747\"},{\"type\":\"contentData\",\"id\":\"160748\"},{\"type\":\"contentData\",\"id\":\"160749\"},{\"type\":\"contentData\",\"id\":\"160750\"},{\"type\":\"contentData\",\"id\":\"160751\"},{\"type\":\"contentData\",\"id\":\"160752\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78727\"},{\"type\":\"tag\",\"id\":\"78728\"},{\"type\":\"tag\",\"id\":\"78729\"},{\"type\":\"tag\",\"id\":\"78730\"},{\"type\":\"tag\",\"id\":\"78731\"},{\"type\":\"tag\",\"id\":\"78732\"},{\"type\":\"tag\",\"id\":\"78733\"},{\"type\":\"tag\",\"id\":\"78734\"},{\"type\":\"tag\",\"id\":\"78735\"},{\"type\":\"tag\",\"id\":\"78736\"},{\"type\":\"tag\",\"id\":\"78737\"},{\"type\":\"tag\",\"id\":\"78738\"},{\"type\":\"tag\",\"id\":\"78739\"},{\"type\":\"tag\",\"id\":\"78740\"},{\"type\":\"tag\",\"id\":\"78741\"},{\"type\":\"tag\",\"id\":\"167867\"},{\"type\":\"tag\",\"id\":\"167868\"},{\"type\":\"tag\",\"id\":\"167869\"},{\"type\":\"tag\",\"id\":\"167870\"},{\"type\":\"tag\",\"id\":\"167871\"},{\"type\":\"tag\",\"id\":\"167872\"},{\"type\":\"tag\",\"id\":\"167873\"},{\"type\":\"tag\",\"id\":\"167874\"},{\"type\":\"tag\",\"id\":\"167875\"},{\"type\":\"tag\",\"id\":\"167876\"},{\"type\":\"tag\",\"id\":\"167877\"},{\"type\":\"tag\",\"id\":\"167878\"},{\"type\":\"tag\",\"id\":\"167879\"},{\"type\":\"tag\",\"id\":\"167880\"},{\"type\":\"tag\",\"id\":\"167881\"},{\"type\":\"tag\",\"id\":\"257007\"},{\"type\":\"tag\",\"id\":\"257008\"},{\"type\":\"tag\",\"id\":\"257009\"},{\"type\":\"tag\",\"id\":\"257010\"},{\"type\":\"tag\",\"id\":\"257011\"},{\"type\":\"tag\",\"id\":\"257012\"},{\"type\":\"tag\",\"id\":\"257013\"},{\"type\":\"tag\",\"id\":\"257014\"},{\"type\":\"tag\",\"id\":\"257015\"},{\"type\":\"tag\",\"id\":\"257016\"},{\"type\":\"tag\",\"id\":\"257017\"},{\"type\":\"tag\",\"id\":\"257018\"},{\"type\":\"tag\",\"id\":\"257019\"},{\"type\":\"tag\",\"id\":\"257020\"},{\"type\":\"tag\",\"id\":\"257021\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"749\"}]}}},{\"type\":\"content\",\"id\":\"20567\",\"attributes\":{\"slug\":\"05-application-play-along-2\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-18 15:51:11\",\"archivedOn\":null,\"createdOn\":\"2014-02-18 15:51:11\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20567,\"qnaVideo\":null,\"style\":null,\"title\":\"Application - Play-Along\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":null,\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":null,\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2580\"},{\"type\":\"contentData\",\"id\":\"12175\"},{\"type\":\"contentData\",\"id\":\"43598\"},{\"type\":\"contentData\",\"id\":\"43599\"},{\"type\":\"contentData\",\"id\":\"43600\"},{\"type\":\"contentData\",\"id\":\"43601\"},{\"type\":\"contentData\",\"id\":\"43602\"},{\"type\":\"contentData\",\"id\":\"43603\"},{\"type\":\"contentData\",\"id\":\"72488\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78709\"},{\"type\":\"tag\",\"id\":\"78710\"},{\"type\":\"tag\",\"id\":\"78711\"},{\"type\":\"tag\",\"id\":\"78712\"},{\"type\":\"tag\",\"id\":\"78713\"},{\"type\":\"tag\",\"id\":\"78714\"},{\"type\":\"tag\",\"id\":\"78715\"},{\"type\":\"tag\",\"id\":\"78716\"},{\"type\":\"tag\",\"id\":\"78717\"},{\"type\":\"tag\",\"id\":\"78718\"},{\"type\":\"tag\",\"id\":\"78719\"},{\"type\":\"tag\",\"id\":\"78720\"},{\"type\":\"tag\",\"id\":\"78721\"},{\"type\":\"tag\",\"id\":\"78722\"},{\"type\":\"tag\",\"id\":\"78723\"},{\"type\":\"tag\",\"id\":\"78724\"},{\"type\":\"tag\",\"id\":\"78725\"},{\"type\":\"tag\",\"id\":\"78726\"},{\"type\":\"tag\",\"id\":\"167849\"},{\"type\":\"tag\",\"id\":\"167850\"},{\"type\":\"tag\",\"id\":\"167851\"},{\"type\":\"tag\",\"id\":\"167852\"},{\"type\":\"tag\",\"id\":\"167853\"},{\"type\":\"tag\",\"id\":\"167854\"},{\"type\":\"tag\",\"id\":\"167855\"},{\"type\":\"tag\",\"id\":\"167856\"},{\"type\":\"tag\",\"id\":\"167857\"},{\"type\":\"tag\",\"id\":\"167858\"},{\"type\":\"tag\",\"id\":\"167859\"},{\"type\":\"tag\",\"id\":\"167860\"},{\"type\":\"tag\",\"id\":\"167861\"},{\"type\":\"tag\",\"id\":\"167862\"},{\"type\":\"tag\",\"id\":\"167863\"},{\"type\":\"tag\",\"id\":\"167864\"},{\"type\":\"tag\",\"id\":\"167865\"},{\"type\":\"tag\",\"id\":\"167866\"},{\"type\":\"tag\",\"id\":\"256989\"},{\"type\":\"tag\",\"id\":\"256990\"},{\"type\":\"tag\",\"id\":\"256991\"},{\"type\":\"tag\",\"id\":\"256992\"},{\"type\":\"tag\",\"id\":\"256993\"},{\"type\":\"tag\",\"id\":\"256994\"},{\"type\":\"tag\",\"id\":\"256995\"},{\"type\":\"tag\",\"id\":\"256996\"},{\"type\":\"tag\",\"id\":\"256997\"},{\"type\":\"tag\",\"id\":\"256998\"},{\"type\":\"tag\",\"id\":\"256999\"},{\"type\":\"tag\",\"id\":\"257000\"},{\"type\":\"tag\",\"id\":\"257001\"},{\"type\":\"tag\",\"id\":\"257002\"},{\"type\":\"tag\",\"id\":\"257003\"},{\"type\":\"tag\",\"id\":\"257004\"},{\"type\":\"tag\",\"id\":\"257005\"},{\"type\":\"tag\",\"id\":\"257006\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"750\"}]}}},{\"type\":\"content\",\"id\":\"20571\",\"attributes\":{\"slug\":\"single-stroke-seven\",\"type\":\"course\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-19 08:27:36\",\"archivedOn\":null,\"createdOn\":\"2014-02-19 08:27:36\",\"difficulty\":\"4\",\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20571,\"qnaVideo\":null,\"style\":null,\"title\":\"Single Stroke Seven\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":null,\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":null,\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2568\"},{\"type\":\"contentData\",\"id\":\"12178\"},{\"type\":\"contentData\",\"id\":\"41618\"},{\"type\":\"contentData\",\"id\":\"41619\"},{\"type\":\"contentData\",\"id\":\"41620\"},{\"type\":\"contentData\",\"id\":\"41621\"}]},\"instructor\":{\"data\":[{\"type\":\"instructor\",\"id\":\"7028\"},{\"type\":\"instructor\",\"id\":\"15023\"},{\"type\":\"instructor\",\"id\":\"23018\"}]},\"topic\":{\"data\":[{\"type\":\"topic\",\"id\":\"5954\"},{\"type\":\"topic\",\"id\":\"13268\"},{\"type\":\"topic\",\"id\":\"20582\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78689\"},{\"type\":\"tag\",\"id\":\"78690\"},{\"type\":\"tag\",\"id\":\"78691\"},{\"type\":\"tag\",\"id\":\"78692\"},{\"type\":\"tag\",\"id\":\"78693\"},{\"type\":\"tag\",\"id\":\"78694\"},{\"type\":\"tag\",\"id\":\"78695\"},{\"type\":\"tag\",\"id\":\"78696\"},{\"type\":\"tag\",\"id\":\"78697\"},{\"type\":\"tag\",\"id\":\"78698\"},{\"type\":\"tag\",\"id\":\"78699\"},{\"type\":\"tag\",\"id\":\"78700\"},{\"type\":\"tag\",\"id\":\"78701\"},{\"type\":\"tag\",\"id\":\"78702\"},{\"type\":\"tag\",\"id\":\"78703\"},{\"type\":\"tag\",\"id\":\"78704\"},{\"type\":\"tag\",\"id\":\"78705\"},{\"type\":\"tag\",\"id\":\"78706\"},{\"type\":\"tag\",\"id\":\"78707\"},{\"type\":\"tag\",\"id\":\"78708\"},{\"type\":\"tag\",\"id\":\"167829\"},{\"type\":\"tag\",\"id\":\"167830\"},{\"type\":\"tag\",\"id\":\"167831\"},{\"type\":\"tag\",\"id\":\"167832\"},{\"type\":\"tag\",\"id\":\"167833\"},{\"type\":\"tag\",\"id\":\"167834\"},{\"type\":\"tag\",\"id\":\"167835\"},{\"type\":\"tag\",\"id\":\"167836\"},{\"type\":\"tag\",\"id\":\"167837\"},{\"type\":\"tag\",\"id\":\"167838\"},{\"type\":\"tag\",\"id\":\"167839\"},{\"type\":\"tag\",\"id\":\"167840\"},{\"type\":\"tag\",\"id\":\"167841\"},{\"type\":\"tag\",\"id\":\"167842\"},{\"type\":\"tag\",\"id\":\"167843\"},{\"type\":\"tag\",\"id\":\"167844\"},{\"type\":\"tag\",\"id\":\"167845\"},{\"type\":\"tag\",\"id\":\"167846\"},{\"type\":\"tag\",\"id\":\"167847\"},{\"type\":\"tag\",\"id\":\"167848\"},{\"type\":\"tag\",\"id\":\"256969\"},{\"type\":\"tag\",\"id\":\"256970\"},{\"type\":\"tag\",\"id\":\"256971\"},{\"type\":\"tag\",\"id\":\"256972\"},{\"type\":\"tag\",\"id\":\"256973\"},{\"type\":\"tag\",\"id\":\"256974\"},{\"type\":\"tag\",\"id\":\"256975\"},{\"type\":\"tag\",\"id\":\"256976\"},{\"type\":\"tag\",\"id\":\"256977\"},{\"type\":\"tag\",\"id\":\"256978\"},{\"type\":\"tag\",\"id\":\"256979\"},{\"type\":\"tag\",\"id\":\"256980\"},{\"type\":\"tag\",\"id\":\"256981\"},{\"type\":\"tag\",\"id\":\"256982\"},{\"type\":\"tag\",\"id\":\"256983\"},{\"type\":\"tag\",\"id\":\"256984\"},{\"type\":\"tag\",\"id\":\"256985\"},{\"type\":\"tag\",\"id\":\"256986\"},{\"type\":\"tag\",\"id\":\"256987\"},{\"type\":\"tag\",\"id\":\"256988\"}]}}},{\"type\":\"content\",\"id\":\"20573\",\"attributes\":{\"slug\":\"01-introduction-23\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-19 08:42:17\",\"archivedOn\":null,\"createdOn\":\"2014-02-19 08:42:17\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20573,\"qnaVideo\":null,\"style\":null,\"title\":\"Introduction\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":\"90\",\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":\"60\",\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2581\"},{\"type\":\"contentData\",\"id\":\"12180\"},{\"type\":\"contentData\",\"id\":\"23594\"},{\"type\":\"contentData\",\"id\":\"23596\"},{\"type\":\"contentData\",\"id\":\"23597\"},{\"type\":\"contentData\",\"id\":\"23598\"},{\"type\":\"contentData\",\"id\":\"23600\"},{\"type\":\"contentData\",\"id\":\"23601\"},{\"type\":\"contentData\",\"id\":\"23602\"},{\"type\":\"contentData\",\"id\":\"23604\"},{\"type\":\"contentData\",\"id\":\"23605\"},{\"type\":\"contentData\",\"id\":\"43594\"},{\"type\":\"contentData\",\"id\":\"43595\"},{\"type\":\"contentData\",\"id\":\"43596\"},{\"type\":\"contentData\",\"id\":\"43597\"},{\"type\":\"contentData\",\"id\":\"72487\"},{\"type\":\"contentData\",\"id\":\"84705\"},{\"type\":\"contentData\",\"id\":\"84706\"},{\"type\":\"contentData\",\"id\":\"84707\"},{\"type\":\"contentData\",\"id\":\"84708\"},{\"type\":\"contentData\",\"id\":\"84709\"},{\"type\":\"contentData\",\"id\":\"84710\"},{\"type\":\"contentData\",\"id\":\"145765\"},{\"type\":\"contentData\",\"id\":\"145766\"},{\"type\":\"contentData\",\"id\":\"145767\"},{\"type\":\"contentData\",\"id\":\"145768\"},{\"type\":\"contentData\",\"id\":\"145769\"},{\"type\":\"contentData\",\"id\":\"145770\"},{\"type\":\"contentData\",\"id\":\"145771\"},{\"type\":\"contentData\",\"id\":\"145772\"},{\"type\":\"contentData\",\"id\":\"145773\"},{\"type\":\"contentData\",\"id\":\"145774\"},{\"type\":\"contentData\",\"id\":\"145775\"},{\"type\":\"contentData\",\"id\":\"145776\"},{\"type\":\"contentData\",\"id\":\"153244\"},{\"type\":\"contentData\",\"id\":\"153245\"},{\"type\":\"contentData\",\"id\":\"153246\"},{\"type\":\"contentData\",\"id\":\"153247\"},{\"type\":\"contentData\",\"id\":\"153248\"},{\"type\":\"contentData\",\"id\":\"153249\"},{\"type\":\"contentData\",\"id\":\"153250\"},{\"type\":\"contentData\",\"id\":\"153251\"},{\"type\":\"contentData\",\"id\":\"153252\"},{\"type\":\"contentData\",\"id\":\"153253\"},{\"type\":\"contentData\",\"id\":\"153254\"},{\"type\":\"contentData\",\"id\":\"153255\"},{\"type\":\"contentData\",\"id\":\"160723\"},{\"type\":\"contentData\",\"id\":\"160724\"},{\"type\":\"contentData\",\"id\":\"160725\"},{\"type\":\"contentData\",\"id\":\"160726\"},{\"type\":\"contentData\",\"id\":\"160727\"},{\"type\":\"contentData\",\"id\":\"160728\"},{\"type\":\"contentData\",\"id\":\"160729\"},{\"type\":\"contentData\",\"id\":\"160730\"},{\"type\":\"contentData\",\"id\":\"160731\"},{\"type\":\"contentData\",\"id\":\"160732\"},{\"type\":\"contentData\",\"id\":\"160733\"},{\"type\":\"contentData\",\"id\":\"160734\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78676\"},{\"type\":\"tag\",\"id\":\"78677\"},{\"type\":\"tag\",\"id\":\"78678\"},{\"type\":\"tag\",\"id\":\"78679\"},{\"type\":\"tag\",\"id\":\"78680\"},{\"type\":\"tag\",\"id\":\"78681\"},{\"type\":\"tag\",\"id\":\"78682\"},{\"type\":\"tag\",\"id\":\"78683\"},{\"type\":\"tag\",\"id\":\"78684\"},{\"type\":\"tag\",\"id\":\"78685\"},{\"type\":\"tag\",\"id\":\"78686\"},{\"type\":\"tag\",\"id\":\"78687\"},{\"type\":\"tag\",\"id\":\"78688\"},{\"type\":\"tag\",\"id\":\"167816\"},{\"type\":\"tag\",\"id\":\"167817\"},{\"type\":\"tag\",\"id\":\"167818\"},{\"type\":\"tag\",\"id\":\"167819\"},{\"type\":\"tag\",\"id\":\"167820\"},{\"type\":\"tag\",\"id\":\"167821\"},{\"type\":\"tag\",\"id\":\"167822\"},{\"type\":\"tag\",\"id\":\"167823\"},{\"type\":\"tag\",\"id\":\"167824\"},{\"type\":\"tag\",\"id\":\"167825\"},{\"type\":\"tag\",\"id\":\"167826\"},{\"type\":\"tag\",\"id\":\"167827\"},{\"type\":\"tag\",\"id\":\"167828\"},{\"type\":\"tag\",\"id\":\"256956\"},{\"type\":\"tag\",\"id\":\"256957\"},{\"type\":\"tag\",\"id\":\"256958\"},{\"type\":\"tag\",\"id\":\"256959\"},{\"type\":\"tag\",\"id\":\"256960\"},{\"type\":\"tag\",\"id\":\"256961\"},{\"type\":\"tag\",\"id\":\"256962\"},{\"type\":\"tag\",\"id\":\"256963\"},{\"type\":\"tag\",\"id\":\"256964\"},{\"type\":\"tag\",\"id\":\"256965\"},{\"type\":\"tag\",\"id\":\"256966\"},{\"type\":\"tag\",\"id\":\"256967\"},{\"type\":\"tag\",\"id\":\"256968\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"751\"}]}}},{\"type\":\"content\",\"id\":\"20576\",\"attributes\":{\"slug\":\"02-speed-control-3\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-19 15:33:20\",\"archivedOn\":null,\"createdOn\":\"2014-02-19 15:33:20\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20576,\"qnaVideo\":null,\"style\":null,\"title\":\"Speed & Control\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":\"90\",\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":\"60\",\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2582\"},{\"type\":\"contentData\",\"id\":\"12182\"},{\"type\":\"contentData\",\"id\":\"23606\"},{\"type\":\"contentData\",\"id\":\"23608\"},{\"type\":\"contentData\",\"id\":\"23609\"},{\"type\":\"contentData\",\"id\":\"23610\"},{\"type\":\"contentData\",\"id\":\"23612\"},{\"type\":\"contentData\",\"id\":\"23613\"},{\"type\":\"contentData\",\"id\":\"43590\"},{\"type\":\"contentData\",\"id\":\"43591\"},{\"type\":\"contentData\",\"id\":\"43592\"},{\"type\":\"contentData\",\"id\":\"43593\"},{\"type\":\"contentData\",\"id\":\"72486\"},{\"type\":\"contentData\",\"id\":\"84716\"},{\"type\":\"contentData\",\"id\":\"84717\"},{\"type\":\"contentData\",\"id\":\"84723\"},{\"type\":\"contentData\",\"id\":\"84724\"},{\"type\":\"contentData\",\"id\":\"145757\"},{\"type\":\"contentData\",\"id\":\"145758\"},{\"type\":\"contentData\",\"id\":\"145759\"},{\"type\":\"contentData\",\"id\":\"145760\"},{\"type\":\"contentData\",\"id\":\"145761\"},{\"type\":\"contentData\",\"id\":\"145762\"},{\"type\":\"contentData\",\"id\":\"145763\"},{\"type\":\"contentData\",\"id\":\"145764\"},{\"type\":\"contentData\",\"id\":\"153236\"},{\"type\":\"contentData\",\"id\":\"153237\"},{\"type\":\"contentData\",\"id\":\"153238\"},{\"type\":\"contentData\",\"id\":\"153239\"},{\"type\":\"contentData\",\"id\":\"153240\"},{\"type\":\"contentData\",\"id\":\"153241\"},{\"type\":\"contentData\",\"id\":\"153242\"},{\"type\":\"contentData\",\"id\":\"153243\"},{\"type\":\"contentData\",\"id\":\"160715\"},{\"type\":\"contentData\",\"id\":\"160716\"},{\"type\":\"contentData\",\"id\":\"160717\"},{\"type\":\"contentData\",\"id\":\"160718\"},{\"type\":\"contentData\",\"id\":\"160719\"},{\"type\":\"contentData\",\"id\":\"160720\"},{\"type\":\"contentData\",\"id\":\"160721\"},{\"type\":\"contentData\",\"id\":\"160722\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78663\"},{\"type\":\"tag\",\"id\":\"78664\"},{\"type\":\"tag\",\"id\":\"78665\"},{\"type\":\"tag\",\"id\":\"78666\"},{\"type\":\"tag\",\"id\":\"78667\"},{\"type\":\"tag\",\"id\":\"78668\"},{\"type\":\"tag\",\"id\":\"78669\"},{\"type\":\"tag\",\"id\":\"78670\"},{\"type\":\"tag\",\"id\":\"78671\"},{\"type\":\"tag\",\"id\":\"78672\"},{\"type\":\"tag\",\"id\":\"78673\"},{\"type\":\"tag\",\"id\":\"78674\"},{\"type\":\"tag\",\"id\":\"78675\"},{\"type\":\"tag\",\"id\":\"167803\"},{\"type\":\"tag\",\"id\":\"167804\"},{\"type\":\"tag\",\"id\":\"167805\"},{\"type\":\"tag\",\"id\":\"167806\"},{\"type\":\"tag\",\"id\":\"167807\"},{\"type\":\"tag\",\"id\":\"167808\"},{\"type\":\"tag\",\"id\":\"167809\"},{\"type\":\"tag\",\"id\":\"167810\"},{\"type\":\"tag\",\"id\":\"167811\"},{\"type\":\"tag\",\"id\":\"167812\"},{\"type\":\"tag\",\"id\":\"167813\"},{\"type\":\"tag\",\"id\":\"167814\"},{\"type\":\"tag\",\"id\":\"167815\"},{\"type\":\"tag\",\"id\":\"256943\"},{\"type\":\"tag\",\"id\":\"256944\"},{\"type\":\"tag\",\"id\":\"256945\"},{\"type\":\"tag\",\"id\":\"256946\"},{\"type\":\"tag\",\"id\":\"256947\"},{\"type\":\"tag\",\"id\":\"256948\"},{\"type\":\"tag\",\"id\":\"256949\"},{\"type\":\"tag\",\"id\":\"256950\"},{\"type\":\"tag\",\"id\":\"256951\"},{\"type\":\"tag\",\"id\":\"256952\"},{\"type\":\"tag\",\"id\":\"256953\"},{\"type\":\"tag\",\"id\":\"256954\"},{\"type\":\"tag\",\"id\":\"256955\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"752\"}]}}},{\"type\":\"content\",\"id\":\"20578\",\"attributes\":{\"slug\":\"03-application-beats-3\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-19 15:34:51\",\"archivedOn\":null,\"createdOn\":\"2014-02-19 15:34:51\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20578,\"qnaVideo\":null,\"style\":null,\"title\":\"Application - Beats\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":\"90\",\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":\"60\",\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2583\"},{\"type\":\"contentData\",\"id\":\"12184\"},{\"type\":\"contentData\",\"id\":\"23614\"},{\"type\":\"contentData\",\"id\":\"23616\"},{\"type\":\"contentData\",\"id\":\"23617\"},{\"type\":\"contentData\",\"id\":\"23618\"},{\"type\":\"contentData\",\"id\":\"23620\"},{\"type\":\"contentData\",\"id\":\"23621\"},{\"type\":\"contentData\",\"id\":\"23622\"},{\"type\":\"contentData\",\"id\":\"23624\"},{\"type\":\"contentData\",\"id\":\"23625\"},{\"type\":\"contentData\",\"id\":\"23626\"},{\"type\":\"contentData\",\"id\":\"23628\"},{\"type\":\"contentData\",\"id\":\"23629\"},{\"type\":\"contentData\",\"id\":\"23630\"},{\"type\":\"contentData\",\"id\":\"23632\"},{\"type\":\"contentData\",\"id\":\"23633\"},{\"type\":\"contentData\",\"id\":\"43586\"},{\"type\":\"contentData\",\"id\":\"43587\"},{\"type\":\"contentData\",\"id\":\"43588\"},{\"type\":\"contentData\",\"id\":\"43589\"},{\"type\":\"contentData\",\"id\":\"72485\"},{\"type\":\"contentData\",\"id\":\"84728\"},{\"type\":\"contentData\",\"id\":\"84729\"},{\"type\":\"contentData\",\"id\":\"84733\"},{\"type\":\"contentData\",\"id\":\"84734\"},{\"type\":\"contentData\",\"id\":\"84738\"},{\"type\":\"contentData\",\"id\":\"84739\"},{\"type\":\"contentData\",\"id\":\"84744\"},{\"type\":\"contentData\",\"id\":\"84745\"},{\"type\":\"contentData\",\"id\":\"84749\"},{\"type\":\"contentData\",\"id\":\"84750\"},{\"type\":\"contentData\",\"id\":\"145737\"},{\"type\":\"contentData\",\"id\":\"145738\"},{\"type\":\"contentData\",\"id\":\"145739\"},{\"type\":\"contentData\",\"id\":\"145740\"},{\"type\":\"contentData\",\"id\":\"145741\"},{\"type\":\"contentData\",\"id\":\"145742\"},{\"type\":\"contentData\",\"id\":\"145743\"},{\"type\":\"contentData\",\"id\":\"145744\"},{\"type\":\"contentData\",\"id\":\"145745\"},{\"type\":\"contentData\",\"id\":\"145746\"},{\"type\":\"contentData\",\"id\":\"145747\"},{\"type\":\"contentData\",\"id\":\"145748\"},{\"type\":\"contentData\",\"id\":\"145749\"},{\"type\":\"contentData\",\"id\":\"145750\"},{\"type\":\"contentData\",\"id\":\"145751\"},{\"type\":\"contentData\",\"id\":\"145752\"},{\"type\":\"contentData\",\"id\":\"145753\"},{\"type\":\"contentData\",\"id\":\"145754\"},{\"type\":\"contentData\",\"id\":\"145755\"},{\"type\":\"contentData\",\"id\":\"145756\"},{\"type\":\"contentData\",\"id\":\"153216\"},{\"type\":\"contentData\",\"id\":\"153217\"},{\"type\":\"contentData\",\"id\":\"153218\"},{\"type\":\"contentData\",\"id\":\"153219\"},{\"type\":\"contentData\",\"id\":\"153220\"},{\"type\":\"contentData\",\"id\":\"153221\"},{\"type\":\"contentData\",\"id\":\"153222\"},{\"type\":\"contentData\",\"id\":\"153223\"},{\"type\":\"contentData\",\"id\":\"153224\"},{\"type\":\"contentData\",\"id\":\"153225\"},{\"type\":\"contentData\",\"id\":\"153226\"},{\"type\":\"contentData\",\"id\":\"153227\"},{\"type\":\"contentData\",\"id\":\"153228\"},{\"type\":\"contentData\",\"id\":\"153229\"},{\"type\":\"contentData\",\"id\":\"153230\"},{\"type\":\"contentData\",\"id\":\"153231\"},{\"type\":\"contentData\",\"id\":\"153232\"},{\"type\":\"contentData\",\"id\":\"153233\"},{\"type\":\"contentData\",\"id\":\"153234\"},{\"type\":\"contentData\",\"id\":\"153235\"},{\"type\":\"contentData\",\"id\":\"160695\"},{\"type\":\"contentData\",\"id\":\"160696\"},{\"type\":\"contentData\",\"id\":\"160697\"},{\"type\":\"contentData\",\"id\":\"160698\"},{\"type\":\"contentData\",\"id\":\"160699\"},{\"type\":\"contentData\",\"id\":\"160700\"},{\"type\":\"contentData\",\"id\":\"160701\"},{\"type\":\"contentData\",\"id\":\"160702\"},{\"type\":\"contentData\",\"id\":\"160703\"},{\"type\":\"contentData\",\"id\":\"160704\"},{\"type\":\"contentData\",\"id\":\"160705\"},{\"type\":\"contentData\",\"id\":\"160706\"},{\"type\":\"contentData\",\"id\":\"160707\"},{\"type\":\"contentData\",\"id\":\"160708\"},{\"type\":\"contentData\",\"id\":\"160709\"},{\"type\":\"contentData\",\"id\":\"160710\"},{\"type\":\"contentData\",\"id\":\"160711\"},{\"type\":\"contentData\",\"id\":\"160712\"},{\"type\":\"contentData\",\"id\":\"160713\"},{\"type\":\"contentData\",\"id\":\"160714\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78646\"},{\"type\":\"tag\",\"id\":\"78647\"},{\"type\":\"tag\",\"id\":\"78648\"},{\"type\":\"tag\",\"id\":\"78649\"},{\"type\":\"tag\",\"id\":\"78650\"},{\"type\":\"tag\",\"id\":\"78651\"},{\"type\":\"tag\",\"id\":\"78652\"},{\"type\":\"tag\",\"id\":\"78653\"},{\"type\":\"tag\",\"id\":\"78654\"},{\"type\":\"tag\",\"id\":\"78655\"},{\"type\":\"tag\",\"id\":\"78656\"},{\"type\":\"tag\",\"id\":\"78657\"},{\"type\":\"tag\",\"id\":\"78658\"},{\"type\":\"tag\",\"id\":\"78659\"},{\"type\":\"tag\",\"id\":\"78660\"},{\"type\":\"tag\",\"id\":\"78661\"},{\"type\":\"tag\",\"id\":\"78662\"},{\"type\":\"tag\",\"id\":\"167786\"},{\"type\":\"tag\",\"id\":\"167787\"},{\"type\":\"tag\",\"id\":\"167788\"},{\"type\":\"tag\",\"id\":\"167789\"},{\"type\":\"tag\",\"id\":\"167790\"},{\"type\":\"tag\",\"id\":\"167791\"},{\"type\":\"tag\",\"id\":\"167792\"},{\"type\":\"tag\",\"id\":\"167793\"},{\"type\":\"tag\",\"id\":\"167794\"},{\"type\":\"tag\",\"id\":\"167795\"},{\"type\":\"tag\",\"id\":\"167796\"},{\"type\":\"tag\",\"id\":\"167797\"},{\"type\":\"tag\",\"id\":\"167798\"},{\"type\":\"tag\",\"id\":\"167799\"},{\"type\":\"tag\",\"id\":\"167800\"},{\"type\":\"tag\",\"id\":\"167801\"},{\"type\":\"tag\",\"id\":\"167802\"},{\"type\":\"tag\",\"id\":\"256926\"},{\"type\":\"tag\",\"id\":\"256927\"},{\"type\":\"tag\",\"id\":\"256928\"},{\"type\":\"tag\",\"id\":\"256929\"},{\"type\":\"tag\",\"id\":\"256930\"},{\"type\":\"tag\",\"id\":\"256931\"},{\"type\":\"tag\",\"id\":\"256932\"},{\"type\":\"tag\",\"id\":\"256933\"},{\"type\":\"tag\",\"id\":\"256934\"},{\"type\":\"tag\",\"id\":\"256935\"},{\"type\":\"tag\",\"id\":\"256936\"},{\"type\":\"tag\",\"id\":\"256937\"},{\"type\":\"tag\",\"id\":\"256938\"},{\"type\":\"tag\",\"id\":\"256939\"},{\"type\":\"tag\",\"id\":\"256940\"},{\"type\":\"tag\",\"id\":\"256941\"},{\"type\":\"tag\",\"id\":\"256942\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"753\"}]}}},{\"type\":\"content\",\"id\":\"20580\",\"attributes\":{\"slug\":\"04-application-fills-3\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-19 15:36:21\",\"archivedOn\":null,\"createdOn\":\"2014-02-19 15:36:21\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20580,\"qnaVideo\":null,\"style\":null,\"title\":\"Application - Fills\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":\"90\",\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":\"60\",\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2584\"},{\"type\":\"contentData\",\"id\":\"12186\"},{\"type\":\"contentData\",\"id\":\"23634\"},{\"type\":\"contentData\",\"id\":\"23636\"},{\"type\":\"contentData\",\"id\":\"23637\"},{\"type\":\"contentData\",\"id\":\"23638\"},{\"type\":\"contentData\",\"id\":\"23640\"},{\"type\":\"contentData\",\"id\":\"23641\"},{\"type\":\"contentData\",\"id\":\"23642\"},{\"type\":\"contentData\",\"id\":\"23644\"},{\"type\":\"contentData\",\"id\":\"23645\"},{\"type\":\"contentData\",\"id\":\"23646\"},{\"type\":\"contentData\",\"id\":\"23648\"},{\"type\":\"contentData\",\"id\":\"23649\"},{\"type\":\"contentData\",\"id\":\"23650\"},{\"type\":\"contentData\",\"id\":\"23652\"},{\"type\":\"contentData\",\"id\":\"23653\"},{\"type\":\"contentData\",\"id\":\"43582\"},{\"type\":\"contentData\",\"id\":\"43583\"},{\"type\":\"contentData\",\"id\":\"43584\"},{\"type\":\"contentData\",\"id\":\"43585\"},{\"type\":\"contentData\",\"id\":\"72484\"},{\"type\":\"contentData\",\"id\":\"84754\"},{\"type\":\"contentData\",\"id\":\"84755\"},{\"type\":\"contentData\",\"id\":\"84758\"},{\"type\":\"contentData\",\"id\":\"84759\"},{\"type\":\"contentData\",\"id\":\"84764\"},{\"type\":\"contentData\",\"id\":\"84765\"},{\"type\":\"contentData\",\"id\":\"84768\"},{\"type\":\"contentData\",\"id\":\"84769\"},{\"type\":\"contentData\",\"id\":\"84774\"},{\"type\":\"contentData\",\"id\":\"84775\"},{\"type\":\"contentData\",\"id\":\"145717\"},{\"type\":\"contentData\",\"id\":\"145718\"},{\"type\":\"contentData\",\"id\":\"145719\"},{\"type\":\"contentData\",\"id\":\"145720\"},{\"type\":\"contentData\",\"id\":\"145721\"},{\"type\":\"contentData\",\"id\":\"145722\"},{\"type\":\"contentData\",\"id\":\"145723\"},{\"type\":\"contentData\",\"id\":\"145724\"},{\"type\":\"contentData\",\"id\":\"145725\"},{\"type\":\"contentData\",\"id\":\"145726\"},{\"type\":\"contentData\",\"id\":\"145727\"},{\"type\":\"contentData\",\"id\":\"145728\"},{\"type\":\"contentData\",\"id\":\"145729\"},{\"type\":\"contentData\",\"id\":\"145730\"},{\"type\":\"contentData\",\"id\":\"145731\"},{\"type\":\"contentData\",\"id\":\"145732\"},{\"type\":\"contentData\",\"id\":\"145733\"},{\"type\":\"contentData\",\"id\":\"145734\"},{\"type\":\"contentData\",\"id\":\"145735\"},{\"type\":\"contentData\",\"id\":\"145736\"},{\"type\":\"contentData\",\"id\":\"153196\"},{\"type\":\"contentData\",\"id\":\"153197\"},{\"type\":\"contentData\",\"id\":\"153198\"},{\"type\":\"contentData\",\"id\":\"153199\"},{\"type\":\"contentData\",\"id\":\"153200\"},{\"type\":\"contentData\",\"id\":\"153201\"},{\"type\":\"contentData\",\"id\":\"153202\"},{\"type\":\"contentData\",\"id\":\"153203\"},{\"type\":\"contentData\",\"id\":\"153204\"},{\"type\":\"contentData\",\"id\":\"153205\"},{\"type\":\"contentData\",\"id\":\"153206\"},{\"type\":\"contentData\",\"id\":\"153207\"},{\"type\":\"contentData\",\"id\":\"153208\"},{\"type\":\"contentData\",\"id\":\"153209\"},{\"type\":\"contentData\",\"id\":\"153210\"},{\"type\":\"contentData\",\"id\":\"153211\"},{\"type\":\"contentData\",\"id\":\"153212\"},{\"type\":\"contentData\",\"id\":\"153213\"},{\"type\":\"contentData\",\"id\":\"153214\"},{\"type\":\"contentData\",\"id\":\"153215\"},{\"type\":\"contentData\",\"id\":\"160675\"},{\"type\":\"contentData\",\"id\":\"160676\"},{\"type\":\"contentData\",\"id\":\"160677\"},{\"type\":\"contentData\",\"id\":\"160678\"},{\"type\":\"contentData\",\"id\":\"160679\"},{\"type\":\"contentData\",\"id\":\"160680\"},{\"type\":\"contentData\",\"id\":\"160681\"},{\"type\":\"contentData\",\"id\":\"160682\"},{\"type\":\"contentData\",\"id\":\"160683\"},{\"type\":\"contentData\",\"id\":\"160684\"},{\"type\":\"contentData\",\"id\":\"160685\"},{\"type\":\"contentData\",\"id\":\"160686\"},{\"type\":\"contentData\",\"id\":\"160687\"},{\"type\":\"contentData\",\"id\":\"160688\"},{\"type\":\"contentData\",\"id\":\"160689\"},{\"type\":\"contentData\",\"id\":\"160690\"},{\"type\":\"contentData\",\"id\":\"160691\"},{\"type\":\"contentData\",\"id\":\"160692\"},{\"type\":\"contentData\",\"id\":\"160693\"},{\"type\":\"contentData\",\"id\":\"160694\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78631\"},{\"type\":\"tag\",\"id\":\"78632\"},{\"type\":\"tag\",\"id\":\"78633\"},{\"type\":\"tag\",\"id\":\"78634\"},{\"type\":\"tag\",\"id\":\"78635\"},{\"type\":\"tag\",\"id\":\"78636\"},{\"type\":\"tag\",\"id\":\"78637\"},{\"type\":\"tag\",\"id\":\"78638\"},{\"type\":\"tag\",\"id\":\"78639\"},{\"type\":\"tag\",\"id\":\"78640\"},{\"type\":\"tag\",\"id\":\"78641\"},{\"type\":\"tag\",\"id\":\"78642\"},{\"type\":\"tag\",\"id\":\"78643\"},{\"type\":\"tag\",\"id\":\"78644\"},{\"type\":\"tag\",\"id\":\"78645\"},{\"type\":\"tag\",\"id\":\"167771\"},{\"type\":\"tag\",\"id\":\"167772\"},{\"type\":\"tag\",\"id\":\"167773\"},{\"type\":\"tag\",\"id\":\"167774\"},{\"type\":\"tag\",\"id\":\"167775\"},{\"type\":\"tag\",\"id\":\"167776\"},{\"type\":\"tag\",\"id\":\"167777\"},{\"type\":\"tag\",\"id\":\"167778\"},{\"type\":\"tag\",\"id\":\"167779\"},{\"type\":\"tag\",\"id\":\"167780\"},{\"type\":\"tag\",\"id\":\"167781\"},{\"type\":\"tag\",\"id\":\"167782\"},{\"type\":\"tag\",\"id\":\"167783\"},{\"type\":\"tag\",\"id\":\"167784\"},{\"type\":\"tag\",\"id\":\"167785\"},{\"type\":\"tag\",\"id\":\"256911\"},{\"type\":\"tag\",\"id\":\"256912\"},{\"type\":\"tag\",\"id\":\"256913\"},{\"type\":\"tag\",\"id\":\"256914\"},{\"type\":\"tag\",\"id\":\"256915\"},{\"type\":\"tag\",\"id\":\"256916\"},{\"type\":\"tag\",\"id\":\"256917\"},{\"type\":\"tag\",\"id\":\"256918\"},{\"type\":\"tag\",\"id\":\"256919\"},{\"type\":\"tag\",\"id\":\"256920\"},{\"type\":\"tag\",\"id\":\"256921\"},{\"type\":\"tag\",\"id\":\"256922\"},{\"type\":\"tag\",\"id\":\"256923\"},{\"type\":\"tag\",\"id\":\"256924\"},{\"type\":\"tag\",\"id\":\"256925\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"754\"}]}}},{\"type\":\"content\",\"id\":\"20582\",\"attributes\":{\"slug\":\"05-application-play-along-3\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-19 15:38:03\",\"archivedOn\":null,\"createdOn\":\"2014-02-19 15:38:03\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20582,\"qnaVideo\":null,\"style\":null,\"title\":\"Application - Play-Along\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":null,\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":null,\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2585\"},{\"type\":\"contentData\",\"id\":\"12188\"},{\"type\":\"contentData\",\"id\":\"43576\"},{\"type\":\"contentData\",\"id\":\"43577\"},{\"type\":\"contentData\",\"id\":\"43578\"},{\"type\":\"contentData\",\"id\":\"43579\"},{\"type\":\"contentData\",\"id\":\"43580\"},{\"type\":\"contentData\",\"id\":\"43581\"},{\"type\":\"contentData\",\"id\":\"72483\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78613\"},{\"type\":\"tag\",\"id\":\"78614\"},{\"type\":\"tag\",\"id\":\"78615\"},{\"type\":\"tag\",\"id\":\"78616\"},{\"type\":\"tag\",\"id\":\"78617\"},{\"type\":\"tag\",\"id\":\"78618\"},{\"type\":\"tag\",\"id\":\"78619\"},{\"type\":\"tag\",\"id\":\"78620\"},{\"type\":\"tag\",\"id\":\"78621\"},{\"type\":\"tag\",\"id\":\"78622\"},{\"type\":\"tag\",\"id\":\"78623\"},{\"type\":\"tag\",\"id\":\"78624\"},{\"type\":\"tag\",\"id\":\"78625\"},{\"type\":\"tag\",\"id\":\"78626\"},{\"type\":\"tag\",\"id\":\"78627\"},{\"type\":\"tag\",\"id\":\"78628\"},{\"type\":\"tag\",\"id\":\"78629\"},{\"type\":\"tag\",\"id\":\"78630\"},{\"type\":\"tag\",\"id\":\"167753\"},{\"type\":\"tag\",\"id\":\"167754\"},{\"type\":\"tag\",\"id\":\"167755\"},{\"type\":\"tag\",\"id\":\"167756\"},{\"type\":\"tag\",\"id\":\"167757\"},{\"type\":\"tag\",\"id\":\"167758\"},{\"type\":\"tag\",\"id\":\"167759\"},{\"type\":\"tag\",\"id\":\"167760\"},{\"type\":\"tag\",\"id\":\"167761\"},{\"type\":\"tag\",\"id\":\"167762\"},{\"type\":\"tag\",\"id\":\"167763\"},{\"type\":\"tag\",\"id\":\"167764\"},{\"type\":\"tag\",\"id\":\"167765\"},{\"type\":\"tag\",\"id\":\"167766\"},{\"type\":\"tag\",\"id\":\"167767\"},{\"type\":\"tag\",\"id\":\"167768\"},{\"type\":\"tag\",\"id\":\"167769\"},{\"type\":\"tag\",\"id\":\"167770\"},{\"type\":\"tag\",\"id\":\"256893\"},{\"type\":\"tag\",\"id\":\"256894\"},{\"type\":\"tag\",\"id\":\"256895\"},{\"type\":\"tag\",\"id\":\"256896\"},{\"type\":\"tag\",\"id\":\"256897\"},{\"type\":\"tag\",\"id\":\"256898\"},{\"type\":\"tag\",\"id\":\"256899\"},{\"type\":\"tag\",\"id\":\"256900\"},{\"type\":\"tag\",\"id\":\"256901\"},{\"type\":\"tag\",\"id\":\"256902\"},{\"type\":\"tag\",\"id\":\"256903\"},{\"type\":\"tag\",\"id\":\"256904\"},{\"type\":\"tag\",\"id\":\"256905\"},{\"type\":\"tag\",\"id\":\"256906\"},{\"type\":\"tag\",\"id\":\"256907\"},{\"type\":\"tag\",\"id\":\"256908\"},{\"type\":\"tag\",\"id\":\"256909\"},{\"type\":\"tag\",\"id\":\"256910\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"755\"}]}}},{\"type\":\"content\",\"id\":\"20584\",\"attributes\":{\"slug\":\"double-stroke-roll\",\"type\":\"course\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-19 15:40:50\",\"archivedOn\":null,\"createdOn\":\"2014-02-19 15:40:50\",\"difficulty\":\"4\",\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20584,\"qnaVideo\":null,\"style\":null,\"title\":\"Double Stroke Roll\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":null,\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":null,\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2567\"},{\"type\":\"contentData\",\"id\":\"12191\"},{\"type\":\"contentData\",\"id\":\"41614\"},{\"type\":\"contentData\",\"id\":\"41615\"},{\"type\":\"contentData\",\"id\":\"41616\"},{\"type\":\"contentData\",\"id\":\"41617\"}]},\"instructor\":{\"data\":[{\"type\":\"instructor\",\"id\":\"7027\"},{\"type\":\"instructor\",\"id\":\"15022\"},{\"type\":\"instructor\",\"id\":\"23017\"}]},\"topic\":{\"data\":[{\"type\":\"topic\",\"id\":\"5953\"},{\"type\":\"topic\",\"id\":\"13267\"},{\"type\":\"topic\",\"id\":\"20581\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78592\"},{\"type\":\"tag\",\"id\":\"78593\"},{\"type\":\"tag\",\"id\":\"78594\"},{\"type\":\"tag\",\"id\":\"78595\"},{\"type\":\"tag\",\"id\":\"78596\"},{\"type\":\"tag\",\"id\":\"78597\"},{\"type\":\"tag\",\"id\":\"78598\"},{\"type\":\"tag\",\"id\":\"78599\"},{\"type\":\"tag\",\"id\":\"78600\"},{\"type\":\"tag\",\"id\":\"78601\"},{\"type\":\"tag\",\"id\":\"78602\"},{\"type\":\"tag\",\"id\":\"78603\"},{\"type\":\"tag\",\"id\":\"78604\"},{\"type\":\"tag\",\"id\":\"78605\"},{\"type\":\"tag\",\"id\":\"78606\"},{\"type\":\"tag\",\"id\":\"78607\"},{\"type\":\"tag\",\"id\":\"78608\"},{\"type\":\"tag\",\"id\":\"78609\"},{\"type\":\"tag\",\"id\":\"78610\"},{\"type\":\"tag\",\"id\":\"78611\"},{\"type\":\"tag\",\"id\":\"78612\"},{\"type\":\"tag\",\"id\":\"167732\"},{\"type\":\"tag\",\"id\":\"167733\"},{\"type\":\"tag\",\"id\":\"167734\"},{\"type\":\"tag\",\"id\":\"167735\"},{\"type\":\"tag\",\"id\":\"167736\"},{\"type\":\"tag\",\"id\":\"167737\"},{\"type\":\"tag\",\"id\":\"167738\"},{\"type\":\"tag\",\"id\":\"167739\"},{\"type\":\"tag\",\"id\":\"167740\"},{\"type\":\"tag\",\"id\":\"167741\"},{\"type\":\"tag\",\"id\":\"167742\"},{\"type\":\"tag\",\"id\":\"167743\"},{\"type\":\"tag\",\"id\":\"167744\"},{\"type\":\"tag\",\"id\":\"167745\"},{\"type\":\"tag\",\"id\":\"167746\"},{\"type\":\"tag\",\"id\":\"167747\"},{\"type\":\"tag\",\"id\":\"167748\"},{\"type\":\"tag\",\"id\":\"167749\"},{\"type\":\"tag\",\"id\":\"167750\"},{\"type\":\"tag\",\"id\":\"167751\"},{\"type\":\"tag\",\"id\":\"167752\"},{\"type\":\"tag\",\"id\":\"256872\"},{\"type\":\"tag\",\"id\":\"256873\"},{\"type\":\"tag\",\"id\":\"256874\"},{\"type\":\"tag\",\"id\":\"256875\"},{\"type\":\"tag\",\"id\":\"256876\"},{\"type\":\"tag\",\"id\":\"256877\"},{\"type\":\"tag\",\"id\":\"256878\"},{\"type\":\"tag\",\"id\":\"256879\"},{\"type\":\"tag\",\"id\":\"256880\"},{\"type\":\"tag\",\"id\":\"256881\"},{\"type\":\"tag\",\"id\":\"256882\"},{\"type\":\"tag\",\"id\":\"256883\"},{\"type\":\"tag\",\"id\":\"256884\"},{\"type\":\"tag\",\"id\":\"256885\"},{\"type\":\"tag\",\"id\":\"256886\"},{\"type\":\"tag\",\"id\":\"256887\"},{\"type\":\"tag\",\"id\":\"256888\"},{\"type\":\"tag\",\"id\":\"256889\"},{\"type\":\"tag\",\"id\":\"256890\"},{\"type\":\"tag\",\"id\":\"256891\"},{\"type\":\"tag\",\"id\":\"256892\"}]}}},{\"type\":\"content\",\"id\":\"20586\",\"attributes\":{\"slug\":\"01-introduction-24\",\"type\":\"course-part\",\"sort\":0,\"status\":\"published\",\"totalXp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"showInNewFeed\":null,\"user\":\"\",\"publishedOn\":\"2014-02-19 15:43:12\",\"archivedOn\":null,\"createdOn\":\"2014-02-19 15:43:12\",\"difficulty\":null,\"homeStaffPickRating\":null,\"legacyId\":null,\"legacyWordpressPostId\":20586,\"qnaVideo\":null,\"style\":null,\"title\":\"Introduction\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cdTracks\":null,\"chordOrScale\":null,\"difficultyRange\":null,\"episodeNumber\":null,\"exerciseBookPages\":null,\"fastBpm\":\"90\",\"includesSong\":null,\"instructors\":null,\"liveEventStartTime\":null,\"liveEventEndTime\":null,\"liveEventYoutubeId\":null,\"liveStreamFeedType\":null,\"name\":null,\"released\":null,\"slowBpm\":\"60\",\"transcriberName\":null,\"week\":null,\"avatarUrl\":null,\"lengthInSeconds\":null,\"soundsliceSlug\":null,\"staffPickRating\":null,\"studentId\":null,\"vimeoVideoId\":null,\"youtubeVideoId\":null},\"relationships\":{\"data\":{\"data\":[{\"type\":\"contentData\",\"id\":\"2586\"},{\"type\":\"contentData\",\"id\":\"12193\"},{\"type\":\"contentData\",\"id\":\"12194\"},{\"type\":\"contentData\",\"id\":\"23506\"},{\"type\":\"contentData\",\"id\":\"23508\"},{\"type\":\"contentData\",\"id\":\"23509\"},{\"type\":\"contentData\",\"id\":\"23510\"},{\"type\":\"contentData\",\"id\":\"23512\"},{\"type\":\"contentData\",\"id\":\"23513\"},{\"type\":\"contentData\",\"id\":\"23514\"},{\"type\":\"contentData\",\"id\":\"23516\"},{\"type\":\"contentData\",\"id\":\"23517\"},{\"type\":\"contentData\",\"id\":\"23518\"},{\"type\":\"contentData\",\"id\":\"23520\"},{\"type\":\"contentData\",\"id\":\"23521\"},{\"type\":\"contentData\",\"id\":\"23522\"},{\"type\":\"contentData\",\"id\":\"23524\"},{\"type\":\"contentData\",\"id\":\"23525\"},{\"type\":\"contentData\",\"id\":\"43572\"},{\"type\":\"contentData\",\"id\":\"43573\"},{\"type\":\"contentData\",\"id\":\"43574\"},{\"type\":\"contentData\",\"id\":\"43575\"},{\"type\":\"contentData\",\"id\":\"72482\"},{\"type\":\"contentData\",\"id\":\"85950\"},{\"type\":\"contentData\",\"id\":\"85951\"},{\"type\":\"contentData\",\"id\":\"85952\"},{\"type\":\"contentData\",\"id\":\"85953\"},{\"type\":\"contentData\",\"id\":\"85954\"},{\"type\":\"contentData\",\"id\":\"85955\"},{\"type\":\"contentData\",\"id\":\"85956\"},{\"type\":\"contentData\",\"id\":\"85957\"},{\"type\":\"contentData\",\"id\":\"85958\"},{\"type\":\"contentData\",\"id\":\"85959\"},{\"type\":\"contentData\",\"id\":\"145697\"},{\"type\":\"contentData\",\"id\":\"145698\"},{\"type\":\"contentData\",\"id\":\"145699\"},{\"type\":\"contentData\",\"id\":\"145700\"},{\"type\":\"contentData\",\"id\":\"145701\"},{\"type\":\"contentData\",\"id\":\"145702\"},{\"type\":\"contentData\",\"id\":\"145703\"},{\"type\":\"contentData\",\"id\":\"145704\"},{\"type\":\"contentData\",\"id\":\"145705\"},{\"type\":\"contentData\",\"id\":\"145706\"},{\"type\":\"contentData\",\"id\":\"145707\"},{\"type\":\"contentData\",\"id\":\"145708\"},{\"type\":\"contentData\",\"id\":\"145709\"},{\"type\":\"contentData\",\"id\":\"145710\"},{\"type\":\"contentData\",\"id\":\"145711\"},{\"type\":\"contentData\",\"id\":\"145712\"},{\"type\":\"contentData\",\"id\":\"145713\"},{\"type\":\"contentData\",\"id\":\"145714\"},{\"type\":\"contentData\",\"id\":\"145715\"},{\"type\":\"contentData\",\"id\":\"145716\"},{\"type\":\"contentData\",\"id\":\"153176\"},{\"type\":\"contentData\",\"id\":\"153177\"},{\"type\":\"contentData\",\"id\":\"153178\"},{\"type\":\"contentData\",\"id\":\"153179\"},{\"type\":\"contentData\",\"id\":\"153180\"},{\"type\":\"contentData\",\"id\":\"153181\"},{\"type\":\"contentData\",\"id\":\"153182\"},{\"type\":\"contentData\",\"id\":\"153183\"},{\"type\":\"contentData\",\"id\":\"153184\"},{\"type\":\"contentData\",\"id\":\"153185\"},{\"type\":\"contentData\",\"id\":\"153186\"},{\"type\":\"contentData\",\"id\":\"153187\"},{\"type\":\"contentData\",\"id\":\"153188\"},{\"type\":\"contentData\",\"id\":\"153189\"},{\"type\":\"contentData\",\"id\":\"153190\"},{\"type\":\"contentData\",\"id\":\"153191\"},{\"type\":\"contentData\",\"id\":\"153192\"},{\"type\":\"contentData\",\"id\":\"153193\"},{\"type\":\"contentData\",\"id\":\"153194\"},{\"type\":\"contentData\",\"id\":\"153195\"},{\"type\":\"contentData\",\"id\":\"160655\"},{\"type\":\"contentData\",\"id\":\"160656\"},{\"type\":\"contentData\",\"id\":\"160657\"},{\"type\":\"contentData\",\"id\":\"160658\"},{\"type\":\"contentData\",\"id\":\"160659\"},{\"type\":\"contentData\",\"id\":\"160660\"},{\"type\":\"contentData\",\"id\":\"160661\"},{\"type\":\"contentData\",\"id\":\"160662\"},{\"type\":\"contentData\",\"id\":\"160663\"},{\"type\":\"contentData\",\"id\":\"160664\"},{\"type\":\"contentData\",\"id\":\"160665\"},{\"type\":\"contentData\",\"id\":\"160666\"},{\"type\":\"contentData\",\"id\":\"160667\"},{\"type\":\"contentData\",\"id\":\"160668\"},{\"type\":\"contentData\",\"id\":\"160669\"},{\"type\":\"contentData\",\"id\":\"160670\"},{\"type\":\"contentData\",\"id\":\"160671\"},{\"type\":\"contentData\",\"id\":\"160672\"},{\"type\":\"contentData\",\"id\":\"160673\"},{\"type\":\"contentData\",\"id\":\"160674\"}]},\"tag\":{\"data\":[{\"type\":\"tag\",\"id\":\"78578\"},{\"type\":\"tag\",\"id\":\"78579\"},{\"type\":\"tag\",\"id\":\"78580\"},{\"type\":\"tag\",\"id\":\"78581\"},{\"type\":\"tag\",\"id\":\"78582\"},{\"type\":\"tag\",\"id\":\"78583\"},{\"type\":\"tag\",\"id\":\"78584\"},{\"type\":\"tag\",\"id\":\"78585\"},{\"type\":\"tag\",\"id\":\"78586\"},{\"type\":\"tag\",\"id\":\"78587\"},{\"type\":\"tag\",\"id\":\"78588\"},{\"type\":\"tag\",\"id\":\"78589\"},{\"type\":\"tag\",\"id\":\"78590\"},{\"type\":\"tag\",\"id\":\"78591\"},{\"type\":\"tag\",\"id\":\"167718\"},{\"type\":\"tag\",\"id\":\"167719\"},{\"type\":\"tag\",\"id\":\"167720\"},{\"type\":\"tag\",\"id\":\"167721\"},{\"type\":\"tag\",\"id\":\"167722\"},{\"type\":\"tag\",\"id\":\"167723\"},{\"type\":\"tag\",\"id\":\"167724\"},{\"type\":\"tag\",\"id\":\"167725\"},{\"type\":\"tag\",\"id\":\"167726\"},{\"type\":\"tag\",\"id\":\"167727\"},{\"type\":\"tag\",\"id\":\"167728\"},{\"type\":\"tag\",\"id\":\"167729\"},{\"type\":\"tag\",\"id\":\"167730\"},{\"type\":\"tag\",\"id\":\"167731\"},{\"type\":\"tag\",\"id\":\"256858\"},{\"type\":\"tag\",\"id\":\"256859\"},{\"type\":\"tag\",\"id\":\"256860\"},{\"type\":\"tag\",\"id\":\"256861\"},{\"type\":\"tag\",\"id\":\"256862\"},{\"type\":\"tag\",\"id\":\"256863\"},{\"type\":\"tag\",\"id\":\"256864\"},{\"type\":\"tag\",\"id\":\"256865\"},{\"type\":\"tag\",\"id\":\"256866\"},{\"type\":\"tag\",\"id\":\"256867\"},{\"type\":\"tag\",\"id\":\"256868\"},{\"type\":\"tag\",\"id\":\"256869\"},{\"type\":\"tag\",\"id\":\"256870\"},{\"type\":\"tag\",\"id\":\"256871\"}]},\"parent\":{\"data\":[{\"type\":\"parent\",\"id\":\"756\"}]}}}],\"included\":[{\"type\":\"instructor\",\"id\":\"31877\",\"attributes\":{\"slug\":\"dave-atkinson\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:20\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:20\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Dave Atkinson\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null}},{\"type\":\"parent\",\"id\":\"20516\",\"attributes\":{\"slug\":\"single-stroke-roll\",\"type\":\"course\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2014-02-17 10:56:35\",\"archived_on\":null,\"created_on\":\"2014-02-17 10:56:35\",\"difficulty\":\"4\",\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":20516,\"qna_video\":null,\"style\":null,\"title\":\"Single Stroke Roll\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":null,\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null}},{\"type\":\"parent\",\"id\":\"20556\",\"attributes\":{\"slug\":\"single-stroke-four\",\"type\":\"course\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2014-02-18 13:19:59\",\"archived_on\":null,\"created_on\":\"2014-02-18 13:19:59\",\"difficulty\":\"4\",\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":20556,\"qna_video\":null,\"style\":null,\"title\":\"Single Stroke Four\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":null,\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null}},{\"type\":\"parent\",\"id\":\"20571\",\"attributes\":{\"slug\":\"single-stroke-seven\",\"type\":\"course\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2014-02-19 08:27:36\",\"archived_on\":null,\"created_on\":\"2014-02-19 08:27:36\",\"difficulty\":\"4\",\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":20571,\"qna_video\":null,\"style\":null,\"title\":\"Single Stroke Seven\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":null,\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null}},{\"type\":\"parent\",\"id\":\"20584\",\"attributes\":{\"slug\":\"double-stroke-roll\",\"type\":\"course\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2014-02-19 15:40:50\",\"archived_on\":null,\"created_on\":\"2014-02-19 15:40:50\",\"difficulty\":\"4\",\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":20584,\"qna_video\":null,\"style\":null,\"title\":\"Double Stroke Roll\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":null,\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null}},{\"type\":\"contentData\",\"id\":\"2570\",\"attributes\":{\"key\":\"description\",\"value\":\"The single stroke roll is one of the 40 drum rudiments. This course will provide you with some speed and control exercises and also some practical drum-set applications.\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12128\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-01.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"41626\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Course Resources Pack\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"41627\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/resource-files/dci-01-single-stroke-roll.zip\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"41628\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"41629\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/pdf/dci-01.pdf\",\"position\":1}},{\"type\":\"instructor\",\"id\":\"7037\",\"attributes\":{\"position\":1},\"relationships\":{\"instructor\":{\"data\":{\"type\":\"instructor\",\"id\":\"31877\"}}}},{\"type\":\"instructor\",\"id\":\"15032\",\"attributes\":{\"position\":1},\"relationships\":{\"instructor\":{\"data\":{\"type\":\"instructor\",\"id\":\"31877\"}}}},{\"type\":\"instructor\",\"id\":\"23027\",\"attributes\":{\"position\":1},\"relationships\":{\"instructor\":{\"data\":{\"type\":\"instructor\",\"id\":\"31877\"}}}},{\"type\":\"topic\",\"id\":\"5969\",\"attributes\":{\"topic\":\"Rudiments\",\"position\":1}},{\"type\":\"topic\",\"id\":\"13283\",\"attributes\":{\"topic\":\"Rudiments\",\"position\":1}},{\"type\":\"topic\",\"id\":\"20597\",\"attributes\":{\"topic\":\"Rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78976\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78977\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78978\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78979\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78980\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78981\",\"attributes\":{\"tag\":\"groove\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78982\",\"attributes\":{\"tag\":\"4\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78983\",\"attributes\":{\"tag\":\"Play Along\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78984\",\"attributes\":{\"tag\":\"fill\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78985\",\"attributes\":{\"tag\":\"beat\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78986\",\"attributes\":{\"tag\":\"rudiment\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78987\",\"attributes\":{\"tag\":\"grooves\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78988\",\"attributes\":{\"tag\":\"singles\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78989\",\"attributes\":{\"tag\":\"stroke\",\"position\":14}},{\"type\":\"tag\",\"id\":\"78990\",\"attributes\":{\"tag\":\"strokes\",\"position\":15}},{\"type\":\"tag\",\"id\":\"78991\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":16}},{\"type\":\"tag\",\"id\":\"78992\",\"attributes\":{\"tag\":\"roll\",\"position\":17}},{\"type\":\"tag\",\"id\":\"78993\",\"attributes\":{\"tag\":\"rolls\",\"position\":18}},{\"type\":\"tag\",\"id\":\"78994\",\"attributes\":{\"tag\":\"single\",\"position\":19}},{\"type\":\"tag\",\"id\":\"78995\",\"attributes\":{\"tag\":\"alongs\",\"position\":20}},{\"type\":\"tag\",\"id\":\"168116\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"168117\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"168118\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"168119\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"168120\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"168121\",\"attributes\":{\"tag\":\"groove\",\"position\":6}},{\"type\":\"tag\",\"id\":\"168122\",\"attributes\":{\"tag\":\"4\",\"position\":7}},{\"type\":\"tag\",\"id\":\"168123\",\"attributes\":{\"tag\":\"Play Along\",\"position\":8}},{\"type\":\"tag\",\"id\":\"168124\",\"attributes\":{\"tag\":\"fill\",\"position\":9}},{\"type\":\"tag\",\"id\":\"168125\",\"attributes\":{\"tag\":\"beat\",\"position\":10}},{\"type\":\"tag\",\"id\":\"168126\",\"attributes\":{\"tag\":\"rudiment\",\"position\":11}},{\"type\":\"tag\",\"id\":\"168127\",\"attributes\":{\"tag\":\"grooves\",\"position\":12}},{\"type\":\"tag\",\"id\":\"168128\",\"attributes\":{\"tag\":\"singles\",\"position\":13}},{\"type\":\"tag\",\"id\":\"168129\",\"attributes\":{\"tag\":\"stroke\",\"position\":14}},{\"type\":\"tag\",\"id\":\"168130\",\"attributes\":{\"tag\":\"strokes\",\"position\":15}},{\"type\":\"tag\",\"id\":\"168131\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":16}},{\"type\":\"tag\",\"id\":\"168132\",\"attributes\":{\"tag\":\"roll\",\"position\":17}},{\"type\":\"tag\",\"id\":\"168133\",\"attributes\":{\"tag\":\"rolls\",\"position\":18}},{\"type\":\"tag\",\"id\":\"168134\",\"attributes\":{\"tag\":\"single\",\"position\":19}},{\"type\":\"tag\",\"id\":\"168135\",\"attributes\":{\"tag\":\"alongs\",\"position\":20}},{\"type\":\"tag\",\"id\":\"257256\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"257257\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"257258\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"257259\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"257260\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"257261\",\"attributes\":{\"tag\":\"groove\",\"position\":6}},{\"type\":\"tag\",\"id\":\"257262\",\"attributes\":{\"tag\":\"4\",\"position\":7}},{\"type\":\"tag\",\"id\":\"257263\",\"attributes\":{\"tag\":\"Play Along\",\"position\":8}},{\"type\":\"tag\",\"id\":\"257264\",\"attributes\":{\"tag\":\"fill\",\"position\":9}},{\"type\":\"tag\",\"id\":\"257265\",\"attributes\":{\"tag\":\"beat\",\"position\":10}},{\"type\":\"tag\",\"id\":\"257266\",\"attributes\":{\"tag\":\"rudiment\",\"position\":11}},{\"type\":\"tag\",\"id\":\"257267\",\"attributes\":{\"tag\":\"grooves\",\"position\":12}},{\"type\":\"tag\",\"id\":\"257268\",\"attributes\":{\"tag\":\"singles\",\"position\":13}},{\"type\":\"tag\",\"id\":\"257269\",\"attributes\":{\"tag\":\"stroke\",\"position\":14}},{\"type\":\"tag\",\"id\":\"257270\",\"attributes\":{\"tag\":\"strokes\",\"position\":15}},{\"type\":\"tag\",\"id\":\"257271\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":16}},{\"type\":\"tag\",\"id\":\"257272\",\"attributes\":{\"tag\":\"roll\",\"position\":17}},{\"type\":\"tag\",\"id\":\"257273\",\"attributes\":{\"tag\":\"rolls\",\"position\":18}},{\"type\":\"tag\",\"id\":\"257274\",\"attributes\":{\"tag\":\"single\",\"position\":19}},{\"type\":\"tag\",\"id\":\"257275\",\"attributes\":{\"tag\":\"alongs\",\"position\":20}},{\"type\":\"contentData\",\"id\":\"2571\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12130\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20522_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23716\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01a-01-60.mp4\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23718\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01a-01-90.mp4\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23719\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01a-01.png\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23720\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01a-02-60.mp4\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23722\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01a-02-90.mp4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23723\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01a-02.png\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23724\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01a-03-60.mp4\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"23726\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01a-03-90.mp4\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"23727\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01a-03.png\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23728\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01a-04-60.mp4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"23730\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01a-04-90.mp4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"23731\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01a-04.png\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"43638\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43639\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-01a.pdf\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43640\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Resources Pack\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43641\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/audio/dci-01a.zip\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72500\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465714628_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85754\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"52\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85755\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #1 - Basic Rudiment\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85756\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"193\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"85757\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #2 - Eighth Note Triplets\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"85758\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"326\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"85759\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #3 - Sixteenth Notes\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"85760\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"422\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"85761\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #4 - Rudiment Variation Challenge\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145899\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145900\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145901\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145902\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145903\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145904\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145905\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145906\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145907\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145908\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145909\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145910\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145911\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145912\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145913\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145914\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153378\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153379\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153380\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153381\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153382\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153383\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153384\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153385\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153386\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153387\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153388\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153389\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153390\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153391\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153392\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153393\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160857\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160858\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160859\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160860\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160861\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160862\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160863\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160864\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160865\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160866\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160867\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160868\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160869\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160870\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160871\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160872\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78963\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78964\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78965\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78966\",\"attributes\":{\"tag\":\"singles\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78967\",\"attributes\":{\"tag\":\"stroke\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78968\",\"attributes\":{\"tag\":\"strokes\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78969\",\"attributes\":{\"tag\":\"roll\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78970\",\"attributes\":{\"tag\":\"rolls\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78971\",\"attributes\":{\"tag\":\"intro\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78972\",\"attributes\":{\"tag\":\"introduction\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78973\",\"attributes\":{\"tag\":\"single\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78974\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78975\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"168103\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"168104\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"168105\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"168106\",\"attributes\":{\"tag\":\"singles\",\"position\":6}},{\"type\":\"tag\",\"id\":\"168107\",\"attributes\":{\"tag\":\"stroke\",\"position\":7}},{\"type\":\"tag\",\"id\":\"168108\",\"attributes\":{\"tag\":\"strokes\",\"position\":8}},{\"type\":\"tag\",\"id\":\"168109\",\"attributes\":{\"tag\":\"roll\",\"position\":9}},{\"type\":\"tag\",\"id\":\"168110\",\"attributes\":{\"tag\":\"rolls\",\"position\":10}},{\"type\":\"tag\",\"id\":\"168111\",\"attributes\":{\"tag\":\"intro\",\"position\":11}},{\"type\":\"tag\",\"id\":\"168112\",\"attributes\":{\"tag\":\"introduction\",\"position\":12}},{\"type\":\"tag\",\"id\":\"168113\",\"attributes\":{\"tag\":\"single\",\"position\":13}},{\"type\":\"tag\",\"id\":\"168114\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"168115\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"257243\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"257244\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"257245\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"257246\",\"attributes\":{\"tag\":\"singles\",\"position\":6}},{\"type\":\"tag\",\"id\":\"257247\",\"attributes\":{\"tag\":\"stroke\",\"position\":7}},{\"type\":\"tag\",\"id\":\"257248\",\"attributes\":{\"tag\":\"strokes\",\"position\":8}},{\"type\":\"tag\",\"id\":\"257249\",\"attributes\":{\"tag\":\"roll\",\"position\":9}},{\"type\":\"tag\",\"id\":\"257250\",\"attributes\":{\"tag\":\"rolls\",\"position\":10}},{\"type\":\"tag\",\"id\":\"257251\",\"attributes\":{\"tag\":\"intro\",\"position\":11}},{\"type\":\"tag\",\"id\":\"257252\",\"attributes\":{\"tag\":\"introduction\",\"position\":12}},{\"type\":\"tag\",\"id\":\"257253\",\"attributes\":{\"tag\":\"single\",\"position\":13}},{\"type\":\"tag\",\"id\":\"257254\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"257255\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"parent\",\"id\":\"741\",\"attributes\":{\"child_position\":1},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20516\"}}}},{\"type\":\"contentData\",\"id\":\"2572\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12155\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20548_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23732\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01b-01-120.mp4\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23734\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01b-01-60.mp4\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23735\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01b-01.png\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23736\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01b-02-120.mp4\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23738\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01b-02-60.mp4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23739\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01b-02.png\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23740\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01b-03a-120.mp4\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"23742\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01b-03a-60.mp4\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"23743\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01b-03a.png\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23744\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01b-03b-120.mp4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"23746\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01b-03b-60.mp4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"23747\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01b-03b.png\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23748\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01b-03c-100.mp4\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"23750\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01b-03c-60.mp4\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"23751\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01b-03c.png\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"43634\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43635\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-01b.pdf\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43636\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Resources Pack\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43637\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/audio/dci-01b.zip\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72496\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465721394_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85881\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"21\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85882\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #1 - Right Hand Lead\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85883\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"179\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"85884\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #2 - Left Hand Lead\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"85885\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"250\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"85886\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #3a\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"85887\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"385\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"85888\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #3b\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"85889\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"438\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"85890\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #3c\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145879\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145880\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145881\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145882\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145883\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145884\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145885\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145886\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145887\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3a\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145888\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145889\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3a\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145890\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145891\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3b\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145892\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145893\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3b\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145894\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145895\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3c\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145896\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"100\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145897\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3c\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"145898\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"153358\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153359\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153360\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153361\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153362\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153363\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153364\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153365\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153366\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3a\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153367\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153368\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3a\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153369\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153370\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3b\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153371\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153372\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3b\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153373\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153374\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3c\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153375\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"100\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153376\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3c\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"153377\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"160837\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160838\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160839\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160840\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160841\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160842\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160843\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160844\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160845\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3a\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160846\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160847\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3a\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160848\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160849\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3b\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160850\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160851\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3b\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160852\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160853\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3c\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160854\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"100\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160855\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3c\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"160856\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78857\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78858\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78859\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78860\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78861\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78862\",\"attributes\":{\"tag\":\"singles\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78863\",\"attributes\":{\"tag\":\"stroke\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78864\",\"attributes\":{\"tag\":\"strokes\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78865\",\"attributes\":{\"tag\":\"control\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78866\",\"attributes\":{\"tag\":\"speed\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78867\",\"attributes\":{\"tag\":\"roll\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78868\",\"attributes\":{\"tag\":\"rolls\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78869\",\"attributes\":{\"tag\":\"single\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167997\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167998\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167999\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"168000\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"168001\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"168002\",\"attributes\":{\"tag\":\"singles\",\"position\":6}},{\"type\":\"tag\",\"id\":\"168003\",\"attributes\":{\"tag\":\"stroke\",\"position\":7}},{\"type\":\"tag\",\"id\":\"168004\",\"attributes\":{\"tag\":\"strokes\",\"position\":8}},{\"type\":\"tag\",\"id\":\"168005\",\"attributes\":{\"tag\":\"control\",\"position\":9}},{\"type\":\"tag\",\"id\":\"168006\",\"attributes\":{\"tag\":\"speed\",\"position\":10}},{\"type\":\"tag\",\"id\":\"168007\",\"attributes\":{\"tag\":\"roll\",\"position\":11}},{\"type\":\"tag\",\"id\":\"168008\",\"attributes\":{\"tag\":\"rolls\",\"position\":12}},{\"type\":\"tag\",\"id\":\"168009\",\"attributes\":{\"tag\":\"single\",\"position\":13}},{\"type\":\"tag\",\"id\":\"257137\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"257138\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"257139\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"257140\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"257141\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"257142\",\"attributes\":{\"tag\":\"singles\",\"position\":6}},{\"type\":\"tag\",\"id\":\"257143\",\"attributes\":{\"tag\":\"stroke\",\"position\":7}},{\"type\":\"tag\",\"id\":\"257144\",\"attributes\":{\"tag\":\"strokes\",\"position\":8}},{\"type\":\"tag\",\"id\":\"257145\",\"attributes\":{\"tag\":\"control\",\"position\":9}},{\"type\":\"tag\",\"id\":\"257146\",\"attributes\":{\"tag\":\"speed\",\"position\":10}},{\"type\":\"tag\",\"id\":\"257147\",\"attributes\":{\"tag\":\"roll\",\"position\":11}},{\"type\":\"tag\",\"id\":\"257148\",\"attributes\":{\"tag\":\"rolls\",\"position\":12}},{\"type\":\"tag\",\"id\":\"257149\",\"attributes\":{\"tag\":\"single\",\"position\":13}},{\"type\":\"parent\",\"id\":\"742\",\"attributes\":{\"child_position\":2},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20516\"}}}},{\"type\":\"contentData\",\"id\":\"2573\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12157\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20550_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23752\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01c-01-60.mp4\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23754\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01c-01-90.mp4\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23755\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01c-01.png\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23756\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01c-02-60.mp4\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23758\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01c-02-90.mp4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23759\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01c-02.png\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23760\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01c-03-60.mp4\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"23762\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01c-03-90.mp4\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"23763\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01c-03.png\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23764\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01c-04-60.mp4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"23766\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01c-04-90.mp4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"23767\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01c-04.png\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23768\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01c-05-60.mp4\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"23770\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01c-05-90.mp4\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"23771\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01c-05.png\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"43630\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43631\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-01c.pdf\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43632\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Resources Pack\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43633\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/audio/dci-01c.zip\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72495\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465725410_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85901\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"23\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85902\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85903\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"131\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"85904\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #2\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"85905\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"250\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"85906\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #3\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"85907\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"391\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"85908\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"85909\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"509\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"85910\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #5\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145859\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145860\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145861\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145862\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145863\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145864\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145865\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145866\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145867\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145868\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145869\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145870\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145871\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145872\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145873\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145874\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145875\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145876\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145877\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"145878\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"153338\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153339\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153340\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153341\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153342\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153343\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153344\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153345\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153346\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153347\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153348\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153349\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153350\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153351\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153352\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153353\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153354\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153355\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153356\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"153357\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"160817\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160818\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160819\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160820\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160821\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160822\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160823\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160824\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160825\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160826\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160827\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160828\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160829\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160830\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160831\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160832\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160833\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160834\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160835\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"160836\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78840\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78841\",\"attributes\":{\"tag\":\"beats\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78842\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78843\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78844\",\"attributes\":{\"tag\":\"groove\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78845\",\"attributes\":{\"tag\":\"4\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78846\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78847\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78848\",\"attributes\":{\"tag\":\"beat\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78849\",\"attributes\":{\"tag\":\"rudiment\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78850\",\"attributes\":{\"tag\":\"grooves\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78851\",\"attributes\":{\"tag\":\"singles\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78852\",\"attributes\":{\"tag\":\"stroke\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78853\",\"attributes\":{\"tag\":\"strokes\",\"position\":14}},{\"type\":\"tag\",\"id\":\"78854\",\"attributes\":{\"tag\":\"roll\",\"position\":15}},{\"type\":\"tag\",\"id\":\"78855\",\"attributes\":{\"tag\":\"rolls\",\"position\":16}},{\"type\":\"tag\",\"id\":\"78856\",\"attributes\":{\"tag\":\"single\",\"position\":17}},{\"type\":\"tag\",\"id\":\"167980\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167981\",\"attributes\":{\"tag\":\"beats\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167982\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167983\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167984\",\"attributes\":{\"tag\":\"groove\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167985\",\"attributes\":{\"tag\":\"4\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167986\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167987\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167988\",\"attributes\":{\"tag\":\"beat\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167989\",\"attributes\":{\"tag\":\"rudiment\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167990\",\"attributes\":{\"tag\":\"grooves\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167991\",\"attributes\":{\"tag\":\"singles\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167992\",\"attributes\":{\"tag\":\"stroke\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167993\",\"attributes\":{\"tag\":\"strokes\",\"position\":14}},{\"type\":\"tag\",\"id\":\"167994\",\"attributes\":{\"tag\":\"roll\",\"position\":15}},{\"type\":\"tag\",\"id\":\"167995\",\"attributes\":{\"tag\":\"rolls\",\"position\":16}},{\"type\":\"tag\",\"id\":\"167996\",\"attributes\":{\"tag\":\"single\",\"position\":17}},{\"type\":\"tag\",\"id\":\"257120\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"257121\",\"attributes\":{\"tag\":\"beats\",\"position\":2}},{\"type\":\"tag\",\"id\":\"257122\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"257123\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"257124\",\"attributes\":{\"tag\":\"groove\",\"position\":5}},{\"type\":\"tag\",\"id\":\"257125\",\"attributes\":{\"tag\":\"4\",\"position\":6}},{\"type\":\"tag\",\"id\":\"257126\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"257127\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"257128\",\"attributes\":{\"tag\":\"beat\",\"position\":9}},{\"type\":\"tag\",\"id\":\"257129\",\"attributes\":{\"tag\":\"rudiment\",\"position\":10}},{\"type\":\"tag\",\"id\":\"257130\",\"attributes\":{\"tag\":\"grooves\",\"position\":11}},{\"type\":\"tag\",\"id\":\"257131\",\"attributes\":{\"tag\":\"singles\",\"position\":12}},{\"type\":\"tag\",\"id\":\"257132\",\"attributes\":{\"tag\":\"stroke\",\"position\":13}},{\"type\":\"tag\",\"id\":\"257133\",\"attributes\":{\"tag\":\"strokes\",\"position\":14}},{\"type\":\"tag\",\"id\":\"257134\",\"attributes\":{\"tag\":\"roll\",\"position\":15}},{\"type\":\"tag\",\"id\":\"257135\",\"attributes\":{\"tag\":\"rolls\",\"position\":16}},{\"type\":\"tag\",\"id\":\"257136\",\"attributes\":{\"tag\":\"single\",\"position\":17}},{\"type\":\"parent\",\"id\":\"743\",\"attributes\":{\"child_position\":3},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20516\"}}}},{\"type\":\"contentData\",\"id\":\"2574\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12159\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20552_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23772\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01d-01-60.mp4\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23774\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01d-01-90.mp4\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23775\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01d-01.png\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23776\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01d-02-60.mp4\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23778\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01d-02-90.mp4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23779\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01d-02.png\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23780\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01d-03-60.mp4\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"23782\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01d-03-90.mp4\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"23783\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01d-03.png\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23784\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01d-04-60.mp4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"23786\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01d-04-90.mp4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"23787\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01d-04.png\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23788\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01d-05-60.mp4\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"23790\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-01d-05-90.mp4\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"23791\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-01d-05.png\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"43626\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43627\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-01d.pdf\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43628\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Resources Pack\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43629\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/audio/dci-01d.zip\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72494\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465725831_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85921\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"33\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85922\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85923\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"134\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"85924\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #2\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"85925\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"292\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"85926\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #3\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"85927\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"403\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"85928\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"85929\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"538\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"85930\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #5\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145839\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145840\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145841\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145842\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145843\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145844\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145845\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145846\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145847\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145848\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145849\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145850\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145851\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145852\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145853\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145854\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145855\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145856\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145857\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"145858\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"153318\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153319\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153320\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153321\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153322\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153323\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153324\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153325\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153326\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153327\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153328\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153329\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153330\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153331\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153332\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153333\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153334\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153335\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153336\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"153337\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"160797\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160798\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160799\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160800\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160801\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160802\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160803\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160804\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160805\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160806\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160807\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160808\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160809\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160810\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160811\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160812\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160813\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160814\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160815\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"160816\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78825\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78826\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78827\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78828\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78829\",\"attributes\":{\"tag\":\"4\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78830\",\"attributes\":{\"tag\":\"fill\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78831\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78832\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78833\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78834\",\"attributes\":{\"tag\":\"singles\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78835\",\"attributes\":{\"tag\":\"stroke\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78836\",\"attributes\":{\"tag\":\"strokes\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78837\",\"attributes\":{\"tag\":\"roll\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78838\",\"attributes\":{\"tag\":\"rolls\",\"position\":14}},{\"type\":\"tag\",\"id\":\"78839\",\"attributes\":{\"tag\":\"single\",\"position\":15}},{\"type\":\"tag\",\"id\":\"167965\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167966\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167967\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167968\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167969\",\"attributes\":{\"tag\":\"4\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167970\",\"attributes\":{\"tag\":\"fill\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167971\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167972\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167973\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167974\",\"attributes\":{\"tag\":\"singles\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167975\",\"attributes\":{\"tag\":\"stroke\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167976\",\"attributes\":{\"tag\":\"strokes\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167977\",\"attributes\":{\"tag\":\"roll\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167978\",\"attributes\":{\"tag\":\"rolls\",\"position\":14}},{\"type\":\"tag\",\"id\":\"167979\",\"attributes\":{\"tag\":\"single\",\"position\":15}},{\"type\":\"tag\",\"id\":\"257105\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"257106\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"257107\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"257108\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"257109\",\"attributes\":{\"tag\":\"4\",\"position\":5}},{\"type\":\"tag\",\"id\":\"257110\",\"attributes\":{\"tag\":\"fill\",\"position\":6}},{\"type\":\"tag\",\"id\":\"257111\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"257112\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"257113\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"257114\",\"attributes\":{\"tag\":\"singles\",\"position\":10}},{\"type\":\"tag\",\"id\":\"257115\",\"attributes\":{\"tag\":\"stroke\",\"position\":11}},{\"type\":\"tag\",\"id\":\"257116\",\"attributes\":{\"tag\":\"strokes\",\"position\":12}},{\"type\":\"tag\",\"id\":\"257117\",\"attributes\":{\"tag\":\"roll\",\"position\":13}},{\"type\":\"tag\",\"id\":\"257118\",\"attributes\":{\"tag\":\"rolls\",\"position\":14}},{\"type\":\"tag\",\"id\":\"257119\",\"attributes\":{\"tag\":\"single\",\"position\":15}},{\"type\":\"parent\",\"id\":\"744\",\"attributes\":{\"child_position\":4},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20516\"}}}},{\"type\":\"contentData\",\"id\":\"2575\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12161\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20554_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43620\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Click Track\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"43621\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://s3.amazonaws.com/drumeo/courses/audio/dci-01e-wc.mp3\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"43622\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 No-Click Track\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43623\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://s3.amazonaws.com/drumeo/courses/audio/dci-01e-woc.mp3\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43624\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43625\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-01e.pdf\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72493\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465704909_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78807\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78808\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78809\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78810\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78811\",\"attributes\":{\"tag\":\"Play Along\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78812\",\"attributes\":{\"tag\":\"applications\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78813\",\"attributes\":{\"tag\":\"application\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78814\",\"attributes\":{\"tag\":\"applied\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78815\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78816\",\"attributes\":{\"tag\":\"singles\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78817\",\"attributes\":{\"tag\":\"stroke\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78818\",\"attributes\":{\"tag\":\"strokes\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78819\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78820\",\"attributes\":{\"tag\":\"roll\",\"position\":14}},{\"type\":\"tag\",\"id\":\"78821\",\"attributes\":{\"tag\":\"rolls\",\"position\":15}},{\"type\":\"tag\",\"id\":\"78822\",\"attributes\":{\"tag\":\"apply\",\"position\":16}},{\"type\":\"tag\",\"id\":\"78823\",\"attributes\":{\"tag\":\"single\",\"position\":17}},{\"type\":\"tag\",\"id\":\"78824\",\"attributes\":{\"tag\":\"alongs\",\"position\":18}},{\"type\":\"tag\",\"id\":\"167947\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167948\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167949\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167950\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167951\",\"attributes\":{\"tag\":\"Play Along\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167952\",\"attributes\":{\"tag\":\"applications\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167953\",\"attributes\":{\"tag\":\"application\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167954\",\"attributes\":{\"tag\":\"applied\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167955\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167956\",\"attributes\":{\"tag\":\"singles\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167957\",\"attributes\":{\"tag\":\"stroke\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167958\",\"attributes\":{\"tag\":\"strokes\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167959\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167960\",\"attributes\":{\"tag\":\"roll\",\"position\":14}},{\"type\":\"tag\",\"id\":\"167961\",\"attributes\":{\"tag\":\"rolls\",\"position\":15}},{\"type\":\"tag\",\"id\":\"167962\",\"attributes\":{\"tag\":\"apply\",\"position\":16}},{\"type\":\"tag\",\"id\":\"167963\",\"attributes\":{\"tag\":\"single\",\"position\":17}},{\"type\":\"tag\",\"id\":\"167964\",\"attributes\":{\"tag\":\"alongs\",\"position\":18}},{\"type\":\"tag\",\"id\":\"257087\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"257088\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"257089\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"257090\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"257091\",\"attributes\":{\"tag\":\"Play Along\",\"position\":5}},{\"type\":\"tag\",\"id\":\"257092\",\"attributes\":{\"tag\":\"applications\",\"position\":6}},{\"type\":\"tag\",\"id\":\"257093\",\"attributes\":{\"tag\":\"application\",\"position\":7}},{\"type\":\"tag\",\"id\":\"257094\",\"attributes\":{\"tag\":\"applied\",\"position\":8}},{\"type\":\"tag\",\"id\":\"257095\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"257096\",\"attributes\":{\"tag\":\"singles\",\"position\":10}},{\"type\":\"tag\",\"id\":\"257097\",\"attributes\":{\"tag\":\"stroke\",\"position\":11}},{\"type\":\"tag\",\"id\":\"257098\",\"attributes\":{\"tag\":\"strokes\",\"position\":12}},{\"type\":\"tag\",\"id\":\"257099\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":13}},{\"type\":\"tag\",\"id\":\"257100\",\"attributes\":{\"tag\":\"roll\",\"position\":14}},{\"type\":\"tag\",\"id\":\"257101\",\"attributes\":{\"tag\":\"rolls\",\"position\":15}},{\"type\":\"tag\",\"id\":\"257102\",\"attributes\":{\"tag\":\"apply\",\"position\":16}},{\"type\":\"tag\",\"id\":\"257103\",\"attributes\":{\"tag\":\"single\",\"position\":17}},{\"type\":\"tag\",\"id\":\"257104\",\"attributes\":{\"tag\":\"alongs\",\"position\":18}},{\"type\":\"parent\",\"id\":\"745\",\"attributes\":{\"child_position\":5},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20516\"}}}},{\"type\":\"contentData\",\"id\":\"2569\",\"attributes\":{\"key\":\"description\",\"value\":\"<p>The single stroke four is one of the 40 drum rudiments. This course will provide you with some practice pad exercises that will help you learn the sticking pattern, and also some practical drum-set applications.</p>\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12164\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-02.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"41622\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Course Resources Pack\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"41623\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/resource-files/dci-02-single-stroke-four.zip\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"41624\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"41625\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/pdf/dci-02.pdf\",\"position\":1}},{\"type\":\"instructor\",\"id\":\"7029\",\"attributes\":{\"position\":1},\"relationships\":{\"instructor\":{\"data\":{\"type\":\"instructor\",\"id\":\"31877\"}}}},{\"type\":\"instructor\",\"id\":\"15024\",\"attributes\":{\"position\":1},\"relationships\":{\"instructor\":{\"data\":{\"type\":\"instructor\",\"id\":\"31877\"}}}},{\"type\":\"instructor\",\"id\":\"23019\",\"attributes\":{\"position\":1},\"relationships\":{\"instructor\":{\"data\":{\"type\":\"instructor\",\"id\":\"31877\"}}}},{\"type\":\"topic\",\"id\":\"5955\",\"attributes\":{\"topic\":\"Rudiments\",\"position\":1}},{\"type\":\"topic\",\"id\":\"13269\",\"attributes\":{\"topic\":\"Rudiments\",\"position\":1}},{\"type\":\"topic\",\"id\":\"20583\",\"attributes\":{\"topic\":\"Rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78787\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78788\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78789\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78790\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78791\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78792\",\"attributes\":{\"tag\":\"groove\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78793\",\"attributes\":{\"tag\":\"4\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78794\",\"attributes\":{\"tag\":\"Play Along\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78795\",\"attributes\":{\"tag\":\"fill\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78796\",\"attributes\":{\"tag\":\"beat\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78797\",\"attributes\":{\"tag\":\"rudiment\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78798\",\"attributes\":{\"tag\":\"grooves\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78799\",\"attributes\":{\"tag\":\"four\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78800\",\"attributes\":{\"tag\":\"singles\",\"position\":14}},{\"type\":\"tag\",\"id\":\"78801\",\"attributes\":{\"tag\":\"stroke\",\"position\":15}},{\"type\":\"tag\",\"id\":\"78802\",\"attributes\":{\"tag\":\"strokes\",\"position\":16}},{\"type\":\"tag\",\"id\":\"78803\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":17}},{\"type\":\"tag\",\"id\":\"78804\",\"attributes\":{\"tag\":\"single\",\"position\":18}},{\"type\":\"tag\",\"id\":\"78805\",\"attributes\":{\"tag\":\"alongs\",\"position\":19}},{\"type\":\"tag\",\"id\":\"78806\",\"attributes\":{\"tag\":\"fours\",\"position\":20}},{\"type\":\"tag\",\"id\":\"167927\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167928\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167929\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167930\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167931\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167932\",\"attributes\":{\"tag\":\"groove\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167933\",\"attributes\":{\"tag\":\"4\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167934\",\"attributes\":{\"tag\":\"Play Along\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167935\",\"attributes\":{\"tag\":\"fill\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167936\",\"attributes\":{\"tag\":\"beat\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167937\",\"attributes\":{\"tag\":\"rudiment\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167938\",\"attributes\":{\"tag\":\"grooves\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167939\",\"attributes\":{\"tag\":\"four\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167940\",\"attributes\":{\"tag\":\"singles\",\"position\":14}},{\"type\":\"tag\",\"id\":\"167941\",\"attributes\":{\"tag\":\"stroke\",\"position\":15}},{\"type\":\"tag\",\"id\":\"167942\",\"attributes\":{\"tag\":\"strokes\",\"position\":16}},{\"type\":\"tag\",\"id\":\"167943\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":17}},{\"type\":\"tag\",\"id\":\"167944\",\"attributes\":{\"tag\":\"single\",\"position\":18}},{\"type\":\"tag\",\"id\":\"167945\",\"attributes\":{\"tag\":\"alongs\",\"position\":19}},{\"type\":\"tag\",\"id\":\"167946\",\"attributes\":{\"tag\":\"fours\",\"position\":20}},{\"type\":\"tag\",\"id\":\"257067\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"257068\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"257069\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"257070\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"257071\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"257072\",\"attributes\":{\"tag\":\"groove\",\"position\":6}},{\"type\":\"tag\",\"id\":\"257073\",\"attributes\":{\"tag\":\"4\",\"position\":7}},{\"type\":\"tag\",\"id\":\"257074\",\"attributes\":{\"tag\":\"Play Along\",\"position\":8}},{\"type\":\"tag\",\"id\":\"257075\",\"attributes\":{\"tag\":\"fill\",\"position\":9}},{\"type\":\"tag\",\"id\":\"257076\",\"attributes\":{\"tag\":\"beat\",\"position\":10}},{\"type\":\"tag\",\"id\":\"257077\",\"attributes\":{\"tag\":\"rudiment\",\"position\":11}},{\"type\":\"tag\",\"id\":\"257078\",\"attributes\":{\"tag\":\"grooves\",\"position\":12}},{\"type\":\"tag\",\"id\":\"257079\",\"attributes\":{\"tag\":\"four\",\"position\":13}},{\"type\":\"tag\",\"id\":\"257080\",\"attributes\":{\"tag\":\"singles\",\"position\":14}},{\"type\":\"tag\",\"id\":\"257081\",\"attributes\":{\"tag\":\"stroke\",\"position\":15}},{\"type\":\"tag\",\"id\":\"257082\",\"attributes\":{\"tag\":\"strokes\",\"position\":16}},{\"type\":\"tag\",\"id\":\"257083\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":17}},{\"type\":\"tag\",\"id\":\"257084\",\"attributes\":{\"tag\":\"single\",\"position\":18}},{\"type\":\"tag\",\"id\":\"257085\",\"attributes\":{\"tag\":\"alongs\",\"position\":19}},{\"type\":\"tag\",\"id\":\"257086\",\"attributes\":{\"tag\":\"fours\",\"position\":20}},{\"type\":\"contentData\",\"id\":\"2576\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12166\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20558_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23654\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02a-01-60.mp4\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23656\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02a-01-90.mp4\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23657\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02a-01.png\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23658\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02a-02-60.mp4\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23660\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02a-02-90.mp4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23661\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02a-02.png\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23662\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02a-03-60.mp4\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"23664\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02a-03-90.mp4\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"23665\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02a-03.png\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"43616\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43617\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-02a.pdf\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43618\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Resources Pack\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43619\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/audio/dci-02a.zip\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72492\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465753843_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84955\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"58\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84956\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"#1 - Basic Rudiment\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84957\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"138\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84958\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"#2 - 16th Note Triplets\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84959\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"#3 - Rudiment Variation Challenge\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"84960\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"204\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145827\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145828\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145829\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145830\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145831\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145832\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145833\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145834\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145835\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145836\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145837\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145838\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153306\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153307\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153308\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153309\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153310\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153311\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153312\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153313\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153314\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153315\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153316\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153317\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160785\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160786\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160787\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160788\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160789\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160790\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160791\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160792\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160793\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160794\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160795\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160796\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78774\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78775\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78776\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78777\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78778\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78779\",\"attributes\":{\"tag\":\"four\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78780\",\"attributes\":{\"tag\":\"singles\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78781\",\"attributes\":{\"tag\":\"stroke\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78782\",\"attributes\":{\"tag\":\"strokes\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78783\",\"attributes\":{\"tag\":\"intro\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78784\",\"attributes\":{\"tag\":\"introduction\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78785\",\"attributes\":{\"tag\":\"single\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78786\",\"attributes\":{\"tag\":\"fours\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167914\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167915\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167916\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167917\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167918\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167919\",\"attributes\":{\"tag\":\"four\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167920\",\"attributes\":{\"tag\":\"singles\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167921\",\"attributes\":{\"tag\":\"stroke\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167922\",\"attributes\":{\"tag\":\"strokes\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167923\",\"attributes\":{\"tag\":\"intro\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167924\",\"attributes\":{\"tag\":\"introduction\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167925\",\"attributes\":{\"tag\":\"single\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167926\",\"attributes\":{\"tag\":\"fours\",\"position\":13}},{\"type\":\"tag\",\"id\":\"257054\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"257055\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"257056\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"257057\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"257058\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"257059\",\"attributes\":{\"tag\":\"four\",\"position\":6}},{\"type\":\"tag\",\"id\":\"257060\",\"attributes\":{\"tag\":\"singles\",\"position\":7}},{\"type\":\"tag\",\"id\":\"257061\",\"attributes\":{\"tag\":\"stroke\",\"position\":8}},{\"type\":\"tag\",\"id\":\"257062\",\"attributes\":{\"tag\":\"strokes\",\"position\":9}},{\"type\":\"tag\",\"id\":\"257063\",\"attributes\":{\"tag\":\"intro\",\"position\":10}},{\"type\":\"tag\",\"id\":\"257064\",\"attributes\":{\"tag\":\"introduction\",\"position\":11}},{\"type\":\"tag\",\"id\":\"257065\",\"attributes\":{\"tag\":\"single\",\"position\":12}},{\"type\":\"tag\",\"id\":\"257066\",\"attributes\":{\"tag\":\"fours\",\"position\":13}},{\"type\":\"parent\",\"id\":\"746\",\"attributes\":{\"child_position\":1},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20556\"}}}},{\"type\":\"contentData\",\"id\":\"2577\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12168\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20560_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23666\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02b-01-60.mp4\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23668\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02b-01-90.mp4\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23669\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02b-01.png\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23670\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02b-02-60.mp4\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23672\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02b-02-90.mp4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23673\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02b-02.png\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23674\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02b-03-120.mp4\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"23676\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02b-03-80.mp4\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"23677\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02b-03.png\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"43612\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43613\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-02b.pdf\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43614\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Resources Pack\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43615\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/audio/dci-02b.zip\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72491\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465751957_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84963\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"23\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84964\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84965\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"182\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84966\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #2 - Rudiment accent challenge\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84967\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"338\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"84968\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #3\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145815\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145816\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145817\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145818\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145819\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145820\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145821\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145822\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145823\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145824\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145825\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145826\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"80\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153294\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153295\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153296\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153297\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153298\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153299\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153300\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153301\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153302\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153303\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153304\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153305\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"80\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160773\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160774\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160775\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160776\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160777\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160778\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160779\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160780\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160781\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160782\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"120\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160783\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160784\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"80\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78759\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78760\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78761\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78762\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78763\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78764\",\"attributes\":{\"tag\":\"four\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78765\",\"attributes\":{\"tag\":\"singles\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78766\",\"attributes\":{\"tag\":\"stroke\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78767\",\"attributes\":{\"tag\":\"strokes\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78768\",\"attributes\":{\"tag\":\"control\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78769\",\"attributes\":{\"tag\":\"speed\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78770\",\"attributes\":{\"tag\":\"roll\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78771\",\"attributes\":{\"tag\":\"rolls\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78772\",\"attributes\":{\"tag\":\"single\",\"position\":14}},{\"type\":\"tag\",\"id\":\"78773\",\"attributes\":{\"tag\":\"fours\",\"position\":15}},{\"type\":\"tag\",\"id\":\"167899\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167900\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167901\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167902\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167903\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167904\",\"attributes\":{\"tag\":\"four\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167905\",\"attributes\":{\"tag\":\"singles\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167906\",\"attributes\":{\"tag\":\"stroke\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167907\",\"attributes\":{\"tag\":\"strokes\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167908\",\"attributes\":{\"tag\":\"control\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167909\",\"attributes\":{\"tag\":\"speed\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167910\",\"attributes\":{\"tag\":\"roll\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167911\",\"attributes\":{\"tag\":\"rolls\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167912\",\"attributes\":{\"tag\":\"single\",\"position\":14}},{\"type\":\"tag\",\"id\":\"167913\",\"attributes\":{\"tag\":\"fours\",\"position\":15}},{\"type\":\"tag\",\"id\":\"257039\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"257040\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"257041\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"257042\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"257043\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"257044\",\"attributes\":{\"tag\":\"four\",\"position\":6}},{\"type\":\"tag\",\"id\":\"257045\",\"attributes\":{\"tag\":\"singles\",\"position\":7}},{\"type\":\"tag\",\"id\":\"257046\",\"attributes\":{\"tag\":\"stroke\",\"position\":8}},{\"type\":\"tag\",\"id\":\"257047\",\"attributes\":{\"tag\":\"strokes\",\"position\":9}},{\"type\":\"tag\",\"id\":\"257048\",\"attributes\":{\"tag\":\"control\",\"position\":10}},{\"type\":\"tag\",\"id\":\"257049\",\"attributes\":{\"tag\":\"speed\",\"position\":11}},{\"type\":\"tag\",\"id\":\"257050\",\"attributes\":{\"tag\":\"roll\",\"position\":12}},{\"type\":\"tag\",\"id\":\"257051\",\"attributes\":{\"tag\":\"rolls\",\"position\":13}},{\"type\":\"tag\",\"id\":\"257052\",\"attributes\":{\"tag\":\"single\",\"position\":14}},{\"type\":\"tag\",\"id\":\"257053\",\"attributes\":{\"tag\":\"fours\",\"position\":15}},{\"type\":\"parent\",\"id\":\"747\",\"attributes\":{\"child_position\":2},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20556\"}}}},{\"type\":\"contentData\",\"id\":\"2578\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12170\",\"attributes\":{\"key\":\"sheet_music_image_url\",\"value\":\"https://dz5i3s4prcfun.cloudfront.net/courses/sheet-music/dci-02c.png\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12171\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20563_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23678\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02c-01-60.mp4\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23680\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02c-01-90.mp4\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23681\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02c-01.png\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23682\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02c-02-60.mp4\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23684\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02c-02-90.mp4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23685\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02c-02.png\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23686\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02c-03-60.mp4\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"23688\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02c-03-90.mp4\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"23689\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02c-03.png\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23690\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02c-04-60.mp4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"23692\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02c-04-90.mp4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"23693\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02c-04.png\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23694\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02c-05-60.mp4\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"23696\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02c-05-90.mp4\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"23697\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02c-05.png\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"43608\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43609\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-02c.pdf\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43610\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Resources Pack\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43611\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/audio/dci-02c.zip\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72490\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465757745_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84969\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"23\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84971\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"114\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84973\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"252\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"84975\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"362\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"84977\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84978\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #2\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84979\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #3\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"84980\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"84981\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #5\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"84982\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"446\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145795\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145796\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145797\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145798\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145799\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145800\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145801\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145802\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145803\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145804\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145805\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145806\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145807\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145808\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145809\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145810\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145811\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145812\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145813\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"145814\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"153274\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153275\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153276\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153277\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153278\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153279\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153280\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153281\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153282\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153283\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153284\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153285\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153286\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153287\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153288\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153289\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153290\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153291\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153292\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"153293\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"160753\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160754\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160755\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160756\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160757\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160758\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160759\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160760\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160761\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160762\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160763\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160764\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160765\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160766\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160767\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160768\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160769\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160770\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160771\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"160772\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78742\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78743\",\"attributes\":{\"tag\":\"beats\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78744\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78745\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78746\",\"attributes\":{\"tag\":\"groove\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78747\",\"attributes\":{\"tag\":\"4\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78748\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78749\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78750\",\"attributes\":{\"tag\":\"beat\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78751\",\"attributes\":{\"tag\":\"rudiment\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78752\",\"attributes\":{\"tag\":\"grooves\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78753\",\"attributes\":{\"tag\":\"four\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78754\",\"attributes\":{\"tag\":\"singles\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78755\",\"attributes\":{\"tag\":\"stroke\",\"position\":14}},{\"type\":\"tag\",\"id\":\"78756\",\"attributes\":{\"tag\":\"strokes\",\"position\":15}},{\"type\":\"tag\",\"id\":\"78757\",\"attributes\":{\"tag\":\"single\",\"position\":16}},{\"type\":\"tag\",\"id\":\"78758\",\"attributes\":{\"tag\":\"fours\",\"position\":17}},{\"type\":\"tag\",\"id\":\"167882\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167883\",\"attributes\":{\"tag\":\"beats\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167884\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167885\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167886\",\"attributes\":{\"tag\":\"groove\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167887\",\"attributes\":{\"tag\":\"4\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167888\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167889\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167890\",\"attributes\":{\"tag\":\"beat\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167891\",\"attributes\":{\"tag\":\"rudiment\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167892\",\"attributes\":{\"tag\":\"grooves\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167893\",\"attributes\":{\"tag\":\"four\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167894\",\"attributes\":{\"tag\":\"singles\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167895\",\"attributes\":{\"tag\":\"stroke\",\"position\":14}},{\"type\":\"tag\",\"id\":\"167896\",\"attributes\":{\"tag\":\"strokes\",\"position\":15}},{\"type\":\"tag\",\"id\":\"167897\",\"attributes\":{\"tag\":\"single\",\"position\":16}},{\"type\":\"tag\",\"id\":\"167898\",\"attributes\":{\"tag\":\"fours\",\"position\":17}},{\"type\":\"tag\",\"id\":\"257022\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"257023\",\"attributes\":{\"tag\":\"beats\",\"position\":2}},{\"type\":\"tag\",\"id\":\"257024\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"257025\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"257026\",\"attributes\":{\"tag\":\"groove\",\"position\":5}},{\"type\":\"tag\",\"id\":\"257027\",\"attributes\":{\"tag\":\"4\",\"position\":6}},{\"type\":\"tag\",\"id\":\"257028\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"257029\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"257030\",\"attributes\":{\"tag\":\"beat\",\"position\":9}},{\"type\":\"tag\",\"id\":\"257031\",\"attributes\":{\"tag\":\"rudiment\",\"position\":10}},{\"type\":\"tag\",\"id\":\"257032\",\"attributes\":{\"tag\":\"grooves\",\"position\":11}},{\"type\":\"tag\",\"id\":\"257033\",\"attributes\":{\"tag\":\"four\",\"position\":12}},{\"type\":\"tag\",\"id\":\"257034\",\"attributes\":{\"tag\":\"singles\",\"position\":13}},{\"type\":\"tag\",\"id\":\"257035\",\"attributes\":{\"tag\":\"stroke\",\"position\":14}},{\"type\":\"tag\",\"id\":\"257036\",\"attributes\":{\"tag\":\"strokes\",\"position\":15}},{\"type\":\"tag\",\"id\":\"257037\",\"attributes\":{\"tag\":\"single\",\"position\":16}},{\"type\":\"tag\",\"id\":\"257038\",\"attributes\":{\"tag\":\"fours\",\"position\":17}},{\"type\":\"parent\",\"id\":\"748\",\"attributes\":{\"child_position\":3},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20556\"}}}},{\"type\":\"contentData\",\"id\":\"2579\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12173\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20565_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23698\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02d-01-60.mp4\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23700\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02d-01-90.mp4\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23701\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02d-01.png\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23702\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02d-02-60.mp4\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23704\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02d-02-90.mp4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23705\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02d-02.png\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23706\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02d-03-60.mp4\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"23708\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02d-03-90.mp4\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"23709\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02d-03.png\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23710\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02d-04-60.mp4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"23711\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02d-04.png\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23712\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02d-05-60.mp4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"23714\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-02d-05-90.mp4\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"23715\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-02d-05.png\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"43604\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43605\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-02d.pdf\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43606\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Resources Pack\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43607\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/audio/dci-02d.zip\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72489\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465756979_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84983\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"26\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84984\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84985\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"208\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84986\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #2\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84987\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"311\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"84988\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #3\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"84989\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"453\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"84990\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"84991\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"572\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"84992\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #5\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145777\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145778\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145779\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145780\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145781\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145782\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145783\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145784\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145785\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145786\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145787\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145788\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145789\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145790\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145791\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145792\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145793\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145794\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153256\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153257\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153258\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153259\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153260\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153261\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153262\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153263\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153264\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153265\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153266\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153267\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153268\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153269\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153270\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153271\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153272\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153273\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160735\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160736\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160737\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160738\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160739\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160740\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160741\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160742\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160743\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160744\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160745\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160746\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160747\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160748\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160749\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160750\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160751\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160752\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78727\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78728\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78729\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78730\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78731\",\"attributes\":{\"tag\":\"4\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78732\",\"attributes\":{\"tag\":\"fill\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78733\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78734\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78735\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78736\",\"attributes\":{\"tag\":\"four\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78737\",\"attributes\":{\"tag\":\"singles\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78738\",\"attributes\":{\"tag\":\"stroke\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78739\",\"attributes\":{\"tag\":\"strokes\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78740\",\"attributes\":{\"tag\":\"single\",\"position\":14}},{\"type\":\"tag\",\"id\":\"78741\",\"attributes\":{\"tag\":\"fours\",\"position\":15}},{\"type\":\"tag\",\"id\":\"167867\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167868\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167869\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167870\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167871\",\"attributes\":{\"tag\":\"4\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167872\",\"attributes\":{\"tag\":\"fill\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167873\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167874\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167875\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167876\",\"attributes\":{\"tag\":\"four\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167877\",\"attributes\":{\"tag\":\"singles\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167878\",\"attributes\":{\"tag\":\"stroke\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167879\",\"attributes\":{\"tag\":\"strokes\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167880\",\"attributes\":{\"tag\":\"single\",\"position\":14}},{\"type\":\"tag\",\"id\":\"167881\",\"attributes\":{\"tag\":\"fours\",\"position\":15}},{\"type\":\"tag\",\"id\":\"257007\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"257008\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"257009\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"257010\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"257011\",\"attributes\":{\"tag\":\"4\",\"position\":5}},{\"type\":\"tag\",\"id\":\"257012\",\"attributes\":{\"tag\":\"fill\",\"position\":6}},{\"type\":\"tag\",\"id\":\"257013\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"257014\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"257015\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"257016\",\"attributes\":{\"tag\":\"four\",\"position\":10}},{\"type\":\"tag\",\"id\":\"257017\",\"attributes\":{\"tag\":\"singles\",\"position\":11}},{\"type\":\"tag\",\"id\":\"257018\",\"attributes\":{\"tag\":\"stroke\",\"position\":12}},{\"type\":\"tag\",\"id\":\"257019\",\"attributes\":{\"tag\":\"strokes\",\"position\":13}},{\"type\":\"tag\",\"id\":\"257020\",\"attributes\":{\"tag\":\"single\",\"position\":14}},{\"type\":\"tag\",\"id\":\"257021\",\"attributes\":{\"tag\":\"fours\",\"position\":15}},{\"type\":\"parent\",\"id\":\"749\",\"attributes\":{\"child_position\":4},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20556\"}}}},{\"type\":\"contentData\",\"id\":\"2580\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12175\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20567_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43598\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Click Track\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"43599\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://s3.amazonaws.com/drumeo/courses/audio/dci-02e-wc.mp3\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"43600\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 No-Click Track\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43601\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://s3.amazonaws.com/drumeo/courses/audio/dci-02e-woc.mp3\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43602\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43603\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-02e.pdf\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72488\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465743721_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78709\",\"attributes\":{\"tag\":\"four\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78710\",\"attributes\":{\"tag\":\"singles\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78711\",\"attributes\":{\"tag\":\"stroke\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78712\",\"attributes\":{\"tag\":\"strokes\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78713\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":14}},{\"type\":\"tag\",\"id\":\"78714\",\"attributes\":{\"tag\":\"apply\",\"position\":15}},{\"type\":\"tag\",\"id\":\"78715\",\"attributes\":{\"tag\":\"single\",\"position\":16}},{\"type\":\"tag\",\"id\":\"78716\",\"attributes\":{\"tag\":\"alongs\",\"position\":17}},{\"type\":\"tag\",\"id\":\"78717\",\"attributes\":{\"tag\":\"fours\",\"position\":18}},{\"type\":\"tag\",\"id\":\"78718\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78719\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78720\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78721\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78722\",\"attributes\":{\"tag\":\"Play Along\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78723\",\"attributes\":{\"tag\":\"applications\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78724\",\"attributes\":{\"tag\":\"application\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78725\",\"attributes\":{\"tag\":\"applied\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78726\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167849\",\"attributes\":{\"tag\":\"four\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167850\",\"attributes\":{\"tag\":\"singles\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167851\",\"attributes\":{\"tag\":\"stroke\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167852\",\"attributes\":{\"tag\":\"strokes\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167853\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":14}},{\"type\":\"tag\",\"id\":\"167854\",\"attributes\":{\"tag\":\"apply\",\"position\":15}},{\"type\":\"tag\",\"id\":\"167855\",\"attributes\":{\"tag\":\"single\",\"position\":16}},{\"type\":\"tag\",\"id\":\"167856\",\"attributes\":{\"tag\":\"alongs\",\"position\":17}},{\"type\":\"tag\",\"id\":\"167857\",\"attributes\":{\"tag\":\"fours\",\"position\":18}},{\"type\":\"tag\",\"id\":\"167858\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167859\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167860\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167861\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167862\",\"attributes\":{\"tag\":\"Play Along\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167863\",\"attributes\":{\"tag\":\"applications\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167864\",\"attributes\":{\"tag\":\"application\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167865\",\"attributes\":{\"tag\":\"applied\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167866\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"256989\",\"attributes\":{\"tag\":\"four\",\"position\":10}},{\"type\":\"tag\",\"id\":\"256990\",\"attributes\":{\"tag\":\"singles\",\"position\":11}},{\"type\":\"tag\",\"id\":\"256991\",\"attributes\":{\"tag\":\"stroke\",\"position\":12}},{\"type\":\"tag\",\"id\":\"256992\",\"attributes\":{\"tag\":\"strokes\",\"position\":13}},{\"type\":\"tag\",\"id\":\"256993\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":14}},{\"type\":\"tag\",\"id\":\"256994\",\"attributes\":{\"tag\":\"apply\",\"position\":15}},{\"type\":\"tag\",\"id\":\"256995\",\"attributes\":{\"tag\":\"single\",\"position\":16}},{\"type\":\"tag\",\"id\":\"256996\",\"attributes\":{\"tag\":\"alongs\",\"position\":17}},{\"type\":\"tag\",\"id\":\"256997\",\"attributes\":{\"tag\":\"fours\",\"position\":18}},{\"type\":\"tag\",\"id\":\"256998\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"256999\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"257000\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"257001\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"257002\",\"attributes\":{\"tag\":\"Play Along\",\"position\":5}},{\"type\":\"tag\",\"id\":\"257003\",\"attributes\":{\"tag\":\"applications\",\"position\":6}},{\"type\":\"tag\",\"id\":\"257004\",\"attributes\":{\"tag\":\"application\",\"position\":7}},{\"type\":\"tag\",\"id\":\"257005\",\"attributes\":{\"tag\":\"applied\",\"position\":8}},{\"type\":\"tag\",\"id\":\"257006\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"parent\",\"id\":\"750\",\"attributes\":{\"child_position\":5},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20556\"}}}},{\"type\":\"contentData\",\"id\":\"2568\",\"attributes\":{\"key\":\"description\",\"value\":\"<p>The single stroke seven is one of the 40 drum rudiments. This course will provide you with some speed and control exercises and also some practical drum-set applications.</p>\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12178\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-03.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"41618\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Course Resources Pack\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"41619\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/resource-files/dci-03-single-stroke-seven.zip\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"41620\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"41621\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/pdf/dci-03.pdf\",\"position\":1}},{\"type\":\"instructor\",\"id\":\"7028\",\"attributes\":{\"position\":1},\"relationships\":{\"instructor\":{\"data\":{\"type\":\"instructor\",\"id\":\"31877\"}}}},{\"type\":\"instructor\",\"id\":\"15023\",\"attributes\":{\"position\":1},\"relationships\":{\"instructor\":{\"data\":{\"type\":\"instructor\",\"id\":\"31877\"}}}},{\"type\":\"instructor\",\"id\":\"23018\",\"attributes\":{\"position\":1},\"relationships\":{\"instructor\":{\"data\":{\"type\":\"instructor\",\"id\":\"31877\"}}}},{\"type\":\"topic\",\"id\":\"5954\",\"attributes\":{\"topic\":\"Rudiments\",\"position\":1}},{\"type\":\"topic\",\"id\":\"13268\",\"attributes\":{\"topic\":\"Rudiments\",\"position\":1}},{\"type\":\"topic\",\"id\":\"20582\",\"attributes\":{\"topic\":\"Rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78689\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78690\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78691\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78692\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78693\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78694\",\"attributes\":{\"tag\":\"groove\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78695\",\"attributes\":{\"tag\":\"4\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78696\",\"attributes\":{\"tag\":\"Play Along\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78697\",\"attributes\":{\"tag\":\"fill\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78698\",\"attributes\":{\"tag\":\"beat\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78699\",\"attributes\":{\"tag\":\"rudiment\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78700\",\"attributes\":{\"tag\":\"grooves\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78701\",\"attributes\":{\"tag\":\"seven\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78702\",\"attributes\":{\"tag\":\"singles\",\"position\":14}},{\"type\":\"tag\",\"id\":\"78703\",\"attributes\":{\"tag\":\"stroke\",\"position\":15}},{\"type\":\"tag\",\"id\":\"78704\",\"attributes\":{\"tag\":\"strokes\",\"position\":16}},{\"type\":\"tag\",\"id\":\"78705\",\"attributes\":{\"tag\":\"sevens\",\"position\":17}},{\"type\":\"tag\",\"id\":\"78706\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":18}},{\"type\":\"tag\",\"id\":\"78707\",\"attributes\":{\"tag\":\"single\",\"position\":19}},{\"type\":\"tag\",\"id\":\"78708\",\"attributes\":{\"tag\":\"alongs\",\"position\":20}},{\"type\":\"tag\",\"id\":\"167829\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167830\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167831\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167832\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167833\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167834\",\"attributes\":{\"tag\":\"groove\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167835\",\"attributes\":{\"tag\":\"4\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167836\",\"attributes\":{\"tag\":\"Play Along\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167837\",\"attributes\":{\"tag\":\"fill\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167838\",\"attributes\":{\"tag\":\"beat\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167839\",\"attributes\":{\"tag\":\"rudiment\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167840\",\"attributes\":{\"tag\":\"grooves\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167841\",\"attributes\":{\"tag\":\"seven\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167842\",\"attributes\":{\"tag\":\"singles\",\"position\":14}},{\"type\":\"tag\",\"id\":\"167843\",\"attributes\":{\"tag\":\"stroke\",\"position\":15}},{\"type\":\"tag\",\"id\":\"167844\",\"attributes\":{\"tag\":\"strokes\",\"position\":16}},{\"type\":\"tag\",\"id\":\"167845\",\"attributes\":{\"tag\":\"sevens\",\"position\":17}},{\"type\":\"tag\",\"id\":\"167846\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":18}},{\"type\":\"tag\",\"id\":\"167847\",\"attributes\":{\"tag\":\"single\",\"position\":19}},{\"type\":\"tag\",\"id\":\"167848\",\"attributes\":{\"tag\":\"alongs\",\"position\":20}},{\"type\":\"tag\",\"id\":\"256969\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"256970\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"256971\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"256972\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"256973\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"256974\",\"attributes\":{\"tag\":\"groove\",\"position\":6}},{\"type\":\"tag\",\"id\":\"256975\",\"attributes\":{\"tag\":\"4\",\"position\":7}},{\"type\":\"tag\",\"id\":\"256976\",\"attributes\":{\"tag\":\"Play Along\",\"position\":8}},{\"type\":\"tag\",\"id\":\"256977\",\"attributes\":{\"tag\":\"fill\",\"position\":9}},{\"type\":\"tag\",\"id\":\"256978\",\"attributes\":{\"tag\":\"beat\",\"position\":10}},{\"type\":\"tag\",\"id\":\"256979\",\"attributes\":{\"tag\":\"rudiment\",\"position\":11}},{\"type\":\"tag\",\"id\":\"256980\",\"attributes\":{\"tag\":\"grooves\",\"position\":12}},{\"type\":\"tag\",\"id\":\"256981\",\"attributes\":{\"tag\":\"seven\",\"position\":13}},{\"type\":\"tag\",\"id\":\"256982\",\"attributes\":{\"tag\":\"singles\",\"position\":14}},{\"type\":\"tag\",\"id\":\"256983\",\"attributes\":{\"tag\":\"stroke\",\"position\":15}},{\"type\":\"tag\",\"id\":\"256984\",\"attributes\":{\"tag\":\"strokes\",\"position\":16}},{\"type\":\"tag\",\"id\":\"256985\",\"attributes\":{\"tag\":\"sevens\",\"position\":17}},{\"type\":\"tag\",\"id\":\"256986\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":18}},{\"type\":\"tag\",\"id\":\"256987\",\"attributes\":{\"tag\":\"single\",\"position\":19}},{\"type\":\"tag\",\"id\":\"256988\",\"attributes\":{\"tag\":\"alongs\",\"position\":20}},{\"type\":\"contentData\",\"id\":\"2581\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12180\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20573_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23594\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03a-01-60.mp4\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23596\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03a-01-90.mp4\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23597\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03a-01.png\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23598\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03a-02-60.mp4\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23600\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03a-02-90.mp4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23601\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03a-02.png\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23602\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03a-03-60.mp4\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"23604\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03a-03-90.mp4\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"23605\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03a-03.png\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"43594\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43595\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-03a.pdf\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43596\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Resources Pack\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43597\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/audio/dci-03a.zip\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72487\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465774499_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84705\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"29\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84706\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #1 - Basic Rudiment\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84707\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"121\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84708\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #2 - 16th Note Triplets\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84709\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"190\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"84710\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #3 - Rudiment Variation Challenge\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145765\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145766\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145767\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145768\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145769\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145770\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145771\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145772\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145773\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145774\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145775\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145776\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153244\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153245\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153246\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153247\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153248\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153249\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153250\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153251\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153252\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153253\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153254\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153255\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160723\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160724\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160725\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160726\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160727\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160728\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160729\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160730\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160731\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160732\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160733\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160734\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78676\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78677\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78678\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78679\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78680\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78681\",\"attributes\":{\"tag\":\"seven\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78682\",\"attributes\":{\"tag\":\"singles\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78683\",\"attributes\":{\"tag\":\"stroke\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78684\",\"attributes\":{\"tag\":\"strokes\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78685\",\"attributes\":{\"tag\":\"sevens\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78686\",\"attributes\":{\"tag\":\"intro\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78687\",\"attributes\":{\"tag\":\"introduction\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78688\",\"attributes\":{\"tag\":\"single\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167816\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167817\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167818\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167819\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167820\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167821\",\"attributes\":{\"tag\":\"seven\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167822\",\"attributes\":{\"tag\":\"singles\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167823\",\"attributes\":{\"tag\":\"stroke\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167824\",\"attributes\":{\"tag\":\"strokes\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167825\",\"attributes\":{\"tag\":\"sevens\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167826\",\"attributes\":{\"tag\":\"intro\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167827\",\"attributes\":{\"tag\":\"introduction\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167828\",\"attributes\":{\"tag\":\"single\",\"position\":13}},{\"type\":\"tag\",\"id\":\"256956\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"256957\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"256958\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"256959\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"256960\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"256961\",\"attributes\":{\"tag\":\"seven\",\"position\":6}},{\"type\":\"tag\",\"id\":\"256962\",\"attributes\":{\"tag\":\"singles\",\"position\":7}},{\"type\":\"tag\",\"id\":\"256963\",\"attributes\":{\"tag\":\"stroke\",\"position\":8}},{\"type\":\"tag\",\"id\":\"256964\",\"attributes\":{\"tag\":\"strokes\",\"position\":9}},{\"type\":\"tag\",\"id\":\"256965\",\"attributes\":{\"tag\":\"sevens\",\"position\":10}},{\"type\":\"tag\",\"id\":\"256966\",\"attributes\":{\"tag\":\"intro\",\"position\":11}},{\"type\":\"tag\",\"id\":\"256967\",\"attributes\":{\"tag\":\"introduction\",\"position\":12}},{\"type\":\"tag\",\"id\":\"256968\",\"attributes\":{\"tag\":\"single\",\"position\":13}},{\"type\":\"parent\",\"id\":\"751\",\"attributes\":{\"child_position\":1},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20571\"}}}},{\"type\":\"contentData\",\"id\":\"2582\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12182\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20576_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23606\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03b-01-60.mp4\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23608\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03b-01-90.mp4\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23609\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03b-01.png\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23610\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03b-02-60.mp4\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23612\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03b-02-90.mp4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23613\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03b-02.png\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43590\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43591\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-03b.pdf\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43592\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Resources Pack\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43593\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/audio/dci-03b.zip\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72486\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465767749_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84716\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"21\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84717\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84723\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"96\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84724\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #2 - Speed Builder\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145757\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145758\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145759\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145760\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145761\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145762\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145763\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145764\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153236\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153237\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153238\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153239\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153240\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153241\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153242\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153243\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160715\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160716\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160717\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160718\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160719\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160720\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160721\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160722\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78663\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78664\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78665\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78666\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78667\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78668\",\"attributes\":{\"tag\":\"seven\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78669\",\"attributes\":{\"tag\":\"singles\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78670\",\"attributes\":{\"tag\":\"stroke\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78671\",\"attributes\":{\"tag\":\"strokes\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78672\",\"attributes\":{\"tag\":\"control\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78673\",\"attributes\":{\"tag\":\"speed\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78674\",\"attributes\":{\"tag\":\"sevens\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78675\",\"attributes\":{\"tag\":\"single\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167803\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167804\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167805\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167806\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167807\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167808\",\"attributes\":{\"tag\":\"seven\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167809\",\"attributes\":{\"tag\":\"singles\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167810\",\"attributes\":{\"tag\":\"stroke\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167811\",\"attributes\":{\"tag\":\"strokes\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167812\",\"attributes\":{\"tag\":\"control\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167813\",\"attributes\":{\"tag\":\"speed\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167814\",\"attributes\":{\"tag\":\"sevens\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167815\",\"attributes\":{\"tag\":\"single\",\"position\":13}},{\"type\":\"tag\",\"id\":\"256943\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"256944\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"256945\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"256946\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"256947\",\"attributes\":{\"tag\":\"rudiment\",\"position\":5}},{\"type\":\"tag\",\"id\":\"256948\",\"attributes\":{\"tag\":\"seven\",\"position\":6}},{\"type\":\"tag\",\"id\":\"256949\",\"attributes\":{\"tag\":\"singles\",\"position\":7}},{\"type\":\"tag\",\"id\":\"256950\",\"attributes\":{\"tag\":\"stroke\",\"position\":8}},{\"type\":\"tag\",\"id\":\"256951\",\"attributes\":{\"tag\":\"strokes\",\"position\":9}},{\"type\":\"tag\",\"id\":\"256952\",\"attributes\":{\"tag\":\"control\",\"position\":10}},{\"type\":\"tag\",\"id\":\"256953\",\"attributes\":{\"tag\":\"speed\",\"position\":11}},{\"type\":\"tag\",\"id\":\"256954\",\"attributes\":{\"tag\":\"sevens\",\"position\":12}},{\"type\":\"tag\",\"id\":\"256955\",\"attributes\":{\"tag\":\"single\",\"position\":13}},{\"type\":\"parent\",\"id\":\"752\",\"attributes\":{\"child_position\":2},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20571\"}}}},{\"type\":\"contentData\",\"id\":\"2583\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12184\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20578_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23614\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03c-01-60.mp4\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23616\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03c-01-90.mp4\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23617\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03c-01.png\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23618\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03c-02-60.mp4\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23620\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03c-02-90.mp4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23621\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03c-02.png\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23622\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03c-03-60.mp4\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"23624\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03c-03-90.mp4\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"23625\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03c-03.png\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23626\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03c-04-60.mp4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"23628\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03c-04-90.mp4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"23629\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03c-04.png\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23630\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03c-05-60.mp4\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"23632\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03c-05-90.mp4\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"23633\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03c-05.png\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"43586\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43587\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-03c.pdf\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43588\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Resources Pack\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43589\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/audio/dci-03c.zip\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72485\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465789987_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84728\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"43\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84729\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84733\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"190\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84734\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #2\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84738\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"396\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"84739\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #3\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"84744\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"621\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"84745\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"84749\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"833\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"84750\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Beat #5\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145737\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145738\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145739\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145740\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145741\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"145742\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"145743\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145744\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145745\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145746\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145747\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145748\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145749\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145750\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145751\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145752\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145753\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145754\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145755\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145756\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153216\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153217\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153218\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153219\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153220\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"153221\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"153222\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153223\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153224\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153225\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153226\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153227\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153228\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153229\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153230\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153231\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153232\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153233\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153234\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153235\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160695\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160696\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160697\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160698\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160699\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"160700\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"160701\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160702\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160703\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160704\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160705\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160706\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160707\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160708\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160709\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160710\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160711\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160712\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160713\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160714\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78646\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78647\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78648\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78649\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78650\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78651\",\"attributes\":{\"tag\":\"4\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78652\",\"attributes\":{\"tag\":\"fill\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78653\",\"attributes\":{\"tag\":\"applications\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78654\",\"attributes\":{\"tag\":\"application\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78655\",\"attributes\":{\"tag\":\"beat\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78656\",\"attributes\":{\"tag\":\"rudiment\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78657\",\"attributes\":{\"tag\":\"seven\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78658\",\"attributes\":{\"tag\":\"singles\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78659\",\"attributes\":{\"tag\":\"stroke\",\"position\":14}},{\"type\":\"tag\",\"id\":\"78660\",\"attributes\":{\"tag\":\"strokes\",\"position\":15}},{\"type\":\"tag\",\"id\":\"78661\",\"attributes\":{\"tag\":\"sevens\",\"position\":16}},{\"type\":\"tag\",\"id\":\"78662\",\"attributes\":{\"tag\":\"single\",\"position\":17}},{\"type\":\"tag\",\"id\":\"167786\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167787\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167788\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167789\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167790\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167791\",\"attributes\":{\"tag\":\"4\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167792\",\"attributes\":{\"tag\":\"fill\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167793\",\"attributes\":{\"tag\":\"applications\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167794\",\"attributes\":{\"tag\":\"application\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167795\",\"attributes\":{\"tag\":\"beat\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167796\",\"attributes\":{\"tag\":\"rudiment\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167797\",\"attributes\":{\"tag\":\"seven\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167798\",\"attributes\":{\"tag\":\"singles\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167799\",\"attributes\":{\"tag\":\"stroke\",\"position\":14}},{\"type\":\"tag\",\"id\":\"167800\",\"attributes\":{\"tag\":\"strokes\",\"position\":15}},{\"type\":\"tag\",\"id\":\"167801\",\"attributes\":{\"tag\":\"sevens\",\"position\":16}},{\"type\":\"tag\",\"id\":\"167802\",\"attributes\":{\"tag\":\"single\",\"position\":17}},{\"type\":\"tag\",\"id\":\"256926\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"256927\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"256928\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"256929\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"256930\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"256931\",\"attributes\":{\"tag\":\"4\",\"position\":6}},{\"type\":\"tag\",\"id\":\"256932\",\"attributes\":{\"tag\":\"fill\",\"position\":7}},{\"type\":\"tag\",\"id\":\"256933\",\"attributes\":{\"tag\":\"applications\",\"position\":8}},{\"type\":\"tag\",\"id\":\"256934\",\"attributes\":{\"tag\":\"application\",\"position\":9}},{\"type\":\"tag\",\"id\":\"256935\",\"attributes\":{\"tag\":\"beat\",\"position\":10}},{\"type\":\"tag\",\"id\":\"256936\",\"attributes\":{\"tag\":\"rudiment\",\"position\":11}},{\"type\":\"tag\",\"id\":\"256937\",\"attributes\":{\"tag\":\"seven\",\"position\":12}},{\"type\":\"tag\",\"id\":\"256938\",\"attributes\":{\"tag\":\"singles\",\"position\":13}},{\"type\":\"tag\",\"id\":\"256939\",\"attributes\":{\"tag\":\"stroke\",\"position\":14}},{\"type\":\"tag\",\"id\":\"256940\",\"attributes\":{\"tag\":\"strokes\",\"position\":15}},{\"type\":\"tag\",\"id\":\"256941\",\"attributes\":{\"tag\":\"sevens\",\"position\":16}},{\"type\":\"tag\",\"id\":\"256942\",\"attributes\":{\"tag\":\"single\",\"position\":17}},{\"type\":\"parent\",\"id\":\"753\",\"attributes\":{\"child_position\":3},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20571\"}}}},{\"type\":\"contentData\",\"id\":\"2584\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12186\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20580_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23634\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03d-01-60.mp4\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23636\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03d-01-90.mp4\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23637\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03d-01.png\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23638\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03d-02-60.mp4\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23640\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03d-02-90.mp4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23641\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03d-02.png\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23642\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03d-03-60.mp4\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"23644\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03d-03-90.mp4\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"23645\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03d-03.png\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23646\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03d-04-60.mp4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"23648\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03d-04-90.mp4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"23649\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03d-04.png\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23650\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03d-05-60.mp4\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"23652\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-03d-05-90.mp4\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"23653\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-03d-05.png\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"43582\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43583\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-03d.pdf\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43584\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Resources Pack\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43585\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/audio/dci-03d.zip\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72484\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465788774_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84754\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"45\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84755\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"84758\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"224\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84759\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #2\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"84764\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"364\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"84765\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #3\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"84768\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"523\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"84769\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"84774\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"696\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"84775\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Fill #5\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145717\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145718\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145719\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145720\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145721\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145722\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145723\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145724\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145725\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145726\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145727\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145728\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145729\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145730\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145731\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145732\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145733\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145734\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145735\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"145736\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"153196\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153197\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153198\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153199\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153200\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153201\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153202\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153203\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153204\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153205\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153206\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153207\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153208\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153209\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153210\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153211\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153212\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153213\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153214\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"153215\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"160675\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160676\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160677\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160678\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160679\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160680\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160681\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160682\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160683\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160684\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160685\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160686\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160687\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160688\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160689\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160690\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160691\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160692\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160693\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"160694\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78631\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78632\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78633\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78634\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78635\",\"attributes\":{\"tag\":\"4\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78636\",\"attributes\":{\"tag\":\"fill\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78637\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78638\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78639\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78640\",\"attributes\":{\"tag\":\"seven\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78641\",\"attributes\":{\"tag\":\"singles\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78642\",\"attributes\":{\"tag\":\"stroke\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78643\",\"attributes\":{\"tag\":\"strokes\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78644\",\"attributes\":{\"tag\":\"sevens\",\"position\":14}},{\"type\":\"tag\",\"id\":\"78645\",\"attributes\":{\"tag\":\"single\",\"position\":15}},{\"type\":\"tag\",\"id\":\"167771\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167772\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167773\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167774\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167775\",\"attributes\":{\"tag\":\"4\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167776\",\"attributes\":{\"tag\":\"fill\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167777\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167778\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167779\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167780\",\"attributes\":{\"tag\":\"seven\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167781\",\"attributes\":{\"tag\":\"singles\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167782\",\"attributes\":{\"tag\":\"stroke\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167783\",\"attributes\":{\"tag\":\"strokes\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167784\",\"attributes\":{\"tag\":\"sevens\",\"position\":14}},{\"type\":\"tag\",\"id\":\"167785\",\"attributes\":{\"tag\":\"single\",\"position\":15}},{\"type\":\"tag\",\"id\":\"256911\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"256912\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"256913\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":3}},{\"type\":\"tag\",\"id\":\"256914\",\"attributes\":{\"tag\":\"intermediate\",\"position\":4}},{\"type\":\"tag\",\"id\":\"256915\",\"attributes\":{\"tag\":\"4\",\"position\":5}},{\"type\":\"tag\",\"id\":\"256916\",\"attributes\":{\"tag\":\"fill\",\"position\":6}},{\"type\":\"tag\",\"id\":\"256917\",\"attributes\":{\"tag\":\"applications\",\"position\":7}},{\"type\":\"tag\",\"id\":\"256918\",\"attributes\":{\"tag\":\"application\",\"position\":8}},{\"type\":\"tag\",\"id\":\"256919\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"256920\",\"attributes\":{\"tag\":\"seven\",\"position\":10}},{\"type\":\"tag\",\"id\":\"256921\",\"attributes\":{\"tag\":\"singles\",\"position\":11}},{\"type\":\"tag\",\"id\":\"256922\",\"attributes\":{\"tag\":\"stroke\",\"position\":12}},{\"type\":\"tag\",\"id\":\"256923\",\"attributes\":{\"tag\":\"strokes\",\"position\":13}},{\"type\":\"tag\",\"id\":\"256924\",\"attributes\":{\"tag\":\"sevens\",\"position\":14}},{\"type\":\"tag\",\"id\":\"256925\",\"attributes\":{\"tag\":\"single\",\"position\":15}},{\"type\":\"parent\",\"id\":\"754\",\"attributes\":{\"child_position\":4},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20571\"}}}},{\"type\":\"contentData\",\"id\":\"2585\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12188\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20582_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43576\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 No-Click Track\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"43577\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://s3.amazonaws.com/drumeo/courses/audio/dci-03e-woc.mp3\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"43578\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Click Track\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43579\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://s3.amazonaws.com/drumeo/courses/audio/dci-03e-wc.mp3\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43580\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43581\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-03e.pdf\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72483\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465765496_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78613\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78614\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78615\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78616\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78617\",\"attributes\":{\"tag\":\"Play Along\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78618\",\"attributes\":{\"tag\":\"applications\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78619\",\"attributes\":{\"tag\":\"application\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78620\",\"attributes\":{\"tag\":\"applied\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78621\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78622\",\"attributes\":{\"tag\":\"seven\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78623\",\"attributes\":{\"tag\":\"singles\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78624\",\"attributes\":{\"tag\":\"stroke\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78625\",\"attributes\":{\"tag\":\"strokes\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78626\",\"attributes\":{\"tag\":\"sevens\",\"position\":14}},{\"type\":\"tag\",\"id\":\"78627\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":15}},{\"type\":\"tag\",\"id\":\"78628\",\"attributes\":{\"tag\":\"apply\",\"position\":16}},{\"type\":\"tag\",\"id\":\"78629\",\"attributes\":{\"tag\":\"single\",\"position\":17}},{\"type\":\"tag\",\"id\":\"78630\",\"attributes\":{\"tag\":\"alongs\",\"position\":18}},{\"type\":\"tag\",\"id\":\"167753\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167754\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167755\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167756\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167757\",\"attributes\":{\"tag\":\"Play Along\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167758\",\"attributes\":{\"tag\":\"applications\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167759\",\"attributes\":{\"tag\":\"application\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167760\",\"attributes\":{\"tag\":\"applied\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167761\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167762\",\"attributes\":{\"tag\":\"seven\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167763\",\"attributes\":{\"tag\":\"singles\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167764\",\"attributes\":{\"tag\":\"stroke\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167765\",\"attributes\":{\"tag\":\"strokes\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167766\",\"attributes\":{\"tag\":\"sevens\",\"position\":14}},{\"type\":\"tag\",\"id\":\"167767\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":15}},{\"type\":\"tag\",\"id\":\"167768\",\"attributes\":{\"tag\":\"apply\",\"position\":16}},{\"type\":\"tag\",\"id\":\"167769\",\"attributes\":{\"tag\":\"single\",\"position\":17}},{\"type\":\"tag\",\"id\":\"167770\",\"attributes\":{\"tag\":\"alongs\",\"position\":18}},{\"type\":\"tag\",\"id\":\"256893\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"256894\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"256895\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"256896\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"256897\",\"attributes\":{\"tag\":\"Play Along\",\"position\":5}},{\"type\":\"tag\",\"id\":\"256898\",\"attributes\":{\"tag\":\"applications\",\"position\":6}},{\"type\":\"tag\",\"id\":\"256899\",\"attributes\":{\"tag\":\"application\",\"position\":7}},{\"type\":\"tag\",\"id\":\"256900\",\"attributes\":{\"tag\":\"applied\",\"position\":8}},{\"type\":\"tag\",\"id\":\"256901\",\"attributes\":{\"tag\":\"rudiment\",\"position\":9}},{\"type\":\"tag\",\"id\":\"256902\",\"attributes\":{\"tag\":\"seven\",\"position\":10}},{\"type\":\"tag\",\"id\":\"256903\",\"attributes\":{\"tag\":\"singles\",\"position\":11}},{\"type\":\"tag\",\"id\":\"256904\",\"attributes\":{\"tag\":\"stroke\",\"position\":12}},{\"type\":\"tag\",\"id\":\"256905\",\"attributes\":{\"tag\":\"strokes\",\"position\":13}},{\"type\":\"tag\",\"id\":\"256906\",\"attributes\":{\"tag\":\"sevens\",\"position\":14}},{\"type\":\"tag\",\"id\":\"256907\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":15}},{\"type\":\"tag\",\"id\":\"256908\",\"attributes\":{\"tag\":\"apply\",\"position\":16}},{\"type\":\"tag\",\"id\":\"256909\",\"attributes\":{\"tag\":\"single\",\"position\":17}},{\"type\":\"tag\",\"id\":\"256910\",\"attributes\":{\"tag\":\"alongs\",\"position\":18}},{\"type\":\"parent\",\"id\":\"755\",\"attributes\":{\"child_position\":5},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20571\"}}}},{\"type\":\"contentData\",\"id\":\"2567\",\"attributes\":{\"key\":\"description\",\"value\":\"The double stroke roll is one of the 40 drum rudiments. This course will provide you with some practice pad exercises that will help you learn the sticking pattern, and also some practical drum-set applications.\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12191\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-05.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"41614\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Course Resources Pack\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"41615\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/resource-files/dci-05-double-stroke-roll.zip\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"41616\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"41617\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/pdf/dci-05.pdf\",\"position\":1}},{\"type\":\"instructor\",\"id\":\"7027\",\"attributes\":{\"position\":1},\"relationships\":{\"instructor\":{\"data\":{\"type\":\"instructor\",\"id\":\"31877\"}}}},{\"type\":\"instructor\",\"id\":\"15022\",\"attributes\":{\"position\":1},\"relationships\":{\"instructor\":{\"data\":{\"type\":\"instructor\",\"id\":\"31877\"}}}},{\"type\":\"instructor\",\"id\":\"23017\",\"attributes\":{\"position\":1},\"relationships\":{\"instructor\":{\"data\":{\"type\":\"instructor\",\"id\":\"31877\"}}}},{\"type\":\"topic\",\"id\":\"5953\",\"attributes\":{\"topic\":\"Rudiments\",\"position\":1}},{\"type\":\"topic\",\"id\":\"13267\",\"attributes\":{\"topic\":\"Rudiments\",\"position\":1}},{\"type\":\"topic\",\"id\":\"20581\",\"attributes\":{\"topic\":\"Rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78592\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78593\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78594\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78595\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78596\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78597\",\"attributes\":{\"tag\":\"groove\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78598\",\"attributes\":{\"tag\":\"4\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78599\",\"attributes\":{\"tag\":\"2\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78600\",\"attributes\":{\"tag\":\"Play Along\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78601\",\"attributes\":{\"tag\":\"double\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78602\",\"attributes\":{\"tag\":\"fill\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78603\",\"attributes\":{\"tag\":\"beat\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78604\",\"attributes\":{\"tag\":\"rudiment\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78605\",\"attributes\":{\"tag\":\"grooves\",\"position\":14}},{\"type\":\"tag\",\"id\":\"78606\",\"attributes\":{\"tag\":\"doubles\",\"position\":15}},{\"type\":\"tag\",\"id\":\"78607\",\"attributes\":{\"tag\":\"stroke\",\"position\":16}},{\"type\":\"tag\",\"id\":\"78608\",\"attributes\":{\"tag\":\"strokes\",\"position\":17}},{\"type\":\"tag\",\"id\":\"78609\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":18}},{\"type\":\"tag\",\"id\":\"78610\",\"attributes\":{\"tag\":\"roll\",\"position\":19}},{\"type\":\"tag\",\"id\":\"78611\",\"attributes\":{\"tag\":\"rolls\",\"position\":20}},{\"type\":\"tag\",\"id\":\"78612\",\"attributes\":{\"tag\":\"alongs\",\"position\":21}},{\"type\":\"tag\",\"id\":\"167732\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167733\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167734\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167735\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167736\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167737\",\"attributes\":{\"tag\":\"groove\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167738\",\"attributes\":{\"tag\":\"4\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167739\",\"attributes\":{\"tag\":\"2\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167740\",\"attributes\":{\"tag\":\"Play Along\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167741\",\"attributes\":{\"tag\":\"double\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167742\",\"attributes\":{\"tag\":\"fill\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167743\",\"attributes\":{\"tag\":\"beat\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167744\",\"attributes\":{\"tag\":\"rudiment\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167745\",\"attributes\":{\"tag\":\"grooves\",\"position\":14}},{\"type\":\"tag\",\"id\":\"167746\",\"attributes\":{\"tag\":\"doubles\",\"position\":15}},{\"type\":\"tag\",\"id\":\"167747\",\"attributes\":{\"tag\":\"stroke\",\"position\":16}},{\"type\":\"tag\",\"id\":\"167748\",\"attributes\":{\"tag\":\"strokes\",\"position\":17}},{\"type\":\"tag\",\"id\":\"167749\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":18}},{\"type\":\"tag\",\"id\":\"167750\",\"attributes\":{\"tag\":\"roll\",\"position\":19}},{\"type\":\"tag\",\"id\":\"167751\",\"attributes\":{\"tag\":\"rolls\",\"position\":20}},{\"type\":\"tag\",\"id\":\"167752\",\"attributes\":{\"tag\":\"alongs\",\"position\":21}},{\"type\":\"tag\",\"id\":\"256872\",\"attributes\":{\"tag\":\"fills\",\"position\":1}},{\"type\":\"tag\",\"id\":\"256873\",\"attributes\":{\"tag\":\"rudiments\",\"position\":2}},{\"type\":\"tag\",\"id\":\"256874\",\"attributes\":{\"tag\":\"beats\",\"position\":3}},{\"type\":\"tag\",\"id\":\"256875\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":4}},{\"type\":\"tag\",\"id\":\"256876\",\"attributes\":{\"tag\":\"intermediate\",\"position\":5}},{\"type\":\"tag\",\"id\":\"256877\",\"attributes\":{\"tag\":\"groove\",\"position\":6}},{\"type\":\"tag\",\"id\":\"256878\",\"attributes\":{\"tag\":\"4\",\"position\":7}},{\"type\":\"tag\",\"id\":\"256879\",\"attributes\":{\"tag\":\"2\",\"position\":8}},{\"type\":\"tag\",\"id\":\"256880\",\"attributes\":{\"tag\":\"Play Along\",\"position\":9}},{\"type\":\"tag\",\"id\":\"256881\",\"attributes\":{\"tag\":\"double\",\"position\":10}},{\"type\":\"tag\",\"id\":\"256882\",\"attributes\":{\"tag\":\"fill\",\"position\":11}},{\"type\":\"tag\",\"id\":\"256883\",\"attributes\":{\"tag\":\"beat\",\"position\":12}},{\"type\":\"tag\",\"id\":\"256884\",\"attributes\":{\"tag\":\"rudiment\",\"position\":13}},{\"type\":\"tag\",\"id\":\"256885\",\"attributes\":{\"tag\":\"grooves\",\"position\":14}},{\"type\":\"tag\",\"id\":\"256886\",\"attributes\":{\"tag\":\"doubles\",\"position\":15}},{\"type\":\"tag\",\"id\":\"256887\",\"attributes\":{\"tag\":\"stroke\",\"position\":16}},{\"type\":\"tag\",\"id\":\"256888\",\"attributes\":{\"tag\":\"strokes\",\"position\":17}},{\"type\":\"tag\",\"id\":\"256889\",\"attributes\":{\"tag\":\"play-alongs\",\"position\":18}},{\"type\":\"tag\",\"id\":\"256890\",\"attributes\":{\"tag\":\"roll\",\"position\":19}},{\"type\":\"tag\",\"id\":\"256891\",\"attributes\":{\"tag\":\"rolls\",\"position\":20}},{\"type\":\"tag\",\"id\":\"256892\",\"attributes\":{\"tag\":\"alongs\",\"position\":21}},{\"type\":\"contentData\",\"id\":\"2586\",\"attributes\":{\"key\":\"description\",\"value\":\"\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12193\",\"attributes\":{\"key\":\"thumbnail_url\",\"value\":\"https://dzryyo1we6bm3.cloudfront.net/thumbnails/20586_thumbnail_360p.jpg\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"12194\",\"attributes\":{\"key\":\"learning_path_description\",\"value\":\"By now, you have a good grasp on the proper grips and motions, and you have been challenged with a few exercises. We will now be shifting our focus to 3 main rudiments you want to practice on the regular. You already know the single stroke roll, and have been practicing it since you started this Learning Path (right?), so lets jump with into the double stroke roll. Do not over think your technique here right now, and just focus on getting 2 strokes per hand.                    \\n                        <br>\\n                        <br>\\n                        <span class=\\\"related\\\">\\n                            <strong>Related Lessons:</strong> \\n                            <a href=\\\"https://www.drumeo.com/members/lessons/library/24105\\\">Developing A Consistent Double Stroke Roll</a>, \\n                            <a href=\\\"https://www.drumeo.com/members/lessons/library/21848\\\">30 Day Double Stroke Roll Challenge</a>, \\n                            <a href=\\\"https://www.drumeo.com/members/lessons/library/26470\\\">Rudiment Burn - Singles To Doubles</a>\\n                        </span>\\n                    \",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23506\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-05a-01-60.mp4\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23508\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-05a-01-90.mp4\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23509\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-05a-01.png\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"23510\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-05a-02-60.mp4\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23512\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-05a-02-90.mp4\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23513\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-05a-02.png\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"23514\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-05a-03-60.mp4\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"23516\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-05a-03-90.mp4\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"23517\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-05a-03.png\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"23518\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-05a-04-60.mp4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"23520\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-05a-04-90.mp4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"23521\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-05a-04.png\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"23522\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-05a-05-60.mp4\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"23524\",\"attributes\":{\"key\":\"sbt_video_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/sbt/dci-05a-05-90.mp4\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"23525\",\"attributes\":{\"key\":\"sbt_image_url\",\"value\":\"https://s3.amazonaws.com/drumeosecure/courses/png/dci-05a-05.png\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"43572\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"Sheet Music PDF\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43573\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"https://drumeo.s3.amazonaws.com/courses/pdf/dci-05a.pdf\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"43574\",\"attributes\":{\"key\":\"resource_name\",\"value\":\"MP3 Resources Pack\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"43575\",\"attributes\":{\"key\":\"resource_url\",\"value\":\"//drumeo.s3.amazonaws.com/courses/audio/dci-05a.zip\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"72482\",\"attributes\":{\"key\":\"original_thumbnail_url\",\"value\":\"https://i.vimeocdn.com/video/465785411_640x360.jpg?r=pad\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85950\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"22\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85951\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #1 - Basic Rudiment\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"85952\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"112\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"85953\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #2 - 16th Notes\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"85954\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"226\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"85955\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #3 - 8th Note Triplets\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"85956\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"331\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"85957\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #4 - 16th Note Triplets\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"85958\",\"attributes\":{\"key\":\"chapter_timecode\",\"value\":\"424\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"85959\",\"attributes\":{\"key\":\"chapter_description\",\"value\":\"Exercise #5 - Rudiment Variation Challenge\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145697\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145698\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"145699\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145700\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"145701\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145702\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"145703\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145704\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"145705\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145706\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"145707\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145708\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"145709\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145710\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"145711\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145712\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"145713\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145714\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"145715\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"145716\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"153176\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153177\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"153178\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153179\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"153180\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153181\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"153182\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153183\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"153184\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153185\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"153186\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153187\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"153188\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153189\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"153190\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153191\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"153192\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153193\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"153194\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"153195\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"160655\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160656\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":1}},{\"type\":\"contentData\",\"id\":\"160657\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"1\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160658\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":2}},{\"type\":\"contentData\",\"id\":\"160659\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160660\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":3}},{\"type\":\"contentData\",\"id\":\"160661\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"2\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160662\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":4}},{\"type\":\"contentData\",\"id\":\"160663\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160664\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":5}},{\"type\":\"contentData\",\"id\":\"160665\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"3\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160666\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":6}},{\"type\":\"contentData\",\"id\":\"160667\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160668\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":7}},{\"type\":\"contentData\",\"id\":\"160669\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"4\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160670\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":8}},{\"type\":\"contentData\",\"id\":\"160671\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160672\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"60\",\"position\":9}},{\"type\":\"contentData\",\"id\":\"160673\",\"attributes\":{\"key\":\"sbt_exercise_number\",\"value\":\"5\",\"position\":10}},{\"type\":\"contentData\",\"id\":\"160674\",\"attributes\":{\"key\":\"sbt_bpm\",\"value\":\"90\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78578\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"78579\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"78580\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"78581\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"78582\",\"attributes\":{\"tag\":\"2\",\"position\":5}},{\"type\":\"tag\",\"id\":\"78583\",\"attributes\":{\"tag\":\"double\",\"position\":6}},{\"type\":\"tag\",\"id\":\"78584\",\"attributes\":{\"tag\":\"rudiment\",\"position\":7}},{\"type\":\"tag\",\"id\":\"78585\",\"attributes\":{\"tag\":\"doubles\",\"position\":8}},{\"type\":\"tag\",\"id\":\"78586\",\"attributes\":{\"tag\":\"stroke\",\"position\":9}},{\"type\":\"tag\",\"id\":\"78587\",\"attributes\":{\"tag\":\"strokes\",\"position\":10}},{\"type\":\"tag\",\"id\":\"78588\",\"attributes\":{\"tag\":\"roll\",\"position\":11}},{\"type\":\"tag\",\"id\":\"78589\",\"attributes\":{\"tag\":\"rolls\",\"position\":12}},{\"type\":\"tag\",\"id\":\"78590\",\"attributes\":{\"tag\":\"intro\",\"position\":13}},{\"type\":\"tag\",\"id\":\"78591\",\"attributes\":{\"tag\":\"introduction\",\"position\":14}},{\"type\":\"tag\",\"id\":\"167718\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"167719\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"167720\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"167721\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"167722\",\"attributes\":{\"tag\":\"2\",\"position\":5}},{\"type\":\"tag\",\"id\":\"167723\",\"attributes\":{\"tag\":\"double\",\"position\":6}},{\"type\":\"tag\",\"id\":\"167724\",\"attributes\":{\"tag\":\"rudiment\",\"position\":7}},{\"type\":\"tag\",\"id\":\"167725\",\"attributes\":{\"tag\":\"doubles\",\"position\":8}},{\"type\":\"tag\",\"id\":\"167726\",\"attributes\":{\"tag\":\"stroke\",\"position\":9}},{\"type\":\"tag\",\"id\":\"167727\",\"attributes\":{\"tag\":\"strokes\",\"position\":10}},{\"type\":\"tag\",\"id\":\"167728\",\"attributes\":{\"tag\":\"roll\",\"position\":11}},{\"type\":\"tag\",\"id\":\"167729\",\"attributes\":{\"tag\":\"rolls\",\"position\":12}},{\"type\":\"tag\",\"id\":\"167730\",\"attributes\":{\"tag\":\"intro\",\"position\":13}},{\"type\":\"tag\",\"id\":\"167731\",\"attributes\":{\"tag\":\"introduction\",\"position\":14}},{\"type\":\"tag\",\"id\":\"256858\",\"attributes\":{\"tag\":\"rudiments\",\"position\":1}},{\"type\":\"tag\",\"id\":\"256859\",\"attributes\":{\"tag\":\"dave atkinson\",\"position\":2}},{\"type\":\"tag\",\"id\":\"256860\",\"attributes\":{\"tag\":\"intermediate\",\"position\":3}},{\"type\":\"tag\",\"id\":\"256861\",\"attributes\":{\"tag\":\"4\",\"position\":4}},{\"type\":\"tag\",\"id\":\"256862\",\"attributes\":{\"tag\":\"2\",\"position\":5}},{\"type\":\"tag\",\"id\":\"256863\",\"attributes\":{\"tag\":\"double\",\"position\":6}},{\"type\":\"tag\",\"id\":\"256864\",\"attributes\":{\"tag\":\"rudiment\",\"position\":7}},{\"type\":\"tag\",\"id\":\"256865\",\"attributes\":{\"tag\":\"doubles\",\"position\":8}},{\"type\":\"tag\",\"id\":\"256866\",\"attributes\":{\"tag\":\"stroke\",\"position\":9}},{\"type\":\"tag\",\"id\":\"256867\",\"attributes\":{\"tag\":\"strokes\",\"position\":10}},{\"type\":\"tag\",\"id\":\"256868\",\"attributes\":{\"tag\":\"roll\",\"position\":11}},{\"type\":\"tag\",\"id\":\"256869\",\"attributes\":{\"tag\":\"rolls\",\"position\":12}},{\"type\":\"tag\",\"id\":\"256870\",\"attributes\":{\"tag\":\"intro\",\"position\":13}},{\"type\":\"tag\",\"id\":\"256871\",\"attributes\":{\"tag\":\"introduction\",\"position\":14}},{\"type\":\"parent\",\"id\":\"756\",\"attributes\":{\"child_position\":1},\"relationships\":{\"parent\":{\"data\":{\"type\":\"parent\",\"id\":\"20584\"}}}}],\"meta\":{\"activeFilters\":{},\"filterOptions\":{\"content_type\":[\"course\"],\"instructor\":[{},{\"id\":31971,\"slug\":\"adam-marko\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:28\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:28\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Adam Marko\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31909,\"slug\":\"adam-tuminaro\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:22\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:22\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Adam Tuminaro\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":247864,\"slug\":\"alex-rudinger\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":\"150\",\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2020-03-12 20:15:58\",\"archived_on\":null,\"created_on\":\"2020-03-12 20:16:01\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Alex Rüdinger\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31920,\"slug\":\"anika-nilles\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:23\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:23\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Anika Nilles\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31906,\"slug\":\"antonio-sanchez\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:22\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:22\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Antonio Sanchez\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":193680,\"slug\":\"asher-kurtz\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"guitareo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-01-31 18:20:13\",\"archived_on\":null,\"created_on\":\"2018-01-31 18:20:13\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Asher Kurtz\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31908,\"slug\":\"benny-greb\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:22\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:22\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Benny Greb\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31962,\"slug\":\"billy-cobham\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:27\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:27\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Billy Cobham\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31955,\"slug\":\"billy-rymer\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:27\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:27\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Billy Rymer\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":191327,\"slug\":\"brandon-khoo\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-02 15:00:00\",\"archived_on\":null,\"created_on\":\"2018-01-31 16:47:26\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Brandon Khoo\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":197077,\"slug\":\"brett-ziegler\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-28 17:01:25\",\"archived_on\":null,\"created_on\":\"2018-02-28 17:01:25\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Brett Ziegler\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31952,\"slug\":\"brian-frasier-moore\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:26\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:26\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Brian Frasier-Moore\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":215677,\"slug\":\"brian-tichy\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-11-19 20:00:00\",\"archived_on\":null,\"created_on\":\"2018-11-20 10:08:43\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Brian Tichy\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31964,\"slug\":\"bruce-becker\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:28\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:28\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Bruce Becker\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":209790,\"slug\":\"camille-bigeault\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-07-22 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-07-23 09:08:39\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Camille Bigeault\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31910,\"slug\":\"carmine-appice\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:22\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:22\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Carmine Appice\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":212504,\"slug\":\"carson-gant\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-09-14 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-09-15 18:49:18\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Carson Gant\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31905,\"slug\":\"casey-cooper\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:22\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:22\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Casey Cooper\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":197087,\"slug\":\"cassi-falk\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-28 17:01:26\",\"archived_on\":null,\"created_on\":\"2018-02-28 17:01:26\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Cassi Falk\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31969,\"slug\":\"chip-ritter\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:28\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:28\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Chip Ritter\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31965,\"slug\":\"claus-hessler\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:28\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:28\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Claus Hessler\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31944,\"slug\":\"dafnis-prieto\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:26\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:26\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Dafnis Prieto\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":190814,\"slug\":\"dali-mraz\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-01-14 20:00:00\",\"archived_on\":null,\"created_on\":\"2018-01-15 10:49:48\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Dali Mraz\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31912,\"slug\":\"daniel-glass\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:23\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:23\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Daniel Glass\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31953,\"slug\":\"danny-seraphine\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:27\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:27\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Danny Seraphine\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":189979,\"slug\":\"darren\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-02 20:00:00\",\"archived_on\":null,\"created_on\":\"2017-12-18 19:01:30\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Darren Schoepp\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31877,\"slug\":\"dave-atkinson\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:20\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:20\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Dave Atkinson\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31960,\"slug\":\"dave-dicenso\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:27\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:27\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Dave DiCenso\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":208181,\"slug\":\"dave-king\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-06-24 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-06-25 08:00:28\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Dave King\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":193723,\"slug\":\"david-becker\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"guitareo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-01-31 18:20:20\",\"archived_on\":null,\"created_on\":\"2018-01-31 18:20:20\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"David Becker\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31966,\"slug\":\"david-garibaldi\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:28\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:28\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"David Garibaldi\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":235167,\"slug\":\"david-raouf\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-10-17 13:19:32\",\"archived_on\":null,\"created_on\":\"2019-10-17 13:19:33\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"David Raouf\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31980,\"slug\":\"dennis-chambers\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:29\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:29\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Dennis Chambers\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31970,\"slug\":\"derek-roddy\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:28\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:28\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Derek Roddy\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":212107,\"slug\":\"dom-famularo\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-09-02 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-09-03 10:27:19\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Dom Famularo\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":193701,\"slug\":\"don-ross\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"guitareo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-01-31 18:20:16\",\"archived_on\":null,\"created_on\":\"2018-01-31 18:20:16\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Don Ross\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31958,\"slug\":\"eric-moore\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:27\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:27\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Eric Moore\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31921,\"slug\":\"florian-alexandru-zorn\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:23\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:23\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Florian Alexandru-Zorn\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31985,\"slug\":\"frank-briggs\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:29\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:29\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Frank Briggs\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31925,\"slug\":\"gabor-dornyei\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:24\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:24\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Gabor Dornyei\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":218895,\"slug\":\"gabriel-palatchi\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-01-20 20:00:00\",\"archived_on\":null,\"created_on\":\"2019-01-21 12:21:54\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Gabriel Palatchi\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31983,\"slug\":\"gavin-harrison\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:29\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:29\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Gavin Harrison\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":196087,\"slug\":\"gene-hoglan\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-15 20:00:00\",\"archived_on\":null,\"created_on\":\"2018-02-16 16:53:05\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Gene Hoglan\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31911,\"slug\":\"gergo-borlai\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:23\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:23\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Gergo Borlai\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":230449,\"slug\":\"gil-sharone\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-08-02 13:21:05\",\"archived_on\":null,\"created_on\":\"2019-08-02 13:21:06\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Gil Sharone\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":237359,\"slug\":\"glen-sobel\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-11-18 11:29:44\",\"archived_on\":null,\"created_on\":\"2019-11-18 11:29:45\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Glen Sobel\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":232650,\"slug\":\"gregg-bissonette\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-09-09 08:40:17\",\"archived_on\":null,\"created_on\":\"2019-09-09 08:40:19\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Gregg Bissonette\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31963,\"slug\":\"gulli-briem\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:27\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:27\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Gulli Briem\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":215078,\"slug\":\"harry-miree\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-10-25 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-10-26 12:00:21\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Harry Miree\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":202766,\"slug\":\"harvey-mason\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-04-19 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-04-20 15:25:20\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Harvey Mason\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":231920,\"slug\":\"heather-thomas\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-08-28 11:28:00\",\"archived_on\":null,\"created_on\":\"2019-08-28 11:28:01\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Heather Thomas\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31919,\"slug\":\"henrique-de-almeida\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:23\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:23\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Henrique De Almeida\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31887,\"slug\":\"issah-contractor\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:21\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:21\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Issah Contractor\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":193657,\"slug\":\"jacob-wiens\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"guitareo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-01-31 18:20:10\",\"archived_on\":null,\"created_on\":\"2018-01-31 18:20:10\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jacob Wiens\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31880,\"slug\":\"jared-falk\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:20\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:20\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jared Falk\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31918,\"slug\":\"jason-bittner\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:23\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:23\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jason Bittner\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":196848,\"slug\":\"jason-mcgerr\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-25 20:00:00\",\"archived_on\":null,\"created_on\":\"2018-02-26 09:40:11\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jason McGerr\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31977,\"slug\":\"jason-sutter\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:29\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:29\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jason Sutter\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31891,\"slug\":\"jay-deachman\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:21\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:21\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jay Deachman\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":202588,\"slug\":\"jay-oliver\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-04-15 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-04-16 09:06:35\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jay Oliver\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31968,\"slug\":\"jeff-salem\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:28\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:28\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jeff Salem\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31900,\"slug\":\"jim-riley\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:22\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:22\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jim Riley\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31924,\"slug\":\"jimmy-rainsford\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:23\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:23\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jimmy Rainsford\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31897,\"slug\":\"john-blackwell\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:22\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:22\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"John Blackwell\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31978,\"slug\":\"john-wooton\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:29\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:29\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"John Wooton\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":202308,\"slug\":\"jonathan-moffett\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-04-10 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-04-11 09:42:21\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jonathan Moffett\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":196994,\"slug\":\"jordan-leibel\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-28 17:01:11\",\"archived_on\":null,\"created_on\":\"2018-02-28 17:01:11\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jordan Leibel\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":208840,\"slug\":\"joseph-mintz\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-07-05 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-07-06 13:19:21\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Joseph Mintz\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":221245,\"slug\":\"josh-dion\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-03-04 20:10:07\",\"archived_on\":null,\"created_on\":\"2019-03-04 20:10:07\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":\"Josh Dion\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Josh Dion\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":189952,\"slug\":\"josh-dion\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-14 20:00:00\",\"archived_on\":null,\"created_on\":\"2017-12-15 11:10:53\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Josh Dion\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31903,\"slug\":\"josh-trager\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:22\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:22\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Josh Trager\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":191162,\"slug\":\"jost-nickel\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-01-24 20:00:00\",\"archived_on\":null,\"created_on\":\"2018-01-25 11:26:16\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jost Nickel\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31984,\"slug\":\"jp-bouvet\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:29\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:29\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"JP Bouvet\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":230446,\"slug\":\"juan-mendoza\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-08-02 13:04:36\",\"archived_on\":null,\"created_on\":\"2019-08-02 13:04:37\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Juan Mendoza\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":191326,\"slug\":\"julia-geaman\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-02 15:00:00\",\"archived_on\":null,\"created_on\":\"2018-01-31 16:43:43\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Julia Geaman\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":202289,\"slug\":\"kaz-rodriguez\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-04-10 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-04-11 08:33:21\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Kaz Rodriguez\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":224273,\"slug\":\"keith-carlock\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-04-29 10:33:41\",\"archived_on\":null,\"created_on\":\"2019-04-29 10:33:45\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Keith Carlock\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31885,\"slug\":\"kyle-radomsky\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:21\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:21\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Kyle Radomsky\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31895,\"slug\":\"larnell-lewis\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:21\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:21\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Larnell Lewis\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":196999,\"slug\":\"lisa-witt\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-28 17:01:11\",\"archived_on\":null,\"created_on\":\"2018-02-28 17:01:11\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Lisa Witt\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31979,\"slug\":\"luke-holland\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:29\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:29\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Luke Holland\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":220735,\"slug\":\"marco-minneman\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-02-19 20:00:00\",\"archived_on\":null,\"created_on\":\"2019-02-20 12:06:54\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Marco Minnemann\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":195923,\"slug\":\"mark-guiliana\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-07 20:00:00\",\"archived_on\":null,\"created_on\":\"2018-02-08 13:42:53\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Mark Guiliana\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31922,\"slug\":\"mark-kelso\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:23\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:23\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Mark Kelso\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31902,\"slug\":\"matt-garstka\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:22\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:22\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Matt Garstka\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31982,\"slug\":\"matt-johnson\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:29\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:29\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Matt Johnson\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31935,\"slug\":\"michael-schack\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:25\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:25\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Michael Schack\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31878,\"slug\":\"mike-michalkow\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:20\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:20\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Mike Michalkow\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31894,\"slug\":\"murray-creed\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:21\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:21\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Murray Creed\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":191339,\"slug\":\"nate-savage\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"guitareo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-01-31 18:13:13\",\"archived_on\":null,\"created_on\":\"2018-01-31 18:13:13\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Nate Savage\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":203172,\"slug\":\"nick-dvirgilio\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-04-26 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-04-27 16:35:58\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Nick D'Virgilio\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31901,\"slug\":\"pat-petrillo\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:22\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:22\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Pat Petrillo\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31967,\"slug\":\"pete-lockett\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:28\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:28\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Pete Lockett\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31898,\"slug\":\"peter-erskine\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:22\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:22\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Peter Erskine\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31974,\"slug\":\"peter-szendofi\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:28\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:28\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Peter Szendofi\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":233364,\"slug\":\"raghav-mehrotra\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-09-23 13:22:28\",\"archived_on\":null,\"created_on\":\"2019-09-23 13:22:30\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Raghav Mehrotra\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31981,\"slug\":\"randy-cooke\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:29\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:29\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Randy Cooke\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":225962,\"slug\":\"rashid-williams\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-05-29 10:46:11\",\"archived_on\":null,\"created_on\":\"2019-05-29 10:46:13\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Rashid Williams\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31913,\"slug\":\"reuben-spyker\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:23\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:23\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Reuben Spyker\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31914,\"slug\":\"rich-redmond\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:23\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:23\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Rich Redmond\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":190202,\"slug\":\"rodney-holmes\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-29 16:00:00\",\"archived_on\":null,\"created_on\":\"2017-12-29 16:46:04\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Rodney Holmes\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":203857,\"slug\":\"russ-miller\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-05-10 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-05-11 10:38:34\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Russ Miller\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":202287,\"slug\":\"sarah-thawer\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-04-10 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-04-11 08:26:03\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Sarah Thawer\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31904,\"slug\":\"scott-pellegrom\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:22\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:22\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Scott Pellegrom\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31932,\"slug\":\"sean-browne\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:24\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:24\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Sean Browne\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31884,\"slug\":\"sean-lang\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:21\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:21\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Sean Lang\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":198672,\"slug\":\"senri-kawaguchi\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-03-29 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-03-30 18:25:10\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Senri Kawaguchi\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":189941,\"slug\":\"siemy-di\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-01-01 20:00:00\",\"archived_on\":null,\"created_on\":\"2017-12-14 10:06:46\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Siemy Di\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":214093,\"slug\":\"stan-bicknell\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-10-01 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-10-02 11:35:23\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Stan Bicknell\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31928,\"slug\":\"stanley-randolph\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:24\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:24\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Stanley Randolph\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31899,\"slug\":\"stanton-moore\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:22\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:22\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Stanton Moore\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":239928,\"slug\":\"stephane-chamberland\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":\"150\",\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-12-02 11:59:15\",\"archived_on\":null,\"created_on\":\"2019-12-02 11:59:15\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Stephane Chamberland\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31929,\"slug\":\"stephen-taylor\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:24\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:24\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Stephen Taylor\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":220809,\"slug\":\"steve-lyman\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-02-26 16:02:50\",\"archived_on\":null,\"created_on\":\"2019-02-22 09:32:06\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":\"Steve Lyman\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Steve Lyman\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":220629,\"slug\":\"taylor-gordon\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-02-26 16:02:50\",\"archived_on\":null,\"created_on\":\"2019-02-17 12:56:34\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":\"Taylor Gordon\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Taylor Gordon\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31907,\"slug\":\"thomas-lang\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:22\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:22\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Thomas Lang\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31973,\"slug\":\"todd-sucherman\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:28\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:28\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Todd Sucherman\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":203867,\"slug\":\"tommy-igoe\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-05-10 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-05-11 11:07:38\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Tommy Igoe\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":220741,\"slug\":\"tony-coleman\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-02-19 20:00:00\",\"archived_on\":null,\"created_on\":\"2019-02-20 14:18:48\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Tony Coleman\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31976,\"slug\":\"tosin-aribisala\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:29\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:29\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Tosin Aribisala\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":31915,\"slug\":\"victor-guidera\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"drumeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2017-12-13 17:23:23\",\"archived_on\":null,\"created_on\":\"2017-12-13 17:23:23\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Victor Guidera\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":206304,\"slug\":\"victor-guidera\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"recordeo\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-05-30 18:09:04\",\"archived_on\":null,\"created_on\":\"2018-05-30 18:09:04\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Victor Guidera\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":\"https://d1y4o0cjx5s9r3.cloudfront.net/assets/recordeo-victor-guidera-profile-pic.jpg\",\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null}],\"topic\":[\"7th chords\",\"Arpeggios\",\"Bar Chords\",\"Beats\",\"Blues\",\"Boogie Woogie\",\"Brushes\",\"Chords\",\"Creative Drumming\",\"Double Bass\",\"Dynamics\",\"Ear Training\",\"Electronic Music\",\"Exercises\",\"Famous Grooves & Fills\",\"Fills\",\"Fingerstyle\",\"Foot Technique\",\"Fretboard Layout\",\"Fretboard Navigation\",\"Fretting Technique\",\"Funk\",\"Gear Talk\",\"General\",\"Getting Started\",\"Gigging Tips\",\"Gospel\",\"Hand Technique\",\"Hi-Hat\",\"Hip-Hop\",\"Improvisation\",\"Independence\",\"Intermediate\",\"Jazz\",\"Latin\",\"Latin Jazz\",\"Lead Guitar\",\"Lead Technique\",\"Learning Songs\",\"Linear Drumming\",\"Looping\",\"Metal\",\"Music Theory\",\"Musical Drumming\",\"New Orleans\",\"Note Values & Theory\",\"Odd-Time\",\"Open Chords\",\"Picking Technique\",\"Power Chords\",\"Practice Mindset\",\"Practice Tips\",\"Reading Music\",\"Recording\",\"Reggae & Ska\",\"Rhythm\",\"Rhythm Guitar\",\"Rhythm Technique\",\"Rhythmic Concepts\",\"Rock\",\"Rudiments\",\"Scales\",\"Showmanship\",\"Shuffles\",\"Soloing\",\"Songwriting\",\"Speed & Endurance\",\"Strumming\",\"Technique\",\"Timing\",\"Triads\",\"Tuning\",\"Weak-Limbs Development\",\"World Styles\"],\"difficulty\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"All Skill Levels\"],\"style\":[\"Bluegrass\",\"Blues\",\"Fingerstyle\",\"General\",\"Jazz\"]}}}");
+
+/***/ }),
+
+/***/ "./vue/mocking/mock.ts":
+/*!*****************************!*\
+  !*** ./vue/mocking/mock.ts ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+// import data from './course.json';
+var full_response_json_1 = __importDefault(__webpack_require__(/*! ./full_response.json */ "./vue/mocking/full_response.json"));
+var Mock = /** @class */ (function () {
+    function Mock() {
+    }
+    Mock.setupMock = function (mock) {
+        mock
+            .onGet('/railcontent/content')
+            .reply(function (config) {
+            var params = config.params || {};
+            var filters = params.required_fields || [];
+            var activeFiltersMap = {};
+            var activeFilters = {};
+            var response = JSON.parse(JSON.stringify(full_response_json_1.default));
+            // create active filter array to be returned and map to be used to remove some filters
+            filters.forEach(function (filterString) {
+                var filterData = filterString.split(',');
+                var filterName = filterData[0];
+                var filterValue = decodeURIComponent(filterData[1]);
+                if (!activeFiltersMap[filterName]) {
+                    activeFiltersMap[filterName] = {};
+                }
+                if (!activeFilters[filterName]) {
+                    activeFilters[filterName] = [];
+                }
+                activeFilters[filterName].push(filterValue);
+                activeFiltersMap[filterName][filterValue] = true;
+            });
+            // setting active filters on response
+            response.meta.activeFilters = activeFilters;
+            // create copy of filterOptions
+            var filterOptions = response.meta.filterOptions;
+            var keys = Object.keys(filterOptions);
+            var updatedKeys = {};
+            var totalActive;
+            keys.forEach(function (key) {
+                if (!updatedKeys[key]) {
+                    var filerGroup = __spreadArrays(filterOptions[key]);
+                    filerGroup.splice(Math.floor(Math.random() * filerGroup.length), 1);
+                    updatedKeys[key] = true;
+                    if (filerGroup.length) {
+                        filterOptions[key] = filerGroup;
+                    }
+                    else {
+                        delete filterOptions[key];
+                    }
+                }
+            });
+            response.meta.filterOptions = filterOptions;
+            return [
+                200,
+                response,
+            ];
+        });
+    };
+    return Mock;
+}());
+exports.default = Mock;
+
+
+/***/ }),
+
 /***/ "./vue/models/comment.ts":
 /*!*******************************!*\
   !*** ./vue/models/comment.ts ***!
@@ -30332,47 +37918,6 @@ exports.default = Video;
 
 /***/ }),
 
-/***/ "./vue/moxios/course.json":
-/*!********************************!*\
-  !*** ./vue/moxios/course.json ***!
-  \********************************/
-/*! exports provided: data, included, meta, links, default */
-/***/ (function(module) {
-
-module.exports = JSON.parse("{\"data\":[],\"included\":[],\"meta\":{\"filterOptions\":{\"content_type\":[\"course\"],\"instructor\":[{\"id\":197077,\"slug\":\"brett-ziegler\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-28 17:01:25\",\"archived_on\":null,\"created_on\":\"2018-02-28 17:01:25\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Brett Ziegler\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":197087,\"slug\":\"cassi-falk\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-28 17:01:26\",\"archived_on\":null,\"created_on\":\"2018-02-28 17:01:26\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Cassi Falk\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":218895,\"slug\":\"gabriel-palatchi\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-01-20 20:00:00\",\"archived_on\":null,\"created_on\":\"2019-01-21 12:21:54\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Gabriel Palatchi\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":202588,\"slug\":\"jay-oliver\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-04-15 19:00:00\",\"archived_on\":null,\"created_on\":\"2018-04-16 09:06:35\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jay Oliver\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":196994,\"slug\":\"jordan-leibel\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-28 17:01:11\",\"archived_on\":null,\"created_on\":\"2018-02-28 17:01:11\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Jordan Leibel\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":221245,\"slug\":\"josh-dion\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2019-03-04 20:10:07\",\"archived_on\":null,\"created_on\":\"2019-03-04 20:10:07\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":\"Josh Dion\",\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Josh Dion\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null},{\"id\":196999,\"slug\":\"lisa-witt\",\"type\":\"instructor\",\"sort\":0,\"status\":\"published\",\"total_xp\":null,\"brand\":\"pianote\",\"language\":\"en-US\",\"show_in_new_feed\":null,\"user\":\"\",\"published_on\":\"2018-02-28 17:01:11\",\"archived_on\":null,\"created_on\":\"2018-02-28 17:01:11\",\"difficulty\":null,\"home_staff_pick_rating\":null,\"legacy_id\":null,\"legacy_wordpress_post_id\":null,\"qna_video\":null,\"style\":null,\"title\":null,\"xp\":null,\"album\":null,\"artist\":null,\"bpm\":null,\"cd_tracks\":null,\"chord_or_scale\":null,\"difficulty_range\":null,\"episode_number\":null,\"exercise_book_pages\":null,\"fast_bpm\":null,\"includes_song\":null,\"instructors\":null,\"live_event_start_time\":null,\"live_event_end_time\":null,\"live_event_youtube_id\":null,\"live_stream_feed_type\":null,\"name\":\"Lisa Witt\",\"released\":null,\"slow_bpm\":null,\"transcriber_name\":null,\"week\":null,\"avatar_url\":null,\"length_in_seconds\":null,\"soundslice_slug\":null,\"staff_pick_rating\":null,\"student_id\":null,\"vimeo_video_id\":null,\"youtube_video_id\":null}],\"topic\":[\"Boogie Woogie\",\"Gospel\",\"Improvisation\",\"Jazz\",\"Latin Jazz\",\"Practice Mindset\",\"Rhythm\",\"Songwriting\",\"Technique\"],\"difficulty\":[\"1\",\"2\",\"3\",\"4\",\"6\"]},\"pagination\":{\"total\":13,\"count\":13,\"per_page\":20,\"current_page\":1,\"total_pages\":1}},\"links\":{\"self\":\"https://dev.musora.com/railcontent/content?brand=pianote&limit=20&statuses%5B0%5D=published&statuses%5B1%5D=scheduled&statuses%5B2%5D=draft&sort=-created_on&included_types%5B0%5D=course&page=1\",\"first\":\"https://dev.musora.com/railcontent/content?brand=pianote&limit=20&statuses%5B0%5D=published&statuses%5B1%5D=scheduled&statuses%5B2%5D=draft&sort=-created_on&included_types%5B0%5D=course&page=1\",\"last\":\"https://dev.musora.com/railcontent/content?brand=pianote&limit=20&statuses%5B0%5D=published&statuses%5B1%5D=scheduled&statuses%5B2%5D=draft&sort=-created_on&included_types%5B0%5D=course&page=1\"}}");
-
-/***/ }),
-
-/***/ "./vue/moxios/mock.ts":
-/*!****************************!*\
-  !*** ./vue/moxios/mock.ts ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var course_json_1 = __importDefault(__webpack_require__(/*! ./course.json */ "./vue/moxios/course.json"));
-var Mock = /** @class */ (function () {
-    function Mock() {
-    }
-    Mock.setupMoxios = function (moxios) {
-        moxios.stubRequest('/railcontent/content', {
-            status: 200,
-            responseText: course_json_1.default
-        });
-    };
-    return Mock;
-}());
-exports.default = Mock;
-
-
-/***/ }),
-
 /***/ "./vue/services/comments.ts":
 /*!**********************************!*\
   !*** ./vue/services/comments.ts ***!
@@ -30461,38 +38006,69 @@ var filtersContentType_1 = __importDefault(__webpack_require__(/*! ../maps/filte
 var Filters = /** @class */ (function () {
     function Filters() {
     }
-    Filters.getFilterGroupsFromResponse = function (filterOptions) {
+    Filters.decorateRequestParams = function (payload, filters) {
+        filters.forEach(function (group) {
+            group.filters.forEach(function (item) {
+                if (item.active) {
+                    if (!payload.required_fields) {
+                        payload.required_fields = [];
+                    }
+                    payload.required_fields.push(group.id + "," + item.value);
+                }
+            });
+        });
+        return payload;
+    };
+    Filters.getFilterGroupsFromResponse = function (response) {
+        var activeFiltersMap = {};
+        var activeFilters = response.meta.activeFilters || {};
+        var filterOptions = response.meta.filterOptions;
         var result = [];
         var keys = Object.keys(filterOptions);
+        Object.keys(activeFilters).forEach(function (key) {
+            activeFilters[key].forEach(function (value) {
+                if (!activeFiltersMap[key]) {
+                    activeFiltersMap[key] = {};
+                }
+                activeFiltersMap[key][value] = true;
+            });
+        });
         keys.forEach(function (key) {
             if (filtersType_1.default[key]) {
                 var filterGroup = null;
                 if (filtersType_1.default[key].type == 'string') {
-                    filterGroup = Filters.getFilterGroupFromArray(key, filterOptions[key]);
+                    filterGroup = Filters.getFilterGroupFromArray(key, filterOptions[key], activeFiltersMap);
                 }
                 if (filtersType_1.default[key].type == 'entity') {
-                    filterGroup = Filters.getFilterGroupFromEntity(key, filterOptions[key]);
+                    filterGroup = Filters.getFilterGroupFromEntity(key, filterOptions[key], activeFiltersMap);
                 }
                 result.push(filterGroup);
             }
         });
         return result;
     };
-    Filters.getFilterGroupFromArray = function (groupId, data) {
+    Filters.getFilterGroupFromArray = function (groupId, data, activeFiltersMap) {
         var filters = [];
         var icon = filtersType_1.default[groupId].icon;
         data.forEach(function (item) {
             var id = item.toLowerCase().replace(/ |\//g, '-');
             var value = encodeURI(item);
-            filters.push(new filter_1.default(id, groupId, id, item, 0, false, // todo - fix active
-            icon, value));
+            var active = false;
+            if (activeFiltersMap[groupId] && activeFiltersMap[groupId][value]) {
+                active = true;
+            }
+            filters.push(new filter_1.default(id, groupId, id, item, 0, active, icon, value));
         });
         return new filterGroup_1.default(groupId, filtersType_1.default[groupId].label, filters);
     };
-    Filters.getFilterGroupFromEntity = function (groupId, data) {
+    Filters.getFilterGroupFromEntity = function (groupId, data, activeFiltersMap) {
         var filters = [];
         data.forEach(function (item) {
-            filters.push(filtersType_1.default[groupId].constructor(item));
+            var filter = filtersType_1.default[groupId].constructor(item);
+            if (activeFiltersMap[groupId] && activeFiltersMap[groupId][filter.value]) {
+                filter.active = true;
+            }
+            filters.push(filter);
         });
         return new filterGroup_1.default(groupId, filtersType_1.default[groupId].label, filters);
     };
@@ -30554,14 +38130,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BASE_URL = void 0;
 var axios_1 = __importDefault(__webpack_require__(/*! axios */ "../../../../../../../app/musora-ui/node_modules/axios/index.js"));
-var moxios_1 = __importDefault(__webpack_require__(/*! moxios */ "../../../../../../../app/musora-ui/node_modules/moxios/dist/moxios.js"));
-var mock_1 = __importDefault(__webpack_require__(/*! ../moxios/mock */ "./vue/moxios/mock.ts"));
+var axios_mock_adapter_1 = __importDefault(__webpack_require__(/*! axios-mock-adapter */ "../../../../../../../app/musora-ui/node_modules/axios-mock-adapter/src/index.js"));
+var mock_1 = __importDefault(__webpack_require__(/*! ../mocking/mock */ "./vue/mocking/mock.ts"));
 exports.BASE_URL = 'http://dev.musora.com';
-moxios_1.default.install(axios_1.default);
-mock_1.default.setupMoxios(moxios_1.default);
-exports.default = axios_1.default.create({
+var instance = axios_1.default.create({
     baseURL: exports.BASE_URL
 });
+var mock = new axios_mock_adapter_1.default(instance);
+mock_1.default.setupMock(mock);
+exports.default = instance;
 
 
 /***/ }),

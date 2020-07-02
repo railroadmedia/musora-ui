@@ -19,6 +19,19 @@ export default {
         return {
             limit: this.initialLimit,
             sortBy: '-published_on',
+            page: 1,
         }
+    },
+    methods: {
+        getPayload() {
+            let payload = {
+                brand: this.brand,
+                limit: this.limit,
+                page: this.page,
+                statuses: this.statuses,
+            };
+
+            return payload;
+        },
     },
 };
