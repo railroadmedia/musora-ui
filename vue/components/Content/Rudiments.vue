@@ -8,11 +8,11 @@
             ></edge-group-filters>
         </div>
         <div class="mx-auto w-full container h-full py-4">
-            <rudiment-video-card
+            <rudiment-content-card
                 v-for="item in videos"
                 :key="item.id"
-                :video="item"
-            ></rudiment-video-card>
+                :content="item"
+            ></rudiment-content-card>
         </div>
     </div>
 </template>
@@ -22,12 +22,12 @@ import FiltersService from '../../services/filters';
 import VideosService from '../../services/videos';
 
 import EdgeGroupFilters from '../Filters/EdgeGroup';
-import RudimentVideoCard from '../VideoCards/Rudiment'
+import RudimentContentCard from '../ContentCards/Rudiment'
 
 export default {
     components: {
         'edge-group-filters': EdgeGroupFilters,
-        'rudiment-video-card': RudimentVideoCard,
+        'rudiment-content-card': RudimentContentCard,
     },
     props: {
         videosList: {

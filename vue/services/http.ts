@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import MockSetup from '../mocking/mock';
+import MockSetup from './mock';
 
 export const BASE_URL = 'http://dev.musora.com';
 

@@ -1,5 +1,8 @@
 import Video from '../models/video';
+import ContentModel from '../models/content';
 import Rudiment from '../models/rudiment';
+
+// todo - to be removed
 
 export default class Videos {
     static getVideoFromObject(value: {
@@ -15,15 +18,16 @@ export default class Videos {
         genre?: string,
         likes?: number,
         liked?: boolean,
-        id?: string,
+        id?: number,
         progress?: number,
-    }): Video {
-        return new Video(
+    }): ContentModel {
+        return new ContentModel(
             value.id,
             value.url,
             value.thumbnail,
             value.title,
-            value.teacher,
+            // value.teacher,
+            [],
             value.contentType,
             value.difficulty,
             value.contentIcon,
@@ -53,19 +57,20 @@ export default class Videos {
             id?: string,
             progress?: number,
         }[]
-    ): Video[] {
+    ): ContentModel[] {
         let result = [];
 
         list.forEach((value, index: number) => {
             try {
-                let id = value.id || (index.toString() + value.title.substr(0, 3) + value.teacher.substr(0, 3));
+                let id = Math.floor(Math.random() * Math.floor(10000));
                 result.push(
-                    new Video(
+                    new ContentModel(
                         id,
                         value.url,
                         value.thumbnail,
                         value.title,
-                        value.teacher,
+                        // value.teacher,
+                        [],
                         value.contentType,
                         value.difficulty,
                         value.contentIcon,
@@ -118,65 +123,5 @@ export default class Videos {
         });
 
         return result;
-    }
-
-    static getVideos(): Video[] {
-        // todo - to be removed
-        return [
-            new Video(
-                '1',
-                '#',
-                'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                'lesson one title',
-                'teacher name',
-                'content type',
-                'beginner - 1'
-            ),
-            new Video(
-                '2',
-                '#',
-                'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                'lesson two title',
-                'teacher name',
-                'content type',
-                'beginner - 1'
-            ),
-            new Video(
-                '3',
-                '#',
-                'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                'lesson three title',
-                'teacher name',
-                'content type',
-                'beginner - 1'
-            ),
-            new Video(
-                '4',
-                '#',
-                'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                'lesson four title',
-                'teacher name',
-                'content type',
-                'beginner - 1'
-            ),
-            new Video(
-                '5',
-                '#',
-                'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                'lesson five title',
-                'teacher name',
-                'content type',
-                'beginner - 1'
-            ),
-            new Video(
-                '6',
-                '#',
-                'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                'lesson five title',
-                'teacher name',
-                'content type',
-                'beginner - 1'
-            ),
-        ];
     }
 }

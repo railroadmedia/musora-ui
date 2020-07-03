@@ -92,10 +92,10 @@
 
                 <div class="grid py-2" :class="$_gridClasses">
                     <div
-                        v-for="item in videos"
+                        v-for="item in content"
                         :key="item.id"
                     >
-                        <simple-video-card :video="item"></simple-video-card>
+                        <default-content-card :content="item"></default-content-card>
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@ import EdgeGroupFilters from '../Filters/EdgeGroup';
 import LevelSelector from '../Filters/LevelSelector';
 import FilterGroupComponent from '../Filters/Group';
 import FilterBadge from '../Blocks/FilterBadge';
-import SimpleVideoCard from '../VideoCards/Simple';
+import DefaultContentCard from '../ContentCards/Default';
 
 import ContentMixin from '../../mixins/content';
 
@@ -125,18 +125,18 @@ export default {
         'level-selector': LevelSelector,
         'filter-group': FilterGroupComponent,
         'filter-badge': FilterBadge,
-        'simple-video-card': SimpleVideoCard,
+        'default-content-card': DefaultContentCard,
     },
     mixins: [ContentMixin],
     props: {
-        videosList: {
+        videosList: { // todo - remove
             type: Array,
         },
-        edgeFiltersDisabled: {
+        edgeFiltersDisabled: { // todo - rename
             type: Boolean,
             default: () => false,
         },
-        edgeFiltersTitle: {
+        edgeFiltersTitle: { // todo - rename
             type: String,
             default: () => '',
         },
@@ -148,17 +148,18 @@ export default {
             type: String,
             default: () => 1,
         },
-        videosPerRow: {
+        videosPerRow: { // todo - rename
             type: Number,
             default: () => 4,
         },
         preloadData: {
-            type: Object
+            type: String
         }
     },
     data(): object {
         return {
             videos: [],
+            content: [],
             filters: [],
             level: "1",
             results: {
@@ -254,12 +255,17 @@ export default {
         },
     },
     mounted(): void {
-        this.videos = VideosService.getVideosFromArray(this.videosList);
+        // this.videos = VideosService.getVideosFromArray(this.videosList);
         this.level = this.levelSelector || 1;
 
         this.$root.$on('filterClicked', this.handleFilterClick);
 
-        this.setupFilters(this.preloadData);
+        let preloadData = JSON.parse(this.preloadData);
+
+        // console.log("loaded");
+
+        this.setupFilters(preloadData);
+        this.setupContent(preloadData);
 
         // this.fetchData();
     },
@@ -339,6 +345,12 @@ export default {
             this.filters = FiltersService.getFilterGroupsFromResponse(response);
         },
 
+        setupContent(response) {
+            this.content = ContentService.getContentFromResponse(response);
+
+            // console.log("::setupContent content: %s", JSON.stringify(content));
+        },
+
         fetchData() {
             let payload = this.getPayload();
 
@@ -349,6 +361,7 @@ export default {
                 .then((response) => {
 
                     this.setupFilters(response.data);
+                    this.setupContent(response.data);
 
                     // this.videos = VideosService.getVideosFromResponse(response);
                 });

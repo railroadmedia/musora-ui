@@ -1,4 +1,4 @@
-import Filter from '../models/filter';
+import Filter from './filter';
 
 export default class FilterGroup {
     constructor(

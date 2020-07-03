@@ -58,11 +58,11 @@
                     </div>
 
                     <div class="py-2">
-                        <my-list-video-card
+                        <my-list-content-card
                             v-for="item in videos"
                             :key="item.id"
-                            :video="item"
-                        ></my-list-video-card>
+                            :content="item"
+                        ></my-list-content-card>
                     </div>
                 </div>
             </div>
@@ -77,14 +77,14 @@ import VideosService from '../../services/videos';
 import EdgeGroupFilters from '../Filters/EdgeGroup';
 import FiltersGroup from '../Filters/Group';
 import FilterBadge from '../Blocks/FilterBadge';
-import MyListVideoCard from '../VideoCards/MyList';
+import MyListContentCard from '../ContentCards/MyList';
 
 export default {
     components: {
         'edge-group-filters': EdgeGroupFilters,
         'filters-group': FiltersGroup,
         'filter-badge': FilterBadge,
-        'my-list-video-card': MyListVideoCard,
+        'my-list-content-card': MyListContentCard,
     },
     props: {
         videosList: {
@@ -180,15 +180,15 @@ export default {
 </script>
 
 <style type="text/css">
-.my-list-video-card:hover {
+.my-list-content-card:hover {
     background-color: #f3f9ff;
 }
-.video-card-play {
+.content-card-play {
     -webkit-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
     background-color: rgba(0,0,0,.4);
 }
-.my-list-video-card:hover .video-card-play {
+.my-list-content-card:hover .content-card-play {
     visibility: visible;
     opacity: 1;
 }

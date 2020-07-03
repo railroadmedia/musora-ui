@@ -1,5 +1,5 @@
-// import data from './course.json';
-import data from './full_response.json';
+import data from '../../mocks/full_response.json';
+import Utils from './utils';
 
 export default class Mock {
     static setupMock(mock) {
@@ -10,7 +10,7 @@ export default class Mock {
                 let filters = params.required_fields || [];
                 let activeFiltersMap = {};
                 let activeFilters = {};
-                let response = JSON.parse(JSON.stringify(data));
+                let response = Utils.copy(data);
 
                 // create active filter array to be returned and map to be used to remove some filters
                 filters.forEach(filterString => {

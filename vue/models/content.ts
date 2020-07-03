@@ -1,12 +1,12 @@
-// todo - remove
+import Instructor from './instructor';
 
-export default class Video {
+export default class Content {
     constructor(
-        public id: string,
+        public id: number,
         public url: string,
         public thumbnail: string,
         public title: string,
-        public teacher: string,
+        public instructors: Instructor[],
         public contentType: string,
         public difficulty: string,
         public contentIcon?: string,

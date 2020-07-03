@@ -14,7 +14,7 @@
                 :class="cardClasses[index]"
                 :key="item.id"
             >
-                <simple-video-card :video="item"></simple-video-card>
+                <default-content-card :video="item"></default-content-card>
             </div>
         </div>
     </div>
@@ -22,12 +22,11 @@
 
 <script lang="ts">
 import VideosService from '../../services/videos';
-import Video from '../../models/video';
-import SimpleVideoCard from '../VideoCards/Simple'
+import DefaultContentCard from '../ContentCards/Default'
 
 export default {
     components: {
-        'simple-video-card': SimpleVideoCard,
+        'default-content-card': DefaultContentCard,
     },
     props: {
         videosList: {
