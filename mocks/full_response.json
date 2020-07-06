@@ -27937,6 +27937,13 @@
     }
   ],
   "meta": {
+    "pagination": {
+      "total": 1693,
+      "count": 20,
+      "per_page": "20",
+      "current_page": "1",
+      "total_pages": 85
+    },
   	"activeFilters": {},
     "filterOptions": {
       "content_type": [

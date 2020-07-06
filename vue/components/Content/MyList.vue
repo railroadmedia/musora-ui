@@ -3,11 +3,11 @@
         <div class="mx-auto w-full container px-3 h-full pt-4">
             <div class="w-full mb-6 space-y-4 flex flex-col large:flex-row large:space-x-3 large:space-y-0 large:mt-6 uppercase">
                 <div class="large:flex-1 rounded-lg overflow-hidden bg-edge-blue">
-                    <edge-group-filters
+                    <topics-group-filters
                         :filters="edgeFilters"
                         :title="edgeFiltersTitle"
                         filterEventGroup="edgeFilterClick"
-                    ></edge-group-filters>
+                    ></topics-group-filters>
                 </div>
             </div>
         </div>
@@ -74,14 +74,14 @@
 import FiltersService from '../../services/filters';
 import VideosService from '../../services/videos';
 
-import EdgeGroupFilters from '../Filters/EdgeGroup';
+import TopicsGroupFilters from '../Filters/TopicsGroup';
 import FiltersGroup from '../Filters/Group';
 import FilterBadge from '../Blocks/FilterBadge';
 import MyListContentCard from '../ContentCards/MyList';
 
 export default {
     components: {
-        'edge-group-filters': EdgeGroupFilters,
+        'topics-group-filters': TopicsGroupFilters,
         'filters-group': FiltersGroup,
         'filter-badge': FilterBadge,
         'my-list-content-card': MyListContentCard,

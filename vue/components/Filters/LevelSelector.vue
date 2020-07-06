@@ -21,7 +21,7 @@
                     <div
                         class="py-4"
                         v-for="(filter, index) in filterGroup.filters"
-                        :key="filter.id"
+                        :key="index"
                         @click.stop.prevent="select(filter)"
                     >
                         <div
@@ -33,7 +33,7 @@
                             <div
                                 style="height: 30px; width: 30px; top: -11px; right: -11px"
                                 class="border-4 border-edge-blue bg-white rounded-full absolute z-10"
-                                v-show="currentLevel == filter.value"
+                                v-show="$_activeFilter && $_activeFilter.value == filter.value"
                             ></div>
                         </div>
                     </div>
@@ -58,9 +58,6 @@ import FilterGroup from '../../models/filterGroup';
 
 export default {
     props: {
-        currentLevel: {
-            type: String,
-        },
         title: {
             type: String,
         },
@@ -75,24 +72,33 @@ export default {
     },
     computed: {
         $_levelLabel() {
-            let label;
+            let activeFilter = this.$_activeFilter;
+            let label = activeFilter ? activeFilter.label : '';
 
-            this.filterGroup.filters.forEach((filter) => {
-                if (filter.value == this.currentLevel) {
-                    label = filter.label;
-                }
-            });
+            if (label.toString().length == 1) {
+                label = 'LEVEL ' + label;
+            }
 
-            return 'LEVEL ' + label;
+            return label;
         },
 
         $_gridColsClass() {
             return 'grid-cols-' + this.filterGroup.filters.length;
         },
+
+        $_activeFilter() {
+            let active;
+            this.filterGroup.filters.forEach((filter) => {
+                if (filter.active) {
+                    active = filter;
+                }
+            });
+            return active;
+        },
     },
     methods: {
         select(filter: Filter): void {
-            this.$emit('levelSelected', {level: filter.value});
+            this.$emit('levelSelected', filter);
         },
 
         toggleCollapse(): void {
@@ -110,7 +116,7 @@ export default {
                 classes.push('rounded-r-full');
             }
 
-            if (this.currentLevel < filter.value) {
+            if (!this.$_activeFilter || this.$_activeFilter.value < filter.value) {
                 classes.push('bg-edge-dark-blue');
             } else {
                 classes.push('bg-white');

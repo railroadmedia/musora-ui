@@ -65,13 +65,36 @@ export default class Content {
             }
         });
 
+        let includedInstructorsMap = {};
+        let relatedInstructorsIds = [];
+
         included.forEach((includedObject) => {
+            if (includedObject.type == 'instructor' && !includedObject.relationships) {
+                includedInstructorsMap[includedObject.id] = includedObject;
+            }
+
             if (relations[includedObject.type] && relations[includedObject.type][includedObject.id]) {
                 if (!result[includedObject.type]) {
                     result[includedObject.type] = {};
                 }
-                // todo - update with instructors relation details
-                result[includedObject.type][includedObject.id] = includedObject;
+                if (
+                    includedObject.type == 'instructor'
+                    && includedObject.relationships
+                    && includedObject.relationships.instructor
+                ) {
+                    relatedInstructorsIds.push(includedObject.relationships.instructor.data.id);
+                } else {
+                    result[includedObject.type][includedObject.id] = includedObject;
+                }
+            }
+        });
+
+        relatedInstructorsIds.forEach((instructorId) => {
+            if (!result['instructor']) {
+                result['instructor'] = {};
+            }
+            if (includedInstructorsMap[instructorId]) {
+                result['instructor'][instructorId] = includedInstructorsMap[instructorId];
             }
         });
 
@@ -99,8 +122,6 @@ export default class Content {
         let result = [];
         let instructorsData = contentRelatedData.instructor || {};
         const ids = Object.keys(instructorsData);
-
-        // todo - update
 
         ids.forEach((id) => {
             let item = instructorsData[id];

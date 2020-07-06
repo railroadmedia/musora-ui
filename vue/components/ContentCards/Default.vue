@@ -1,8 +1,8 @@
 <template>
     <a :href="content.url" class="content-card">
         <div class="relative">
-            <div class="rounded-lg overflow-hidden">
-                <img :src="content.thumbnail">
+            <div class="h-40 rounded-lg overflow-hidden">
+                <img :src="content.thumbnail" class="object-cover object-center h-full w-full">
             </div>
             <div class="instructor-name absolute rounded-lg bottom-0 left-0 right-0 pt-6 pb-3 px-4 text-white uppercase text-xs font-bold font-roboto">{{ getInstructors(content) }}</div>
             <div class="absolute top-0 right-0 mt-2 mr-2 cursor-pointer z-20" v-if="canAddToList"><i class="icon-add-to-list text-white"></i></div>

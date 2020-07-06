@@ -10,18 +10,18 @@
         </div>
         <div class="py-6 small:flex small:space-x-3">
             <div
-                v-for="(item, index) in videos"
+                v-for="(item, index) in content"
                 :class="cardClasses[index]"
-                :key="item.id"
+                :key="index"
             >
-                <default-content-card :video="item"></default-content-card>
+                <default-content-card :content="item"></default-content-card>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import VideosService from '../../services/videos';
+import ContentService from '../../services/content';
 import DefaultContentCard from '../ContentCards/Default'
 
 export default {
@@ -29,8 +29,8 @@ export default {
         'default-content-card': DefaultContentCard,
     },
     props: {
-        videosList: {
-            type: Array,
+        contentList: {
+            type: String,
         },
         sectionTitle: {
             type: String,
@@ -41,7 +41,7 @@ export default {
     },
     data(): object {
         return {
-            videos: [],
+            content: [],
             cardClasses: [
                 ['py-4', 'small:py-0', 'w-full', 'small:w-1/3', 'medium:w-1/4', 'large:w-1/5', 'x-large:w-1/6'],
                 ['py-4', 'small:py-0', 'w-full', 'small:w-1/3', 'medium:w-1/4', 'large:w-1/5', 'x-large:w-1/6'],
@@ -53,7 +53,17 @@ export default {
         };
     },
     mounted(): void {
-        this.videos = VideosService.getVideosFromArray(this.videosList);
+        let count = 0;
+        this.content = [];
+
+        ContentService
+            .getContentFromResponse(JSON.parse(this.contentList))
+            .forEach((item) => {
+                if (count < 6) {
+                    this.content.push(item);
+                    count++;
+                }
+            });
     }
 };
 </script>

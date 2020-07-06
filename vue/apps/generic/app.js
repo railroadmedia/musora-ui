@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import VideosRow from '../../components/Content/VideosRow';
+import ContentRow from '../../components/Content/Row';
 import ContentCatalogue from '../../components/Content/Catalogue';
 import RudimentsContent from '../../components/Content/Rudiments';
 import MyListContent from '../../components/Content/MyList';
@@ -8,7 +8,7 @@ import SongContent from '../../components/Content/Song';
 import CommentsList from '../../components/Comments/List';
 import AccountProfileAvatar from '../../components/Content/AccountProfileAvatar';
 
-Vue.component('videos-row', VideosRow);
+Vue.component('content-row', ContentRow);
 Vue.component('content-catalogue', ContentCatalogue);
 Vue.component('rudiments-content', RudimentsContent);
 Vue.component('my-list-content', MyListContent);

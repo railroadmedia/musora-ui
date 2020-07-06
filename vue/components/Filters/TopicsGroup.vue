@@ -15,8 +15,8 @@
             <div class="px-3 py-4 flex flex-wrap bg-edge-blue">
                 <div
                     :class="$_badgeClass"
-                    v-for="item in filterGroup.filters"
-                    :key="item.id"
+                    v-for="(item, index) in filterGroup.filters"
+                    :key="index"
                 >
                     <filter-checkbox
                         :filter="item"
@@ -38,9 +38,6 @@ export default {
         'filter-checkbox': FilterCheckbox,
     },
     props: {
-        // filters: {
-        //     type: Array,
-        // },
         title: {
             type: String,
         },

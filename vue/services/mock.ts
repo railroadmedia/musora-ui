@@ -7,10 +7,21 @@ export default class Mock {
             .onGet('/railcontent/content')
             .reply(function (config) {
                 let params = config.params || {};
+                let page = params.page || 1;
                 let filters = params.required_fields || [];
                 let activeFiltersMap = {};
                 let activeFilters = {};
                 let response = Utils.copy(data);
+
+                let pageSize = response.data.length;
+
+                // reindex the results and bigger difference between ids to avoid dupplicates
+                response.data = response.data.map(item => {
+                    item.id = parseInt(item.id) * 1000 + page * pageSize;
+                    return item;
+                });
+
+                response.meta.pagination.current_page = page;
 
                 // create active filter array to be returned and map to be used to remove some filters
                 filters.forEach(filterString => {
@@ -37,14 +48,24 @@ export default class Mock {
 
                 let keys = Object.keys(filterOptions);
                 let updatedKeys = {};
-                let totalActive;
 
                 keys.forEach(key => {
                     if (!updatedKeys[key]) {
                         let filerGroup = [...filterOptions[key]];
 
-                        filerGroup.splice(Math.floor(Math.random()*filerGroup.length), 1);
-                        updatedKeys[key] = true;
+                        let removed = false;
+
+                        // remove only filters that are not active
+                        while (!removed) {
+                            let index = Math.floor(Math.random()*filerGroup.length);
+                            let value = filerGroup[index];
+
+                            if (!activeFiltersMap[key] || !activeFiltersMap[key][value]) {
+                                filerGroup.splice(index, 1);
+                                updatedKeys[key] = true;
+                                removed = true;
+                            }
+                        }
 
                         if (filerGroup.length) {
                             filterOptions[key] = filerGroup;

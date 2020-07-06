@@ -27949,6 +27949,13 @@ $rc1 = <<<'EOT'
     }
   ],
   "meta": {
+    "pagination": {
+      "total": 1693,
+      "count": 20,
+      "per_page": "20",
+      "current_page": "1",
+      "total_pages": 85
+    },
     "activeFilters": {},
     "filterOptions": {
       "content_type": [
@@ -34157,19 +34164,35 @@ $rc1 = <<<'EOT'
 }
 EOT;
 // -->
+
+// <!--
+$continue = <<<'EC'
+EC;
+// -->
 @endphp
 
 @section('app')
     @include('sections.user-stats')
 
     <div class="container w-full h-full mx-auto px-3 pt-4">
+        <content-row
+            content-list='{{ $rc1 }}'
+            section-title="continue"
+            section-url="#"
+        ></content-row>
+
+        <content-row
+            content-list='{{ $rc1 }}'
+            section-title="new"
+            section-url="#"
+        ></content-row>
     </div>
 
     <content-catalogue
-        :videos-list='@json($sectionVideos)'
         level-selector='2'
-        edge-filters-title='what do you want to work on?'
-        :videos-per-row='4'
+        topics-filters-title='what do you want to work on?'
+        :cards-per-row='4'
         preload-data='{{ $rc1 }}'
+        infinite-scroll
     ></content-catalogue>
 @endsection

@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="mx-auto w-full container px-3 h-full pt-4">
-            <edge-group-filters
+            <topics-group-filters
                 :filters="edgeFilters"
                 :title="edgeFiltersTitle"
                 filterEventGroup="edgeFilterClick"
-            ></edge-group-filters>
+            ></topics-group-filters>
         </div>
         <div class="mx-auto w-full container h-full py-4">
             <rudiment-content-card
@@ -21,12 +21,12 @@
 import FiltersService from '../../services/filters';
 import VideosService from '../../services/videos';
 
-import EdgeGroupFilters from '../Filters/EdgeGroup';
+import TopicsGroupFilters from '../Filters/TopicsGroup';
 import RudimentContentCard from '../ContentCards/Rudiment'
 
 export default {
     components: {
-        'edge-group-filters': EdgeGroupFilters,
+        'topics-group-filters': TopicsGroupFilters,
         'rudiment-content-card': RudimentContentCard,
     },
     props: {
