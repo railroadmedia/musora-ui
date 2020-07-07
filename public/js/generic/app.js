@@ -32888,7 +32888,13 @@ exports.default = {
             this.collapsed = !this.collapsed;
         },
         setupFilters: function (response) {
-            this.filters = filters_1.default.getFilterGroupsFromResponse(response);
+            var edgeContentTypeFilterGroup = filters_1.default.getEdgeContentTypeFilterGroup(this.filters);
+            var progressFilterGroup = filters_1.default.getProgressFilterGroup(this.filters);
+            this.filters = __spreadArrays([
+                edgeContentTypeFilterGroup
+            ], filters_1.default.getFilterGroupsFromResponse(response), [
+                progressFilterGroup
+            ]);
         },
         setupContent: function (response, appendContent) {
             if (!appendContent) {
@@ -32946,7 +32952,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var filters_1 = __importDefault(__webpack_require__(/*! ../../services/filters */ "./vue/services/filters.ts"));
-var videos_1 = __importDefault(__webpack_require__(/*! ../../services/videos */ "./vue/services/videos.ts"));
+// import VideosService from '../../services/videos';
 var TopicsGroup_1 = __importDefault(__webpack_require__(/*! ../Filters/TopicsGroup */ "./vue/components/Filters/TopicsGroup.vue"));
 var Group_1 = __importDefault(__webpack_require__(/*! ../Filters/Group */ "./vue/components/Filters/Group.vue"));
 var FilterBadge_1 = __importDefault(__webpack_require__(/*! ../Blocks/FilterBadge */ "./vue/components/Blocks/FilterBadge.vue"));
@@ -32997,7 +33003,7 @@ exports.default = {
         },
     },
     mounted: function () {
-        this.videos = videos_1.default.getVideosFromArray(this.videosList);
+        // this.videos = VideosService.getVideosFromArray(this.videosList);
         this.edgeFilters = filters_1.default.getFiltersFromArray(this.edgeFiltersList, 'edge-group');
         this.filtersGroup = filters_1.default.getFilterGroupsFromArray([this.filtersList]).pop();
         this.$root.$on('filterClicked', this.handleFilterClick);
@@ -33116,42 +33122,53 @@ exports.default = {
 
 "use strict";
 
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var content_1 = __importDefault(__webpack_require__(/*! ../../services/content */ "./vue/services/content.ts"));
 var filters_1 = __importDefault(__webpack_require__(/*! ../../services/filters */ "./vue/services/filters.ts"));
-var videos_1 = __importDefault(__webpack_require__(/*! ../../services/videos */ "./vue/services/videos.ts"));
 var TopicsGroup_1 = __importDefault(__webpack_require__(/*! ../Filters/TopicsGroup */ "./vue/components/Filters/TopicsGroup.vue"));
 var Rudiment_1 = __importDefault(__webpack_require__(/*! ../ContentCards/Rudiment */ "./vue/components/ContentCards/Rudiment.vue"));
+var content_2 = __importDefault(__webpack_require__(/*! ../../mixins/content */ "./vue/mixins/content.ts"));
 exports.default = {
     components: {
         'topics-group-filters': TopicsGroup_1.default,
         'rudiment-content-card': Rudiment_1.default,
     },
+    mixins: [content_2.default],
     props: {
-        videosList: {
-            type: Array,
+        preloadData: {
+            type: String
         },
-        edgeFiltersList: {
-            type: Array,
-            default: function () { return []; },
+        topicsFiltersDisabled: {
+            type: Boolean,
+            default: function () { return false; },
         },
-        edgeFiltersTitle: {
+        topicsFiltersTitle: {
             type: String,
             default: function () { return ''; },
         },
     },
     data: function () {
         return {
-            videos: [],
-            edgeFilters: [],
+            content: [],
+            topics: null,
         };
     },
     mounted: function () {
-        this.videos = videos_1.default.getRudimentsFromArray(this.videosList);
-        this.edgeFilters = filters_1.default.getFiltersFromArray(this.edgeFiltersList, 'edge-group');
         this.$root.$on('filterClicked', this.handleFilterClick);
+        var preloadData = JSON.parse(this.preloadData);
+        this.setupFilters(preloadData);
+        this.setupContent(preloadData);
+        this.setupPagination(preloadData);
     },
     methods: {
         handleFilterClick: function (filter) {
@@ -33164,6 +33181,21 @@ exports.default = {
                     return item;
                 });
             }
+        },
+        setupFilters: function (response) {
+            var _this = this;
+            var filterGroups = filters_1.default.getFilterGroupsFromResponse(response);
+            filterGroups.forEach(function (filterGroup) {
+                if (filterGroup.id == 'topic') {
+                    _this.topics = filterGroup;
+                }
+            });
+        },
+        setupContent: function (response, appendContent) {
+            if (!appendContent) {
+                this.content = [];
+            }
+            this.content = __spreadArrays(this.content, content_1.default.getContentFromResponse(response));
         },
     },
 };
@@ -33184,7 +33216,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var videos_1 = __importDefault(__webpack_require__(/*! ../../services/videos */ "./vue/services/videos.ts"));
+// import VideosService from '../../services/videos';
 var Button_1 = __importDefault(__webpack_require__(/*! ../Blocks/Button */ "./vue/components/Blocks/Button.vue"));
 exports.default = {
     components: {
@@ -33201,7 +33233,7 @@ exports.default = {
         };
     },
     mounted: function () {
-        this.song = videos_1.default.getVideoFromObject(this.videoData);
+        // this.song = VideosService.getVideoFromObject(this.videoData);
     },
     computed: {
         $_likeClasses: function () {
@@ -33302,12 +33334,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var rudiment_1 = __importDefault(__webpack_require__(/*! ../../models/rudiment */ "./vue/models/rudiment.ts"));
+var content_1 = __importDefault(__webpack_require__(/*! ../../models/content */ "./vue/models/content.ts"));
 var contentInstructors_1 = __importDefault(__webpack_require__(/*! ../../mixins/contentInstructors */ "./vue/mixins/contentInstructors.ts"));
 exports.default = {
     props: {
         content: {
-            type: rudiment_1.default,
+            type: content_1.default,
         },
     },
     mixins: [contentInstructors_1.default],
@@ -35023,13 +35055,14 @@ var render = function() {
       "div",
       { staticClass: "mx-auto w-full container px-3 h-full pt-4" },
       [
-        _c("topics-group-filters", {
-          attrs: {
-            filters: _vm.edgeFilters,
-            title: _vm.edgeFiltersTitle,
-            filterEventGroup: "edgeFilterClick"
-          }
-        })
+        _vm.topics
+          ? _c("topics-group-filters", {
+              attrs: {
+                "filter-group": _vm.topics,
+                title: _vm.topicsFiltersTitle
+              }
+            })
+          : _vm._e()
       ],
       1
     ),
@@ -35037,7 +35070,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "mx-auto w-full container h-full py-4" },
-      _vm._l(_vm.videos, function(item) {
+      _vm._l(_vm.content, function(item) {
         return _c("rudiment-content-card", {
           key: item.id,
           attrs: { content: item }
@@ -35523,12 +35556,18 @@ var render = function() {
           _vm._v(_vm._s(_vm.content.title))
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "flex-none h-16 px-8 hidden small:block" }, [
-          _c("img", {
-            staticClass: "h-full w-auto",
-            attrs: { src: _vm.content.sheet }
-          })
-        ]),
+        _vm.content.sheet
+          ? _c(
+              "div",
+              { staticClass: "flex-none h-16 px-8 hidden small:block" },
+              [
+                _c("img", {
+                  staticClass: "h-full w-auto",
+                  attrs: { src: _vm.content.sheet }
+                })
+              ]
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm._m(1)
       ])
@@ -37674,6 +37713,24 @@ exports.default = {
 
 /***/ }),
 
+/***/ "./vue/maps/filtersProgress.ts":
+/*!*************************************!*\
+  !*** ./vue/maps/filtersProgress.ts ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = {
+    'started': 'In progress',
+    'completed': 'Completed',
+};
+
+
+/***/ }),
+
 /***/ "./vue/maps/filtersType.ts":
 /*!*********************************!*\
   !*** ./vue/maps/filtersType.ts ***!
@@ -37883,7 +37940,7 @@ exports.default = Comment;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Content = /** @class */ (function () {
-    function Content(id, url, thumbnail, title, instructors, contentType, difficulty, contentIcon, date, artist, genre, likes, liked, progress) {
+    function Content(id, url, thumbnail, title, instructors, contentType, difficulty, contentIcon, date, artist, genre, likes, liked, sheet, progress) {
         if (progress === void 0) { progress = 0; }
         this.id = id;
         this.url = url;
@@ -37898,6 +37955,7 @@ var Content = /** @class */ (function () {
         this.genre = genre;
         this.likes = likes;
         this.liked = liked;
+        this.sheet = sheet;
         this.progress = progress;
     }
     return Content;
@@ -38003,33 +38061,6 @@ var Pagination = /** @class */ (function () {
     return Pagination;
 }());
 exports.default = Pagination;
-
-
-/***/ }),
-
-/***/ "./vue/models/rudiment.ts":
-/*!********************************!*\
-  !*** ./vue/models/rudiment.ts ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Rudiment = /** @class */ (function () {
-    function Rudiment(id, url, thumbnail, title, teacher, sheet, type) {
-        this.id = id;
-        this.url = url;
-        this.thumbnail = thumbnail;
-        this.title = title;
-        this.teacher = teacher;
-        this.sheet = sheet;
-        this.type = type;
-    }
-    return Rudiment;
-}());
-exports.default = Rudiment;
 
 
 /***/ }),
@@ -38234,6 +38265,7 @@ var filter_1 = __importDefault(__webpack_require__(/*! ../models/filter */ "./vu
 var filterGroup_1 = __importDefault(__webpack_require__(/*! ../models/filterGroup */ "./vue/models/filterGroup.ts"));
 var filtersType_1 = __importDefault(__webpack_require__(/*! ../maps/filtersType */ "./vue/maps/filtersType.ts"));
 var filtersContentType_1 = __importDefault(__webpack_require__(/*! ../maps/filtersContentType */ "./vue/maps/filtersContentType.ts"));
+var filtersProgress_1 = __importDefault(__webpack_require__(/*! ../maps/filtersProgress */ "./vue/maps/filtersProgress.ts"));
 var Filters = /** @class */ (function () {
     function Filters() {
     }
@@ -38241,10 +38273,24 @@ var Filters = /** @class */ (function () {
         filters.forEach(function (group) {
             group.filters.forEach(function (item) {
                 if (item.active) {
-                    if (!payload.required_fields) {
-                        payload.required_fields = [];
+                    if (group.id == 'content-type') {
+                        if (!payload.included_types) {
+                            payload.included_types = [];
+                        }
+                        payload.included_types.push(item.value);
                     }
-                    payload.required_fields.push(group.id + "," + item.value);
+                    else if (group.id == 'progress') {
+                        if (!payload.required_user_states) {
+                            payload.required_user_states = [];
+                        }
+                        payload.required_user_states.push(item.value);
+                    }
+                    else {
+                        if (!payload.required_fields) {
+                            payload.required_fields = [];
+                        }
+                        payload.required_fields.push(group.id + "," + item.value);
+                    }
                 }
             });
         });
@@ -38303,17 +38349,37 @@ var Filters = /** @class */ (function () {
         });
         return new filterGroup_1.default(groupId, filtersType_1.default[groupId].label, filters);
     };
-    Filters.getEdgeContentTypeFilterGroup = function () {
+    Filters.getEdgeContentTypeFilterGroup = function (currentFilters) {
         var groupId = 'content-type';
+        var title = 'content type';
         var icon = 'icon-info';
-        var keys = Object.keys(filtersContentType_1.default);
+        return this.createFilterGroup(groupId, title, icon, filtersContentType_1.default, currentFilters);
+    };
+    Filters.getProgressFilterGroup = function (currentFilters) {
+        var groupId = 'progress';
+        var title = 'progress';
+        var icon = 'icon-info';
+        return this.createFilterGroup(groupId, title, icon, filtersProgress_1.default, currentFilters);
+    };
+    Filters.createFilterGroup = function (groupId, title, icon, filtersMap, currentFilters) {
+        var keys = Object.keys(filtersMap);
         var filters = [];
+        var activeGroupFilters = {};
+        currentFilters.forEach(function (group) {
+            if (group.id == groupId) {
+                group.filters.forEach(function (filter) {
+                    if (filter.active) {
+                        activeGroupFilters[filter.id] = true;
+                    }
+                });
+            }
+        });
         keys.forEach(function (key) {
             var id = key;
-            filters.push(new filter_1.default(id, groupId, id, filtersContentType_1.default[key], 0, false, // todo - fix active
-            icon, id));
+            var active = activeGroupFilters[id] || false;
+            filters.push(new filter_1.default(id, groupId, id, filtersMap[key], 0, active, icon, id));
         });
-        return new filterGroup_1.default(groupId, icon, filters);
+        return new filterGroup_1.default(groupId, title, filters);
     };
     // todo - review and remove below
     Filters.getFiltersFromArray = function (list, groupId) {
@@ -38410,6 +38476,7 @@ var Mock = /** @class */ (function () {
             var activeFilters = {};
             var response = utils_1.default.copy(full_response_json_1.default);
             var pageSize = response.data.length;
+            // reindex the results and bigger difference between ids to avoid dupplicates
             response.data = response.data.map(function (item) {
                 item.id = parseInt(item.id) * 1000 + page * pageSize;
                 return item;
@@ -38517,65 +38584,6 @@ var Utils = /** @class */ (function () {
     return Utils;
 }());
 exports.default = Utils;
-
-
-/***/ }),
-
-/***/ "./vue/services/videos.ts":
-/*!********************************!*\
-  !*** ./vue/services/videos.ts ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var content_1 = __importDefault(__webpack_require__(/*! ../models/content */ "./vue/models/content.ts"));
-var rudiment_1 = __importDefault(__webpack_require__(/*! ../models/rudiment */ "./vue/models/rudiment.ts"));
-// todo - to be removed
-var Videos = /** @class */ (function () {
-    function Videos() {
-    }
-    Videos.getVideoFromObject = function (value) {
-        return new content_1.default(value.id, value.url, value.thumbnail, value.title, 
-        // value.teacher,
-        [], value.contentType, value.difficulty, value.contentIcon, value.date, value.artist, value.genre, value.likes || 0, value.liked || false, value.progress);
-    };
-    Videos.getVideosFromArray = function (list) {
-        var result = [];
-        list.forEach(function (value, index) {
-            try {
-                var id = Math.floor(Math.random() * Math.floor(10000));
-                result.push(new content_1.default(id, value.url, value.thumbnail, value.title, 
-                // value.teacher,
-                [], value.contentType, value.difficulty, value.contentIcon, value.date, value.artist, value.genre, value.likes, value.liked || false, value.progress));
-            }
-            catch (e) {
-                // todo - add exception handling
-            }
-        });
-        return result;
-    };
-    Videos.getRudimentsFromArray = function (list) {
-        var result = [];
-        list.forEach(function (value, index) {
-            try {
-                var id = value.id || (index.toString() + value.title.substr(0, 3) + value.teacher.substr(0, 3));
-                result.push(new rudiment_1.default(id, value.url, value.thumbnail, value.title, value.teacher, value.sheet, value.type));
-            }
-            catch (e) {
-                // todo - add exception handling
-            }
-        });
-        return result;
-    };
-    return Videos;
-}());
-exports.default = Videos;
 
 
 /***/ }),

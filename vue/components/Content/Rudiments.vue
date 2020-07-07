@@ -2,14 +2,14 @@
     <div>
         <div class="mx-auto w-full container px-3 h-full pt-4">
             <topics-group-filters
-                :filters="edgeFilters"
-                :title="edgeFiltersTitle"
-                filterEventGroup="edgeFilterClick"
+                :filter-group="topics"
+                :title="topicsFiltersTitle"
+                v-if="topics"
             ></topics-group-filters>
         </div>
         <div class="mx-auto w-full container h-full py-4">
             <rudiment-content-card
-                v-for="item in videos"
+                v-for="item in content"
                 :key="item.id"
                 :content="item"
             ></rudiment-content-card>
@@ -18,41 +18,47 @@
 </template>
 
 <script lang="ts">
+import ContentService from '../../services/content';
 import FiltersService from '../../services/filters';
-import VideosService from '../../services/videos';
 
 import TopicsGroupFilters from '../Filters/TopicsGroup';
-import RudimentContentCard from '../ContentCards/Rudiment'
+import RudimentContentCard from '../ContentCards/Rudiment';
+
+import ContentMixin from '../../mixins/content';
 
 export default {
     components: {
         'topics-group-filters': TopicsGroupFilters,
         'rudiment-content-card': RudimentContentCard,
     },
+    mixins: [ContentMixin],
     props: {
-        videosList: {
-            type: Array,
+        preloadData: {
+            type: String
         },
-        edgeFiltersList: {
-            type: Array,
-            default: () => [],
+        topicsFiltersDisabled: {
+            type: Boolean,
+            default: () => false,
         },
-        edgeFiltersTitle: {
+        topicsFiltersTitle: {
             type: String,
             default: () => '',
         },
     },
     data(): object {
         return {
-            videos: [],
-            edgeFilters: [],
+            content: [],
+            topics: null,
         };
     },
     mounted(): void {
-        this.videos = VideosService.getRudimentsFromArray(this.videosList);
-        this.edgeFilters = FiltersService.getFiltersFromArray(this.edgeFiltersList, 'edge-group');
-
         this.$root.$on('filterClicked', this.handleFilterClick);
+
+        let preloadData = JSON.parse(this.preloadData);
+
+        this.setupFilters(preloadData);
+        this.setupContent(preloadData);
+        this.setupPagination(preloadData);
     },
     methods: {
         handleFilterClick(filter) {
@@ -67,6 +73,28 @@ export default {
                     return item;
                 });
             }
+        },
+
+        setupFilters(response) {
+
+            let filterGroups = FiltersService.getFilterGroupsFromResponse(response);
+
+            filterGroups.forEach(filterGroup => {
+                if (filterGroup.id == 'topic') {
+                    this.topics = filterGroup;
+                }
+            });
+        },
+
+        setupContent(response, appendContent) {
+            if (!appendContent) {
+                this.content = [];
+            }
+
+            this.content = [
+                ...this.content,
+                ...ContentService.getContentFromResponse(response)
+            ];
         },
     },
 };

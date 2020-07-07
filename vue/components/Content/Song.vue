@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import VideosService from '../../services/videos';
+// import VideosService from '../../services/videos';
 import Button from '../Blocks/Button';
 
 export default {
@@ -56,7 +56,7 @@ export default {
         };
     },
     mounted(): void {
-        this.song = VideosService.getVideoFromObject(this.videoData);
+        // this.song = VideosService.getVideoFromObject(this.videoData);
     },
     computed: {
         $_likeClasses(): string[] {

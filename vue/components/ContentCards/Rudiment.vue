@@ -7,7 +7,7 @@
         </div>
         <div class="flex items-center w-full">
             <div class="flex-1 pl-4 capitalize font-bold">{{ content.title }}</div>
-            <div class="flex-none h-16 px-8 hidden small:block">
+            <div class="flex-none h-16 px-8 hidden small:block" v-if="content.sheet">
                 <img :src="content.sheet" class="h-full w-auto">
             </div>
             <div class="flex-none"><i class="rudiment-card-icon icon-add-to-list text-2xl cursor-pointer text-medium-gray hover:text-black"></i></div>
@@ -16,13 +16,13 @@
 </template>
 
 <script lang="ts">
-import Rudiment from '../../models/rudiment';
+import ContentModel from '../../models/content';
 import ContentInstructorsMixin from '../../mixins/contentInstructors';
 
 export default {
     props: {
         content: {
-            type: Rudiment, // todo - update
+            type: ContentModel,
         },
     },
     mixins: [ContentInstructorsMixin],

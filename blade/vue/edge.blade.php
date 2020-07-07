@@ -34164,11 +34164,6 @@ $rc1 = <<<'EOT'
 }
 EOT;
 // -->
-
-// <!--
-$continue = <<<'EC'
-EC;
-// -->
 @endphp
 
 @section('app')

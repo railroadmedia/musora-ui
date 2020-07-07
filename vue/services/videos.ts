@@ -36,6 +36,7 @@ export default class Videos {
             value.genre,
             value.likes || 0,
             value.liked || false,
+            '',
             value.progress
         );
     }
@@ -79,6 +80,7 @@ export default class Videos {
                         value.genre,
                         value.likes,
                         value.liked || false,
+                        '',
                         value.progress
                     )
                 );

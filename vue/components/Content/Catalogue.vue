@@ -381,7 +381,14 @@ export default {
         },
 
         setupFilters(response) {
-            this.filters = FiltersService.getFilterGroupsFromResponse(response);
+            let edgeContentTypeFilterGroup = FiltersService.getEdgeContentTypeFilterGroup(this.filters);
+            let progressFilterGroup = FiltersService.getProgressFilterGroup(this.filters);
+
+            this.filters = [
+                edgeContentTypeFilterGroup,
+                ...FiltersService.getFilterGroupsFromResponse(response),
+                progressFilterGroup
+            ];
         },
 
         setupContent(response, appendContent) {

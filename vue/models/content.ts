@@ -15,6 +15,7 @@ export default class Content {
         public genre?: string,
         public likes?: number,
         public liked?: boolean,
+        public sheet?: string,
         public progress = 0
     ) {
     }

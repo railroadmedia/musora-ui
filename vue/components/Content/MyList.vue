@@ -72,7 +72,7 @@
 
 <script lang="ts">
 import FiltersService from '../../services/filters';
-import VideosService from '../../services/videos';
+// import VideosService from '../../services/videos';
 
 import TopicsGroupFilters from '../Filters/TopicsGroup';
 import FiltersGroup from '../Filters/Group';
@@ -127,7 +127,7 @@ export default {
         },
     },
     mounted(): void {
-        this.videos = VideosService.getVideosFromArray(this.videosList);
+        // this.videos = VideosService.getVideosFromArray(this.videosList);
         this.edgeFilters = FiltersService.getFiltersFromArray(this.edgeFiltersList, 'edge-group');
         this.filtersGroup = FiltersService.getFilterGroupsFromArray([this.filtersList]).pop();
 

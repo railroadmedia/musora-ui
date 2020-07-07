@@ -2,6 +2,7 @@ import Filter from '../models/filter';
 import FilterGroup from '../models/filterGroup';
 import FiltersType from '../maps/filtersType';
 import FiltersContentType from '../maps/filtersContentType';
+import FiltersProgress from '../maps/filtersProgress';
 
 export default class Filters {
 
@@ -10,11 +11,23 @@ export default class Filters {
         filters.forEach((group) => {
             group.filters.forEach((item) => {
                 if (item.active) {
-                    if (!payload.required_fields) {
-                        payload.required_fields = [];
-                    }
+                    if (group.id == 'content-type') {
+                        if (!payload.included_types) {
+                            payload.included_types = [];
+                        }
+                        payload.included_types.push(item.value);
+                    } else if (group.id == 'progress') {
+                        if (!payload.required_user_states) {
+                            payload.required_user_states = [];
+                        }
+                        payload.required_user_states.push(item.value);
+                    } else {
+                        if (!payload.required_fields) {
+                            payload.required_fields = [];
+                        }
 
-                    payload.required_fields.push(group.id + "," + item.value);
+                        payload.required_fields.push(group.id + "," + item.value);
+                    }
                 }
             });
         });
@@ -125,23 +138,55 @@ export default class Filters {
         );
     }
 
-    static getEdgeContentTypeFilterGroup(): FilterGroup {
+    static getEdgeContentTypeFilterGroup(currentFilters: FilterGroup[]): FilterGroup {
         let groupId = 'content-type';
+        let title = 'content type';
         let icon = 'icon-info';
-        let keys = Object.keys(FiltersContentType);
+
+        return this.createFilterGroup(groupId, title, icon, FiltersContentType, currentFilters);
+    }
+
+    static getProgressFilterGroup(currentFilters: FilterGroup[]): FilterGroup {
+        let groupId = 'progress';
+        let title = 'progress';
+        let icon = 'icon-info';
+
+        return this.createFilterGroup(groupId, title, icon, FiltersProgress, currentFilters);
+    }
+
+    static createFilterGroup(
+        groupId: string,
+        title: string,
+        icon: string,
+        filtersMap,
+        currentFilters: FilterGroup[]
+    ): FilterGroup {
+        let keys = Object.keys(filtersMap);
         let filters = [];
+        let activeGroupFilters = {};
+
+        currentFilters.forEach(group => {
+            if (group.id == groupId) {
+                group.filters.forEach(filter => {
+                    if (filter.active) {
+                        activeGroupFilters[filter.id] = true;
+                    }
+                });
+            }
+        });
 
         keys.forEach(key => {
             let id = key;
+            let active = activeGroupFilters[id] || false;
 
             filters.push(
                 new Filter(
                     id,
                     groupId,
                     id,
-                    FiltersContentType[key],
+                    filtersMap[key],
                     0,
-                    false, // todo - fix active
+                    active,
                     icon,
                     id
                 )
@@ -150,7 +195,7 @@ export default class Filters {
 
         return new FilterGroup(
             groupId,
-            icon,
+            title,
             filters
         );
     }
