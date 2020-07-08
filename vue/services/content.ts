@@ -16,12 +16,14 @@ export default class Content {
         response.data.forEach(item => {
 
             let relatedDataMap = Content.getContentRelatedData(item, response.included);
+            let thumbnail = this.getContentData(relatedDataMap, 'thumbnail_url') || this.defaultContentThumbnail;
+            let sheet = this.getContentData(relatedDataMap, 'sheet_music_thumbnail_url');
 
             result.push(
                 new ContentModel(
                     item.id,
                     '#', // todo - update url
-                    this.getContentTumbnail(relatedDataMap),
+                    thumbnail,
                     item.attributes.title,
                     this.getContentInstructors(relatedDataMap),
                     item.attributes.type,
@@ -31,7 +33,8 @@ export default class Content {
                     item.attributes.artist,
                     undefined, // todo - update genre
                     undefined, // todo - update likes
-                    undefined // todo - update liked
+                    undefined, // todo - update liked
+                    sheet
                 )
             );
         });
@@ -101,21 +104,20 @@ export default class Content {
         return result;
     }
 
-    static getContentTumbnail(contentRelatedData): string {
-        // todo - refactor into generic method, when several similar related data objects are needed
-        let thumbnail = this.defaultContentThumbnail;
+    static getContentData(contentRelatedData, key): string {
+        let data;
         let contentDataItems = contentRelatedData.contentData || {};
         const ids = Object.keys(contentDataItems);
 
         ids.forEach((id) => {
             let item = contentDataItems[id];
 
-            if (item.attributes.key == 'thumbnail_url') {
-                thumbnail = item.attributes.value;
+            if (item.attributes.key == key) {
+                data = item.attributes.value;
             }
         });
 
-        return thumbnail;
+        return data;
     }
 
     static getContentInstructors(contentRelatedData): InstructorModel[] {

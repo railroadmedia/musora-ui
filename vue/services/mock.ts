@@ -1,4 +1,5 @@
-import data from '../../mocks/full_response.json';
+import EdgeData from '../../mocks/full_response.json';
+import RudimentData from '../../mocks/rudiments.json';
 import Utils from './utils';
 
 export default class Mock {
@@ -11,7 +12,7 @@ export default class Mock {
                 let filters = params.required_fields || [];
                 let activeFiltersMap = {};
                 let activeFilters = {};
-                let response = Utils.copy(data);
+                let response = Mock.getResponse(params);
 
                 let pageSize = response.data.length;
 
@@ -82,5 +83,23 @@ export default class Mock {
                     response,
                 ];
             });
+    }
+
+    static getResponse(params) {
+        let page = 'edge';
+        let includedTypes = params.included_types || [];
+
+        if (includedTypes.length == 1 && includedTypes[0] == 'rudiment') {
+            page = 'rudiment';
+        }
+
+        switch(page) {
+            case 'rudiment':
+                return Utils.copy(RudimentData);
+            case 'edge':
+                // falling into default block
+            default:
+                return Utils.copy(EdgeData);
+        }
     }
 }

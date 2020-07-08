@@ -287,8 +287,6 @@ export default {
         this.setupPagination(preloadData);
 
         // todo - setup active difficulty
-
-        // this.fetchData();
     },
     methods: {
         clearFilters() {
@@ -426,7 +424,7 @@ export default {
 
                     setTimeout(() => {
                         this.loading = false;
-                    }, 1000);
+                    }, 500);
                 });
 
             // todo - add error handling

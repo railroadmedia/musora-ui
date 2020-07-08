@@ -1,8 +1,8 @@
 <template>
     <a href="#" class="rudiment-card flex flex-row items-center px-3 py-1">
-        <div class="w-32 rounded-lg overflow-hidden relative">
-            <img :src="content.thumbnail" class="object-cover object-center w-full h-auto">
-            <div class="absolute bottom-0 left-0 rudiment-card-teacher-gradient text-white pl-2 pb-1 uppercase text-xs font-bold">{{ getInstructors(content) }}</div>
+        <div class="rudiment-thumbnail-container rounded-lg overflow-hidden relative">
+            <img :src="content.thumbnail" class="object-cover object-center w-full h-full">
+            <div class="absolute bottom-0 left-0 right-0 rudiment-card-teacher-gradient text-white pl-2 pb-1 uppercase text-xs font-bold">{{ getInstructors(content) }}</div>
             <div class="rudiment-card-play absolute inset-0 flex items-center justify-center invisible opacity-0 z-10"><i class="icon-live text-2xl text-white"></i></div>
         </div>
         <div class="flex items-center w-full">
@@ -38,6 +38,10 @@ export default {
 </script>
 
 <style type="text/css">
+.rudiment-thumbnail-container {
+    max-height: 70px;
+    max-width: 123px;
+}
 .rudiment-card:hover {
     background-color: #f3f9ff;
 }

@@ -3,6 +3,7 @@ import FilterGroup from '../models/filterGroup';
 import FiltersType from '../maps/filtersType';
 import FiltersContentType from '../maps/filtersContentType';
 import FiltersProgress from '../maps/filtersProgress';
+import FiltersPageContentType from '../maps/filtersPageContentType';
 
 export default class Filters {
 
@@ -154,12 +155,21 @@ export default class Filters {
         return this.createFilterGroup(groupId, title, icon, FiltersProgress, currentFilters);
     }
 
+    static getRudimentsFilterGroup(): FilterGroup {
+        let groupId = 'content-type';
+        let title = 'content type';
+        let icon = 'icon-info';
+
+        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.rudiments, [], true);
+    }
+
     static createFilterGroup(
         groupId: string,
         title: string,
         icon: string,
         filtersMap,
-        currentFilters: FilterGroup[]
+        currentFilters: FilterGroup[],
+        setActive = false
     ): FilterGroup {
         let keys = Object.keys(filtersMap);
         let filters = [];
@@ -177,7 +187,7 @@ export default class Filters {
 
         keys.forEach(key => {
             let id = key;
-            let active = activeGroupFilters[id] || false;
+            let active = activeGroupFilters[id] || setActive || false;
 
             filters.push(
                 new Filter(

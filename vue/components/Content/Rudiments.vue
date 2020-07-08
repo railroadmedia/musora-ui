@@ -49,6 +49,8 @@ export default {
         return {
             content: [],
             topics: null,
+            pageContentTypeFilterGroup: null,
+            loading: false,
         };
     },
     mounted(): void {
@@ -59,20 +61,20 @@ export default {
         this.setupFilters(preloadData);
         this.setupContent(preloadData);
         this.setupPagination(preloadData);
+
+        this.pageContentTypeFilterGroup = FiltersService.getRudimentsFilterGroup();
     },
     methods: {
         handleFilterClick(filter) {
-            // todo - update with API call
 
-            if (filter.groupId == 'edge-group') {
-                this.edgeFilters = this.edgeFilters.map((item) => {
-                    if (item.id == filter.id) {
-                        item.active = !item.active;
-                    }
+            this.topics.filters = this.topics.filters.map((item) => {
+                if (item.id == filter.id) {
+                    item.active = !item.active;
+                }
+                return item;
+            });
 
-                    return item;
-                });
-            }
+            this.fetchData(true);
         },
 
         setupFilters(response) {
@@ -96,6 +98,42 @@ export default {
                 ...ContentService.getContentFromResponse(response)
             ];
         },
+
+        fetchData(resetPage, appendContent) {
+            this.loading = true;
+
+            if (resetPage) {
+                this.pagination.page = 1;
+            } else if (appendContent) {
+                this.pagination.page = parseInt(this.pagination.page) + 1;
+            }
+
+            let payload = this.getPayload();
+
+            payload = FiltersService.decorateRequestParams(payload, [this.topics, this.pageContentTypeFilterGroup]);
+
+            ContentService
+                .getContent(payload)
+                .then((response) => {
+
+                    this.setupFilters(response.data);
+                    this.setupContent(response.data, appendContent);
+                    this.setupPagination(response.data);
+
+                    setTimeout(() => {
+                        this.loading = false;
+                    }, 500);
+                });
+        },
+
+        infiniteScrollEventHandler() {
+            const scrollPosition = window.pageYOffset + window.innerHeight;
+            const scrollBuffer = (document.body.scrollHeight * 0.75);
+
+            if (!this.loading && (scrollPosition >= scrollBuffer) && (this.pagination.page < this.pagination.pages)) {
+                this.fetchData(false, true);
+            }
+        }
     },
 };
 </script>
