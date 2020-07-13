@@ -24,6 +24,11 @@ export default {
         type: 'string',
         label: 'Topic'
     },
+    'content-type': {
+        type: 'string',
+        label: 'Content Type',
+        icon: 'icon-info',
+    },
     instructor: {
         type: 'entity',
         label: 'Instructor',

@@ -90,7 +90,10 @@ export default class Filters {
             let value = encodeURI(item);
             let active = false;
 
-            if (activeFiltersMap[groupId] && activeFiltersMap[groupId][value]) {
+            if (
+                activeFiltersMap[groupId]
+                && (activeFiltersMap[groupId][value] || activeFiltersMap[groupId][item])
+            ) {
                 active = true;
             }
 

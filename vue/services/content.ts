@@ -10,6 +10,10 @@ export default class Content {
         return http.get('/railcontent/content', { params: payload });
     }
 
+    static getMyList(payload) {
+        return http.get('/railcontent/my-list', { params: payload });
+    }
+
     static getContentFromResponse(response): ContentModel[] {
         let result = [];
 
