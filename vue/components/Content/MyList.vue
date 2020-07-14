@@ -100,31 +100,12 @@ export default {
             type: String,
             default: () => '',
         },
-        resultsType: {
-            type: String,
-            default: () => 'lessons',
-        },
     },
     data(): object {
         return {
-            content: [],
-            filters: [],
-            loading: false,
         };
     },
     computed: {
-        $_hasActiveFiler(): boolean {
-            let has = false;
-
-            this.filters.forEach((group) => {
-                group.filters.forEach((filter) => {
-                    has = has || filter.active;
-                });
-            });
-
-            return has;
-        },
-
         $_filters(): Filter[] {
             let result = [];
 
@@ -134,18 +115,6 @@ export default {
 
             this.$_sideFilters.filters.forEach((filter) => {
                 result.push(filter);
-            });
-
-            return result;
-        },
-
-        $_topics(): FilterGroup {
-            let result;
-
-            this.filters.forEach((group) => {
-                if (group.id == 'topic') {
-                    result = group;
-                }
             });
 
             return result;
@@ -162,16 +131,6 @@ export default {
 
             return result;
         },
-
-        $_sort: {
-            get() {
-                return this.pagination.sort;
-            },
-            set(value) {
-                this.pagination.sort = value;
-                this.fetchData(true);
-            }
-        },
     },
     mounted(): void {
 
@@ -184,25 +143,6 @@ export default {
         this.$root.$on('filterClicked', this.handleFilterClick);
     },
     methods: {
-        handleFilterClick(filter) {
-
-            this.filters = this.filters.map((group) => {
-
-                if (group.id == filter.groupId) {
-
-                    group.filters = group.filters.map((item) => {
-                        if (item.id == filter.id) {
-                            item.active = !item.active;
-                        }
-                        return item;
-                    });
-                }
-
-                return group;
-            });
-
-            this.fetchData(true);
-        },
 
         setupFilters(response) {
 
@@ -214,60 +154,6 @@ export default {
                     this.filters.push(filterGroup);
                 }
             });
-        },
-
-        setupContent(response, appendContent) {
-            if (!appendContent) {
-                this.content = [];
-            }
-
-            this.content = [
-                ...this.content,
-                ...ContentService.getContentFromResponse(response)
-            ];
-        },
-
-        handleCollapseToggle(filterGroup) {
-            this.filters = this.filters.map((group) => {
-                if (group.id == filterGroup.id) {
-                    group.collapsed = !group.collapsed;
-                }
-
-                return group;
-            });
-        },
-
-        clearFilters() {
-            this.filters = this.filters.map((group) => {
-
-                group.filters = group.filters.map((item) => {
-                    item.active = false;
-                    return item;
-                });
-
-                return group;
-            });
-
-            this.fetchData(true);
-        },
-
-        handleFilterBadgeClicked(filter) {
-            this.filters = this.filters.map((group) => {
-
-                if (group.id == filter.groupId) {
-
-                    group.filters = group.filters.map((item) => {
-                        if (item.id == filter.id) {
-                            item.active = false;
-                        }
-                        return item;
-                    });
-                }
-
-                return group;
-            });
-
-            this.fetchData(true);
         },
 
         fetchData(resetPage, appendContent) {
@@ -299,15 +185,6 @@ export default {
 
             // todo - add error handling
         },
-
-        infiniteScrollEventHandler() {
-            const scrollPosition = window.pageYOffset + window.innerHeight;
-            const scrollBuffer = (document.body.scrollHeight * 0.75);
-
-            if (!this.loading && (scrollPosition >= scrollBuffer) && (this.pagination.page < this.pagination.pages)) {
-                this.fetchData(false, true);
-            }
-        }
     },
 };
 </script>

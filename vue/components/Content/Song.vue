@@ -8,7 +8,7 @@
         </div>
         <div class="flex-1 flex flex-col pt-6 sm:pt-0 sm:pl-10 sm:justify-center">
             <div class="capitalize text-3xl font-semibold text-center sm:text-left">{{ song.title }}</div>
-            <div class="capitalize text-dark-gray pt-2 text-center sm:text-left">{{ song.artist }} - {{ song.genre }}</div>
+            <div class="capitalize text-dark-gray pt-2 text-center sm:text-left">{{ song.artist }} - {{ song.style }}</div>
             <div class="py-8 flex flex-col md:flex-row items-center space-y-3 md:space-y-0 md:space-x-3">
                 <button-input
                     label="play"

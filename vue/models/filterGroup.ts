@@ -8,4 +8,13 @@ export default class FilterGroup {
         public collapsed = false
     ) {
     }
+
+    copy(): FilterGroup {
+        return new FilterGroup(
+            this.id,
+            this.title,
+            this.filters,
+            this.collapsed
+        );
+    }
 }

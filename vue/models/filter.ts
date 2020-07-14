@@ -10,4 +10,17 @@ export default class Filter {
         public value?: string
     ) {
     }
+
+    copy(): Filter {
+        return new Filter(
+            this.id,
+            this.groupId,
+            this.name,
+            this.label,
+            this.tabIndex,
+            this.active,
+            this.icon,
+            this.value
+        );
+    }
 }

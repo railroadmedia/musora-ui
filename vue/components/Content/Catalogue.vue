@@ -10,7 +10,6 @@
                 v-if="!topicsFiltersDisabled && $_topics"
             ></topics-group-filters>
             <level-selector
-                :current-level="level"
                 title="set your skill level"
                 @levelSelected="handleLevelSelected"
                 :filter-group="$_difficulty"
@@ -154,86 +153,13 @@ export default {
             type: Boolean,
             default: () => false,
         },
-        resultsType: {
-            type: String,
-            default: () => 'lessons',
-        },
     },
     data(): object {
         return {
-            content: [],
-            filters: [],
-            level: "1",
-            results: {
-                count: 114,
-                type: 'lessons',
-                perPage: 20,
-                sort: 'Newest First'
-            },
             collapsed: true,
-            loading: false,
         };
     },
     computed: {
-        $_filters(): Filter[] {
-            let result = [];
-
-            this.$_sideFilters.forEach((group) => {
-                group.filters.forEach((filter) => {
-                    result.push(filter);
-                });
-            });
-
-            return result;
-        },
-
-        $_topics(): FilterGroup {
-            let result;
-
-            this.filters.forEach((group) => {
-                if (group.id == 'topic') {
-                    result = group;
-                }
-            });
-
-            return result;
-        },
-
-        $_difficulty(): FilterGroup {
-            let result;
-
-            this.filters.forEach((group) => {
-                if (group.id == 'difficulty') {
-                    result = group;
-                }
-            });
-
-            return result;
-        },
-
-        $_sideFilters(): FilterGroup[] {
-            let result = [];
-
-            this.filters.forEach((group) => {
-                if (group.id != 'topic' && group.id != 'difficulty') {
-                    result.push(group);
-                }
-            });
-
-            return result;
-        },
-
-        $_hasActiveFiler(): boolean {
-            let has = false;
-
-            this.filters.forEach((group) => {
-                group.filters.forEach((filter) => {
-                    has = has || filter.active;
-                });
-            });
-
-            return has;
-        },
 
         $_gridClasses(): string[] {
             let classes = {
@@ -246,7 +172,7 @@ export default {
         $_resultsClasses(): string[] {
             let classes = [];
 
-            if (this.results.perPage) {
+            if (this.showPageSize) {
                 classes = ['flex-col', 'sm:flex-row'];
             } else {
                 classes = ['flex-row'];
@@ -254,30 +180,8 @@ export default {
 
             return classes;
         },
-
-        $_sort: {
-            get() {
-                return this.pagination.sort;
-            },
-            set(value) {
-                this.pagination.sort = value;
-                this.fetchData(true);
-            }
-        },
-
-        $_limit: {
-            get() {
-                return this.pagination.limit;
-            },
-            set(value) {
-                this.pagination.limit = value;
-                this.fetchData(true);
-            }
-        },
     },
     mounted(): void {
-        this.level = this.levelSelector || 1;
-
         this.$root.$on('filterClicked', this.handleFilterClick);
 
         let preloadData = JSON.parse(this.preloadData);
@@ -286,42 +190,9 @@ export default {
         this.setupContent(preloadData);
         this.setupPagination(preloadData);
 
-        // todo - setup active difficulty
+        this.selectFilterByValue('difficulty', this.levelSelector || 1);
     },
     methods: {
-        clearFilters() {
-            this.filters = this.filters.map((group) => {
-
-                group.filters = group.filters.map((item) => {
-                    item.active = false;
-                    return item;
-                });
-
-                return group;
-            });
-
-            this.fetchData(true);
-        },
-
-        handleFilterClick(filter) {
-
-            this.filters = this.filters.map((group) => {
-
-                if (group.id == filter.groupId) {
-
-                    group.filters = group.filters.map((item) => {
-                        if (item.id == filter.id) {
-                            item.active = !item.active;
-                        }
-                        return item;
-                    });
-                }
-
-                return group;
-            });
-
-            this.fetchData(true);
-        },
 
         handleLevelSelected(filter) {
 
@@ -342,27 +213,19 @@ export default {
                 return group;
             });
 
+            this.resetSideFilters();
+
             this.fetchData(true);
         },
 
-        handleCollapseToggle(filterGroup) {
-            this.filters = this.filters.map((group) => {
-                if (group.id == filterGroup.id) {
-                    group.collapsed = !group.collapsed;
-                }
-
-                return group;
-            });
-        },
-
-        handleFilterBadgeClicked(filter) {
+        selectFilterByValue(groupId, value) {
             this.filters = this.filters.map((group) => {
 
-                if (group.id == filter.groupId) {
+                if (group.id == groupId) {
 
                     group.filters = group.filters.map((item) => {
-                        if (item.id == filter.id) {
-                            item.active = false;
+                        if (item.value == value) {
+                            item.active = true;
                         }
                         return item;
                     });
@@ -370,8 +233,6 @@ export default {
 
                 return group;
             });
-
-            this.fetchData(true);
         },
 
         toggleCollapse(): void {
@@ -389,15 +250,47 @@ export default {
             ];
         },
 
-        setupContent(response, appendContent) {
-            if (!appendContent) {
-                this.content = [];
+        getFilters() {
+            let hasContentTypeFilter = false;
+
+            this.filters.forEach((group) => {
+                if (group.id == 'content-type') {
+                    group.filters.forEach((item) => {
+                        if (item.active) {
+                            hasContentTypeFilter = true;
+                        }
+                    });
+                }
+            });
+
+            let filters = [];
+
+            if (!hasContentTypeFilter) {
+                // if no content type filter is selected, all content types should be pulled
+                filters = this.filters.map((group) => {
+
+                    let result = group;
+
+                    if (group.id == 'content-type') {
+
+                        let groupCopy = group.copy();
+
+                        groupCopy.filters = group.filters.map((item) => {
+                            let copy = item.copy();
+                            copy.active = true;
+                            return copy;
+                        });
+
+                        result = groupCopy;
+                    }
+
+                    return result;
+                });
+            } else {
+                filters = this.filters;
             }
 
-            this.content = [
-                ...this.content,
-                ...ContentService.getContentFromResponse(response)
-            ];
+            return filters;
         },
 
         fetchData(resetPage, appendContent) {
@@ -412,7 +305,7 @@ export default {
 
             let payload = this.getPayload();
 
-            payload = FiltersService.decorateRequestParams(payload, this.filters);
+            payload = FiltersService.decorateRequestParams(payload, this.getFilters());
 
             ContentService
                 .getContent(payload)
@@ -429,15 +322,6 @@ export default {
 
             // todo - add error handling
         },
-
-        infiniteScrollEventHandler() {
-            const scrollPosition = window.pageYOffset + window.innerHeight;
-            const scrollBuffer = (document.body.scrollHeight * 0.75);
-
-            if (!this.loading && (scrollPosition >= scrollBuffer) && (this.pagination.page < this.pagination.pages)) {
-                this.fetchData(false, true);
-            }
-        }
     },
 };
 </script>

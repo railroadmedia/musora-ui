@@ -32730,72 +32730,13 @@ exports.default = {
             type: Boolean,
             default: function () { return false; },
         },
-        resultsType: {
-            type: String,
-            default: function () { return 'lessons'; },
-        },
     },
     data: function () {
         return {
-            content: [],
-            filters: [],
-            level: "1",
-            results: {
-                count: 114,
-                type: 'lessons',
-                perPage: 20,
-                sort: 'Newest First'
-            },
             collapsed: true,
-            loading: false,
         };
     },
     computed: {
-        $_filters: function () {
-            var result = [];
-            this.$_sideFilters.forEach(function (group) {
-                group.filters.forEach(function (filter) {
-                    result.push(filter);
-                });
-            });
-            return result;
-        },
-        $_topics: function () {
-            var result;
-            this.filters.forEach(function (group) {
-                if (group.id == 'topic') {
-                    result = group;
-                }
-            });
-            return result;
-        },
-        $_difficulty: function () {
-            var result;
-            this.filters.forEach(function (group) {
-                if (group.id == 'difficulty') {
-                    result = group;
-                }
-            });
-            return result;
-        },
-        $_sideFilters: function () {
-            var result = [];
-            this.filters.forEach(function (group) {
-                if (group.id != 'topic' && group.id != 'difficulty') {
-                    result.push(group);
-                }
-            });
-            return result;
-        },
-        $_hasActiveFiler: function () {
-            var has = false;
-            this.filters.forEach(function (group) {
-                group.filters.forEach(function (filter) {
-                    has = has || filter.active;
-                });
-            });
-            return has;
-        },
         $_gridClasses: function () {
             var classes = {
                 4: ['grid-cols-1', 'gap-10', 'small:gap-4', 'small:row-gap-8', 'small:grid-cols-3', 'large:grid-cols-4'],
@@ -32805,7 +32746,7 @@ exports.default = {
         },
         $_resultsClasses: function () {
             var classes = [];
-            if (this.results.perPage) {
+            if (this.showPageSize) {
                 classes = ['flex-col', 'sm:flex-row'];
             }
             else {
@@ -32813,59 +32754,16 @@ exports.default = {
             }
             return classes;
         },
-        $_sort: {
-            get: function () {
-                return this.pagination.sort;
-            },
-            set: function (value) {
-                this.pagination.sort = value;
-                this.fetchData(true);
-            }
-        },
-        $_limit: {
-            get: function () {
-                return this.pagination.limit;
-            },
-            set: function (value) {
-                this.pagination.limit = value;
-                this.fetchData(true);
-            }
-        },
     },
     mounted: function () {
-        this.level = this.levelSelector || 1;
         this.$root.$on('filterClicked', this.handleFilterClick);
         var preloadData = JSON.parse(this.preloadData);
         this.setupFilters(preloadData);
         this.setupContent(preloadData);
         this.setupPagination(preloadData);
-        // todo - setup active difficulty
+        this.selectFilterByValue('difficulty', this.levelSelector || 1);
     },
     methods: {
-        clearFilters: function () {
-            this.filters = this.filters.map(function (group) {
-                group.filters = group.filters.map(function (item) {
-                    item.active = false;
-                    return item;
-                });
-                return group;
-            });
-            this.fetchData(true);
-        },
-        handleFilterClick: function (filter) {
-            this.filters = this.filters.map(function (group) {
-                if (group.id == filter.groupId) {
-                    group.filters = group.filters.map(function (item) {
-                        if (item.id == filter.id) {
-                            item.active = !item.active;
-                        }
-                        return item;
-                    });
-                }
-                return group;
-            });
-            this.fetchData(true);
-        },
         handleLevelSelected: function (filter) {
             this.filters = this.filters.map(function (group) {
                 if (group.id == 'difficulty') {
@@ -32881,29 +32779,21 @@ exports.default = {
                 }
                 return group;
             });
+            this.resetSideFilters();
             this.fetchData(true);
         },
-        handleCollapseToggle: function (filterGroup) {
+        selectFilterByValue: function (groupId, value) {
             this.filters = this.filters.map(function (group) {
-                if (group.id == filterGroup.id) {
-                    group.collapsed = !group.collapsed;
-                }
-                return group;
-            });
-        },
-        handleFilterBadgeClicked: function (filter) {
-            this.filters = this.filters.map(function (group) {
-                if (group.id == filter.groupId) {
+                if (group.id == groupId) {
                     group.filters = group.filters.map(function (item) {
-                        if (item.id == filter.id) {
-                            item.active = false;
+                        if (item.value == value) {
+                            item.active = true;
                         }
                         return item;
                     });
                 }
                 return group;
             });
-            this.fetchData(true);
         },
         toggleCollapse: function () {
             this.collapsed = !this.collapsed;
@@ -32917,11 +32807,38 @@ exports.default = {
                 progressFilterGroup
             ]);
         },
-        setupContent: function (response, appendContent) {
-            if (!appendContent) {
-                this.content = [];
+        getFilters: function () {
+            var hasContentTypeFilter = false;
+            this.filters.forEach(function (group) {
+                if (group.id == 'content-type') {
+                    group.filters.forEach(function (item) {
+                        if (item.active) {
+                            hasContentTypeFilter = true;
+                        }
+                    });
+                }
+            });
+            var filters = [];
+            if (!hasContentTypeFilter) {
+                // if no content type filter is selected, all content types should be pulled
+                filters = this.filters.map(function (group) {
+                    var result = group;
+                    if (group.id == 'content-type') {
+                        var groupCopy = group.copy();
+                        groupCopy.filters = group.filters.map(function (item) {
+                            var copy = item.copy();
+                            copy.active = true;
+                            return copy;
+                        });
+                        result = groupCopy;
+                    }
+                    return result;
+                });
             }
-            this.content = __spreadArrays(this.content, content_1.default.getContentFromResponse(response));
+            else {
+                filters = this.filters;
+            }
+            return filters;
         },
         fetchData: function (resetPage, appendContent) {
             var _this = this;
@@ -32933,7 +32850,7 @@ exports.default = {
                 this.pagination.page = parseInt(this.pagination.page) + 1;
             }
             var payload = this.getPayload();
-            payload = filters_1.default.decorateRequestParams(payload, this.filters);
+            payload = filters_1.default.decorateRequestParams(payload, this.getFilters());
             content_1.default
                 .getContent(payload)
                 .then(function (response) {
@@ -32946,13 +32863,6 @@ exports.default = {
             });
             // todo - add error handling
         },
-        infiniteScrollEventHandler: function () {
-            var scrollPosition = window.pageYOffset + window.innerHeight;
-            var scrollBuffer = (document.body.scrollHeight * 0.75);
-            if (!this.loading && (scrollPosition >= scrollBuffer) && (this.pagination.page < this.pagination.pages)) {
-                this.fetchData(false, true);
-            }
-        }
     },
 };
 
@@ -32968,13 +32878,6 @@ exports.default = {
 
 "use strict";
 
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -33002,28 +32905,11 @@ exports.default = {
             type: String,
             default: function () { return ''; },
         },
-        resultsType: {
-            type: String,
-            default: function () { return 'lessons'; },
-        },
     },
     data: function () {
-        return {
-            content: [],
-            filters: [],
-            loading: false,
-        };
+        return {};
     },
     computed: {
-        $_hasActiveFiler: function () {
-            var has = false;
-            this.filters.forEach(function (group) {
-                group.filters.forEach(function (filter) {
-                    has = has || filter.active;
-                });
-            });
-            return has;
-        },
         $_filters: function () {
             var result = [];
             if (!this.$_sideFilters) {
@@ -33031,15 +32917,6 @@ exports.default = {
             }
             this.$_sideFilters.filters.forEach(function (filter) {
                 result.push(filter);
-            });
-            return result;
-        },
-        $_topics: function () {
-            var result;
-            this.filters.forEach(function (group) {
-                if (group.id == 'topic') {
-                    result = group;
-                }
             });
             return result;
         },
@@ -33052,15 +32929,6 @@ exports.default = {
             });
             return result;
         },
-        $_sort: {
-            get: function () {
-                return this.pagination.sort;
-            },
-            set: function (value) {
-                this.pagination.sort = value;
-                this.fetchData(true);
-            }
-        },
     },
     mounted: function () {
         var preloadData = JSON.parse(this.preloadData);
@@ -33070,20 +32938,6 @@ exports.default = {
         this.$root.$on('filterClicked', this.handleFilterClick);
     },
     methods: {
-        handleFilterClick: function (filter) {
-            this.filters = this.filters.map(function (group) {
-                if (group.id == filter.groupId) {
-                    group.filters = group.filters.map(function (item) {
-                        if (item.id == filter.id) {
-                            item.active = !item.active;
-                        }
-                        return item;
-                    });
-                }
-                return group;
-            });
-            this.fetchData(true);
-        },
         setupFilters: function (response) {
             var _this = this;
             var filterGroups = filters_1.default.getFilterGroupsFromResponse(response);
@@ -33093,44 +32947,6 @@ exports.default = {
                     _this.filters.push(filterGroup);
                 }
             });
-        },
-        setupContent: function (response, appendContent) {
-            if (!appendContent) {
-                this.content = [];
-            }
-            this.content = __spreadArrays(this.content, content_1.default.getContentFromResponse(response));
-        },
-        handleCollapseToggle: function (filterGroup) {
-            this.filters = this.filters.map(function (group) {
-                if (group.id == filterGroup.id) {
-                    group.collapsed = !group.collapsed;
-                }
-                return group;
-            });
-        },
-        clearFilters: function () {
-            this.filters = this.filters.map(function (group) {
-                group.filters = group.filters.map(function (item) {
-                    item.active = false;
-                    return item;
-                });
-                return group;
-            });
-            this.fetchData(true);
-        },
-        handleFilterBadgeClicked: function (filter) {
-            this.filters = this.filters.map(function (group) {
-                if (group.id == filter.groupId) {
-                    group.filters = group.filters.map(function (item) {
-                        if (item.id == filter.id) {
-                            item.active = false;
-                        }
-                        return item;
-                    });
-                }
-                return group;
-            });
-            this.fetchData(true);
         },
         fetchData: function (resetPage, appendContent) {
             var _this = this;
@@ -33155,13 +32971,6 @@ exports.default = {
             });
             // todo - add error handling
         },
-        infiniteScrollEventHandler: function () {
-            var scrollPosition = window.pageYOffset + window.innerHeight;
-            var scrollBuffer = (document.body.scrollHeight * 0.75);
-            if (!this.loading && (scrollPosition >= scrollBuffer) && (this.pagination.page < this.pagination.pages)) {
-                this.fetchData(false, true);
-            }
-        }
     },
 };
 
@@ -34658,7 +34467,6 @@ var render = function() {
               !_vm.levelSelectorDisabled && _vm.$_difficulty
                 ? _c("level-selector", {
                     attrs: {
-                      "current-level": _vm.level,
                       title: "set your skill level",
                       "filter-group": _vm.$_difficulty
                     },
@@ -37997,11 +37805,19 @@ exports.default = {
 
 "use strict";
 
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var pagination_1 = __importDefault(__webpack_require__(/*! ../models/pagination */ "./vue/models/pagination.ts"));
+var content_1 = __importDefault(__webpack_require__(/*! ../services/content */ "./vue/services/content.ts"));
 exports.default = {
     props: {
         brand: {
@@ -38028,6 +37844,10 @@ exports.default = {
             type: Boolean,
             default: function () { return false; },
         },
+        resultsType: {
+            type: String,
+            default: function () { return 'lessons'; },
+        },
     },
     mounted: function () {
         if (this.infiniteScroll) {
@@ -38041,6 +37861,10 @@ exports.default = {
     },
     data: function () {
         return {
+            content: [],
+            filters: [],
+            loading: false,
+            resetFilters: { topic: true, difficulty: true },
             pagination: new pagination_1.default(this.initialLimit, this.initialPage, this.initialSort),
             limitOptions: [10, 20, 30, 40, 50],
             sortOptions: {
@@ -38048,6 +37872,71 @@ exports.default = {
                 '-test': 'Alphabetical',
             },
         };
+    },
+    computed: {
+        $_hasActiveFiler: function () {
+            var has = false;
+            this.filters.forEach(function (group) {
+                group.filters.forEach(function (filter) {
+                    has = has || filter.active;
+                });
+            });
+            return has;
+        },
+        $_filters: function () {
+            var result = [];
+            this.$_sideFilters.forEach(function (group) {
+                group.filters.forEach(function (filter) {
+                    result.push(filter);
+                });
+            });
+            return result;
+        },
+        $_topics: function () {
+            var result;
+            this.filters.forEach(function (group) {
+                if (group.id == 'topic') {
+                    result = group;
+                }
+            });
+            return result;
+        },
+        $_difficulty: function () {
+            var result;
+            this.filters.forEach(function (group) {
+                if (group.id == 'difficulty') {
+                    result = group;
+                }
+            });
+            return result;
+        },
+        $_sideFilters: function () {
+            var result = [];
+            this.filters.forEach(function (group) {
+                if (group.id != 'topic' && group.id != 'difficulty') {
+                    result.push(group);
+                }
+            });
+            return result;
+        },
+        $_sort: {
+            get: function () {
+                return this.pagination.sort;
+            },
+            set: function (value) {
+                this.pagination.sort = value;
+                this.fetchData(true);
+            }
+        },
+        $_limit: {
+            get: function () {
+                return this.pagination.limit;
+            },
+            set: function (value) {
+                this.pagination.limit = value;
+                this.fetchData(true);
+            }
+        },
     },
     methods: {
         getPayload: function () {
@@ -38069,9 +37958,83 @@ exports.default = {
                 this.pagination.pages = pagination.total_pages;
             }
         },
-        infiniteScrollEventHandler: function () {
-            // no-op, will be overriden in component
+        setupContent: function (response, appendContent) {
+            if (!appendContent) {
+                this.content = [];
+            }
+            this.content = __spreadArrays(this.content, content_1.default.getContentFromResponse(response));
         },
+        infiniteScrollEventHandler: function () {
+            var scrollPosition = window.pageYOffset + window.innerHeight;
+            var scrollBuffer = (document.body.scrollHeight * 0.75);
+            if (!this.loading && (scrollPosition >= scrollBuffer) && (this.pagination.page < this.pagination.pages)) {
+                this.fetchData(false, true);
+            }
+        },
+        clearFilters: function () {
+            this.filters = this.filters.map(function (group) {
+                group.filters = group.filters.map(function (item) {
+                    item.active = false;
+                    return item;
+                });
+                return group;
+            });
+            this.fetchData(true);
+        },
+        resetSideFilters: function () {
+            var _this = this;
+            this.filters = this.filters.map(function (group) {
+                if (!_this.resetFilters[group.id]) {
+                    group.filters = group.filters.map(function (item) {
+                        item.active = false;
+                        return item;
+                    });
+                }
+                return group;
+            });
+        },
+        handleFilterClick: function (filter) {
+            this.filters = this.filters.map(function (group) {
+                if (group.id == filter.groupId) {
+                    group.filters = group.filters.map(function (item) {
+                        if (item.id == filter.id) {
+                            item.active = !item.active;
+                        }
+                        return item;
+                    });
+                }
+                return group;
+            });
+            if (this.resetFilters[filter.groupId]) {
+                this.resetSideFilters();
+            }
+            this.fetchData(true);
+        },
+        handleFilterBadgeClicked: function (filter) {
+            this.filters = this.filters.map(function (group) {
+                if (group.id == filter.groupId) {
+                    group.filters = group.filters.map(function (item) {
+                        if (item.id == filter.id) {
+                            item.active = false;
+                        }
+                        return item;
+                    });
+                }
+                return group;
+            });
+            this.fetchData(true);
+        },
+        handleCollapseToggle: function (filterGroup) {
+            this.filters = this.filters.map(function (group) {
+                if (group.id == filterGroup.id) {
+                    group.collapsed = !group.collapsed;
+                }
+                return group;
+            });
+        },
+        fetchData: function (resetPage, appendContent) {
+            // noop - components will implement the method
+        }
     },
 };
 
@@ -38189,6 +38152,9 @@ var Filter = /** @class */ (function () {
         this.icon = icon;
         this.value = value;
     }
+    Filter.prototype.copy = function () {
+        return new Filter(this.id, this.groupId, this.name, this.label, this.tabIndex, this.active, this.icon, this.value);
+    };
     return Filter;
 }());
 exports.default = Filter;
@@ -38214,6 +38180,9 @@ var FilterGroup = /** @class */ (function () {
         this.filters = filters;
         this.collapsed = collapsed;
     }
+    FilterGroup.prototype.copy = function () {
+        return new FilterGroup(this.id, this.title, this.filters, this.collapsed);
+    };
     return FilterGroup;
 }());
 exports.default = FilterGroup;

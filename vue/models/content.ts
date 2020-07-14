@@ -12,7 +12,7 @@ export default class Content {
         public contentIcon?: string,
         public date?: string,
         public artist?: string,
-        public genre?: string,
+        public style?: string,
         public likes?: number,
         public liked?: boolean,
         public sheet?: string,

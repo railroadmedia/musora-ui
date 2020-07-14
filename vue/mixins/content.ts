@@ -1,4 +1,9 @@
+import Filter from '../models/filter';
+import FilterGroup from '../models/filterGroup';
 import PaginationModel from '../models/pagination';
+
+import ContentService from '../services/content';
+import FiltersService from '../services/filters';
 
 export default {
     props: {
@@ -26,6 +31,10 @@ export default {
             type: Boolean,
             default: () => false,
         },
+        resultsType: {
+            type: String,
+            default: () => 'lessons',
+        },
     },
     mounted(): void {
         if (this.infiniteScroll) {
@@ -39,6 +48,10 @@ export default {
     },
     data() {
         return {
+            content: [],
+            filters: [],
+            loading: false,
+            resetFilters: {topic: true, difficulty: true},
             pagination: new PaginationModel(this.initialLimit, this.initialPage, this.initialSort),
             limitOptions: [10, 20, 30, 40, 50],
             sortOptions: {
@@ -46,6 +59,87 @@ export default {
                 '-test': 'Alphabetical',
             },
         }
+    },
+    computed: {
+        $_hasActiveFiler(): boolean {
+            let has = false;
+
+            this.filters.forEach((group) => {
+                group.filters.forEach((filter) => {
+                    has = has || filter.active;
+                });
+            });
+
+            return has;
+        },
+
+        $_filters(): Filter[] {
+            let result = [];
+
+            this.$_sideFilters.forEach((group) => {
+                group.filters.forEach((filter) => {
+                    result.push(filter);
+                });
+            });
+
+            return result;
+        },
+
+        $_topics(): FilterGroup {
+            let result;
+
+            this.filters.forEach((group) => {
+                if (group.id == 'topic') {
+                    result = group;
+                }
+            });
+
+            return result;
+        },
+
+        $_difficulty(): FilterGroup {
+            let result;
+
+            this.filters.forEach((group) => {
+                if (group.id == 'difficulty') {
+                    result = group;
+                }
+            });
+
+            return result;
+        },
+
+        $_sideFilters(): FilterGroup[] {
+            let result = [];
+
+            this.filters.forEach((group) => {
+                if (group.id != 'topic' && group.id != 'difficulty') {
+                    result.push(group);
+                }
+            });
+
+            return result;
+        },
+
+        $_sort: {
+            get() {
+                return this.pagination.sort;
+            },
+            set(value) {
+                this.pagination.sort = value;
+                this.fetchData(true);
+            }
+        },
+
+        $_limit: {
+            get() {
+                return this.pagination.limit;
+            },
+            set(value) {
+                this.pagination.limit = value;
+                this.fetchData(true);
+            }
+        },
     },
     methods: {
         getPayload() {
@@ -70,8 +164,109 @@ export default {
             }
         },
 
-        infiniteScrollEventHandler() {
-            // no-op, will be overriden in component
+        setupContent(response, appendContent) {
+            if (!appendContent) {
+                this.content = [];
+            }
+
+            this.content = [
+                ...this.content,
+                ...ContentService.getContentFromResponse(response)
+            ];
         },
+
+        infiniteScrollEventHandler() {
+            const scrollPosition = window.pageYOffset + window.innerHeight;
+            const scrollBuffer = (document.body.scrollHeight * 0.75);
+
+            if (!this.loading && (scrollPosition >= scrollBuffer) && (this.pagination.page < this.pagination.pages)) {
+                this.fetchData(false, true);
+            }
+        },
+
+        clearFilters() {
+            this.filters = this.filters.map((group) => {
+
+                group.filters = group.filters.map((item) => {
+                    item.active = false;
+                    return item;
+                });
+
+                return group;
+            });
+
+            this.fetchData(true);
+        },
+
+        resetSideFilters() {
+            this.filters = this.filters.map((group) => {
+
+                if (!this.resetFilters[group.id]) {
+                    group.filters = group.filters.map((item) => {
+                        item.active = false;
+                        return item;
+                    });
+                }
+
+                return group;
+            });
+        },
+
+        handleFilterClick(filter) {
+
+            this.filters = this.filters.map((group) => {
+
+                if (group.id == filter.groupId) {
+
+                    group.filters = group.filters.map((item) => {
+                        if (item.id == filter.id) {
+                            item.active = !item.active;
+                        }
+                        return item;
+                    });
+                }
+
+                return group;
+            });
+
+            if (this.resetFilters[filter.groupId]) {
+                this.resetSideFilters();
+            }
+
+            this.fetchData(true);
+        },
+
+        handleFilterBadgeClicked(filter) {
+            this.filters = this.filters.map((group) => {
+
+                if (group.id == filter.groupId) {
+
+                    group.filters = group.filters.map((item) => {
+                        if (item.id == filter.id) {
+                            item.active = false;
+                        }
+                        return item;
+                    });
+                }
+
+                return group;
+            });
+
+            this.fetchData(true);
+        },
+
+        handleCollapseToggle(filterGroup) {
+            this.filters = this.filters.map((group) => {
+                if (group.id == filterGroup.id) {
+                    group.collapsed = !group.collapsed;
+                }
+
+                return group;
+            });
+        },
+
+        fetchData(resetPage, appendContent) {
+            // noop - components will implement the method
+        }
     },
 };

@@ -35,9 +35,9 @@ export default class Content {
                     undefined, // todo - update contentIcon
                     item.attributes.publishedOn,
                     item.attributes.artist,
-                    undefined, // todo - update genre
-                    undefined, // todo - update likes
-                    undefined, // todo - update liked
+                    item.attributes.style,
+                    item.attributes.like_count,
+                    item.attributes.is_liked_by_current_user,
                     sheet
                 )
             );
