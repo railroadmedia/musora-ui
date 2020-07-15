@@ -39,7 +39,7 @@ export default class Filters {
     static getFilterGroupsFromResponse(response): FilterGroup[] {
         let activeFiltersMap = {};
         let activeFilters = response.meta.activeFilters || {};
-        let filterOptions = response.meta.filterOptions;
+        let filterOptions = response.meta.filterOptions || {};
         let result = [];
         const keys = Object.keys(filterOptions);
 
@@ -164,6 +164,30 @@ export default class Filters {
         let icon = 'icon-info';
 
         return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.rudiments, [], true);
+    }
+
+    static getCoursesFilterGroup(): FilterGroup {
+        let groupId = 'content-type';
+        let title = 'content type';
+        let icon = 'icon-info';
+
+        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.courses, [], true);
+    }
+
+    static getPlayAlongsFilterGroup(): FilterGroup {
+        let groupId = 'content-type';
+        let title = 'content type';
+        let icon = 'icon-info';
+
+        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.playAlongs, [], true);
+    }
+
+    static getStudentFocusFilterGroup(): FilterGroup {
+        let groupId = 'content-type';
+        let title = 'content type';
+        let icon = 'icon-info';
+
+        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.studentFocus, [], true);
     }
 
     static createFilterGroup(

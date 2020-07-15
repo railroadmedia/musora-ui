@@ -93,9 +93,6 @@ export default {
     },
     mixins: [ContentMixin],
     props: {
-        preloadData: {
-            type: String
-        },
         topicsFiltersTitle: {
             type: String,
             default: () => '',

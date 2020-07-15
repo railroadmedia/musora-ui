@@ -21,6 +21,8 @@
 import ContentModel from '../../models/content';
 import ContentInstructorsMixin from '../../mixins/contentInstructors';
 
+// todo - add bool prop to display topic instead of content type for courses page
+
 export default {
     props: {
         content: {

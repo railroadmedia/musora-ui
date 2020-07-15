@@ -46,7 +46,7 @@ export default class Mock {
                 response.meta.activeFilters = activeFilters;
 
                 // create copy of filterOptions
-                let filterOptions = response.meta.filterOptions;
+                let filterOptions = response.meta.filterOptions || {};
 
                 let keys = Object.keys(filterOptions);
                 let updatedKeys = {};
@@ -138,7 +138,7 @@ export default class Mock {
                 response.meta.activeFilters = activeFilters;
 
                 // create copy of filterOptions
-                let filterOptions = response.meta.filterOptions;
+                let filterOptions = response.meta.filterOptions || {};
 
                 let keys = Object.keys(filterOptions);
                 let updatedKeys = {};
@@ -175,6 +175,12 @@ export default class Mock {
                     200,
                     response,
                 ];
+            });
+
+        mock
+            .onPost('/error-reporting')
+            .reply(function (config) {
+                return [200, {}];
             });
     }
 

@@ -33,9 +33,6 @@ export default {
     },
     mixins: [ContentMixin],
     props: {
-        preloadData: {
-            type: String
-        },
         topicsFiltersDisabled: {
             type: Boolean,
             default: () => false,
@@ -88,17 +85,6 @@ export default {
             });
         },
 
-        setupContent(response, appendContent) {
-            if (!appendContent) {
-                this.content = [];
-            }
-
-            this.content = [
-                ...this.content,
-                ...ContentService.getContentFromResponse(response)
-            ];
-        },
-
         fetchData(resetPage, appendContent) {
             this.loading = true;
 
@@ -125,15 +111,6 @@ export default {
                     }, 500);
                 });
         },
-
-        infiniteScrollEventHandler() {
-            const scrollPosition = window.pageYOffset + window.innerHeight;
-            const scrollBuffer = (document.body.scrollHeight * 0.75);
-
-            if (!this.loading && (scrollPosition >= scrollBuffer) && (this.pagination.page < this.pagination.pages)) {
-                this.fetchData(false, true);
-            }
-        }
     },
 };
 </script>

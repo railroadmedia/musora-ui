@@ -32723,10 +32723,27 @@ exports.default = {
             type: Number,
             default: function () { return 4; },
         },
-        preloadData: {
-            type: String
-        },
         showPageSize: {
+            type: Boolean,
+            default: function () { return false; },
+        },
+        useEdgeContentTypeFilters: {
+            type: Boolean,
+            default: function () { return false; },
+        },
+        useCoursesContentTypeFilters: {
+            type: Boolean,
+            default: function () { return false; },
+        },
+        usePlayAlongsContentTypeFilters: {
+            type: Boolean,
+            default: function () { return false; },
+        },
+        useStudentFocusContentTypeFilters: {
+            type: Boolean,
+            default: function () { return false; },
+        },
+        useProgressFilters: {
             type: Boolean,
             default: function () { return false; },
         },
@@ -32799,44 +32816,68 @@ exports.default = {
             this.collapsed = !this.collapsed;
         },
         setupFilters: function (response) {
-            var edgeContentTypeFilterGroup = filters_1.default.getEdgeContentTypeFilterGroup(this.filters);
-            var progressFilterGroup = filters_1.default.getProgressFilterGroup(this.filters);
-            this.filters = __spreadArrays([
-                edgeContentTypeFilterGroup
-            ], filters_1.default.getFilterGroupsFromResponse(response), [
-                progressFilterGroup
-            ]);
+            var filters = filters_1.default.getFilterGroupsFromResponse(response);
+            if (this.useEdgeContentTypeFilters) {
+                var edgeContentTypeFilterGroup = filters_1.default.getEdgeContentTypeFilterGroup(this.filters);
+                this.filters = __spreadArrays([
+                    edgeContentTypeFilterGroup
+                ], filters);
+            }
+            if (this.useCoursesContentTypeFilters) {
+                this.filters = filters;
+            }
+            if (this.useProgressFilters) {
+                var progressFilterGroup = filters_1.default.getProgressFilterGroup(this.filters);
+                this.filters.push(progressFilterGroup);
+            }
         },
         getFilters: function () {
-            var hasContentTypeFilter = false;
-            this.filters.forEach(function (group) {
-                if (group.id == 'content-type') {
-                    group.filters.forEach(function (item) {
-                        if (item.active) {
-                            hasContentTypeFilter = true;
+            var filters = [];
+            if (this.useEdgeContentTypeFilters) {
+                var hasContentTypeFilter_1 = false;
+                this.filters.forEach(function (group) {
+                    if (group.id == 'content-type') {
+                        group.filters.forEach(function (item) {
+                            if (item.active) {
+                                hasContentTypeFilter_1 = true;
+                            }
+                        });
+                    }
+                });
+                if (!hasContentTypeFilter_1) {
+                    // if no content type filter is selected, all content types should be pulled
+                    filters = this.filters.map(function (group) {
+                        var result = group;
+                        if (group.id == 'content-type') {
+                            var groupCopy = group.copy();
+                            groupCopy.filters = group.filters.map(function (item) {
+                                var copy = item.copy();
+                                copy.active = true;
+                                return copy;
+                            });
+                            result = groupCopy;
                         }
+                        return result;
                     });
                 }
-            });
-            var filters = [];
-            if (!hasContentTypeFilter) {
-                // if no content type filter is selected, all content types should be pulled
-                filters = this.filters.map(function (group) {
-                    var result = group;
-                    if (group.id == 'content-type') {
-                        var groupCopy = group.copy();
-                        groupCopy.filters = group.filters.map(function (item) {
-                            var copy = item.copy();
-                            copy.active = true;
-                            return copy;
-                        });
-                        result = groupCopy;
-                    }
-                    return result;
-                });
+                else {
+                    filters = this.filters;
+                }
             }
-            else {
-                filters = this.filters;
+            if (this.useCoursesContentTypeFilters) {
+                filters = __spreadArrays([
+                    filters_1.default.getCoursesFilterGroup()
+                ], this.filters);
+            }
+            if (this.usePlayAlongsContentTypeFilters) {
+                filters = __spreadArrays([
+                    filters_1.default.getPlayAlongsFilterGroup()
+                ], this.filters);
+            }
+            if (this.useStudentFocusContentTypeFilters) {
+                filters = __spreadArrays([
+                    filters_1.default.getStudentFocusFilterGroup()
+                ], this.filters);
             }
             return filters;
         },
@@ -32861,7 +32902,6 @@ exports.default = {
                     _this.loading = false;
                 }, 500);
             });
-            // todo - add error handling
         },
     },
 };
@@ -32898,9 +32938,6 @@ exports.default = {
     },
     mixins: [content_2.default],
     props: {
-        preloadData: {
-            type: String
-        },
         topicsFiltersTitle: {
             type: String,
             default: function () { return ''; },
@@ -33047,13 +33084,6 @@ exports.default = {
 
 "use strict";
 
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -33070,9 +33100,6 @@ exports.default = {
     },
     mixins: [content_2.default],
     props: {
-        preloadData: {
-            type: String
-        },
         topicsFiltersDisabled: {
             type: Boolean,
             default: function () { return false; },
@@ -33117,12 +33144,6 @@ exports.default = {
                 }
             });
         },
-        setupContent: function (response, appendContent) {
-            if (!appendContent) {
-                this.content = [];
-            }
-            this.content = __spreadArrays(this.content, content_1.default.getContentFromResponse(response));
-        },
         fetchData: function (resetPage, appendContent) {
             var _this = this;
             this.loading = true;
@@ -33145,13 +33166,6 @@ exports.default = {
                 }, 500);
             });
         },
-        infiniteScrollEventHandler: function () {
-            var scrollPosition = window.pageYOffset + window.innerHeight;
-            var scrollBuffer = (document.body.scrollHeight * 0.75);
-            if (!this.loading && (scrollPosition >= scrollBuffer) && (this.pagination.page < this.pagination.pages)) {
-                this.fetchData(false, true);
-            }
-        }
     },
 };
 
@@ -33229,6 +33243,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var content_1 = __importDefault(__webpack_require__(/*! ../../models/content */ "./vue/models/content.ts"));
 var contentInstructors_1 = __importDefault(__webpack_require__(/*! ../../mixins/contentInstructors */ "./vue/mixins/contentInstructors.ts"));
+// todo - add bool prop to display topic instead of content type for courses page
 exports.default = {
     props: {
         content: {
@@ -35124,7 +35139,7 @@ var render = function() {
                 staticClass:
                   "capitalize text-dark-gray pt-2 text-center sm:text-left"
               },
-              [_vm._v(_vm._s(_vm.song.artist) + " - " + _vm._s(_vm.song.genre))]
+              [_vm._v(_vm._s(_vm.song.artist) + " - " + _vm._s(_vm.song.style))]
             ),
             _vm._v(" "),
             _c(
@@ -37713,7 +37728,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     'rudiments': {
         'rudiment': true,
-    }
+    },
+    'courses': {
+        'course': true,
+    },
+    'playAlongs': {
+        'play-along': true,
+    },
+    'studentFocus': {
+        'student-focus': true,
+    },
 };
 
 
@@ -37847,6 +37871,9 @@ exports.default = {
         resultsType: {
             type: String,
             default: function () { return 'lessons'; },
+        },
+        preloadData: {
+            type: String
         },
     },
     mounted: function () {
@@ -38106,7 +38133,7 @@ exports.default = Comment;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Content = /** @class */ (function () {
-    function Content(id, url, thumbnail, title, instructors, contentType, difficulty, contentIcon, date, artist, genre, likes, liked, sheet, progress) {
+    function Content(id, url, thumbnail, title, instructors, contentType, difficulty, contentIcon, date, artist, style, likes, liked, sheet, progress) {
         if (progress === void 0) { progress = 0; }
         this.id = id;
         this.url = url;
@@ -38118,7 +38145,7 @@ var Content = /** @class */ (function () {
         this.contentIcon = contentIcon;
         this.date = date;
         this.artist = artist;
-        this.genre = genre;
+        this.style = style;
         this.likes = likes;
         this.liked = liked;
         this.sheet = sheet;
@@ -38320,14 +38347,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var http_1 = __importDefault(__webpack_require__(/*! ./http */ "./vue/services/http.ts"));
 var content_1 = __importDefault(__webpack_require__(/*! ../models/content */ "./vue/models/content.ts"));
 var instructor_1 = __importDefault(__webpack_require__(/*! ../models/instructor */ "./vue/models/instructor.ts"));
+var errors_1 = __importDefault(__webpack_require__(/*! ./errors */ "./vue/services/errors.ts"));
 var Content = /** @class */ (function () {
     function Content() {
     }
     Content.getContent = function (payload) {
-        return http_1.default.get('/railcontent/content', { params: payload });
+        return http_1.default
+            .get('/railcontent/content', { params: payload })
+            .then(function (response) { return response; })
+            .catch(function (error) {
+            errors_1.default.report(error, 'Content::getContent');
+            return error;
+        });
     };
     Content.getMyList = function (payload) {
-        return http_1.default.get('/railcontent/my-list', { params: payload });
+        return http_1.default
+            .get('/railcontent/my-list', { params: payload })
+            .then(function (response) { return response; })
+            .catch(function (error) {
+            errors_1.default.report(error, 'Content::getMyList');
+            return error;
+        });
     };
     Content.getContentFromResponse = function (response) {
         var _this = this;
@@ -38338,10 +38378,7 @@ var Content = /** @class */ (function () {
             var sheet = _this.getContentData(relatedDataMap, 'sheet_music_thumbnail_url');
             result.push(new content_1.default(item.id, '#', // todo - update url
             thumbnail, item.attributes.title, _this.getContentInstructors(relatedDataMap), item.attributes.type, item.attributes.difficulty, undefined, // todo - update contentIcon
-            item.attributes.publishedOn, item.attributes.artist, undefined, // todo - update genre
-            undefined, // todo - update likes
-            undefined, // todo - update liked
-            sheet));
+            item.attributes.publishedOn, item.attributes.artist, item.attributes.style, item.attributes.like_count, item.attributes.is_liked_by_current_user, sheet));
         });
         return result;
     };
@@ -38424,6 +38461,33 @@ exports.default = Content;
 
 /***/ }),
 
+/***/ "./vue/services/errors.ts":
+/*!********************************!*\
+  !*** ./vue/services/errors.ts ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var http_1 = __importDefault(__webpack_require__(/*! ./http */ "./vue/services/http.ts"));
+var Errors = /** @class */ (function () {
+    function Errors() {
+    }
+    Errors.report = function (value, location) {
+        http_1.default.post('/error-reporting', { params: { value: value, location: location } });
+    };
+    return Errors;
+}());
+exports.default = Errors;
+
+
+/***/ }),
+
 /***/ "./vue/services/filters.ts":
 /*!*********************************!*\
   !*** ./vue/services/filters.ts ***!
@@ -38476,7 +38540,7 @@ var Filters = /** @class */ (function () {
     Filters.getFilterGroupsFromResponse = function (response) {
         var activeFiltersMap = {};
         var activeFilters = response.meta.activeFilters || {};
-        var filterOptions = response.meta.filterOptions;
+        var filterOptions = response.meta.filterOptions || {};
         var result = [];
         var keys = Object.keys(filterOptions);
         Object.keys(activeFilters).forEach(function (key) {
@@ -38544,6 +38608,24 @@ var Filters = /** @class */ (function () {
         var title = 'content type';
         var icon = 'icon-info';
         return this.createFilterGroup(groupId, title, icon, filtersPageContentType_1.default.rudiments, [], true);
+    };
+    Filters.getCoursesFilterGroup = function () {
+        var groupId = 'content-type';
+        var title = 'content type';
+        var icon = 'icon-info';
+        return this.createFilterGroup(groupId, title, icon, filtersPageContentType_1.default.courses, [], true);
+    };
+    Filters.getPlayAlongsFilterGroup = function () {
+        var groupId = 'content-type';
+        var title = 'content type';
+        var icon = 'icon-info';
+        return this.createFilterGroup(groupId, title, icon, filtersPageContentType_1.default.playAlongs, [], true);
+    };
+    Filters.getStudentFocusFilterGroup = function () {
+        var groupId = 'content-type';
+        var title = 'content type';
+        var icon = 'icon-info';
+        return this.createFilterGroup(groupId, title, icon, filtersPageContentType_1.default.studentFocus, [], true);
     };
     Filters.createFilterGroup = function (groupId, title, icon, filtersMap, currentFilters, setActive) {
         if (setActive === void 0) { setActive = false; }
@@ -38686,7 +38768,7 @@ var Mock = /** @class */ (function () {
             // setting active filters on response
             response.meta.activeFilters = activeFilters;
             // create copy of filterOptions
-            var filterOptions = response.meta.filterOptions;
+            var filterOptions = response.meta.filterOptions || {};
             var keys = Object.keys(filterOptions);
             var updatedKeys = {};
             keys.forEach(function (key) {
@@ -38761,7 +38843,7 @@ var Mock = /** @class */ (function () {
             // setting active filters on response
             response.meta.activeFilters = activeFilters;
             // create copy of filterOptions
-            var filterOptions = response.meta.filterOptions;
+            var filterOptions = response.meta.filterOptions || {};
             var keys = Object.keys(filterOptions);
             var updatedKeys = {};
             keys.forEach(function (key) {
@@ -38791,6 +38873,11 @@ var Mock = /** @class */ (function () {
                 200,
                 response,
             ];
+        });
+        mock
+            .onPost('/error-reporting')
+            .reply(function (config) {
+            return [200, {}];
         });
     };
     Mock.getResponse = function (params) {

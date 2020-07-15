@@ -35,6 +35,9 @@ export default {
             type: String,
             default: () => 'lessons',
         },
+        preloadData: {
+            type: String
+        },
     },
     mounted(): void {
         if (this.infiniteScroll) {

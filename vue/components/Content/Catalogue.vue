@@ -146,10 +146,27 @@ export default {
             type: Number,
             default: () => 4,
         },
-        preloadData: {
-            type: String
-        },
         showPageSize: {
+            type: Boolean,
+            default: () => false,
+        },
+        useEdgeContentTypeFilters: {
+            type: Boolean,
+            default: () => false,
+        },
+        useCoursesContentTypeFilters: {
+            type: Boolean,
+            default: () => false,
+        },
+        usePlayAlongsContentTypeFilters: {
+            type: Boolean,
+            default: () => false,
+        },
+        useStudentFocusContentTypeFilters: {
+            type: Boolean,
+            default: () => false,
+        },
+        useProgressFilters: {
             type: Boolean,
             default: () => false,
         },
@@ -240,54 +257,90 @@ export default {
         },
 
         setupFilters(response) {
-            let edgeContentTypeFilterGroup = FiltersService.getEdgeContentTypeFilterGroup(this.filters);
-            let progressFilterGroup = FiltersService.getProgressFilterGroup(this.filters);
+            let filters = FiltersService.getFilterGroupsFromResponse(response);
 
-            this.filters = [
-                edgeContentTypeFilterGroup,
-                ...FiltersService.getFilterGroupsFromResponse(response),
-                progressFilterGroup
-            ];
+            if (this.useEdgeContentTypeFilters) {
+                let edgeContentTypeFilterGroup = FiltersService.getEdgeContentTypeFilterGroup(this.filters);
+
+                this.filters = [
+                    edgeContentTypeFilterGroup,
+                    ...filters
+                ];
+            }
+
+            if (this.useCoursesContentTypeFilters) {
+                this.filters = filters;
+            }
+
+            if (this.useProgressFilters) {
+                let progressFilterGroup = FiltersService.getProgressFilterGroup(this.filters);
+
+                this.filters.push(progressFilterGroup);
+            }
         },
 
         getFilters() {
-            let hasContentTypeFilter = false;
-
-            this.filters.forEach((group) => {
-                if (group.id == 'content-type') {
-                    group.filters.forEach((item) => {
-                        if (item.active) {
-                            hasContentTypeFilter = true;
-                        }
-                    });
-                }
-            });
-
             let filters = [];
 
-            if (!hasContentTypeFilter) {
-                // if no content type filter is selected, all content types should be pulled
-                filters = this.filters.map((group) => {
+            if (this.useEdgeContentTypeFilters) {
 
-                    let result = group;
+                let hasContentTypeFilter = false;
 
+                this.filters.forEach((group) => {
                     if (group.id == 'content-type') {
-
-                        let groupCopy = group.copy();
-
-                        groupCopy.filters = group.filters.map((item) => {
-                            let copy = item.copy();
-                            copy.active = true;
-                            return copy;
+                        group.filters.forEach((item) => {
+                            if (item.active) {
+                                hasContentTypeFilter = true;
+                            }
                         });
-
-                        result = groupCopy;
                     }
-
-                    return result;
                 });
-            } else {
-                filters = this.filters;
+
+                if (!hasContentTypeFilter) {
+                    // if no content type filter is selected, all content types should be pulled
+                    filters = this.filters.map((group) => {
+
+                        let result = group;
+
+                        if (group.id == 'content-type') {
+
+                            let groupCopy = group.copy();
+
+                            groupCopy.filters = group.filters.map((item) => {
+                                let copy = item.copy();
+                                copy.active = true;
+                                return copy;
+                            });
+
+                            result = groupCopy;
+                        }
+
+                        return result;
+                    });
+                } else {
+                    filters = this.filters;
+                }
+            }
+
+            if (this.useCoursesContentTypeFilters) {
+                filters = [
+                    FiltersService.getCoursesFilterGroup(),
+                    ...this.filters
+                ];
+            }
+
+            if (this.usePlayAlongsContentTypeFilters) {
+                filters = [
+                    FiltersService.getPlayAlongsFilterGroup(),
+                    ...this.filters
+                ];
+            }
+
+            if (this.useStudentFocusContentTypeFilters) {
+                filters = [
+                    FiltersService.getStudentFocusFilterGroup(),
+                    ...this.filters
+                ];
             }
 
             return filters;
@@ -319,8 +372,6 @@ export default {
                         this.loading = false;
                     }, 500);
                 });
-
-            // todo - add error handling
         },
     },
 };

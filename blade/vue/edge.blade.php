@@ -34189,5 +34189,7 @@ EOT;
         :cards-per-row='4'
         preload-data='{{ $rc1 }}'
         infinite-scroll
+        use-edge-content-type-filters
+        use-progress-filters
     ></content-catalogue>
 @endsection

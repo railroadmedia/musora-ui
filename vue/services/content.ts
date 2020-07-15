@@ -2,16 +2,29 @@ import http from './http';
 import ContentModel from '../models/content';
 import InstructorModel from '../models/instructor';
 import Utils from './utils';
+import Errors from './errors';
 
 export default class Content {
     static readonly defaultContentThumbnail = '';
 
     static getContent(payload) {
-        return http.get('/railcontent/content', { params: payload });
+        return http
+            .get('/railcontent/content', { params: payload })
+            .then(response => response)
+            .catch(error => {
+                Errors.report(error, 'Content::getContent');
+                return error;
+            });
     }
 
     static getMyList(payload) {
-        return http.get('/railcontent/my-list', { params: payload });
+        return http
+            .get('/railcontent/my-list', { params: payload })
+            .then(response => response)
+            .catch(error => {
+                Errors.report(error, 'Content::getMyList');
+                return error;
+            });
     }
 
     static getContentFromResponse(response): ContentModel[] {
