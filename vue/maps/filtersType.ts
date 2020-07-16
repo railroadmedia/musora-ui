@@ -16,6 +16,11 @@ export default {
         label: 'Style',
         icon: 'icon-info',
     },
+    favorites: {
+        type: 'string',
+        label: 'favorites',
+        icon: 'icon-info',
+    },
     difficulty: {
         type: 'string',
         label: 'difficulty'

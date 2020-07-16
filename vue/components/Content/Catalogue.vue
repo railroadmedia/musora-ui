@@ -2,7 +2,7 @@
     <div class="container w-full h-full mx-auto px-3 pt-4 pb-20">
         <div
             class="w-full mb-6 space-y-4 flex flex-col large:flex-row large:space-x-3 large:space-y-0 large:mt-6"
-            v-if="!topicsFiltersTitle || !levelSelectorDisabled"
+            v-if="!topicsFiltersDisabled || !levelSelectorDisabled"
         >
             <topics-group-filters
                 :title="topicsFiltersTitle"
@@ -140,7 +140,7 @@ export default {
         },
         levelSelector: {
             type: String,
-            default: () => 1,
+            default: () => '1',
         },
         cardsPerRow: {
             type: Number,
@@ -268,7 +268,11 @@ export default {
                 ];
             }
 
-            if (this.useCoursesContentTypeFilters) {
+            if (
+                this.useCoursesContentTypeFilters
+                || this.usePlayAlongsContentTypeFilters
+                || this.useStudentFocusContentTypeFilters
+            ) {
                 this.filters = filters;
             }
 

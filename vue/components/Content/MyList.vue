@@ -179,8 +179,6 @@ export default {
                         this.loading = false;
                     }, 500);
                 });
-
-            // todo - add error handling
         },
     },
 };

@@ -1,6 +1,9 @@
 import EdgeData from '../../mocks/full_response.json';
 import RudimentData from '../../mocks/rudiments.json';
+import CoursesData from '../../mocks/courses.json';
 import MyListData from '../../mocks/mylist.json';
+import PlayAlongData from '../../mocks/play_alongs.json';
+import StudentFocusData from '../../mocks/student_focus.json';
 import Utils from './utils';
 
 export default class Mock {
@@ -192,9 +195,27 @@ export default class Mock {
             page = 'rudiment';
         }
 
+        if (includedTypes.length == 1 && includedTypes[0] == 'play-along') {
+            page = 'playAlong';
+        }
+
+        if (includedTypes.length == 1 && includedTypes[0] == 'student-focus') {
+            page = 'studentFocus';
+        }
+
+        if (includedTypes.length == 1 && includedTypes[0] == 'course') {
+            page = 'coursesData';
+        }
+
         switch(page) {
             case 'rudiment':
                 return Utils.copy(RudimentData);
+            case 'playAlong':
+                return Utils.copy(PlayAlongData);
+            case 'studentFocus':
+                return Utils.copy(StudentFocusData);
+            case 'coursesData':
+                return Utils.copy(CoursesData);
             case 'edge':
                 // falling into default block
             default:
