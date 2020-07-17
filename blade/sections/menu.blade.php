@@ -116,7 +116,7 @@
     display: inline-block;
 }
 .collapse-trigger.active + .collapse-container {
-    max-height: 1000px;
+    max-height: 2000px;
 }
 .collapse-trigger:not(.active) + .collapse-container {
     max-height: 0;
@@ -128,7 +128,7 @@
 @media (min-width: 40rem) {
     .collapse-trigger.active + .collapse-container.small\:expand,
     .collapse-trigger:not(.active) + .collapse-container.small\:expand {
-        max-height: 1000px;
+        max-height: 2000px;
     }
 }
 @endif

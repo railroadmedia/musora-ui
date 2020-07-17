@@ -1,0 +1,4654 @@
+{
+  "data": [
+    {
+      "type": "content",
+      "id": "211859",
+      "attributes": {
+        "slug": "single-flammed-mill",
+        "type": "rudiment",
+        "sort": "23",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:00",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:00",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Single Flammed Mill",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69733"
+            },
+            {
+              "type": "contentData",
+              "id": "69734"
+            },
+            {
+              "type": "contentData",
+              "id": "69735"
+            },
+            {
+              "type": "contentData",
+              "id": "140435"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4114"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2090"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1217"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211861",
+      "attributes": {
+        "slug": "flam-tap",
+        "type": "rudiment",
+        "sort": "22",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:03",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:03",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Flam Tap",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69736"
+            },
+            {
+              "type": "contentData",
+              "id": "69737"
+            },
+            {
+              "type": "contentData",
+              "id": "69738"
+            },
+            {
+              "type": "contentData",
+              "id": "140434"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4113"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2089"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1216"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211863",
+      "attributes": {
+        "slug": "triple-ratamacue",
+        "type": "rudiment",
+        "sort": "40",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:05",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:05",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Triple Ratamacue",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69739"
+            },
+            {
+              "type": "contentData",
+              "id": "69740"
+            },
+            {
+              "type": "contentData",
+              "id": "69741"
+            },
+            {
+              "type": "contentData",
+              "id": "140433"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4112"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2088"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1215"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211865",
+      "attributes": {
+        "slug": "double-ratamacue",
+        "type": "rudiment",
+        "sort": "39",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:07",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:07",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Double Ratamacue",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69742"
+            },
+            {
+              "type": "contentData",
+              "id": "69743"
+            },
+            {
+              "type": "contentData",
+              "id": "69744"
+            },
+            {
+              "type": "contentData",
+              "id": "140432"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4111"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2087"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1214"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211867",
+      "attributes": {
+        "slug": "single-ratamacue",
+        "type": "rudiment",
+        "sort": "38",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:09",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:09",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Single Ratamacue",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69745"
+            },
+            {
+              "type": "contentData",
+              "id": "69746"
+            },
+            {
+              "type": "contentData",
+              "id": "69747"
+            },
+            {
+              "type": "contentData",
+              "id": "140431"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4110"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2086"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1213"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211869",
+      "attributes": {
+        "slug": "lesson-25",
+        "type": "rudiment",
+        "sort": "37",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:12",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:12",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Lesson 25",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69748"
+            },
+            {
+              "type": "contentData",
+              "id": "69749"
+            },
+            {
+              "type": "contentData",
+              "id": "69750"
+            },
+            {
+              "type": "contentData",
+              "id": "140430"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4109"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2085"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1212"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211871",
+      "attributes": {
+        "slug": "drag-paradiddle-sharp2",
+        "type": "rudiment",
+        "sort": "36",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:14",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:14",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Drag Paradiddle #2",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69751"
+            },
+            {
+              "type": "contentData",
+              "id": "69752"
+            },
+            {
+              "type": "contentData",
+              "id": "69753"
+            },
+            {
+              "type": "contentData",
+              "id": "140429"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4108"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2084"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1211"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211873",
+      "attributes": {
+        "slug": "drag-paradiddle-sharp1",
+        "type": "rudiment",
+        "sort": "35",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:17",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:17",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Drag Paradiddle #1",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69754"
+            },
+            {
+              "type": "contentData",
+              "id": "69755"
+            },
+            {
+              "type": "contentData",
+              "id": "69756"
+            },
+            {
+              "type": "contentData",
+              "id": "140428"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4107"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2083"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1210"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211875",
+      "attributes": {
+        "slug": "single-dragadiddle",
+        "type": "rudiment",
+        "sort": "34",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:19",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:19",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Single Dragadiddle",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69757"
+            },
+            {
+              "type": "contentData",
+              "id": "69758"
+            },
+            {
+              "type": "contentData",
+              "id": "69759"
+            },
+            {
+              "type": "contentData",
+              "id": "140427"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4106"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2082"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1209"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211877",
+      "attributes": {
+        "slug": "double-drag-tap",
+        "type": "rudiment",
+        "sort": "33",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:23",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:23",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Double Drag Tap",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69760"
+            },
+            {
+              "type": "contentData",
+              "id": "69761"
+            },
+            {
+              "type": "contentData",
+              "id": "69762"
+            },
+            {
+              "type": "contentData",
+              "id": "140426"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4105"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2081"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1208"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211879",
+      "attributes": {
+        "slug": "single-paradiddle-diddle",
+        "type": "rudiment",
+        "sort": "19",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:25",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:25",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Single Paradiddle-Diddle",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69763"
+            },
+            {
+              "type": "contentData",
+              "id": "69764"
+            },
+            {
+              "type": "contentData",
+              "id": "69765"
+            },
+            {
+              "type": "contentData",
+              "id": "140425"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4104"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2080"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1207"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211881",
+      "attributes": {
+        "slug": "triple-paradiddle",
+        "type": "rudiment",
+        "sort": "18",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:27",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:27",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Triple Paradiddle",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69766"
+            },
+            {
+              "type": "contentData",
+              "id": "69767"
+            },
+            {
+              "type": "contentData",
+              "id": "69768"
+            },
+            {
+              "type": "contentData",
+              "id": "140424"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4103"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2079"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1206"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211883",
+      "attributes": {
+        "slug": "single-drag-tap",
+        "type": "rudiment",
+        "sort": "32",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:29",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:29",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Single Drag Tap",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69769"
+            },
+            {
+              "type": "contentData",
+              "id": "69770"
+            },
+            {
+              "type": "contentData",
+              "id": "69771"
+            },
+            {
+              "type": "contentData",
+              "id": "140423"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4102"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2078"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1205"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211885",
+      "attributes": {
+        "slug": "drag-ruff",
+        "type": "rudiment",
+        "sort": "31",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:31",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:31",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Drag Ruff",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69772"
+            },
+            {
+              "type": "contentData",
+              "id": "69773"
+            },
+            {
+              "type": "contentData",
+              "id": "69774"
+            },
+            {
+              "type": "contentData",
+              "id": "70229"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4101"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2077"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1204"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211887",
+      "attributes": {
+        "slug": "flam-accent",
+        "type": "rudiment",
+        "sort": "21",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:33",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:33",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Flam Accent",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69775"
+            },
+            {
+              "type": "contentData",
+              "id": "69776"
+            },
+            {
+              "type": "contentData",
+              "id": "69777"
+            },
+            {
+              "type": "contentData",
+              "id": "140422"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4100"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2076"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1203"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211889",
+      "attributes": {
+        "slug": "flam",
+        "type": "rudiment",
+        "sort": "20",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:35",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:35",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Flam",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69778"
+            },
+            {
+              "type": "contentData",
+              "id": "69779"
+            },
+            {
+              "type": "contentData",
+              "id": "69780"
+            },
+            {
+              "type": "contentData",
+              "id": "70228"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4099"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2075"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1202"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211891",
+      "attributes": {
+        "slug": "double-paradiddle",
+        "type": "rudiment",
+        "sort": "17",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:37",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:37",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Double Paradiddle",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69781"
+            },
+            {
+              "type": "contentData",
+              "id": "69782"
+            },
+            {
+              "type": "contentData",
+              "id": "69783"
+            },
+            {
+              "type": "contentData",
+              "id": "140421"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4098"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2074"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1201"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211893",
+      "attributes": {
+        "slug": "single-paradiddle",
+        "type": "rudiment",
+        "sort": "16",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:39",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:39",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Single Paradiddle",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69784"
+            },
+            {
+              "type": "contentData",
+              "id": "69785"
+            },
+            {
+              "type": "contentData",
+              "id": "69786"
+            },
+            {
+              "type": "contentData",
+              "id": "70227"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4097"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2073"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1200"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211895",
+      "attributes": {
+        "slug": "single-stroke-four",
+        "type": "rudiment",
+        "sort": "2",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:41",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:41",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Single Stroke Four",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69787"
+            },
+            {
+              "type": "contentData",
+              "id": "69788"
+            },
+            {
+              "type": "contentData",
+              "id": "69789"
+            },
+            {
+              "type": "contentData",
+              "id": "140420"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4096"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2072"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1199"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "211897",
+      "attributes": {
+        "slug": "single-stroke-roll",
+        "type": "rudiment",
+        "sort": "1",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2018-08-30 21:23:43",
+        "archivedOn": "",
+        "createdOn": "2018-08-30 21:23:43",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Single Stroke Roll",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "69790"
+            },
+            {
+              "type": "contentData",
+              "id": "69791"
+            },
+            {
+              "type": "contentData",
+              "id": "69792"
+            },
+            {
+              "type": "contentData",
+              "id": "70226"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4095"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "2071"
+            }
+          ]
+        },
+        "exercise": {
+          "data": [
+            {
+              "type": "exercise",
+              "id": "1198"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "type": "instructor",
+      "id": "31877",
+      "attributes": {
+        "slug": "dave-atkinson",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:20",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:20",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Dave Atkinson",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213897",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213896",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213895",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213892",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213891",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213888",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213887",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213877",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213876",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213875",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213874",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213872",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213871",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213870",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213869",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213868",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213867",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213866",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "213864",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "212802",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69733",
+      "attributes": {
+        "key": "description",
+        "value": "The single flammed mill is an interesting rudiment that incorporates the flam stroke with a paradiddle-like foundation. It's a little less popular than some of the other rudiments, but it's definitely something you should practice.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69734",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211859-card-thumbnail-1593033031.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69735",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/single-flammed-mill.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140435",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211859-card-thumbnail-maxres-1593033025.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4114",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2090",
+      "attributes": {
+        "topic": "Flams",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1217",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213897"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69736",
+      "attributes": {
+        "key": "description",
+        "value": "The flam tap is a popular drum rudiment that integrates the basic flam into a double stroke pattern. Practice it along-side the flam accent to come up with some really creative combo-patterns. They can be used within musical drum beats, fills, and even solo patterns. Just be sure you learn both rudiments individually first.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69737",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211861-card-thumbnail-1593033013.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69738",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/flam-tap.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140434",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211861-card-thumbnail-maxres-1593033009.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4113",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2089",
+      "attributes": {
+        "topic": "Flams",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1216",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213896"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69739",
+      "attributes": {
+        "key": "description",
+        "value": "The triple ratamacue is the last in a series of 'ratamacue' rudiments. It's based off the single ratamacue and double ratamacue patterns, but has some added complexity.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69740",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211863-card-thumbnail-1593033003.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69741",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/triple-ratamacue.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140433",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211863-card-thumbnail-maxres-1593032999.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4112",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2088",
+      "attributes": {
+        "topic": "Drags",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1215",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213895"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69742",
+      "attributes": {
+        "key": "description",
+        "value": "The double ratamacue is a slight variation of the single ratamacue. It is still based on simple single strokes with a few drag strokes, but is a little more complicated overall.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69743",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211865-card-thumbnail-1593032976.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69744",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/double-ratamacue.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140432",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211865-card-thumbnail-maxres-1593032972.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4111",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2087",
+      "attributes": {
+        "topic": "Drags",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1214",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213892"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69745",
+      "attributes": {
+        "key": "description",
+        "value": "The single ratamacue is the first in a series of related 'ratamacue' rudiments. It's simple structure is made up of single strokes combined with a few drag strokes. This pattern is typically played with a triplet feel.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69746",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211867-card-thumbnail-1593032965.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69747",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/single-ratamacue.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140431",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211867-card-thumbnail-maxres-1593032961.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4110",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2086",
+      "attributes": {
+        "topic": "Drags",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1213",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213891"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69748",
+      "attributes": {
+        "key": "description",
+        "value": "The lesson 25 is basically a three-note alternating 16th note single stroke roll that's dragged on the first note. Be sure to learn how to play the drag ruff and the single stroke roll before starting this one. Lesson 25 does not alternate within itself. So practice the lesson 25 leading with both hands.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69749",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211869-card-thumbnail-1593032953.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69750",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/lesson-25.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140430",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211869-card-thumbnail-maxres-1593032948.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4109",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2085",
+      "attributes": {
+        "topic": "Drags",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1212",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213888"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69751",
+      "attributes": {
+        "key": "description",
+        "value": "This drag paradiddle #2 rudiment is a follow-up to the drag paradiddle #1 pattern. The drag paradiddle is also known as the 'dragadiddle'. Be sure you master the first version before practicing this rudiment.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69752",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211871-card-thumbnail-1593032938.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69753",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/dragadiddle-2.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140429",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211871-card-thumbnail-maxres-1593032935.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4108",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2084",
+      "attributes": {
+        "topic": "Drags",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1211",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213887"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69754",
+      "attributes": {
+        "key": "description",
+        "value": "There are two different variations of the dragadiddle rudiment. This lesson covers the first version which is known as 'drag paradiddle' or 'dragadiddle #1'. Later, you can learn how to play the drag paradiddle #2 alternate rudiment to get complete mastery of these complementary patterns.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69755",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211873-card-thumbnail-1593032928.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69756",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/dragadiddle-1.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140428",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211873-card-thumbnail-maxres-1593032924.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4107",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2083",
+      "attributes": {
+        "topic": "Drags",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1210",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213877"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69757",
+      "attributes": {
+        "key": "description",
+        "value": "The single dragadiddle is a unique drum rudiment that incorporates a drag stroke into a single paradiddle. This combination is sure to challenge you at the practice pad, and will enable you to master two powerful abilities simultaneously.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69758",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211875-card-thumbnail-1593032916.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69759",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/single-dragadiddle.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140427",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211875-card-thumbnail-maxres-1593032912.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4106",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2082",
+      "attributes": {
+        "topic": "Drags",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1209",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213876"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69760",
+      "attributes": {
+        "key": "description",
+        "value": "The double drag tap builds upon the pattern set out by the single drag tap. Instead of one drag before the tap stroke, you simply play two. This gives the rudiment a total of 12 notes, making it work well for use within 12/8 or music with a triplet feel.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69761",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211877-card-thumbnail-1593032903.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69762",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/double-drag-tap.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140426",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211877-card-thumbnail-maxres-1593032900.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4105",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2081",
+      "attributes": {
+        "topic": "Drags",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1208",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213875"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69763",
+      "attributes": {
+        "key": "description",
+        "value": "The single paradiddle-diddle is a powerful rudiment that is based heavily on the single paradiddle. As with the double paradiddle, this rudiment ads four notes to create a 12/8 or triplet feel. This makes it perfect for use within Jazz, Latin, and other world styles.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69764",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211879-card-thumbnail-1593032874.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69765",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/single-paradiddle-diddle.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140425",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211879-card-thumbnail-maxres-1593032869.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4104",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2080",
+      "attributes": {
+        "topic": "Paradiddles",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1207",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213874"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69766",
+      "attributes": {
+        "key": "description",
+        "value": "The triple paradiddle is a fairly predictable rudiment that is based of what you've learned in both the single paradiddle and the double paradiddle. It's predictable because it follows in a simple progression that you've already seen (assuming you've learned the single and double paradiddles).",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69767",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211881-card-thumbnail-1593032860.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69768",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/triple-paradiddle.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140424",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211881-card-thumbnail-maxres-1593032856.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4103",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2079",
+      "attributes": {
+        "topic": "Paradiddles",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1206",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213872"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69769",
+      "attributes": {
+        "key": "description",
+        "value": "The single drag tap expands on the drag ruff with one added 'tap' stroke (just as the title indicates). This drum rudiment is perfect for creative drum fills, unique solo patterns, or for just improving the timing and control of your drag ruffs.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69770",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211883-card-thumbnail-1593032849.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69771",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/single-drag-tap.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140423",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211883-card-thumbnail-maxres-1593032844.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4102",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2078",
+      "attributes": {
+        "topic": "Drags",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1205",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213871"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69772",
+      "attributes": {
+        "key": "description",
+        "value": "The drag ruff is a foundational rudiment that is required to play several more advanced patterns. It's fairly basic on it's own, but is still usable in a wide variety of drumming styles. The drag is perfect for ghost notes within drum beats, or as a lead in for simple drum fills.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69773",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211885-card-thumbnail-1593032836.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69774",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/drag-ruff.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70229",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211885-card-thumbnail-maxres-1593032832.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4101",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2077",
+      "attributes": {
+        "topic": "Drags",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1204",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213870"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69775",
+      "attributes": {
+        "key": "description",
+        "value": "The flam accent is a powerful drum rudiment that incorporates the basic flam within a triplet feel. The pattern is great for creative drum fills and solo patterns within a wide variety of musical styles. The triplet feel is most popular in jazz and other world styles, but it also works well within some rock situations.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69776",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211887-card-thumbnail-1593032825.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69777",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/flam-accent.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140422",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211887-card-thumbnail-maxres-1593032822.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4100",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2076",
+      "attributes": {
+        "topic": "Flams",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1203",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213869"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69778",
+      "attributes": {
+        "key": "description",
+        "value": "The basic flam is a foundational pattern that you'll need to learn in order to play more advanced rudiments. You won't be able to play the flam accent, flam tap, flamacue, single flammed mill, flam paradiddle, flam paradiddle-diddle, or several other rudiments without first learning the basic flam.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69779",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211889-card-thumbnail-1593032812.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69780",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/flam.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70228",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211889-card-thumbnail-maxres-1593032809.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4099",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2075",
+      "attributes": {
+        "topic": "Flams",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1202",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213868"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69781",
+      "attributes": {
+        "key": "description",
+        "value": "The double paradiddle is a fun rudiment that is based off the single paradiddle. It is a 12 note pattern that is often used in a 12/8 feel, or in beats and fills with a triplet feel. That makes it perfect for Jazz, Latin, and other world styles.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69782",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211891-card-thumbnail-1593032801.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69783",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/double-paradiddle.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140421",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211891-card-thumbnail-maxres-1593032797.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4098",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2074",
+      "attributes": {
+        "topic": "Paradiddles",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1201",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213867"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69784",
+      "attributes": {
+        "key": "description",
+        "value": "The single paradiddle is an extremely popular drum rudiment that sounds great while played within drum beats, drum fills, and even unique drum solo patterns. It is an absolutely essential rudiment for any drummer that wants to expand their drumming possibilities.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69785",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211893-card-thumbnail-1593032787.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69786",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/single-paradiddle.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70227",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211893-card-thumbnail-maxres-1593032779.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4097",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2073",
+      "attributes": {
+        "topic": "Paradiddles",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1200",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213866"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69787",
+      "attributes": {
+        "key": "description",
+        "value": "The single stroke four is a simple rudiment based on the single stroke roll pattern. The primary difference is that instead of continuous singles, the single stroke four is played as groups of four notes. It's great for use within drum fills, hand-to-feet combinations, and simple solo patterns.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69788",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211895-card-thumbnail-1593032768.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69789",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/single-stroke-four.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140420",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211895-card-thumbnail-maxres-1593032763.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4096",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2072",
+      "attributes": {
+        "topic": "Rolls",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1199",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "213864"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69790",
+      "attributes": {
+        "key": "description",
+        "value": "The single stroke roll is the most common drum rudiment used on the drum set. It's often played in beats, fills, and drum solos. It doesn't matter if you are new to the drums, or if you have been playing for years, the single stroke roll is absolutely essential...",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69791",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211897-card-thumbnail-1593032747.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "69792",
+      "attributes": {
+        "key": "sheet_music_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/40-rudiments/notation/card/single-stroke-roll.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70226",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/211897-card-thumbnail-maxres-1593032740.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4095",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "2071",
+      "attributes": {
+        "topic": "Rolls",
+        "position": 1
+      }
+    },
+    {
+      "type": "exercise",
+      "id": "1198",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "exercise": {
+          "data": {
+            "type": "exercise",
+            "id": "212802"
+          }
+        }
+      }
+    }
+  ],
+  "meta": {
+    "filterOptions": {
+      "topic": [
+        "drags",
+        "flams",
+        "paradiddles",
+        "rolls"
+      ],
+      "instructors": [
+        {
+          "id": 31877,
+          "slug": "dave-atkinson",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:20",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:20",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Dave Atkinson",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        }
+      ]
+    },
+    "activeFilters": {
+      "content_type": [
+        "rudiment"
+      ]
+    },
+    "pagination": {
+      "total": 40,
+      "count": 20,
+      "per_page": "20",
+      "current_page": "2",
+      "total_pages": 2
+    }
+  },
+  "links": []
+}

@@ -1,9 +1,22 @@
-import EdgeData from '../../mocks/full_response.json';
+import EdgeData from '../../mocks/edge.json';
+import Edge2Data from '../../mocks/edge2.json';
+import Edge3Data from '../../mocks/edge3.json';
+import Edge4Data from '../../mocks/edge4.json';
 import RudimentData from '../../mocks/rudiments.json';
+import Rudiment2Data from '../../mocks/rudiments2.json';
 import CoursesData from '../../mocks/courses.json';
+import Courses2Data from '../../mocks/courses2.json';
+import Courses3Data from '../../mocks/courses3.json';
+import Courses4Data from '../../mocks/courses4.json';
 import MyListData from '../../mocks/mylist.json';
 import PlayAlongData from '../../mocks/play_alongs.json';
+import PlayAlong2Data from '../../mocks/play_alongs2.json';
+import PlayAlong3Data from '../../mocks/play_alongs3.json';
+import PlayAlong4Data from '../../mocks/play_alongs4.json';
 import StudentFocusData from '../../mocks/student_focus.json';
+import StudentFocus2Data from '../../mocks/student_focus2.json';
+import StudentFocus3Data from '../../mocks/student_focus3.json';
+import StudentFocus4Data from '../../mocks/student_focus4.json';
 import Utils from './utils';
 
 export default class Mock {
@@ -16,7 +29,8 @@ export default class Mock {
                 let filters = params.required_fields || [];
                 let activeFiltersMap = {};
                 let activeFilters = {};
-                let response = Mock.getResponse(params);
+                let data = Mock.getResponseData(params);
+                let response = data[Math.floor(Math.random() * data.length)];
 
                 let pageSize = response.data.length;
 
@@ -187,7 +201,7 @@ export default class Mock {
             });
     }
 
-    static getResponse(params) {
+    static getResponseData(params) {
         let page = 'edge';
         let includedTypes = params.included_types || [];
 
@@ -209,17 +223,40 @@ export default class Mock {
 
         switch(page) {
             case 'rudiment':
-                return Utils.copy(RudimentData);
+                return [
+                    Utils.copy(RudimentData),
+                    Utils.copy(Rudiment2Data)
+                ];
             case 'playAlong':
-                return Utils.copy(PlayAlongData);
+                return [
+                    Utils.copy(PlayAlongData),
+                    Utils.copy(PlayAlong2Data),
+                    Utils.copy(PlayAlong3Data),
+                    Utils.copy(PlayAlong4Data)
+                ];
             case 'studentFocus':
-                return Utils.copy(StudentFocusData);
+                return [
+                    Utils.copy(StudentFocusData),
+                    Utils.copy(StudentFocus2Data),
+                    Utils.copy(StudentFocus3Data),
+                    Utils.copy(StudentFocus4Data)
+                ];
             case 'coursesData':
-                return Utils.copy(CoursesData);
+                return [
+                    Utils.copy(CoursesData),
+                    Utils.copy(Courses2Data),
+                    Utils.copy(Courses3Data),
+                    Utils.copy(Courses4Data)
+                ];
             case 'edge':
                 // falling into default block
             default:
-                return Utils.copy(EdgeData);
+                return [
+                    Utils.copy(EdgeData),
+                    Utils.copy(Edge2Data),
+                    Utils.copy(Edge3Data),
+                    Utils.copy(Edge4Data)
+                ];
         }
     }
 }

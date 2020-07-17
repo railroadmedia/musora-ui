@@ -34,14 +34,14 @@ export default {
         label: 'Content Type',
         icon: 'icon-info',
     },
-    instructor: {
+    instructors: {
         type: 'entity',
         label: 'Instructor',
         icon: 'icon-info',
         constructor: (value, groupId) => {
             return new Filter(
                 value.id,
-                'instructor', // current block key
+                'instructors', // current block key
                 value.slug,
                 value.name,
                 0,

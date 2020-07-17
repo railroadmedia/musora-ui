@@ -14,174 +14,130 @@ $rc1 = <<<'EOT'
   "data": [
     {
       "type": "content",
-      "id": "2436",
+      "id": "20018",
       "attributes": {
-        "slug": "01-5-stroke-rolls",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "calling",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 09:49:43",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 09:49:43",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2436,
-        "qnaVideo": null,
-        "style": null,
-        "title": "5 Stroke Rolls",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CD 4 - Track 166-181",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": "Page 125",
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2013-11-13 02:21:13",
+        "archivedOn": "",
+        "createdOn": "2013-11-13 02:21:13",
+        "difficulty": "7",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "20018",
+        "qnaVideo": "",
+        "style": "Vocals",
+        "title": "Calling",
+        "xp": "",
+        "album": "",
+        "artist": "Dying Hearts Desire",
+        "bpm": "194",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3853"
+              "id": "2775"
             },
             {
               "type": "contentData",
-              "id": "8112"
+              "id": "11852"
             },
             {
               "type": "contentData",
-              "id": "8113"
+              "id": "24928"
             },
             {
               "type": "contentData",
-              "id": "8114"
+              "id": "24929"
             },
             {
               "type": "contentData",
-              "id": "8115"
+              "id": "28491"
             },
             {
               "type": "contentData",
-              "id": "8116"
+              "id": "52529"
             },
             {
               "type": "contentData",
-              "id": "8117"
+              "id": "52532"
             },
             {
               "type": "contentData",
-              "id": "8118"
+              "id": "52537"
             },
             {
               "type": "contentData",
-              "id": "8119"
+              "id": "52543"
             },
             {
               "type": "contentData",
-              "id": "8120"
+              "id": "52546"
             },
             {
               "type": "contentData",
-              "id": "8121"
+              "id": "52548"
             },
             {
               "type": "contentData",
-              "id": "8122"
+              "id": "52551"
             },
             {
               "type": "contentData",
-              "id": "8123"
+              "id": "52552"
             },
             {
               "type": "contentData",
-              "id": "8124"
+              "id": "52555"
             },
             {
               "type": "contentData",
-              "id": "8125"
+              "id": "52558"
             },
             {
               "type": "contentData",
-              "id": "8126"
-            },
+              "id": "72558"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
             {
-              "type": "contentData",
-              "id": "8127"
-            },
-            {
-              "type": "contentData",
-              "id": "8128"
-            },
-            {
-              "type": "contentData",
-              "id": "8129"
-            },
-            {
-              "type": "contentData",
-              "id": "8130"
-            },
-            {
-              "type": "contentData",
-              "id": "8131"
-            },
-            {
-              "type": "contentData",
-              "id": "8132"
-            },
-            {
-              "type": "contentData",
-              "id": "8133"
-            },
-            {
-              "type": "contentData",
-              "id": "8134"
-            },
-            {
-              "type": "contentData",
-              "id": "8135"
-            },
-            {
-              "type": "contentData",
-              "id": "8136"
-            },
-            {
-              "type": "contentData",
-              "id": "57000"
-            },
-            {
-              "type": "contentData",
-              "id": "57001"
-            },
-            {
-              "type": "contentData",
-              "id": "73878"
+              "type": "instructor",
+              "id": "7133"
             }
           ]
         },
@@ -189,31 +145,43 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85807"
+              "id": "79747"
             },
             {
               "type": "tag",
-              "id": "85808"
+              "id": "79748"
             },
             {
               "type": "tag",
-              "id": "85809"
+              "id": "79749"
             },
             {
               "type": "tag",
-              "id": "85810"
+              "id": "79750"
             },
             {
               "type": "tag",
-              "id": "85811"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "79751"
+            },
             {
-              "type": "parent",
-              "id": "1442"
+              "type": "tag",
+              "id": "79752"
+            },
+            {
+              "type": "tag",
+              "id": "79753"
+            },
+            {
+              "type": "tag",
+              "id": "79754"
+            },
+            {
+              "type": "tag",
+              "id": "79755"
+            },
+            {
+              "type": "tag",
+              "id": "79756"
             }
           ]
         }
@@ -221,174 +189,122 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2438",
+      "id": "20060",
       "attributes": {
-        "slug": "02-6-stroke-rolls",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "drummerboy",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 09:51:22",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 09:51:22",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2438,
-        "qnaVideo": null,
-        "style": null,
-        "title": "6 Stroke Rolls",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CD 4 - Track 182-197",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": "Page 126",
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2013-11-29 12:02:17",
+        "archivedOn": "",
+        "createdOn": "2013-11-29 12:02:17",
+        "difficulty": "5",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "20060",
+        "qnaVideo": "",
+        "style": "Christmas",
+        "title": "Drummerboy",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "158",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3854"
+              "id": "2774"
             },
             {
               "type": "contentData",
-              "id": "8138"
+              "id": "11855"
             },
             {
               "type": "contentData",
-              "id": "8139"
+              "id": "24930"
             },
             {
               "type": "contentData",
-              "id": "8140"
+              "id": "24931"
             },
             {
               "type": "contentData",
-              "id": "8141"
+              "id": "28490"
             },
             {
               "type": "contentData",
-              "id": "8142"
+              "id": "52505"
             },
             {
               "type": "contentData",
-              "id": "8143"
+              "id": "52507"
             },
             {
               "type": "contentData",
-              "id": "8144"
+              "id": "52509"
             },
             {
               "type": "contentData",
-              "id": "8145"
+              "id": "52510"
             },
             {
               "type": "contentData",
-              "id": "8146"
+              "id": "52513"
             },
             {
               "type": "contentData",
-              "id": "8147"
+              "id": "52516"
             },
             {
               "type": "contentData",
-              "id": "8148"
+              "id": "52519"
             },
             {
               "type": "contentData",
-              "id": "8149"
+              "id": "52521"
             },
             {
               "type": "contentData",
-              "id": "8150"
+              "id": "52524"
             },
             {
               "type": "contentData",
-              "id": "8151"
+              "id": "52527"
             },
             {
               "type": "contentData",
-              "id": "8152"
-            },
-            {
-              "type": "contentData",
-              "id": "8153"
-            },
-            {
-              "type": "contentData",
-              "id": "8154"
-            },
-            {
-              "type": "contentData",
-              "id": "8155"
-            },
-            {
-              "type": "contentData",
-              "id": "8156"
-            },
-            {
-              "type": "contentData",
-              "id": "8157"
-            },
-            {
-              "type": "contentData",
-              "id": "8158"
-            },
-            {
-              "type": "contentData",
-              "id": "8159"
-            },
-            {
-              "type": "contentData",
-              "id": "8160"
-            },
-            {
-              "type": "contentData",
-              "id": "8161"
-            },
-            {
-              "type": "contentData",
-              "id": "8162"
-            },
-            {
-              "type": "contentData",
-              "id": "56998"
-            },
-            {
-              "type": "contentData",
-              "id": "56999"
-            },
-            {
-              "type": "contentData",
-              "id": "73877"
+              "id": "72556"
             }
           ]
         },
@@ -396,31 +312,43 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85802"
+              "id": "79731"
             },
             {
               "type": "tag",
-              "id": "85803"
+              "id": "79732"
             },
             {
               "type": "tag",
-              "id": "85804"
+              "id": "79733"
             },
             {
               "type": "tag",
-              "id": "85805"
+              "id": "79734"
             },
             {
               "type": "tag",
-              "id": "85806"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "79735"
+            },
             {
-              "type": "parent",
-              "id": "1443"
+              "type": "tag",
+              "id": "79736"
+            },
+            {
+              "type": "tag",
+              "id": "79737"
+            },
+            {
+              "type": "tag",
+              "id": "79738"
+            },
+            {
+              "type": "tag",
+              "id": "79739"
+            },
+            {
+              "type": "tag",
+              "id": "79740"
             }
           ]
         }
@@ -428,174 +356,130 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2441",
+      "id": "20131",
       "attributes": {
-        "slug": "03-7-stroke-rolls",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "another-punk-song",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 09:52:50",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 09:52:50",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2441,
-        "qnaVideo": null,
-        "style": null,
-        "title": "7 Stroke Rolls",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CD 4 - Track 198-213",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": "Page 127",
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2013-12-13 08:51:50",
+        "archivedOn": "",
+        "createdOn": "2013-12-13 08:51:50",
+        "difficulty": "4",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "20131",
+        "qnaVideo": "",
+        "style": "Punk",
+        "title": "Another Punk Song",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "165",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3855"
+              "id": "2773"
             },
             {
               "type": "contentData",
-              "id": "8164"
+              "id": "11909"
             },
             {
               "type": "contentData",
-              "id": "8165"
+              "id": "24932"
             },
             {
               "type": "contentData",
-              "id": "8166"
+              "id": "24933"
             },
             {
               "type": "contentData",
-              "id": "8167"
+              "id": "28489"
             },
             {
               "type": "contentData",
-              "id": "8168"
+              "id": "52489"
             },
             {
               "type": "contentData",
-              "id": "8169"
+              "id": "52491"
             },
             {
               "type": "contentData",
-              "id": "8170"
+              "id": "52492"
             },
             {
               "type": "contentData",
-              "id": "8171"
+              "id": "52494"
             },
             {
               "type": "contentData",
-              "id": "8172"
+              "id": "52496"
             },
             {
               "type": "contentData",
-              "id": "8173"
+              "id": "52497"
             },
             {
               "type": "contentData",
-              "id": "8174"
+              "id": "52499"
             },
             {
               "type": "contentData",
-              "id": "8175"
+              "id": "52500"
             },
             {
               "type": "contentData",
-              "id": "8176"
+              "id": "52502"
             },
             {
               "type": "contentData",
-              "id": "8177"
+              "id": "52503"
             },
             {
               "type": "contentData",
-              "id": "8178"
-            },
+              "id": "72546"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
             {
-              "type": "contentData",
-              "id": "8179"
-            },
-            {
-              "type": "contentData",
-              "id": "8180"
-            },
-            {
-              "type": "contentData",
-              "id": "8181"
-            },
-            {
-              "type": "contentData",
-              "id": "8182"
-            },
-            {
-              "type": "contentData",
-              "id": "8183"
-            },
-            {
-              "type": "contentData",
-              "id": "8184"
-            },
-            {
-              "type": "contentData",
-              "id": "8185"
-            },
-            {
-              "type": "contentData",
-              "id": "8186"
-            },
-            {
-              "type": "contentData",
-              "id": "8187"
-            },
-            {
-              "type": "contentData",
-              "id": "8188"
-            },
-            {
-              "type": "contentData",
-              "id": "56996"
-            },
-            {
-              "type": "contentData",
-              "id": "56997"
-            },
-            {
-              "type": "contentData",
-              "id": "73876"
+              "type": "instructor",
+              "id": "7114"
             }
           ]
         },
@@ -603,31 +487,27 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85797"
+              "id": "79637"
             },
             {
               "type": "tag",
-              "id": "85798"
+              "id": "79638"
             },
             {
               "type": "tag",
-              "id": "85799"
+              "id": "79639"
             },
             {
               "type": "tag",
-              "id": "85800"
+              "id": "79640"
             },
             {
               "type": "tag",
-              "id": "85801"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "79641"
+            },
             {
-              "type": "parent",
-              "id": "1444"
+              "type": "tag",
+              "id": "79642"
             }
           ]
         }
@@ -635,162 +515,126 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2444",
+      "id": "20178",
       "attributes": {
-        "slug": "04-9-stroke-rolls",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "sing-this-song",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 09:54:23",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 09:54:23",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2444,
-        "qnaVideo": null,
-        "style": null,
-        "title": "9 Stroke Rolls",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CD 4 - Track 214-227",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": "Page 128",
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2013-12-27 00:05:46",
+        "archivedOn": "",
+        "createdOn": "2013-12-27 00:05:46",
+        "difficulty": "3",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "20178",
+        "qnaVideo": "",
+        "style": "Vocals",
+        "title": "Sing This Song",
+        "xp": "",
+        "album": "",
+        "artist": "Dirk Kennedy",
+        "bpm": "93",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3856"
+              "id": "2772"
             },
             {
               "type": "contentData",
-              "id": "8190"
+              "id": "11945"
             },
             {
               "type": "contentData",
-              "id": "8191"
+              "id": "24934"
             },
             {
               "type": "contentData",
-              "id": "8192"
+              "id": "28488"
             },
             {
               "type": "contentData",
-              "id": "8193"
+              "id": "52473"
             },
             {
               "type": "contentData",
-              "id": "8194"
+              "id": "52475"
             },
             {
               "type": "contentData",
-              "id": "8195"
+              "id": "52477"
             },
             {
               "type": "contentData",
-              "id": "8196"
+              "id": "52479"
             },
             {
               "type": "contentData",
-              "id": "8197"
+              "id": "52480"
             },
             {
               "type": "contentData",
-              "id": "8198"
+              "id": "52482"
             },
             {
               "type": "contentData",
-              "id": "8199"
+              "id": "52483"
             },
             {
               "type": "contentData",
-              "id": "8200"
+              "id": "52485"
             },
             {
               "type": "contentData",
-              "id": "8201"
+              "id": "52486"
             },
             {
               "type": "contentData",
-              "id": "8202"
+              "id": "52488"
             },
             {
               "type": "contentData",
-              "id": "8203"
-            },
+              "id": "72537"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
             {
-              "type": "contentData",
-              "id": "8204"
-            },
-            {
-              "type": "contentData",
-              "id": "8205"
-            },
-            {
-              "type": "contentData",
-              "id": "8206"
-            },
-            {
-              "type": "contentData",
-              "id": "8207"
-            },
-            {
-              "type": "contentData",
-              "id": "8208"
-            },
-            {
-              "type": "contentData",
-              "id": "8209"
-            },
-            {
-              "type": "contentData",
-              "id": "8210"
-            },
-            {
-              "type": "contentData",
-              "id": "8211"
-            },
-            {
-              "type": "contentData",
-              "id": "56994"
-            },
-            {
-              "type": "contentData",
-              "id": "56995"
-            },
-            {
-              "type": "contentData",
-              "id": "73875"
+              "type": "instructor",
+              "id": "7101"
             }
           ]
         },
@@ -798,31 +642,43 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85792"
+              "id": "79571"
             },
             {
               "type": "tag",
-              "id": "85793"
+              "id": "79572"
             },
             {
               "type": "tag",
-              "id": "85794"
+              "id": "79573"
             },
             {
               "type": "tag",
-              "id": "85795"
+              "id": "79574"
             },
             {
               "type": "tag",
-              "id": "85796"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "79575"
+            },
             {
-              "type": "parent",
-              "id": "1445"
+              "type": "tag",
+              "id": "79576"
+            },
+            {
+              "type": "tag",
+              "id": "79577"
+            },
+            {
+              "type": "tag",
+              "id": "79578"
+            },
+            {
+              "type": "tag",
+              "id": "79579"
+            },
+            {
+              "type": "tag",
+              "id": "79580"
             }
           ]
         }
@@ -830,174 +686,126 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2447",
+      "id": "20292",
       "attributes": {
-        "slug": "05-11-stroke-rolls",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "mirage",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 09:56:17",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 09:56:17",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2447,
-        "qnaVideo": null,
-        "style": null,
-        "title": "11 Stroke Rolls",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CD 4 - Track 228-243",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": "Page 129",
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-01-17 00:55:51",
+        "archivedOn": "",
+        "createdOn": "2014-01-17 00:55:51",
+        "difficulty": "3",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "20292",
+        "qnaVideo": "",
+        "style": "Alternative",
+        "title": "Mirage",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "94",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3857"
+              "id": "2771"
             },
             {
               "type": "contentData",
-              "id": "8213"
+              "id": "12016"
             },
             {
               "type": "contentData",
-              "id": "8214"
+              "id": "24935"
             },
             {
               "type": "contentData",
-              "id": "8215"
+              "id": "24936"
             },
             {
               "type": "contentData",
-              "id": "8216"
+              "id": "28487"
             },
             {
               "type": "contentData",
-              "id": "8217"
+              "id": "52458"
             },
             {
               "type": "contentData",
-              "id": "8218"
+              "id": "52459"
             },
             {
               "type": "contentData",
-              "id": "8219"
+              "id": "52461"
             },
             {
               "type": "contentData",
-              "id": "8220"
+              "id": "52463"
             },
             {
               "type": "contentData",
-              "id": "8221"
+              "id": "52464"
             },
             {
               "type": "contentData",
-              "id": "8222"
+              "id": "52466"
             },
             {
               "type": "contentData",
-              "id": "8223"
+              "id": "52467"
             },
             {
               "type": "contentData",
-              "id": "8224"
+              "id": "52469"
             },
             {
               "type": "contentData",
-              "id": "8225"
+              "id": "52470"
             },
             {
               "type": "contentData",
-              "id": "8226"
-            },
+              "id": "52472"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
             {
-              "type": "contentData",
-              "id": "8227"
-            },
-            {
-              "type": "contentData",
-              "id": "8228"
-            },
-            {
-              "type": "contentData",
-              "id": "8229"
-            },
-            {
-              "type": "contentData",
-              "id": "8230"
-            },
-            {
-              "type": "contentData",
-              "id": "8231"
-            },
-            {
-              "type": "contentData",
-              "id": "8232"
-            },
-            {
-              "type": "contentData",
-              "id": "8233"
-            },
-            {
-              "type": "contentData",
-              "id": "8234"
-            },
-            {
-              "type": "contentData",
-              "id": "8235"
-            },
-            {
-              "type": "contentData",
-              "id": "8236"
-            },
-            {
-              "type": "contentData",
-              "id": "8237"
-            },
-            {
-              "type": "contentData",
-              "id": "56992"
-            },
-            {
-              "type": "contentData",
-              "id": "56993"
-            },
-            {
-              "type": "contentData",
-              "id": "73874"
+              "type": "instructor",
+              "id": "7079"
             }
           ]
         },
@@ -1005,31 +813,35 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85787"
+              "id": "79381"
             },
             {
               "type": "tag",
-              "id": "85788"
+              "id": "79382"
             },
             {
               "type": "tag",
-              "id": "85789"
+              "id": "79383"
             },
             {
               "type": "tag",
-              "id": "85790"
+              "id": "79384"
             },
             {
               "type": "tag",
-              "id": "85791"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "79385"
+            },
             {
-              "type": "parent",
-              "id": "1446"
+              "type": "tag",
+              "id": "79386"
+            },
+            {
+              "type": "tag",
+              "id": "79387"
+            },
+            {
+              "type": "tag",
+              "id": "79388"
             }
           ]
         }
@@ -1037,78 +849,130 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2450",
+      "id": "20361",
       "attributes": {
-        "slug": "06-swiss-army-triplets",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "im-alive-she-said",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 09:57:20",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 09:57:20",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2450,
-        "qnaVideo": null,
-        "style": null,
-        "title": "Swiss Army Triplets",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": null,
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": "Page 130",
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-01-31 01:17:54",
+        "archivedOn": "",
+        "createdOn": "2014-01-31 01:17:54",
+        "difficulty": "6",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "20361",
+        "qnaVideo": "",
+        "style": "Vocals",
+        "title": "I'm Alive She Said",
+        "xp": "",
+        "album": "",
+        "artist": "YUCA",
+        "bpm": "134",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3858"
+              "id": "2770"
             },
             {
               "type": "contentData",
-              "id": "8239"
+              "id": "12078"
             },
             {
               "type": "contentData",
-              "id": "56990"
+              "id": "24937"
             },
             {
               "type": "contentData",
-              "id": "56991"
+              "id": "24938"
             },
             {
               "type": "contentData",
-              "id": "73873"
+              "id": "31283"
+            },
+            {
+              "type": "contentData",
+              "id": "52441"
+            },
+            {
+              "type": "contentData",
+              "id": "52443"
+            },
+            {
+              "type": "contentData",
+              "id": "52445"
+            },
+            {
+              "type": "contentData",
+              "id": "52447"
+            },
+            {
+              "type": "contentData",
+              "id": "52448"
+            },
+            {
+              "type": "contentData",
+              "id": "52450"
+            },
+            {
+              "type": "contentData",
+              "id": "52451"
+            },
+            {
+              "type": "contentData",
+              "id": "52453"
+            },
+            {
+              "type": "contentData",
+              "id": "52454"
+            },
+            {
+              "type": "contentData",
+              "id": "52456"
+            },
+            {
+              "type": "contentData",
+              "id": "72512"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "7057"
             }
           ]
         },
@@ -1116,27 +980,43 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85783"
+              "id": "79162"
             },
             {
               "type": "tag",
-              "id": "85784"
+              "id": "79163"
             },
             {
               "type": "tag",
-              "id": "85785"
+              "id": "79164"
             },
             {
               "type": "tag",
-              "id": "85786"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "79165"
+            },
             {
-              "type": "parent",
-              "id": "1447"
+              "type": "tag",
+              "id": "79166"
+            },
+            {
+              "type": "tag",
+              "id": "79167"
+            },
+            {
+              "type": "tag",
+              "id": "79168"
+            },
+            {
+              "type": "tag",
+              "id": "79169"
+            },
+            {
+              "type": "tag",
+              "id": "79170"
+            },
+            {
+              "type": "tag",
+              "id": "79171"
             }
           ]
         }
@@ -1144,78 +1024,130 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2453",
+      "id": "20493",
       "attributes": {
-        "slug": "01-jareds-hand-to-feet-combos",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "smooth-rock",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 09:58:05",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 09:58:05",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2453,
-        "qnaVideo": null,
-        "style": null,
-        "title": "Jared's Hand To Feet Combos",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": null,
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": "Page 131",
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-02-14 01:05:23",
+        "archivedOn": "",
+        "createdOn": "2014-02-14 01:05:23",
+        "difficulty": "2",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "20493",
+        "qnaVideo": "",
+        "style": "Rock",
+        "title": "Smooth Rock",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "80",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3860"
+              "id": "2769"
             },
             {
               "type": "contentData",
-              "id": "8241"
+              "id": "12124"
             },
             {
               "type": "contentData",
-              "id": "56988"
+              "id": "24939"
             },
             {
               "type": "contentData",
-              "id": "56989"
+              "id": "24940"
             },
             {
               "type": "contentData",
-              "id": "73872"
+              "id": "28486"
+            },
+            {
+              "type": "contentData",
+              "id": "52426"
+            },
+            {
+              "type": "contentData",
+              "id": "52427"
+            },
+            {
+              "type": "contentData",
+              "id": "52429"
+            },
+            {
+              "type": "contentData",
+              "id": "52431"
+            },
+            {
+              "type": "contentData",
+              "id": "52433"
+            },
+            {
+              "type": "contentData",
+              "id": "52434"
+            },
+            {
+              "type": "contentData",
+              "id": "52436"
+            },
+            {
+              "type": "contentData",
+              "id": "52437"
+            },
+            {
+              "type": "contentData",
+              "id": "52438"
+            },
+            {
+              "type": "contentData",
+              "id": "52440"
+            },
+            {
+              "type": "contentData",
+              "id": "72501"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "7040"
             }
           ]
         },
@@ -1223,15 +1155,27 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85780"
+              "id": "79000"
             },
             {
               "type": "tag",
-              "id": "85781"
+              "id": "79001"
             },
             {
               "type": "tag",
-              "id": "85782"
+              "id": "79002"
+            },
+            {
+              "type": "tag",
+              "id": "79003"
+            },
+            {
+              "type": "tag",
+              "id": "79004"
+            },
+            {
+              "type": "tag",
+              "id": "79005"
             }
           ]
         },
@@ -1239,7 +1183,7 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "parent",
-              "id": "1449"
+              "id": "2800"
             }
           ]
         }
@@ -1247,118 +1191,130 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2457",
+      "id": "20657",
       "attributes": {
-        "slug": "02-daves-hand-to-feet-combos",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "bossa-nova",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 09:59:46",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 09:59:46",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2457,
-        "qnaVideo": null,
-        "style": null,
-        "title": "Dave's Hand To Feet Combos",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CD 4 - Track 244-253",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": "Pages 132, 133",
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-02-28 01:10:19",
+        "archivedOn": "",
+        "createdOn": "2014-02-28 01:10:19",
+        "difficulty": "3",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "20657",
+        "qnaVideo": "",
+        "style": "World",
+        "title": "Bossa Nova",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "130",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3861"
+              "id": "2768"
             },
             {
               "type": "contentData",
-              "id": "8243"
+              "id": "12259"
             },
             {
               "type": "contentData",
-              "id": "8244"
+              "id": "24955"
             },
             {
               "type": "contentData",
-              "id": "8245"
+              "id": "24956"
             },
             {
               "type": "contentData",
-              "id": "8246"
+              "id": "28485"
             },
             {
               "type": "contentData",
-              "id": "8247"
+              "id": "52410"
             },
             {
               "type": "contentData",
-              "id": "8248"
+              "id": "52411"
             },
             {
               "type": "contentData",
-              "id": "8249"
+              "id": "52413"
             },
             {
               "type": "contentData",
-              "id": "8250"
+              "id": "52415"
             },
             {
               "type": "contentData",
-              "id": "8251"
+              "id": "52417"
             },
             {
               "type": "contentData",
-              "id": "8252"
+              "id": "52418"
             },
             {
               "type": "contentData",
-              "id": "8253"
+              "id": "52420"
             },
             {
               "type": "contentData",
-              "id": "56986"
+              "id": "52421"
             },
             {
               "type": "contentData",
-              "id": "56987"
+              "id": "52423"
             },
             {
               "type": "contentData",
-              "id": "73871"
+              "id": "52424"
+            },
+            {
+              "type": "contentData",
+              "id": "72458"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "7018"
             }
           ]
         },
@@ -1366,23 +1322,43 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85777"
+              "id": "78177"
             },
             {
               "type": "tag",
-              "id": "85778"
+              "id": "78178"
             },
             {
               "type": "tag",
-              "id": "85779"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "78179"
+            },
             {
-              "type": "parent",
-              "id": "1450"
+              "type": "tag",
+              "id": "78180"
+            },
+            {
+              "type": "tag",
+              "id": "78181"
+            },
+            {
+              "type": "tag",
+              "id": "78182"
+            },
+            {
+              "type": "tag",
+              "id": "78183"
+            },
+            {
+              "type": "tag",
+              "id": "78184"
+            },
+            {
+              "type": "tag",
+              "id": "78185"
+            },
+            {
+              "type": "tag",
+              "id": "78186"
             }
           ]
         }
@@ -1390,246 +1366,126 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2459",
+      "id": "20865",
       "attributes": {
-        "slug": "03-seans-hand-to-feet-combos",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "slow-rockin",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 10:01:22",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 10:01:22",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2459,
-        "qnaVideo": null,
-        "style": null,
-        "title": "Sean's Hand To Feet Combos",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CD 4 - Track 254-281",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": "Page 134-136",
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-03-14 02:14:12",
+        "archivedOn": "",
+        "createdOn": "2014-03-14 02:14:12",
+        "difficulty": "2",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "20865",
+        "qnaVideo": "",
+        "style": "Rock",
+        "title": "Slow Rockin'",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "80",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3862"
+              "id": "2767"
             },
             {
               "type": "contentData",
-              "id": "8255"
+              "id": "12418"
             },
             {
               "type": "contentData",
-              "id": "8256"
+              "id": "24969"
             },
             {
               "type": "contentData",
-              "id": "8257"
+              "id": "24970"
             },
             {
               "type": "contentData",
-              "id": "8258"
+              "id": "28484"
             },
             {
               "type": "contentData",
-              "id": "8259"
+              "id": "52393"
             },
             {
               "type": "contentData",
-              "id": "8260"
+              "id": "52395"
             },
             {
               "type": "contentData",
-              "id": "8261"
+              "id": "52397"
             },
             {
               "type": "contentData",
-              "id": "8262"
+              "id": "52398"
             },
             {
               "type": "contentData",
-              "id": "8263"
+              "id": "52400"
             },
             {
               "type": "contentData",
-              "id": "8264"
+              "id": "52402"
             },
             {
               "type": "contentData",
-              "id": "8265"
+              "id": "52403"
             },
             {
               "type": "contentData",
-              "id": "8266"
+              "id": "52405"
             },
             {
               "type": "contentData",
-              "id": "8267"
+              "id": "52407"
             },
             {
               "type": "contentData",
-              "id": "8268"
-            },
+              "id": "52408"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
             {
-              "type": "contentData",
-              "id": "8269"
-            },
-            {
-              "type": "contentData",
-              "id": "8270"
-            },
-            {
-              "type": "contentData",
-              "id": "8271"
-            },
-            {
-              "type": "contentData",
-              "id": "8272"
-            },
-            {
-              "type": "contentData",
-              "id": "8273"
-            },
-            {
-              "type": "contentData",
-              "id": "8274"
-            },
-            {
-              "type": "contentData",
-              "id": "8275"
-            },
-            {
-              "type": "contentData",
-              "id": "8276"
-            },
-            {
-              "type": "contentData",
-              "id": "8277"
-            },
-            {
-              "type": "contentData",
-              "id": "8278"
-            },
-            {
-              "type": "contentData",
-              "id": "8279"
-            },
-            {
-              "type": "contentData",
-              "id": "8280"
-            },
-            {
-              "type": "contentData",
-              "id": "8281"
-            },
-            {
-              "type": "contentData",
-              "id": "8282"
-            },
-            {
-              "type": "contentData",
-              "id": "8283"
-            },
-            {
-              "type": "contentData",
-              "id": "8284"
-            },
-            {
-              "type": "contentData",
-              "id": "8285"
-            },
-            {
-              "type": "contentData",
-              "id": "8286"
-            },
-            {
-              "type": "contentData",
-              "id": "8287"
-            },
-            {
-              "type": "contentData",
-              "id": "8288"
-            },
-            {
-              "type": "contentData",
-              "id": "8289"
-            },
-            {
-              "type": "contentData",
-              "id": "8290"
-            },
-            {
-              "type": "contentData",
-              "id": "8291"
-            },
-            {
-              "type": "contentData",
-              "id": "8292"
-            },
-            {
-              "type": "contentData",
-              "id": "8293"
-            },
-            {
-              "type": "contentData",
-              "id": "8294"
-            },
-            {
-              "type": "contentData",
-              "id": "8295"
-            },
-            {
-              "type": "contentData",
-              "id": "8296"
-            },
-            {
-              "type": "contentData",
-              "id": "8297"
-            },
-            {
-              "type": "contentData",
-              "id": "56984"
-            },
-            {
-              "type": "contentData",
-              "id": "56985"
-            },
-            {
-              "type": "contentData",
-              "id": "73870"
+              "type": "instructor",
+              "id": "6988"
             }
           ]
         },
@@ -1637,23 +1493,31 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85774"
+              "id": "77437"
             },
             {
               "type": "tag",
-              "id": "85775"
+              "id": "77438"
             },
             {
               "type": "tag",
-              "id": "85776"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "77439"
+            },
             {
-              "type": "parent",
-              "id": "1451"
+              "type": "tag",
+              "id": "77440"
+            },
+            {
+              "type": "tag",
+              "id": "77441"
+            },
+            {
+              "type": "tag",
+              "id": "77442"
+            },
+            {
+              "type": "tag",
+              "id": "77443"
             }
           ]
         }
@@ -1661,86 +1525,130 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2462",
+      "id": "21049",
       "attributes": {
-        "slug": "01-gold-in-your-soul-educational",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "you-belong-with-the-drums",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 10:48:52",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 10:48:52",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2462,
-        "qnaVideo": null,
-        "style": null,
-        "title": "\"Gold In Your Soul\" (Educational)",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CD 7-9 - Track 1",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": null,
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-03-28 03:20:36",
+        "archivedOn": "",
+        "createdOn": "2014-03-28 03:20:36",
+        "difficulty": "3",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21049",
+        "qnaVideo": "",
+        "style": "Alternative",
+        "title": "You Belong With The Drums",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "127",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3864"
+              "id": "2766"
             },
             {
               "type": "contentData",
-              "id": "8298"
+              "id": "12507"
             },
             {
               "type": "contentData",
-              "id": "56980"
+              "id": "24975"
             },
             {
               "type": "contentData",
-              "id": "56981"
+              "id": "24976"
             },
             {
               "type": "contentData",
-              "id": "56982"
+              "id": "28498"
             },
             {
               "type": "contentData",
-              "id": "56983"
+              "id": "52378"
             },
             {
               "type": "contentData",
-              "id": "73869"
+              "id": "52379"
+            },
+            {
+              "type": "contentData",
+              "id": "52381"
+            },
+            {
+              "type": "contentData",
+              "id": "52383"
+            },
+            {
+              "type": "contentData",
+              "id": "52384"
+            },
+            {
+              "type": "contentData",
+              "id": "52386"
+            },
+            {
+              "type": "contentData",
+              "id": "52387"
+            },
+            {
+              "type": "contentData",
+              "id": "52389"
+            },
+            {
+              "type": "contentData",
+              "id": "52390"
+            },
+            {
+              "type": "contentData",
+              "id": "52392"
+            },
+            {
+              "type": "contentData",
+              "id": "72387"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6970"
             }
           ]
         },
@@ -1748,11 +1656,31 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85772"
+              "id": "76988"
             },
             {
               "type": "tag",
-              "id": "85773"
+              "id": "76989"
+            },
+            {
+              "type": "tag",
+              "id": "76990"
+            },
+            {
+              "type": "tag",
+              "id": "76991"
+            },
+            {
+              "type": "tag",
+              "id": "76992"
+            },
+            {
+              "type": "tag",
+              "id": "76993"
+            },
+            {
+              "type": "tag",
+              "id": "76994"
             }
           ]
         },
@@ -1760,7 +1688,7 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "parent",
-              "id": "1453"
+              "id": "2775"
             }
           ]
         }
@@ -1768,86 +1696,130 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2464",
+      "id": "21139",
       "attributes": {
-        "slug": "02-gold-in-your-soul-foot",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "metal-life",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 10:51:41",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 10:51:41",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2464,
-        "qnaVideo": null,
-        "style": null,
-        "title": "\"Gold In Your Soul\" (Foot)",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CD 7-9 - Track 1",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": null,
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-04-11 01:55:57",
+        "archivedOn": "",
+        "createdOn": "2014-04-11 01:55:57",
+        "difficulty": "5",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21139",
+        "qnaVideo": "",
+        "style": "Metal",
+        "title": "Metal Life",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "150",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3865"
+              "id": "2765"
             },
             {
               "type": "contentData",
-              "id": "8299"
+              "id": "12579"
             },
             {
               "type": "contentData",
-              "id": "56976"
+              "id": "24979"
             },
             {
               "type": "contentData",
-              "id": "56977"
+              "id": "24980"
             },
             {
               "type": "contentData",
-              "id": "56978"
+              "id": "28497"
             },
             {
               "type": "contentData",
-              "id": "56979"
+              "id": "52362"
             },
             {
               "type": "contentData",
-              "id": "73868"
+              "id": "52363"
+            },
+            {
+              "type": "contentData",
+              "id": "52365"
+            },
+            {
+              "type": "contentData",
+              "id": "52367"
+            },
+            {
+              "type": "contentData",
+              "id": "52368"
+            },
+            {
+              "type": "contentData",
+              "id": "52370"
+            },
+            {
+              "type": "contentData",
+              "id": "52372"
+            },
+            {
+              "type": "contentData",
+              "id": "52373"
+            },
+            {
+              "type": "contentData",
+              "id": "52375"
+            },
+            {
+              "type": "contentData",
+              "id": "52376"
+            },
+            {
+              "type": "contentData",
+              "id": "72364"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6953"
             }
           ]
         },
@@ -1855,19 +1827,27 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85770"
+              "id": "76561"
             },
             {
               "type": "tag",
-              "id": "85771"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "76562"
+            },
             {
-              "type": "parent",
-              "id": "1454"
+              "type": "tag",
+              "id": "76563"
+            },
+            {
+              "type": "tag",
+              "id": "76564"
+            },
+            {
+              "type": "tag",
+              "id": "76565"
+            },
+            {
+              "type": "tag",
+              "id": "76566"
             }
           ]
         }
@@ -1875,86 +1855,126 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2468",
+      "id": "21181",
       "attributes": {
-        "slug": "03-skin-bones-educational",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "got-soul",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 10:55:25",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 10:55:25",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2468,
-        "qnaVideo": null,
-        "style": null,
-        "title": "\"Skin & Bones\" (Educational)",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CD 7-9 - Track 2",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": null,
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-04-25 07:53:29",
+        "archivedOn": "",
+        "createdOn": "2014-04-25 07:53:29",
+        "difficulty": "6",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21181",
+        "qnaVideo": "",
+        "style": "Gospel",
+        "title": "Got Soul?",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "100",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3866"
+              "id": "2764"
             },
             {
               "type": "contentData",
-              "id": "8300"
+              "id": "12637"
             },
             {
               "type": "contentData",
-              "id": "56972"
+              "id": "24981"
             },
             {
               "type": "contentData",
-              "id": "56973"
+              "id": "24982"
             },
             {
               "type": "contentData",
-              "id": "56974"
+              "id": "28496"
             },
             {
               "type": "contentData",
-              "id": "56975"
+              "id": "52345"
             },
             {
               "type": "contentData",
-              "id": "73867"
+              "id": "52347"
+            },
+            {
+              "type": "contentData",
+              "id": "52349"
+            },
+            {
+              "type": "contentData",
+              "id": "52351"
+            },
+            {
+              "type": "contentData",
+              "id": "52353"
+            },
+            {
+              "type": "contentData",
+              "id": "52354"
+            },
+            {
+              "type": "contentData",
+              "id": "52356"
+            },
+            {
+              "type": "contentData",
+              "id": "52357"
+            },
+            {
+              "type": "contentData",
+              "id": "52359"
+            },
+            {
+              "type": "contentData",
+              "id": "52360"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6937"
             }
           ]
         },
@@ -1962,19 +1982,27 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85768"
+              "id": "76363"
             },
             {
               "type": "tag",
-              "id": "85769"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "76364"
+            },
             {
-              "type": "parent",
-              "id": "1455"
+              "type": "tag",
+              "id": "76365"
+            },
+            {
+              "type": "tag",
+              "id": "76366"
+            },
+            {
+              "type": "tag",
+              "id": "76367"
+            },
+            {
+              "type": "tag",
+              "id": "76368"
             }
           ]
         }
@@ -1982,86 +2010,126 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2470",
+      "id": "21337",
       "attributes": {
-        "slug": "04-skin-bones-foot",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "a-drummers-offspring",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 11:04:44",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 11:04:44",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2470,
-        "qnaVideo": null,
-        "style": null,
-        "title": "\"Skin & Bones\" (Foot)",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CD 7-9 - Track 2",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": null,
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-05-09 01:22:42",
+        "archivedOn": "",
+        "createdOn": "2014-05-09 01:22:42",
+        "difficulty": "3",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21337",
+        "qnaVideo": "",
+        "style": "Rock",
+        "title": "A Drummer's Offspring",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "112",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3867"
+              "id": "2763"
             },
             {
               "type": "contentData",
-              "id": "8301"
+              "id": "12725"
             },
             {
               "type": "contentData",
-              "id": "56968"
+              "id": "24987"
             },
             {
               "type": "contentData",
-              "id": "56969"
+              "id": "24988"
             },
             {
               "type": "contentData",
-              "id": "56970"
+              "id": "28495"
             },
             {
               "type": "contentData",
-              "id": "56971"
+              "id": "52330"
             },
             {
               "type": "contentData",
-              "id": "73866"
+              "id": "52331"
+            },
+            {
+              "type": "contentData",
+              "id": "52333"
+            },
+            {
+              "type": "contentData",
+              "id": "52335"
+            },
+            {
+              "type": "contentData",
+              "id": "52336"
+            },
+            {
+              "type": "contentData",
+              "id": "52338"
+            },
+            {
+              "type": "contentData",
+              "id": "52339"
+            },
+            {
+              "type": "contentData",
+              "id": "52340"
+            },
+            {
+              "type": "contentData",
+              "id": "52342"
+            },
+            {
+              "type": "contentData",
+              "id": "52344"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6920"
             }
           ]
         },
@@ -2069,19 +2137,31 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85766"
+              "id": "75847"
             },
             {
               "type": "tag",
-              "id": "85767"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "75848"
+            },
             {
-              "type": "parent",
-              "id": "1456"
+              "type": "tag",
+              "id": "75849"
+            },
+            {
+              "type": "tag",
+              "id": "75850"
+            },
+            {
+              "type": "tag",
+              "id": "75851"
+            },
+            {
+              "type": "tag",
+              "id": "75852"
+            },
+            {
+              "type": "tag",
+              "id": "75853"
             }
           ]
         }
@@ -2089,86 +2169,122 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2472",
+      "id": "21439",
       "attributes": {
-        "slug": "05-2-19-educational",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "party-drumming",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 11:13:05",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 11:13:05",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2472,
-        "qnaVideo": null,
-        "style": null,
-        "title": "\"2-19\" (Educational)",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CDs 7, 8 - Track 4 & CD 9 - Track 3",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": null,
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-05-23 01:51:46",
+        "archivedOn": "",
+        "createdOn": "2014-05-23 01:51:46",
+        "difficulty": "4",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21439",
+        "qnaVideo": "",
+        "style": "Electronic",
+        "title": "Party Drumming",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "127",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3868"
+              "id": "2762"
             },
             {
               "type": "contentData",
-              "id": "8302"
+              "id": "12814"
             },
             {
               "type": "contentData",
-              "id": "56964"
+              "id": "24995"
             },
             {
               "type": "contentData",
-              "id": "56965"
+              "id": "24996"
             },
             {
               "type": "contentData",
-              "id": "56966"
+              "id": "28494"
             },
             {
               "type": "contentData",
-              "id": "56967"
+              "id": "52313"
             },
             {
               "type": "contentData",
-              "id": "73865"
+              "id": "52315"
+            },
+            {
+              "type": "contentData",
+              "id": "52317"
+            },
+            {
+              "type": "contentData",
+              "id": "52319"
+            },
+            {
+              "type": "contentData",
+              "id": "52320"
+            },
+            {
+              "type": "contentData",
+              "id": "52322"
+            },
+            {
+              "type": "contentData",
+              "id": "52323"
+            },
+            {
+              "type": "contentData",
+              "id": "52325"
+            },
+            {
+              "type": "contentData",
+              "id": "52326"
+            },
+            {
+              "type": "contentData",
+              "id": "52328"
+            },
+            {
+              "type": "contentData",
+              "id": "72296"
             }
           ]
         },
@@ -2176,19 +2292,23 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85764"
+              "id": "75399"
             },
             {
               "type": "tag",
-              "id": "85765"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "75400"
+            },
             {
-              "type": "parent",
-              "id": "1457"
+              "type": "tag",
+              "id": "75401"
+            },
+            {
+              "type": "tag",
+              "id": "75402"
+            },
+            {
+              "type": "tag",
+              "id": "75403"
             }
           ]
         }
@@ -2196,86 +2316,130 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2475",
+      "id": "21540",
       "attributes": {
-        "slug": "06-2-19-foot",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "omnisight-string-theory",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 11:20:34",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 11:20:34",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2475,
-        "qnaVideo": null,
-        "style": null,
-        "title": "\"2-19\" (Foot)",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CDs 7, 8 - Track 4 & CD 9 - Track 3",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": null,
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-06-06 13:17:09",
+        "archivedOn": "",
+        "createdOn": "2014-06-06 13:17:09",
+        "difficulty": "5",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21540",
+        "qnaVideo": "",
+        "style": "Progressive",
+        "title": "String Theory",
+        "xp": "",
+        "album": "",
+        "artist": "Omnisight",
+        "bpm": "120",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3869"
+              "id": "2761"
             },
             {
               "type": "contentData",
-              "id": "8303"
+              "id": "12888"
             },
             {
               "type": "contentData",
-              "id": "56960"
+              "id": "25001"
             },
             {
               "type": "contentData",
-              "id": "56961"
+              "id": "25002"
             },
             {
               "type": "contentData",
-              "id": "56962"
+              "id": "31284"
             },
             {
               "type": "contentData",
-              "id": "56963"
+              "id": "52298"
             },
             {
               "type": "contentData",
-              "id": "73864"
+              "id": "52300"
+            },
+            {
+              "type": "contentData",
+              "id": "52302"
+            },
+            {
+              "type": "contentData",
+              "id": "52303"
+            },
+            {
+              "type": "contentData",
+              "id": "52305"
+            },
+            {
+              "type": "contentData",
+              "id": "52306"
+            },
+            {
+              "type": "contentData",
+              "id": "52307"
+            },
+            {
+              "type": "contentData",
+              "id": "52309"
+            },
+            {
+              "type": "contentData",
+              "id": "52310"
+            },
+            {
+              "type": "contentData",
+              "id": "52312"
+            },
+            {
+              "type": "contentData",
+              "id": "72270"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6883"
             }
           ]
         },
@@ -2283,19 +2447,31 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85762"
+              "id": "75003"
             },
             {
               "type": "tag",
-              "id": "85763"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "75004"
+            },
             {
-              "type": "parent",
-              "id": "1458"
+              "type": "tag",
+              "id": "75005"
+            },
+            {
+              "type": "tag",
+              "id": "75006"
+            },
+            {
+              "type": "tag",
+              "id": "75007"
+            },
+            {
+              "type": "tag",
+              "id": "75008"
+            },
+            {
+              "type": "tag",
+              "id": "75009"
             }
           ]
         }
@@ -2303,86 +2479,130 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2477",
+      "id": "21623",
       "attributes": {
-        "slug": "07-half-time-rock-educational",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "billy-jane",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 11:22:03",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 11:22:03",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2477,
-        "qnaVideo": null,
-        "style": null,
-        "title": "Half-Time Rock (Educational)",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CDs 5, 6 - Track 1 & CD 9 - Track 4",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": null,
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-06-20 01:15:40",
+        "archivedOn": "",
+        "createdOn": "2014-06-20 01:15:40",
+        "difficulty": "1",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21623",
+        "qnaVideo": "",
+        "style": "Funk",
+        "title": "Billy Jane",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "112",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3870"
+              "id": "2760"
             },
             {
               "type": "contentData",
-              "id": "8304"
+              "id": "12944"
             },
             {
               "type": "contentData",
-              "id": "56956"
+              "id": "25005"
             },
             {
               "type": "contentData",
-              "id": "56957"
+              "id": "25006"
             },
             {
               "type": "contentData",
-              "id": "56958"
+              "id": "28493"
             },
             {
               "type": "contentData",
-              "id": "56959"
+              "id": "52282"
             },
             {
               "type": "contentData",
-              "id": "73863"
+              "id": "52284"
+            },
+            {
+              "type": "contentData",
+              "id": "52286"
+            },
+            {
+              "type": "contentData",
+              "id": "52287"
+            },
+            {
+              "type": "contentData",
+              "id": "52289"
+            },
+            {
+              "type": "contentData",
+              "id": "52291"
+            },
+            {
+              "type": "contentData",
+              "id": "52292"
+            },
+            {
+              "type": "contentData",
+              "id": "52294"
+            },
+            {
+              "type": "contentData",
+              "id": "52295"
+            },
+            {
+              "type": "contentData",
+              "id": "52297"
+            },
+            {
+              "type": "contentData",
+              "id": "72252"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6867"
             }
           ]
         },
@@ -2390,11 +2610,31 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85760"
+              "id": "74751"
             },
             {
               "type": "tag",
-              "id": "85761"
+              "id": "74752"
+            },
+            {
+              "type": "tag",
+              "id": "74753"
+            },
+            {
+              "type": "tag",
+              "id": "74754"
+            },
+            {
+              "type": "tag",
+              "id": "74755"
+            },
+            {
+              "type": "tag",
+              "id": "74756"
+            },
+            {
+              "type": "tag",
+              "id": "74757"
             }
           ]
         },
@@ -2402,7 +2642,7 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "parent",
-              "id": "1459"
+              "id": "2818"
             }
           ]
         }
@@ -2410,86 +2650,130 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2479",
+      "id": "21705",
       "attributes": {
-        "slug": "08-half-time-rock-foot",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "another-drum-on-the-shelf",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 11:23:09",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 11:23:09",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2479,
-        "qnaVideo": null,
-        "style": null,
-        "title": "Half-Time Rock (Foot)",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CDs 5, 6 - Track 1 & CD 9 - Track 4",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": null,
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-07-04 09:45:04",
+        "archivedOn": "",
+        "createdOn": "2014-07-04 09:45:04",
+        "difficulty": "2",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21705",
+        "qnaVideo": "",
+        "style": "Rock",
+        "title": "Another Drum On The Shelf",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "100",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3871"
+              "id": "2759"
             },
             {
               "type": "contentData",
-              "id": "8305"
+              "id": "13011"
             },
             {
               "type": "contentData",
-              "id": "56952"
+              "id": "25009"
             },
             {
               "type": "contentData",
-              "id": "56953"
+              "id": "25010"
             },
             {
               "type": "contentData",
-              "id": "56954"
+              "id": "31285"
             },
             {
               "type": "contentData",
-              "id": "56955"
+              "id": "52267"
             },
             {
               "type": "contentData",
-              "id": "73862"
+              "id": "52268"
+            },
+            {
+              "type": "contentData",
+              "id": "52270"
+            },
+            {
+              "type": "contentData",
+              "id": "52272"
+            },
+            {
+              "type": "contentData",
+              "id": "52273"
+            },
+            {
+              "type": "contentData",
+              "id": "52275"
+            },
+            {
+              "type": "contentData",
+              "id": "52276"
+            },
+            {
+              "type": "contentData",
+              "id": "52278"
+            },
+            {
+              "type": "contentData",
+              "id": "52279"
+            },
+            {
+              "type": "contentData",
+              "id": "52281"
+            },
+            {
+              "type": "contentData",
+              "id": "72235"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6853"
             }
           ]
         },
@@ -2497,19 +2781,27 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85758"
+              "id": "74538"
             },
             {
               "type": "tag",
-              "id": "85759"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "74539"
+            },
             {
-              "type": "parent",
-              "id": "1460"
+              "type": "tag",
+              "id": "74540"
+            },
+            {
+              "type": "tag",
+              "id": "74541"
+            },
+            {
+              "type": "tag",
+              "id": "74542"
+            },
+            {
+              "type": "tag",
+              "id": "74543"
             }
           ]
         }
@@ -2517,86 +2809,130 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2482",
+      "id": "21779",
       "attributes": {
-        "slug": "09-fast-rock-educational",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "sunday-morning-drummin",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 11:24:38",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 11:24:38",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2482,
-        "qnaVideo": null,
-        "style": null,
-        "title": "Fast Rock (Educational)",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CDs 5, 6 - Track 2 & CD 9 - Track 5",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": null,
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-07-18 13:29:03",
+        "archivedOn": "",
+        "createdOn": "2014-07-18 13:29:03",
+        "difficulty": "6",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21779",
+        "qnaVideo": "",
+        "style": "Gospel",
+        "title": "Sunday Morning Drummin'",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "95",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3872"
+              "id": "2758"
             },
             {
               "type": "contentData",
-              "id": "8306"
+              "id": "13068"
             },
             {
               "type": "contentData",
-              "id": "56948"
+              "id": "25013"
             },
             {
               "type": "contentData",
-              "id": "56949"
+              "id": "25014"
             },
             {
               "type": "contentData",
-              "id": "56950"
+              "id": "28500"
             },
             {
               "type": "contentData",
-              "id": "56951"
+              "id": "52250"
             },
             {
               "type": "contentData",
-              "id": "73861"
+              "id": "52252"
+            },
+            {
+              "type": "contentData",
+              "id": "52254"
+            },
+            {
+              "type": "contentData",
+              "id": "52256"
+            },
+            {
+              "type": "contentData",
+              "id": "52258"
+            },
+            {
+              "type": "contentData",
+              "id": "52259"
+            },
+            {
+              "type": "contentData",
+              "id": "52261"
+            },
+            {
+              "type": "contentData",
+              "id": "52262"
+            },
+            {
+              "type": "contentData",
+              "id": "52264"
+            },
+            {
+              "type": "contentData",
+              "id": "52265"
+            },
+            {
+              "type": "contentData",
+              "id": "72217"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6836"
             }
           ]
         },
@@ -2604,11 +2940,31 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85756"
+              "id": "74318"
             },
             {
               "type": "tag",
-              "id": "85757"
+              "id": "74319"
+            },
+            {
+              "type": "tag",
+              "id": "74320"
+            },
+            {
+              "type": "tag",
+              "id": "74321"
+            },
+            {
+              "type": "tag",
+              "id": "74322"
+            },
+            {
+              "type": "tag",
+              "id": "74323"
+            },
+            {
+              "type": "tag",
+              "id": "74324"
             }
           ]
         },
@@ -2616,7 +2972,7 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "parent",
-              "id": "1461"
+              "id": "2832"
             }
           ]
         }
@@ -2624,86 +2980,130 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2485",
+      "id": "21854",
       "attributes": {
-        "slug": "10-fast-rock-foot",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "maybe-well-riot",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 11:26:49",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 11:26:49",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2485,
-        "qnaVideo": null,
-        "style": null,
-        "title": "Fast Rock (Foot)",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CDs 5, 6 - Track 2 & CD 9 - Track 5",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": null,
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2014-08-01 01:24:31",
+        "archivedOn": "",
+        "createdOn": "2014-08-01 01:24:31",
+        "difficulty": "4",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21854",
+        "qnaVideo": "",
+        "style": "Vocals",
+        "title": "Maybe We'll Riot",
+        "xp": "",
+        "album": "",
+        "artist": "YUCA",
+        "bpm": "135",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3873"
+              "id": "2757"
             },
             {
               "type": "contentData",
-              "id": "8307"
+              "id": "13122"
             },
             {
               "type": "contentData",
-              "id": "56944"
+              "id": "25015"
             },
             {
               "type": "contentData",
-              "id": "56945"
+              "id": "25016"
             },
             {
               "type": "contentData",
-              "id": "56946"
+              "id": "28499"
             },
             {
               "type": "contentData",
-              "id": "56947"
+              "id": "52234"
             },
             {
               "type": "contentData",
-              "id": "73860"
+              "id": "52236"
+            },
+            {
+              "type": "contentData",
+              "id": "52238"
+            },
+            {
+              "type": "contentData",
+              "id": "52239"
+            },
+            {
+              "type": "contentData",
+              "id": "52241"
+            },
+            {
+              "type": "contentData",
+              "id": "52242"
+            },
+            {
+              "type": "contentData",
+              "id": "52244"
+            },
+            {
+              "type": "contentData",
+              "id": "52246"
+            },
+            {
+              "type": "contentData",
+              "id": "52247"
+            },
+            {
+              "type": "contentData",
+              "id": "52249"
+            },
+            {
+              "type": "contentData",
+              "id": "72198"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6818"
             }
           ]
         },
@@ -2711,19 +3111,39 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85754"
+              "id": "74028"
             },
             {
               "type": "tag",
-              "id": "85755"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "74029"
+            },
             {
-              "type": "parent",
-              "id": "1462"
+              "type": "tag",
+              "id": "74030"
+            },
+            {
+              "type": "tag",
+              "id": "74031"
+            },
+            {
+              "type": "tag",
+              "id": "74032"
+            },
+            {
+              "type": "tag",
+              "id": "74033"
+            },
+            {
+              "type": "tag",
+              "id": "74034"
+            },
+            {
+              "type": "tag",
+              "id": "74035"
+            },
+            {
+              "type": "tag",
+              "id": "74036"
             }
           ]
         }
@@ -2731,86 +3151,118 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "content",
-      "id": "2488",
+      "id": "30691",
       "attributes": {
-        "slug": "11-heavy-metal-educational",
-        "type": "pack-bundle-lesson",
-        "sort": 0,
+        "slug": "welcome-to-the-bottom",
+        "type": "play-along",
+        "sort": "0",
         "status": "published",
-        "totalXp": null,
+        "totalXp": "",
         "brand": "drumeo",
         "language": "en-US",
-        "showInNewFeed": null,
+        "showInNewFeed": "",
         "user": "",
-        "publishedOn": "2012-01-10 11:27:52",
-        "archivedOn": null,
-        "createdOn": "2012-01-10 11:27:52",
-        "difficulty": null,
-        "homeStaffPickRating": null,
-        "legacyId": null,
-        "legacyWordpressPostId": 2488,
-        "qnaVideo": null,
-        "style": null,
-        "title": "Heavy Metal (Educational)",
-        "xp": null,
-        "album": null,
-        "artist": null,
-        "bpm": null,
-        "cdTracks": "CDs 5, 6 - Track 4 & CD 9 - Track 6",
-        "chordOrScale": null,
-        "difficultyRange": null,
-        "episodeNumber": null,
-        "exerciseBookPages": null,
-        "fastBpm": null,
-        "includesSong": null,
-        "instructors": null,
-        "liveEventStartTime": null,
-        "liveEventEndTime": null,
-        "liveEventYoutubeId": null,
-        "liveStreamFeedType": null,
-        "name": null,
-        "released": null,
-        "slowBpm": null,
-        "transcriberName": null,
-        "week": null,
-        "avatarUrl": null,
-        "lengthInSeconds": null,
-        "soundsliceSlug": null,
-        "staffPickRating": null,
-        "studentId": null,
-        "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "publishedOn": "2017-08-16 10:00:43",
+        "archivedOn": "",
+        "createdOn": "2017-08-16 10:00:43",
+        "difficulty": "5",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "30691",
+        "qnaVideo": "",
+        "style": "Metal",
+        "title": "Welcome To The Bottom",
+        "xp": "",
+        "album": "",
+        "artist": "Bullets and Numbers",
+        "bpm": "126",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
       },
       "relationships": {
         "data": {
           "data": [
             {
               "type": "contentData",
-              "id": "3874"
+              "id": "2654"
             },
             {
               "type": "contentData",
-              "id": "8308"
+              "id": "18227"
             },
             {
               "type": "contentData",
-              "id": "56940"
+              "id": "18228"
             },
             {
               "type": "contentData",
-              "id": "56941"
+              "id": "50615"
             },
             {
               "type": "contentData",
-              "id": "56942"
+              "id": "50617"
             },
             {
               "type": "contentData",
-              "id": "56943"
+              "id": "50619"
             },
             {
               "type": "contentData",
-              "id": "73859"
+              "id": "50621"
+            },
+            {
+              "type": "contentData",
+              "id": "50622"
+            },
+            {
+              "type": "contentData",
+              "id": "50624"
+            },
+            {
+              "type": "contentData",
+              "id": "50626"
+            },
+            {
+              "type": "contentData",
+              "id": "50627"
+            },
+            {
+              "type": "contentData",
+              "id": "50629"
+            },
+            {
+              "type": "contentData",
+              "id": "50630"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5420"
             }
           ]
         },
@@ -2818,19 +3270,27 @@ $rc1 = <<<'EOT'
           "data": [
             {
               "type": "tag",
-              "id": "85752"
+              "id": "52067"
             },
             {
               "type": "tag",
-              "id": "85753"
-            }
-          ]
-        },
-        "parent": {
-          "data": [
+              "id": "52068"
+            },
             {
-              "type": "parent",
-              "id": "1463"
+              "type": "tag",
+              "id": "52069"
+            },
+            {
+              "type": "tag",
+              "id": "52070"
+            },
+            {
+              "type": "tag",
+              "id": "52071"
+            },
+            {
+              "type": "tag",
+              "id": "52072"
             }
           ]
         }
@@ -2839,8 +3299,167 @@ $rc1 = <<<'EOT'
   ],
   "included": [
     {
+      "type": "instructor",
+      "id": "31877",
+      "attributes": {
+        "slug": "dave-atkinson",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:20",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:20",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Dave Atkinson",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "31892",
+      "attributes": {
+        "slug": "jai-es",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:21",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:21",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Jai Es",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "31887",
+      "attributes": {
+        "slug": "issah-contractor",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:21",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:21",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Issah Contractor",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
       "type": "parent",
-      "id": "25873",
+      "id": "28164",
       "attributes": {
         "slug": null,
         "type": null,
@@ -2892,8 +3511,114 @@ $rc1 = <<<'EOT'
       }
     },
     {
+      "type": "instructor",
+      "id": "31878",
+      "attributes": {
+        "slug": "mike-michalkow",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:20",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:20",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Mike Michalkow",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "31880",
+      "attributes": {
+        "slug": "jared-falk",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:20",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:20",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Jared Falk",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
       "type": "parent",
-      "id": "25874",
+      "id": "28162",
       "attributes": {
         "slug": null,
         "type": null,
@@ -2945,8 +3670,114 @@ $rc1 = <<<'EOT'
       }
     },
     {
+      "type": "instructor",
+      "id": "31896",
+      "attributes": {
+        "slug": "ash-pearson",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:21",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:21",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Ash Pearson",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "31886",
+      "attributes": {
+        "slug": "chris-warunki",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:21",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:21",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Chris Warunki",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
       "type": "parent",
-      "id": "25875",
+      "id": "28165",
       "attributes": {
         "slug": null,
         "type": null,
@@ -2998,8 +3829,167 @@ $rc1 = <<<'EOT'
       }
     },
     {
+      "type": "instructor",
+      "id": "31891",
+      "attributes": {
+        "slug": "jay-deachman",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:21",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:21",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Jay Deachman",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "parent",
+      "id": "28166",
+      "attributes": {
+        "slug": null,
+        "type": null,
+        "sort": 0,
+        "status": null,
+        "total_xp": null,
+        "brand": null,
+        "language": null,
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": null,
+        "archived_on": null,
+        "created_on": null,
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": false,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "197816",
+      "attributes": {
+        "slug": "aaron-levy",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2018-03-06 20:00:00",
+        "archived_on": null,
+        "created_on": "2018-03-13 12:24:44",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Aaron Levy",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
       "type": "contentData",
-      "id": "3853",
+      "id": "2775",
       "attributes": {
         "key": "description",
         "value": "",
@@ -3008,314 +3998,237 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "contentData",
-      "id": "8112",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-1f.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8113",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-1s.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8114",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-five-stroke-rolls-1.png",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8115",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-2f.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8116",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-2s.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8117",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-five-stroke-rolls-2.png",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8118",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-3f.mp3",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8119",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-3s.mp3",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8120",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-five-stroke-rolls-3.png",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8121",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-4f.mp3",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8122",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-4s.mp3",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8123",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-five-stroke-rolls-4.png",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8124",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-5f.mp3",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8125",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-5s.mp3",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8126",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-five-stroke-rolls-5.png",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8127",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-6f.mp3",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8128",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-6s.mp3",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8129",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-five-stroke-rolls-6.png",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8130",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-7f.mp3",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8131",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-7s.mp3",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8132",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-five-stroke-rolls-7.png",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8133",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-8f.mp3",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8134",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-01-8s.mp3",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8135",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-five-stroke-rolls-8.png",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8136",
+      "id": "11852",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2436_thumbnail_360p.jpg",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/20018_thumbnail_360p.jpg",
         "position": 1
       }
     },
     {
       "type": "contentData",
-      "id": "57000",
+      "id": "24928",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa082-calling-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24929",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa082-calling-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28491",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515146343-drumeo-pa082-calling.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52529",
       "attributes": {
         "key": "resource_name",
         "value": "Sheet Music PDF",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "57001",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/pdfs/bds-13-01.pdf",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73878",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457731529_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85807",
-      "attributes": {
-        "tag": "bass drum",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85808",
-      "attributes": {
-        "tag": "rudiments",
-        "position": 2
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85809",
-      "attributes": {
-        "tag": "beats",
         "position": 3
       }
     },
     {
-      "type": "tag",
-      "id": "85810",
+      "type": "contentData",
+      "id": "52532",
       "attributes": {
-        "tag": "jared falk",
-        "position": 4
+        "key": "resource_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa082-calling.pdf",
+        "position": 3
       }
     },
     {
-      "type": "tag",
-      "id": "85811",
+      "type": "contentData",
+      "id": "52537",
       "attributes": {
-        "tag": "double stroke rudiments",
-        "position": 5
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
       }
     },
     {
-      "type": "parent",
-      "id": "1442",
+      "type": "contentData",
+      "id": "52543",
       "attributes": {
-        "child_position": 1
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/calling/calling-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52546",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52548",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/calling/calling-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52551",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/calling/calling-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52552",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/calling/calling-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52555",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/calling/calling-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52558",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/calling/calling-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72558",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://i.vimeocdn.com/video/460794760_640x360.jpg?r=pad",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "7133",
+      "attributes": {
+        "position": 1
       },
       "relationships": {
-        "parent": {
+        "instructor": {
           "data": {
-            "type": "parent",
-            "id": "25873"
+            "type": "instructor",
+            "id": "31877"
           }
         }
       }
     },
     {
+      "type": "tag",
+      "id": "79747",
+      "attributes": {
+        "tag": "rock play-alongs",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79748",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79749",
+      "attributes": {
+        "tag": "intermediate",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79750",
+      "attributes": {
+        "tag": "7",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79751",
+      "attributes": {
+        "tag": "progressive",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79752",
+      "attributes": {
+        "tag": "vocals",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79753",
+      "attributes": {
+        "tag": "vocal",
+        "position": 7
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79754",
+      "attributes": {
+        "tag": "calling",
+        "position": 8
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79755",
+      "attributes": {
+        "tag": "dying hearts desire",
+        "position": 9
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79756",
+      "attributes": {
+        "tag": "194",
+        "position": 10
+      }
+    },
+    {
       "type": "contentData",
-      "id": "3854",
+      "id": "2774",
       "attributes": {
         "key": "description",
         "value": "",
@@ -3324,314 +4237,429 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "contentData",
-      "id": "8138",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-1f.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8139",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-1s.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8140",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-six-stroke-rolls-1.png",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8141",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-2f.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8142",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-2s.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8143",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-six-stroke-rolls-2.png",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8144",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-3f.mp3",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8145",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-3s.mp3",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8146",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-six-stroke-rolls-3.png",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8147",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-4f.mp3",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8148",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-4s.mp3",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8149",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-six-stroke-rolls-4.png",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8150",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-5f.mp3",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8151",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-5s.mp3",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8152",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-six-stroke-rolls-5.png",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8153",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-6f.mp3",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8154",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-6s.mp3",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8155",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-six-stroke-rolls-6.png",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8156",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-7f.mp3",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8157",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-7s.mp3",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8158",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-six-stroke-rolls-7.png",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8159",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-8f.mp3",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8160",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-02-8s.mp3",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8161",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-six-stroke-rolls-8.png",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8162",
+      "id": "11855",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2438_thumbnail_360p.jpg",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/20060_thumbnail_360p.jpg",
         "position": 1
       }
     },
     {
       "type": "contentData",
-      "id": "56998",
+      "id": "24930",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-ps-083-drummer-boy-w-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24931",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa-083-drummer-boy-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28490",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515146304-drumeo-pa083-drummerboy.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52505",
       "attributes": {
         "key": "resource_name",
         "value": "Sheet Music PDF",
-        "position": 1
+        "position": 3
       }
     },
     {
       "type": "contentData",
-      "id": "56999",
+      "id": "52507",
       "attributes": {
         "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/pdfs/bds-13-02.pdf",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa083-drummerboy.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52509",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
         "position": 1
       }
     },
     {
       "type": "contentData",
-      "id": "73877",
+      "id": "52510",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/drummerboy/drummerboy-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52513",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52516",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/drummerboy/drummerboy-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52519",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/drummerboy/drummerboy-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52521",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/drummerboy/drummerboy-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52524",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/drummerboy/drummerboy-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52527",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/drummerboy/drummerboy-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72556",
       "attributes": {
         "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457731406_640x360.jpg?r=pad",
+        "value": "https://i.vimeocdn.com/video/517765975_640x360.jpg?r=pad",
         "position": 1
       }
     },
     {
       "type": "tag",
-      "id": "85802",
+      "id": "79731",
       "attributes": {
-        "tag": "bass drum",
+        "tag": "rock play-alongs",
         "position": 1
       }
     },
     {
       "type": "tag",
-      "id": "85803",
+      "id": "79732",
       "attributes": {
-        "tag": "rudiments",
+        "tag": "dave atkinson",
         "position": 2
       }
     },
     {
       "type": "tag",
-      "id": "85804",
+      "id": "79733",
       "attributes": {
-        "tag": "beats",
+        "tag": "jared falk",
         "position": 3
       }
     },
     {
       "type": "tag",
-      "id": "85805",
+      "id": "79734",
       "attributes": {
-        "tag": "jared falk",
+        "tag": "intermediate",
         "position": 4
       }
     },
     {
       "type": "tag",
-      "id": "85806",
+      "id": "79735",
       "attributes": {
-        "tag": "double stroke rudiments",
+        "tag": "5",
         "position": 5
       }
     },
     {
-      "type": "parent",
-      "id": "1443",
+      "type": "tag",
+      "id": "79736",
       "attributes": {
-        "child_position": 2
+        "tag": "christmas",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79737",
+      "attributes": {
+        "tag": "holiday",
+        "position": 7
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79738",
+      "attributes": {
+        "tag": "drummer boy",
+        "position": 8
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79739",
+      "attributes": {
+        "tag": "drummerboy",
+        "position": 9
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79740",
+      "attributes": {
+        "tag": "158",
+        "position": 10
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2773",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "11909",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/20131_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24932",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa084-another-punk-song-w-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24933",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa084-another-punk-song-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28489",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515146276-drumeo-pa084-another-punk-song.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52489",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Sheet Music PDF",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52491",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa084-another-punk-song.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52492",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52494",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/another-punk-song/another-punk-song-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52496",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52497",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/another-punk-song/another-punk-song-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52499",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/another-punk-song/another-punk-song-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52500",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/another-punk-song/another-punk-song-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52502",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/another-punk-song/another-punk-song-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52503",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/another-punk-song/another-punk-song-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72546",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/play-alongs/550/drumeo-pa-punk.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "7114",
+      "attributes": {
+        "position": 1
       },
       "relationships": {
-        "parent": {
+        "instructor": {
           "data": {
-            "type": "parent",
-            "id": "25873"
+            "type": "instructor",
+            "id": "31877"
           }
         }
       }
     },
     {
+      "type": "tag",
+      "id": "79637",
+      "attributes": {
+        "tag": "rock play-alongs",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79638",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79639",
+      "attributes": {
+        "tag": "intermediate",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79640",
+      "attributes": {
+        "tag": "4",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79641",
+      "attributes": {
+        "tag": "another punk song",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79642",
+      "attributes": {
+        "tag": "165",
+        "position": 6
+      }
+    },
+    {
       "type": "contentData",
-      "id": "3855",
+      "id": "2772",
       "attributes": {
         "key": "description",
         "value": "",
@@ -3640,314 +4668,228 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "contentData",
-      "id": "8164",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-1f.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8165",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-1s.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8166",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-seven-stroke-rolls-1.png",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8167",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-2f.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8168",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-2s.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8169",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-seven-stroke-rolls-2.png",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8170",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-3f.mp3",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8171",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-3s.mp3",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8172",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-seven-stroke-rolls-3.png",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8173",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-4f.mp3",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8174",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-4s.mp3",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8175",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-seven-stroke-rolls-4.png",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8176",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-5f.mp3",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8177",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-5s.mp3",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8178",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-seven-stroke-rolls-5.png",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8179",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-6f.mp3",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8180",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-6s.mp3",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8181",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-seven-stroke-rolls-6.png",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8182",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-7f.mp3",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8183",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-7s.mp3",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8184",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-seven-stroke-rolls-7.png",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8185",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-8f.mp3",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8186",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-03-8s.mp3",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8187",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-seven-stroke-rolls-8.png",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8188",
+      "id": "11945",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2441_thumbnail_360p.jpg",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/20178_thumbnail_360p.jpg",
         "position": 1
       }
     },
     {
       "type": "contentData",
-      "id": "56996",
+      "id": "24934",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa085-sing-this-song-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28488",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515146237-drumeo-pa085-sing-this-song.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52473",
       "attributes": {
         "key": "resource_name",
         "value": "Sheet Music PDF",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56997",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/pdfs/bds-13-03.pdf",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73876",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457732042_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85797",
-      "attributes": {
-        "tag": "bass drum",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85798",
-      "attributes": {
-        "tag": "rudiments",
-        "position": 2
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85799",
-      "attributes": {
-        "tag": "beats",
         "position": 3
       }
     },
     {
-      "type": "tag",
-      "id": "85800",
+      "type": "contentData",
+      "id": "52475",
       "attributes": {
-        "tag": "jared falk",
-        "position": 4
+        "key": "resource_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa085-sing-this-song.pdf",
+        "position": 3
       }
     },
     {
-      "type": "tag",
-      "id": "85801",
+      "type": "contentData",
+      "id": "52477",
       "attributes": {
-        "tag": "double stroke rudiments",
-        "position": 5
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
       }
     },
     {
-      "type": "parent",
-      "id": "1444",
+      "type": "contentData",
+      "id": "52479",
       "attributes": {
-        "child_position": 3
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/sing-this-song/sing-this-song-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52480",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52482",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/sing-this-song/sing-this-song-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52483",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/sing-this-song/sing-this-song-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52485",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/sing-this-song/sing-this-song-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52486",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/sing-this-song/sing-this-song-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52488",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/sing-this-song/sing-this-song-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72537",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://i.vimeocdn.com/video/468210481_640x360.jpg?r=pad",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "7101",
+      "attributes": {
+        "position": 1
       },
       "relationships": {
-        "parent": {
+        "instructor": {
           "data": {
-            "type": "parent",
-            "id": "25873"
+            "type": "instructor",
+            "id": "31892"
           }
         }
       }
     },
     {
+      "type": "tag",
+      "id": "79571",
+      "attributes": {
+        "tag": "pop play-alongs",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79572",
+      "attributes": {
+        "tag": "beginner",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79573",
+      "attributes": {
+        "tag": "jai es",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79574",
+      "attributes": {
+        "tag": "3",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79575",
+      "attributes": {
+        "tag": "alternative",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79576",
+      "attributes": {
+        "tag": "vocals",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79577",
+      "attributes": {
+        "tag": "vocal",
+        "position": 7
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79578",
+      "attributes": {
+        "tag": "93",
+        "position": 8
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79579",
+      "attributes": {
+        "tag": "sing this song",
+        "position": 9
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79580",
+      "attributes": {
+        "tag": "dirk kennedy",
+        "position": 10
+      }
+    },
+    {
       "type": "contentData",
-      "id": "3856",
+      "id": "2771",
       "attributes": {
         "key": "description",
         "value": "",
@@ -3956,287 +4898,212 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "contentData",
-      "id": "8190",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-04-1f.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8191",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-04-1s.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8192",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-nine-stroke-rolls-1.png",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8193",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-04-2f.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8194",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-04-2s.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8195",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-nine-stroke-rolls-2.png",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8196",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-04-3f.mp3",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8197",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-04-3s.mp3",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8198",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-nine-stroke-rolls-3.png",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8199",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-04-4f.mp3",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8200",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-04-4s.mp3",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8201",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-nine-stroke-rolls-5.png",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8202",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-04-5f.mp3",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8203",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-04-5s.mp3",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8204",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-nine-stroke-rolls-6.png",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8205",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-04-6f.mp3",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8206",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-04-6s.mp3",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8207",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-nine-stroke-rolls-7.png",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8208",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-04-7f.mp3",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8209",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-04-7s.mp3",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8210",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-nine-stroke-rolls-8.png",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8211",
+      "id": "12016",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2444_thumbnail_360p.jpg",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/play-alongs/1080/drumeo-pa-alternative.jpg",
         "position": 1
       }
     },
     {
       "type": "contentData",
-      "id": "56994",
+      "id": "24935",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa086-mirage-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24936",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa086-mirage-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28487",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515146189-drumeo-pa086-mirage.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52458",
       "attributes": {
         "key": "resource_name",
         "value": "Sheet Music PDF",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56995",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/pdfs/bds-13-04.pdf",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73875",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457731862_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85792",
-      "attributes": {
-        "tag": "bass drum",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85793",
-      "attributes": {
-        "tag": "rudiments",
-        "position": 2
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85794",
-      "attributes": {
-        "tag": "beats",
         "position": 3
       }
     },
     {
-      "type": "tag",
-      "id": "85795",
+      "type": "contentData",
+      "id": "52459",
       "attributes": {
-        "tag": "jared falk",
-        "position": 4
+        "key": "resource_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa086-mirage.pdf",
+        "position": 3
       }
     },
     {
-      "type": "tag",
-      "id": "85796",
+      "type": "contentData",
+      "id": "52461",
       "attributes": {
-        "tag": "double stroke rudiments",
-        "position": 5
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
       }
     },
     {
-      "type": "parent",
-      "id": "1445",
+      "type": "contentData",
+      "id": "52463",
       "attributes": {
-        "child_position": 4
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/mirage/mirage-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52464",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52466",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/mirage/mirage-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52467",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/mirage/mirage-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52469",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/mirage/mirage-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52470",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/mirage/mirage-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52472",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/mirage/mirage-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "7079",
+      "attributes": {
+        "position": 1
       },
       "relationships": {
-        "parent": {
+        "instructor": {
           "data": {
-            "type": "parent",
-            "id": "25873"
+            "type": "instructor",
+            "id": "31877"
           }
         }
       }
     },
     {
+      "type": "tag",
+      "id": "79381",
+      "attributes": {
+        "tag": "rock play-alongs",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79382",
+      "attributes": {
+        "tag": "pop play-alongs",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79383",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79384",
+      "attributes": {
+        "tag": "beginner",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79385",
+      "attributes": {
+        "tag": "3",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79386",
+      "attributes": {
+        "tag": "9/4",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79387",
+      "attributes": {
+        "tag": "alternative",
+        "position": 7
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79388",
+      "attributes": {
+        "tag": "mirage",
+        "position": 8
+      }
+    },
+    {
       "type": "contentData",
-      "id": "3857",
+      "id": "2770",
       "attributes": {
         "key": "description",
         "value": "",
@@ -4245,314 +5112,237 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "contentData",
-      "id": "8213",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-1f.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8214",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-1s.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8215",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-eleven-stroke-rolls-1.png",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8216",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-2f.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8217",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-2s.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8218",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-eleven-stroke-rolls-2.png",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8219",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-3f.mp3",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8220",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-3s.mp3",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8221",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-eleven-stroke-rolls-3.png",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8222",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-4f.mp3",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8223",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-4s.mp3",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8224",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-eleven-stroke-rolls-4.png",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8225",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-5f.mp3",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8226",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-5s.mp3",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8227",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-eleven-stroke-rolls-5.png",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8228",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-6f.mp3",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8229",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-6s.mp3",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8230",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-eleven-stroke-rolls-6.png",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8231",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-7f.mp3",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8232",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-7s.mp3",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8233",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-eleven-stroke-rolls-7.png",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8234",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-8f.mp3",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8235",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-13-05-8s.mp3",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8236",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/13-rwtf-eleven-stroke-rolls-8.png",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8237",
+      "id": "12078",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2447_thumbnail_360p.jpg",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/20361_thumbnail_360p.jpg",
         "position": 1
       }
     },
     {
       "type": "contentData",
-      "id": "56992",
+      "id": "24937",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa087-im-alive-she-said-no-click-2.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24938",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa087-im-alive-she-said-click-2.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "31283",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515757111-drumeo-pa087-im-alive-she-said.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52441",
       "attributes": {
         "key": "resource_name",
         "value": "Sheet Music PDF",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56993",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/pdfs/bds-13-05.pdf",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73874",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457732266_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85787",
-      "attributes": {
-        "tag": "bass drum",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85788",
-      "attributes": {
-        "tag": "rudiments",
-        "position": 2
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85789",
-      "attributes": {
-        "tag": "beats",
         "position": 3
       }
     },
     {
-      "type": "tag",
-      "id": "85790",
+      "type": "contentData",
+      "id": "52443",
       "attributes": {
-        "tag": "jared falk",
-        "position": 4
+        "key": "resource_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515757118-drumeo-pa087-im-alive-she-said.pdf",
+        "position": 3
       }
     },
     {
-      "type": "tag",
-      "id": "85791",
+      "type": "contentData",
+      "id": "52445",
       "attributes": {
-        "tag": "double stroke rudiments",
-        "position": 5
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
       }
     },
     {
-      "type": "parent",
-      "id": "1446",
+      "type": "contentData",
+      "id": "52447",
       "attributes": {
-        "child_position": 5
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/im-alive-she-said/im-alive-she-said-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52448",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52450",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/im-alive-she-said/im-alive-she-said-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52451",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/im-alive-she-said/im-alive-she-said-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52453",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/im-alive-she-said/im-alive-she-said-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52454",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/im-alive-she-said/im-alive-she-said-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52456",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/im-alive-she-said/im-alive-she-said-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72512",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://i.vimeocdn.com/video/466662975_640x360.jpg?r=pad",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "7057",
+      "attributes": {
+        "position": 1
       },
       "relationships": {
-        "parent": {
+        "instructor": {
           "data": {
-            "type": "parent",
-            "id": "25873"
+            "type": "instructor",
+            "id": "31877"
           }
         }
       }
     },
     {
+      "type": "tag",
+      "id": "79162",
+      "attributes": {
+        "tag": "rock play-alongs",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79163",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79164",
+      "attributes": {
+        "tag": "intermediate",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79165",
+      "attributes": {
+        "tag": "6",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79166",
+      "attributes": {
+        "tag": "i'm",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79167",
+      "attributes": {
+        "tag": "im alive she said",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79168",
+      "attributes": {
+        "tag": "yuca",
+        "position": 7
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79169",
+      "attributes": {
+        "tag": "vocals",
+        "position": 8
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79170",
+      "attributes": {
+        "tag": "vocal",
+        "position": 9
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79171",
+      "attributes": {
+        "tag": "134",
+        "position": 10
+      }
+    },
+    {
       "type": "contentData",
-      "id": "3858",
+      "id": "2769",
       "attributes": {
         "key": "description",
         "value": "",
@@ -4561,75 +5351,205 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "contentData",
-      "id": "8239",
+      "id": "12124",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2450_thumbnail_360p.jpg",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/20493_thumbnail_360p.jpg",
         "position": 1
       }
     },
     {
       "type": "contentData",
-      "id": "56990",
+      "id": "24939",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa088-smooth-rock-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24940",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa088-smooth-rock-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28486",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515146119-drumeo-pa088-smooth-rock.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52426",
       "attributes": {
         "key": "resource_name",
         "value": "Sheet Music PDF",
-        "position": 1
+        "position": 3
       }
     },
     {
       "type": "contentData",
-      "id": "56991",
+      "id": "52427",
       "attributes": {
         "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/pdfs/bds-13-06.pdf",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa088-smooth-rock.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52429",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
         "position": 1
       }
     },
     {
       "type": "contentData",
-      "id": "73873",
+      "id": "52431",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/smooth-rock/smooth-rock-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52433",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52434",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/smooth-rock/smooth-rock-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52436",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/smooth-rock/smooth-rock-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52437",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/smooth-rock/smooth-rock-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52438",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/smooth-rock/smooth-rock-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52440",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/smooth-rock/smooth-rock-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72501",
       "attributes": {
         "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457732390_640x360.jpg?r=pad",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/play-alongs/550/drumeo-pa-rock.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "7040",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31887"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79000",
+      "attributes": {
+        "tag": "rock play-alongs",
         "position": 1
       }
     },
     {
       "type": "tag",
-      "id": "85783",
+      "id": "79001",
       "attributes": {
-        "tag": "bass drum",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85784",
-      "attributes": {
-        "tag": "rudiments",
+        "tag": "beginner",
         "position": 2
       }
     },
     {
       "type": "tag",
-      "id": "85785",
+      "id": "79002",
       "attributes": {
-        "tag": "flam rudiments",
+        "tag": "issah contractor",
         "position": 3
       }
     },
     {
       "type": "tag",
-      "id": "85786",
+      "id": "79003",
       "attributes": {
-        "tag": "jared falk",
+        "tag": "2",
         "position": 4
       }
     },
     {
+      "type": "tag",
+      "id": "79004",
+      "attributes": {
+        "tag": "smooth",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "79005",
+      "attributes": {
+        "tag": "80",
+        "position": 6
+      }
+    },
+    {
       "type": "parent",
-      "id": "1447",
+      "id": "2800",
       "attributes": {
         "child_position": 6
       },
@@ -4637,14 +5557,14 @@ $rc1 = <<<'EOT'
         "parent": {
           "data": {
             "type": "parent",
-            "id": "25873"
+            "id": "28164"
           }
         }
       }
     },
     {
       "type": "contentData",
-      "id": "3860",
+      "id": "2768",
       "attributes": {
         "key": "description",
         "value": "",
@@ -4653,1549 +5573,658 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "contentData",
-      "id": "8241",
+      "id": "12259",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2453_thumbnail_360p.jpg",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/20657_thumbnail_360p.jpg",
         "position": 1
       }
     },
     {
       "type": "contentData",
-      "id": "56988",
+      "id": "24955",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa089-bossa-nova-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24956",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa089-bossa-nova-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28485",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515146089-drumeo-pa089-bossa-nova.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52410",
       "attributes": {
         "key": "resource_name",
         "value": "Sheet Music PDF",
-        "position": 1
+        "position": 3
       }
     },
     {
       "type": "contentData",
-      "id": "56989",
+      "id": "52411",
       "attributes": {
         "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/pdfs/bds-14-01.pdf",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa089-bossa-nova.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52413",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
         "position": 1
       }
     },
     {
       "type": "contentData",
-      "id": "73872",
+      "id": "52415",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/bossa-nova/bossa-nova-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52417",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52418",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/bossa-nova/bossa-nova-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52420",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/bossa-nova/bossa-nova-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52421",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/bossa-nova/bossa-nova-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52423",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/bossa-nova/bossa-nova-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52424",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/bossa-nova/bossa-nova-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72458",
       "attributes": {
         "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457733380_640x360.jpg?r=pad",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/play-alongs/550/drumeo-pa-latin.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "7018",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31878"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "78177",
+      "attributes": {
+        "tag": "mike michalkow",
         "position": 1
       }
     },
     {
       "type": "tag",
-      "id": "85780",
+      "id": "78178",
       "attributes": {
-        "tag": "fills",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85781",
-      "attributes": {
-        "tag": "linear drumming",
+        "tag": "latin play-alongs",
         "position": 2
       }
     },
     {
       "type": "tag",
-      "id": "85782",
+      "id": "78179",
+      "attributes": {
+        "tag": "beginner",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "78180",
+      "attributes": {
+        "tag": "latin",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "78181",
+      "attributes": {
+        "tag": "3",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "78182",
+      "attributes": {
+        "tag": "bossa nova",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "78183",
+      "attributes": {
+        "tag": "world",
+        "position": 7
+      }
+    },
+    {
+      "type": "tag",
+      "id": "78184",
+      "attributes": {
+        "tag": "brazil",
+        "position": 8
+      }
+    },
+    {
+      "type": "tag",
+      "id": "78185",
+      "attributes": {
+        "tag": "brazilian",
+        "position": 9
+      }
+    },
+    {
+      "type": "tag",
+      "id": "78186",
+      "attributes": {
+        "tag": "130",
+        "position": 10
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2767",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "12418",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/play-alongs/1080/drumeo-pa-rock.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24969",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa090-slow-rockin-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24970",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa090-slow-rockin-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28484",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515146055-drumeo-pa090-slow-rockin.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52393",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Sheet Music PDF",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52395",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa090-slow-rockin.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52397",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52398",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/slow-rockin/slow-rockin-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52400",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52402",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/slow-rockin/slow-rockin-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52403",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/slow-rockin/slow-rockin-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52405",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/slow-rockin/slow-rockin-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52407",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/slow-rockin/slow-rockin-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52408",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/slow-rockin/slow-rockin-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6988",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "77437",
+      "attributes": {
+        "tag": "rockin'",
+        "position": 7
+      }
+    },
+    {
+      "type": "tag",
+      "id": "77438",
+      "attributes": {
+        "tag": "rock play-alongs",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "77439",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "77440",
+      "attributes": {
+        "tag": "beginner",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "77441",
+      "attributes": {
+        "tag": "2",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "77442",
+      "attributes": {
+        "tag": "80",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "77443",
+      "attributes": {
+        "tag": "slow rocking",
+        "position": 6
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2766",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "12507",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/21049_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24975",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/you-belong-with-the-drums-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24976",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/you-belong-with-the-drums-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28498",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515148083-drumeo-pa091-you-belong-with-the-drums.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52378",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Sheet Music PDF",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52379",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa091-you-belong-with-the-drums.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52381",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52383",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/you-belong-with-the-drums/you-belong-with-the-drums-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52384",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52386",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/you-belong-with-the-drums/you-belong-with-the-drums-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52387",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/you-belong-with-the-drums/you-belong-with-the-drums-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52389",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/you-belong-with-the-drums/you-belong-with-the-drums-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52390",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/you-belong-with-the-drums/you-belong-with-the-drums-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52392",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/you-belong-with-the-drums/you-belong-with-the-drums-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72387",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/play-alongs/1080/drumeo-pa-alternative.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6970",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31880"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "76988",
+      "attributes": {
+        "tag": "pop play-alongs",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "76989",
       "attributes": {
         "tag": "jared falk",
-        "position": 3
-      }
-    },
-    {
-      "type": "parent",
-      "id": "1449",
-      "attributes": {
-        "child_position": 1
-      },
-      "relationships": {
-        "parent": {
-          "data": {
-            "type": "parent",
-            "id": "25874"
-          }
-        }
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "3861",
-      "attributes": {
-        "key": "description",
-        "value": "",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8243",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-dave-atkinsons-hand-to-feet-combos-1.png",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8244",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-dave-atkinsons-hand-to-feet-combos-2.png",
         "position": 2
       }
     },
     {
-      "type": "contentData",
-      "id": "8245",
+      "type": "tag",
+      "id": "76990",
       "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-dave-atkinsons-hand-to-feet-combos-3.png",
+        "tag": "beginner",
         "position": 3
       }
     },
     {
-      "type": "contentData",
-      "id": "8246",
+      "type": "tag",
+      "id": "76991",
       "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-dave-atkinsons-hand-to-feet-combos-4.png",
+        "tag": "3",
         "position": 4
       }
     },
     {
-      "type": "contentData",
-      "id": "8247",
+      "type": "tag",
+      "id": "76992",
       "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-dave-atkinsons-hand-to-feet-combos-5.png",
+        "tag": "alternative",
         "position": 5
       }
     },
     {
-      "type": "contentData",
-      "id": "8248",
+      "type": "tag",
+      "id": "76993",
       "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-dave-atkinsons-hand-to-feet-combos-6.png",
+        "tag": "127",
         "position": 6
       }
     },
     {
-      "type": "contentData",
-      "id": "8249",
+      "type": "tag",
+      "id": "76994",
       "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-dave-atkinsons-hand-to-feet-combos-7.png",
+        "tag": "you belong with drums",
         "position": 7
       }
     },
     {
-      "type": "contentData",
-      "id": "8250",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-dave-atkinsons-hand-to-feet-combos-8.png",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8251",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-dave-atkinsons-hand-to-feet-combos-9.png",
-        "position": 9
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8252",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-dave-atkinsons-hand-to-feet-combos-10.png",
-        "position": 10
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8253",
-      "attributes": {
-        "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2457_thumbnail_360p.jpg",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56986",
-      "attributes": {
-        "key": "resource_name",
-        "value": "Sheet Music PDF",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56987",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/pdfs/bds-14-02.pdf",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73871",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457733571_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85777",
-      "attributes": {
-        "tag": "fills",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85778",
-      "attributes": {
-        "tag": "linear drumming",
-        "position": 2
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85779",
-      "attributes": {
-        "tag": "dave atkinson",
-        "position": 3
-      }
-    },
-    {
       "type": "parent",
-      "id": "1450",
-      "attributes": {
-        "child_position": 2
-      },
-      "relationships": {
-        "parent": {
-          "data": {
-            "type": "parent",
-            "id": "25874"
-          }
-        }
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "3862",
-      "attributes": {
-        "key": "description",
-        "value": "",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8255",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-1f.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8256",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-1s.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8257",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-sean-langs-hand-to-feet-combos-1.png",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8258",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-2f.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8259",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-2s.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8260",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-sean-langs-hand-to-feet-combos-2.png",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8261",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-3f.mp3",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8262",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-3s.mp3",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8263",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-sean-langs-hand-to-feet-combos-3.png",
-        "position": 3
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8264",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-4f.mp3",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8265",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-4s.mp3",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8266",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-sean-langs-hand-to-feet-combos-4.png",
-        "position": 4
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8267",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-5f.mp3",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8268",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-5s.mp3",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8269",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-sean-langs-hand-to-feet-combos-5.png",
-        "position": 5
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8270",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-6f.mp3",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8271",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-6s.mp3",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8272",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-sean-langs-hand-to-feet-combos-6.png",
-        "position": 6
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8273",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-7f.mp3",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8274",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-7s.mp3",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8275",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-sean-langs-hand-to-feet-combos-7.png",
-        "position": 7
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8276",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-8f.mp3",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8277",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-8s.mp3",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8278",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-sean-langs-hand-to-feet-combos-8.png",
-        "position": 8
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8279",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-9f.mp3",
-        "position": 9
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8280",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-9s.mp3",
-        "position": 9
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8281",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-sean-langs-hand-to-feet-combos-9.png",
-        "position": 9
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8282",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-10f.mp3",
-        "position": 10
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8283",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-10s.mp3",
-        "position": 10
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8284",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-sean-langs-hand-to-feet-combos-10.png",
-        "position": 10
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8285",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-11f.mp3",
-        "position": 11
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8286",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-11s.mp3",
-        "position": 11
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8287",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-sean-langs-hand-to-feet-combos-11.png",
-        "position": 11
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8288",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-12f.mp3",
-        "position": 12
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8289",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-12s.mp3",
-        "position": 12
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8290",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-sean-langs-hand-to-feet-combos-12.png",
-        "position": 12
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8291",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-13f.mp3",
-        "position": 13
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8292",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-13s.mp3",
-        "position": 13
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8293",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-sean-langs-hand-to-feet-combos-13.png",
-        "position": 13
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8294",
-      "attributes": {
-        "key": "smart_beat_fast_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-14f.mp3",
-        "position": 14
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8295",
-      "attributes": {
-        "key": "smart_beat_slow_bpm_mp3_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/mp3s/bds-14-03-14s.mp3",
-        "position": 14
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8296",
-      "attributes": {
-        "key": "smart_beat_sheet_music_image_url",
-        "value": "http://s3.amazonaws.com/drumeosecure/03-bass-drum-secrets/images/14-htfc-sean-langs-hand-to-feet-combos-14.png",
-        "position": 14
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8297",
-      "attributes": {
-        "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2459_thumbnail_360p.jpg",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56984",
-      "attributes": {
-        "key": "resource_name",
-        "value": "Sheet Music PDF",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56985",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/pdfs/bds-14-03.pdf",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73870",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457733888_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85774",
-      "attributes": {
-        "tag": "fills",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85775",
-      "attributes": {
-        "tag": "linear drumming",
-        "position": 2
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85776",
-      "attributes": {
-        "tag": "sean lang",
-        "position": 3
-      }
-    },
-    {
-      "type": "parent",
-      "id": "1451",
-      "attributes": {
-        "child_position": 3
-      },
-      "relationships": {
-        "parent": {
-          "data": {
-            "type": "parent",
-            "id": "25874"
-          }
-        }
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "3864",
-      "attributes": {
-        "key": "description",
-        "value": "",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8298",
-      "attributes": {
-        "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2462_thumbnail_360p.jpg",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56980",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 Click Track",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56981",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-01-1c.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56982",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 No-Click Track",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56983",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-01-1nc.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73869",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/466852151_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85772",
-      "attributes": {
-        "tag": "rock play-alongs",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85773",
-      "attributes": {
-        "tag": "dave atkinson",
-        "position": 2
-      }
-    },
-    {
-      "type": "parent",
-      "id": "1453",
-      "attributes": {
-        "child_position": 1
-      },
-      "relationships": {
-        "parent": {
-          "data": {
-            "type": "parent",
-            "id": "25875"
-          }
-        }
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "3865",
-      "attributes": {
-        "key": "description",
-        "value": "",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8299",
-      "attributes": {
-        "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2464_thumbnail_360p.jpg",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56976",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 Click Track",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56977",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-02-1c.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56978",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 No-Click Track",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56979",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-02-1nc.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73868",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457733771_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85770",
-      "attributes": {
-        "tag": "rock play-alongs",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85771",
-      "attributes": {
-        "tag": "dave atkinson",
-        "position": 2
-      }
-    },
-    {
-      "type": "parent",
-      "id": "1454",
-      "attributes": {
-        "child_position": 2
-      },
-      "relationships": {
-        "parent": {
-          "data": {
-            "type": "parent",
-            "id": "25875"
-          }
-        }
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "3866",
-      "attributes": {
-        "key": "description",
-        "value": "",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8300",
-      "attributes": {
-        "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2468_thumbnail_360p.jpg",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56972",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 Click Track",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56973",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-03-1c.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56974",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 No-Click Track",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56975",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-03-1nc.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73867",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457734057_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85768",
-      "attributes": {
-        "tag": "rock play-alongs",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85769",
-      "attributes": {
-        "tag": "dave atkinson",
-        "position": 2
-      }
-    },
-    {
-      "type": "parent",
-      "id": "1455",
-      "attributes": {
-        "child_position": 3
-      },
-      "relationships": {
-        "parent": {
-          "data": {
-            "type": "parent",
-            "id": "25875"
-          }
-        }
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "3867",
-      "attributes": {
-        "key": "description",
-        "value": "",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8301",
-      "attributes": {
-        "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2470_thumbnail_360p.jpg",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56968",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 Click Track",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56969",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-04-1c.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56970",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 No-Click Track",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56971",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-04-1nc.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73866",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457734116_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85766",
-      "attributes": {
-        "tag": "rock play-alongs",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85767",
-      "attributes": {
-        "tag": "dave atkinson",
-        "position": 2
-      }
-    },
-    {
-      "type": "parent",
-      "id": "1456",
-      "attributes": {
-        "child_position": 4
-      },
-      "relationships": {
-        "parent": {
-          "data": {
-            "type": "parent",
-            "id": "25875"
-          }
-        }
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "3868",
-      "attributes": {
-        "key": "description",
-        "value": "",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8302",
-      "attributes": {
-        "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2472_thumbnail_360p.jpg",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56964",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 Click Track",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56965",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-05-1c.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56966",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 No-Click Track",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56967",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-05-1nc.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73865",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457734296_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85764",
-      "attributes": {
-        "tag": "rock play-alongs",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85765",
-      "attributes": {
-        "tag": "dave atkinson",
-        "position": 2
-      }
-    },
-    {
-      "type": "parent",
-      "id": "1457",
-      "attributes": {
-        "child_position": 5
-      },
-      "relationships": {
-        "parent": {
-          "data": {
-            "type": "parent",
-            "id": "25875"
-          }
-        }
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "3869",
-      "attributes": {
-        "key": "description",
-        "value": "",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8303",
-      "attributes": {
-        "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2475_thumbnail_360p.jpg",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56960",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 Click Track",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56961",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-06-1c.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56962",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 No-Click Track",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56963",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-06-1nc.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73864",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457734363_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85762",
-      "attributes": {
-        "tag": "rock play-alongs",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85763",
-      "attributes": {
-        "tag": "dave atkinson",
-        "position": 2
-      }
-    },
-    {
-      "type": "parent",
-      "id": "1458",
-      "attributes": {
-        "child_position": 6
-      },
-      "relationships": {
-        "parent": {
-          "data": {
-            "type": "parent",
-            "id": "25875"
-          }
-        }
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "3870",
-      "attributes": {
-        "key": "description",
-        "value": "",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8304",
-      "attributes": {
-        "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2477_thumbnail_360p.jpg",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56956",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 Click Track",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56957",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-07-1c.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56958",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 No-Click Track",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56959",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-07-1nc.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73863",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457734465_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85760",
-      "attributes": {
-        "tag": "rock play-alongs",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85761",
-      "attributes": {
-        "tag": "dave atkinson",
-        "position": 2
-      }
-    },
-    {
-      "type": "parent",
-      "id": "1459",
-      "attributes": {
-        "child_position": 7
-      },
-      "relationships": {
-        "parent": {
-          "data": {
-            "type": "parent",
-            "id": "25875"
-          }
-        }
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "3871",
-      "attributes": {
-        "key": "description",
-        "value": "",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8305",
-      "attributes": {
-        "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2479_thumbnail_360p.jpg",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56952",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 Click Track",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56953",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-08-1c.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56954",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 No-Click Track",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56955",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-08-1nc.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73862",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457734499_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85758",
-      "attributes": {
-        "tag": "rock play-alongs",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85759",
-      "attributes": {
-        "tag": "dave atkinson",
-        "position": 2
-      }
-    },
-    {
-      "type": "parent",
-      "id": "1460",
-      "attributes": {
-        "child_position": 8
-      },
-      "relationships": {
-        "parent": {
-          "data": {
-            "type": "parent",
-            "id": "25875"
-          }
-        }
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "3872",
-      "attributes": {
-        "key": "description",
-        "value": "",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8306",
-      "attributes": {
-        "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2482_thumbnail_360p.jpg",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56948",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 Click Track",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56949",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-09-1c.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56950",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 No-Click Track",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56951",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-09-1nc.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73861",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457734565_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85756",
-      "attributes": {
-        "tag": "rock play-alongs",
-        "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85757",
-      "attributes": {
-        "tag": "dave atkinson",
-        "position": 2
-      }
-    },
-    {
-      "type": "parent",
-      "id": "1461",
+      "id": "2775",
       "attributes": {
         "child_position": 9
       },
@@ -6203,14 +6232,14 @@ $rc1 = <<<'EOT'
         "parent": {
           "data": {
             "type": "parent",
-            "id": "25875"
+            "id": "28162"
           }
         }
       }
     },
     {
       "type": "contentData",
-      "id": "3873",
+      "id": "2765",
       "attributes": {
         "key": "description",
         "value": "",
@@ -6219,155 +6248,157 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "contentData",
-      "id": "8307",
+      "id": "12579",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2485_thumbnail_360p.jpg",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/21139_thumbnail_360p.jpg",
         "position": 1
       }
     },
     {
       "type": "contentData",
-      "id": "56944",
+      "id": "24979",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa092-metal-life-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24980",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa092-metal-life-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28497",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515148053-drumeo-pa092-metal-life.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52362",
       "attributes": {
         "key": "resource_name",
-        "value": "MP3 Click Track",
+        "value": "Sheet Music PDF",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52363",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa092-metal-life.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52365",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52367",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/metal-life/metal-life-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52368",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
         "position": 2
       }
     },
     {
       "type": "contentData",
-      "id": "56945",
+      "id": "52370",
       "attributes": {
         "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-10-1c.mp3",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/metal-life/metal-life-drums-false-click-false.mp3",
         "position": 2
       }
     },
     {
       "type": "contentData",
-      "id": "56946",
+      "id": "52372",
       "attributes": {
-        "key": "resource_name",
-        "value": "MP3 No-Click Track",
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/metal-life/metal-life-drums-false-click-false.mp3",
         "position": 1
       }
     },
     {
       "type": "contentData",
-      "id": "56947",
+      "id": "52373",
       "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-10-1nc.mp3",
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/metal-life/metal-life-drums-true-click-false.mp3",
         "position": 1
       }
     },
     {
       "type": "contentData",
-      "id": "73860",
+      "id": "52375",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/metal-life/metal-life-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52376",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/metal-life/metal-life-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72364",
       "attributes": {
         "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457734668_640x360.jpg?r=pad",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/play-alongs/1080/drumeo-pa-metal.jpg",
         "position": 1
       }
     },
     {
-      "type": "tag",
-      "id": "85754",
+      "type": "instructor",
+      "id": "6953",
       "attributes": {
-        "tag": "rock play-alongs",
         "position": 1
-      }
-    },
-    {
-      "type": "tag",
-      "id": "85755",
-      "attributes": {
-        "tag": "dave atkinson",
-        "position": 2
-      }
-    },
-    {
-      "type": "parent",
-      "id": "1462",
-      "attributes": {
-        "child_position": 10
       },
       "relationships": {
-        "parent": {
+        "instructor": {
           "data": {
-            "type": "parent",
-            "id": "25875"
+            "type": "instructor",
+            "id": "31896"
           }
         }
       }
     },
     {
-      "type": "contentData",
-      "id": "3874",
-      "attributes": {
-        "key": "description",
-        "value": "",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "8308",
-      "attributes": {
-        "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/2488_thumbnail_360p.jpg",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56940",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 Click Track",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56941",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-11-1c.mp3",
-        "position": 2
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56942",
-      "attributes": {
-        "key": "resource_name",
-        "value": "MP3 No-Click Track",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "56943",
-      "attributes": {
-        "key": "resource_url",
-        "value": "https://dz5i3s4prcfun.cloudfront.net/03-bass-drum-secrets/mp3s/bds-15-11-1nc.mp3",
-        "position": 1
-      }
-    },
-    {
-      "type": "contentData",
-      "id": "73859",
-      "attributes": {
-        "key": "original_thumbnail_url",
-        "value": "https://i.vimeocdn.com/video/457734676_640x360.jpg?r=pad",
-        "position": 1
-      }
-    },
-    {
       "type": "tag",
-      "id": "85752",
+      "id": "76561",
       "attributes": {
         "tag": "metal play-alongs",
         "position": 1
@@ -6375,42 +6406,1928 @@ $rc1 = <<<'EOT'
     },
     {
       "type": "tag",
-      "id": "85753",
+      "id": "76562",
+      "attributes": {
+        "tag": "intermediate",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "76563",
+      "attributes": {
+        "tag": "ash pearson",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "76564",
+      "attributes": {
+        "tag": "5",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "76565",
+      "attributes": {
+        "tag": "150",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "76566",
+      "attributes": {
+        "tag": "metal life",
+        "position": 6
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2764",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "12637",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/play-alongs/1080/drumeo-pa-gospel.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24981",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa093-got-soul-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24982",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa093-got-soul-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28496",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515148020-drumeo-pa093-got-soul.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52345",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Sheet Music PDF",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52347",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa093-got-soul.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52349",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52351",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/got-soul/got-soul-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52353",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52354",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/got-soul/got-soul-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52356",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/got-soul/got-soul-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52357",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/got-soul/got-soul-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52359",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/got-soul/got-soul-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52360",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/got-soul/got-soul-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6937",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31887"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "76363",
+      "attributes": {
+        "tag": "intermediate",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "76364",
+      "attributes": {
+        "tag": "issah contractor",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "76365",
+      "attributes": {
+        "tag": "gospel play-alongs",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "76366",
+      "attributes": {
+        "tag": "6",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "76367",
+      "attributes": {
+        "tag": "100",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "76368",
+      "attributes": {
+        "tag": "got soul",
+        "position": 6
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2763",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "12725",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/play-alongs/1080/drumeo-pa-rock.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24987",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa094-a-drummers-offspring-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24988",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa094-a-drummers-offspring-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28495",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515147985-drumeo-pa094-a-drummers-offspring.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52330",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Sheet Music PDF",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52331",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa094-a-drummers-offspring.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52333",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52335",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/a-drummers-offspring/a-drummers-offspring-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52336",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52338",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/a-drummers-offspring/a-drummers-offspring-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52339",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/a-drummers-offspring/a-drummers-offspring-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52340",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/a-drummers-offspring/a-drummers-offspring-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52342",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/a-drummers-offspring/a-drummers-offspring-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52344",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/a-drummers-offspring/a-drummers-offspring-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6920",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31886"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75847",
+      "attributes": {
+        "tag": "rock play-alongs",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75848",
+      "attributes": {
+        "tag": "chris warunki",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75849",
+      "attributes": {
+        "tag": "beginner",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75850",
+      "attributes": {
+        "tag": "3",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75851",
+      "attributes": {
+        "tag": "112",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75852",
+      "attributes": {
+        "tag": "a drummers",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75853",
+      "attributes": {
+        "tag": "drummer's offspring",
+        "position": 7
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2762",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "12814",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/21439_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24995",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa095-party-drumming-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "24996",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa095-party-drumming-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28494",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515147960-drumeo-pa095-party-drumming.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52313",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Sheet Music PDF",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52315",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa095-party-drumming.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52317",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52319",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/party-drumming/party-drumming-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52320",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52322",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/party-drumming/party-drumming-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52323",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/party-drumming/party-drumming-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52325",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/party-drumming/party-drumming-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52326",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/party-drumming/party-drumming-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52328",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/party-drumming/party-drumming-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72296",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/play-alongs/1080/drumeo-pa-electronic.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75399",
+      "attributes": {
+        "tag": "beginner",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75400",
+      "attributes": {
+        "tag": "electronic music play-alongs",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75401",
+      "attributes": {
+        "tag": "4",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75402",
+      "attributes": {
+        "tag": "127",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75403",
+      "attributes": {
+        "tag": "party drumming",
+        "position": 5
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2761",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "12888",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/21540_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "25001",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa096-omnisight-string-theory-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "25002",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa096-omnisight-string-theory-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "31284",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515757194-drumeo-pa096-string-theory.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52298",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Sheet Music PDF",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52300",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515757188-drumeo-pa096-string-theory.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52302",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52303",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/omnisight-string-theory/omnisight-string-theory-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52305",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52306",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/omnisight-string-theory/omnisight-string-theory-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52307",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/omnisight-string-theory/omnisight-string-theory-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52309",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/omnisight-string-theory/omnisight-string-theory-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52310",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/omnisight-string-theory/omnisight-string-theory-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52312",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/omnisight-string-theory/omnisight-string-theory-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72270",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/play-alongs/550/drumeo-pa-progressive.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6883",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31886"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75003",
+      "attributes": {
+        "tag": "chris warunki",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75004",
+      "attributes": {
+        "tag": "intermediate",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75005",
+      "attributes": {
+        "tag": "5",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75006",
+      "attributes": {
+        "tag": "progressive play-alongs",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75007",
+      "attributes": {
+        "tag": "120",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75008",
+      "attributes": {
+        "tag": "string theory",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "75009",
+      "attributes": {
+        "tag": "omnisight",
+        "position": 7
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2760",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "12944",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/21623_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "25005",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa097-billy-jane-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "25006",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa097-billy-jane-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28493",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515147883-drumeo-pa097-billy-jane.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52282",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Sheet Music PDF",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52284",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa097-billy-jane.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52286",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52287",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/billy-jane/billy-jane-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52289",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52291",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/billy-jane/billy-jane-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52292",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/billy-jane/billy-jane-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52294",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/billy-jane/billy-jane-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52295",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/billy-jane/billy-jane-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52297",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/billy-jane/billy-jane-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72252",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/play-alongs/1080/drumeo-pa-funk.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6867",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74751",
+      "attributes": {
+        "tag": "funk play-alongs",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74752",
       "attributes": {
         "tag": "dave atkinson",
         "position": 2
       }
     },
     {
-      "type": "parent",
-      "id": "1463",
+      "type": "tag",
+      "id": "74753",
       "attributes": {
-        "child_position": 11
+        "tag": "beginner",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74754",
+      "attributes": {
+        "tag": "1",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74755",
+      "attributes": {
+        "tag": "easy",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74756",
+      "attributes": {
+        "tag": "112",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74757",
+      "attributes": {
+        "tag": "billy jane",
+        "position": 7
+      }
+    },
+    {
+      "type": "parent",
+      "id": "2818",
+      "attributes": {
+        "child_position": 5
       },
       "relationships": {
         "parent": {
           "data": {
             "type": "parent",
-            "id": "25875"
+            "id": "28165"
           }
         }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2759",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "13011",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/21705_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "25009",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa098-another-drum-on-the-shelf-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "25010",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa098-another-drum-on-the-shelf-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "31285",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515757254-drumeo-pa098-another-drum-on-the-shelf.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52267",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Sheet Music PDF",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52268",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515757260-drumeo-pa098-another-drum-on-the-shelf.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52270",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52272",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/another-drum-on-the-shelf/another-drum-on-the-shelf-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52273",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52275",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/another-drum-on-the-shelf/another-drum-on-the-shelf-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52276",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/another-drum-on-the-shelf/another-drum-on-the-shelf-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52278",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/another-drum-on-the-shelf/another-drum-on-the-shelf-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52279",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/another-drum-on-the-shelf/another-drum-on-the-shelf-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52281",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/another-drum-on-the-shelf/another-drum-on-the-shelf-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72235",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/play-alongs/1080/drumeo-pa-rock.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6853",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31891"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74538",
+      "attributes": {
+        "tag": "rock play-alongs",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74539",
+      "attributes": {
+        "tag": "jay deachman",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74540",
+      "attributes": {
+        "tag": "beginner",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74541",
+      "attributes": {
+        "tag": "2",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74542",
+      "attributes": {
+        "tag": "100",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74543",
+      "attributes": {
+        "tag": "another drum on the shelf",
+        "position": 6
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2758",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "13068",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/21779_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "25013",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa099-sunday-morning-drummin-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "25014",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa099-sunday-morning-drummin-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28500",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515148200-drumeo-pa099-sunday-morning-drummin-1.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52250",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Sheet Music PDF",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52252",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa099-sunday-morning-drummin-1.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52254",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52256",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/sunday-morning-drummin/sunday-morning-drummin-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52258",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52259",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/sunday-morning-drummin/sunday-morning-drummin-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52261",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/sunday-morning-drummin/sunday-morning-drummin-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52262",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/sunday-morning-drummin/sunday-morning-drummin-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52264",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/sunday-morning-drummin/sunday-morning-drummin-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52265",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/sunday-morning-drummin/sunday-morning-drummin-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72217",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/play-alongs/1080/drumeo-pa-gospel.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6836",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31887"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74318",
+      "attributes": {
+        "tag": "intermediate",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74319",
+      "attributes": {
+        "tag": "issah contractor",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74320",
+      "attributes": {
+        "tag": "gospel play-alongs",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74321",
+      "attributes": {
+        "tag": "6",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74322",
+      "attributes": {
+        "tag": "95",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74323",
+      "attributes": {
+        "tag": "sunday morning drumming",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74324",
+      "attributes": {
+        "tag": "drummin'",
+        "position": 7
+      }
+    },
+    {
+      "type": "parent",
+      "id": "2832",
+      "attributes": {
+        "child_position": 6
+      },
+      "relationships": {
+        "parent": {
+          "data": {
+            "type": "parent",
+            "id": "28166"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2757",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "13122",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/21854_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "25015",
+      "attributes": {
+        "key": "mp3_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa100-maybe-we-will-riot-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "25016",
+      "attributes": {
+        "key": "mp3_non_click_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/mp3s/drumeo-pa100-maybe-we-will-riot-no-click.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28499",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/1515148154-drumeo-pa100-maybe-we-will-riot.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52234",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Sheet Music PDF",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52236",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa100-maybe-we-will-riot.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52238",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52239",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/maybe-well-riot/maybe-well-riot-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52241",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52242",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/maybe-well-riot/maybe-well-riot-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52244",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/maybe-well-riot/maybe-well-riot-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52246",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/maybe-well-riot/maybe-well-riot-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52247",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/maybe-well-riot/maybe-well-riot-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "52249",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/maybe-well-riot/maybe-well-riot-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72198",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://i.vimeocdn.com/video/485871654_640x360.jpg?r=pad",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6818",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74028",
+      "attributes": {
+        "tag": "rock play-alongs",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74029",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74030",
+      "attributes": {
+        "tag": "beginner",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74031",
+      "attributes": {
+        "tag": "4",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74032",
+      "attributes": {
+        "tag": "yuca",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74033",
+      "attributes": {
+        "tag": "vocals",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74034",
+      "attributes": {
+        "tag": "vocal",
+        "position": 7
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74035",
+      "attributes": {
+        "tag": "maybe we'll riot",
+        "position": 8
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74036",
+      "attributes": {
+        "tag": "135",
+        "position": 9
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2654",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "18227",
+      "attributes": {
+        "key": "sheet_music_image_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/jpegs/drumeo-pa203-welcome-to-the-bottom.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "18228",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://drumeo.s3.amazonaws.com/card-thumbnails/play-alongs/550/drumeo-pa-metal.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "50615",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Sheet Music PDF",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "50617",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://dz5i3s4prcfun.cloudfront.net/00-archive/play-alongs/pdfs/drumeo-pa203-welcome-to-the-bottom.pdf",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "50619",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 With Click",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "50621",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/welcome-to-the-bottom/welcome-to-the-bottom-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "50622",
+      "attributes": {
+        "key": "resource_name",
+        "value": "MP3 Without Click",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "50624",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/welcome-to-the-bottom/welcome-to-the-bottom-drums-false-click-false.mp3",
+        "position": 2
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "50626",
+      "attributes": {
+        "key": "mp3_no_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/welcome-to-the-bottom/welcome-to-the-bottom-drums-false-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "50627",
+      "attributes": {
+        "key": "mp3_yes_drums_no_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/welcome-to-the-bottom/welcome-to-the-bottom-drums-true-click-false.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "50629",
+      "attributes": {
+        "key": "mp3_no_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/welcome-to-the-bottom/welcome-to-the-bottom-drums-false-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "50630",
+      "attributes": {
+        "key": "mp3_yes_drums_yes_click_url",
+        "value": "https://s3.amazonaws.com/drumeo/play-along-resources/welcome-to-the-bottom/welcome-to-the-bottom-drums-true-click-true.mp3",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5420",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "197816"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52067",
+      "attributes": {
+        "tag": "metal play-alongs",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52068",
+      "attributes": {
+        "tag": "intermediate",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52069",
+      "attributes": {
+        "tag": "5",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52070",
+      "attributes": {
+        "tag": "126",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52071",
+      "attributes": {
+        "tag": "Aaron Levy",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52072",
+      "attributes": {
+        "tag": "welcome to the bottom",
+        "position": 6
       }
     }
   ],
   "meta": {
     "filterOptions": {
-      "topic": [
-        "pop/rock",
-        "jazz",
-        "funk",
-        "metal",
-        "latin",
-        "world",
-        "r&b",
-        "blues",
-        "electronic",
-        "odd time"
-      ],
       "difficulty": [
         "1",
         "10",
@@ -6424,244 +8341,4193 @@ $rc1 = <<<'EOT'
         "9"
       ],
       "bpm": [
-        "50-90",
-        "91-120",
-        "121-150",
-        "151-180",
-        "181+"
+        "100",
+        "102",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "120",
+        "122",
+        "123",
+        "124",
+        "125",
+        "126",
+        "127",
+        "128",
+        "130",
+        "131",
+        "132",
+        "133",
+        "134",
+        "135",
+        "136",
+        "138",
+        "140",
+        "142",
+        "144",
+        "145",
+        "147",
+        "150",
+        "153",
+        "155",
+        "158",
+        "159",
+        "160",
+        "162",
+        "164",
+        "165",
+        "166",
+        "167",
+        "170",
+        "172",
+        "173",
+        "174",
+        "175",
+        "176",
+        "180",
+        "182",
+        "184",
+        "185",
+        "186",
+        "190",
+        "192",
+        "194",
+        "195",
+        "200",
+        "204",
+        "210",
+        "213",
+        "220",
+        "221",
+        "224",
+        "225",
+        "230",
+        "240",
+        "250",
+        "280",
+        "310",
+        "350",
+        "51",
+        "54",
+        "60",
+        "64",
+        "73",
+        "75",
+        "77",
+        "78",
+        "79",
+        "80",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "Multiple",
+        "Various"
       ],
-      "favorites": [
-        "3 Doors Down",
+      "style": [
+        "Alternative",
+        "Blues",
+        "Christmas",
+        "Country",
+        "Electronic",
+        "Funk",
+        "Fusion",
+        "Gospel",
+        "Hip-Hop",
+        "Jazz",
+        "Latin",
+        "Metal",
+        "New Orleans & Second Line",
+        "Odd-Time",
+        "Progressive",
+        "Punk",
+        "Reggae",
+        "Rock",
+        "Shuffle",
+        "Ska",
+        "Vocals",
+        "World"
+      ],
+      "artist": [
         "48May",
-        "AC/DC",
-        "Aerosmith",
         "Alchemy Chamber",
-        "Alice In Chains",
         "Arthur Vyncke",
-        "Audioslave",
-        "Avenged Sevenfold",
-        "B.B. King",
-        "Bee Gees",
         "Bernhard Lackner",
         "Big Big Train",
-        "Billy Joel",
         "Billy Rymer",
         "Blazing Arrows",
-        "Blink-182",
-        "Bob Marley & The Wailers",
-        "Bob Seger",
-        "Bon Iver",
-        "Bon Jovi",
-        "Boston",
         "Brandon Brown",
-        "Breaking Benjamin",
         "Brian Crane",
-        "Bruno Mars",
-        "Bryan Adams",
         "Buddy Rich Big Band",
         "Bullets and Numbers",
         "Burning Human",
         "Chaise Baird",
         "City Mouth",
         "Coen",
-        "Coldplay",
-        "Collective Soul",
         "Craig Strain",
         "Craig Zurba",
-        "Creedence Clearwater Revival",
-        "Daft Punk",
         "Dali Mraz",
         "Damani Rhodes",
         "Daniel Glass",
-        "Darius Rucker",
         "Daru Jones",
-        "Dave Matthews Band",
-        "David Bowie",
-        "David Lee Roth",
         "David Raouf",
-        "Death Cab for Cutie",
-        "Deep Purple",
         "Dirk Kennedy",
         "Dom Famularo",
-        "Dream Theater",
         "Dying Hearts Desire",
-        "Eagles",
-        "Ed Sheeran",
         "Ermin Monzon",
-        "Evanescence",
-        "Everything Everything",
-        "Extreme",
         "First Reign",
         "Florian Alexandru-Zorn",
-        "Foo Fighters",
         "Galaktikon",
-        "Georgia Satellites",
         "Gil Sharone",
-        "Gloria Gaynor",
-        "Grand Funk Railroad",
-        "Green Day",
         "Gregg Bissonette",
         "Gulli Briem",
-        "Guns N’ Roses",
         "Hasting",
         "Heather Thomas",
         "Henrique de Almeida",
-        "Hiatus Kaiyote",
-        "Hozier",
-        "Huey Lewis And The News",
-        "INXS",
-        "Iron Maiden",
         "Issah Contractor",
         "Jai Es",
-        "James Brown",
-        "Jamiroquai",
-        "Jason Aldean",
         "Jay Oliver",
-        "Jean Knight",
-        "Jet",
-        "Jethro Tull\u0000",
-        "Jimmy Eat World",
         "Jimmy Rainsford",
-        "Joan Jett & The Blackhearts",
         "Jody Fisher, Baba Elefante, Tilden Webb & Mike Michalkow",
         "Joe Hodgin",
-        "John Cougar Mellencamp",
-        "John Lennon",
-        "Journey",
-        "KISS",
-        "Kansas",
-        "Karnivool",
-        "Katy Perry",
         "Kaz Rodriguez",
         "Kimbra",
-        "Kings Of Leon",
-        "Kool & The Gang",
-        "Led Zeppelin",
-        "Lenny Kravitz",
-        "Linkin Park",
-        "Lynyrd Skynyrd",
         "Marco Minnemann",
-        "Mark Ronson",
-        "Maroon 5",
         "Mathieu Fiset",
         "Mathieu Fiset & The RoboJazz Band",
         "Matt Johnson",
-        "Megadeth",
-        "Meshuggah",
-        "Metallica",
-        "Michael Jackson",
-        "Miles Davis",
-        "Muse",
-        "Mötley Crüe ",
-        "NOFX",
         "Nate Savage",
         "Nate Savage, Jordan Leibel, Chelsea Amber",
-        "Nickelback",
         "Nikko Ielasi",
-        "Nirvana",
-        "Nitty Gritty Dirt Band",
         "Nujynisis",
-        "Oasis",
         "Omnisight",
-        "Otis Redding",
-        "Ozzy Osbourne",
-        "Pantera",
-        "Paramore",
-        "Pat Benetar",
         "Paul Kype And Texas Flood",
-        "Paul Simon",
-        "Pearl Jam",
         "Pete Lockett",
-        "Pink Floyd",
-        "Poison",
-        "Porcupine Tree",
-        "Protest The Hero",
-        "Queen",
-        "Queens Of The Stone Age",
-        "Radiohead",
-        "Radiohead ",
         "Raghav Mehrotra",
         "Rashid Williams",
-        "Red Hot Chili Peppers",
         "Rene Gonzalez",
         "Revocation",
-        "Rick Springfield",
         "Rodney Holmes",
-        "Rush",
         "Ryan Follese",
-        "Santana",
         "Sarah Thawer",
         "Scale The Summit",
-        "Scorpions",
         "Sean Lang",
         "Serpents Rise",
         "Seven Year Storm",
-        "Seven Year Storm ",
         "Shadows Fall",
-        "Shania Twain",
-        "Simon & Garfunkel",
         "Simon Grey",
-        "Soundgarden",
         "Steely Dan",
-        "Steppenwolf",
         "Sterr",
         "Steve Lyman",
-        "Stevie Ray Vaughan",
-        "Sting",
-        "Stone Temple Pilots",
-        "Sublime",
-        "Survivor",
-        "System Of A Down",
-        "Tears For Fears",
         "Testament",
-        "The Beatles",
-        "The Black Eyed Peas",
-        "The Buggles",
-        "The Commodores",
-        "The Cult",
-        "The Doobie Brothers",
         "The JDS Quartet",
-        "The Killers",
-        "The Knack",
         "The New Caledonia",
-        "The Police",
-        "The Pretenders",
-        "The Proclaimers",
-        "The Rolling Stones",
-        "The Surfaris",
-        "Thirty Seconds To Mars",
-        "Three Days Grace",
-        "Tigran Hamasyan",
-        "Tigran Hamasyan & Red Hail",
         "Tim Proznick",
         "Tony Coleman",
-        "Tool",
-        "Tool ",
-        "Toto",
-        "Trivium",
-        "Twenty One Pilots",
-        "Twisted Sister",
-        "U2",
-        "Van Halen",
-        "Van Morrison",
         "Victor Guidera",
         "Vinny Valentino, Baron Browne, Joel Rosenblatt",
-        "Weezer",
-        "Whitesnake",
-        "Wild Cherry",
-        "Wolfmother",
         "YUCA",
-        "ZZ Top",
-        "Zac Brown Band",
         "Zak Rizvi"
+      ],
+      "topic": [
+        "pop/rock",
+        "jazz",
+        "funk",
+        "metal",
+        "latin",
+        "world",
+        "r&b",
+        "blues",
+        "electronic",
+        "odd time"
+      ],
+      "instructors": [
+        {
+          "id": 31877,
+          "slug": "dave-atkinson",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:20",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:20",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Dave Atkinson",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31878,
+          "slug": "mike-michalkow",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:20",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:20",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Mike Michalkow",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31879,
+          "slug": "adam-smith",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:20",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:20",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Adam Smith",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31880,
+          "slug": "jared-falk",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:20",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:20",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Jared Falk",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31881,
+          "slug": "jason-kliewer",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:20",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:20",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Jason Kliewer",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31882,
+          "slug": "jerry-adolphe",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Jerry Adolphe",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31883,
+          "slug": "sam-heard",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Sam Heard",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31884,
+          "slug": "sean-lang",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Sean Lang",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31885,
+          "slug": "kyle-radomsky",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Kyle Radomsky",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31886,
+          "slug": "chris-warunki",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Chris Warunki",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31887,
+          "slug": "issah-contractor",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Issah Contractor",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31888,
+          "slug": "aaron-edgar",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Aaron Edgar",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31889,
+          "slug": "calum-rees",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Calum Rees",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31890,
+          "slug": "chad-bjorgan",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Chad Bjorgan",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31891,
+          "slug": "jay-deachman",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Jay Deachman",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31892,
+          "slug": "jai-es",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Jai Es",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31893,
+          "slug": "ydna-murd",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Ydna Murd",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31894,
+          "slug": "murray-creed",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Murray Creed",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31896,
+          "slug": "ash-pearson",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Ash Pearson",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31901,
+          "slug": "pat-petrillo",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:22",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:22",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Pat Petrillo",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31904,
+          "slug": "scott-pellegrom",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:22",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:22",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Scott Pellegrom",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31905,
+          "slug": "casey-cooper",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:22",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:22",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Casey Cooper",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31909,
+          "slug": "adam-tuminaro",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:22",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:22",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Adam Tuminaro",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31912,
+          "slug": "daniel-glass",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:23",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:23",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Daniel Glass",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31913,
+          "slug": "reuben-spyker",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:23",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:23",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Reuben Spyker",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31916,
+          "slug": "meytal-cohen",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:23",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:23",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Meytal Cohen",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31918,
+          "slug": "jason-bittner",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:23",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:23",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Jason Bittner",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31919,
+          "slug": "henrique-de-almeida",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:23",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:23",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Henrique De Almeida",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31921,
+          "slug": "florian-alexandru-zorn",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:23",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:23",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Florian Alexandru-Zorn",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31923,
+          "slug": "gary-grace",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:23",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:23",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Gary Grace",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31924,
+          "slug": "jimmy-rainsford",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:23",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:23",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Jimmy Rainsford",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31928,
+          "slug": "stanley-randolph",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:24",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:24",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Stanley Randolph",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31929,
+          "slug": "stephen-taylor",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:24",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:24",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Stephen Taylor",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31942,
+          "slug": "thomas-pridgen",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:25",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:25",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Thomas Pridgen",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31952,
+          "slug": "brian-frasier-moore",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:26",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:26",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Brian Frasier-Moore",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31955,
+          "slug": "billy-rymer",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:27",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:27",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Billy Rymer",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31959,
+          "slug": "brandon-toews",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:27",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:27",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Brandon Toews",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31963,
+          "slug": "gulli-briem",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:27",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:27",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Gulli Briem",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31964,
+          "slug": "bruce-becker",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:28",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:28",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Bruce Becker",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31967,
+          "slug": "pete-lockett",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:28",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:28",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Pete Lockett",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31969,
+          "slug": "chip-ritter",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:28",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:28",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Chip Ritter",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31970,
+          "slug": "derek-roddy",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:28",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:28",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Derek Roddy",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31971,
+          "slug": "adam-marko",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:28",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:28",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Adam Marko",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31972,
+          "slug": "eric-boudreault",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:28",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:28",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Eric Boudreault",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31974,
+          "slug": "peter-szendofi",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:28",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:28",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Peter Szendofi",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31976,
+          "slug": "tosin-aribisala",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:29",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:29",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Tosin Aribisala",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31980,
+          "slug": "dennis-chambers",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:29",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:29",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Dennis Chambers",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31982,
+          "slug": "matt-johnson",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:29",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:29",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Matt Johnson",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31983,
+          "slug": "gavin-harrison",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:29",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:29",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Gavin Harrison",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 190202,
+          "slug": "rodney-holmes",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-29 16:00:00",
+          "archived_on": null,
+          "created_on": "2017-12-29 16:46:04",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Rodney Holmes",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 190697,
+          "slug": "jc-bryant",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2018-02-02 20:00:00",
+          "archived_on": null,
+          "created_on": "2018-01-10 14:52:34",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "J.C. Bryant",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 190814,
+          "slug": "dali-mraz",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2018-01-14 20:00:00",
+          "archived_on": null,
+          "created_on": "2018-01-15 10:49:48",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Dali Mraz",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 191162,
+          "slug": "jost-nickel",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2018-01-24 20:00:00",
+          "archived_on": null,
+          "created_on": "2018-01-25 11:26:16",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Jost Nickel",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 191326,
+          "slug": "julia-geaman",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2018-02-02 15:00:00",
+          "archived_on": null,
+          "created_on": "2018-01-31 16:43:43",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Julia Geaman",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 191327,
+          "slug": "brandon-khoo",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2018-02-02 15:00:00",
+          "archived_on": null,
+          "created_on": "2018-01-31 16:47:26",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Brandon Khoo",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 196087,
+          "slug": "gene-hoglan",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2018-02-15 20:00:00",
+          "archived_on": null,
+          "created_on": "2018-02-16 16:53:05",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Gene Hoglan",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 197816,
+          "slug": "aaron-levy",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2018-03-06 20:00:00",
+          "archived_on": null,
+          "created_on": "2018-03-13 12:24:44",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Aaron Levy",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 198474,
+          "slug": "jessica-burdeaux",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2018-03-25 19:00:00",
+          "archived_on": null,
+          "created_on": "2018-03-26 10:43:53",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Jessica Burdeaux",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 202287,
+          "slug": "sarah-thawer",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2018-04-10 19:00:00",
+          "archived_on": null,
+          "created_on": "2018-04-11 08:26:03",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Sarah Thawer",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 202289,
+          "slug": "kaz-rodriguez",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2018-04-10 19:00:00",
+          "archived_on": null,
+          "created_on": "2018-04-11 08:33:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Kaz Rodriguez",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 203172,
+          "slug": "nick-dvirgilio",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2018-04-26 19:00:00",
+          "archived_on": null,
+          "created_on": "2018-04-27 16:35:58",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Nick D'Virgilio",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 212107,
+          "slug": "dom-famularo",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2018-09-02 19:00:00",
+          "archived_on": null,
+          "created_on": "2018-09-03 10:27:19",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Dom Famularo",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 214093,
+          "slug": "stan-bicknell",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2018-10-01 19:00:00",
+          "archived_on": null,
+          "created_on": "2018-10-02 11:35:23",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Stan Bicknell",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 215078,
+          "slug": "harry-miree",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2018-10-25 19:00:00",
+          "archived_on": null,
+          "created_on": "2018-10-26 12:00:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Harry Miree",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 220629,
+          "slug": "taylor-gordon",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-02-26 16:02:50",
+          "archived_on": null,
+          "created_on": "2019-02-17 12:56:34",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": "Taylor Gordon",
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Taylor Gordon",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 220735,
+          "slug": "marco-minneman",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-02-19 20:00:00",
+          "archived_on": null,
+          "created_on": "2019-02-20 12:06:54",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Marco Minnemann",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 220741,
+          "slug": "tony-coleman",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-02-19 20:00:00",
+          "archived_on": null,
+          "created_on": "2019-02-20 14:18:48",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Tony Coleman",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 220809,
+          "slug": "steve-lyman",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-02-26 16:02:50",
+          "archived_on": null,
+          "created_on": "2019-02-22 09:32:06",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": "Steve Lyman",
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Steve Lyman",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 220967,
+          "slug": "daru-jones",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-02-26 16:02:50",
+          "archived_on": null,
+          "created_on": "2019-02-26 16:02:12",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": "Daru Jones",
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Daru Jones",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 224273,
+          "slug": "keith-carlock",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-04-29 10:33:41",
+          "archived_on": null,
+          "created_on": "2019-04-29 10:33:45",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Keith Carlock",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 225962,
+          "slug": "rashid-williams",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-05-29 10:46:11",
+          "archived_on": null,
+          "created_on": "2019-05-29 10:46:13",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Rashid Williams",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 230446,
+          "slug": "juan-mendoza",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-08-02 13:04:36",
+          "archived_on": null,
+          "created_on": "2019-08-02 13:04:37",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Juan Mendoza",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 230449,
+          "slug": "gil-sharone",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-08-02 13:21:05",
+          "archived_on": null,
+          "created_on": "2019-08-02 13:21:06",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Gil Sharone",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 231920,
+          "slug": "heather-thomas",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-08-28 11:28:00",
+          "archived_on": null,
+          "created_on": "2019-08-28 11:28:01",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Heather Thomas",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 232650,
+          "slug": "gregg-bissonette",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-09-09 08:40:17",
+          "archived_on": null,
+          "created_on": "2019-09-09 08:40:19",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Gregg Bissonette",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 233364,
+          "slug": "raghav-mehrotra",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-09-23 13:22:28",
+          "archived_on": null,
+          "created_on": "2019-09-23 13:22:30",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Raghav Mehrotra",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 235167,
+          "slug": "david-raouf",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-10-17 13:19:32",
+          "archived_on": null,
+          "created_on": "2019-10-17 13:19:33",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "David Raouf",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 235178,
+          "slug": "tim-proznick",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-10-17 14:19:03",
+          "archived_on": null,
+          "created_on": "2019-10-17 14:19:06",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Tim Proznick",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 239928,
+          "slug": "stephane-chamberland",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": "150",
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2019-12-02 11:59:15",
+          "archived_on": null,
+          "created_on": "2019-12-02 11:59:15",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Stephane Chamberland",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        }
+      ]
+    },
+    "activeFilters": {
+      "content_type": [
+        "play-along"
       ]
     },
     "pagination": {
-      "total": 8687,
+      "total": 316,
       "count": 20,
       "per_page": "20",
       "current_page": "1",
-      "total_pages": 435
+      "total_pages": 16
     }
   },
   "links": []

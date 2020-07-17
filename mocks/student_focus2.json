@@ -1,0 +1,5193 @@
+{
+  "data": [
+    {
+      "type": "content",
+      "id": "21621",
+      "attributes": {
+        "slug": "113-sr-capt-kick-hurricrane",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2014-06-20 15:38:44",
+        "archivedOn": "",
+        "createdOn": "2014-06-20 15:38:44",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21621",
+        "qnaVideo": "",
+        "style": "",
+        "title": "SR - Capt. Kick, HurriCrane",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "3090"
+            },
+            {
+              "type": "contentData",
+              "id": "12942"
+            },
+            {
+              "type": "contentData",
+              "id": "72253"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6868"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "74758"
+            },
+            {
+              "type": "tag",
+              "id": "74759"
+            },
+            {
+              "type": "tag",
+              "id": "74760"
+            },
+            {
+              "type": "tag",
+              "id": "74761"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "21674",
+      "attributes": {
+        "slug": "114-capt-kick-lea-t",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2014-06-27 15:50:43",
+        "archivedOn": "",
+        "createdOn": "2014-06-27 15:50:43",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21674",
+        "qnaVideo": "",
+        "style": "",
+        "title": "SR - Lea T., Capt. Kick",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "3089"
+            },
+            {
+              "type": "contentData",
+              "id": "12985"
+            },
+            {
+              "type": "contentData",
+              "id": "72241"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6859"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "74614"
+            },
+            {
+              "type": "tag",
+              "id": "74615"
+            },
+            {
+              "type": "tag",
+              "id": "74616"
+            },
+            {
+              "type": "tag",
+              "id": "74617"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "21728",
+      "attributes": {
+        "slug": "115-sr-bealbayrak-danbo-capt-kick-pauld",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2014-07-04 16:29:36",
+        "archivedOn": "",
+        "createdOn": "2014-07-04 16:29:36",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21728",
+        "qnaVideo": "",
+        "style": "",
+        "title": "SR - Bealbayrak, Danbo, Capt. Kick, PaulD",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "3088"
+            },
+            {
+              "type": "contentData",
+              "id": "13025"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6850"
+            },
+            {
+              "type": "instructor",
+              "id": "6851"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "74461"
+            },
+            {
+              "type": "tag",
+              "id": "74462"
+            },
+            {
+              "type": "tag",
+              "id": "74463"
+            },
+            {
+              "type": "tag",
+              "id": "74464"
+            },
+            {
+              "type": "tag",
+              "id": "74465"
+            },
+            {
+              "type": "tag",
+              "id": "74466"
+            },
+            {
+              "type": "tag",
+              "id": "74467"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "21760",
+      "attributes": {
+        "slug": "116-sr-ezekiel06",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2014-07-11 15:39:48",
+        "archivedOn": "",
+        "createdOn": "2014-07-11 15:39:48",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21760",
+        "qnaVideo": "",
+        "style": "",
+        "title": "SR - Ezekiel06",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "3087"
+            },
+            {
+              "type": "contentData",
+              "id": "13047"
+            },
+            {
+              "type": "contentData",
+              "id": "72223"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6843"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "74405"
+            },
+            {
+              "type": "tag",
+              "id": "74406"
+            },
+            {
+              "type": "tag",
+              "id": "74407"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "21800",
+      "attributes": {
+        "slug": "117-sr-debbie",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2014-07-18 15:44:50",
+        "archivedOn": "",
+        "createdOn": "2014-07-18 15:44:50",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21800",
+        "qnaVideo": "",
+        "style": "",
+        "title": "SR - Debbie",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "3086"
+            },
+            {
+              "type": "contentData",
+              "id": "13075"
+            },
+            {
+              "type": "contentData",
+              "id": "72211"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6834"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "74215"
+            },
+            {
+              "type": "tag",
+              "id": "74216"
+            },
+            {
+              "type": "tag",
+              "id": "74217"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "21829",
+      "attributes": {
+        "slug": "118-sr-dboy-ryspoken-wx-rob-hurricrane",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2014-08-08 15:58:02",
+        "archivedOn": "",
+        "createdOn": "2014-08-08 15:58:02",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "21829",
+        "qnaVideo": "",
+        "style": "",
+        "title": "SR - Dboy, Ryspoken, WX ROB, HurriCrane",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "3085"
+            },
+            {
+              "type": "contentData",
+              "id": "13098"
+            },
+            {
+              "type": "contentData",
+              "id": "72204"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6826"
+            },
+            {
+              "type": "instructor",
+              "id": "6827"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "74133"
+            },
+            {
+              "type": "tag",
+              "id": "74134"
+            },
+            {
+              "type": "tag",
+              "id": "74135"
+            },
+            {
+              "type": "tag",
+              "id": "74136"
+            },
+            {
+              "type": "tag",
+              "id": "74137"
+            },
+            {
+              "type": "tag",
+              "id": "74138"
+            },
+            {
+              "type": "tag",
+              "id": "74139"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "30679",
+      "attributes": {
+        "slug": "student-focus-52",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2017-08-24 03:59:17",
+        "archivedOn": "",
+        "createdOn": "2017-08-24 03:59:17",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "30679",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Bobi Octavius, Nikolay22, Ludvig Steen, Peter Hutchinson, Stieg3518",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "2949"
+            },
+            {
+              "type": "contentData",
+              "id": "18219"
+            },
+            {
+              "type": "contentData",
+              "id": "70772"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5423"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "52105"
+            },
+            {
+              "type": "tag",
+              "id": "52106"
+            },
+            {
+              "type": "tag",
+              "id": "52107"
+            },
+            {
+              "type": "tag",
+              "id": "52108"
+            },
+            {
+              "type": "tag",
+              "id": "52109"
+            },
+            {
+              "type": "tag",
+              "id": "52110"
+            },
+            {
+              "type": "tag",
+              "id": "52111"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "30783",
+      "attributes": {
+        "slug": "student-focus-53",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2017-08-31 08:01:49",
+        "archivedOn": "",
+        "createdOn": "2017-08-31 08:01:49",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "30783",
+        "qnaVideo": "",
+        "style": "",
+        "title": "tetrisDRUM, Ian LE, Helen, beppe, Marlimarl",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "2948"
+            },
+            {
+              "type": "contentData",
+              "id": "18238"
+            },
+            {
+              "type": "contentData",
+              "id": "70766"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5416"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "52023"
+            },
+            {
+              "type": "tag",
+              "id": "52024"
+            },
+            {
+              "type": "tag",
+              "id": "52025"
+            },
+            {
+              "type": "tag",
+              "id": "52026"
+            },
+            {
+              "type": "tag",
+              "id": "52027"
+            },
+            {
+              "type": "tag",
+              "id": "52028"
+            },
+            {
+              "type": "tag",
+              "id": "52029"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "30859",
+      "attributes": {
+        "slug": "student-focus-54",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2017-09-14 03:44:52",
+        "archivedOn": "",
+        "createdOn": "2017-09-14 03:44:52",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "30859",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Siddharth Nair, Photonchicken, kisfigi, 201shers434327, Ricardo drums",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "2947"
+            },
+            {
+              "type": "contentData",
+              "id": "18262"
+            },
+            {
+              "type": "contentData",
+              "id": "70755"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5404"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "51807"
+            },
+            {
+              "type": "tag",
+              "id": "51808"
+            },
+            {
+              "type": "tag",
+              "id": "51809"
+            },
+            {
+              "type": "tag",
+              "id": "51810"
+            },
+            {
+              "type": "tag",
+              "id": "51811"
+            },
+            {
+              "type": "tag",
+              "id": "51812"
+            },
+            {
+              "type": "tag",
+              "id": "51813"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "30927",
+      "attributes": {
+        "slug": "student-focus-55",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2017-09-21 01:46:07",
+        "archivedOn": "",
+        "createdOn": "2017-09-21 01:46:07",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "30927",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Sid P, GoodStickMan, David Quon, Mandla Peter, Nelson",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "2946"
+            },
+            {
+              "type": "contentData",
+              "id": "18294"
+            },
+            {
+              "type": "contentData",
+              "id": "70744"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5398"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "51468"
+            },
+            {
+              "type": "tag",
+              "id": "51469"
+            },
+            {
+              "type": "tag",
+              "id": "51470"
+            },
+            {
+              "type": "tag",
+              "id": "51471"
+            },
+            {
+              "type": "tag",
+              "id": "51472"
+            },
+            {
+              "type": "tag",
+              "id": "51473"
+            },
+            {
+              "type": "tag",
+              "id": "51474"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "31036",
+      "attributes": {
+        "slug": "student-focus-56",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2017-09-28 06:34:55",
+        "archivedOn": "",
+        "createdOn": "2017-09-28 06:34:55",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "31036",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Ludvig Steen, Nehme Raad, Björn",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "2945"
+            },
+            {
+              "type": "contentData",
+              "id": "18328"
+            },
+            {
+              "type": "contentData",
+              "id": "70727"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5391"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "51037"
+            },
+            {
+              "type": "tag",
+              "id": "51038"
+            },
+            {
+              "type": "tag",
+              "id": "51039"
+            },
+            {
+              "type": "tag",
+              "id": "51040"
+            },
+            {
+              "type": "tag",
+              "id": "51041"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "31050",
+      "attributes": {
+        "slug": "student-focus-57",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2017-10-04 08:26:19",
+        "archivedOn": "",
+        "createdOn": "2017-10-04 08:26:19",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "31050",
+        "qnaVideo": "",
+        "style": "",
+        "title": "domodrum, KeithC, Flying Sticks, Tan, Shumer",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "2944"
+            },
+            {
+              "type": "contentData",
+              "id": "18343"
+            },
+            {
+              "type": "contentData",
+              "id": "70722"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5385"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "50939"
+            },
+            {
+              "type": "tag",
+              "id": "50940"
+            },
+            {
+              "type": "tag",
+              "id": "50941"
+            },
+            {
+              "type": "tag",
+              "id": "50942"
+            },
+            {
+              "type": "tag",
+              "id": "50943"
+            },
+            {
+              "type": "tag",
+              "id": "50944"
+            },
+            {
+              "type": "tag",
+              "id": "50945"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "31109",
+      "attributes": {
+        "slug": "student-focus-58",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2017-10-12 01:03:00",
+        "archivedOn": "",
+        "createdOn": "2017-10-12 01:03:00",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "31109",
+        "qnaVideo": "",
+        "style": "",
+        "title": "FunkMachine, Rohan, DaveRock",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "2943"
+            },
+            {
+              "type": "contentData",
+              "id": "18385"
+            },
+            {
+              "type": "contentData",
+              "id": "70706"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5378"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "50617"
+            },
+            {
+              "type": "tag",
+              "id": "50618"
+            },
+            {
+              "type": "tag",
+              "id": "50619"
+            },
+            {
+              "type": "tag",
+              "id": "50620"
+            },
+            {
+              "type": "tag",
+              "id": "50621"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "31236",
+      "attributes": {
+        "slug": "student-focus-60",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2017-10-26 06:36:25",
+        "archivedOn": "",
+        "createdOn": "2017-10-26 06:36:25",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "31236",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Tan, ReckerEans, Alexander, Mandla Peter",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "2942"
+            },
+            {
+              "type": "contentData",
+              "id": "18426"
+            },
+            {
+              "type": "contentData",
+              "id": "70696"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5362"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "50340"
+            },
+            {
+              "type": "tag",
+              "id": "50341"
+            },
+            {
+              "type": "tag",
+              "id": "50342"
+            },
+            {
+              "type": "tag",
+              "id": "50343"
+            },
+            {
+              "type": "tag",
+              "id": "50344"
+            },
+            {
+              "type": "tag",
+              "id": "50345"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "31501",
+      "attributes": {
+        "slug": "student-focus-61",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2017-11-16 03:28:18",
+        "archivedOn": "",
+        "createdOn": "2017-11-16 03:28:18",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "31501",
+        "qnaVideo": "",
+        "style": "",
+        "title": "Sannivas Reddy, aayush pandey, Nikolay22, JBirdMusicSauce, Ludvig Steen",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "2941"
+            },
+            {
+              "type": "contentData",
+              "id": "18553"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5332"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "49312"
+            },
+            {
+              "type": "tag",
+              "id": "49313"
+            },
+            {
+              "type": "tag",
+              "id": "49314"
+            },
+            {
+              "type": "tag",
+              "id": "49315"
+            },
+            {
+              "type": "tag",
+              "id": "49316"
+            },
+            {
+              "type": "tag",
+              "id": "49317"
+            },
+            {
+              "type": "tag",
+              "id": "49318"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "31525",
+      "attributes": {
+        "slug": "student-focus-62",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2017-11-23 08:54:25",
+        "archivedOn": "",
+        "createdOn": "2017-11-23 08:54:25",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "31525",
+        "qnaVideo": "",
+        "style": "",
+        "title": "joerg.stannek, Sid P, OnejayDrummer, ZorionEsq, marsalbo",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "2940"
+            },
+            {
+              "type": "contentData",
+              "id": "18562"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5326"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "49225"
+            },
+            {
+              "type": "tag",
+              "id": "49226"
+            },
+            {
+              "type": "tag",
+              "id": "49227"
+            },
+            {
+              "type": "tag",
+              "id": "49228"
+            },
+            {
+              "type": "tag",
+              "id": "49229"
+            },
+            {
+              "type": "tag",
+              "id": "49230"
+            },
+            {
+              "type": "tag",
+              "id": "49231"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "31530",
+      "attributes": {
+        "slug": "student-focus-63",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2017-11-30 08:59:20",
+        "archivedOn": "",
+        "createdOn": "2017-11-30 08:59:20",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "31530",
+        "qnaVideo": "",
+        "style": "",
+        "title": "aayush pandey, Arun, Wesley John, TJ, JBirdMusicSauce",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "2939"
+            },
+            {
+              "type": "contentData",
+              "id": "18566"
+            },
+            {
+              "type": "contentData",
+              "id": "70647"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5324"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "49192"
+            },
+            {
+              "type": "tag",
+              "id": "49193"
+            },
+            {
+              "type": "tag",
+              "id": "49194"
+            },
+            {
+              "type": "tag",
+              "id": "49195"
+            },
+            {
+              "type": "tag",
+              "id": "49196"
+            },
+            {
+              "type": "tag",
+              "id": "49197"
+            },
+            {
+              "type": "tag",
+              "id": "49198"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "31592",
+      "attributes": {
+        "slug": "student-focus-64",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2017-12-03 06:30:19",
+        "archivedOn": "",
+        "createdOn": "2017-12-03 06:30:19",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "31592",
+        "qnaVideo": "",
+        "style": "",
+        "title": "pt3407, Griffs86, mtrazz35653, MattO, lenduckman32882",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "",
+        "liveEventEndTime": "",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "2938"
+            },
+            {
+              "type": "contentData",
+              "id": "18599"
+            },
+            {
+              "type": "contentData",
+              "id": "70637"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5315"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "48908"
+            },
+            {
+              "type": "tag",
+              "id": "48909"
+            },
+            {
+              "type": "tag",
+              "id": "48910"
+            },
+            {
+              "type": "tag",
+              "id": "48911"
+            },
+            {
+              "type": "tag",
+              "id": "48912"
+            },
+            {
+              "type": "tag",
+              "id": "48913"
+            },
+            {
+              "type": "tag",
+              "id": "48914"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "189949",
+      "attributes": {
+        "slug": "student-focus",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2017-12-20 18:00:00",
+        "archivedOn": "",
+        "createdOn": "2017-12-15 09:42:37",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "theo31210, NRandleman85, Andrew Jacob, Drum Against Depression, DrummerViking",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "2017-12-20 18:00:00",
+        "liveEventEndTime": "2017-12-21 07:00:00",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "28096"
+            },
+            {
+              "type": "contentData",
+              "id": "28112"
+            },
+            {
+              "type": "contentData",
+              "id": "70587"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5267"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "47747"
+            },
+            {
+              "type": "tag",
+              "id": "47748"
+            },
+            {
+              "type": "tag",
+              "id": "47749"
+            },
+            {
+              "type": "tag",
+              "id": "47750"
+            },
+            {
+              "type": "tag",
+              "id": "47751"
+            },
+            {
+              "type": "tag",
+              "id": "47752"
+            },
+            {
+              "type": "tag",
+              "id": "47753"
+            },
+            {
+              "type": "tag",
+              "id": "47754"
+            },
+            {
+              "type": "tag",
+              "id": "47755"
+            },
+            {
+              "type": "tag",
+              "id": "47756"
+            },
+            {
+              "type": "tag",
+              "id": "47757"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "189950",
+      "attributes": {
+        "slug": "student-focus",
+        "type": "student-focus",
+        "sort": "0",
+        "status": "published",
+        "totalXp": "",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": "",
+        "user": "",
+        "publishedOn": "2017-12-28 18:00:00",
+        "archivedOn": "",
+        "createdOn": "2017-12-15 09:48:54",
+        "difficulty": "",
+        "homeStaffPickRating": "",
+        "legacyId": "",
+        "legacyWordpressPostId": "",
+        "qnaVideo": "",
+        "style": "",
+        "title": "TheDentistDrummer, Ian LE, marsalbo, Don M, TheInvisibleY",
+        "xp": "",
+        "album": "",
+        "artist": "",
+        "bpm": "",
+        "cdTracks": "",
+        "chordOrScale": "",
+        "difficultyRange": "",
+        "episodeNumber": "",
+        "exerciseBookPages": "",
+        "fastBpm": "",
+        "includesSong": "",
+        "instructors": "",
+        "liveEventStartTime": "2017-12-28 18:00:00",
+        "liveEventEndTime": "2017-12-28 19:00:00",
+        "liveEventYoutubeId": "",
+        "liveStreamFeedType": "",
+        "name": "",
+        "released": "",
+        "slowBpm": "",
+        "transcriberName": "",
+        "week": "",
+        "avatarUrl": "",
+        "lengthInSeconds": "",
+        "soundsliceSlug": "",
+        "staffPickRating": "",
+        "studentId": "",
+        "vimeoVideoId": "",
+        "youtubeVideoId": ""
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "28108"
+            },
+            {
+              "type": "contentData",
+              "id": "28120"
+            },
+            {
+              "type": "contentData",
+              "id": "70586"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5266"
+            }
+          ]
+        },
+        "tag": {
+          "data": [
+            {
+              "type": "tag",
+              "id": "47740"
+            },
+            {
+              "type": "tag",
+              "id": "47741"
+            },
+            {
+              "type": "tag",
+              "id": "47742"
+            },
+            {
+              "type": "tag",
+              "id": "47743"
+            },
+            {
+              "type": "tag",
+              "id": "47744"
+            },
+            {
+              "type": "tag",
+              "id": "47745"
+            },
+            {
+              "type": "tag",
+              "id": "47746"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "type": "instructor",
+      "id": "31877",
+      "attributes": {
+        "slug": "dave-atkinson",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:20",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:20",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Dave Atkinson",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "31880",
+      "attributes": {
+        "slug": "jared-falk",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:20",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:20",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Jared Falk",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "31878",
+      "attributes": {
+        "slug": "mike-michalkow",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:20",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:20",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Mike Michalkow",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "31885",
+      "attributes": {
+        "slug": "kyle-radomsky",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:21",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:21",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Kyle Radomsky",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "31888",
+      "attributes": {
+        "slug": "aaron-edgar",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:21",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:21",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "style": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Aaron Edgar",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "3090",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "12942",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/21621_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72253",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/student-focus/550/drumeo-sf-04.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6868",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74758",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74759",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74760",
+      "attributes": {
+        "tag": "captain kick ass",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74761",
+      "attributes": {
+        "tag": "hurricrane",
+        "position": 4
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "3089",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "12985",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/21674_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72241",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/student-focus/1080/drumeo-sf-20.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6859",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74614",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74615",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74616",
+      "attributes": {
+        "tag": "captain kick ass",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74617",
+      "attributes": {
+        "tag": "lea t.",
+        "position": 4
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "3088",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "13025",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/student-focus/550/drumeo-sf-18.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6850",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6851",
+      "attributes": {
+        "position": 2
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31880"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74461",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74462",
+      "attributes": {
+        "tag": "jared falk",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74463",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74464",
+      "attributes": {
+        "tag": "danbo",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74465",
+      "attributes": {
+        "tag": "captain kick ass",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74466",
+      "attributes": {
+        "tag": "pauld",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74467",
+      "attributes": {
+        "tag": "bealbayrak",
+        "position": 7
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "3087",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "13047",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/21760_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72223",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/student-focus/1080/drumeo-sf-06.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6843",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74405",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74406",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74407",
+      "attributes": {
+        "tag": "ezekiel06",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "3086",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "13075",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/21800_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72211",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/student-focus/550/drumeo-sf-18.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6834",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74215",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74216",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74217",
+      "attributes": {
+        "tag": "debbie",
+        "position": 3
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "3085",
+      "attributes": {
+        "key": "description",
+        "value": "",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "13098",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/21829_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "72204",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/student-focus/550/drumeo-sf-14.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6826",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6827",
+      "attributes": {
+        "position": 2
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31880"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74133",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74134",
+      "attributes": {
+        "tag": "jared falk",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74135",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74136",
+      "attributes": {
+        "tag": "hurricrane",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74137",
+      "attributes": {
+        "tag": "dboy",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74138",
+      "attributes": {
+        "tag": "ryspoken",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "74139",
+      "attributes": {
+        "tag": "wx rob",
+        "position": 7
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2949",
+      "attributes": {
+        "key": "description",
+        "value": "In this Student Focus session, Dave Atkinson will be reviewing videos for five of our awesome students: Bobi Octavius, Nikolay22, Ludvig Steen, Peter Hutchinson, and Stieg3518. Student Focus are not only great for having your playing reviewed, but also for learning about practice tips and lessons that might prove invaluable to your development.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "18219",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/30679_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70772",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://drumeo.s3.amazonaws.com/card-thumbnails/student-focus/550/drumeo-sf-19.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5423",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52105",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52106",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52107",
+      "attributes": {
+        "tag": "nikolay22",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52108",
+      "attributes": {
+        "tag": "ludvig steen",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52109",
+      "attributes": {
+        "tag": "bobi octavius",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52110",
+      "attributes": {
+        "tag": "peter hutchinson",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52111",
+      "attributes": {
+        "tag": "stieg3518",
+        "position": 7
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2948",
+      "attributes": {
+        "key": "description",
+        "value": "In this Student Focus session, Mike Michalkow will be reviewing videos for five of our awesome students: tetrisDRUM, Ian LE, Helen, beppe, and Marlimarl. Student Focus are not only great for having your playing reviewed, but also for learning about practice tips and lessons that might prove invaluable to your development.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "18238",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/30783_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70766",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://drumeo.s3.amazonaws.com/card-thumbnails/student-focus/550/drumeo-sf-20.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5416",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31878"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52023",
+      "attributes": {
+        "tag": "mike michalkow",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52024",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52025",
+      "attributes": {
+        "tag": "ian le",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52026",
+      "attributes": {
+        "tag": "helen in england",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52027",
+      "attributes": {
+        "tag": "marlimarl",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52028",
+      "attributes": {
+        "tag": "tetrisdrum",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "52029",
+      "attributes": {
+        "tag": "beppe",
+        "position": 7
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2947",
+      "attributes": {
+        "key": "description",
+        "value": "In this Student Focus session, Kyle Radomsky will be reviewing videos for five of our awesome students: Siddharth Nair, Photonchicken, kisfigi, 201shers434327, and Ricardo drums. Student Focus are not only great for having your playing reviewed, but also for learning about practice tips and lessons that might prove invaluable to your development.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "18262",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/30859_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70755",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://drumeo.s3.amazonaws.com/card-thumbnails/student-focus/550/drumeo-sf-18.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5404",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31885"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51807",
+      "attributes": {
+        "tag": "kyle radomsky",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51808",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51809",
+      "attributes": {
+        "tag": "ricardo drums",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51810",
+      "attributes": {
+        "tag": "photonchicken",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51811",
+      "attributes": {
+        "tag": "201shers434327",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51812",
+      "attributes": {
+        "tag": "siddharth nair",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51813",
+      "attributes": {
+        "tag": "kisfigi",
+        "position": 7
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2946",
+      "attributes": {
+        "key": "description",
+        "value": "In this Student Focus session, Mike Michalkow will be reviewing videos for five of our awesome students: Sid P, GoodStickMan, David Quon, Mandla Peter, and Nelson. Student Focus are not only great for having your playing reviewed, but also for learning about practice tips and lessons that might prove invaluable to your development.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "18294",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/30927_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70744",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://drumeo.s3.amazonaws.com/card-thumbnails/student-focus/550/drumeo-sf-16.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5398",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31878"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51468",
+      "attributes": {
+        "tag": "mike michalkow",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51469",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51470",
+      "attributes": {
+        "tag": "david quon",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51471",
+      "attributes": {
+        "tag": "sid p",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51472",
+      "attributes": {
+        "tag": "nelson wissar",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51473",
+      "attributes": {
+        "tag": "goodstickman",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51474",
+      "attributes": {
+        "tag": "mandla peter",
+        "position": 7
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2945",
+      "attributes": {
+        "key": "description",
+        "value": "In this Student Focus session, Kyle Radomsky will be reviewing videos for three of our awesome students: Ludvig Steen, Nehme Raad, and Björn. Student Focus are not only great for having your playing reviewed, but also for learning about practice tips and lessons that might prove invaluable to your development.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "18328",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/31036_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70727",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://drumeo.s3.amazonaws.com/card-thumbnails/student-focus/550/drumeo-sf-14.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5391",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31885"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51037",
+      "attributes": {
+        "tag": "kyle radomsky",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51038",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51039",
+      "attributes": {
+        "tag": "nehme raad",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51040",
+      "attributes": {
+        "tag": "ludvig steen",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "51041",
+      "attributes": {
+        "tag": "björn",
+        "position": 5
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2944",
+      "attributes": {
+        "key": "description",
+        "value": "In this Student Focus session, Dave Atkinson will be reviewing videos for five of our awesome students: domodrum, KeithC, Flying Sticks, Tan, and Shumer. Student Focus are not only great for having your playing reviewed, but also for learning about practice tips and lessons that might prove invaluable to your development.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "18343",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/31050_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70722",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://drumeo.s3.amazonaws.com/card-thumbnails/student-focus/550/drumeo-sf-12.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5385",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50939",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50940",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50941",
+      "attributes": {
+        "tag": "keith c",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50942",
+      "attributes": {
+        "tag": "domodrum",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50943",
+      "attributes": {
+        "tag": "flying sticks",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50944",
+      "attributes": {
+        "tag": "tan",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50945",
+      "attributes": {
+        "tag": "shumer",
+        "position": 7
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2943",
+      "attributes": {
+        "key": "description",
+        "value": "In this Student Focus session, Mike Michalkow will be reviewing videos for three of our awesome students: FunkMachine, Rohan, and DaveRock. Student Focus are not only great for having your playing reviewed, but also for learning about practice tips and lessons that might prove invaluable to your development.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "18385",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/31109_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70706",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://drumeo.s3.amazonaws.com/card-thumbnails/student-focus/550/drumeo-sf-10.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5378",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31878"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50617",
+      "attributes": {
+        "tag": "mike michalkow",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50618",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50619",
+      "attributes": {
+        "tag": "david powis",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50620",
+      "attributes": {
+        "tag": "funkmachine",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50621",
+      "attributes": {
+        "tag": "rohan",
+        "position": 5
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2942",
+      "attributes": {
+        "key": "description",
+        "value": "In this Student Focus session, Kyle Radomsky will be reviewing videos for four of our awesome students: Tan, ReckerEans, Alexander, and Mandla Peter. Student Focus are not only great for having your playing reviewed, but also for learning about practice tips and lessons that might prove invaluable to your development.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "18426",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/31236_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70696",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://drumeo.s3.amazonaws.com/card-thumbnails/student-focus/550/drumeo-sf-08.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5362",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31885"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50340",
+      "attributes": {
+        "tag": "kyle radomsky",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50341",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50342",
+      "attributes": {
+        "tag": "mandla peter",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50343",
+      "attributes": {
+        "tag": "tan",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50344",
+      "attributes": {
+        "tag": "reckereans",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "50345",
+      "attributes": {
+        "tag": "alexander",
+        "position": 6
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2941",
+      "attributes": {
+        "key": "description",
+        "value": "In this Student Focus session, Dave Atkinson will be reviewing videos for five of our awesome students: Sannivas Reddy, aayush pandey, Nikolay22, JBirdMusicSauce, and Ludvig Steen. Student Focus are not only great for having your playing reviewed, but also for learning about practice tips and lessons that might prove invaluable to your development.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "18553",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://s3.amazonaws.com/drumeo/card-thumbnails/student-focus/550/drumeo-sf-06.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5332",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49312",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49313",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49314",
+      "attributes": {
+        "tag": "sannivas reddy",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49315",
+      "attributes": {
+        "tag": "nikolay22",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49316",
+      "attributes": {
+        "tag": "ludvig steen",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49317",
+      "attributes": {
+        "tag": "aayush pandey",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49318",
+      "attributes": {
+        "tag": "jbirdmusicsauce",
+        "position": 7
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2940",
+      "attributes": {
+        "key": "description",
+        "value": "In this Student Focus session, Kyle Radomsky will be reviewing videos for five of our awesome students: joerg.stannek, Sid P, OnejayDrummer, ZorionEsq, and marsalbo. Student Focus are not only great for having your playing reviewed, but also for learning about practice tips and lessons that might prove invaluable to your development.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "18562",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://s3.amazonaws.com/drumeo/card-thumbnails/student-focus/550/drumeo-sf-04.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5326",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31885"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49225",
+      "attributes": {
+        "tag": "kyle radomsky",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49226",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49227",
+      "attributes": {
+        "tag": "zorionesq",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49228",
+      "attributes": {
+        "tag": "sid p",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49229",
+      "attributes": {
+        "tag": "joerg.stannek",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49230",
+      "attributes": {
+        "tag": "onejaydrummer",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49231",
+      "attributes": {
+        "tag": "marsalbo",
+        "position": 7
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2939",
+      "attributes": {
+        "key": "description",
+        "value": "In this Student Focus session, Mike Michalkow will be reviewing videos for five of our awesome students: aayush pandey, Arun, Wesley John, TJ, and JBirdMusicSauce. Student Focus are not only great for having your playing reviewed, but also for learning about practice tips and lessons that might prove invaluable to your development.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "18566",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/31530_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70647",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://s3.amazonaws.com/drumeo/card-thumbnails/student-focus/550/drumeo-sf-01.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5324",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31878"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49192",
+      "attributes": {
+        "tag": "mike michalkow",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49193",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49194",
+      "attributes": {
+        "tag": "aayush pandey",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49195",
+      "attributes": {
+        "tag": "jbirdmusicsauce",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49196",
+      "attributes": {
+        "tag": "arun",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49197",
+      "attributes": {
+        "tag": "wesley john",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "49198",
+      "attributes": {
+        "tag": "tj",
+        "position": 7
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "2938",
+      "attributes": {
+        "key": "description",
+        "value": "In this Student Focus session, Aaron Edgar will be reviewing videos for five of our awesome students: pt3407, Griffs86, mtrazz35653, MattO, and lenduckman32882. Student Focus are not only great for having your playing reviewed, but also for learning about practice tips and lessons that might prove invaluable to your development.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "18599",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/31592_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70637",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://s3.amazonaws.com/drumeo/card-thumbnails/student-focus/550/drumeo-sf-02.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5315",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31888"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "48908",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "48909",
+      "attributes": {
+        "tag": "aaron edgar",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "48910",
+      "attributes": {
+        "tag": "matto",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "48911",
+      "attributes": {
+        "tag": "pt3407",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "48912",
+      "attributes": {
+        "tag": "Griffs86",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "48913",
+      "attributes": {
+        "tag": "mtrazz35653",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "48914",
+      "attributes": {
+        "tag": "lenduckman32882",
+        "position": 7
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28096",
+      "attributes": {
+        "key": "description",
+        "value": "In this Student Focus session, Dave Atkinson will be reviewing videos for five of our awesome students: theo31210, NRandleman85, Andrew Jacob, Drum Against Depression, and DrummerViking. Student Focus are not only great for having your playing reviewed, but also for learning about practice tips and lessons that might prove invaluable to your development.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28112",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/189949_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70587",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://s3.amazonaws.com/drumeo/card-thumbnails/student-focus/550/drumeo-sf-04.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5267",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47747",
+      "attributes": {
+        "tag": "theo31210",
+        "position": 11
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47748",
+      "attributes": {
+        "tag": "NRandleman85",
+        "position": 10
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47749",
+      "attributes": {
+        "tag": "NRandleman85",
+        "position": 9
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47750",
+      "attributes": {
+        "tag": "theo31210",
+        "position": 8
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47751",
+      "attributes": {
+        "tag": "theo31210",
+        "position": 7
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47752",
+      "attributes": {
+        "tag": "andrew jacob",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47753",
+      "attributes": {
+        "tag": "nrandleman85",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47754",
+      "attributes": {
+        "tag": "drum against depression",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47755",
+      "attributes": {
+        "tag": "drummerviking",
+        "position": 3
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47756",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47757",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28108",
+      "attributes": {
+        "key": "description",
+        "value": "In this Student Focus session, Dave Atkinson will be reviewing videos for five of our awesome students: TheDentistDrummer, Ian LE, TheInvisibleY, Don M, and marsalbo. Student Focus are not only great for having your playing reviewed, but also for learning about practice tips and lessons that might prove invaluable to your development.",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "28120",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/189950_thumbnail_360p.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "70586",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://s3.amazonaws.com/drumeo/card-thumbnails/student-focus/550/drumeo-sf-05.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5266",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47740",
+      "attributes": {
+        "tag": "don m",
+        "position": 2
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47741",
+      "attributes": {
+        "tag": "theinvisibley",
+        "position": 1
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47742",
+      "attributes": {
+        "tag": "student reviews",
+        "position": 7
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47743",
+      "attributes": {
+        "tag": "dave atkinson",
+        "position": 6
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47744",
+      "attributes": {
+        "tag": "ian le",
+        "position": 5
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47745",
+      "attributes": {
+        "tag": "marsalbo",
+        "position": 4
+      }
+    },
+    {
+      "type": "tag",
+      "id": "47746",
+      "attributes": {
+        "tag": "thedentistdrummer",
+        "position": 3
+      }
+    }
+  ],
+  "meta": {
+    "filterOptions": {
+      "difficulty": [
+        "1",
+        "All Skill Levels"
+      ],
+      "instructors": [
+        {
+          "id": 31877,
+          "slug": "dave-atkinson",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:20",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:20",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Dave Atkinson",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31878,
+          "slug": "mike-michalkow",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:20",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:20",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Mike Michalkow",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31880,
+          "slug": "jared-falk",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:20",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:20",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Jared Falk",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31881,
+          "slug": "jason-kliewer",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:20",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:20",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Jason Kliewer",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31882,
+          "slug": "jerry-adolphe",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Jerry Adolphe",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31884,
+          "slug": "sean-lang",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Sean Lang",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31885,
+          "slug": "kyle-radomsky",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Kyle Radomsky",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31886,
+          "slug": "chris-warunki",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Chris Warunki",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31887,
+          "slug": "issah-contractor",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Issah Contractor",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31888,
+          "slug": "aaron-edgar",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Aaron Edgar",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31889,
+          "slug": "calum-rees",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Calum Rees",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31890,
+          "slug": "chad-bjorgan",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Chad Bjorgan",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31891,
+          "slug": "jay-deachman",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Jay Deachman",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31894,
+          "slug": "murray-creed",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:21",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:21",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Murray Creed",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31905,
+          "slug": "casey-cooper",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:22",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:22",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Casey Cooper",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31913,
+          "slug": "reuben-spyker",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:23",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:23",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Reuben Spyker",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31915,
+          "slug": "victor-guidera",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:23",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:23",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Victor Guidera",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        },
+        {
+          "id": 31929,
+          "slug": "stephen-taylor",
+          "type": "instructor",
+          "sort": 0,
+          "status": "published",
+          "total_xp": null,
+          "brand": "drumeo",
+          "language": "en-US",
+          "show_in_new_feed": null,
+          "user": "",
+          "published_on": "2017-12-13 17:23:24",
+          "archived_on": null,
+          "created_on": "2017-12-13 17:23:24",
+          "difficulty": null,
+          "home_staff_pick_rating": null,
+          "legacy_id": null,
+          "legacy_wordpress_post_id": null,
+          "qna_video": null,
+          "style": null,
+          "title": null,
+          "xp": null,
+          "album": null,
+          "artist": null,
+          "bpm": null,
+          "cd_tracks": null,
+          "chord_or_scale": null,
+          "difficulty_range": null,
+          "episode_number": null,
+          "exercise_book_pages": null,
+          "fast_bpm": null,
+          "includes_song": null,
+          "instructors": null,
+          "live_event_start_time": null,
+          "live_event_end_time": null,
+          "live_event_youtube_id": null,
+          "live_stream_feed_type": null,
+          "name": "Stephen Taylor",
+          "released": null,
+          "slow_bpm": null,
+          "transcriber_name": null,
+          "week": null,
+          "avatar_url": null,
+          "length_in_seconds": null,
+          "soundslice_slug": null,
+          "staff_pick_rating": null,
+          "student_id": null,
+          "vimeo_video_id": null,
+          "youtube_video_id": null
+        }
+      ]
+    },
+    "activeFilters": {
+      "content_type": [
+        "student-focus"
+      ]
+    },
+    "pagination": {
+      "total": 465,
+      "count": 20,
+      "per_page": "20",
+      "current_page": "2",
+      "total_pages": 24
+    }
+  },
+  "links": []
+}
