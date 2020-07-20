@@ -1,4 +1,5 @@
 import Instructor from './instructor';
+import ContentModel from '../models/content';
 
 export default class Content {
     constructor(
@@ -16,6 +17,7 @@ export default class Content {
         public likes?: number,
         public liked?: boolean,
         public sheet?: string,
+        public parent?: Content,
         public progress = 0
     ) {
     }

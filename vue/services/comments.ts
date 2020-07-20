@@ -31,4 +31,25 @@ export default class Comments {
 
         return result;
     }
+
+    static getContentFromResponse(response): Comment[] {
+        let result = [];
+
+        response.data.forEach(item => {
+            // todo - add replies
+            result.push(
+                new Comment(
+                    item.id,
+                    item.attributes.display_name,
+                    item.attributes.comment,
+                    item.attributes.like_count,
+                    item.attributes.is_liked,
+                    item.attributes.created_on,
+                    []
+                )
+            );
+        });
+
+        return result;
+    }
 }

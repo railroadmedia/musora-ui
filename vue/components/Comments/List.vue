@@ -82,6 +82,9 @@ export default {
         contentId: {
             type: Number,
         },
+        commentsData: {
+            type: String
+        },
     },
     data(): object {
         return {

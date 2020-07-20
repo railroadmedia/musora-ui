@@ -36,24 +36,28 @@ export default class Content {
             let thumbnail = this.getContentData(relatedDataMap, 'thumbnail_url') || this.defaultContentThumbnail;
             let sheet = this.getContentData(relatedDataMap, 'sheet_music_thumbnail_url');
 
-            result.push(
-                new ContentModel(
-                    item.id,
-                    '#', // todo - update url
-                    thumbnail,
-                    item.attributes.title,
-                    this.getContentInstructors(relatedDataMap),
-                    item.attributes.type,
-                    item.attributes.difficulty,
-                    undefined, // todo - update contentIcon
-                    item.attributes.publishedOn,
-                    item.attributes.artist,
-                    item.attributes.style,
-                    item.attributes.like_count,
-                    item.attributes.is_liked_by_current_user,
-                    sheet
-                )
+            let content = new ContentModel(
+                item.id,
+                item.url || this.getUrl(item),
+                thumbnail,
+                item.attributes.title,
+                this.getContentInstructors(relatedDataMap),
+                item.attributes.type,
+                item.attributes.difficulty,
+                undefined, // todo - update contentIcon
+                item.attributes.publishedOn,
+                item.attributes.artist,
+                item.attributes.style,
+                item.attributes.like_count,
+                item.attributes.is_liked_by_current_user,
+                sheet
             );
+
+            if (relatedDataMap.hasOwnProperty('parent')) {
+                content.parent = this.getParentContent(relatedDataMap);
+            }
+
+            result.push(content);
         });
 
         return result;
@@ -88,9 +92,16 @@ export default class Content {
         let includedInstructorsMap = {};
         let relatedInstructorsIds = [];
 
+        let includedParentMap = {};
+        let relatedParentIds = [];
+
         included.forEach((includedObject) => {
             if (includedObject.type == 'instructor' && !includedObject.relationships) {
                 includedInstructorsMap[includedObject.id] = includedObject;
+            }
+
+            if (includedObject.type == 'parent' && !includedObject.relationships) {
+                includedParentMap[includedObject.id] = includedObject;
             }
 
             if (relations[includedObject.type] && relations[includedObject.type][includedObject.id]) {
@@ -103,6 +114,12 @@ export default class Content {
                     && includedObject.relationships.instructor
                 ) {
                     relatedInstructorsIds.push(includedObject.relationships.instructor.data.id);
+                } else if (
+                    includedObject.type == 'parent'
+                    && includedObject.relationships
+                    && includedObject.relationships.parent
+                ) {
+                    relatedParentIds.push(includedObject.relationships.parent.data.id);
                 } else {
                     result[includedObject.type][includedObject.id] = includedObject;
                 }
@@ -115,6 +132,15 @@ export default class Content {
             }
             if (includedInstructorsMap[instructorId]) {
                 result['instructor'][instructorId] = includedInstructorsMap[instructorId];
+            }
+        });
+
+        relatedParentIds.forEach((parentId) => {
+            if (!result['parent']) {
+                result['parent'] = {};
+            }
+            if (includedParentMap[parentId]) {
+                result['parent'][parentId] = includedParentMap[parentId];
             }
         });
 
@@ -151,5 +177,34 @@ export default class Content {
         });
 
         return result;
+    }
+
+    static getParentContent(contentRelatedData): ContentModel {
+        let parentData = contentRelatedData.parent;
+        let id = Object.keys(parentData)[0];
+
+        let thumbnail = this.getContentData(contentRelatedData, 'thumbnail_url') || this.defaultContentThumbnail;
+        let sheet = this.getContentData(contentRelatedData, 'sheet_music_thumbnail_url');
+
+        return new ContentModel(
+            +id,
+            parentData[id].url || this.getUrl(parentData[id]),
+            thumbnail,
+            parentData[id].attributes.title,
+            this.getContentInstructors(contentRelatedData),
+            parentData[id].attributes.type,
+            parentData[id].attributes.difficulty,
+            undefined, // todo - update contentIcon
+            parentData[id].attributes.publishedOn,
+            parentData[id].attributes.artist,
+            parentData[id].attributes.style,
+            parentData[id].attributes.like_count,
+            parentData[id].attributes.is_liked_by_current_user,
+            sheet
+        );
+    }
+
+    static getUrl(content): string {
+        return '#'; // todo - update
     }
 }
