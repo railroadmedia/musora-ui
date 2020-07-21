@@ -690,6 +690,12 @@ $commentsData = <<<'EOC'
               "id": "123342"
             }
           ]
+        },
+        "user": {
+          "data": {
+            "type": "user",
+            "id": "165350"
+          }
         }
       }
     },
@@ -720,6 +726,12 @@ $commentsData = <<<'EOC'
               "id": "121044"
             }
           ]
+        },
+        "user": {
+          "data": {
+            "type": "user",
+            "id": "153728"
+          }
         }
       }
     }
@@ -779,6 +791,30 @@ $commentsData = <<<'EOC'
       }
     },
     {
+      "type": "user",
+      "id": "344840",
+      "attributes": {
+        "email": "samv@pianote.com",
+        "avatar": "https://d2vyvo0tyx8ig5.cloudfront.net/avatars/344840_1582570614276.jpg",
+        "display_name": "Sam Vesely",
+        "xp": 0,
+        "access_level": "team",
+        "level_number": "1.0"
+      }
+    },
+    {
+      "type": "user",
+      "id": "149630",
+      "attributes": {
+        "email": "lisa@pianote.com",
+        "avatar": "https://d2vyvo0tyx8ig5.cloudfront.net/instructors/lisawitt.png",
+        "display_name": "Lisa Witt",
+        "xp": 0,
+        "access_level": "team",
+        "level_number": "1.0"
+      }
+    },
+    {
       "type": "comment",
       "id": "123342",
       "attributes": {
@@ -794,7 +830,25 @@ $commentsData = <<<'EOC'
             "type": "content",
             "id": "253541"
           }
+        },
+        "user": {
+          "data": {
+            "type": "user",
+            "id": "344840"
+          }
         }
+      }
+    },
+    {
+      "type": "user",
+      "id": "165350",
+      "attributes": {
+        "email": "kristapatterson777@gmail.com",
+        "avatar": "https://d2vyvo0tyx8ig5.cloudfront.net/avatars/165350_1579387725483.jpg",
+        "display_name": "kristapatterson777@gmail.com",
+        "xp": 0,
+        "access_level": "lifetime",
+        "level_number": "1.0"
       }
     },
     {
@@ -813,7 +867,25 @@ $commentsData = <<<'EOC'
             "type": "content",
             "id": "253541"
           }
+        },
+        "user": {
+          "data": {
+            "type": "user",
+            "id": "149630"
+          }
         }
+      }
+    },
+    {
+      "type": "user",
+      "id": "153728",
+      "attributes": {
+        "email": "jose.vazquez.mateos@gmail.com",
+        "avatar": "https://d2vyvo0tyx8ig5.cloudfront.net/avatars/153728_1587680426316.jpg",
+        "display_name": "joseph2535",
+        "xp": 0,
+        "access_level": "piano",
+        "level_number": "1.0"
       }
     }
   ],
@@ -835,131 +907,6 @@ $commentsData = <<<'EOC'
 }
 EOC;
 // -->
-
-$song = [
-    'name' => 'american idiot',
-    'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1445.jpg',
-    'artist' => 'green day',
-    'genre' => 'rock',
-    'likes' => 58,
-];
-
-$comments = [
-    [
-        'id' => 1,
-        'author' => [
-            'avatar' => 'https://s3.amazonaws.com/pianote/defaults/avatar.png',
-            'name' => 'brandon toews',
-            'level' => '2.3',
-            'border' => 'blue',
-        ],
-        'comment' => 'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.',
-        'likes' => 31,
-        'liked' => true,
-        'added' => '5 days ago',
-        'replies' => [],
-    ],
-    [
-        'id' => 2,
-        'author' => [
-            'avatar' => 'https://s3.amazonaws.com/pianote/defaults/avatar.png',
-            'name' => 'brandon toews',
-            'level' => '2.3',
-            'border' => 'blue',
-        ],
-        'comment' => 'Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.',
-        'likes' => 0,
-        'liked' => false,
-        'added' => '5 days ago',
-        'replies' => [
-            [
-                'id' => 3,
-                'author' => [
-                    'avatar' => 'https://s3.amazonaws.com/pianote/defaults/avatar.png',
-                    'name' => 'brandon toews',
-                    'level' => '2.3',
-                    'border' => 'yellow',
-                    'iconClass' => 'icon-metronome-beep',
-                ],
-                'comment' => 'Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl.',
-                'likes' => 0,
-                'liked' => false,
-                'added' => '5 days ago',
-            ],
-        ],
-    ],
-    [
-        'id' => 4,
-        'author' => [
-            'avatar' => 'https://s3.amazonaws.com/pianote/defaults/avatar.png',
-            'name' => 'brandon toews',
-            'level' => '2.3',
-            'border' => 'blue',
-        ],
-        'comment' => 'Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat.',
-        'likes' => 8,
-        'liked' => false,
-        'added' => '4 day ago',
-        'replies' => [],
-    ],
-    [
-        'id' => 5,
-        'author' => [
-            'avatar' => 'https://s3.amazonaws.com/pianote/defaults/avatar.png',
-            'name' => 'brandon toews',
-            'level' => '2.3',
-            'border' => 'blue',
-        ],
-        'comment' => 'Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.',
-        'likes' => 0,
-        'liked' => false,
-        'added' => '3 day ago',
-        'replies' => [
-            [
-                'id' => 6,
-                'author' => [
-                    'avatar' => 'https://s3.amazonaws.com/pianote/defaults/avatar.png',
-                    'name' => 'brandon toews',
-                    'level' => '2.3',
-                    'border' => 'yellow',
-                    'iconClass' => 'icon-metronome-beep',
-                ],
-                'comment' => 'Nunc sem lacus, accumsan quis, faucibus non, congue vel, arcu. Ut scelerisque hendrerit tellus. Integer sagittis. Vivamus a mauris eget arcu gravida tristique.',
-                'likes' => 0,
-                'liked' => false,
-                'added' => '2 days ago',
-            ],
-        ],
-    ],
-    [
-        'id' => 7,
-        'author' => [
-            'avatar' => 'https://s3.amazonaws.com/pianote/defaults/avatar.png',
-            'name' => 'brandon toews',
-            'level' => '2.3',
-            'border' => 'blue',
-        ],
-        'comment' => 'Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.',
-        'likes' => 19,
-        'liked' => false,
-        'added' => '3 day ago',
-        'replies' => [],
-    ],
-    [
-        'id' => 8,
-        'author' => [
-            'avatar' => 'https://s3.amazonaws.com/pianote/defaults/avatar.png',
-            'name' => 'brandon toews',
-            'level' => '2.3',
-            'border' => 'blue',
-        ],
-        'comment' => 'Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.',
-        'likes' => 0,
-        'liked' => false,
-        'added' => '1 day ago',
-        'replies' => [],
-    ],
-];
 
 $user = [
     'avatar' => 'https://s3.amazonaws.com/pianote/defaults/avatar.png',
@@ -1079,16 +1026,6 @@ $songs = [
     ],
 ];
 
-$video = [
-    'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/songs/550/drumeo-live-1445.jpg',
-    'title' => 'american idiot',
-    'artist' => 'green day',
-    'genre' => 'rock',
-    'progress' => 0,
-    'likes' => 58,
-    'liked' => false,
-];
-
 @endphp
 
 @section('menu')
@@ -1109,7 +1046,6 @@ $video = [
         <div class="lg:mr-64">
             <comments-list
                 comments-data='{{ $commentsData }}'
-                :comments-list='@json($comments)'
                 :current-user-data='@json($user)'
                 :content-id='1'
             ></comments-list>

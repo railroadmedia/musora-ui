@@ -17,9 +17,9 @@
             <div class="flex flex-col">
                 <div class="flex flex-col items-start sm:flex-row sm:items-center">
                     <div class="capitalize font-semibold">{{ comment.author.name }}</div>
-                    <div class="sm:ml-2 rounded-lg px-3 bg-medium-gray uppercase text-xs text-white">level - {{ comment.author.level }}</div>
+                    <div class="sm:ml-2 rounded-lg px-3 bg-medium-gray uppercase text-xs text-white">{{ $_level }}</div>
                 </div>
-                <div class="my-2">{{ comment.comment }}</div>
+                <div class="my-2" v-html="comment.comment"></div>
                 <div class="flex flex-col-reverse items-start sm:flex-row sm:items-center">
                     <div class="flex">
                         <a
@@ -129,6 +129,10 @@ export default {
             }
 
             return label;
+        },
+
+        $_level(): string {
+            return this.comment.author.level == 'team' ? 'team' : 'level - ' + this.comment.author.level;
         },
     },
     methods: {

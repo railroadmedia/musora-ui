@@ -66,6 +66,7 @@ import UserService from '../../services/users';
 import CommentsService from '../../services/comments';
 import NewComment from './New';
 import CommentListItem from './Item';
+import PaginationModel from '../../models/pagination';
 
 export default {
     components: {
@@ -75,9 +76,6 @@ export default {
     props: {
         currentUserData: {
             type: Object,
-        },
-        commentsList: {
-            type: Array,
         },
         contentId: {
             type: Number,
@@ -90,17 +88,25 @@ export default {
         return {
             user: undefined,
             comments: [],
+            initialSort: 'newest',
             brief: {
                 count: 0,
                 sort: 'Newest First'
             },
-            sortOptions: ['Alphabetical', 'Newest First'],
+            sortOptions: ['newest', 'oldest', 'popularity', 'trending', 'relevance'],
+            pagination: new PaginationModel(100, 1, this.initialSort),
         };
     },
     mounted(): void {
         this.user = UserService.getUserFromObject(this.currentUserData);
-        this.comments = CommentsService.getCommentsFromArray(this.commentsList);
         this.brief.count = this.comments.length;
+
+        let preloadData = JSON.parse(this.commentsData);
+        
+        this.setupComments(preloadData);
+        this.setupPagination(preloadData);
+
+        console.log("Comments\\List::mounted comments: %s", JSON.stringify(this.comments));
 
         this.$root.$on('addComment', this.addComment);
     },
@@ -108,30 +114,65 @@ export default {
         addComment(data) {
             // todo - add API call
             console.log("Comments\\List::addComment data: %s", JSON.stringify(data));
+
             this.$root.$emit('closeReply', {});
+
+            if (data.parrentComment) {
+                CommentsService
+                    .reply(data.parrentComment, data.comment.currentValue)
+                    .then(response => {
+                        this.fetchData();
+                    });
+            } else {
+                CommentsService
+                    .addComment(data.contentId, data.comment.currentValue, data.author.name)
+                    .then(response => {
+                        this.fetchData();
+                    });
+            }
+        },
+
+        getPayload() {
+            let payload = {
+                content_id: this.contentId,
+                limit: this.pagination.limit,
+                page: this.pagination.page,
+                sort: this.pagination.sort,
+            };
+
+            return payload;
+        },
+
+        fetchData() {
+            let payload = this.getPayload();
+
+            CommentsService
+                .getComments(payload)
+                .then(response => {
+                    this.setupComments(response.data);
+                    this.setupPagination(response.data);
+                });
+        },
+
+        setupComments(response) {
+            this.comments = CommentsService.getCommentsFromResponse(response);
+        },
+
+        setupPagination(response) {
+            if (response.meta && response.meta.pagination) {
+                let pagination = response.meta.pagination;
+                this.pagination.total = pagination.total;
+                this.pagination.limit = pagination.per_page;
+                this.pagination.page = pagination.current_page;
+                this.pagination.pages = pagination.total_pages;
+            }
         },
 
         toggleLike(data) {
             // todo - add API call
             console.log("Comments\\List::toggleLike data: %s", JSON.stringify(data));
 
-            // todo - to be updated/removed
-            let commentList = this.comments;
-
-            if (data.parentComment) {
-                this.comments.forEach((comment) => {
-                    if (comment.id == data.parentComment.id) {
-                        commentList = comment.replies;
-                    }
-                });
-            }
-
-            commentList.forEach((item) => {
-                if (item.id == data.comment.id) {
-                    item.likes = item.likes + (item.liked ? -1 : 1);
-                    item.liked = !item.liked;
-                }
-            });
+            // todo - to be updated
         },
     },
 };
