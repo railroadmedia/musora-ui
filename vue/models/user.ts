@@ -3,9 +3,8 @@ export default class User {
         public id: string,
         public avatar: string,
         public name: string,
-        public level: number,
-        public border: string,
-        public iconClass?: string
+        public membership: string,
+        public level: string
     ) {
     }
 }

@@ -11,8 +11,8 @@
                 <div
                     class="absolute bottom-0 left-0 w-full flex justify-center"
                     :class="$_avatarIconBgClass"
-                    v-if="comment.author.iconClass"
-                ><i class="text-white" :class="comment.author.iconClass"></i></div>
+                    v-if="$_avatarIconClass"
+                ><i class="text-white" :class="$_avatarIconClass"></i></div>
             </div>
             <div class="flex flex-col">
                 <div class="flex flex-col items-start sm:flex-row sm:items-center">
@@ -48,14 +48,14 @@
                             v-if="replying"
                         ><i class="icon-chat mr-1"></i><span class="text-xs font-semibold">replying</span></a>
                     </div>
-                    <div class="mb-2 sm:mb-0 text-medium-gray uppercase text-xs">{{ comment.added }}</div>
+                    <div class="mb-2 sm:mb-0 text-medium-gray uppercase text-xs">{{ getDate() }}</div>
                 </div>
             </div>
         </div>
         <div v-if="replying" class="sm:ml-20 sm:pl-6">
             <new-comment
                 :current-user="currentUser"
-                :current-comment="comment"
+                :to-comment="parentComment || comment"
                 :content-id="contentId"
             ></new-comment>
         </div>
@@ -66,11 +66,15 @@
 import Comment from '../../models/comment';
 import User from '../../models/user';
 import NewComment from './New';
+import moment from 'moment';
+
+import CommentMixin from '../../mixins/comment';
 
 export default {
     components: {
         'new-comment': NewComment,
     },
+    mixins: [CommentMixin],
     props: {
         comment: {
             type: Comment,
@@ -89,26 +93,6 @@ export default {
         }
     },
     computed: {
-        $_borderColorClass(): string[] {
-            let borderColorClass = ['border-blue-500'];
-
-            if (this.comment.author && this.comment.author.border && this.comment.author.border == 'yellow') {
-                borderColorClass = ['border-yellow-500'];
-            }
-
-            return borderColorClass;
-        },
-
-        $_avatarIconBgClass(): string[] {
-            let bgClass = ['bg-blue-500'];
-
-            if (this.comment.author && this.comment.author.border && this.comment.author.border == 'yellow') {
-                bgClass = ['bg-yellow-500'];
-            }
-
-            return bgClass;
-        },
-
         $_likeClasses(): string[] {
             let classed = [];
 
@@ -145,6 +129,10 @@ export default {
             this.replying = false;
         },
 
+        getAuthor() {
+            return this.comment.author;
+        },
+
         toggleLike() {
             this.$emit(
                 'toggleLike',
@@ -154,6 +142,10 @@ export default {
                     'contentId': this.contentId,
                 }
             );
+        },
+
+        getDate(): string {
+            return moment(this.comment.added).fromNow();
         },
     },
     mounted(): void {

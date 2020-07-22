@@ -1,7 +1,17 @@
 <template>
     <div class="flex flex-col sm:flex-row my-8">
-        <div class="self-center sm:self-auto rounded-full overflow-hidden border-4 border-blue-500 h-20 w-20">
-            <img :src="currentUser.avatar" class="h-full w-aut">
+        <div class="self-center sm:self-auto rounded-full overflow-hidden h-20 w-20 relative">
+            <div
+                    class="rounded-full overflow-hidden border-4 h-20 w-20"
+                    :class="$_borderColorClass"
+                >
+                <img :src="currentUser.avatar" class="h-full w-auto">
+            </div>
+            <div
+                    class="absolute bottom-0 left-0 w-full flex justify-center"
+                    :class="$_avatarIconBgClass"
+                    v-if="$_avatarIconClass"
+                ><i class="text-white" :class="$_avatarIconClass"></i></div>
         </div>
         <div class="flex-1 flex flex-col">
             <div class="mt-4 sm:mt-0 sm:ml-16">
@@ -14,7 +24,7 @@
             </div>
             <div class="pt-4 sm:pt-2 flex flex-col-reverse items-center sm:flex-row sm:justify-end sm:space-x-3">
                 <button-input
-                    v-if="currentComment"
+                    v-if="toComment"
                     label="cancel"
                     theme="blue-reversed"
                     :fixed-width="true"
@@ -36,16 +46,19 @@ import User from '../../models/user';
 import Button from '../Blocks/Button';
 import TextEditor from '../Blocks/TextEditor';
 
+import CommentMixin from '../../mixins/comment';
+
 export default {
     components: {
         'button-input': Button,
         'text-editor': TextEditor,
     },
+    mixins: [CommentMixin],
     props: {
         currentUser: {
             type: User,
         },
-        currentComment: {},
+        toComment: {},
         contentId: {
             type: Number,
         },
@@ -54,7 +67,7 @@ export default {
         $_submitButtonLabel(): string {
             let label = 'comment';
 
-            if (this.parentComment || this.currentComment) {
+            if (this.toComment) {
                 label = 'reply';
             }
 
@@ -76,6 +89,10 @@ export default {
         };
     },
     methods: {
+        getAuthor() {
+            return this.currentUser;
+        },
+
         cancel() {
             this.$root.$emit('closeReply', {});
         },
@@ -84,7 +101,7 @@ export default {
             this.$root.$emit(
                 'addComment',
                 {
-                    'parrentComment': this.currentComment,
+                    'parrentComment': this.toComment,
                     'author': this.currentUser,
                     'comment': this.comment,
                     'contentId': this.contentId,

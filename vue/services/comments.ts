@@ -64,8 +64,8 @@ export default class Comments {
     static getCommentRelatedData(comment, included) {
         let result = {};
         let relations = {};
-
         let relationships = comment.relationships || {};
+
         const keys = Object.keys(relationships);
 
         keys.forEach((key) => {
@@ -100,6 +100,7 @@ export default class Comments {
 
             if (
                 includedObject.type == 'comment'
+                && relations['comment']
                 && relations['comment'][includedObject.id]
                 && includedObject.relationships
                 && includedObject.relationships.user
@@ -134,18 +135,16 @@ export default class Comments {
             .put(
                 '/railcontent/comment/reply',
                 {
-                    params: {
-                        data: {
-                            type: 'comment',
-                            attributes: {
-                                comment: reply
-                            },
-                            relationships: {
-                                parent: {
-                                    data: {
-                                        type: 'comment',
-                                        id: comment.id
-                                    }
+                    data: {
+                        type: 'comment',
+                        attributes: {
+                            comment: reply
+                        },
+                        relationships: {
+                            parent: {
+                                data: {
+                                    type: 'comment',
+                                    id: comment.id
                                 }
                             }
                         }
@@ -164,19 +163,17 @@ export default class Comments {
             .put(
                 '/railcontent/comment',
                 {
-                    params: {
-                        data: {
-                            type: 'comment',
-                            attributes: {
-                                comment: comment,
-                                temporary_display_name: user
-                            },
-                            relationships: {
-                                content: {
-                                    data: {
-                                        type: 'content',
-                                        id: contentId
-                                    }
+                    data: {
+                        type: 'comment',
+                        attributes: {
+                            comment: comment,
+                            temporary_display_name: user
+                        },
+                        relationships: {
+                            content: {
+                                data: {
+                                    type: 'content',
+                                    id: contentId
                                 }
                             }
                         }

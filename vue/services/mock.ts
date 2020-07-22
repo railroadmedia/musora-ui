@@ -17,6 +17,7 @@ import StudentFocusData from '../../mocks/student_focus.json';
 import StudentFocus2Data from '../../mocks/student_focus2.json';
 import StudentFocus3Data from '../../mocks/student_focus3.json';
 import StudentFocus4Data from '../../mocks/student_focus4.json';
+import CommentsData from '../../mocks/comments.json';
 import Utils from './utils';
 
 export default class Mock {
@@ -198,6 +199,97 @@ export default class Mock {
             .onPost('/error-reporting')
             .reply(function (config) {
                 return [200, {}];
+            });
+
+        mock
+            .onPut('/railcontent/comment/reply')
+            .reply(function (config) {
+
+                let data = JSON.parse(config.data);
+                let replyTo;
+
+                CommentsData.data.forEach(item => {
+                    if (item.id == data.data.relationships.parent.data.id) {
+                        replyTo = item;
+                    }
+                });
+
+                let comment = Utils.copy(CommentsData.data[0]);
+                let authorId = parseInt(comment.attributes.user) * 1000 + replyTo.relationships.replies.data.length * 10;
+
+                comment.id = parseInt(comment.id) * 1000 + replyTo.relationships.replies.data.length * 10;
+                comment.attributes.comment = data.data.attributes.comment;
+                comment.attributes.temporary_display_name = data.data.attributes.temporary_display_name;
+                comment.attributes.user = authorId;
+                comment.relationships.user.data.id = authorId;
+                delete(comment.relationships['replies']);
+
+                replyTo.relationships.replies.data.push({
+                    id: comment.id,
+                    type: 'comment'
+                });
+
+                CommentsData.included.push(comment);
+                CommentsData.included.push(
+                    {
+                        "type": "user",
+                        "id": authorId.toString(),
+                        "attributes": {
+                            "email": "brandon@toews.com",
+                            "avatar": "https://s3.amazonaws.com/pianote/defaults/avatar.png",
+                            "display_name": "brandon toews",
+                            "xp": 0,
+                            "access_level": "team",
+                            "level_number": "1.0"
+                        }
+                    }
+                );
+
+                return [200, {}];
+            });
+
+        mock
+            .onPut('/railcontent/comment')
+            .reply(function (config) {
+
+                let data = JSON.parse(config.data);
+                let comment = Utils.copy(CommentsData.data[0]);
+                let authorId = parseInt(comment.attributes.user) * 1000 + CommentsData.data.length * 10;
+
+                comment.id = parseInt(comment.id) * 1000 + CommentsData.data.length * 10;
+                comment.attributes.comment = data.data.attributes.comment;
+                comment.attributes.temporary_display_name = data.data.attributes.temporary_display_name;
+                comment.attributes.user = authorId;
+                comment.relationships.user.data.id = authorId;
+                delete(comment.relationships['replies']);
+
+                CommentsData.data.push(comment);
+                CommentsData.included.push(
+                    {
+                        "type": "user",
+                        "id": authorId.toString(),
+                        "attributes": {
+                            "email": "brandon@toews.com",
+                            "avatar": "https://s3.amazonaws.com/pianote/defaults/avatar.png",
+                            "display_name": "brandon toews",
+                            "xp": 0,
+                            "access_level": "team",
+                            "level_number": "1.0"
+                        }
+                    }
+                );
+
+                return [200, {}];
+            });
+
+        mock
+            .onGet('/railcontent/comment')
+            .reply(function (config) {
+                let response = CommentsData;
+                return [
+                    200,
+                    response,
+                ];
             });
     }
 

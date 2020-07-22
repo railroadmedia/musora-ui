@@ -911,6 +911,7 @@ EOC;
 $user = [
     'avatar' => 'https://s3.amazonaws.com/pianote/defaults/avatar.png',
     'name' => 'brandon toews',
+    'membership' => 'team',
     'level' => '2.3',
     'border' => 'blue',
 ];

@@ -106,14 +106,12 @@ export default {
         this.setupComments(preloadData);
         this.setupPagination(preloadData);
 
-        console.log("Comments\\List::mounted comments: %s", JSON.stringify(this.comments));
+        this.fetchData();
 
         this.$root.$on('addComment', this.addComment);
     },
     methods: {
         addComment(data) {
-            // todo - add API call
-            console.log("Comments\\List::addComment data: %s", JSON.stringify(data));
 
             this.$root.$emit('closeReply', {});
 
