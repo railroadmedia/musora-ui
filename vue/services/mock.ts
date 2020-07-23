@@ -220,6 +220,8 @@ export default class Mock {
                 comment.id = parseInt(comment.id) * 1000 + replyTo.relationships.replies.data.length * 10;
                 comment.attributes.comment = data.data.attributes.comment;
                 comment.attributes.temporary_display_name = data.data.attributes.temporary_display_name;
+                comment.attributes.like_count = 0;
+                comment.attributes.is_liked = false;
                 comment.attributes.user = authorId;
                 comment.relationships.user.data.id = authorId;
                 delete(comment.relationships['replies']);
@@ -259,6 +261,8 @@ export default class Mock {
                 comment.id = parseInt(comment.id) * 1000 + CommentsData.data.length * 10;
                 comment.attributes.comment = data.data.attributes.comment;
                 comment.attributes.temporary_display_name = data.data.attributes.temporary_display_name;
+                comment.attributes.like_count = 0;
+                comment.attributes.is_liked = false;
                 comment.attributes.user = authorId;
                 comment.relationships.user.data.id = authorId;
                 delete(comment.relationships['replies']);
@@ -290,6 +294,69 @@ export default class Mock {
                     200,
                     response,
                 ];
+            });
+
+        mock
+            .onPut(/\/railcontent\/comment-like\/\d+/)
+            .reply(function (config) {
+                let urlTokens = config.url.split('/');
+                let commentId = urlTokens[urlTokens.length - 1];
+
+                CommentsData.data.forEach(comment => {
+                    if (commentId == comment.id) {
+                        comment.attributes['like_count'] = (parseInt(comment.attributes['like_count'] || '0') + 1).toString();
+                        comment.attributes.is_liked = true;
+
+                    }
+                });
+
+                CommentsData.included.forEach(item => {
+                    if (commentId == item.id && item.type == 'comment') {
+                        item.attributes['like_count'] = (parseInt(item.attributes['like_count'] || '0') + 1).toString();
+                        item.attributes['is_liked'] = true;
+                    }
+                });
+
+                return [200, {}];
+            });
+
+        mock
+            .onDelete(/\/railcontent\/comment-like\/\d+/)
+            .reply(function (config) {
+                let urlTokens = config.url.split('/');
+                let commentId = urlTokens[urlTokens.length - 1];
+
+                CommentsData.data.forEach(comment => {
+                    if (commentId == comment.id) {
+                        comment.attributes['like_count'] = (parseInt(comment.attributes['like_count'] || '0') - 1).toString();
+                        comment.attributes.is_liked = false;
+
+                    }
+                });
+
+                CommentsData.included.forEach(item => {
+                    if (commentId == item.id && item.type == 'comment') {
+                        console.log("item before: %s", JSON.stringify(item));
+                        item.attributes['like_count'] = (parseInt(item.attributes['like_count'] || '0') - 1).toString();
+                        item.attributes['is_liked'] = false;
+                        console.log("item after: %s", JSON.stringify(item));
+
+                    }
+                });
+
+                return [200, {}];
+            });
+
+        mock
+            .onPut('/railcontent/content-like')
+            .reply(function (config) {
+                return [200, {}];
+            });
+
+        mock
+            .onDelete('/railcontent/content-like')
+            .reply(function (config) {
+                return [200, {}];
             });
     }
 

@@ -38,7 +38,6 @@
 </template>
 
 <script lang="ts">
-// import VideosService from '../../services/videos';
 import Button from '../Blocks/Button';
 import ContentService from '../../services/content';
 
@@ -60,7 +59,6 @@ export default {
         };
     },
     mounted(): void {
-        // this.song = VideosService.getVideoFromObject(this.videoData);
         let preloadData = JSON.parse(this.preloadData);
 
         this.content = ContentService.getContentFromResponse(preloadData)[0];
@@ -100,9 +98,10 @@ export default {
     },
     methods: {
         toggleLike() {
-            // todo - add api call & remove below
-            this.content.likes = this.content.likes + (this.content.liked ? -1 : 1);
+            this.content.likes = parseInt(this.content.likes) + (this.content.liked ? -1 : 1);
             this.content.liked = !this.content.liked
+
+            ContentService.toggleLike(this.content);
         }
     },
 }

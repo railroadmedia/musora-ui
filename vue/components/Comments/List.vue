@@ -167,10 +167,11 @@ export default {
         },
 
         toggleLike(data) {
-            // todo - add API call
-            console.log("Comments\\List::toggleLike data: %s", JSON.stringify(data));
-
-            // todo - to be updated
+            CommentsService
+                .toggleLike(data.comment)
+                .then(response => {
+                    this.fetchData();
+                });
         },
     },
 };

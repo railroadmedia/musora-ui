@@ -192,8 +192,28 @@ export default class Comments {
             .get('/railcontent/comment', { params: payload })
             .then(response => response)
             .catch(error => {
-                Errors.report(error, 'Content::getContent');
+                Errors.report(error, 'Comments::getComments');
                 return error;
             });
+    }
+
+    static toggleLike(comment: Comment) {
+        if (comment.liked) {
+            return http
+                .delete('/railcontent/comment-like/' + comment.id.toString())
+                .then(response => response)
+                .catch(error => {
+                    Errors.report(error, 'Comments::toggleLike delete');
+                    return error;
+                });
+        } else {
+            return http
+                .put('/railcontent/comment-like/' + comment.id.toString())
+                .then(response => response)
+                .catch(error => {
+                    Errors.report(error, 'Comments::toggleLike put');
+                    return error;
+                });
+        }
     }
 }

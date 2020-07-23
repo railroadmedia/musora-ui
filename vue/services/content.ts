@@ -7,6 +7,55 @@ import Errors from './errors';
 export default class Content {
     static readonly defaultContentThumbnail = '';
 
+    static toggleLike(content: ContentModel) {
+
+        if (content.liked) {
+            return http
+                .delete(
+                    '/railcontent/content-like',
+                    {
+                        data: {
+                            relationships: {
+                                content: {
+                                    data: {
+                                        type: 'content',
+                                        id: content.id
+                                    }
+                                }
+                            }
+                        }
+                    }
+                )
+                .then(response => response)
+                .catch(error => {
+                    Errors.report(error, 'Content::toggleLike delete');
+                    return error;
+                });
+        } else {
+            return http
+                .put(
+                    '/railcontent/content-like',
+                    {
+                        data: {
+                            relationships: {
+                                content: {
+                                    data: {
+                                        type: 'content',
+                                        id: content.id
+                                    }
+                                }
+                            }
+                        }
+                    }
+                )
+                .then(response => response)
+                .catch(error => {
+                    Errors.report(error, 'Content::toggleLike put');
+                    return error;
+                });
+        }
+    }
+
     static getContent(payload) {
         return http
             .get('/railcontent/content', { params: payload })
