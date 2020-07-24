@@ -3331,7 +3331,7 @@ $rc1 = <<<'EOT'
       "id": "11778",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/19952_thumbnail_360p.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/262500-card-thumbnail-maxres-1595495102.png",
         "position": 1
       }
     },
@@ -3523,7 +3523,7 @@ $rc1 = <<<'EOT'
       "id": "11783",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/19959_thumbnail_360p.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/262499-card-thumbnail-maxres-1595255773.png",
         "position": 1
       }
     },
@@ -3681,7 +3681,7 @@ $rc1 = <<<'EOT'
       "id": "11784",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/library/1080/aaron-edgar-03.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/262498-card-thumbnail-maxres-1595324381.png",
         "position": 1
       }
     },
@@ -3771,7 +3771,7 @@ $rc1 = <<<'EOT'
       "id": "11788",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/library/550/aaron-edgar-10.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/262497-card-thumbnail-maxres-1595239266.png",
         "position": 1
       }
     },
@@ -3872,7 +3872,7 @@ $rc1 = <<<'EOT'
       "id": "11789",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/library/1080/jared-falk-07.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261677-card-thumbnail-maxres-1595075654.png",
         "position": 1
       }
     },
@@ -3963,7 +3963,7 @@ $rc1 = <<<'EOT'
       "id": "11796",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/library/550/jay-deachman-03.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261675-card-thumbnail-maxres-1595072252.png",
         "position": 1
       }
     },
@@ -4121,7 +4121,7 @@ $rc1 = <<<'EOT'
       "id": "11803",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/library/1080/aaron-edgar-02.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261676-card-thumbnail-maxres-1594994033.png",
         "position": 1
       }
     },
@@ -4254,7 +4254,7 @@ $rc1 = <<<'EOT'
       "id": "11805",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/19987_thumbnail_360p.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261674-card-thumbnail-maxres-1595075936.png",
         "position": 1
       }
     },
@@ -4405,7 +4405,7 @@ $rc1 = <<<'EOT'
       "id": "11811",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/library/550/chris-warunki-02.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/262700-card-thumbnail-maxres-1594639281.png",
         "position": 1
       }
     },
@@ -4522,7 +4522,7 @@ $rc1 = <<<'EOT'
       "id": "11814",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/19991_thumbnail_360p.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261672-card-thumbnail-maxres-1594892331.png",
         "position": 1
       }
     },
@@ -4693,7 +4693,7 @@ $rc1 = <<<'EOT'
       "id": "11822",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/19993_thumbnail_360p.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261671-card-thumbnail-maxres-1595000493.png",
         "position": 1
       }
     },
@@ -4860,7 +4860,7 @@ $rc1 = <<<'EOT'
       "id": "11830",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/library/1080/aaron-edgar-06.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261670-card-thumbnail-maxres-1594931814.png",
         "position": 1
       }
     },
@@ -4995,7 +4995,7 @@ $rc1 = <<<'EOT'
       "id": "11840",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/20001_thumbnail_360p.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/262699-card-thumbnail-maxres-1594825773.png",
         "position": 1
       }
     },
@@ -5180,7 +5180,7 @@ $rc1 = <<<'EOT'
       "id": "11846",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/library/550/michael-schack-07.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261669-card-thumbnail-maxres-1594937522.png",
         "position": 1
       }
     },
@@ -5306,7 +5306,7 @@ $rc1 = <<<'EOT'
       "id": "11849",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/library/1080/dave-atkinson-09.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261667-card-thumbnail-maxres-1594825940.png",
         "position": 1
       }
     },
@@ -5486,7 +5486,7 @@ $rc1 = <<<'EOT'
       "id": "11863",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/library/1080/aaron-edgar-09.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261666-card-thumbnail-maxres-1594831597.png",
         "position": 1
       }
     },
@@ -5628,7 +5628,7 @@ $rc1 = <<<'EOT'
       "id": "11867",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/20084_thumbnail_360p.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261665-card-thumbnail-maxres-1594459188.png",
         "position": 1
       }
     },
@@ -5779,7 +5779,7 @@ $rc1 = <<<'EOT'
       "id": "11870",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/library/1080/dave-atkinson-08.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261664-card-thumbnail-maxres-1594826647.png",
         "position": 1
       }
     },
@@ -5935,7 +5935,7 @@ $rc1 = <<<'EOT'
       "id": "11874",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/20092_thumbnail_360p.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261663-card-thumbnail-maxres-1594826569.png",
         "position": 1
       }
     },
@@ -6077,7 +6077,7 @@ $rc1 = <<<'EOT'
       "id": "11877",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/thumbnails/20094_thumbnail_360p.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261662-card-thumbnail-maxres-1594827746.png",
         "position": 1
       }
     },

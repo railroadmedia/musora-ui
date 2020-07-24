@@ -4321,7 +4321,7 @@ $rc1 = <<<'EOT'
       "id": "12128",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-01.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261665-card-thumbnail-maxres-1594459188.png",
         "position": 1
       }
     },
@@ -4558,7 +4558,7 @@ $rc1 = <<<'EOT'
       "id": "12164",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-02.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/261650-card-thumbnail-maxres-1594300274.png",
         "position": 1
       }
     },
@@ -4795,7 +4795,7 @@ $rc1 = <<<'EOT'
       "id": "12178",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-03.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/257714-card-thumbnail-maxres-1593084661.png",
         "position": 1
       }
     },
@@ -5032,7 +5032,7 @@ $rc1 = <<<'EOT'
       "id": "12191",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-05.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/257704-card-thumbnail-maxres-1592652305.png",
         "position": 1
       }
     },
@@ -5277,7 +5277,7 @@ $rc1 = <<<'EOT'
       "id": "12205",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-06.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/259060-card-thumbnail-maxres-1592297850.png",
         "position": 1
       }
     },
@@ -5522,7 +5522,7 @@ $rc1 = <<<'EOT'
       "id": "12218",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-07.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/258174-card-thumbnail-maxres-1593452447.png",
         "position": 1
       }
     },
@@ -5759,7 +5759,7 @@ $rc1 = <<<'EOT'
       "id": "12231",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-16.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/254195-card-thumbnail-maxres-1591373535.png",
         "position": 1
       }
     },
@@ -6004,7 +6004,7 @@ $rc1 = <<<'EOT'
       "id": "12262",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-02.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/254180-card-thumbnail-maxres-1590084325.jpg",
         "position": 1
       }
     },
@@ -6233,7 +6233,7 @@ $rc1 = <<<'EOT'
       "id": "12277",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-03.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/253436-card-thumbnail-maxres-1588938049.jpg",
         "position": 1
       }
     },
@@ -6462,7 +6462,7 @@ $rc1 = <<<'EOT'
       "id": "12291",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-04.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/252408-card-thumbnail-maxres-1587462592.jpg",
         "position": 1
       }
     },
@@ -6707,7 +6707,7 @@ $rc1 = <<<'EOT'
       "id": "12355",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-05.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/248515-card-thumbnail-maxres-1586512450.jpg",
         "position": 1
       }
     },
@@ -6912,7 +6912,7 @@ $rc1 = <<<'EOT'
       "id": "12393",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-42.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/247394-card-thumbnail-maxres-1585244358.jpg",
         "position": 1
       }
     },
@@ -7165,7 +7165,7 @@ $rc1 = <<<'EOT'
       "id": "12406",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-43.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/247400-card-thumbnail-maxres-1584796503.jpg",
         "position": 1
       }
     },
@@ -7386,7 +7386,7 @@ $rc1 = <<<'EOT'
       "id": "12444",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-44.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/247388-card-thumbnail-maxres-1583922555.jpg",
         "position": 1
       }
     },
@@ -7623,7 +7623,7 @@ $rc1 = <<<'EOT'
       "id": "12476",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-01.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/245316-card-thumbnail-maxres-1582920532.jpg",
         "position": 1
       }
     },
@@ -8099,7 +8099,7 @@ $rc1 = <<<'EOT'
       "id": "12521",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-41.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243774-card-thumbnail-maxres-1581066628.jpg",
         "position": 1
       }
     },
@@ -8384,7 +8384,7 @@ $rc1 = <<<'EOT'
       "id": "12565",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-06.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/242587-card-thumbnail-maxres-1579892057.jpg",
         "position": 1
       }
     },
@@ -8636,7 +8636,7 @@ $rc1 = <<<'EOT'
       "id": "12639",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-45.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/241114-card-thumbnail-maxres-1578499902.jpg",
         "position": 1
       }
     },
@@ -8876,7 +8876,7 @@ $rc1 = <<<'EOT'
       "id": "12647",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-07.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/240154-card-thumbnail-maxres-1576666732.jpg",
         "position": 1
       }
     },
@@ -9135,7 +9135,7 @@ $rc1 = <<<'EOT'
       "id": "12685",
       "attributes": {
         "key": "thumbnail_url",
-        "value": "https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-08.jpg",
+        "value": "https://d1923uyy6spedc.cloudfront.net/240163-card-thumbnail-maxres-1576750504.jpg",
         "position": 1
       }
     },

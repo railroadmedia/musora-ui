@@ -56,23 +56,31 @@ export default class Filters {
             if (FiltersType[key]) {
                 let filterGroup = null;
 
-                if (FiltersType[key].type == 'string') {
+                if (FiltersType[key].label == 'Topic') {
+                    filterGroup = Filters.getGlobalTopicFilters(
+                        key,
+                        filterOptions[key],
+                        activeFiltersMap
+                    );
+                } else if (FiltersType[key].type == 'string') {
                     filterGroup = Filters.getFilterGroupFromArray(
-                                            key,
-                                            filterOptions[key],
-                                            activeFiltersMap
-                                        );
-                } if (FiltersType[key].type == 'entity') {
+                        key,
+                        filterOptions[key],
+                        activeFiltersMap
+                    );
+                } else if (FiltersType[key].type == 'entity') {
                     filterGroup = Filters.getFilterGroupFromEntity(
-                                            key,
-                                            filterOptions[key],
-                                            activeFiltersMap
-                                        );
+                        key,
+                        filterOptions[key],
+                        activeFiltersMap
+                    );
                 }
 
                 result.push(filterGroup);
             }
         });
+
+        console.log(result);
 
         return result;
     }
@@ -110,7 +118,7 @@ export default class Filters {
                 )
             );
         });
-        
+
         return new FilterGroup(
             groupId,
             FiltersType[groupId].label,
@@ -241,6 +249,49 @@ export default class Filters {
         return new FilterGroup(
             groupId,
             title,
+            filters
+        );
+    }
+
+    static getGlobalTopicFilters(
+        groupId: string,
+        data: string[],
+        activeFiltersMap
+    ): FilterGroup {
+
+        let filterNames = ['Beats', 'Theory', 'Fills', 'Styles', 'Technique', 'Rudiments', 'Ear training',
+        'Independence', 'Musicality', 'Gear']
+        let filters = [];
+
+        filterNames.forEach((filterName) => {
+            let id = filterName.toLowerCase().replace(/ |\//g, '-');
+            let value = encodeURI(filterName);
+            let active = false;
+
+            if (
+                activeFiltersMap['topic']
+                && (activeFiltersMap['topic'][value] || activeFiltersMap['topic'][filterName])
+            ) {
+                active = true;
+            }
+
+            filters.push(
+                new Filter(
+                    id,
+                    'topic',
+                    id,
+                    filterName,
+                    0,
+                    active,
+                    '',
+                    value
+                )
+            );
+        });
+
+        return new FilterGroup(
+            groupId,
+            FiltersType[groupId].label,
             filters
         );
     }
