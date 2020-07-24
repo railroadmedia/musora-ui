@@ -4,22 +4,22 @@ export default {
     artist: {
         type: 'string',
         label: 'Artist',
-        icon: 'icon-info',
+        icon: 'fa-times-circle',
     },
     bpm: {
         type: 'string',
         label: 'Tempo',
-        icon: 'icon-info',
+        icon: 'fa-times-circle',
     },
     style: {
         type: 'string',
         label: 'Style',
-        icon: 'icon-info',
+        icon: 'fa-times-circle',
     },
     favorites: {
         type: 'string',
         label: 'favorites',
-        icon: 'icon-info',
+        icon: 'fa-times-circle',
     },
     difficulty: {
         type: 'string',
@@ -32,12 +32,12 @@ export default {
     'content-type': {
         type: 'string',
         label: 'Content Type',
-        icon: 'icon-info',
+        icon: 'fa-times-circle',
     },
     instructors: {
         type: 'entity',
         label: 'Instructor',
-        icon: 'icon-info',
+        icon: 'fa-times-circle',
         constructor: (value, groupId) => {
             return new Filter(
                 value.id,
@@ -45,8 +45,8 @@ export default {
                 value.slug,
                 value.name,
                 0,
-                false, // todo - fix active
-                'icon-info', // this.instructor.icon value
+                false,
+                'fa-times-circle', // this.instructor.icon value
                 value.id
             );
         }

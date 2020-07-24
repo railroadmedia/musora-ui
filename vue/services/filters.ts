@@ -145,7 +145,7 @@ export default class Filters {
     static getEdgeContentTypeFilterGroup(currentFilters: FilterGroup[]): FilterGroup {
         let groupId = 'content-type';
         let title = 'content type';
-        let icon = 'icon-info';
+        let icon = 'fa-times-circle';
 
         return this.createFilterGroup(groupId, title, icon, FiltersContentType, currentFilters);
     }
@@ -153,7 +153,7 @@ export default class Filters {
     static getProgressFilterGroup(currentFilters: FilterGroup[]): FilterGroup {
         let groupId = 'progress';
         let title = 'progress';
-        let icon = 'icon-info';
+        let icon = 'fa-times-circle';
 
         return this.createFilterGroup(groupId, title, icon, FiltersProgress, currentFilters);
     }
@@ -161,7 +161,7 @@ export default class Filters {
     static getRudimentsFilterGroup(): FilterGroup {
         let groupId = 'content-type';
         let title = 'content type';
-        let icon = 'icon-info';
+        let icon = 'fa-times-circle';
 
         return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.rudiments, [], true);
     }
@@ -169,15 +169,23 @@ export default class Filters {
     static getCoursesFilterGroup(): FilterGroup {
         let groupId = 'content-type';
         let title = 'content type';
-        let icon = 'icon-info';
+        let icon = 'fa-times-circle';
 
         return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.courses, [], true);
+    }
+
+    static getSongsFilterGroup(): FilterGroup {
+        let groupId = 'content-type';
+        let title = 'content type';
+        let icon = 'fa-times-circle';
+
+        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.songs, [], true);
     }
 
     static getPlayAlongsFilterGroup(): FilterGroup {
         let groupId = 'content-type';
         let title = 'content type';
-        let icon = 'icon-info';
+        let icon = 'fa-times-circle';
 
         return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.playAlongs, [], true);
     }
@@ -185,7 +193,7 @@ export default class Filters {
     static getStudentFocusFilterGroup(): FilterGroup {
         let groupId = 'content-type';
         let title = 'content type';
-        let icon = 'icon-info';
+        let icon = 'fa-times-circle';
 
         return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.studentFocus, [], true);
     }

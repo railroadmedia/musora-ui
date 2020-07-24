@@ -154,6 +154,10 @@ export default {
             type: Boolean,
             default: () => false,
         },
+        useSongsContentTypeFilters: {
+            type: Boolean,
+            default: () => false,
+        },
         useCoursesContentTypeFilters: {
             type: Boolean,
             default: () => false,
@@ -329,6 +333,13 @@ export default {
             if (this.useCoursesContentTypeFilters) {
                 filters = [
                     FiltersService.getCoursesFilterGroup(),
+                    ...this.filters
+                ];
+            }
+
+            if (this.useSongsContentTypeFilters) {
+                filters = [
+                    FiltersService.getSongsFilterGroup(),
                     ...this.filters
                 ];
             }

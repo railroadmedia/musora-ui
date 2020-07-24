@@ -6,7 +6,7 @@
         [
             'title' => 'EDGE',
             'active' => $active == 'edge' ? 'active': null,
-            'url' => '/router.php/edge'
+            'url' => '/router.php/vue/edge'
         ],
         [
             'title' => 'packs',

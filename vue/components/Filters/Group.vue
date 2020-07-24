@@ -7,8 +7,8 @@
                 @click.stop.prevent="toggleCollapse()"
             >
                 <span class="uppercase">{{ filterGroup.title }}</span>
-                <i class="icon-home text-lg font-bold" v-show="filterGroup.collapsed"></i>
-                <i class="icon-hammer text-lg font-bold" v-show="!filterGroup.collapsed"></i>
+                <i class="fas fa-angle-down text-lg font-bold" v-show="filterGroup.collapsed"></i>
+                <i class="fas fa-angle-up text-lg font-bold" v-show="!filterGroup.collapsed"></i>
             </div>
             <div class="collapse-container overflow-hidden">
                 <div style="max-height: 230px;" class="mb-3 font-semibold" data-simplebar>

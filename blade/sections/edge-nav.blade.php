@@ -27,7 +27,7 @@ $items = [
     [
         'name' => 'courses',
         'icon' => 'icon-courses',
-        'url' => '/router.php/courses',
+        'url' => '/router.php/vue/courses',
     ],
     [
         'name' => 'shows',
@@ -37,22 +37,22 @@ $items = [
     [
         'name' => 'songs',
         'icon' => 'icon-headphones',
-        'url' => '/router.php/songs',
+        'url' => '/router.php/vue/songs',
     ],
     [
         'name' => 'play-alongs',
         'icon' => 'icon-play-alongs',
-        'url' => '/router.php/play_alongs',
+        'url' => '/router.php/vue/play_alongs',
     ],
     [
         'name' => 'student focus',
         'icon' => 'icon-student-focus',
-        'url' => '/router.php/student_focus',
+        'url' => '/router.php/vue/student_focus',
     ],
     [
         'name' => 'rudiments',
         'icon' => 'icon-rudiments',
-        'url' => '/router.php/rudiments',
+        'url' => '/router.php/vue/rudiments',
     ],
     [
         'name' => 'live',

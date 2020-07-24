@@ -5,6 +5,9 @@ export default {
     'courses': {
         'course': true,
     },
+    'songs': {
+        'song': true,
+    },
     'playAlongs': {
         'play-along': true,
     },

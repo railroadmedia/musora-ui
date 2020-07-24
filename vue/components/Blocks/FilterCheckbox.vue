@@ -79,8 +79,8 @@ export default {
                         unchecked: ['cursor-pointer', 'flex', 'items-center', 'py-1', 'text-xs', 'capitalize'],
                     },
                     icon: {
-                        checked: ['text-base', 'pr-1'],
-                        unchecked: ['hidden', 'text-base', 'pr-1'],
+                        checked: ['text-base', 'pr-1', 'fas'],
+                        unchecked: ['hidden', 'text-base', 'pr-1', 'fas'],
                     }
                 }
             },
