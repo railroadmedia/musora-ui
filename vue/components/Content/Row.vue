@@ -14,7 +14,10 @@
                 :class="cardClasses[index]"
                 :key="index"
             >
-                <default-content-card :content="item"></default-content-card>
+                <default-content-card
+                    :content="item"
+                    :text-details-top="cardTextDetailsTop"
+                ></default-content-card>
             </div>
         </div>
     </div>
@@ -37,7 +40,11 @@ export default {
         },
         sectionUrl: {
             type: String,
-        }
+        },
+        cardTextDetailsTop:{
+            type: String,
+            default: () => 'contentType',
+        },
     },
     data(): object {
         return {

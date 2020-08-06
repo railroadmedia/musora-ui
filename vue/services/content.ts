@@ -84,6 +84,7 @@ export default class Content {
             let relatedDataMap = Content.getContentRelatedData(item, response.included);
             let thumbnail = this.getContentData(relatedDataMap, 'thumbnail_url') || this.defaultContentThumbnail;
             let sheet = this.getContentData(relatedDataMap, 'sheet_music_thumbnail_url');
+            let topic = this.getContentTopic(relatedDataMap);
 
             let content = new ContentModel(
                 item.id,
@@ -99,7 +100,8 @@ export default class Content {
                 item.attributes.style,
                 item.attributes.like_count,
                 item.attributes.is_liked_by_current_user,
-                sheet
+                sheet,
+                topic
             );
 
             if (relatedDataMap.hasOwnProperty('parent')) {
@@ -212,6 +214,24 @@ export default class Content {
         return data;
     }
 
+    static getContentTopic(contentRelatedData): string {
+        // todo - if other related entities data is required, this method and getContentData may be refactored in to a general fetcher
+        let data = '';
+
+        if (contentRelatedData.topic) {
+            let topicId = Object.keys(contentRelatedData.topic)[0];
+            if (
+                contentRelatedData.topic[topicId]
+                && contentRelatedData.topic[topicId].attributes
+                && contentRelatedData.topic[topicId].attributes.topic
+            ) {
+                data = contentRelatedData.topic[topicId].attributes.topic;
+            }
+        }
+
+        return data;
+    }
+
     static getContentInstructors(contentRelatedData): InstructorModel[] {
         let result = [];
         let instructorsData = contentRelatedData.instructor || {};
@@ -234,6 +254,7 @@ export default class Content {
 
         let thumbnail = this.getContentData(contentRelatedData, 'thumbnail_url') || this.defaultContentThumbnail;
         let sheet = this.getContentData(contentRelatedData, 'sheet_music_thumbnail_url');
+        let topic = this.getContentData(contentRelatedData, 'topic');
 
         return new ContentModel(
             +id,
@@ -249,7 +270,8 @@ export default class Content {
             parentData[id].attributes.style,
             parentData[id].attributes.like_count,
             parentData[id].attributes.is_liked_by_current_user,
-            sheet
+            sheet,
+            topic
         );
     }
 

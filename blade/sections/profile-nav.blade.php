@@ -16,7 +16,7 @@ $items = [
     [
         'icon' => 'icon-my-list',
         'label' => 'my list',
-        'url' => '/router.php/profile_my_list',
+        'url' => '/router.php/vue/profile_my_list',
     ],
     [
         'icon' => 'icon-gear',

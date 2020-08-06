@@ -17,6 +17,7 @@ export default class Content {
         public likes?: number,
         public liked?: boolean,
         public sheet?: string,
+        public topic?: string,
         public parent?: Content,
         public progress = 0
     ) {

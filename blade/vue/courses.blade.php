@@ -14888,6 +14888,7 @@ EOT;
             content-list='{{ $rc1 }}'
             section-title="continue"
             section-url="#"
+            card-text-details-top="topic"
         ></content-row>
     </div>
 
