@@ -4,6 +4,7 @@ import FiltersType from '../maps/filtersType';
 import FiltersContentType from '../maps/filtersContentType';
 import FiltersProgress from '../maps/filtersProgress';
 import FiltersPageContentType from '../maps/filtersPageContentType';
+import FiltersTopics from '../maps/filtersTopics';
 
 export default class Filters {
 
@@ -36,7 +37,7 @@ export default class Filters {
         return payload;
     }
 
-    static getFilterGroupsFromResponse(response): FilterGroup[] {
+    static getFilterGroupsFromResponse(response, topicsFiltersKey): FilterGroup[] {
         let activeFiltersMap = {};
         let activeFilters = response.meta.activeFilters || {};
         let filterOptions = response.meta.filterOptions || {};
@@ -52,17 +53,21 @@ export default class Filters {
             });
         });
 
+        if (topicsFiltersKey && FiltersTopics[topicsFiltersKey]) {
+            result.push(
+                Filters.getGlobalTopicFilters(
+                    topicsFiltersKey,
+                    topicsFiltersKey,
+                    activeFiltersMap
+                )
+            );
+        }
+
         keys.forEach((key) => {
-            if (FiltersType[key]) {
+            if (key != topicsFiltersKey && FiltersType[key]) {
                 let filterGroup = null;
 
-                if (FiltersType[key].label == 'Topic') {
-                    filterGroup = Filters.getGlobalTopicFilters(
-                        key,
-                        filterOptions[key],
-                        activeFiltersMap
-                    );
-                } else if (FiltersType[key].type == 'string') {
+                if (FiltersType[key].type == 'string') {
                     filterGroup = Filters.getFilterGroupFromArray(
                         key,
                         filterOptions[key],
@@ -79,8 +84,6 @@ export default class Filters {
                 result.push(filterGroup);
             }
         });
-
-        // console.log(result);
 
         return result;
     }
@@ -255,22 +258,21 @@ export default class Filters {
 
     static getGlobalTopicFilters(
         groupId: string,
-        data: string[],
+        topicsKey: string,
         activeFiltersMap
     ): FilterGroup {
 
-        let filterNames = ['Beats', 'Theory', 'Fills', 'Styles', 'Technique', 'Rudiments', 'Ear training',
-        'Independence', 'Musicality', 'Gear']
+        let filterNames = FiltersTopics[topicsKey];
         let filters = [];
 
         filterNames.forEach((filterName) => {
-            let id = filterName.toLowerCase().replace(/ |\//g, '-');
+            let id = filterName.toLowerCase().replace(/ |\/&/g, '-');
             let value = encodeURI(filterName);
             let active = false;
 
             if (
-                activeFiltersMap['topic']
-                && (activeFiltersMap['topic'][value] || activeFiltersMap['topic'][filterName])
+                activeFiltersMap[groupId]
+                && (activeFiltersMap[groupId][value] || activeFiltersMap[groupId][filterName])
             ) {
                 active = true;
             }
@@ -278,7 +280,7 @@ export default class Filters {
             filters.push(
                 new Filter(
                     id,
-                    'topic',
+                    groupId,
                     id,
                     filterName,
                     0,

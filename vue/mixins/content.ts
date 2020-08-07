@@ -38,6 +38,10 @@ export default {
         preloadData: {
             type: String
         },
+        topicsFiltersKey: {
+            type: String,
+            default: () => 'topic',
+        },
     },
     mounted(): void {
         if (this.infiniteScroll) {
@@ -92,7 +96,7 @@ export default {
             let result;
 
             this.filters.forEach((group) => {
-                if (group.id == 'topic') {
+                if (group.id == this.topicsFiltersKey) {
                     result = group;
                 }
             });
@@ -116,7 +120,7 @@ export default {
             let result = [];
 
             this.filters.forEach((group) => {
-                if (group.id != 'topic' && group.id != 'difficulty') {
+                if (group.id != 'topic' && group.id != 'difficulty' && group.id != this.topicsFiltersKey) {
                     result.push(group);
                 }
             });
@@ -202,16 +206,11 @@ export default {
         },
 
         resetSideFilters() {
-            this.filters = this.filters.map((group) => {
-
-                if (!this.resetFilters[group.id]) {
-                    group.filters = group.filters.map((item) => {
-                        item.active = false;
-                        return item;
-                    });
-                }
-
-                return group;
+            this.$_sideFilters.forEach((group) => {
+                group.filters = group.filters.map((item) => {
+                    item.active = false;
+                    return item;
+                });
             });
         },
 

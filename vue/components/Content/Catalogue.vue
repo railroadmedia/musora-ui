@@ -261,7 +261,7 @@ export default {
         },
 
         setupFilters(response) {
-            let filters = FiltersService.getFilterGroupsFromResponse(response);
+            let filters = FiltersService.getFilterGroupsFromResponse(response, this.topicsFiltersKey);
 
             if (this.useEdgeContentTypeFilters) {
                 let edgeContentTypeFilterGroup = FiltersService.getEdgeContentTypeFilterGroup(this.filters);
@@ -276,6 +276,7 @@ export default {
                 this.useCoursesContentTypeFilters
                 || this.usePlayAlongsContentTypeFilters
                 || this.useStudentFocusContentTypeFilters
+                || this.useSongsContentTypeFilters
             ) {
                 this.filters = filters;
             }

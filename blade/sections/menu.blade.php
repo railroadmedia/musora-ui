@@ -139,7 +139,7 @@
     <div class="mx-auto w-full container pl-3 small:pr-3 h-full">
         <div class="flex flex-row items-end small:items-center h-full relative">
             <div class="flex pb-2 small:pb-0">
-                <a id="logo" href="#" class="max-h-full inline-block">
+                <a id="logo" href="/router.php/vue/edge" class="max-h-full inline-block">
                     <img src="https://dpwjbsxqtam5n.cloudfront.net/logos/logo-white.png" class="w-full h-auto">
                 </a>
             </div>

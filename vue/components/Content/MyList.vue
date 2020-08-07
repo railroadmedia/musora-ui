@@ -143,7 +143,8 @@ export default {
 
         setupFilters(response) {
 
-            let filterGroups = FiltersService.getFilterGroupsFromResponse(response);
+            // todo - update topics filters key param
+            let filterGroups = FiltersService.getFilterGroupsFromResponse(response, '');
             this.filters = [];
 
             filterGroups.forEach(filterGroup => {

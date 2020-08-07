@@ -53,9 +53,10 @@ export default {
     mounted(): void {
         this.$root.$on('filterClicked', this.handleFilterClick);
 
+        this.topics = FiltersService.getGlobalTopicFilters('topic', 'rudiments', {});
+
         let preloadData = JSON.parse(this.preloadData);
 
-        this.setupFilters(preloadData);
         this.setupContent(preloadData);
         this.setupPagination(preloadData);
 
@@ -74,17 +75,6 @@ export default {
             this.fetchData(true);
         },
 
-        setupFilters(response) {
-
-            let filterGroups = FiltersService.getFilterGroupsFromResponse(response);
-
-            filterGroups.forEach(filterGroup => {
-                if (filterGroup.id == 'topic') {
-                    this.topics = filterGroup;
-                }
-            });
-        },
-
         fetchData(resetPage, appendContent) {
             this.loading = true;
 
@@ -98,11 +88,12 @@ export default {
 
             payload = FiltersService.decorateRequestParams(payload, [this.topics, this.pageContentTypeFilterGroup]);
 
+            console.log('::fetchData payload: %s', JSON.stringify(payload));
+
             ContentService
                 .getContent(payload)
                 .then((response) => {
 
-                    this.setupFilters(response.data);
                     this.setupContent(response.data, appendContent);
                     this.setupPagination(response.data);
 

@@ -17,6 +17,7 @@ import StudentFocusData from '../../mocks/student_focus.json';
 import StudentFocus2Data from '../../mocks/student_focus2.json';
 import StudentFocus3Data from '../../mocks/student_focus3.json';
 import StudentFocus4Data from '../../mocks/student_focus4.json';
+import SongsData from '../../mocks/songs.json';
 import CommentsData from '../../mocks/comments.json';
 import Utils from './utils';
 
@@ -67,7 +68,7 @@ export default class Mock {
                 let filterOptions = response.meta.filterOptions || {};
 
                 let keys = Object.keys(filterOptions);
-                let updatedKeys = {};
+                let updatedKeys = {topic: true, difficulty: true}; // do not remove any topic or difficulty keys
 
                 keys.forEach(key => {
                     if (!updatedKeys[key]) {
@@ -330,17 +331,13 @@ export default class Mock {
                     if (commentId == comment.id) {
                         comment.attributes['like_count'] = (parseInt(comment.attributes['like_count'] || '0') - 1).toString();
                         comment.attributes.is_liked = false;
-
                     }
                 });
 
                 CommentsData.included.forEach(item => {
                     if (commentId == item.id && item.type == 'comment') {
-                        console.log("item before: %s", JSON.stringify(item));
                         item.attributes['like_count'] = (parseInt(item.attributes['like_count'] || '0') - 1).toString();
                         item.attributes['is_liked'] = false;
-                        console.log("item after: %s", JSON.stringify(item));
-
                     }
                 });
 
@@ -380,6 +377,10 @@ export default class Mock {
             page = 'coursesData';
         }
 
+        if (includedTypes.length == 1 && includedTypes[0] == 'song') {
+            page = 'songs';
+        }
+
         switch(page) {
             case 'rudiment':
                 return [
@@ -406,6 +407,10 @@ export default class Mock {
                     Utils.copy(Courses2Data),
                     Utils.copy(Courses3Data),
                     Utils.copy(Courses4Data)
+                ];
+            case 'songs':
+                return [
+                    Utils.copy(SongsData),
                 ];
             case 'edge':
                 // falling into default block
