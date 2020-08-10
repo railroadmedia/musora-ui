@@ -30,6 +30,7 @@
 <style type="text/css">
 #nav {
     height: 65px;
+    border-color: #002039;
 }
 
 @media (min-width: 40rem) {
@@ -135,7 +136,7 @@
 </style>
 @endpush
 
-<header id="nav" class="bg-header fixed w-full top-0 left-0 border-b border-header-gray z-40">
+<header id="nav" class="bg-header fixed w-full top-0 left-0 border-b z-40">
     <div class="mx-auto w-full container pl-3 small:pr-3 h-full">
         <div class="flex flex-row items-end small:items-center h-full relative">
             <div class="flex pb-2 small:pb-0">
@@ -149,18 +150,18 @@
                 @endforeach
             </div>
             <div class="search-bar h-full flex items-end small:items-center absolute top-0 pl-4 pr-2 small:pl-0 small:pr-0 z-50 bg-header w-16">
-                <a href="#" class="search-toggle h-full text-header-gray px-4 flex items-end small:items-center pb-2 small:pb-0"><i class="icon-search text-lg font-bold"></i></a>
+                <a href="#" class="search-toggle h-full text-header-gray px-4 flex items-end small:items-center pb-2 small:pb-0"><i class="icon-search text-xl font-bold"></i></a>
                 <div class="hidden search-term flex-1 pl-1 pr-4 pb-2 small:pb-0">
                     <input type="text" name="search" class="w-full text-white bg-header" placeholder="What would you like to learn?" autocomplete="off">
                 </div>
-                <a href="#" class="search-toggle hidden search-bar-close h-full px-4 flex items-end small:items-center text-header-gray pb-2 small:pb-0"><i class="icon-check text-lg font-bold"></i></a>
+                <a href="#" class="search-toggle hidden search-bar-close h-full px-4 flex items-end small:items-center text-header-gray pb-2 small:pb-0"><i class="fas fa-times text-xl font-bold"></i></a>
             </div>
             <a href="/router.php/profile_dashboard" class="h-full flex items-end small:items-center">
                 <div class="rounded-full overflow-hidden border-2 border-header-gray w-8">
                     <img src="https://musora.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fpianote%2Fdefaults%2Favatar.png?blur=2&fit=crop&h=50&ixlib=php-1.2.1&q=50&w=50&s=0a284a726ec34f3bca2bb253a0dfc869">
                 </div>
             </a>
-            <div id="side-menu" class="text-header-gray px-4 border-l border-header-gray h-full small:hidden flex items-end small:items-center justify-center cursor-pointer open pb-2 small:pb-0"><i id="icon-open" class="icon-home text-lg font-bold"></i><i id="icon-close" class="icon-hammer text-lg font-bold"></i></div>
+            <div id="side-menu" class="text-white px-4 border-l border-header-gray h-full small:hidden flex items-end small:items-center justify-center cursor-pointer open pb-2 small:pb-0"><i id="icon-open" class="fas fa-bars text-xl font-bold"></i><i id="icon-close" class="fas fa-times text-xl font-bold"></i></div>
         </div>
     </div>
 </header>
@@ -168,7 +169,7 @@
 <aside id="side-bar" class="fixed right-0 z-40 bg-white flex flex-col">
     <a href="#" class="p-3 border-b border-medium-gray flex flex-row items-center"><i class="icon-home inline-block mr-2 text-edge-blue"></i>Home</a>
     <div class="">
-        <span class="collapse-trigger p-3 border-b border-medium-gray flex flex-row items-center relative cursor-pointer"><i class="icon-live inline-block mr-2 text-edge-blue"></i>Drumeo Edge<i class="icon-learning-paths text-medium-gray absolute right-0 mr-3 collapse-trigger-open"></i><i class="icon-resources text-medium-gray absolute right-0 mr-3 collapse-trigger-close"></i></span>
+        <span class="collapse-trigger p-3 border-b border-medium-gray flex flex-row items-center relative cursor-pointer"><i class="icon-live inline-block mr-2 text-edge-blue"></i>Drumeo Edge<i class="fas fa-angle-down text-xl text-medium-gray absolute right-0 mr-3 collapse-trigger-open"></i><i class="fas fa-angle-up text-xl text-medium-gray absolute right-0 mr-3 collapse-trigger-close"></i></span>
         <div class="collapse-container flex flex-col overflow-hidden bg-light-gray">
             <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center"><i class="icon-learning-paths inline-block mr-2"></i>Learning Paths</a>
             <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center"><i class="icon-courses inline-block mr-2"></i>Courses</a>
@@ -182,7 +183,7 @@
         </div>
     </div>
     <div class="">
-        <span class="collapse-trigger p-3 border-b border-medium-gray flex flex-row items-center relative cursor-pointer"><i class="icon-dft inline-block mr-2 text-edge-blue"></i>Drum Shop<i class="icon-learning-paths text-medium-gray absolute right-0 mr-3 collapse-trigger-open"></i><i class="icon-resources text-medium-gray absolute right-0 mr-3 collapse-trigger-close"></i></span>
+        <span class="collapse-trigger p-3 border-b border-medium-gray flex flex-row items-center relative cursor-pointer"><i class="icon-dft inline-block mr-2 text-edge-blue"></i>Drum Shop<i class="fas fa-angle-down text-xl text-medium-gray absolute right-0 mr-3 collapse-trigger-open"></i><i class="fas fa-angle-up text-xl text-medium-gray absolute right-0 mr-3 collapse-trigger-close"></i></span>
         <div class="collapse-container flex flex-col overflow-hidden bg-light-gray">
             <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center"></i>All products</a>
             <a href="#" class="pl-8 p-3 border-b border-medium-gray flex flex-row items-center">P4 Practice Pad</a>
@@ -230,6 +231,8 @@ if (searchToggleElements.length) {
     Array.from(searchToggleElements).forEach((element) => {
         element.addEventListener('click', (event) => {
             element.parentElement.classList.toggle('search-active');
+            event.stopPropagation();
+            event.preventDefault();
         });
     });
 }

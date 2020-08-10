@@ -6,7 +6,7 @@
             class="border-2 border-blue-600 rounded-full text-blue-600 mx-auto text-4xl flex flex-col justify-center"
             style="height: 120px; width: 120px;"
         >
-            <i class="icon-add-to-list dz-message"></i>
+            <i class="fal fa-plus dz-message"></i>
         </div>
         <div
             v-show="hasFileToCrop"
@@ -98,7 +98,7 @@ export default {
             type: Object,
             default: () => ({
                 url: ' ',
-                dictDefaultMessage: '<i class="icon-add-to-list dz-message"></i>',
+                dictDefaultMessage: '<i class="fal fa-plus dz-message"></i>',
                 dictFileTooBig: 'Maximum file size of 5MB exceeded.',
                 dictInvalidFileType: 'Invalid File Type.',
                 acceptedFiles: '.jpg,.jpeg,.png,.bmp',

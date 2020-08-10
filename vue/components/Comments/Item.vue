@@ -28,7 +28,7 @@
                             :class="$_likeClasses"
                             @click.stop.prevent="toggleLike()"
                         >
-                            <i class="icon-applause mr-1"></i>
+                            <i class="fal fa-thumbs-up mr-1"></i>
                             <span class="text-xs font-semibold">{{ $_likeLabel }}</span>
                             <div
                                 class="rounded-full flex items-center justify-center ml-1 w-5 h-5 bg-edge-blue text-white text-xs"
@@ -40,13 +40,13 @@
                             class="mx-6 text-medium-gray uppercase flex items-center"
                             @click.stop.prevent="showReply()"
                             v-if="!replying"
-                        ><i class="icon-chat mr-1"></i><span class="text-xs font-semibold">reply</span></a>
+                        ><i class="fal fa-reply mr-1"></i><span class="text-xs font-semibold">reply</span></a>
                         <a
                             href="#"
                             class="mx-6 text-edge-blue uppercase flex items-center"
                             @click.stop.prevent="closeReply()"
                             v-if="replying"
-                        ><i class="icon-chat mr-1"></i><span class="text-xs font-semibold">replying</span></a>
+                        ><i class="fal fa-reply mr-1"></i><span class="text-xs font-semibold">replying</span></a>
                     </div>
                     <div class="mb-2 sm:mb-0 text-medium-gray uppercase text-xs">{{ getDate() }}</div>
                 </div>

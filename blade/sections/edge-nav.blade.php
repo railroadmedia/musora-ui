@@ -14,6 +14,10 @@
         padding-right: 0.75rem;
     }
 }
+
+.subnav-link:hover {
+    background-color: #002039;
+}
 </style>
 @endpush
 
@@ -81,7 +85,7 @@ $items = [
                             $_labelClass = 'text-white';
                         }
                     @endphp
-                    <a href="{{ $item['url'] }}" class="subnav-link flex-1 py-3 small:py-3 hover:bg-header-gray hover:text-white h-full">
+                    <a href="{{ $item['url'] }}" class="subnav-link flex-1 py-3 small:py-3 hover:text-white h-full">
                         <i
                             class="{{ $item['icon'] }} text-3xl {{ $_iconClass }}"
                         ></i>
@@ -90,8 +94,8 @@ $items = [
                 @endforeach
             </div>
         </div>
-        <div id="scroll-sub-nav-left" class="h-full flex items-center justify-center border-l border-r border-header-gray cursor-pointer absolute left-0 top-0 z-10 medium:hidden" style="width: 35px;"><span>&lt;</span></div>
-        <div id="scroll-sub-nav-right" class="h-full flex items-center justify-center border-l border-r border-header-gray cursor-pointer absolute right-0 top-0 z-10 medium:hidden" style="width: 35px;"><span>&gt;</span></div>
+        <div id="scroll-sub-nav-left" class="h-full flex items-center justify-center border-l border-r border-header-gray cursor-pointer absolute left-0 top-0 z-10 medium:hidden" style="width: 35px;"><span class="font-bold">&lt;</span></div>
+        <div id="scroll-sub-nav-right" class="h-full flex items-center justify-center border-l border-r border-header-gray cursor-pointer absolute right-0 top-0 z-10 medium:hidden" style="width: 35px;"><span class="font-bold">&gt;</span></div>
     </div>
 </div>
 

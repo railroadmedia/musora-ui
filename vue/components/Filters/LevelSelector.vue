@@ -8,8 +8,8 @@
             <span class="font-roboto uppercase">{{ title }}</span>
             <div class="small:hidden flex items-center">
                 <div class="flex items-center justify-center border rounded-full w-4 h-4 mr-2 text-xs text-medium-gray">?</div>
-                <i class="icon-home text-lg font-bold small:hidden" v-show="collapsed"></i>
-                <i class="icon-hammer text-lg font-bold small:hidden" v-show="!collapsed"></i>
+                <i class="fas fa-angle-down text-xl font-semibold small:hidden" v-show="collapsed"></i>
+                <i class="fas fa-angle-up text-xl font-semibold small:hidden" v-show="!collapsed"></i>
             </div>
         </h4>
         <div class="collapse-container small:expand">

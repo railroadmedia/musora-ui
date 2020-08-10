@@ -3,13 +3,16 @@
 #sub-nav-container {
     padding-top: 65px;
 }
+.profile-nav-link:hover {
+    background-color: #002039;
+}
 </style>
 @endpush
 
 @php
 $items = [
     [
-        'icon' => 'icon-home',
+        'icon' => 'fas fa-tachometer-alt-slow',
         'label' => 'dashboard',
         'url' => '/router.php/profile_dashboard',
     ],
@@ -39,7 +42,7 @@ $items = [
                         $_labelClass = 'text-white';
                     }
                 @endphp
-                <a href="{{ $item['url'] }}" class="h-full flex flex-col items-center justify-center px-4 sm:px-10">
+                <a href="{{ $item['url'] }}" class="profile-nav-link h-full flex flex-col items-center justify-center px-4 sm:px-10 hover:text-white">
                     <i class="{{ $item['icon'] }} text-xl sm:text-3xl {{ $_iconClass }}"></i>
                     <span class="sm:py-1 text-sm font-medium {{ $_labelClass }}">{{ $item['label'] }}</span>
                 </a>

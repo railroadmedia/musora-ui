@@ -16,8 +16,7 @@
             <div class="text-medium-gray text-xs capitalize">detail</div>
             <div class="text-medium-gray text-xs capitalize">{{ getInstructors(content) }}</div>
             <div class="text-medium-gray text-xs capitalize">{{ content.date }}</div>
-            <div class="" v-if="canAddToList"><i class="icon-add-to-list text-medium-gray hover:text-edge-blue text-xl"></i></div>
-            <div class="" v-if="!canAddToList"><i class="icon-legacy text-edge-blue text-3xl"></i></div>
+            <div class=""><i class="fas fa-times text-edge-blue text-3xl"></i></div>
         </div>
     </a>
 </template>
@@ -30,10 +29,6 @@ export default {
     props: {
         content: {
             type: ContentModel,
-        },
-        canAddToList: {
-            type: Boolean,
-            default: () => true,
         },
     },
     mixins: [ContentInstructorsMixin],

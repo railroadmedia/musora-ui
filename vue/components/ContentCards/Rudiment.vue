@@ -10,7 +10,7 @@
             <div class="flex-none h-16 px-8 hidden small:block" v-if="content.sheet">
                 <img :src="content.sheet" class="h-full w-auto">
             </div>
-            <div class="flex-none"><i class="rudiment-card-icon icon-add-to-list text-2xl cursor-pointer text-medium-gray hover:text-black"></i></div>
+            <div class="flex-none"><i class="rudiment-card-icon fal fa-plus text-3xl cursor-pointer text-medium-gray hover:text-black"></i></div>
         </div>
     </a>
 </template>

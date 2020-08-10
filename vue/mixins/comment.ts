@@ -37,7 +37,7 @@ export default {
             let classes = {
                 team: 'icon-home',
                 edge: 'icon-drumeo-edge',
-                lifetime: 'icon-faculty-teacher'
+                lifetime: 'fal fa-infinity'
             };
 
             let author = this.getAuthor();

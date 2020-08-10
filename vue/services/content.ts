@@ -57,6 +57,8 @@ export default class Content {
     }
 
     static getContent(payload) {
+        payload['version'] = 'new';
+
         return http
             .get('/railcontent/content', { params: payload })
             .then(response => response)
@@ -67,6 +69,8 @@ export default class Content {
     }
 
     static getMyList(payload) {
+        payload['version'] = 'new';
+
         return http
             .get('/railcontent/my-list', { params: payload })
             .then(response => response)

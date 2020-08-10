@@ -18,6 +18,9 @@ import StudentFocus2Data from '../../mocks/student_focus2.json';
 import StudentFocus3Data from '../../mocks/student_focus3.json';
 import StudentFocus4Data from '../../mocks/student_focus4.json';
 import SongsData from '../../mocks/songs.json';
+import Songs2Data from '../../mocks/songs2.json';
+import Songs3Data from '../../mocks/songs3.json';
+import Songs4Data from '../../mocks/songs4.json';
 import CommentsData from '../../mocks/comments.json';
 import Utils from './utils';
 
@@ -160,7 +163,7 @@ export default class Mock {
                 let filterOptions = response.meta.filterOptions || {};
 
                 let keys = Object.keys(filterOptions);
-                let updatedKeys = {};
+                let updatedKeys = {topic: true};
 
                 keys.forEach(key => {
                     if (!updatedKeys[key]) {
@@ -411,6 +414,9 @@ export default class Mock {
             case 'songs':
                 return [
                     Utils.copy(SongsData),
+                    Utils.copy(Songs2Data),
+                    Utils.copy(Songs3Data),
+                    Utils.copy(Songs4Data),
                 ];
             case 'edge':
                 // falling into default block

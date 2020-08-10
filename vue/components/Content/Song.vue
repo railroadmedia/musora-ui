@@ -28,10 +28,10 @@
                     class="flex flex-col items-center"
                     :class="$_likeClasses"
                     @click.stop.prevent="toggleLike()"
-                ><i class="icon-applause text-xl"></i><span class="text-xs font-semibold">{{ content.likes }}</span></a>
-                <a href="#" class="text-medium-gray flex flex-col items-center"><i class="icon-getting-started text-xl"></i><span class="text-xs uppercase font-semibold">share</span></a>
-                <a href="#" class="text-medium-gray flex flex-col items-center"><i class="icon-download text-xl"></i><span class="text-xs uppercase font-semibold">download</span></a>
-                <a href="#" class="text-medium-gray flex flex-col items-center"><i class="icon-add-to-list text-xl"></i><span class="text-xs uppercase font-semibold">add to list</span></a>
+                ><i class="fal fa-thumbs-up text-3xl"></i><span class="text-xs font-bold pt-2">{{ content.likes }}</span></a>
+                <a href="#" class="text-medium-gray flex flex-col items-center"><i class="fal fa-share text-3xl"></i><span class="text-xs uppercase font-bold pt-2">share</span></a>
+                <a href="#" class="text-medium-gray flex flex-col items-center"><i class="fal fa-arrow-to-bottom text-3xl"></i><span class="text-xs uppercase font-bold pt-2">download</span></a>
+                <a href="#" class="text-medium-gray flex flex-col items-center"><i class="fal fa-plus text-3xl"></i><span class="text-xs uppercase font-bold pt-2">add to list</span></a>
             </div>
         </div>
     </div>

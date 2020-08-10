@@ -91,9 +91,9 @@ export default {
             initialSort: 'newest',
             brief: {
                 count: 0,
-                sort: 'Newest First'
+                sort: 'Newest'
             },
-            sortOptions: ['newest', 'oldest', 'popularity', 'trending', 'relevance'],
+            sortOptions: ['Newest', 'Oldest', 'Popularity', 'Trending', 'Relevance'],
             pagination: new PaginationModel(100, 1, this.initialSort),
         };
     },

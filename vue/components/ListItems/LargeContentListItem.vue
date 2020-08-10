@@ -12,7 +12,7 @@
                 </div>
 
                 <div v-if="canAddToList" class="absolute top-0 right-0 mt-2 mr-2 cursor-pointer z-20">
-                    <i class="icon-add-to-list text-white"></i>
+                    <i class="fal fa-plus text-white"></i>
                 </div>
 
                 <div class="video-card-play absolute rounded-lg inset-0 flex items-center justify-center invisible opacity-0 z-10">

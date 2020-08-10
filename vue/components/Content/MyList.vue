@@ -132,6 +132,8 @@ export default {
     mounted(): void {
 
         let preloadData = JSON.parse(this.preloadData);
+        let topics = FiltersService.getGlobalTopicFilters('topic', 'my-list', {});
+        this.filters = [topics];
 
         this.setupFilters(preloadData);
         this.setupContent(preloadData);
@@ -143,14 +145,19 @@ export default {
 
         setupFilters(response) {
 
-            // todo - update topics filters key param
             let filterGroups = FiltersService.getFilterGroupsFromResponse(response, '');
-            this.filters = [];
+            this.filters = [this.$_topics];
 
             filterGroups.forEach(filterGroup => {
-                if (filterGroup.id == 'topic' || filterGroup.id == 'content-type') {
+                if (filterGroup.id == 'content-type') {
                     this.filters.push(filterGroup);
                 }
+            });
+        },
+
+        resetSideFilters() {
+            this.$_sideFilters.filters.forEach((filter) => {
+                filter.active = false;
             });
         },
 

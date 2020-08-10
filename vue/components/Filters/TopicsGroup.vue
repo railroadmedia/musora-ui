@@ -7,8 +7,8 @@
         >
             <span class="font-roboto">{{ title }}</span>
             <div class="small:hidden flex items-center">
-                <i class="icon-home text-lg font-bold small:hidden" v-show="collapsed"></i>
-                <i class="icon-hammer text-lg font-bold small:hidden" v-show="!collapsed"></i>
+                <i class="fas fa-angle-down text-xl font-semibold small:hidden" v-show="collapsed"></i>
+                <i class="fas fa-angle-up text-xl font-semibold small:hidden" v-show="!collapsed"></i>
             </div>
         </h4>
         <div class="collapse-container small:expand">
