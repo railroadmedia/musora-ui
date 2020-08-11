@@ -5,7 +5,7 @@
             :class="{active: !collapsed}"
             @click.stop.prevent="toggleCollapse()"
         >
-            <span class="font-roboto">{{ title }}</span>
+            <span class="font-bold font-roboto-cond">{{ title }}</span>
             <div class="small:hidden flex items-center">
                 <i class="fas fa-angle-down text-xl font-semibold small:hidden" v-show="collapsed"></i>
                 <i class="fas fa-angle-up text-xl font-semibold small:hidden" v-show="!collapsed"></i>

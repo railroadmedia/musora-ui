@@ -5,7 +5,7 @@
             :class="{active: !collapsed}"
             @click.stop.prevent="toggleCollapse()"
         >
-            <span class="font-roboto uppercase">{{ title }}</span>
+            <span class="font-bold font-roboto-cond uppercase">{{ title }}</span>
             <div class="small:hidden flex items-center">
                 <div class="flex items-center justify-center border rounded-full w-4 h-4 mr-2 text-xs text-medium-gray">?</div>
                 <i class="fas fa-angle-down text-xl font-semibold small:hidden" v-show="collapsed"></i>
@@ -44,7 +44,7 @@
                         <span class="text-white font-extrabold uppercase">{{ $_levelLabel }}</span>
                     </div>
                     <div class="w-1/4 flex justify-center leading-none py-4 small:justify-end small:py-0">
-                        <a href="#" class="rounded-full border-2 border-edge-dark-blue text-edge-dark-blue px-6 text-xs py-1 small:px-8 small:text-base uppercase">all</a>
+                        <a href="#" class="rounded-full border-2 border-edge-dark-blue text-edge-dark-blue px-6 text-xs leading-normal py-1 small:px-8 uppercase font-bold font-roboto-cond">all</a>
                     </div>
                 </div>
             </div>
@@ -74,10 +74,6 @@ export default {
         $_levelLabel() {
             let activeFilter = this.$_activeFilter;
             let label = activeFilter ? activeFilter.label : '';
-
-            if (label.toString().length == 1) {
-                label = 'LEVEL ' + label;
-            }
 
             return label;
         },

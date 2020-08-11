@@ -57,12 +57,12 @@ export default {
                 },
                 blue: {
                     container: {
-                        checked: ['badge-checkbox', 'rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'justify-center', 'text-xs', 'leading-none', 'bg-white', 'text-edge-blue', 'border-white', 'font-extrabold'],
-                        unchecked: ['badge-checkbox', 'rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'justify-center', 'border-edge-dark-blue', 'text-edge-dark-blue', 'text-xs', 'leading-none', 'font-medium'],
+                        checked: ['badge-checkbox', 'rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'justify-center', 'text-xs', 'leading-none', 'border-white', 'text-edge-blue', 'bg-white', 'font-extrabold'],
+                        unchecked: ['badge-checkbox', 'rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'justify-center', 'text-xs', 'leading-none', 'border-edge-dark-blue', 'text-edge-dark-blue', 'font-medium', 'hover:border-white', 'hover:text-edge-blue', 'hover:bg-white', 'hover:font-extrabold'],
                     },
                     label:  {
-                        checked: ['py-2', 'text-xs', 'font-roboto'],
-                        unchecked: ['py-2', 'text-xs', 'font-roboto'],
+                        checked: ['py-2', 'text-xs', 'font-bold', 'font-roboto-cond'],
+                        unchecked: ['py-2', 'text-xs', 'font-bold', 'font-roboto-cond'],
                     },
                     icon: {
                         checked: ['text-lg', 'pr-1'],

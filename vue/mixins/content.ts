@@ -21,7 +21,7 @@ export default {
         },
         initialSort: {
             type: String,
-            default: () => '-published_on',
+            default: () => 'relevance',
         },
         statuses: {
             type: Array,
@@ -62,8 +62,11 @@ export default {
             pagination: new PaginationModel(this.initialLimit, this.initialPage, this.initialSort),
             limitOptions: [10, 20, 30, 40, 50],
             sortOptions: {
-                '-published_on': 'Newest First',
-                '-test': 'Alphabetical',
+                'relevance': 'Relevance',
+                'trend': 'Trending',
+                'popular': 'Most Popular',
+                'newest': 'Newest First',
+                'oldest': 'Oldest First',
             },
         }
     },
@@ -83,7 +86,7 @@ export default {
         $_filters(): Filter[] {
             let result = [];
 
-            this.$_sideFilters.forEach((group) => {
+            this.filters.forEach((group) => {
                 group.filters.forEach((filter) => {
                     result.push(filter);
                 });

@@ -4,10 +4,10 @@
             <div class="rounded-full overflow-hidden border-4 border-blue-500 mr-4 h-20 sm:h-24 md:h-32">
                 <img src="https://s3.amazonaws.com/pianote/defaults/avatar.png" class="h-full w-auto">
             </div>
-            <div class="ml-2 sm:ml-6">
+            <a href="/router.php/profile_dashboard" class="ml-2 sm:ml-6">
                 <div class="font-black capitalize text-2xl sm:text-3xl md:text-4xl">brandon toews</div>
                 <div class="mt-2 text-xs text-dark-gray">drumeo member since 2012</div>
-            </div>
+            </a>
         </div>
         <div class="flex items-center justify-between mt-4 sm:mt-0 text-medium-gray">
             <div class="mr-4 lg:mr-12 flex flex-col items-center">

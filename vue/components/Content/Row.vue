@@ -2,10 +2,10 @@
     <div class="w-full small:mt-6">
         <div class="flex flex-row justify-between items-center uppercase font-roboto">
             <div class="text-medium-gray">
-                <span class="font-bold">{{ sectionTitle }}</span>
+                <span class="font-bold font-roboto-cond">{{ sectionTitle }}</span>
             </div>
             <div class="">
-                <a :href="sectionUrl" class="text-edge-blue text-sm font-bold">see all</a>
+                <a :href="sectionUrl" class="text-edge-blue text-sm font-bold font-roboto-cond">see all</a>
             </div>
         </div>
         <div class="py-6 small:flex small:space-x-3">

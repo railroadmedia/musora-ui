@@ -3,19 +3,19 @@
         <div class="border-t border-light-gray py-8">
             <div class="flex justify-between">
                 <div>
-                    <span class="uppercase text-medium-gray text-sm font-semibold">{{ brief.count }} comments</span>
+                    <span class="uppercase text-medium-gray text-sm font-semibold">{{ pagination.total }} comments</span>
                 </div>
                 <div>
                     <span class="text-medium-gray text-sm font-semibold">Sort by: </span>
                     <select
                         class="bg-white text-medium-gray text-sm"
-                        v-model="brief.sort"
+                        v-model="$_sort"
                     >
                         <option
-                            v-for="option in sortOptions"
-                            :key="option"
-                            :value="option"
-                        >{{ option }}</option>
+                            v-for="(text, value, index) in sortOptions"
+                            :key="index"
+                            :value="value"
+                        >{{ text }}</option>
                     </select>
                 </div>
             </div>
@@ -88,18 +88,27 @@ export default {
         return {
             user: undefined,
             comments: [],
-            initialSort: 'newest',
-            brief: {
-                count: 0,
-                sort: 'Newest'
+            sortOptions: {
+                'popular': 'Most Popular',
+                'newest': 'Newest First',
+                'oldest': 'Oldest First',
             },
-            sortOptions: ['Newest', 'Oldest', 'Popularity', 'Trending', 'Relevance'],
-            pagination: new PaginationModel(100, 1, this.initialSort),
+            pagination: new PaginationModel(100, 1, 'newest', 0),
         };
+    },
+    computed: {
+        $_sort: {
+            get() {
+                return this.pagination.sort;
+            },
+            set(value) {
+                this.pagination.sort = value;
+                this.fetchData();
+            }
+        },
     },
     mounted(): void {
         this.user = UserService.getUserFromObject(this.currentUserData);
-        this.brief.count = this.comments.length;
 
         let preloadData = JSON.parse(this.commentsData);
         
@@ -107,6 +116,8 @@ export default {
         this.setupPagination(preloadData);
 
         this.fetchData();
+
+        this.pagination.total = this.comments.length;
 
         this.$root.$on('addComment', this.addComment);
     },

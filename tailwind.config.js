@@ -89,6 +89,7 @@ module.exports = {
         fontFamily: {
             sans: ['"Open Sans"', 'sans-serif'],
             roboto: ['Roboto', 'sans-serif'],
+            'roboto-cond': ['Roboto Condensed', 'sans-serif'],
         },
     },
     variants: {

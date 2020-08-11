@@ -2,11 +2,11 @@
     <div class="w-full mb-2">
         <div class="text-dark-gray text-xs border-2 border-light-gray rounded-lg">
             <div
-                class="collapse-trigger flex content-center justify-between px-3 py-2 font-semibold small:text-sm cursor-pointer font-roboto"
+                class="collapse-trigger flex content-center justify-between px-3 py-2 small:text-sm cursor-pointer"
                 :class="{active: !filterGroup.collapsed}"
                 @click.stop.prevent="toggleCollapse()"
             >
-                <span class="uppercase">{{ filterGroup.title }}</span>
+                <span class="uppercase font-bold font-roboto-cond">{{ filterGroup.title }}</span>
                 <i class="fas fa-angle-down text-lg font-bold" v-show="filterGroup.collapsed"></i>
                 <i class="fas fa-angle-up text-lg font-bold" v-show="!filterGroup.collapsed"></i>
             </div>

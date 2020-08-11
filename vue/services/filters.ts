@@ -81,6 +81,12 @@ export default class Filters {
                     );
                 }
 
+                if (key == 'instructors') {
+                    filterGroup.filters.sort(function(a, b) {
+                        return a.name > b.name ? 1 : -1;
+                    });
+                }
+
                 result.push(filterGroup);
             }
         });
@@ -100,6 +106,7 @@ export default class Filters {
             let id = item.toLowerCase().replace(/ |\//g, '-');
             let value = encodeURI(item);
             let active = false;
+            let label = groupId == 'difficulty' ? 'Level ' + item : item;
 
             if (
                 activeFiltersMap[groupId]
@@ -113,7 +120,7 @@ export default class Filters {
                     id,
                     groupId,
                     id,
-                    item,
+                    label,
                     0,
                     active,
                     icon,

@@ -73,6 +73,12 @@ export default class Mock {
                 let keys = Object.keys(filterOptions);
                 let updatedKeys = {topic: true, difficulty: true}; // do not remove any topic or difficulty keys
 
+                if (filterOptions['instructors']) {
+                    filterOptions['instructors'].sort(function(a, b) {
+                        return a.name > b.name ? 1 : -1;
+                    });
+                }
+
                 keys.forEach(key => {
                     if (!updatedKeys[key]) {
                         let filerGroup = [...filterOptions[key]];

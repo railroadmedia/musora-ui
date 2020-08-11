@@ -45,7 +45,7 @@
                         <div class="py-2 mr-1" v-show="$_hasActiveFiler">
                             <a
                                 href="#"
-                                class="text-edge-blue uppercase font-bold font-roboto"
+                                class="text-edge-blue uppercase font-bold font-roboto-cond"
                                 @click.stop.prevent="clearFilters()"
                             >clear all</a>
                         </div>
