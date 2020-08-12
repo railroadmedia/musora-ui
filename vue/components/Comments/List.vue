@@ -115,8 +115,6 @@ export default {
         this.setupComments(preloadData);
         this.setupPagination(preloadData);
 
-        this.fetchData();
-
         this.pagination.total = this.comments.length;
 
         this.$root.$on('addComment', this.addComment);

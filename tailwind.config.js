@@ -38,7 +38,6 @@ module.exports = {
                 '9/12': '75%',
                 '10/12': '83.333333%',
                 '11/12': '91.666667%',
-
                 '9/16': '56.25%',
                 '1/1': '100%',
             },
@@ -56,6 +55,8 @@ module.exports = {
             },
             width: {
                 '1/9': '11.111111%',
+                xsmall: '30rem',
+                small: '40rem',
                 medium: '64rem',
             },
             maxWidth: {
@@ -66,7 +67,12 @@ module.exports = {
                 medium: '64rem',
                 large: '72.5rem',
                 'x-large': '97.5rem'
-            }
+            },
+            zIndex: {
+                '55': 55,
+                '60': 60,
+                '65': 65,
+            },
         },
         minWidth: {
             '0': '0',

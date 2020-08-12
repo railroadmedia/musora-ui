@@ -6,12 +6,14 @@
         >
             <topics-group-filters
                 :title="topicsFiltersTitle"
+                @clearFilterGroup="clearFilterGroup"
                 :filter-group="$_topics"
                 v-if="!topicsFiltersDisabled && $_topics"
             ></topics-group-filters>
             <level-selector
                 title="set your skill level"
                 @levelSelected="handleLevelSelected"
+                @clearFilterGroup="clearFilterGroup"
                 :filter-group="$_difficulty"
                 v-if="!levelSelectorDisabled && $_difficulty"
             ></level-selector>

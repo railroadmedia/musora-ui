@@ -4,23 +4,27 @@
     $active = $active ?? 'edge';
     $items = [
         [
-            'title' => 'EDGE',
+            'title' => '',
             'active' => $active == 'edge' ? 'active': null,
+            'logo' => 'logo-edge',
             'url' => '/router.php/vue/edge'
         ],
         [
             'title' => 'packs',
             'active' => $active == 'packs' ? 'active': null,
+            'logo' => '',
             'url' => '/router.php/packs'
         ],
         [
             'title' => 'forums',
             'active' => $active == 'forums' ? 'active': null,
+            'logo' => '',
             'url' => '#'
         ],
         [
             'title' => 'shop',
             'active' => $active == 'shop' ? 'active': null,
+            'logo' => '',
             'url' => '#'
         ],
     ];
@@ -132,6 +136,12 @@
         max-height: 2000px;
     }
 }
+#nav .logo-edge {
+    width: 60px;
+    height: 18px;
+    background-repeat: no-repeat;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDM3IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbWl0ZXJsaW1pdD0iMS40MTQiPjxwYXRoIGQ9Ik03Mi44MzEgMjIuNzg5aC04Ljc2MlYxNy43NmgxNC40ODhjLjAwNy4wMzQuMDIxLjA3LjAyMS4xMDcuMDE3IDEuOTA3LS4wNjYgMy44MDUtLjM2MiA1LjY5NS0uNTA3IDMuMjM1LTEuOTE3IDUuOTk5LTQuMTY5IDguMzUxLTEuODUzIDEuOTM1LTQuMDIgMy4zNjctNi41NzMgNC4xODktMi4xMTguNjgzLTQuMjkzLjg5LTYuNTA3Ljc2My0yLjI0My0uMTI4LTQuMzg0LS42NTYtNi40MDktMS42MzgtMS43MzgtLjg0My0zLjI4LTEuOTY2LTQuNjYzLTMuMzE0YTE5LjQ5MiAxOS40OTIgMCAwMS0yLjg3MS0zLjUwNmMtLjAyMS0uMDMyLS4wNDctLjA1OS0uMDU5LS4wNzQtLjQ1NS42MTMtLjg3NyAxLjI0OS0xLjM2NiAxLjgyOC0yLjQyIDIuODY2LTUuMzUyIDQuOTYzLTkuMDA3IDUuOTQ0LTEuNjAzLjQzLTMuMjQ0LjY1NC00Ljg5Ni42ODUtMy40LjA2My02LjguMDYtMTAuMi4wODMtLjA2MiAwLS4xMjMtLjAxLS4xOTUtLjAxNlYuMDA4aC4yNjFjMi43MjkgMCA1LjQ1OC0uMDIgOC4xODcuMDA2IDIuMzk4LjAyMyA0Ljc4NS4xOTkgNy4xMTIuODQ0IDQuMzU0IDEuMjA2IDcuNjY5IDMuODA1IDEwLjA4NSA3LjYwNWwuMDkzLjE0Yy4wNTItLjA3NS4wOTYtLjEzNS4xMzctLjE5NiAyLjExOC0zLjEwMiA0LjgyMS01LjUwNyA4LjI5NS02Ljk4NEM1Ny4zOS42MDggNTkuNC4xODcgNjEuNDc2LjA4MWM0LjgwNi0uMjQ1IDkuMDk4IDEuMDYyIDEyLjcxMiA0LjMyOC45NDQuODUzIDEuODA1IDEuNzk5IDIuNzAzIDIuNzAzLjAzOC4wMzguMDY3LjA4NC4xMTQuMTQzbC0zLjc3NSAzLjY1NmMtLjE1Mi0uMTkzLS4yOTYtLjM3OS0uNDQzLS41NjItMS4zMjQtMS42NS0yLjg1OC0zLjA0OS00Ljc1OS00LjAwOS0xLjg0MS0uOTI5LTMuNzk2LTEuMzA0LTUuODQ5LTEuMjM0LTIuNzI0LjA5My01LjIwNy44ODktNy4zNjkgMi41NzktMi41NDYgMS45OTEtNC4yNzkgNC41MjYtNC45MTIgNy43MzUtLjYyNiAzLjE3Ni0uNDAyIDYuMjc0IDEuMDY4IDkuMjA5IDEuMDU2IDIuMTA5IDIuNjU3IDMuNzMyIDQuNTc5IDUuMDUzIDEuNTA2IDEuMDM1IDMuMTQ3IDEuNzUgNC45NiAyLjAyOSAzLjMzMS41MTIgNi4yOC0uMzMzIDguODQxLTIuNTI5IDEuNTc4LTEuMzUzIDIuNzI0LTIuOTk0IDMuMjI4LTUuMDQxLjEwNy0uNDM0LjE2OS0uODguMjU3LTEuMzUyem03LjE5OCAxNC4wNjhoLS4yOVYuMDEyYy4wODktLjAwNS4xNjYtLjAxMS4yNDMtLjAxMWgxOS43MTdjLjA2MyAwIC4xMjYuMDA0LjE4OS4wMDd2NS4yNDNjLS4wODYtLjAwOC0uMTcxLS4wMjMtLjI1Ny0uMDIzbC0xNC4wNy0uMDAxaC0uMjh2OC44NThoNy45OTVjLS4wMzMuMDY0LS4wNDcuMS0uMDY4LjEzMS0xLjEgMS42NTctMi4xOTkgMy4zMTUtMy4zMDggNC45NjYtLjA1MS4wNzctLjE5Mi4xMy0uMjkxLjEzMS0xLjM1My4wMDgtMi43MDUuMDA1LTQuMDU4LjAwNWgtLjI2OVYzMS42M2guMjc5bDE0LjA3LS4wMDFjLjA4NiAwIC4xNzEtLjAxNC4yNTctLjAyMnY1LjI0MmMtLjA4Ny4wMDMtLjE3NC4wMDgtLjI2LjAwOEg4MC4wMjl6TTIwLjEzNSA1LjIzNEg1LjUydjguODU1aDguMDE0Yy0uMDUxLjA5NC0uMDc5LjE1NC0uMTE2LjIwOC0xLjA3OSAxLjYyNC0yLjE2MSAzLjI0Ni0zLjIzNyA0Ljg3My0uMDg3LjEzMi0uMTgyLjE2OC0uMzMuMTY3LTEuMzQ0LS4wMDQtMi42ODktLjAwMy00LjAzMy0uMDAzSDUuNTJ2MTIuMzEyaDE0LjYydjUuMjA5SDBWLjAyMmgyMC4xMzV2NS4yMTJ6bTYuNjgxIDI2LjQxM2wuMjcyLS4wMDEgMi41ODUtLjAxNmMxLjM1NC0uMDEgMi43MDItLjA5IDQuMDMyLS4zNTUgNC40MTUtLjg4IDcuNTcyLTMuMzk2IDkuMjg0LTcuNTU5IDEuMzgyLTMuMzYxIDEuMzI2LTYuODQuMTQ2LTEwLjI2Ny0uODY5LTIuNTIyLTIuNDUtNC41MzUtNC42ODgtNS45OS0xLjkyNi0xLjI1MS00LjA5MS0xLjgwMi02LjM0My0yLjA2NS0xLjcwOS0uMi0zLjQyNS0uMTQyLTUuMTQtLjE1LS4wNDUtLjAwMS0uMDkxLjAwNS0uMTQ4LjAxdjI2LjM5M3oiIGZpbGwtcnVsZT0ibm9uemVybyIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==);
+}
 @endif
 </style>
 @endpush
@@ -146,7 +156,7 @@
             </div>
             <div class="w-full h-full hidden small:flex flex-row items-center inline-box text-lg capitalize text-header-gray pr-12">
                 @foreach ($items as $item)
-                    <a href="{{ $item['url'] }}" class="h-full w-1/4 flex items-center justify-center hover:text-white hover:font-bold {{ $item['active'] }}"><span>{{ $item['title'] }}</span></a>
+                    <a href="{{ $item['url'] }}" class="h-full w-1/4 flex items-center justify-center hover:text-white hover:font-bold {{ $item['active'] }}"><span class="{{ $item['logo'] }}">{{ $item['title'] }}</span></a>
                 @endforeach
             </div>
             <div class="search-bar h-full flex items-end small:items-center absolute top-0 pl-4 pr-2 small:pl-0 small:pr-0 z-50 bg-header w-16">

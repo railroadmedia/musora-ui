@@ -74,8 +74,4 @@ export default {
     visibility: visible;
     opacity: 1;
 }
-/*.content-card .instructor-name {
-    background: -webkit-gradient(linear,left top,left bottom,from(transparent),to(#000));
-    background: linear-gradient(180deg,transparent 0,#000);
-}*/
 </style>

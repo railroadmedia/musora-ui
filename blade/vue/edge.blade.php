@@ -14426,6 +14426,11 @@ EOT;
 @section('app')
     @include('sections.user-stats')
 
+    <modal-default modal-id="skill-levels-modal">
+        <template v-slot:header>What Skill Level Are You?</template>
+        Skill Levels are directly tied to the Drumeo Method curriculum.  If you are on Level 4 of the Drumeo Method you should set your Skill Level to Level 4 here.
+    </modal-default>
+
     <div class="container w-full h-full mx-auto px-3 pt-4">
         <content-row
             content-list='{{ $rc1 }}'

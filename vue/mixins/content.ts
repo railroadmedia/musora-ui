@@ -208,6 +208,21 @@ export default {
             this.fetchData(true);
         },
 
+        clearFilterGroup(filterGroup) {
+            this.filters = this.filters.map((group) => {
+                if (group.id == filterGroup.id) {
+                    group.filters = group.filters.map((item) => {
+                        item.active = false;
+                        return item;
+                    });
+                }
+
+                return group;
+            });
+
+            this.fetchData(true);
+        },
+
         resetSideFilters() {
             this.$_sideFilters.forEach((group) => {
                 group.filters = group.filters.map((item) => {

@@ -1,16 +1,26 @@
 <template>
     <div class="flex-1 rounded-lg overflow-hidden">
-        <h4
-            class="collapse-trigger py-2 px-2 cursor-pointer small:cursor-default small:px-0 flex justify-between small:block small:text-center text-white bg-edge-dark-blue font-bold text-sm small:text-lg uppercase"
+        <div
+            class="collapse-trigger py-2 px-2 cursor-pointer small:cursor-default small:px-0 flex justify-center text-white bg-edge-dark-blue font-bold text-sm small:text-lg uppercase"
             :class="{active: !collapsed}"
             @click.stop.prevent="toggleCollapse()"
         >
-            <span class="font-bold font-roboto-cond">{{ title }}</span>
-            <div class="small:hidden flex items-center">
-                <i class="fas fa-angle-down text-xl font-semibold small:hidden" v-show="collapsed"></i>
-                <i class="fas fa-angle-up text-xl font-semibold small:hidden" v-show="!collapsed"></i>
+            <div class="flex-1"></div>
+            <div class="font-bold font-roboto-cond">{{ title }}</div>
+            <div class="flex-1 flex items-center justify-end pl-2">
+                <div class="flex leading-none py-4 small:py-0">
+                    <a
+                        @click.stop.prevent="clearFilterGroup()"
+                        class="cursor-pointer rounded-full border-2 px-6 text-xs py-1 small:px-8 small:text-base uppercase text-edge-blue hover:border-white hover:bg-white"
+                        :class="$_buttonAllClasses"
+                    >all</a>
+                </div>
+                <div class="flex items-center px-2">
+                    <i class="fas fa-angle-down text-xl font-semibold small:hidden" v-show="collapsed"></i>
+                    <i class="fas fa-angle-up text-xl font-semibold small:hidden" v-show="!collapsed"></i>
+                </div>
             </div>
-        </h4>
+        </div>
         <div class="collapse-container small:expand">
             <div class="px-3 py-4 flex flex-wrap bg-edge-blue">
                 <div
@@ -33,18 +43,13 @@
 import FilterCheckbox from '../Blocks/FilterCheckbox';
 import FilterGroup from '../../models/filterGroup';
 
+import BlueFiltersMixin from '../../mixins/blueFilters';
+
 export default {
     components: {
         'filter-checkbox': FilterCheckbox,
     },
-    props: {
-        title: {
-            type: String,
-        },
-        filterGroup: {
-            type: FilterGroup,
-        }
-    },
+    mixins: [BlueFiltersMixin],
     data(): object {
         return {
             collapsed: true,
@@ -77,9 +82,6 @@ export default {
         }
     },
     methods: {
-        toggleCollapse(): void {
-            this.collapsed = !this.collapsed;
-        }
     },
 };
 </script>

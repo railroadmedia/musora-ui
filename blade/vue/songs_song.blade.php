@@ -798,7 +798,7 @@ $commentsData = <<<'EOC'
         "avatar": "https://d2vyvo0tyx8ig5.cloudfront.net/avatars/344840_1582570614276.jpg",
         "display_name": "Sam Vesely",
         "xp": 0,
-        "access_level": "team",
+        "access_level": "edge",
         "level_number": "1.0"
       }
     },

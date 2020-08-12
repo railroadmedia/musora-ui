@@ -16,11 +16,24 @@ export default {
                 classes.member;
         },
 
-        $_avatarIconBgClass(): string {
+        $_avatarMembershipIcon(): string {
+
+            let membership = {
+                team: true,
+                edge: true,
+                lifetime: true,
+            };
+
+            let author = this.getAuthor();
+
+            return author && author.membership && membership[author.membership];
+        },
+
+        $_avatarIconBgClass(): string[] {
 
             let classes = {
-                team: ['bg-black'],
-                edge: ['bg-edge-blue'],
+                team: ['bg-black', 'logo-team'],
+                edge: ['bg-edge-blue', 'logo-edge'],
                 lifetime: ['bg-yellow-500'],
                 member: ['bg-edge-blue'],
             };
@@ -34,15 +47,9 @@ export default {
 
         $_avatarIconClass(): string {
 
-            let classes = {
-                team: 'icon-home',
-                edge: 'icon-drumeo-edge',
-                lifetime: 'fal fa-infinity'
-            };
-
             let author = this.getAuthor();
 
-            return classes[author.membership];
+            return author && author.membership == 'lifetime' ? 'fal fa-infinity' : '';
         },
     },
 }

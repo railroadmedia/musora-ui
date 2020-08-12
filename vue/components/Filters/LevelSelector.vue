@@ -1,17 +1,32 @@
 <template>
     <div class="flex-1 rounded-lg overflow-hidden bg-edge-blue">
-        <h4
-            class="collapse-trigger py-2 px-2 cursor-pointer small:cursor-default small:px-0 flex justify-between small:block small:text-center text-white bg-edge-dark-blue font-bold text-sm small:text-lg"
+        <div
+            class="collapse-trigger py-2 px-2 cursor-pointer small:cursor-default small:px-0 flex justify-center text-white bg-edge-dark-blue font-bold text-sm small:text-lg"
             :class="{active: !collapsed}"
             @click.stop.prevent="toggleCollapse()"
         >
-            <span class="font-bold font-roboto-cond uppercase">{{ title }}</span>
-            <div class="small:hidden flex items-center">
-                <div class="flex items-center justify-center border rounded-full w-4 h-4 mr-2 text-xs text-medium-gray">?</div>
-                <i class="fas fa-angle-down text-xl font-semibold small:hidden" v-show="collapsed"></i>
-                <i class="fas fa-angle-up text-xl font-semibold small:hidden" v-show="!collapsed"></i>
+            <div class="flex-1"></div>
+            <div class="flex-none font-bold font-roboto-cond uppercase">{{ title }}</div>
+            <div class="flex-1 flex items-center pl-2">
+                <div class="flex-1">
+                    <a
+                        class="cursor-pointer flex items-center justify-center border rounded-full w-5 h-5 text-sm text-edge-blue"
+                        @click.stop.prevent="showSkillLevelsModal()"
+                    >?</a>
+                </div>
+                <div class="flex leading-none py-4 small:py-0">
+                    <a
+                        @click.stop.prevent="clearFilterGroup()"
+                        class="cursor-pointer rounded-full border-2 px-6 text-xs py-1 small:px-8 small:text-base uppercase text-edge-blue hover:border-white hover:bg-white"
+                        :class="$_buttonAllClasses"
+                    >all</a>
+                </div>
+                <div class="flex items-center px-2">
+                    <i class="fas fa-angle-down text-xl font-semibold small:hidden" v-show="collapsed"></i>
+                    <i class="fas fa-angle-up text-xl font-semibold small:hidden" v-show="!collapsed"></i>
+                </div>
             </div>
-        </h4>
+        </div>
         <div class="collapse-container small:expand">
             <div class="px-2 py-2 small:px-6">
                 <div
@@ -43,9 +58,6 @@
                     <div class="w-2/4 text-center level-tab">
                         <span class="text-white font-extrabold uppercase">{{ $_levelLabel }}</span>
                     </div>
-                    <div class="w-1/4 flex justify-center leading-none py-4 small:justify-end small:py-0">
-                        <a href="#" class="rounded-full border-2 border-edge-dark-blue text-edge-dark-blue px-6 text-xs leading-normal py-1 small:px-8 uppercase font-bold font-roboto-cond">all</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -56,15 +68,10 @@
 import Filter from '../../models/filter';
 import FilterGroup from '../../models/filterGroup';
 
+import BlueFiltersMixin from '../../mixins/blueFilters';
+
 export default {
-    props: {
-        title: {
-            type: String,
-        },
-        filterGroup: {
-            type: FilterGroup,
-        }
-    },
+    mixins: [BlueFiltersMixin],
     data(): object {
         return {
             collapsed: true,
@@ -73,7 +80,7 @@ export default {
     computed: {
         $_levelLabel() {
             let activeFilter = this.$_activeFilter;
-            let label = activeFilter ? activeFilter.label : '';
+            let label = activeFilter ? activeFilter.label : 'all skill levels';
 
             return label;
         },
@@ -81,24 +88,10 @@ export default {
         $_gridColsClass() {
             return 'grid-cols-' + this.filterGroup.filters.length;
         },
-
-        $_activeFilter() {
-            let active;
-            this.filterGroup.filters.forEach((filter) => {
-                if (filter.active) {
-                    active = filter;
-                }
-            });
-            return active;
-        },
     },
     methods: {
         select(filter: Filter): void {
             this.$emit('levelSelected', filter);
-        },
-
-        toggleCollapse(): void {
-            this.collapsed = !this.collapsed;
         },
 
         getFilterClasses(filter: Filter, index: number): string[] {
@@ -119,6 +112,10 @@ export default {
             }
 
             return classes;
+        },
+
+        showSkillLevelsModal() {
+            this.$root.$emit('openModal', {id: 'skill-levels-modal'});
         },
     }
 };
