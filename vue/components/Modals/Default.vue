@@ -5,14 +5,15 @@
             :class="$_overlayClasses"
             @click.stop.prevent="visible = false"
         >
+            <div class="text-white fixed top-0 right-0 mt-8 mr-10"><i class="fal fa-times fa-5x"></i></div>
             <div
                 @click.stop.prevent="noop()"
                 class="bg-white cursor-auto z-60 w-xsmall h-64 rounded-lg"
             >
-                <h2 class="py-6 text-center">
+                <h2 class="py-6 text-center font-bold text-lg">
                     <slot name="header">Modal title</slot>
                 </h2>
-                <div class="px-6">
+                <div class="px-6 text-center">
                     <slot>Modal description</slot>
                 </div>
             </div>
@@ -40,20 +41,17 @@ export default {
         },
     },
     mounted(): void {
-        console.log("Modals\\Default::mounted");
         this.$root.$on('openModal', this.openModal);
         this.$root.$on('closeModal', this.closeModal);
     },
     methods: {
         openModal({id}) {
-            console.log("Modals\\Default::openModal id: %s", JSON.stringify(id));
             if (this.modalId == id) {
                 this.visible = true;
             }
         },
 
         closeModal({id}) {
-            console.log("Modals\\Default::closeModal id: %s", JSON.stringify(id));
             if (this.modalId == id) {
                 this.visible = false;
             }

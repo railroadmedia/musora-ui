@@ -4671,7 +4671,9 @@ EOT;
 @section('app')
     @include('sections.user-stats')
 
-    <div class="container w-full h-full mx-auto px-3 pt-4">
+    <h1 class="container w-full mx-auto px-3 pt-6 font-extrabold text-4xl">Rudiments</h1>
+
+    <div class="container w-full h-full mx-auto px-3">
         <content-row
             content-list='{{ $rc1 }}'
             section-title="continue"

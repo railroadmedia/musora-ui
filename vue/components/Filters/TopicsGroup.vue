@@ -11,7 +11,7 @@
                 <div class="flex leading-none py-4 small:py-0">
                     <a
                         @click.stop.prevent="clearFilterGroup()"
-                        class="cursor-pointer rounded-full border-2 px-6 text-xs py-1 small:px-8 small:text-base uppercase text-edge-blue hover:border-white hover:bg-white"
+                        class="hover-trans cursor-pointer rounded-full border-2 px-6 text-xs py-1 small:px-8 small:text-base uppercase text-edge-blue hover:border-white hover:bg-white"
                         :class="$_buttonAllClasses"
                     >all</a>
                 </div>

@@ -1,5 +1,6 @@
 <template>
     <div
+        class="hover-trans"
         :class="$_containerClasses"
         @click.stop.prevent="handleClick()"
     >

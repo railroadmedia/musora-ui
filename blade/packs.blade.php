@@ -104,7 +104,9 @@ $packs = [
 @section('content')
     @include('sections.user-stats')
 
-    <div class="mx-auto w-full container px-3 h-full pt-4">
+    <h1 class="container w-full mx-auto px-3 pt-6 font-extrabold text-4xl">Packs</h1>
+
+    <div class="mx-auto w-full container px-3 h-full">
         @include(
             'sections.video-row',
             [

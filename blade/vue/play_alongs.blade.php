@@ -12539,6 +12539,8 @@ EOT;
 @section('app')
     @include('sections.user-stats')
 
+    <h1 class="container w-full mx-auto px-3 pt-6 font-extrabold text-4xl">Play-Alongs</h1>
+
     <content-catalogue
         level-selector='2'
         topics-filters-title='what style do you want to play?'

@@ -68,7 +68,8 @@ textarea.floating-label ~ label {
     }
 }
 
-/* current drumeo cards rules */
-
+.hover-trans {
+    transition: background-color .2s ease-in-out, border .2s ease-in-out, color .2s ease-in-out;
+}
 
 @tailwind utilities;

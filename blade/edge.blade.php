@@ -436,22 +436,6 @@ $sectionVideos = [
 @section('content')
     @include('sections.user-stats')
 
-    <style type="text/css">
-        .modal-overlay {
-            background-color: rgba(0,0,0,.6);
-        }
-    </style>
-    <div>
-        <div
-            class="modal-overlay fixed top-0 left-0 right-0 bottom-0 z-55 opacity-1 flex items-center justify-center"
-        >
-            <div class="bg-white cursor-auto z-60 w-xsmall h-64 rounded-lg">
-                <h2 slot="header" class="py-6 text-center">Modal title</h2>
-                <div slot="description" class="px-6">Modal description</div>
-            </div>
-        </div>
-    </div>
-
     <div class="mx-auto w-full container px-3 h-full pt-4">
         @include(
             'sections.video-row',
