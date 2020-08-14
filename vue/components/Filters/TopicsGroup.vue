@@ -5,10 +5,10 @@
             :class="{active: !collapsed}"
             @click.stop.prevent="toggleCollapse()"
         >
-            <div class="flex-1"></div>
+            <div class="flex-1 hidden sm:flex"></div>
             <div class="font-bold font-roboto-cond">{{ title }}</div>
             <div class="flex-1 flex items-center justify-end pl-2">
-                <div class="flex leading-none py-4 small:py-0">
+                <div class="flex leading-none">
                     <a
                         @click.stop.prevent="clearFilterGroup()"
                         class="hover-trans cursor-pointer rounded-full border-2 px-6 text-xs py-1 small:px-8 small:text-base uppercase text-edge-blue hover:border-white hover:bg-white"

@@ -9,7 +9,7 @@ import RelatedSongs from '../../components/Content/RelatedSongs';
 import CommentsList from '../../components/Comments/List';
 import AccountProfileAvatar from '../../components/Content/AccountProfileAvatar';
 import ModalDefault from '../../components/Modals/Default';
-import SkillLevelSlider from '../../components/Filters/SkillLevelSlider';
+import AccountSkillLevel from '../../components/Content/AccountSkillLevel';
 
 Vue.component('content-row', ContentRow);
 Vue.component('content-catalogue', ContentCatalogue);
@@ -20,7 +20,7 @@ Vue.component('song-content', SongContent);
 Vue.component('account-profile-avatar', AccountProfileAvatar);
 Vue.component('related-songs', RelatedSongs);
 Vue.component('modal-default', ModalDefault);
-Vue.component('skill-level-slider', SkillLevelSlider);
+Vue.component('account-skill-level', AccountSkillLevel);
 
 const app = new Vue({
     el: '#vue-app'

@@ -10,13 +10,13 @@
                 :filter-group="$_topics"
                 v-if="!topicsFiltersDisabled && $_topics"
             ></topics-group-filters>
-            <level-selector
+            <skill-level-selector
                 title="set your skill level"
                 @levelSelected="handleLevelSelected"
                 @clearFilterGroup="clearFilterGroup"
                 :filter-group="$_difficulty"
                 v-if="!levelSelectorDisabled && $_difficulty"
-            ></level-selector>
+            ></skill-level-selector>
         </div>
 
         <div class="flex flex-col medium:flex-row py-4">
@@ -111,7 +111,7 @@ import Filter from '../../models/filter';
 import FilterGroup from '../../models/filterGroup';
 
 import TopicsGroupFilters from '../Filters/TopicsGroup';
-import LevelSelector from '../Filters/LevelSelector';
+import SkillLevelSelector from '../Filters/SkillLevelSelector';
 import FilterGroupComponent from '../Filters/Group';
 import FilterBadge from '../Blocks/FilterBadge';
 import DefaultContentCard from '../ContentCards/Default';
@@ -121,7 +121,7 @@ import ContentMixin from '../../mixins/content';
 export default {
     components: {
         'topics-group-filters': TopicsGroupFilters,
-        'level-selector': LevelSelector,
+        'skill-level-selector': SkillLevelSelector,
         'filter-group': FilterGroupComponent,
         'filter-badge': FilterBadge,
         'default-content-card': DefaultContentCard,
