@@ -46,7 +46,7 @@
                         :dot-style="{ boxShadow: '0 0 0 5px #0B76DB' }"
                     >
                         <template v-slot:step="{ label, active }">
-                            <div :class="['custom-step', { active }, 'step-' + label]"></div>
+                            <div :class="['skill-step', { active }, 'step-' + label]"></div>
                         </template>
                     </vue-slider>
                 </div>
@@ -147,15 +147,15 @@ export default {
 };
 </script>
 <style>
-    .custom-step {
+    .skill-step {
         width: 40%;
         height: 100%;
         background-color: #0B76DB;
         cursor: pointer;
     }
-    .custom-step.active {
+    .skill-step.active {
     }
-    .custom-step.step-9 {
+    .skill-step.step-9 {
         width: 0;
         height: 0;
     }

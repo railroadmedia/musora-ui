@@ -62,6 +62,7 @@
                             v-for="item in content"
                             :key="item.id"
                             :content="item"
+                            show-remove-icon
                         ></my-list-content-card>
                     </div>
                 </div>

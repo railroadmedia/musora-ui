@@ -16,7 +16,8 @@
             <div class="text-medium-gray text-xs capitalize">detail</div>
             <div class="text-medium-gray text-xs capitalize">{{ getInstructors(content) }}</div>
             <div class="text-medium-gray text-xs capitalize">{{ content.date }}</div>
-            <div class=""><i class="fas fa-times text-edge-blue text-3xl"></i></div>
+            <div class="" v-if="showRemoveIcon"><i class="fas fa-times text-edge-blue text-3xl"></i></div>
+            <div class="" v-if="showAddIcon"><i class="fal fa-plus text-medium-gray hover:text-edge-blue text-3xl"></i></div>
         </div>
     </a>
 </template>
@@ -29,6 +30,14 @@ export default {
     props: {
         content: {
             type: ContentModel,
+        },
+        showRemoveIcon: {
+            type: Boolean,
+            default: () => true,
+        },
+        showAddIcon: {
+            type: Boolean,
+            default: () => false,
         },
     },
     mixins: [ContentInstructorsMixin],
