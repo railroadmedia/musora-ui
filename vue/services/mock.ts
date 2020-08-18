@@ -364,6 +364,12 @@ export default class Mock {
             .reply(function (config) {
                 return [200, {}];
             });
+
+        mock
+            .onDelete('/railcontent/content-like')
+            .reply(function (config) {
+                return [200, {}];
+            });
     }
 
     static getResponseData(params) {

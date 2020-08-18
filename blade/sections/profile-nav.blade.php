@@ -24,7 +24,7 @@ $items = [
     [
         'icon' => 'icon-gear',
         'label' => 'settings',
-        'url' => '#',
+        'url' => '/router.php/settings_profile',
     ],
 ];
 @endphp

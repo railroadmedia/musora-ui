@@ -7,7 +7,7 @@
     $fixedWidth = $fixedWidth ?? false;
     $smallCollapse = $smallCollapse ?? false;
 
-    $_inputClasses = [];
+    $_inputClasses = $classes ?? [];
 
     if ($fullWidth) {
         $_inputClasses[] = 'px-4';
@@ -40,6 +40,13 @@
         $_inputClasses[] = 'border-2';
         $_inputClasses[] = 'border-edge-blue';
         $_inputClasses[] = 'text-edge-blue';
+    } else if ($theme == 'black') {
+        $_inputClasses[] = 'leading-none';
+        $_inputClasses[] = 'border-2';
+        $_inputClasses[] = 'border-black';
+        $_inputClasses[] = 'text-black';
+        $_inputClasses[] = 'hover-trans';
+        $_inputClasses[] = 'hover:bg-light-gray';
     } else {
         // theme gray, outlined
         $_inputClasses[] = 'border-2';
@@ -54,4 +61,9 @@
     href="{{ $href }}"
     class="py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase {{ $_inputClasses }} font-roboto"
     tabindex="{{ $tabIndex }}"
+@isset($attrs)
+    @foreach ($attrs as $attr => $value)
+    {{ $attr }}="{{ $value }}"
+    @endforeach
+@endisset
 >@isset($iconClass)<i class="{{ $iconClass }} text-lg pr-3"></i> @endisset{{ $labelText }}</a>

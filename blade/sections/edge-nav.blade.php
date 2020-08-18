@@ -82,13 +82,13 @@ $items = [
         'name' => 'live',
         'label' => 'live',
         'icon' => 'icon-live',
-        'url' => '#',
+        'url' => '/router.php/live',
     ],
     [
         'name' => 'schedule',
         'label' => 'schedule',
         'icon' => 'icon-schedule',
-        'url' => '#',
+        'url' => '/router.php/schedule',
     ],
 ];
 @endphp
