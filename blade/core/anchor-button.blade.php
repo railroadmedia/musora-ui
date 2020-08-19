@@ -1,5 +1,6 @@
 @php
     $href = $href ?? '#';
+    $id = $id ?? 'anchor-button-' . str_replace(' ', '-', $labelText);
     $theme = $theme ?? 'blue';
     $tabIndex = $tabIndex ?? 1;
     $labelText = $labelText ?? '';
@@ -32,6 +33,7 @@
         $_inputClasses[] = 'border-2';
         $_inputClasses[] = 'border-edge-blue';
         $_inputClasses[] = 'text-white';
+        $_inputClasses[] = 'active:bg-blue-700';
     } else if ($theme == 'reversed') {
         $_inputClasses[] = 'text-edge-blue';
         $_inputClasses[] = 'bg-white';
@@ -47,6 +49,13 @@
         $_inputClasses[] = 'text-black';
         $_inputClasses[] = 'hover-trans';
         $_inputClasses[] = 'hover:bg-light-gray';
+    } else if ($theme == 'white') {
+        $_inputClasses[] = 'border-2';
+        $_inputClasses[] = 'border-white';
+        $_inputClasses[] = 'text-black';
+        $_inputClasses[] = 'hover-trans';
+        $_inputClasses[] = 'hover:bg-light-gray';
+        $_inputClasses[] = 'hover:border-light-gray';
     } else {
         // theme gray, outlined
         $_inputClasses[] = 'border-2';
@@ -58,8 +67,9 @@
     $_inputClasses = implode(' ', $_inputClasses);
 @endphp
 <a
+    id="{{ $id }}"
     href="{{ $href }}"
-    class="py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase {{ $_inputClasses }} font-roboto"
+    class="py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline uppercase {{ $_inputClasses }} font-roboto"
     tabindex="{{ $tabIndex }}"
 @isset($attrs)
     @foreach ($attrs as $attr => $value)

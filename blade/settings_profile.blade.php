@@ -27,84 +27,40 @@
 
 @php
 $userData = [
+    'id' => 1,
     'display' => [
-        'display_name' => 'Brandon Toews',
-    ],
-];
-$data = [
-    'display' => [
-        'id' => 'setting-display-name',
         'title' => 'display name',
-        'url' => '#',
-        'items' => [
-            'name' => [
-                'name' => 'display_name',
-                'label' => 'display name',
-                'value' => 'Brandon Toews',
-                'info' => 'This is the name other users will see on your profile, comments and forum posts.',
-            ],
+        'inputs' => [
+            'display_name' => 'Brandon Toews',
         ],
     ],
     'about' => [
-        'id' => 'setting-about',
         'title' => 'about brandon toews',
-        'url' => '#',
-        'items' => [
-            'fullName' => [
-                'name' => 'display_name',
-                'label' => 'full name',
-                'value' => 'Brandon Toews',
-            ],
-            'location' => [
-                'name' => 'display_name',
-                'label' => 'location',
-                'value' => '',
-            ],
-            'birthday' => [
-                'name' => 'display_name',
-                'label' => 'birthday',
-                'value' => 'May 7, 2018',
-            ],
-            'biography' => [
-                'name' => 'display_name',
-                'label' => 'biography',
-                'value' => '',
-                'type' => 'textarea'
-            ],
+        'inputs' => [
+            'first_name' => 'Brandon',
+            'last_name' => 'Toews',
+            'country' => '',
+            'birthday' => '2018-05-07',
+            'biography' => 'test bio text',
         ],
     ],
     'gear' => [
-        'id' => 'setting-gear',
         'title' => 'my gear',
-        'url' => '#',
-        'items' => [
-            'exp' => [
-                'name' => 'display_name',
-                'label' => 'drumming since',
-                'value' => '',
-            ],
-            'drums' => [
-                'name' => 'display_name',
-                'label' => 'drums',
-                'value' => '',
-            ],
-            'cymbals' => [
-                'name' => 'display_name',
-                'label' => 'cymbals',
-                'value' => '',
-            ],
-            'hardware' => [
-                'name' => 'display_name',
-                'label' => 'hardware',
-                'value' => '',
-            ],
-            'sticks' => [
-                'name' => 'display_name',
-                'label' => 'sticks',
-                'value' => '',
-            ],
+        'inputs' => [
+            'drums_playing_since_year' => '1996',
+            'drums_gear_set_brands' => 'gear set brand',
+            'drums_gear_cymbal_brands' => 'gear cymbal brand',
+            'drums_gear_hardware_brands' => 'gear hardware brand',
+            'drums_gear_stick_brands' => 'gear stick brands',
         ],
     ],
+];
+$inputErrors = [
+    'display' => [],
+    'about' => [
+        'first_name' => 'test error message',
+    ],
+    'gear' => [],
 ];
 @endphp
 
@@ -118,11 +74,41 @@ $data = [
                 <h1 class="leading-none text-3xl font-bold capitalize">profile</h1>
             </div>
 
-            @include('sections.profile.display-name', ['data' => $userData['display']])
+            @include(
+                'sections.profile.display-name',
+                [
+                    'data' => $userData['display'],
+                    'errors' => $inputErrors['display'],
+                    'form' => [
+                        'method' => 'patch',
+                        'action' => '/usora/user/update/' . $userData['id'] . '/',
+                    ],
+                ]
+            )
 
-            <!-- todo: remove below, use custom forms for each section since displayed data is different than form fields -->
-            @include('sections.profile-data', $data['about'])
-            @include('sections.profile-data', $data['gear'])
+            @include(
+                'sections.profile.about',
+                [
+                    'data' => $userData['about'],
+                    'errors' => $inputErrors['about'],
+                    'form' => [
+                        'method' => 'patch',
+                        'action' => '/usora/user/update/' . $userData['id'] . '/',
+                    ],
+                ]
+            )
+
+            @include(
+                'sections.profile.gear',
+                [
+                    'data' => $userData['gear'],
+                    'errors' => $inputErrors['gear'],
+                    'form' => [
+                        'method' => 'patch',
+                        'action' => '/usora/user/update/' . $userData['id'] . '/',
+                    ],
+                ]
+            )
         </div>
     </div>
 @endsection

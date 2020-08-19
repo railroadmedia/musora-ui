@@ -19,7 +19,7 @@
 }
 
 textarea.floating-label:focus ~ label, textarea.floating-label:not(:placeholder-shown) ~ label, textarea.show-focused ~ label {
-    transform: scale(.7) translateY(-1.10rem) translateX(-0.20em);
+    transform: scale(.7) translateY(-1.10rem) translateX(1em);
     color: $drumeo-blue;
 }
 
