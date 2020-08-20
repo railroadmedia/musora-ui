@@ -8,6 +8,7 @@
     <title>@yield('title')</title>
 
     <link rel="stylesheet" href="/build/drumeo/drumeo.css">
+    <link rel="stylesheet" href="https://dpwjbsxqtam5n.cloudfront.net/fonts/font-awesome-5/fontawesome-all.min.css">
     @stack('styles')
 </head>
 <body class="bg-edge-blue box-border">
