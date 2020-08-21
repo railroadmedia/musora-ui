@@ -6,9 +6,6 @@
 #clear-avatar {
     background: #f71b26;
 }
-#test-cmp.active {
-    display: flex;
-}
 </style>
 @endpush
 
@@ -28,13 +25,17 @@
     </div>
     <div class="flex items-center py-2">
         <div id ="profile-avatar" class="relative">
-            <img src="{{ $data['inputs']['avatar'] }}" class="rounded-full overflow-hidden">
-            <div
-                id="clear-avatar"
-                class="absolute cursor-pointer top-0 right-0 rounded-full text-white w-6 h-6 flex items-center justify-center"
-            >
-                <i class="fas fa-times"></i>
-            </div>
+            @if (isset($data['inputs']['avatar']) && $data['inputs']['avatar'])
+                <img src="{{ $data['inputs']['avatar'] }}" class="rounded-full overflow-hidden">
+                <div
+                    id="clear-avatar"
+                    class="absolute cursor-pointer top-0 right-0 rounded-full text-white w-6 h-6 flex items-center justify-center"
+                >
+                    <i class="fas fa-times"></i>
+                </div>
+            @else
+                <img src="https://s3.amazonaws.com/pianote/defaults/avatar.png" class="rounded-full overflow-hidden">
+            @endif
         </div>
         <div class="flex-1 flex justify-center">
             <div class="flex flex-col items-center text-medium-gray text-xs">
@@ -42,10 +43,6 @@
                 <p><span class="italic">Max file size:</span> <span class="font-bold">5MB</span></p>
             </div>
         </div>
-    </div>
-    <div id="test-cmp" class="flex items-center py-2 hidden">
-        <!-- todo - remove after cropper trigger issue is fixed -->
-        <settings-profile-avatar></settings-profile-avatar>
     </div>
     @include('sections.profile.avatar-modal')
 </div>

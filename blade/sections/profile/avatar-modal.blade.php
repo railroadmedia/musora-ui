@@ -12,32 +12,32 @@
     <div class="modal-container bg-white cursor-auto z-60 w-small rounded-lg overflow-hidden flex flex-col">
         <h2 class="p-8 font-bold text-2xl">Edit: Profile Picture</h2>
         <div class="flex-1 flex">
-            <settings-profile-avatar></settings-profile-avatar>
+            <settings-profile-image :is-avatar="true"></settings-profile-image>
         </div>
     </div>
 </div>
 
 @push('scripts')
 <script type="text/javascript">
-let element = document.getElementById('avatar-modal')
+let avatarModalElement = document.getElementById('avatar-modal')
 
-element.addEventListener(
+avatarModalElement.addEventListener(
     'click',
     function(event) {
 
-        element.classList.remove('active');
+        avatarModalElement.classList.remove('active');
 
         event.preventDefault();
         event.stopPropagation();
     }
 );
 
-element
+avatarModalElement
     .querySelectorAll('.modal-container')[0]
     .addEventListener(
         'click',
         function(event) {
-            event.preventDefault();
+            // event.preventDefault(); // conflicts with input type=file, preventing file browser from opening
             event.stopPropagation();
         }
     );

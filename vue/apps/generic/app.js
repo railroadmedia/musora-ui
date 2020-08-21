@@ -11,7 +11,7 @@ import AccountProfileAvatar from '../../components/Content/AccountProfileAvatar'
 import ModalDefault from '../../components/Modals/Default';
 import AccountSkillLevel from '../../components/Content/AccountSkillLevel';
 import ContentSearch from '../../components/Content/Search';
-import SettingsProfileAvatar from '../../components/Content/SettingsProfileAvatar';
+import SettingsProfileImage from '../../components/Content/SettingsProfileImage';
 
 Vue.component('content-row', ContentRow);
 Vue.component('content-catalogue', ContentCatalogue);
@@ -24,7 +24,7 @@ Vue.component('related-songs', RelatedSongs);
 Vue.component('modal-default', ModalDefault);
 Vue.component('account-skill-level', AccountSkillLevel);
 Vue.component('content-search', ContentSearch);
-Vue.component('settings-profile-avatar', SettingsProfileAvatar);
+Vue.component('settings-profile-image', SettingsProfileImage);
 
 const app = new Vue({
     el: '#vue-app'

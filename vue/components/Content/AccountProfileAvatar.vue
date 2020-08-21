@@ -30,22 +30,22 @@
 
                 <div class="inline-block">
                     <a
-                        class="bg-dark-gray text-white rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block mx-1 cursor-pointer"
+                        class="bg-dark-gray text-white rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block mx-1 cursor-pointer flex items-center justify-center"
                         style="height: 30px; width: 30px;"
                         @click="zoomOut"
-                    >-</a>
+                    ><i class="far fa-search-minus"></i></a>
 
                     <a
-                        class="bg-dark-gray text-white rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block mx-1 cursor-pointer"
+                        class="bg-dark-gray text-white rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block mx-1 cursor-pointer flex items-center justify-center"
                         style="height: 30px; width: 30px;"
                         @click="zoomIn"
-                    >+</a>
+                    ><i class="far fa-search-plus"></i></a>
 
                     <a
-                        class="bg-dark-gray text-white rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block mx-1 cursor-pointer"
+                        class="bg-dark-gray text-white rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block mx-1 cursor-pointer flex items-center justify-center"
                         style="height: 30px; width: 30px;"
                         @click="rotate"
-                    >&#9851;</a>
+                    ><i class="fas fa-redo-alt"></i></a>
                 </div>
 
                 <a

@@ -35,10 +35,11 @@ $userData = [
         ],
     ],
     'avatar' => [
-    	'title' => 'Profile Picture',
-    	'inputs' => [
-    		'avatar' => 'https://d2vyvo0tyx8ig5.cloudfront.net/avatars/150259_1557736362228.jpg'
-    	],
+        'title' => 'Profile Picture',
+        'inputs' => [
+            // 'avatar' => '',
+            'avatar' => 'https://d2vyvo0tyx8ig5.cloudfront.net/avatars/150259_1557736362228.jpg'
+        ],
     ],
     'about' => [
         'title' => 'about brandon toews',
@@ -58,6 +59,13 @@ $userData = [
             'drums_gear_cymbal_brands' => 'gear cymbal brand',
             'drums_gear_hardware_brands' => 'gear hardware brand',
             'drums_gear_stick_brands' => 'gear stick brands',
+        ],
+    ],
+    'gear-photo' => [
+        'title' => 'Gear Photo',
+        'inputs' => [
+            // 'gear' => '',
+            'gear' => 'https://drumeo-profile-images.s3.us-west-2.amazonaws.com/150386_drumkit-image_1530547770.jpg'
         ],
     ],
 ];
@@ -95,7 +103,7 @@ $inputErrors = [
             @include(
                 'sections.profile.avatar',
                 [
-                	'data' => $userData['avatar'],
+                    'data' => $userData['avatar'],
                 ]
             )
 
@@ -120,6 +128,13 @@ $inputErrors = [
                         'method' => 'patch',
                         'action' => '/usora/user/update/' . $userData['id'] . '/',
                     ],
+                ]
+            )
+
+            @include(
+                'sections.profile.gear-image',
+                [
+                    'data' => $userData['gear-photo'],
                 ]
             )
         </div>

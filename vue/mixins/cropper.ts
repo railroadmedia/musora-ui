@@ -2,6 +2,17 @@ import Cropper from 'cropperjs';
 import Dropzone from 'dropzone';
 
 export default {
+    props: {
+        aspectRatio: {
+            type: Number,
+            default: () => 1,
+        },
+
+        isAvatar: {
+            type: Boolean,
+            default: () => false,
+        },
+    },
     data() {
         return {
             fileToCrop: null,
@@ -16,16 +27,26 @@ export default {
             dropZoneError: null,
             croppedImage: null,
             imageBlob: null,
-            imageDimensions: {
-                width: 500,
-                height: 500,
-            },
             loading: false,
         };
     },
     computed: {
-        hasFileToCrop() {
+        $_hasFileToCrop() {
             return this.fileToCrop !== null;
+        },
+
+        $_imageDimensions() {
+            if (this.isAvatar) {
+                return {
+                    width: 500,
+                    height: 500,
+                };
+            }
+
+            return {
+                width: 1280,
+                height: (1280 / this.aspectRatio),
+            };
         },
     },
     watch: {
@@ -34,7 +55,6 @@ export default {
         },
     },
     mounted() {
-        console.log("uploader: %s", JSON.stringify(this.$refs.uploader));
         this.dropZoneInstance = new Dropzone(
             this.$refs.uploader,
             this.dropzoneConfig,
@@ -58,6 +78,13 @@ export default {
         this.dropZoneInstance.on('error', (file, errorMessage) => {
             this.dropZoneError = errorMessage;
         });
+
+        console.log(
+            'cropper::mounted isAvatar: %s, aspectRatio: %s, $_imageDimensions: %s',
+            JSON.stringify(this.isAvatar),
+            JSON.stringify(this.aspectRatio),
+            JSON.stringify(this.$_imageDimensions)
+        );
     },
     created() {
         Dropzone.autoDiscover = false;
@@ -110,7 +137,7 @@ export default {
         },
 
         cropImage() {
-            const canvasOutput = this.cropperInstance.getCroppedCanvas(this.imageDimensions);
+            const canvasOutput = this.cropperInstance.getCroppedCanvas(this.$_imageDimensions);
 
             canvasOutput.toBlob((blob) => {
                 this.imageBlob = blob;
