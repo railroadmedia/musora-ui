@@ -12,6 +12,7 @@ import ModalDefault from '../../components/Modals/Default';
 import AccountSkillLevel from '../../components/Content/AccountSkillLevel';
 import ContentSearch from '../../components/Content/Search';
 import SettingsProfileImage from '../../components/Content/SettingsProfileImage';
+import PaymentMethods from '../../components/Content/PaymentMethods';
 
 Vue.component('content-row', ContentRow);
 Vue.component('content-catalogue', ContentCatalogue);
@@ -25,6 +26,7 @@ Vue.component('modal-default', ModalDefault);
 Vue.component('account-skill-level', AccountSkillLevel);
 Vue.component('content-search', ContentSearch);
 Vue.component('settings-profile-image', SettingsProfileImage);
+Vue.component('payment-methods', PaymentMethods);
 
 const app = new Vue({
     el: '#vue-app'

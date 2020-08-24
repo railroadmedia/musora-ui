@@ -213,6 +213,94 @@
             ])
             @endcomponent
         </div>
+<!-- pushing to stack 'styles' from components is not working on this page -->
+<style type="text/css">
+.toggle-input {
+    height:30px;
+    width:60px;
+    flex-basis:60px;
+    min-width:60px;
+    position:relative;
+    cursor:pointer;
+}
+.toggle-input input[type="checkbox"] {
+    opacity:0;
+    z-index:1;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    cursor:pointer;
+
+}
+.toggle-input input[type="checkbox"]:checked ~ .toggle {
+    background-color:#000;
+}
+.toggle-input input[type="checkbox"]:checked ~ .toggle:after {
+    content: "ON";
+    left:6px;
+    right:initial;
+}
+.toggle-input input[type="checkbox"]:checked ~ .toggle .handle {
+    transform:translateX(30px);
+}
+.toggle-input .toggle {
+    height:100%;
+    width:100%;
+    top:0;
+    left:0;
+    position:absolute;
+    background-color: #999999;
+    border-radius:30px;
+    transition:background-color .2s ease-in-out;
+    will-change:background-color;
+    pointer-events:none;
+    z-index:1;
+}
+.toggle-input .toggle:after {
+    content: "OFF";
+    position:absolute;
+    top:7px;
+    right:6px;
+    width:24px;
+    height:24px;
+    text-align:center;
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+}
+.toggle-input .toggle .handle {
+    background-color:#fff;
+    height:24px;
+    width:24px;
+    border-radius:50%;
+    position:absolute;
+    top:3px;
+    left:3px;
+    will-change:transform;
+    transition:transform .2s ease-in-out;
+}
+</style>
+        <div class="mb-5">
+            @component('core.toggle-input', [
+                'inputId' => 'id-toggle-input',
+                'inputName' => 'name-toggle-input',
+                'labelText' => 'toggle input checked',
+                'inputValue' => true,
+            ])
+            @endcomponent
+        </div>
+        <div class="mb-5">
+            @component('core.toggle-input', [
+                'inputId' => 'id-toggle-input',
+                'inputName' => 'name-toggle-input',
+                'labelText' => 'toggle input un-checked',
+                'inputValue' => false,
+                'skipScript' => true,
+            ])
+            @endcomponent
+        </div>
     </div>
 
     <div class="flex flex-col h-screen p-5">

@@ -35,8 +35,8 @@ $userData = [
                 [
                     'data' => $userData['inputs'],
                     'form' => [
-                        'method' => 'patch',
-                        'action' => '/',
+                        'method' => 'POST',
+                        'action' => '/usora/user/update/' . $userData['id'] . '/',
                     ],
                 ]
             )
