@@ -6,14 +6,20 @@
 @tailwind components;
 
 /* todo - add parts of the rules below in tailwind config extend */
-.floating-label ~ label {
+.floating-label ~ label,
+.stripe-element-container ~ label {
     transform-origin: 0 0;
     transition: transform .2s ease-in-out, color .1s ease-in-out, -webkit-transform .2s ease-in-out;
     left: 1.25rem;
     top: 0.65rem;
 }
 
-.floating-label:focus ~ label, .floating-label:not(:placeholder-shown) ~ label, .show-focused ~ label {
+.floating-label:focus ~ label,
+.floating-label:not(:placeholder-shown):not(.empty-input) ~ label,
+.show-focused ~ label,
+.stripe-element-container.StripeElement--complete ~ label,
+.stripe-element-container.StripeElement--focus ~ label,
+.stripe-element-container.StripeElement--invalid  ~ label {
     transform: scale(.7) translateY(-0.70rem) translateX(0.25rem);
     color: $drumeo-blue;
 }
@@ -28,10 +34,13 @@ textarea.floating-label ~ label {
     top: 0.85rem;
 }
 
-.validation-error, .validation-error:hover {
+.stripe-element-container.StripeElement--invalid,
+.validation-error,
+.validation-error:hover {
     box-shadow: 0 0 0 3px $validation-red !important;
 }
 
+.stripe-element-container.StripeElement--invalid ~ label,
 .validation-error:not(:placeholder-shown) ~ label,
 .validation-error:not(:placeholder-shown) label,
 .validation-error:focus ~ label,

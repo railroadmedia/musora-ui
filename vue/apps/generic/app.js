@@ -12,7 +12,7 @@ import ModalDefault from '../../components/Modals/Default';
 import AccountSkillLevel from '../../components/Content/AccountSkillLevel';
 import ContentSearch from '../../components/Content/Search';
 import SettingsProfileImage from '../../components/Content/SettingsProfileImage';
-import PaymentMethods from '../../components/Content/PaymentMethods';
+import PaymentMethods from '../../components/Payments/Methods';
 
 Vue.component('content-row', ContentRow);
 Vue.component('content-catalogue', ContentCatalogue);

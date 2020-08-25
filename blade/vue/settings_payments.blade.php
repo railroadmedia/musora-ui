@@ -7,9 +7,17 @@
     @include('sections.profile-nav', ['active' => 'settings'])
 @endsection
 
+@push('styles')
+<script src="https://js.stripe.com/v3/"></script>
+@endpush
+
 @php
-$userData = [
-    'id' => 1,
+$data = [
+    'user' => [
+        'id' => 1,
+        'hasSubscription' => true,
+        'isActive' => true,
+    ],
     'methods' => [
         [
             'id' => 1,
@@ -45,16 +53,18 @@ $inputErrors = [
             @include(
                 'sections.profile.payment-methods',
                 [
-                    'data' => $userData['methods'],
+                    'data' => $data['methods'],
+                    'user' => $data['user'],
                     'errors' => $inputErrors['methods'],
                     'form' => [],
+                    'stripePublishableKey' => 'pk_test_8WbVpdVKKttr3iqIdiT932ME',
                 ]
             )
 
             @include(
                 'sections.profile.payment-history',
                 [
-                    'data' => $userData['payments'],
+                    'data' => $data['payments'],
                 ]
             )
         </div>

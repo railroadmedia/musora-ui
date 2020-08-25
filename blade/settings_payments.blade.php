@@ -8,8 +8,12 @@
 @endsection
 
 @php
-$userData = [
-    'id' => 1,
+$data = [
+    'user' => [
+        'id' => 1,
+        'hasSubscription' => true,
+        'isActive' => true,
+    ],
     'methods' => [
         [
             'id' => 1,
@@ -45,7 +49,8 @@ $inputErrors = [
             @include(
                 'sections.profile.payment-methods-old',
                 [
-                    'data' => $userData['methods'],
+                    'data' => $data['methods'],
+                    'user' => $data['user'],
                     'errors' => $inputErrors['methods'],
                     'form' => [],
                 ]
@@ -54,7 +59,7 @@ $inputErrors = [
             @include(
                 'sections.profile.payment-history',
                 [
-                    'data' => $userData['payments'],
+                    'data' => $data['payments'],
                 ]
             )
         </div>

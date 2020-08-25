@@ -22,5 +22,8 @@
     </div>
     <payment-methods
         :payment-methods='@json($data)'
+        :has-subscription='@json($user["hasSubscription"])'
+        :is-active='@json($user["isActive"])'
+        stripe-publishable-key="{{ $stripePublishableKey }}"
     ></payment-methods>
 </div>

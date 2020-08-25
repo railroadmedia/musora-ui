@@ -61,6 +61,13 @@ export default {
                 classes.push('border-edge-blue');
                 classes.push('text-edge-blue');
                 classes.push('active:text-white');
+            } else if (this.theme == 'white') {
+                classes.push('border-2');
+                classes.push('border-white');
+                classes.push('text-black');
+                classes.push('hover-trans');
+                classes.push('hover:bg-light-gray');
+                classes.push('hover:border-light-gray');
             }
 
             return classes;
