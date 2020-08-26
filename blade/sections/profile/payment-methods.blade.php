@@ -22,8 +22,10 @@
     </div>
     <payment-methods
         :payment-methods='@json($data)'
+        :user-id='{{ $user["id"] }}'
         :has-subscription='@json($user["hasSubscription"])'
         :is-active='@json($user["isActive"])'
-        stripe-publishable-key="{{ $stripePublishableKey }}"
+        preload-data='{{ $preloadData }}'
+        stripe-publishable-key='{{ $stripePublishableKey }}'
     ></payment-methods>
 </div>

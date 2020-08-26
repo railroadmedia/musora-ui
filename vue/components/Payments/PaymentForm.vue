@@ -6,7 +6,7 @@
                     id="payment-method"
                     label="Payment Method Type"
                     theme="wire"
-                    :selected-value="methodType"
+                    :selected-value="billing.methodType"
                     :options="paymentMethods"
                     @change="paymentMethodSelected"
                 ></select-input>
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div v-show="methodType === 'credit_card'" class="flex space-x-4">
+        <div v-show="billing.methodType === 'credit_card'" class="flex space-x-4">
             <div class="flex-1">
                 <div class="relative">
                     <div
@@ -81,25 +81,25 @@
                     id="billing-country"
                     label="Country"
                     theme="wire"
-                    :selected-value="billingCountry"
+                    :selected-value="billing.country"
                     :options="countries"
-                    :validation-errors="errors.billingCountry"
+                    :validation-errors="errors.country"
                     @change="billingCountrySelected"
                 ></select-input>
             </div>
-            <div class="flex-1" v-if="billingCountry && billingCountry.toLowerCase() == 'canada'">
+            <div class="flex-1" v-if="billing.country && billing.country.toLowerCase() == 'canada'">
                 <select-input
                     id="billing-region"
                     label="State/Province"
                     theme="wire"
-                    :selected-value="billingRegion"
+                    :selected-value="billing.region"
                     :options="regions"
-                    :validation-errors="errors.billingRegion"
+                    :validation-errors="errors.region"
                     @change="billingRegionSelected"
                 ></select-input>
             </div>
         </div>
-        <div v-if="methodType == 'paypal'">
+        <div v-if="billing.methodType == 'paypal'">
             <p class="italic text-medium-gray text-xs">
                 * Submitting this form will redirect you to PayPal to complete your order. 
             </p>
@@ -116,12 +116,16 @@
 
 <script lang="ts">
 import SelectInput from '../Blocks/Select';
+import Billing from '../../models/billing';
 
 export default {
     components: {
         'select-input': SelectInput,
     },
     props: {
+        userId: {
+            type: Number,
+        },
         hasSubscription: {
             type: Boolean,
         },
@@ -131,15 +135,15 @@ export default {
         stripePublishableKey: {
             type: String
         },
+        billing: {
+            type: Billing
+        },
     },
     data() {
         return {
             paymentMethods: [{value: 'credit_card', label: 'Credit Card'}, {value: 'paypal', label: 'PayPal'}],
-            methodType: 'credit_card',
             countries: ['United States', 'Canada', 'United Kingdom', 'Australia'],
-            billingCountry: null,
             regions: ['Alberta', 'British Columbia'],
-            billingRegion: null,
 
             stripe: null,
             cardNumberElement: null,
@@ -148,11 +152,23 @@ export default {
 
             errors: {
                 methodType: [],
-                billingCountry: [],
-                billingRegion: [],
+                country: [],
+                region: [],
                 cardNumber: [],
                 cardExpiry: [],
                 cardCvc: [],
+            },
+
+            rules: {
+                methodType: [
+                    v => !!v || 'Payment Method Type is required',
+                ],
+                country: [
+                    v => !!v || 'Country is required',
+                ],
+                region: [
+                    v => (this.billing.country && this.billing.country.toLowerCase() != 'canada') || !!v || 'State/Province is required',
+                ],
             },
         }
     },
@@ -163,6 +179,8 @@ export default {
             if (!this.errors.cardNumber.length) {
                 classes.push('border-1');
                 classes.push('border-gray');
+            } else {
+                classes.push('validation-error');
             }
 
             return classes;
@@ -174,6 +192,8 @@ export default {
             if (!this.errors.cardExpiry.length) {
                 classes.push('border-1');
                 classes.push('border-gray');
+            } else {
+                classes.push('validation-error');
             }
 
             return classes;
@@ -185,34 +205,33 @@ export default {
             if (!this.errors.cardCvc.length) {
                 classes.push('border-1');
                 classes.push('border-gray');
+            } else {
+                classes.push('validation-error');
             }
 
             return classes;
         },
     },
     mounted() {
-        console.log("PaymentForm::paymentMethodSelected stripePublishableKey: %s", JSON.stringify(this.stripePublishableKey));
+        this.stripe = (window as any).Stripe(this.stripePublishableKey);
         this.initStripeElements();
+        this.$root.$on('cancelPaymentForm', this.cancel);
+        this.$root.$on('submitPaymentForm', this.submitForm);
     },
     methods: {
         paymentMethodSelected(event) {
-            console.log("PaymentForm::paymentMethodSelected event: %s", JSON.stringify(event));
-            // todo - update
-            this.methodType = event.value;
+            this.$emit('updateBilling', {prop: 'methodType', value: event.value});
         },
-        billingCountrySelected(event) {
-            console.log("PaymentForm::billingCountrySelected event: %s", JSON.stringify(event));
-            // todo - update
-            this.billingCountry = event.value;
-        },
-        billingRegionSelected(event) {
-            console.log("PaymentForm::billingRegionSelected event: %s", JSON.stringify(event));
-            // todo - update
-            this.billingRegion = event.value;
-        },
-        initStripeElements() {
-            this.stripe = (window as any).Stripe(this.stripePublishableKey);
 
+        billingCountrySelected(event) {
+            this.$emit('updateBilling', {prop: 'country', value: event.value});
+        },
+
+        billingRegionSelected(event) {
+            this.$emit('updateBilling', {prop: 'region', value: event.value});
+        },
+
+        initStripeElements() {
             const elements = this.stripe.elements();
             const style = {
                 base: {
@@ -250,17 +269,76 @@ export default {
             });
         },
 
+        cancel() {
+            this.errors = {
+                methodType: [],
+                billingCountry: [],
+                billingRegion: [],
+                cardNumber: [],
+                cardExpiry: [],
+                cardCvc: [],
+            };
+
+            this.initStripeElements();
+        },
+
         elementsChangeHandler(payload, controlName) {
-            console.log(
-                'PaymentForm::elementsChangeHandler controlName: %s, payload: %s',
-                JSON.stringify(controlName),
-                JSON.stringify(payload)
-            );
             this.errors[controlName] = [];
 
             if (payload.error) {
                 this.errors[controlName].push(payload.error.message);
             }
+        },
+
+        validateInput(controlName, value): Boolean {
+            const errors = [];
+
+            this.rules[controlName].forEach((rule) => {
+                if (rule(value) !== true) {
+                    errors.push(rule(value));
+                }
+            });
+
+            this.errors[controlName] = errors;
+
+            return errors.length == 0;
+        },
+
+        validateForm() {
+            return new Promise((resolve, reject) => {
+
+                let valid = true;
+
+                Object.keys(this.rules).forEach((key) => {
+                    valid = valid && this.validateInput(key, this.billing[key]);
+                });
+
+                if (valid) {
+                    resolve(true);
+                } else {
+                    reject(false);
+                }
+            });
+        },
+
+        submitForm() {
+            this.validateForm()
+                .then(() => {
+                    if (this.billing.methodType == 'paypal') {
+                        this.$emit('formValidated', {});
+                    } else {
+                        this.stripe
+                            .createToken(this.cardNumberElement, {
+                                address_country: this.billing.country,
+                            })
+                            .then(({ token, error }) => {
+                                if (!error) {
+                                    this.$emit('formValidated', {token: token.id});
+                                }
+                            });
+                    }
+                })
+                .catch(() => {});
         },
     },
 }
@@ -269,11 +347,4 @@ export default {
 .stripe-element-container {
     height: 46px;
 }
-/*
-.stripe-element-container.StripeElement--complete ~ label,
-.stripe-element-container.StripeElement--focus ~ label,
-.stripe-element-container.StripeElement--invalid  ~ label {
-    transform:scale(.7) translateY(-8px) translateX(15px);
-}
-*/
 </style>

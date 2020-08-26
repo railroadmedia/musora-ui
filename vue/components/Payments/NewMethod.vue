@@ -15,6 +15,9 @@
                     :has-subscription="hasSubscription"
                     :is-active="isActive"
                     :stripe-publishable-key="stripePublishableKey"
+                    :billing="billing"
+                    @updateBilling="updateBilling"
+                    @formValidated="formValidated"
                 ></payment-form>
             </div>
             <div class="p-6 space-x-6 flex justify-end">
@@ -35,6 +38,8 @@
 <script lang="ts">
 import Button from '../Blocks/Button';
 import PaymentForm from './PaymentForm';
+import Billing from '../../models/billing';
+import Ecommerce from '../../services/ecommerce';
 
 export default {
     components: {
@@ -54,6 +59,15 @@ export default {
         stripePublishableKey: {
             type: String,
         },
+        brand: {
+            type: String,
+            default: 'drumeo'
+        },
+    },
+    data() {
+        return {
+            billing: new Billing('credit_card', this.brand),
+        }
     },
     methods: {
         closeModal() {
@@ -63,12 +77,35 @@ export default {
         noop() {},
 
         cancel() {
-            this.$emit('modalClosed', {});
-            console.log("Payments\\NewMethod::cancel");
+            this.billing = new Billing('credit_card', this.brand);
+            this.$root.$emit('cancelPaymentForm', this.filter);
+            this.closeModal();
         },
 
         submit() {
-            console.log("Payments\\NewMethod::submit");
+            this.$root.$emit('submitPaymentForm', {});
+        },
+
+        updateBilling(event) {
+            this.billing[event.prop] = event.value;
+            // todo - add billing address update request
+        },
+
+        formValidated(event) {
+
+            this.billing.token = (this.billing.methodType != 'paypal' && event.token)
+                ? event.token : undefined;
+
+            // todo - add loading state transition
+
+            Ecommerce
+                .updatePaymentMethod(this.billing)
+                .then((response) => {
+                    console.log("NewMethod::formValidated response: %s", JSON.stringify(response));
+                    // todo - add response handling, redirect to paypal url from response or trigger methods refresh
+                    this.$emit('reloadPaymentMethods', {});
+                    // todo - remove the loading state transition
+                });
         },
     },
     computed: {

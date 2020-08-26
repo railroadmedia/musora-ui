@@ -1,7 +1,7 @@
 <template>
     <button
         :type="type"
-        class="py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase font-roboto flex items-center"
+        class="py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline uppercase font-roboto flex items-center"
         :class="$_inputClasses"
         :tabindex="tabIndex"
         @click.stop.prevent="click()"
@@ -56,11 +56,13 @@ export default {
                 classes.push('border-2');
                 classes.push('border-edge-blue');
                 classes.push('text-white');
+                classes.push('active:bg-blue-700');
             } else if (this.theme == 'blue-reversed') {
                 classes.push('border-2');
                 classes.push('border-edge-blue');
                 classes.push('text-edge-blue');
                 classes.push('active:text-white');
+                classes.push('active:bg-blue-700');
             } else if (this.theme == 'white') {
                 classes.push('border-2');
                 classes.push('border-white');

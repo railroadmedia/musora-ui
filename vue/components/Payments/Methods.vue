@@ -9,7 +9,7 @@
             </div>
             <div class="flex space-x-3 py-2" v-for="paymentMethod in paymentMethods">
                 <div class="default-col text-center">
-                    <i class="fas fa-check" v-if="paymentMethod.default"></i>
+                    <i class="fas fa-check" v-if="paymentMethod.isDefault"></i>
                 </div>
                 <div class="flex-1">{{ paymentMethod.info }}</div>
                 <div class="expiry-col text-center">{{ paymentMethod.expiry }}</div>
@@ -31,7 +31,10 @@
             :has-subscription="hasSubscription"
             :is-active="isActive"
             :stripe-publishable-key="stripePublishableKey"
+            :brand="brand"
+            :user-id="userId"
             @modalClosed="modalClosed"
+            @reloadPaymentMethods="reloadPaymentMethods"
         ></new-payment-method>
     </div>
 </template>
@@ -39,6 +42,7 @@
 <script lang="ts">
 import Button from '../Blocks/Button';
 import NewMethod from './NewMethod';
+import Ecommerce from '../../services/ecommerce';
 
 export default {
     components: {
@@ -46,9 +50,15 @@ export default {
         'new-payment-method': NewMethod,
     },
     props: {
-        paymentMethods: {
-            type: Array,
-            default: () => [],
+        preloadData: {
+            type: String
+        },
+        brand: {
+            type: String,
+            default: () => 'drumeo',
+        },
+        userId: {
+            type: Number,
         },
         hasSubscription: {
             type: Boolean,
@@ -63,7 +73,12 @@ export default {
     data(): object {
         return {
             newPaymentModal: false,
+            paymentMethods: [],
         }
+    },
+    mounted() {
+        let preloadData = JSON.parse(this.preloadData);
+        this.paymentMethods = Ecommerce.getPaymentMethodsFromResponse(preloadData);
     },
     methods: {
         remove(paymentMethod) {
@@ -78,6 +93,10 @@ export default {
         },
         modalClosed() {
             this.newPaymentModal = false;
+        },
+        reloadPaymentMethods() {
+            let response = Ecommerce.getPaymentMethods(this.userId);
+            this.paymentMethods = Ecommerce.getPaymentMethodsFromResponse(response);
         },
     },
 }

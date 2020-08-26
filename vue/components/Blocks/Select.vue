@@ -7,7 +7,9 @@
             :id="id"
             :aria-label="label"
             :aria-invalid="validationErrors.length > 0"
-            placeholder=" "
+            :autocomplete="autoComplete"
+            :autocorrect="autoCorrect"
+            :spellcheck="spellCheck"
         >
             <option
                 v-for="option in options"
@@ -31,9 +33,7 @@ export default {
         label: {
             type: String,
         },
-        selectedValue: {
-            validator: prop => typeof prop === 'string' || prop === null
-        },
+        selectedValue: [String, undefined],
         options: {
             type: Array,
             default: () => [],
@@ -50,10 +50,22 @@ export default {
             type: Boolean,
             default: false
         },
+        autoComplete: {
+            type: Boolean,
+            default: false
+        },
+        autoCorrect: {
+            type: Boolean,
+            default: false
+        },
+        spellCheck: {
+            type: Boolean,
+            default: false
+        },
     },
     data() {
         return {
-            valueSelected: this.selectedValue !== null && this.selectedValue !== '',
+            valueSelected: this.selectedValue !== undefined && this.selectedValue !== '',
         };
     },
     computed: {

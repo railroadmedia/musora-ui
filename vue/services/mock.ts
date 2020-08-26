@@ -27,6 +27,20 @@ import Utils from './utils';
 export default class Mock {
     static setupMock(mock) {
         mock
+            .onPut('/ecommerce/session/address')
+            .reply(function (config) {
+                console.log("Mock::onPut /ecommerce/session/address config: %s", JSON.stringify(config));
+                return [200, {}];
+            });
+
+        mock
+            .onPut('/update-payment-method')
+            .reply(function (config) {
+                console.log("Mock::onPut /update-payment-method config: %s", JSON.stringify(config));
+                return [200, {}];
+            });
+
+        mock
             .onGet('/railcontent/content')
             .reply(function (config) {
                 let params = config.params || {};
