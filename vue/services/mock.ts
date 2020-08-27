@@ -22,21 +22,207 @@ import Songs2Data from '../../mocks/songs2.json';
 import Songs3Data from '../../mocks/songs3.json';
 import Songs4Data from '../../mocks/songs4.json';
 import CommentsData from '../../mocks/comments.json';
+import PaymentMethods from '../../mocks/paymentMethods.json';
+import Cart from '../../mocks/cart.json';
 import Utils from './utils';
 
 export default class Mock {
+    static paymentsData: any = PaymentMethods;
+    static paymentsAddedCount: number = 0;
+
     static setupMock(mock) {
         mock
             .onPut('/ecommerce/session/address')
             .reply(function (config) {
-                console.log("Mock::onPut /ecommerce/session/address config: %s", JSON.stringify(config));
-                return [200, {}];
+                let data = JSON.parse(config.data);
+                let country = data['billing_country'];
+
+                let tax = 0;
+                let shipping = 0;
+                let due = 197;
+
+                if (country) {
+                    if (country.toLowerCase() == 'canada') {
+                        tax = 5;
+                        due = due + tax;
+                    } else if (country.toLowerCase() == 'australia') {
+                        shipping = 8;
+                        due = due + shipping;
+                    }else if (country.toLowerCase() == 'united kingdom') {
+                        tax = 11;
+                        shipping = 23;
+                        due = due + tax + shipping;
+                    }
+                }
+
+                let cart = Utils.copy(Cart);
+                cart['meta'].cart.totals = {
+                        "shipping": shipping,
+                        "shipping_before_override": 0,
+                        "tax": tax,
+                        "due": due,
+                        "product_taxes": 0,
+                        "shipping_taxes": 0
+                    };
+
+                return [200, cart];
             });
 
         mock
             .onPut('/update-payment-method')
             .reply(function (config) {
-                console.log("Mock::onPut /update-payment-method config: %s", JSON.stringify(config));
+
+                let data = JSON.parse(config.data);
+                let response = {};
+
+                if (data['method_type'] == 'paypal') {
+                    response['redirect'] = '/router.php/vue/settings_payments';
+                } else {
+                    Mock.paymentsAddedCount = Mock.paymentsAddedCount + 1;
+
+                    if (Mock.paymentsAddedCount == 2) {
+                        response = {
+                            "redirect": "http://devui.musora.com/router.php/vue/settings_payments",
+                            "errors": {
+                                "payment": "Your card has insufficient funds."
+                            }
+                        };
+                    } else {
+                        let newPaymentMethod = {
+                                "type": "paymentMethod",
+                                "id": "123" + Mock.paymentsAddedCount.toString(),
+                                "attributes": {
+                                    "currency": "USD",
+                                    "note": null,
+                                    "deleted_at": null,
+                                    "created_at": "2020-08-24 09:39:13",
+                                    "updated_at": "2020-08-24 09:39:13"
+                                },
+                                "relationships": {
+                                    "method": {
+                                        "data": {
+                                            "type": "creditCard",
+                                            "id": "456" + Mock.paymentsAddedCount.toString()
+                                        }
+                                    },
+                                    "userPaymentMethod": {
+                                        "data": {
+                                            "type": "userPaymentMethod",
+                                            "id": "789"  + Mock.paymentsAddedCount.toString(),
+                                        }
+                                    },
+                                    "billingAddress": {
+                                        "data": {
+                                            "type": "address",
+                                            "id": "232254"
+                                        }
+                                    }
+                                }
+                            };
+
+                        let randomLastFourDigits = Math.floor(Math.random() * 10).toString() +
+                                                    Math.floor(Math.random() * 10).toString() +
+                                                    Math.floor(Math.random() * 10).toString() +
+                                                    Math.floor(Math.random() * 10).toString();
+
+                        let newMethod = {
+                                "type": "creditCard",
+                                "id": "456" + Mock.paymentsAddedCount.toString(),
+                                "attributes": {
+                                    "fingerprint": "foTrVrAKbOYoo8wA",
+                                    "last_four_digits": randomLastFourDigits,
+                                    "cardholder_name": null,
+                                    "company_name": "Visa",
+                                    "expiration_date": "2020-12-24 09:39:13",
+                                    "external_id": "card_1HJc8uKoDqdTNxK1X67kNSoE",
+                                    "external_customer_id": "cus_HtOwHCqvQ2Dl5R",
+                                    "payment_gateway_name": "drumeo",
+                                    "created_at": "2020-08-24 09:39:13",
+                                    "updated_at": "2020-08-24 09:39:13"
+                                }
+                            };
+
+                        let newUserPaymentMethod = {
+                                "type": "userPaymentMethod",
+                                "id": "789" + Mock.paymentsAddedCount.toString(),
+                                "attributes": {
+                                    "is_primary": true,
+                                    "created_at": "2020-08-24 09:39:13",
+                                    "updated_at": "2020-08-26 11:41:47"
+                                },
+                                "relationships": {
+                                    "user": {
+                                        "data": {
+                                            "type": "user",
+                                            "id": "150259"
+                                        }
+                                    }
+                                }
+                            };
+
+                        Mock.paymentsData['included'].forEach(item => {
+                            if (item['type'] == 'userPaymentMethod') {
+                                item['attributes']['is_primary'] = false;
+                            }
+                        });
+
+                        Mock.paymentsData['data'].push(newPaymentMethod);
+                        Mock.paymentsData['included'].push(newMethod);
+                        Mock.paymentsData['included'].push(newUserPaymentMethod);
+
+                        response = {'success': true};
+                    }
+                }
+
+                return [200, response];
+            });
+
+        mock
+            .onGet(/\/ecommerce\/user-payment-method\/\d+/)
+            .reply(function (config) {
+                return [200, Mock.paymentsData];
+            });
+
+        mock
+            .onDelete(/\/ecommerce\/payment-method\/\d+/)
+            .reply(function (config) {
+                let paymentMethodId = config.url.split('/').slice(-1)[0];
+                let paymentMethds = [];
+
+                Mock.paymentsData['data'].forEach(item => {
+                    if (item.id != paymentMethodId) {
+                        paymentMethds.push(item);
+                    }
+                });
+
+                Mock.paymentsData['data'] = paymentMethds;
+
+                return [200, {}];
+            });
+
+        mock
+            .onPatch('/ecommerce/payment-method/set-default')
+            .reply(function (config) {
+                console.log("Mock::onPatch /ecommerce/payment-method/set-default config: %s", JSON.stringify(config));
+                let data = JSON.parse(config.data);
+                let userPaymentMethodId;
+
+                Mock.paymentsData['data'].forEach(item => {
+                    if (item.id == data.id) {
+                        userPaymentMethodId = item.relationships.userPaymentMethod.data.id;
+                    }
+                });
+
+                Mock.paymentsData['included'].forEach(item => {
+                    if (item['type'] == 'userPaymentMethod') {
+                        if (item['id'] == userPaymentMethodId) {
+                            item['attributes']['is_primary'] = true;
+                        } else {
+                            item['attributes']['is_primary'] = false;
+                        }
+                    }
+                });
+
                 return [200, {}];
             });
 

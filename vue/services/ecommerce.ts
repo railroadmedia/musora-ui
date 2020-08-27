@@ -8,6 +8,7 @@ import PaymentMethod from '../models/paymentMethod';
 export default class Ecommerce {
 
     static updateBillingAddress(billing: Billing) {
+        console.log("Ecommerce::updateBillingAddress");
         return http
                 .put(
                     '/ecommerce/session/address',
@@ -25,11 +26,20 @@ export default class Ecommerce {
                 });
     }
 
-    // static getCartTotalsFromResponse(response): CartTotals {
-    //     return new CartTotals(response.);
-    // }
+    static getCartTotalsFromResponse(response): CartTotals {
+        return Ecommerce.getCartTotals(response['meta'].cart);
+    }
 
-    static updatePaymentMethod(billing: Billing) {
+    static getCartTotals(cartData): CartTotals {
+        let shipping = cartData.totals.shipping;
+        let tax = cartData.totals.tax;
+        let due = cartData.totals.due;
+
+        return new CartTotals(shipping, tax, due);
+    }
+
+    static createPaymentMethod(billing: Billing) {
+        console.log("Ecommerce::updatePaymentMethod");
         return http
                 .put(
                     '/update-payment-method',
@@ -49,10 +59,36 @@ export default class Ecommerce {
                 });
     }
 
+    static deletePaymentMethod(paymentMethod: PaymentMethod) {
+        console.log("Ecommerce::deletePaymentMethod");
+        return http
+                .delete(`/ecommerce/payment-method/${paymentMethod.paymentMethodId}`)
+                .then(response => response)
+                .catch(error => {
+                    Errors.report(error, 'Ecommerce::deletePaymentMethod');
+                    return error;
+                });
+    }
+
+    static setDefaultPaymentMethod(paymentMethod: PaymentMethod) {
+        console.log("Ecommerce::setDefaultPaymentMethod");
+        return http
+                .patch(
+                    '/ecommerce/payment-method/set-default',
+                    {id: paymentMethod.paymentMethodId}
+                )
+                .then(response => response)
+                .catch(error => {
+                    Errors.report(error, 'Ecommerce::setDefaultPaymentMethod');
+                    return error;
+                });
+    }
+
     static getPaymentMethods(userId) {
+        console.log("Ecommerce::getPaymentMethods");
         return http
                 .get(`/ecommerce/user-payment-method/${userId}`)
-                .then(response => response)
+                .then(response => response.data)
                 .catch(error => {
                     Errors.report(error, 'Ecommerce::getPaymentMethods');
                     return error;
@@ -105,8 +141,6 @@ export default class Ecommerce {
                 info,
                 expiry
             );
-
-            console.log("::getPaymentMethodsFromResponse paymentMethod: %s", JSON.stringify(paymentMethod));
 
             methods.push(paymentMethod);
         });

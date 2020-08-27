@@ -16,6 +16,9 @@
                     :is-active="isActive"
                     :stripe-publishable-key="stripePublishableKey"
                     :billing="billing"
+                    :countries="countries"
+                    :regions="regions"
+                    :cart-totals="cartTotals"
                     @updateBilling="updateBilling"
                     @formValidated="formValidated"
                 ></payment-form>
@@ -39,6 +42,7 @@
 import Button from '../Blocks/Button';
 import PaymentForm from './PaymentForm';
 import Billing from '../../models/billing';
+import CartTotals from '../../models/cartTotals';
 import Ecommerce from '../../services/ecommerce';
 
 export default {
@@ -47,6 +51,9 @@ export default {
         'payment-form': PaymentForm,
     },
     props: {
+        preloadCartData: {
+            type: String
+        },
         showModal: {
             type: Boolean,
         },
@@ -63,11 +70,22 @@ export default {
             type: String,
             default: 'drumeo'
         },
+        countries: {
+            type: Array
+        },
+        regions: {
+            type: Array
+        },
     },
     data() {
         return {
             billing: new Billing('credit_card', this.brand),
+            cartTotals: new CartTotals(0, 0, 0),
         }
+    },
+    mounted() {
+        let preloadCartData = JSON.parse(this.preloadCartData);
+        this.cartTotals = Ecommerce.getCartTotals(preloadCartData);
     },
     methods: {
         closeModal() {
@@ -88,7 +106,12 @@ export default {
 
         updateBilling(event) {
             this.billing[event.prop] = event.value;
-            // todo - add billing address update request
+            
+            Ecommerce
+                .updateBillingAddress(this.billing)
+                .then((response) => {
+                    this.cartTotals = Ecommerce.getCartTotalsFromResponse(response.data);
+                });
         },
 
         formValidated(event) {
@@ -99,7 +122,7 @@ export default {
             // todo - add loading state transition
 
             Ecommerce
-                .updatePaymentMethod(this.billing)
+                .createPaymentMethod(this.billing)
                 .then((response) => {
                     console.log("NewMethod::formValidated response: %s", JSON.stringify(response));
                     // todo - add response handling, redirect to paypal url from response or trigger methods refresh

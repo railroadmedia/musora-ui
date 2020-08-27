@@ -16,15 +16,7 @@ $data = [
     'user' => [
         'id' => 1,
         'hasSubscription' => true,
-        'isActive' => true,
-    ],
-    'methods' => [
-        [
-            'id' => 1,
-            'default' => true,
-            'info' => 'Visa - 4242',
-            'expiry' => '12/20',
-        ]
+        'isActive' => false,
     ],
     'payments' => [
         [
@@ -39,6 +31,8 @@ $data = [
 $inputErrors = [
     'methods' => [],
 ];
+$countries = ['United States', 'Canada', 'United Kingdom', 'Australia'];
+$regions = ['Alberta', 'British Columbia'];
 // <!--
 $ecommercePaymentMethods = <<<'EOT'
 {
@@ -326,6 +320,66 @@ $ecommercePaymentMethods = <<<'EOT'
 }
 EOT;
 // -->
+
+// <!--
+$ecommerceCart = <<<'EOC'
+{
+  "items": [
+    {
+      "sku": "DLM-1-year",
+      "name": "Drumeo Edge Membership - Annual",
+      "quantity": 1,
+      "thumbnail_url": "https://www.drumeo.com/laravel/public/assets/order-form/images/product-images/DLM.png",
+      "description": "The Ultimate Online Drum Lessons Experience",
+      "stock": null,
+      "subscription_interval_type": "year",
+      "subscription_interval_count": 1,
+      "subscription_renewal_price": 197,
+      "price_before_discounts": 197,
+      "price_after_discounts": 197,
+      "requires_shipping": false,
+      "is_digital": true
+    }
+  ],
+  "discounts": [],
+  "shipping_address": null,
+  "billing_address": {
+    "zip_or_postal_code": null,
+    "street_line_two": null,
+    "street_line_one": null,
+    "last_name": null,
+    "first_name": null,
+    "region": null,
+    "country": "United States",
+    "city": null
+  },
+  "number_of_payments": 1,
+  "payment_plan_options": [
+    {
+      "value": 1,
+      "label": "1 payment of $197"
+    },
+    {
+      "value": 2,
+      "label": "2 payments of $98.5 ($1.00 finance charge)"
+    },
+    {
+      "value": 5,
+      "label": "5 payments of $39.4 ($1.00 finance charge)"
+    }
+  ],
+  "locked": true,
+  "totals": {
+    "shipping": 0,
+    "shipping_before_override": 0,
+    "tax": 0,
+    "due": 197,
+    "product_taxes": 0,
+    "shipping_taxes": 0
+  }
+}
+EOC;
+// -->
 @endphp
 
 @section('app')
@@ -340,12 +394,14 @@ EOT;
             @include(
                 'sections.profile.payment-methods',
                 [
-                    'data' => $data['methods'],
                     'preloadData' => $ecommercePaymentMethods,
+                    'preloadCartData' => $ecommerceCart,
                     'user' => $data['user'],
                     'errors' => $inputErrors['methods'],
                     'form' => [],
                     'stripePublishableKey' => 'pk_test_8WbVpdVKKttr3iqIdiT932ME',
+                    'countries' => $countries,
+                    'regions' => $regions,
                 ]
             )
 

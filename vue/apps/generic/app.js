@@ -14,6 +14,10 @@ import ContentSearch from '../../components/Content/Search';
 import SettingsProfileImage from '../../components/Content/SettingsProfileImage';
 import PaymentMethods from '../../components/Payments/Methods';
 
+import Toasts from '../../js/toasts';
+
+window['toasts'] = Toasts;
+
 Vue.component('content-row', ContentRow);
 Vue.component('content-catalogue', ContentCatalogue);
 Vue.component('rudiments-content', RudimentsContent);

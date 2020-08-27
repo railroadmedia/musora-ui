@@ -24,6 +24,7 @@
     "laravel-mix": "^5.0.4",
     "laravel-mix-purgecss": "^5.0.0",
     "moment": "^2.27.0",
+    "noty": "^3.2.0-beta",
     "postcss-cli": "^7.1.0",
     "simplebar": "^5.2.0",
     "simplebar-vue": "^1.5.1",

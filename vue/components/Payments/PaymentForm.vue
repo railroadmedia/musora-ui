@@ -109,7 +109,17 @@
                 * Submitting this form will create a new default payment method for you.
                 Your current subscription will be billed to this payment method when it's due.
             </p>
-            <!-- todo: add totals block -->
+            <div v-if="hasSubscription && !isActive" class="flex">
+                <div class="flex-1">
+                    <p class="italic text-medium-gray text-xs">* Payment for inactive subscriptions is due today.</p>
+                </div>
+                <div class="flex-1">
+                    <div class="text-right font-bold" v-if="cartTotals.shipping">Shipping: ${{ getWithDecimals(cartTotals.shipping) }}</div>
+                    <div class="text-right font-bold">Tax: ${{ getWithDecimals(cartTotals.tax) }}</div>
+                    <div class="text-right font-bold"><span class="text-4xl">${{ getWithDecimals(cartTotals.due) }}</span> USD</div>
+                    <div class="text-right font-bold">Due Today</div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -117,6 +127,7 @@
 <script lang="ts">
 import SelectInput from '../Blocks/Select';
 import Billing from '../../models/billing';
+import CartTotals from '../../models/cartTotals';
 
 export default {
     components: {
@@ -138,12 +149,21 @@ export default {
         billing: {
             type: Billing
         },
+        cartTotals: {
+            type: CartTotals
+        },
+        countries: {
+            type: Array
+        },
+        regions: {
+            type: Array
+        },
     },
     data() {
         return {
             paymentMethods: [{value: 'credit_card', label: 'Credit Card'}, {value: 'paypal', label: 'PayPal'}],
-            countries: ['United States', 'Canada', 'United Kingdom', 'Australia'],
-            regions: ['Alberta', 'British Columbia'],
+            // countries: ['United States', 'Canada', 'United Kingdom', 'Australia'],
+            // regions: ['Alberta', 'British Columbia'],
 
             stripe: null,
             cardNumberElement: null,
@@ -340,6 +360,10 @@ export default {
                 })
                 .catch(() => {});
         },
+
+        getWithDecimals(value) {
+            return Number(value || 0).toFixed(2);
+        }
     },
 }
 </script>
