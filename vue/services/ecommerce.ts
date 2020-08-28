@@ -8,7 +8,6 @@ import PaymentMethod from '../models/paymentMethod';
 export default class Ecommerce {
 
     static updateBillingAddress(billing: Billing) {
-        console.log("Ecommerce::updateBillingAddress");
         return http
                 .put(
                     '/ecommerce/session/address',
@@ -39,7 +38,6 @@ export default class Ecommerce {
     }
 
     static createPaymentMethod(billing: Billing) {
-        console.log("Ecommerce::updatePaymentMethod");
         return http
                 .put(
                     '/update-payment-method',
@@ -60,7 +58,6 @@ export default class Ecommerce {
     }
 
     static deletePaymentMethod(paymentMethod: PaymentMethod) {
-        console.log("Ecommerce::deletePaymentMethod");
         return http
                 .delete(`/ecommerce/payment-method/${paymentMethod.paymentMethodId}`)
                 .then(response => response)
@@ -71,7 +68,6 @@ export default class Ecommerce {
     }
 
     static setDefaultPaymentMethod(paymentMethod: PaymentMethod) {
-        console.log("Ecommerce::setDefaultPaymentMethod");
         return http
                 .patch(
                     '/ecommerce/payment-method/set-default',
@@ -85,7 +81,6 @@ export default class Ecommerce {
     }
 
     static getPaymentMethods(userId) {
-        console.log("Ecommerce::getPaymentMethods");
         return http
                 .get(`/ecommerce/user-payment-method/${userId}`)
                 .then(response => response.data)

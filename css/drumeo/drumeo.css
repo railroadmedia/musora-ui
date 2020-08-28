@@ -1,6 +1,8 @@
 @import "../core/core-colors.css";
 @import "../core/core-text.css";
 @import "drumeo-colors.css";
+@import "noty/lib/noty.css";
+@import "toasts.css";
 
 @tailwind base;
 @tailwind components;

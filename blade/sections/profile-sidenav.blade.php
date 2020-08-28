@@ -24,7 +24,7 @@ $items = [
     [
         'icon' => 'far fa-credit-card',
         'label' => 'payments',
-        'url' => '/router.php/settings_payments',
+        'url' => '/router.php/vue/settings_payments',
     ],
     [
         'icon' => 'fas fa-bell',

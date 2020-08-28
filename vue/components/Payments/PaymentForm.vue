@@ -358,7 +358,9 @@ export default {
                             });
                     }
                 })
-                .catch(() => {});
+                .catch(() => {
+                    this.$emit('formInvalid', {});
+                });
         },
 
         getWithDecimals(value) {

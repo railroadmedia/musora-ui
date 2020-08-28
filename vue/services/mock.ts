@@ -203,7 +203,6 @@ export default class Mock {
         mock
             .onPatch('/ecommerce/payment-method/set-default')
             .reply(function (config) {
-                console.log("Mock::onPatch /ecommerce/payment-method/set-default config: %s", JSON.stringify(config));
                 let data = JSON.parse(config.data);
                 let userPaymentMethodId;
 

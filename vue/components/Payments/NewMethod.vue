@@ -21,8 +21,45 @@
                     :cart-totals="cartTotals"
                     @updateBilling="updateBilling"
                     @formValidated="formValidated"
+                    @formInvalid="formInvalid"
                 ></payment-form>
             </div>
+            <transition name="grow-fade">
+                <div
+                    v-show="loading"
+                    class="form-loading bg-white shadow rounded-lg overflow p-3 text-center"
+                    @click.stop
+                >
+                    <div class="form-loading-animation relative ">
+                        <loading-animation theme-color="drumeo" />
+                    </div>
+
+                    <p class="mt-3">
+                        Loading Please Wait...
+                    </p>
+
+                    <transition name="grow-fade">
+                        <div
+                            v-show="formSuccess"
+                            class="success-message flex flex-col justify-center bg-white rounded-lg pa-3"
+                        >
+                            <i class="fas fa-check-circle text-green-400"></i>
+
+                            <h4 class="text-xl mb-2">
+                                Success!
+                            </h4>
+                            <p class="text-sm text-medium-gray">
+                                Your payment method has been successfully changed!
+                            </p>
+                        </div>
+                    </transition>
+                </div>
+            </transition>
+
+            <div
+                v-show="loading"
+                class="loading-overlay"
+            ></div>
             <div class="p-6 space-x-6 flex justify-end">
                 <button-input
                     label="cancel"
@@ -40,6 +77,7 @@
 
 <script lang="ts">
 import Button from '../Blocks/Button';
+import LoadingAnimation from '../Blocks/LoadingAnimation';
 import PaymentForm from './PaymentForm';
 import Billing from '../../models/billing';
 import CartTotals from '../../models/cartTotals';
@@ -49,6 +87,7 @@ export default {
     components: {
         'button-input': Button,
         'payment-form': PaymentForm,
+        'loading-animation': LoadingAnimation
     },
     props: {
         preloadCartData: {
@@ -81,9 +120,14 @@ export default {
         return {
             billing: new Billing('credit_card', this.brand),
             cartTotals: new CartTotals(0, 0, 0),
+            loading: false,
+            formSuccess: false,
+            toasts: null,
         }
     },
     mounted() {
+        this.toasts = (window as any)['toasts'];
+
         let preloadCartData = JSON.parse(this.preloadCartData);
         this.cartTotals = Ecommerce.getCartTotals(preloadCartData);
     },
@@ -96,12 +140,13 @@ export default {
 
         cancel() {
             this.billing = new Billing('credit_card', this.brand);
-            this.$root.$emit('cancelPaymentForm', this.filter);
+            this.$root.$emit('cancelPaymentForm', {});
             this.closeModal();
         },
 
         submit() {
             this.$root.$emit('submitPaymentForm', {});
+            this.loading = true;
         },
 
         updateBilling(event) {
@@ -119,16 +164,41 @@ export default {
             this.billing.token = (this.billing.methodType != 'paypal' && event.token)
                 ? event.token : undefined;
 
-            // todo - add loading state transition
-
             Ecommerce
                 .createPaymentMethod(this.billing)
                 .then((response) => {
-                    console.log("NewMethod::formValidated response: %s", JSON.stringify(response));
-                    // todo - add response handling, redirect to paypal url from response or trigger methods refresh
+
                     this.$emit('reloadPaymentMethods', {});
-                    // todo - remove the loading state transition
+
+                    if (response) {
+
+                        // because no actual request is made, request loading time is simulated
+                        // todo - remove timeouts on integration
+                        setTimeout(() => {
+                            this.formSuccess = true;
+                        }, 1500);
+
+                        setTimeout(() => {
+                            this.loading = false;
+                            this.$root.$emit('cancelPaymentForm', {});
+                            this.closeModal();
+                        }, 3500);
+
+                    } else {
+                        this.formSuccess = false;
+
+                        this.toasts.push({
+                            icon: 'fa-frown',
+                            title: 'Oops, something went wrong!',
+                            themeColor: 'drumeo',
+                            message: 'Payment method has not been created!',
+                        });
+                    }
                 });
+        },
+
+        formInvalid() {
+            this.loading = false;
         },
     },
     computed: {
@@ -156,5 +226,37 @@ export default {
 }
 .payment-method-modal {
     width: 800px;
+}
+.form-loading {
+    position:fixed;
+    top:50%;
+    left:50%;
+    z-index:200;
+    transform:translate(-50%, -50%);
+    width:250px;
+}
+.form-loading i {
+    font-size:72px;
+}
+.form-loading .form-loading-animation {
+    height:0;
+    padding-bottom:100%;
+}
+.form-loading .success-message {
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+}
+.loading-overlay {
+    content: '';
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    z-index:199;
+    background:rgba(0,0,0,.4);
 }
 </style>

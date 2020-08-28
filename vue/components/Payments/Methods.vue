@@ -111,24 +111,52 @@ export default {
     },
     methods: {
         remove(paymentMethod) {
-            Ecommerce
-                .deletePaymentMethod(paymentMethod)
-                .then((response) => {
-                    // todo - show error/success toasts
-                    console.log("PaymentMethods::remove response: %s", JSON.stringify(response));
-
-                    this.reloadPaymentMethods();
-                });
+            this.toasts.confirm({
+                title: 'Are you sure you want to delete this payment method?',
+                submitButton: {
+                    text: '<span class="bg-red-600 text-white py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline uppercase px-16 leading-none border-2 border-red-600 hover-trans font-roboto">Delete</span>',
+                    callback: () => {
+                        Ecommerce
+                            .deletePaymentMethod(paymentMethod)
+                            .then((response) => {
+                                this.handleResponse(response, 'deleted');
+                            });
+                    },
+                },
+                cancelButton: {
+                    text: '<span class="py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline uppercase px-16 leading-none border-2 border-medium-gray text-medium-gray hover-trans hover:bg-light-gray font-roboto">Cancel</span>',
+                },
+            });
         },
         setDefault(paymentMethod) {
-            Ecommerce
-                .setDefaultPaymentMethod(paymentMethod)
-                .then((response) => {
-                    // todo - show error/success toasts
-                    console.log("PaymentMethods::setDefault response: %s", JSON.stringify(response));
+            this.toasts.confirm({
+                title: 'Set this payment method as your default?',
+                subtitle: 'Your current subscriptions and payment plans will be charged to this payment method.',
+                submitButton: {
+                    text: '<span class="bg-green-500 text-white py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline uppercase px-16 leading-none border-2 border-green-500 hover-trans font-roboto">Confirm</span>',
+                    callback: () => {
+                        Ecommerce
+                            .setDefaultPaymentMethod(paymentMethod)
+                            .then((response) => {
+                                this.handleResponse(response, 'set as default');
+                            });
+                    },
+                },
+                cancelButton: {
+                    text: '<span class="py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline uppercase px-16 leading-none border-2 border-medium-gray text-medium-gray hover-trans hover:bg-light-gray font-roboto">Cancel</span>',
+                },
+            });
+        },
+        handleResponse(response, action) {
+            this.toasts.push({
+                icon: 'fa-smile-beam',
+                title: 'Success!',
+                themeColor: 'drumeo',
+                message: `Payment method has been ${action}!`,
+                timeout: 5000
+            });
 
-                    this.reloadPaymentMethods();
-                });
+            this.reloadPaymentMethods();
         },
         showAddNew() {
             this.newPaymentModal = true;

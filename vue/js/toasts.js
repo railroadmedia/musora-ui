@@ -24,20 +24,19 @@ export default {
         themeColor = 'drumeo',
         timeout = 5000,
     }) {
-        console.log('toasts::push');
         return new Noty({
             type: 'alert',
             theme: 'musoraNoty',
             text:
-                `${'<div class="flex flex-column icon-column face-icon">'
-                + '<div class="icon-wrap square '}${icon}"></div>`
+                `${'<div class="flex items-center justify-center px-2">'
+                + '<i class="fal '}${icon} fa-3x"></i>`
                 + '</div>'
-                + '<div class="flex flex-column ph-1">'
-                + `<h6 class="tiny uppercase font-bold text-${themeColor}">${title}</h6>`
-                + `<h5 class="tiny font-compressed">${message}</h5>`
+                + '<div class="flex-1 flex flex-col px-2">'
+                + `<h6 class="text-sm uppercase font-bold text-edge-blue">${title}</h6>`
+                + `<h5 class="text-sm font-compressed">${message}</h5>`
                 + '</div>'
-                + '<div class="flex flex-column icon-column flex-center subheading">'
-                + '<i class="fas fa-times"></i>'
+                + '<div class="flex items-center justify-center px-2">'
+                + '<i class="fas fa-times fa-2x text-medium-gray"></i>'
                 + '</div>',
             timeout,
             layout: 'topLeft',
@@ -70,17 +69,17 @@ export default {
             layout: 'center',
             modal: true,
             theme: 'musoraNoty dialog',
-            text: `<span class="title text-center font-bold text-black">${ 
+            text: `<span class="text-xl text-center font-bold text-black">${ 
                 title 
             }</span>`
                 + '<br>'
-                + `<span class="x-tiny uppercase text-grey-3">${ 
+                + `<span class="text-xs uppercase text-medium-gray">${ 
                     subtitle 
                 }</span>`,
             closeWith: [],
             buttons: [
                 Noty.button(
-                    submitButton.text, 'btn mr-1', () => {
+                    submitButton.text, 'mr-3', () => {
                         if (submitButton.callback != null) {
                             submitButton.callback();
                         }
@@ -89,7 +88,7 @@ export default {
                     },
                 ),
                 Noty.button(
-                    cancelButton.text, 'btn', () => {
+                    cancelButton.text, '', () => {
                         if (cancelButton.callback != null) {
                             cancelButton.callback();
                         }
