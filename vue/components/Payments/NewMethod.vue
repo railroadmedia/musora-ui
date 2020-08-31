@@ -125,6 +125,11 @@ export default {
             toasts: null,
         }
     },
+    watch: {
+        showModal() {
+            this.formSuccess = false;
+        },
+    },
     mounted() {
         this.toasts = (window as any)['toasts'];
 

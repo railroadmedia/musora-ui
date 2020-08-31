@@ -1,5 +1,6 @@
 @import "../core/core-colors.css";
 @import "../core/core-text.css";
+@import "../core/vue-animations.css";
 @import "drumeo-colors.css";
 @import "noty/lib/noty.css";
 @import "toasts.css";

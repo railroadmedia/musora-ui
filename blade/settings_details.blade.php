@@ -7,14 +7,32 @@
     @include('sections.profile-nav', ['active' => 'settings'])
 @endsection
 
+@php
+$userData = [
+    'id' => 1,
+    'inputs' => [],
+];
+@endphp
+
 @section('content')
     <div class="mx-auto w-full container pt-8 lg:pl-3 h-full flex flex-row">
         @include('sections.profile-sidenav', ['active' => 'account details'])
 
         <div class="flex-1 flex flex-col">
-            <div class="p-8 border-b border-gray">
+            <div class="p-8">
                 <h1 class="leading-none text-3xl font-bold capitalize">account details</h1>
             </div>
+
+            @include(
+                'sections.profile.membership',
+                [
+                    'data' => $userData['inputs'],
+                    'form' => [
+                        'method' => 'POST',
+                        'action' => '/usora/user/update/' . $userData['id'] . '/',
+                    ],
+                ]
+            )
         </div>
     </div>
 @endsection
