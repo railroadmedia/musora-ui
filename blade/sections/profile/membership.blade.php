@@ -1,5 +1,5 @@
 @php
-$membershipType = null;
+$membershipType = '1-year';
 $membershipStatus = 'active';
 $isAdmin = true;
 $userProduct = [
@@ -13,14 +13,14 @@ $subscription = [
     'paidUntil' => \Carbon\Carbon::parse('2020-09-28 06:16:08'),
     'productId' => 1,
     'payments' => [],
-    'startDate' => \Carbon\Carbon::parse('2020-09-28 06:16:08')
+    'startDate' => \Carbon\Carbon::parse('2020-01-28 06:16:08')
 ];
 $edgeExpirationDate = \Carbon\Carbon::parse('2020-09-28 06:16:08');
 $user = [
     'createdAt' => \Carbon\Carbon::parse('2019-01-01 06:16:08'),
 ];
 $subscriptionManagedElsewhere = false;
-$hasClaimedRetentionOfferAlready = true;
+$hasClaimedRetentionOfferAlready = false;
 $trialMembershipProductIds = [];
 @endphp
 
@@ -52,8 +52,8 @@ $trialMembershipProductIds = [];
         @endif
     </div>
     @if(!empty($membershipType))
-        <div class="border-b border-gray flex">
-            <div class="flex-1 border-r border-gray flex flex-col items-center justify-center w-full md:w-1/2 p-8">
+        <div class="border-b border-gray flex flex-col lg:flex-row">
+            <div class="flex-1 border-b lg:border-b-0 lg:border-r border-gray flex flex-col items-center justify-center w-full md:w-1/2 p-8">
                 <img src="https://drumeo-assets.s3.amazonaws.com/logos/edge-logo_small.png" class="w-80">
                 <h2 class="text-lg my-3 font-bold">
                     @if($membershipType == 'trial' || $membershipType == 'non-recurring')
@@ -127,7 +127,7 @@ $trialMembershipProductIds = [];
 
                 @if($membershipStatus == 'active' || $membershipType == 'lifetime')
                     <div class="mt-3">
-                        <a href="#">
+                        <a href="#" class="modal-trigger" data-target="modal-how-can-we-help">
                             <p class="text-edge-blue underline" id="">Click here if you’d like help getting the
                                 most out of your account.</p>
                         </a>
@@ -156,39 +156,49 @@ $trialMembershipProductIds = [];
         </div>
     @endif
 
-    <div class="p-8 pt-10">
+    <div class="p-8 pt-10 flex flex-col space-y-4 space-x-0 sm:flex-row sm:space-y-0 sm:space-x-4">
         @if($subscriptionManagedElsewhere)
             <div class="flex flex-col">
                 <p class="mb-2">To edit your membership please use the following guides:</p>
-                <a href="https://support.apple.com/en-us/HT202039" class="mb-2 text-edge-blue underline" target="_blank">
-                    For Apple users</a>
-                <a href="https://support.google.com/googleplay/answer/7018481?co=GENIE.Platform%3DAndroid&hl=en"
-                   class="mb-1 text-edge-blue underline" target="_blank">
-                    For Google users
-                </a>
+                <a
+                    href="https://support.apple.com/en-us/HT202039"
+                    class="mb-2 text-edge-blue underline"
+                    target="_blank"
+                >For Apple users</a>
+                <a
+                    href="https://support.google.com/googleplay/answer/7018481?co=GENIE.Platform%3DAndroid&hl=en"
+                    class="mb-1 text-edge-blue underline"
+                    target="_blank"
+                >For Google users</a>
             </div>
         @else
             @if(($membershipStatus == 'active' && $membershipType != 'lifetime' && $membershipType != '1-year') ||
                 ($membershipStatus == 'non-recurring' && $membershipType != 'lifetime'))
-                <a href="#"
-                   class="uppercase font-bold bg-edge-blue hover:bg-blue-600 py-3 px-16 text-white rounded-full"
-                   id="modal-upgrade-to-annual">
-                    Upgrade Membership
-                </a>
+                <div>
+                    <a
+                        href="#"
+                        class="modal-trigger uppercase font-bold bg-edge-blue hover:bg-blue-600 py-3 px-10 text-sm lg:text-base lg:px-16 text-white rounded-full text-center"
+                        data-target="modal-upgrade-to-annual"
+                    >Upgrade Membership</a>
+                </div>
             @endif
 
             @if($membershipStatus == 'canceled' || $membershipStatus == 'expired')
-                <a href="/"
-                   class="uppercase font-bold bg-edge-blue hover:bg-blue-600 py-3 px-16 text-white rounded-full">
-                    Renew Your Membership
-                </a>
+                <div>
+                    <a
+                        href="/"
+                        class="uppercase font-bold bg-edge-blue hover:bg-blue-600 py-3 px-10 text-sm lg:text-base lg:px-16 text-white rounded-full text-center"
+                    >Renew Your Membership</a>
+                </div>
             @endif
 
             @if($membershipStatus == 'paused')
-                <a href="/"
-                   class="uppercase font-bold bg-edge-blue hover:bg-blue-600 py-3 px-16 text-white rounded-full">
-                    Continue Your Membership
-                </a>
+                <div>
+                    <a
+                        href="/"
+                        class="uppercase font-bold bg-edge-blue hover:bg-blue-600 py-3 px-10 text-sm lg:text-base lg:px-16 text-white rounded-full text-center"
+                    >Continue Your Membership</a>
+                </div>
             @endif
 
             @if($membershipStatus == 'active' && ($membershipType != 'lifetime') && !$hasClaimedRetentionOfferAlready)
@@ -204,28 +214,35 @@ $trialMembershipProductIds = [];
                         }
                     }
                 @endphp
-
-                <a href="#" id="{{ $modalId }}"
-                   class="uppercase font-bold p-3 py-3 px-16 text-edge-blue">
-                    Cancel Membership
-                </a>
+                <div>
+                    <a
+                        href="#"
+                        data-target="{{ $modalId }}"
+                        class="modal-trigger uppercase font-bold py-3 px-10 text-sm lg:text-base lg:px-16 text-edge-blue text-center"
+                    >Cancel Membership</a>
+                </div>
             @endif
 
             @if($membershipStatus == 'active' && ($membershipType != 'lifetime') && $hasClaimedRetentionOfferAlready)
                 <!-- todo: update with route url helper route('user.settings.cancel.cancel-reason-form') -->
-                <a href="#"
-                   class="uppercase font-bold p-3 py-3 px-16 text-edge-blue">
-                    Cancel Membership
-                </a>
+                <div>
+                    <a
+                        href="#"
+                        class="uppercase font-bold py-3 px-10 text-sm lg:text-base lg:px-16 text-edge-blue text-center"
+                    >Cancel Membership</a>
+                </div>
             @endif
 
             @if(empty($membershipType))
-                <!-- todo: check -->
-                <a href="/laravel/public/shopping-cart/api/query?products[DLM-Trial]=1,month,1&locked=true"
-                   class="uppercase font-bold bg-edge-blue hover:bg-blue-600 py-3 px-16 text-white rounded-full">
-                    Start Free Trial
-                </a>
+                <div>
+                    <a
+                        href="/laravel/public/shopping-cart/api/query?products[DLM-Trial]=1,month,1&locked=true"
+                        class="uppercase font-bold bg-edge-blue hover:bg-blue-600 py-3 px-10 text-sm lg:text-base lg:px-16 text-white rounded-full text-center"
+                    >Start Free Trial</a>
+                </div>
             @endif
         @endif
     </div>
+
+    @include('sections.profile.membership-modals')
 </div>

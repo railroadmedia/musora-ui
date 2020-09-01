@@ -14,8 +14,23 @@ $userData = [
 ];
 @endphp
 
+@push('styles')
+<style type="text/css">
+.modal {
+    background-color: rgba(0,0,0,.6);
+    transition: opacity .3s ease-in-out,visibility .3s ease-in-out;
+    -webkit-transition: opacity .3s ease-in-out,visibility .3s ease-in-out;
+    cursor: pointer;
+}
+.modal.active {
+    display: flex;
+    opacity: 1;
+}
+</style>
+@endpush
+
 @section('content')
-    <div class="mx-auto w-full container pt-8 lg:pl-3 h-full flex flex-row">
+    <div class="mx-auto w-full container pt-8 lg:pl-3 h-full flex flex-col lg:flex-row">
         @include('sections.profile-sidenav', ['active' => 'account details'])
 
         <div class="flex-1 flex flex-col">
@@ -36,3 +51,25 @@ $userData = [
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+let modalTriggers = Array.from(document.getElementsByClassName('modal-trigger'));
+
+modalTriggers.forEach(function(element) {
+    element.addEventListener(
+        'click',
+        function(event) {
+
+            let modalId = element.getAttribute('data-target');
+            let modalElement = document.getElementById(modalId);
+
+            modalElement.classList.add('active');
+
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    );
+});
+</script>
+@endpush
