@@ -1,18 +1,19 @@
 <div class="p-8 border-b border-gray">
     <div class="flex items-center py-1">
-        <h2 class="flex-1 leading-none text-2xl font-bold capitalize">{{ $data['title'] }}</h2>
+        <h2 class="flex-1 leading-none text-lg sm:text-2xl font-bold capitalize">{{ $data['title'] }}</h2>
         @component(
             'core.anchor-button',
             [
                 'labelText' => 'edit',
                 'theme' => 'black',
                 'classes' => ['modal-trigger'],
-                'attrs' => ['data-target' => 'modal-settings-display-name']
+                'attrs' => ['data-target' => 'modal-settings-display-name'],
+                'extraSmallCollapse' => true,
             ]
         )
         @endcomponent
     </div>
-    <div class="flex py-2">
+    <div class="flex flex-wrap sm:flex-no-wrap py-2">
         <div class="profile-label font-bold capitalize">display name</div>
         <div>{{ $data['inputs']['display_name'] }}</div>
     </div>

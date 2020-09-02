@@ -1,11 +1,11 @@
 <template>
     <button
         :type="type"
-        class="py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline uppercase font-roboto flex items-center"
+        class="rounded-full leading-none font-bold focus:outline-none focus:shadow-outline uppercase font-roboto flex items-center"
         :class="$_inputClasses"
         :tabindex="tabIndex"
         @click.stop.prevent="click()"
-    ><i class="text-lg pr-3" :class="iconClass" v-if="iconClass"></i> {{ label }}</button>
+    ><i class="text-lg pr-3" :class="$_iconClass" v-if="iconClass"></i> {{ label }}</button>
 </template>
 
 <script lang="ts">
@@ -36,9 +36,17 @@ export default {
             type: Boolean,
             default: false
         },
+        extraSmallCollapse: {
+            type: Boolean,
+            default: false
+        },
         theme: {
             type: String,
             default: 'blue'
+        },
+        collapse: {
+            type: String,
+            default: 'sm'
         }
     },
     computed: {
@@ -46,9 +54,13 @@ export default {
             let classes = ['px-16'];
 
             if (this.fullWidth) {
-                classes = ['px-4', 'w-full'];
+                classes = ['py-3', 'px-4', 'w-full'];
             } else if (this.fixedWidth) {
-                classes = ['w-48', 'flex', 'justify-center'];
+                classes = ['py-3', 'w-48', 'flex', 'justify-center'];
+            } else if (this.extraSmallCollapse) {
+                let collapseClassX = this.collapse + ':px-16';
+                let collapseClassY = this.collapse + ':py-3';
+                classes = ['py-2', 'px-6', collapseClassX, collapseClassY];
             }
 
             if (this.theme == 'blue') {
@@ -74,6 +86,17 @@ export default {
 
             return classes;
         },
+        $_iconClass(): string[] {
+            let classes = [this.iconClass];
+
+            if (this.extraSmallCollapse) {
+                let displayClass = this.collapse + ':inline-block';
+                classes.push('hidden');
+                classes.push(displayClass);
+            }
+
+            return classes;
+        }
     },
     methods: {
         click() {

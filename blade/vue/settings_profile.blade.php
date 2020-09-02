@@ -72,7 +72,7 @@ $userData = [
 $inputErrors = [
     'display' => [],
     'about' => [
-        'first_name' => 'test error message',
+        // 'first_name' => 'test error message',
     ],
     'gear' => [],
 ];
@@ -80,7 +80,7 @@ $inputErrors = [
 
 
 @section('app')
-    <div class="mx-auto w-full container pt-8 lg:pl-3 h-full flex flex-row items-stretch">
+    <div class="mx-auto w-full container pt-8 px-3 sm:pr-0 sm:pl-3 h-full flex flex-col sm:flex-row items-stretch">
         @include('sections.profile-sidenav', ['active' => 'profile'])
 
         <div class="flex-1 flex-grow">

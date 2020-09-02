@@ -22,10 +22,10 @@ $userData = [
 @endphp
 
 @section('content')
-    <div class="mx-auto w-full container pt-8 lg:pl-3 h-full flex flex-row">
+    <div class="mx-auto w-full container pt-8 px-3 sm:pr-0 sm:pl-3 h-full flex flex-col sm:flex-row">
         @include('sections.profile-sidenav', ['active' => 'settings'])
 
-        <div class="flex-1 flex flex-col">
+        <div class="flex-1 flex flex-col flex-wrap">
             <div class="p-8 border-b border-gray">
                 <h1 class="leading-none text-3xl font-bold capitalize">notification settings</h1>
             </div>

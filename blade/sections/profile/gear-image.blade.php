@@ -1,7 +1,9 @@
 @push('styles')
 <style type="text/css">
-#profile-gear-image {
-    flex-basis: 300px;
+@media screen and (min-width:64rem) {
+    #profile-gear-image {
+        flex-basis: 300px;
+    }
 }
 #clear-gear-image {
     background: #f71b26;
@@ -11,19 +13,20 @@
 
 <div class="p-8 border-b border-gray">
     <div class="flex items-center py-1">
-        <h2 class="flex-1 leading-none text-2xl font-bold capitalize">{{ $data['title'] }}</h2>
+        <h2 class="flex-1 leading-none text-lg sm:text-2xl font-bold capitalize">{{ $data['title'] }}</h2>
         @component(
             'core.anchor-button',
             [
                 'labelText' => 'edit',
                 'theme' => 'black',
                 'classes' => ['modal-trigger'],
-                'attrs' => ['data-target' => 'gear-modal']
+                'attrs' => ['data-target' => 'gear-modal'],
+                'extraSmallCollapse' => true,
             ]
         )
         @endcomponent
     </div>
-    <div class="flex items-center py-2">
+    <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row items-center py-2">
         <div id ="profile-gear-image" class="relative">
             @if (isset($data['inputs']['gear']) && $data['inputs']['gear'])
                 <img src="{{ $data['inputs']['gear'] }}" class="">

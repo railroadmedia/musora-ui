@@ -30,7 +30,7 @@ $userData = [
 @endpush
 
 @section('content')
-    <div class="mx-auto w-full container pt-8 lg:pl-3 h-full flex flex-col lg:flex-row">
+    <div class="mx-auto w-full container pt-8 sm:pl-3 h-full flex flex-col sm:flex-row">
         @include('sections.profile-sidenav', ['active' => 'account details'])
 
         <div class="flex-1 flex flex-col">

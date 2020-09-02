@@ -48,12 +48,12 @@ $inputErrors = [
 @endphp
 
 @section('content')
-    <div class="mx-auto w-full container pt-8 lg:pl-3 h-full flex flex-row">
+    <div class="mx-auto w-full container pt-8 sm:pl-3 h-full flex flex-col sm:flex-row">
         @include('sections.profile-sidenav', ['active' => 'login credentials'])
 
         <div class="flex-1 flex flex-col">
             <div class="p-8 border-b border-gray">
-                <h1 class="leading-none text-3xl font-bold capitalize">login credentials</h1>
+                <h1 class="leading-none text-2xl sm:text-3xl font-bold capitalize">login credentials</h1>
             </div>
 
             @include(

@@ -4,31 +4,32 @@ $countries = ['United States', 'Canada', 'United Kingdom'];
 
 <div class="p-8 border-b border-gray">
     <div class="flex items-center py-1">
-        <h2 class="flex-1 leading-none text-2xl font-bold capitalize">{{ $data['title'] }}</h2>
+        <h2 class="flex-1 leading-none text-lg sm:text-2xl font-bold capitalize">{{ $data['title'] }}</h2>
         @component(
             'core.anchor-button',
             [
                 'labelText' => 'edit',
                 'theme' => 'black',
                 'classes' => ['modal-trigger'],
-                'attrs' => ['data-target' => 'modal-settings-about']
+                'attrs' => ['data-target' => 'modal-settings-about'],
+                'extraSmallCollapse' => true,
             ]
         )
         @endcomponent
     </div>
-    <div class="flex py-2">
+    <div class="flex flex-wrap sm:flex-no-wrap py-2">
         <div class="profile-label font-bold capitalize">full name</div>
         <div>{{ $data['inputs']['first_name'] }} {{ $data['inputs']['last_name'] }}</div>
     </div>
-    <div class="flex py-2">
+    <div class="flex flex-wrap sm:flex-no-wrap py-2">
         <div class="profile-label font-bold capitalize">location</div>
         <div>{{ $data['inputs']['country'] }}</div>
     </div>
-    <div class="flex py-2">
+    <div class="flex flex-wrap sm:flex-no-wrap py-2">
         <div class="profile-label font-bold capitalize">birthday</div>
         <div>{{ $data['inputs']['birthday'] }}</div>
     </div>
-    <div class="flex py-2">
+    <div class="flex flex-wrap sm:flex-no-wrap py-2">
         <div class="profile-label font-bold capitalize">biography</div>
         <div>{{ $data['inputs']['biography'] }}</div>
     </div>
@@ -41,7 +42,7 @@ $countries = ['United States', 'Canada', 'United Kingdom'];
             'form' => $form,
         ]
     )
-        <div class="flex space-x-3">
+        <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-3">
             <div class="flex-1">
                 @component('core.text-input', [
                     'labelText' => 'First Name',
@@ -63,7 +64,7 @@ $countries = ['United States', 'Canada', 'United Kingdom'];
                 @endcomponent
             </div>
         </div>
-        <div class="flex space-x-3">
+        <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-3">
             <div class="flex-1">
                 @component('core.select-input', [
                     'labelText' => 'Country',

@@ -2,13 +2,13 @@
     <div>
         <div class="py-8">
             <div class="flex space-x-3">
-                <div class="default-col text-center text-xs font-bold capitalize">default</div>
+                <div class="hidden md:block default-col text-center text-xs font-bold capitalize">default</div>
                 <div class="flex-1 text-xs font-bold capitalize">info</div>
                 <div class="expiry-col text-center text-xs font-bold capitalize">expires on</div>
                 <div class="actions-col text-center text-xs font-bold capitalize">actions</div>
             </div>
             <div class="flex space-x-3 py-2" v-for="paymentMethod in paymentMethods">
-                <div class="default-col text-center">
+                <div class="hidden md:block default-col text-center">
                     <i class="fas fa-check" v-if="paymentMethod.isDefault"></i>
                 </div>
                 <div class="flex-1">{{ paymentMethod.info }}</div>
@@ -37,6 +37,8 @@
             <button-input
                 label="new payment method"
                 icon-class="fas fa-plus"
+                extra-small-collapse
+                collapse="md"
                 @click="showAddNew()"
             ></button-input>
         </div>

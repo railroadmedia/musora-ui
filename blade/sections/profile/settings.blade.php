@@ -1,7 +1,7 @@
 <form method="{{ $form['method'] }}" action="{{ $form['action'] }}">
     <div class="p-8 border-b border-gray">
-        <div class="flex items-center py-1">
-            <h2 class="flex-1 leading-none text-2xl font-bold capitalize">when would you like to receive email notifications?</h2>
+        <div class="flex items-center pt-1 pb-6">
+            <h2 class="flex-1 leading-none text-lg md:text-2xl font-bold capitalize">when would you like to receive email notifications?</h2>
         </div>
         <div class="flex py-2">
             @component(
@@ -76,9 +76,9 @@
     </div>
     <div class="p-8">
         <div class="flex items-center py-1">
-            <h2 class="flex-1 leading-none text-2xl font-bold capitalize">would you like to use our legacy video player?</h2>
+            <h2 class="flex-1 leading-none text-lg md:text-2xl font-bold capitalize">would you like to use our legacy video player?</h2>
         </div>
-        <div>
+        <div class="pt-4 pb-6">
             <p>Our video player may have compatibility issues with older devices and operating systems.</p>
             <p>We recommend switching to our legacy video player if you are experiencing playback issues.</p>
         </div>
@@ -101,6 +101,8 @@
                 @component('core.button', [
                     'labelText' => 'save',
                     'type' => 'submit',
+                    'extraSmallCollapse' => true,
+                    'collapse' => 'md',
                 ])
                 @endcomponent
             </div>
@@ -110,7 +112,9 @@
                     'labelText' => 'cancel',
                     'type' => 'submit',
                     'theme' => 'white',
-                    'id' => 'cancel-settings'
+                    'id' => 'cancel-settings',
+                    'extraSmallCollapse' => true,
+                    'collapse' => 'md',
                 ])
                 @endcomponent
             </div>

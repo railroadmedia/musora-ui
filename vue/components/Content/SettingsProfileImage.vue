@@ -29,32 +29,29 @@
                 v-show="!croppedImage"
             >
                 <a
-                    class="bg-light-gray border-2 border-medium-gray text-medium-gray py-3 px-16 rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block cursor-pointer leading-none"
+                    class="bg-light-gray border-2 border-medium-gray text-medium-gray py-2 px-4 sm:py-3 sm:px-16 rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block cursor-pointer leading-none"
                     @click="resetCrop"
                 >Cancel</a>
 
                 <div class="flex">
                     <a
-                        class="bg-dark-gray text-white rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block mx-1 cursor-pointer flex items-center justify-center"
-                        style="height: 40px; width: 40px;"
+                        class="cropper-action bg-dark-gray text-white rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block mx-1 cursor-pointer flex items-center justify-center"
                         @click="zoomOut"
                     ><i class="far fa-search-minus"></i></a>
 
                     <a
-                        class="bg-dark-gray text-white rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block mx-1 cursor-pointer flex items-center justify-center"
-                        style="height: 40px; width: 40px;"
+                        class="cropper-action bg-dark-gray text-white rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block mx-1 cursor-pointer flex items-center justify-center"
                         @click="zoomIn"
                     ><i class="far fa-search-plus"></i></a>
 
                     <a
-                        class="bg-dark-gray text-white rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block mx-1 cursor-pointer flex items-center justify-center"
-                        style="height: 40px; width: 40px;"
+                        class="cropper-action bg-dark-gray text-white rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block mx-1 cursor-pointer flex items-center justify-center"
                         @click="rotate"
                     ><i class="fas fa-redo-alt"></i></a>
                 </div>
 
                 <a
-                    class="bg-edge-blue border-2 border-edge-blue text-white py-3 px-16 rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase inline-block cursor-pointer leading-none"
+                    class="bg-edge-blue border-2 border-edge-blue text-white py-2 px-4 sm:py-3 sm:px-16 rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-blue-700 uppercase inline-block cursor-pointer leading-none"
                     @click="cropImage"
                 >Crop</a>
             </div>
@@ -128,5 +125,15 @@ export default {
 }
 .dz-clickable.dz-drag-hover .drag-button {
     display: block;
+}
+.cropper-action {
+    height: 30px;
+    width: 30px;
+}
+@media screen and (min-width:40rem) {
+    .cropper-action {
+        height: 40px;
+        width: 40px;
+    }
 }
 </style>

@@ -78,13 +78,6 @@ export default {
         this.dropZoneInstance.on('error', (file, errorMessage) => {
             this.dropZoneError = errorMessage;
         });
-
-        console.log(
-            'cropper::mounted isAvatar: %s, aspectRatio: %s, $_imageDimensions: %s',
-            JSON.stringify(this.isAvatar),
-            JSON.stringify(this.aspectRatio),
-            JSON.stringify(this.$_imageDimensions)
-        );
     },
     created() {
         Dropzone.autoDiscover = false;

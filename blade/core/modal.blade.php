@@ -1,6 +1,6 @@
 <div id="{{ $id }}" class="modal hidden fixed top-0 left-0 right-0 bottom-0 opacity-0 items-center justify-center z-55">
     <div class="text-white fixed top-0 right-0 mt-8 mr-10"><i class="fal fa-times fa-5x"></i></div>
-    <div class="relative modal-container bg-white cursor-auto z-60 rounded-lg" style="width: 674px;">
+    <div class="relative modal-container bg-white cursor-auto z-60 rounded-lg m-3 lg:m-0" style="width: 674px;">
         <div class="flex w-full justify-end">
             <div class="close-modal cursor-pointer mt-4 mr-4">
                 <svg class="fill-current text-medium-gray" xmlns="http://www.w3.org/2000/svg" width="22"

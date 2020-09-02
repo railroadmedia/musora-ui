@@ -7,20 +7,31 @@
     $fullWidth = $fullWidth ?? false;
     $fixedWidth = $fixedWidth ?? false;
     $smallCollapse = $smallCollapse ?? false;
+    $extraSmallCollapse = $extraSmallCollapse ?? false;
+    $collapse = $collapse ?? 'sm';
 
     $_inputClasses = $classes ?? [];
 
     if ($fullWidth) {
         $_inputClasses[] = 'px-4';
         $_inputClasses[] = 'w-full';
+        $_inputClasses[] = 'py-3';
     } else if ($fixedWidth) {
         $_inputClasses[] = 'w-48';
         $_inputClasses[] = 'flex';
         $_inputClasses[] = 'justify-center';
+        $_inputClasses[] = 'py-3';
     } else if ($smallCollapse) {
-        $_inputClasses[] = 'px-12';
+        $_inputClasses[] = 'px-10';
+        $_inputClasses[] = 'py-3';
+    } else if ($extraSmallCollapse) {
+        $_inputClasses[] = 'px-8';
+        $_inputClasses[] = 'py-2';
+        $_inputClasses[] = $collapse . ':px-16';
+        $_inputClasses[] = $collapse . ':py-3';
     } else {
         $_inputClasses[] = 'px-16'; // maybe add inline-block
+        $_inputClasses[] = 'py-3';
     }
 
     if ($smallCollapse) {
@@ -69,7 +80,7 @@
 <a
     id="{{ $id }}"
     href="{{ $href }}"
-    class="py-3 rounded-full leading-none font-bold focus:outline-none focus:shadow-outline uppercase {{ $_inputClasses }} font-roboto"
+    class="rounded-full leading-none font-bold focus:outline-none focus:shadow-outline uppercase {{ $_inputClasses }} font-roboto"
     tabindex="{{ $tabIndex }}"
 @isset($attrs)
     @foreach ($attrs as $attr => $value)

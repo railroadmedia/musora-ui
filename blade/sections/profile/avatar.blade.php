@@ -2,6 +2,7 @@
 <style type="text/css">
 #profile-avatar {
     flex-basis: 200px;
+    width: 200px;
 }
 #clear-avatar {
     background: #f71b26;
@@ -11,19 +12,20 @@
 
 <div class="p-8 border-b border-gray">
     <div class="flex items-center py-1">
-        <h2 class="flex-1 leading-none text-2xl font-bold capitalize">{{ $data['title'] }}</h2>
+        <h2 class="flex-1 leading-none text-lg sm:text-2xl font-bold capitalize pr-3">{{ $data['title'] }}</h2>
         @component(
             'core.anchor-button',
             [
                 'labelText' => 'edit',
                 'theme' => 'black',
                 'classes' => ['modal-trigger'],
-                'attrs' => ['data-target' => 'avatar-modal']
+                'attrs' => ['data-target' => 'avatar-modal'],
+                'extraSmallCollapse' => true,
             ]
         )
         @endcomponent
     </div>
-    <div class="flex items-center py-2">
+    <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row items-center py-2">
         <div id ="profile-avatar" class="relative">
             @if (isset($data['inputs']['avatar']) && $data['inputs']['avatar'])
                 <img src="{{ $data['inputs']['avatar'] }}" class="rounded-full overflow-hidden">
