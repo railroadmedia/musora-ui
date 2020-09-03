@@ -1,6 +1,6 @@
 <template>
     <div class="w-full space-y-4">
-        <div class="flex space-x-4">
+        <div class="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
             <div class="flex-1">
                 <select-input
                     id="payment-method"
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div v-show="billing.methodType === 'credit_card'" class="flex space-x-4">
+        <div v-show="billing.methodType === 'credit_card'" class="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
             <div class="flex-1">
                 <div class="relative">
                     <div
@@ -44,7 +44,7 @@
                     >{{ error }}</p>
                 </div>
             </div>
-            <div class="flex-1 flex space-x-4">
+            <div class="flex-1 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                 <div class="flex-1">
                     <div class="relative">
                         <div
@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex space-x-4 mb-4">
+        <div class="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-04 mb-4">
             <div class="flex-1">
                 <select-input
                     id="billing-country"

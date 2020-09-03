@@ -1,5 +1,16 @@
 import Vue from 'vue';
 
+// import Toasted from 'vue-toasted';
+// Vue.use(Toasted);
+
+// import VueToastify from "vue-toastify";
+// Vue.use(VueToastify);
+
+import Snotify from 'vue-snotify';
+Vue.use(Snotify);
+
+import "vue-snotify/styles/material.css";
+
 import ContentRow from '../../components/Content/Row';
 import ContentCatalogue from '../../components/Content/Catalogue';
 import RudimentsContent from '../../components/Content/Rudiments';

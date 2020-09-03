@@ -64,10 +64,12 @@
                 <button-input
                     label="cancel"
                     theme="white"
+                    :extra-small-collapse="true"
                     @click="cancel()"
                 ></button-input>
                 <button-input
                     label="submit"
+                    :extra-small-collapse="true"
                     @click="submit()"
                 ></button-input>
             </div>
@@ -229,8 +231,10 @@ export default {
     opacity: 1;
     z-index: 55;
 }
-.payment-method-modal {
-    width: 800px;
+@media screen and (min-width:64rem) {
+    .payment-method-modal {
+        width: 800px;
+    }
 }
 .form-loading {
     position:fixed;

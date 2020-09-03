@@ -2,6 +2,7 @@
 
 @section('content')
     <div id="vue-app">
+    	<vue-snotify></vue-snotify>
         @yield('app')
     </div>
 @endsection

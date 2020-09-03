@@ -82,6 +82,22 @@ export default {
                 classes.push('hover-trans');
                 classes.push('hover:bg-light-gray');
                 classes.push('hover:border-light-gray');
+            } else if (this.theme == 'wire') {
+                classes.push('border-2');
+                classes.push('border-gray');
+                classes.push('bg-white');
+                classes.push('text-gray');
+                classes.push('hover:bg-light-gray');
+            } else if (this.theme == 'red') {
+                classes.push('border-2');
+                classes.push('border-red-600');
+                classes.push('bg-red-600');
+                classes.push('text-white');
+            } else if (this.theme == 'green') {
+                classes.push('border-2');
+                classes.push('border-green-500');
+                classes.push('bg-green-500');
+                classes.push('text-white');
             }
 
             return classes;
