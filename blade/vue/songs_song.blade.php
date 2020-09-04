@@ -1293,7 +1293,8 @@ $relatedSongsData = <<<'EOR'
         "staffPickRating": null,
         "studentId": null,
         "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "youtubeVideoId": null,
+        "progress_percent": 30
       },
       "relationships": {
         "data": {
@@ -1452,7 +1453,8 @@ $relatedSongsData = <<<'EOR'
         "staffPickRating": null,
         "studentId": null,
         "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "youtubeVideoId": null,
+        "progress_percent": 100
       },
       "relationships": {
         "data": {
@@ -1782,7 +1784,8 @@ $relatedSongsData = <<<'EOR'
         "staffPickRating": null,
         "studentId": null,
         "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "youtubeVideoId": null,
+        "progress_percent": 100
       },
       "relationships": {
         "data": {
@@ -2255,7 +2258,8 @@ $relatedSongsData = <<<'EOR'
         "staffPickRating": 6,
         "studentId": null,
         "vimeoVideoId": null,
-        "youtubeVideoId": null
+        "youtubeVideoId": null,
+        "progress_percent": 60
       },
       "relationships": {
         "data": {
@@ -10552,7 +10556,7 @@ $breadcrumbs = [
         ],
     ],
     'current' => [
-        'label' => $song['name']
+        'label' => 'american idiot'
     ],
 ];
 @endphp

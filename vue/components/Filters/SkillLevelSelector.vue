@@ -142,8 +142,6 @@ export default {
             this.$root.$emit('openModal', {id: 'skill-levels-modal'});
         },
     },
-    mounted(): void {
-    }
 };
 </script>
 <style>

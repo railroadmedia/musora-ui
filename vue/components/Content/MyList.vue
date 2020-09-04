@@ -99,10 +99,6 @@ export default {
             default: () => '',
         },
     },
-    data(): object {
-        return {
-        };
-    },
     computed: {
         $_filters(): Filter[] {
             let result = [];

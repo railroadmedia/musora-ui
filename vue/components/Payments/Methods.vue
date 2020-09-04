@@ -94,8 +94,6 @@ import NewMethod from './NewMethod';
 import Ecommerce from '../../services/ecommerce';
 import ConfirmationModal from '../Modals/Confirmation';
 
-import {SnotifyPosition} from 'vue-snotify';
-
 export default {
     components: {
         'button-input': Button,
@@ -136,7 +134,6 @@ export default {
         return {
             newPaymentModal: false,
             paymentMethods: [],
-            toasts: null,
             deletePaymentMethod: null,
             showDeleteConfirmation: false,
             setDefaultPaymentMethod: null,
@@ -145,28 +142,6 @@ export default {
         }
     },
     mounted() {
-        this.toasts = (window as any)['toasts'];
-
-        // this.$toasted.show('payment method has been set as default', {position: 'top-left', className: 'white-toast', containerClass: 'custom-toast', iconPack: 'fontawesome', icon: 'fa-smile-beam'})
-
-        // this.$vToastify.success({
-        //     body: 'payment method has been set as default',
-        //     title: 'success!',
-        //     position: 'top-left',
-        //     icon: 'fal fa-smile-beam fa-3x',
-        //     theme: 'light',
-        // });
-
-        this.$snotify.success(
-            'Payment method has been set as default',
-            'Success!',
-            {
-                timeout: 0,
-                icon: 'fal fa-smile-beam fa-3x',
-                position: SnotifyPosition.leftTop
-            }
-        );
-
         let preloadData = JSON.parse(this.preloadData);
         this.paymentMethods = Ecommerce.getPaymentMethodsFromResponse(preloadData);
     },
@@ -184,13 +159,7 @@ export default {
             }
         },
         handleResponse(response, action) {
-            this.toasts.push({
-                icon: 'fa-smile-beam',
-                title: 'Success!',
-                themeColor: 'drumeo',
-                message: `Payment method has been ${action}!`,
-                timeout: 5000
-            });
+            this.$toasted.show(`Success! Payment method has been ${action}!`);
 
             this.reloadPaymentMethods();
         },
@@ -249,15 +218,4 @@ button.btn:disabled {
     opacity: .5;
     pointer-events: none;
 }
-/*.toasted-container.custom-toast.top-left {
-    top: 15%;
-    left: 0;
-}
-.custom-toast .toasted.white-toast {
-    background-color: white;
-    color: black;
-}
-.custom-toast .toasted.white-toast .fa {
-    font-size: 2rem;
-}*/
 </style>

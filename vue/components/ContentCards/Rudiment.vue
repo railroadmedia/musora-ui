@@ -26,14 +26,6 @@ export default {
         },
     },
     mixins: [ContentInstructorsMixin],
-    data(): object {
-        return {
-        };
-    },
-    mounted(): void {
-    },
-    methods: {
-    },
 };
 </script>
 

@@ -17,7 +17,7 @@
             <div class="mt-4 sm:mt-0 sm:ml-16">
                 <text-editor
                     ref="textEditor"
-                    v-model="replyInterface"
+                    v-model="comment"
                     toolbar="bold italic underline | bullist numlist | link"
                     :height="150"
                 ></text-editor>
@@ -72,15 +72,6 @@ export default {
             }
 
             return label;
-        },
-
-        replyInterface: {
-            get() {
-                return this.comment;
-            },
-            set(val) {
-                this.comment = val;
-            },
         },
     },
     data(): object {

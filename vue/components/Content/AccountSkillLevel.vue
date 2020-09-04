@@ -51,12 +51,8 @@ export default {
             value: 2,
         };
     },
-    mounted(): void {
-    },
     methods: {
-        next() {
-
-        }
+        next() {}
     },
 }
 </script>

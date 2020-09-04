@@ -162,14 +162,10 @@ export default {
     data() {
         return {
             paymentMethods: [{value: 'credit_card', label: 'Credit Card'}, {value: 'paypal', label: 'PayPal'}],
-            // countries: ['United States', 'Canada', 'United Kingdom', 'Australia'],
-            // regions: ['Alberta', 'British Columbia'],
-
             stripe: null,
             cardNumberElement: null,
             cardExpiryElement: null,
             cardCvcElement: null,
-
             errors: {
                 methodType: [],
                 country: [],
@@ -178,7 +174,6 @@ export default {
                 cardExpiry: [],
                 cardCvc: [],
             },
-
             rules: {
                 methodType: [
                     v => !!v || 'Payment Method Type is required',

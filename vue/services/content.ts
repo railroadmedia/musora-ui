@@ -112,6 +112,10 @@ export default class Content {
                 content.parent = this.getParentContent(relatedDataMap);
             }
 
+            if (item.attributes.progress_percent) {
+                content.progress = item.attributes.progress_percent;
+            }
+
             result.push(content);
         });
 

@@ -1,15 +1,21 @@
 import Vue from 'vue';
 
-// import Toasted from 'vue-toasted';
-// Vue.use(Toasted);
+import Toasted from 'vue-toasted';
 
-// import VueToastify from "vue-toastify";
-// Vue.use(VueToastify);
+const toastsOptions = {
+    position: 'top-left',
+    duration: 5000,
+    className: 'white-toast',
+    containerClass: 'custom-toast',
+    iconPack: 'custom-class',
+    icon: 'fal fa-smile-beam fa-3x mr-4',
+    action: {
+        onClick: (e, toastObject) => {toastObject.goAway(0);},
+        icon: 'fas fa-times fa-2x',
+    }
+};
 
-import Snotify from 'vue-snotify';
-Vue.use(Snotify);
-
-import "vue-snotify/styles/material.css";
+Vue.use(Toasted, toastsOptions);
 
 import ContentRow from '../../components/Content/Row';
 import ContentCatalogue from '../../components/Content/Catalogue';
@@ -24,10 +30,6 @@ import AccountSkillLevel from '../../components/Content/AccountSkillLevel';
 import ContentSearch from '../../components/Content/Search';
 import SettingsProfileImage from '../../components/Content/SettingsProfileImage';
 import PaymentMethods from '../../components/Payments/Methods';
-
-import Toasts from '../../js/toasts';
-
-window['toasts'] = Toasts;
 
 Vue.component('content-row', ContentRow);
 Vue.component('content-catalogue', ContentCatalogue);

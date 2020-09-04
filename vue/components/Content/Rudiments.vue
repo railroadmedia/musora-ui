@@ -33,10 +33,6 @@ export default {
     },
     mixins: [ContentMixin],
     props: {
-        topicsFiltersDisabled: {
-            type: Boolean,
-            default: () => false,
-        },
         topicsFiltersTitle: {
             type: String,
             default: () => '',
@@ -87,8 +83,6 @@ export default {
             let payload = this.getPayload();
 
             payload = FiltersService.decorateRequestParams(payload, [this.topics, this.pageContentTypeFilterGroup]);
-
-            console.log('::fetchData payload: %s', JSON.stringify(payload));
 
             ContentService
                 .getContent(payload)

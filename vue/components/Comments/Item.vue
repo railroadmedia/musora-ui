@@ -150,7 +150,6 @@ export default {
     },
     mounted(): void {
         this.$root.$on('closeReply', this.closeReply);
-        console.log("Comments\\Item::mounted comment.author: %s", JSON.stringify(this.comment.author));
     },
 }
 </script>

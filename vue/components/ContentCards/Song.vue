@@ -45,7 +45,7 @@ export default {
             } else if (this.content.progress == 100) {
                 icon = 'icon-check';
             } else {
-                icon = 'icon-clock';
+                icon = 'fas fa-adjust';
             }
 
             return [icon];
@@ -62,8 +62,7 @@ export default {
             return classes;
         },
         $_width() {
-            // return {width: this.progress + '%'}
-            return {};
+            return { width: this.content.progress + '%' };
         },
     }
 };

@@ -24,7 +24,6 @@
     "laravel-mix": "^5.0.4",
     "laravel-mix-purgecss": "^5.0.0",
     "moment": "^2.27.0",
-    "noty": "^3.2.0-beta",
     "postcss-cli": "^7.1.0",
     "simplebar": "^5.2.0",
     "simplebar-vue": "^1.5.1",
@@ -33,9 +32,7 @@
     "typescript": "^3.9.5",
     "vue": "^2.6.11",
     "vue-slider-component": "^3.2.4",
-    "vue-snotify": "^3.2.1",
     "vue-toasted": "^1.1.28",
-    "vue-toastify": "^1.8.0",
     "webpack-cli": "^3.3.11"
   },
   "devDependencies": {

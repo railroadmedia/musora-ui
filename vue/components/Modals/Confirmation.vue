@@ -70,18 +70,12 @@ export default {
             default: 'cancel'
         },
     },
-    data(): object {
-        return {
-        };
-    },
     computed: {
         $_overlayClasses(): string[] {
             return this.showModal ?
                 ['active'] :
                 [];
         },
-    },
-    mounted(): void {
     },
     methods: {
         noop() {},
