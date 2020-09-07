@@ -1,14 +1,3 @@
-@push('styles')
-<style type="text/css">
-#sub-nav-container {
-    padding-top: 65px;
-}
-.profile-nav-link:hover {
-    background-color: #002039;
-}
-</style>
-@endpush
-
 @php
 $items = [
     [

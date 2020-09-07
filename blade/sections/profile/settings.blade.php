@@ -24,7 +24,6 @@
                     'inputId' => 'notify_on_lesson_comment_reply',
                     'inputName' => 'notify_on_lesson_comment_reply',
                     'inputValue' => $data['notify_on_lesson_comment_reply'],
-                    'skipStyles' => true,
                     'skipScript' => true,
                 ]
             )
@@ -38,7 +37,6 @@
                     'inputId' => 'notify_on_lesson_comment_like',
                     'inputName' => 'notify_on_lesson_comment_like',
                     'inputValue' => $data['notify_on_lesson_comment_like'],
-                    'skipStyles' => true,
                     'skipScript' => true,
                 ]
             )
@@ -52,7 +50,6 @@
                     'inputId' => 'notify_on_forum_followed_thread_reply',
                     'inputName' => 'notify_on_forum_followed_thread_reply',
                     'inputValue' => $data['notify_on_forum_followed_thread_reply'],
-                    'skipStyles' => true,
                     'skipScript' => true,
                 ]
             )
@@ -66,7 +63,6 @@
                     'inputId' => 'notify_on_forum_post_like',
                     'inputName' => 'notify_on_forum_post_like',
                     'inputValue' => $data['notify_on_forum_post_like'],
-                    'skipStyles' => true,
                     'skipScript' => true,
                 ]
             )
@@ -90,7 +86,6 @@
                     'inputId' => 'use_legacy_video_player',
                     'inputName' => 'use_legacy_video_player',
                     'inputValue' => $data['use_legacy_video_player'],
-                    'skipStyles' => true,
                     'skipScript' => true,
                 ]
             )

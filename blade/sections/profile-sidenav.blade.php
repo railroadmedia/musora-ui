@@ -1,16 +1,3 @@
-@push('styles')
-<style type="text/css">
-@media screen and (min-width:40rem) {
-    #profile-sidenav {
-        width: 275px;
-    }
-}
-.profile-sidenav-item i {
-    flex-basis: 20px;
-}
-</style>
-@endpush
-
 @php
 $items = [
     [

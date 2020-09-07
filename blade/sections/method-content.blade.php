@@ -103,26 +103,6 @@
     ];
 @endphp
 
-@push('styles')
-<style type="text/css">
-.bg-method-gradient {
-    background: -webkit-gradient(linear,left top,left bottom,from(transparent),to(rgba(11,118,219,.75)));
-    background: linear-gradient(180deg,transparent 0,rgba(11,118,219,.75));
-}
-.method-card:hover {
-    background-color: #f3f9ff;
-}
-.method-card-icon {
-    background-color: rgba(0,0,0,.4);
-    -webkit-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
-}
-.method-card:hover .method-card-icon {
-    visibility: visible;
-}
-</style>
-@endpush
-
 <div>
     @foreach ($lessons as $lesson)
         <div class="">

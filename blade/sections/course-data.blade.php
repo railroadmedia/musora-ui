@@ -1,27 +1,3 @@
-@push('styles')
-<style type="text/css">
-#course-info {
-    transform: translate(0, 50%);
-}
-#course-info.active .icon-open,
-#course-info:not(.active) .icon-close {
-    display:none;
-}
-#course-info.active .icon-close,
-#course-info:not(.active) .icon-open {
-    display:block;
-}
-#course-info-container {
-    -webkit-transition: max-height .5s ease-in-out;
-    transition: max-height .5s ease-in-out;
-    max-height: 1000px;
-}
-#course-info-container:not(.active) {
-    max-height: 0;
-}
-</style>
-@endpush
-
 <div class="course-data w-full py-3 border-b-2 border-gray relative">
     <div class="mx-auto w-full container flex flex-col sm:flex-row items-center px-3 pb-4 sm:pb-0 sm:h-20">
         <div class="h-full flex items-center space-x-10">
@@ -38,7 +14,7 @@
         </div>
     </div>
     <div class="absolute bottom-0 left-0 right-0 flex justify-center">
-        <a href="#" id="course-info" class="flex flex-col items-center justify-center z-10 bg-white h-14 w-14 rounded-full border border-gray leading-none"><span class="text-xs uppercase font-bold font-roboto">info</span><i class="icon-download icon-open"></i><i class="icon-check icon-close"></i></a>
+        <a href="#" id="course-info" class="flex flex-col items-center justify-center z-10 bg-white h-14 w-14 rounded-full border border-gray leading-none"><span class="text-xs uppercase font-bold font-roboto">info</span><i class="fas fa-angle-down open"></i><i class="fas fa-angle-up close"></i></a>
     </div>
     <div id="course-info-container" class="mx-auto w-full container overflow-hidden px-3 flex flex-col">
         @foreach ($description as $paragraph)

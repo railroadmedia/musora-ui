@@ -65,7 +65,7 @@ export default {
 </script>
 
 <style type="text/css">
-.content-card-play {
+/*.content-card-play {
     -webkit-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
     background-color: rgba(0,0,0,.4);
@@ -73,5 +73,5 @@ export default {
 .content-card:hover .content-card-play {
     visibility: visible;
     opacity: 1;
-}
+}*/
 </style>

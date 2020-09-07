@@ -1,0 +1,126 @@
+/* --- blade core blocks --- */
+
+select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTI1NiAxNzkyIDE3OTIiPjxwYXRoIGQ9Ik0xNDI2LjQ0IDQwNy44NjRxMCAyNi0xOSA0NWwtNDQ4IDQ0OHEtMTkgMTktNDUgMTl0LTQ1LTE5bC00NDgtNDQ4cS0xOS0xOS0xOS00NXQxOS00NXExOS0xOSA0NS0xOWg4OTZxMjYgMCA0NSAxOXQxOSA0NXoiIGZpbGw9ImN1cnJlbnRDb2xvciIvPjwvc3ZnPg==) no-repeat calc(100% - 10px) 50%;
+    background-size: 15px;
+}
+/* For IE10 */
+select::-ms-expand {
+  display: none;
+}
+
+/* toggle-input */
+.toggle-input {
+    height:30px;
+    width:60px;
+    flex-basis:60px;
+    min-width:60px;
+    position:relative;
+    cursor:pointer;
+}
+.toggle-input input[type="checkbox"] {
+    opacity:0;
+    z-index:1;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    cursor:pointer;
+
+}
+.toggle-input input[type="checkbox"]:checked ~ .toggle {
+    background-color:#000;
+}
+.toggle-input input[type="checkbox"]:checked ~ .toggle:after {
+    content: "ON";
+    left:6px;
+    right:initial;
+}
+.toggle-input input[type="checkbox"]:checked ~ .toggle .handle {
+    transform:translateX(30px);
+}
+.toggle-input .toggle {
+    height:100%;
+    width:100%;
+    top:0;
+    left:0;
+    position:absolute;
+    background-color: #999999;
+    border-radius:30px;
+    transition:background-color .2s ease-in-out;
+    will-change:background-color;
+    pointer-events:none;
+    z-index:1;
+}
+.toggle-input .toggle:after {
+    content: "OFF";
+    position:absolute;
+    top:7px;
+    right:6px;
+    width:24px;
+    height:24px;
+    text-align:center;
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+}
+.toggle-input .toggle .handle {
+    background-color:#fff;
+    height:24px;
+    width:24px;
+    border-radius:50%;
+    position:absolute;
+    top:3px;
+    left:3px;
+    will-change:transform;
+    transition:transform .2s ease-in-out;
+}
+
+/* cards */
+/* course-video-card & lesson-video-card & video-card blade core block */
+.content-card-play {
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    background-color: rgba(0,0,0,.4);
+}
+.content-card:hover .content-card-play {
+    visibility: visible;
+    opacity: 1;
+}
+.content-card:hover {
+    background-color: #f3f9ff;
+}
+/* used in video-card blade core block */
+.content-card .instructor-name {
+    background: -webkit-gradient(linear,left top,left bottom,from(transparent),to(#000));
+    background: linear-gradient(180deg,transparent 0,#000);
+}
+
+/* next-lesson-card */
+.bg-next-lesson-gradient {
+    background: -webkit-gradient(linear,left top,left bottom,from(transparent),to(rgba(85, 85, 85, .75)));
+    background: linear-gradient(180deg,transparent 0,rgba(85, 85, 85, .75));
+}
+.card-play {
+    transition: opacity .25s ease-in-out;
+}
+.next-lesson:hover .card-play {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* icon-checkbox blade core block */
+.icon-checkbox.checked {
+    font-weight: 700;
+    color: #000;
+}
+.icon-checkbox.checked .checkbox-icon {
+    display: block;
+}
+.icon-checkbox:not(.checked) .checkbox-icon {
+    display: none;
+}

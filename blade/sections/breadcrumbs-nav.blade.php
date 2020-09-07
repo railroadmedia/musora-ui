@@ -1,17 +1,3 @@
-@push('styles')
-<style type="text/css">
-#breadcrumbs-container {
-    padding-top: 50px;
-}
-
-@media (min-width: 40rem) {
-    #breadcrumbs-container {
-        padding-top: 65px;
-    }
-}
-</style>
-@endpush
-
 <div id="breadcrumbs-container" class="bg-header w-full border-b border-header-gray">
     <div class="mx-auto w-full container leading-none flex items-center justify-center px-3 py-3">
         @foreach ($parents as $item)

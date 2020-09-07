@@ -11,6 +11,11 @@ mix.js(
     path.join(__dirname, 'public/js/generic/app.js')
 );
 
+mix.babel(
+    path.join(__dirname, 'js/test.js'),
+    path.join(__dirname, 'public/js/test.js')
+);
+
 mix.webpackConfig({
     module: {
         rules: [

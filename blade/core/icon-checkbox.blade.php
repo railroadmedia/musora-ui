@@ -1,4 +1,6 @@
 @php
+    // todo - remove after adding vue based blade template to shows_show
+
     $tabIndex = $tabIndex ?? 1;
     $inputId = $inputId ?? 'text-input-' . md5(__FILE__ . $inputName . $labelText);
     $containerId = 'filter-' . $inputId;
@@ -17,22 +19,6 @@
     $_containerClasses = implode(' ', $_containerClasses);
 @endphp
 
-@push('styles')
-@if (!$skipStyle)
-<style type="text/css">
-.icon-checkbox.checked {
-    font-weight: 700;
-    color: #000;
-}
-.icon-checkbox.checked .checkbox-icon {
-    display: block;
-}
-.icon-checkbox:not(.checked) .checkbox-icon {
-    display: none;
-}
-</style>
-@endif
-@endpush
 <div id="{{ $containerId }}" class="icon-checkbox px-4 text-base {{ $_containerClasses }}">
     <input
         type="checkbox"
@@ -44,7 +30,7 @@
     ><label
         for="{{ $inputId }}"
         class="cursor-pointer flex items-center py-1 text-base capitalize "
-    ><i class="icon-info text-base pr-1 checkbox-icon"></i><span class="text-xs">{{ $labelText }}</span></label>
+    ><i class="fas fa-times-circle text-base pr-1 checkbox-icon"></i><span class="text-xs">{{ $labelText }}</span></label>
 </div>
 
 @push('scripts')

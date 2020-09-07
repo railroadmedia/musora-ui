@@ -10,19 +10,6 @@
     }
 @endphp
 
-@push('styles')
-<style type="text/css">
-#lesson-progress-inner {
-    height: 120px;
-}
-@media (min-width: 40rem) {
-    #lesson-progress-inner {
-        height: 54px;
-    }
-}
-</style>
-@endpush
-
 <div class="bg-edge-blue fixed bottom-0 w-full py-4 z-50">
     <div class="mx-auto w-full sm:h-full container flex lg:px-3">
         <div class="w-full flex flex-col lg:flex-row items-center">

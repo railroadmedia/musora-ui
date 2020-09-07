@@ -8,16 +8,10 @@
 
 @push('styles')
 <style type="text/css">
+/* todo - fix this rule not working from .css */
 .bg-next-lesson-gradient {
     background: -webkit-gradient(linear,left top,left bottom,from(transparent),to(rgba(85, 85, 85, .75)));
     background: linear-gradient(180deg,transparent 0,rgba(85, 85, 85, .75));
-}
-.card-play {
-    transition: opacity .25s ease-in-out;
-}
-.next-lesson:hover .card-play {
-    visibility: visible;
-    opacity: 1;
 }
 </style>
 @endpush

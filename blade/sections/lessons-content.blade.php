@@ -1,18 +1,3 @@
-@push('styles')
-<style type="text/css">
-.icon-checkbox.checked {
-    font-weight: 700;
-    color: #000;
-}
-.icon-checkbox.checked .checkbox-icon {
-    display: block;
-}
-.icon-checkbox:not(.checked) .checkbox-icon {
-    display: none;
-}
-</style>
-@endpush
-
 <div class="mx-auto w-full container h-full pt-4">
     <div class="flex flex-col medium:flex-row py-4">
         <div class="w-full mb-2 small:mb-0 medium:w-56 ml-3 flex flex-col-reverse small:flex-col">
@@ -47,7 +32,6 @@
                                                 'inputName' => $item['name'],
                                                 'tabIndex' => $item['tab'] ?? null,
                                                 'labelText' => $item['label'] ?? $item['name'],
-                                                'skipStyle' => true,
                                                 'skipScript' => true,
                                                 'active' => $item['active'] ?? false,
                                             ])
@@ -79,7 +63,7 @@
                         @endphp
 
                         <div id="badge-filter-{{ $item['name'] }}" class="m-1 px-2 py-1 flex items-center bg-light-gray rounded-full font-roboto {{ $_containerClasses }}">
-                            <span class="capitalize">{{ $item['label'] ?? $item['name'] }}</span><i class="icon-info badge-filter text-dark-gray text-base ml-1 cursor-pointer"></i>
+                            <span class="capitalize">{{ $item['label'] ?? $item['name'] }}</span><i class="fas fa-times-circle badge-filter text-dark-gray text-base ml-1 cursor-pointer"></i>
                         </div>
                     @endforeach
                 @endforeach
