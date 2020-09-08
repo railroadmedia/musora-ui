@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="/build/drumeo/drumeo.css">
     <link rel="stylesheet" href="https://dpwjbsxqtam5n.cloudfront.net/fonts/font-awesome-5/fontawesome-all.min.css">
+    <link rel="stylesheet" href="https://d1prhhmg8i11jr.cloudfront.net/v1.0.0/dist/icons.css">
     @stack('styles')
 </head>
 <body class="bg-edge-blue box-border">
@@ -26,5 +27,6 @@
     @yield('footer')
 </div>
 @stack('scripts')
+<script src="/js/scripts.js"></script>
 </body>
 </html>

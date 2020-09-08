@@ -17,10 +17,8 @@
         href="https://d1prhhmg8i11jr.cloudfront.net/v1.0.0/dist/icons.css"
     >
     <!-- todo - include simplebar css/js in build resources -->
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/simplebar@latest/dist/simplebar.css"
-    >
+    <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     @stack('styles')
 </head>
 <body class="box-border">
@@ -31,5 +29,7 @@
 
 <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 @stack('scripts')
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="/js/scripts.js"></script>
 </body>
 </html>

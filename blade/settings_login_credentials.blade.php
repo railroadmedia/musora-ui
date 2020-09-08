@@ -7,24 +7,6 @@
     @include('sections.profile-nav', ['active' => 'settings'])
 @endsection
 
-@push('styles')
-<style type="text/css">
-.profile-label {
-    width: 200px;
-}
-.modal-form {
-    background-color: rgba(0,0,0,.6);
-    transition: opacity .2s ease-in-out,visibility .2s ease-in-out;
-    -webkit-transition: opacity .2s ease-in-out,visibility .2s ease-in-out;
-    cursor: pointer;
-}
-.modal-form.active {
-    display: flex;
-    opacity: 1;
-}
-</style>
-@endpush
-
 @php
 $userData = [
     'id' => 1,
@@ -82,25 +64,3 @@ $inputErrors = [
         </div>
     </div>
 @endsection
-
-@push('scripts')
-<script type="text/javascript">
-let modalForms = Array.from(document.getElementsByClassName('modal-trigger'));
-
-modalForms.forEach(function(element) {
-    element.addEventListener(
-        'click',
-        function(event) {
-
-            let modalId = element.getAttribute('data-target');
-            let modalElement = document.getElementById(modalId);
-
-            modalElement.classList.add('active');
-
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    );
-});
-</script>
-@endpush

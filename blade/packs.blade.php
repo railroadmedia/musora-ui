@@ -2,20 +2,6 @@
 
 @section('title', 'Members - Packs')
 
-@push('styles')
-<style type="text/css">
-#menu-spacer {
-    padding-top: 50px;
-}
-
-@media (min-width: 40rem) {
-    #menu-spacer {
-        padding-top: 65px;
-    }
-}
-</style>
-@endpush
-
 @section('menu')
     @include('sections.menu', ['active' => 'packs'])
     <div id="menu-spacer"></div>

@@ -4,6 +4,7 @@
         @component(
             'core.anchor-button',
             [
+                'id' => 'edit-display-name',
                 'labelText' => 'edit',
                 'theme' => 'black',
                 'classes' => ['modal-trigger'],

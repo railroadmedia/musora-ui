@@ -32,7 +32,6 @@
                                                 'inputName' => $item['name'],
                                                 'tabIndex' => $item['tab'] ?? null,
                                                 'labelText' => $item['label'] ?? $item['name'],
-                                                'skipScript' => true,
                                                 'active' => $item['active'] ?? false,
                                             ])
                                             @endcomponent

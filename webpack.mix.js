@@ -12,8 +12,11 @@ mix.js(
 );
 
 mix.babel(
-    path.join(__dirname, 'js/test.js'),
-    path.join(__dirname, 'public/js/test.js')
+    [
+        path.join(__dirname, 'js/blocks.js'),
+        path.join(__dirname, 'js/sections.js'),
+    ],
+    path.join(__dirname, 'public/js/scripts.js')
 );
 
 mix.webpackConfig({

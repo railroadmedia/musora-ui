@@ -23,17 +23,3 @@
         <div class="mb-10"></div>
     </div>
 </div>
-
-@push('scripts')
-<script type="text/javascript">
-const courseInfoTrigger = document.getElementById('course-info');
-const courseInfoContainer = document.getElementById('course-info-container');
-
-courseInfoTrigger.addEventListener('click', (event) => {
-    courseInfoTrigger.classList.toggle('active');
-    courseInfoContainer.classList.toggle('active');
-    event.preventDefault();
-    event.stopPropagation();
-});
-</script>
-@endpush

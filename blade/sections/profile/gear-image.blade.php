@@ -1,22 +1,10 @@
-@push('styles')
-<style type="text/css">
-@media screen and (min-width:64rem) {
-    #profile-gear-image {
-        flex-basis: 300px;
-    }
-}
-#clear-gear-image {
-    background: #f71b26;
-}
-</style>
-@endpush
-
 <div class="p-8 border-b border-gray">
     <div class="flex items-center py-1">
         <h2 class="flex-1 leading-none text-lg sm:text-2xl font-bold capitalize">{{ $data['title'] }}</h2>
         @component(
             'core.anchor-button',
             [
+                'id' => 'edit-gear-image',
                 'labelText' => 'edit',
                 'theme' => 'black',
                 'classes' => ['modal-trigger'],

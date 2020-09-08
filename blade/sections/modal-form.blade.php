@@ -19,32 +19,3 @@
         </div>
     </div>
 </div>
-
-@push('scripts')
-<script type="text/javascript">
-
-document
-    .getElementById('{{ $id }}')
-    .addEventListener(
-        'click',
-        function(event) {
-
-            document.getElementById('{{ $id }}').classList.remove('active');
-
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    );
-
-document
-    .getElementById('{{ $id }}')
-    .querySelectorAll('.modal-container')[0]
-    .addEventListener(
-        'click',
-        function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    );
-</script>
-@endpush

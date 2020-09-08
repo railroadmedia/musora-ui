@@ -2,13 +2,6 @@
 
 @section('title', 'Create Account - Profile Name')
 
-@push('styles')
-<link
-    rel="stylesheet"
-    href="https://d1prhhmg8i11jr.cloudfront.net/v1.0.0/dist/icons.css"
->
-@endpush
-
 @section('content')
 <div class="m-10 w-full">
     <h2 class="font-extrabold text-center uppercase mb-8">choose your display name</h2>

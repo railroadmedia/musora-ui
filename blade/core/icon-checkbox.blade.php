@@ -32,24 +32,3 @@
         class="cursor-pointer flex items-center py-1 text-base capitalize "
     ><i class="fas fa-times-circle text-base pr-1 checkbox-icon"></i><span class="text-xs">{{ $labelText }}</span></label>
 </div>
-
-@push('scripts')
-@if (!$skipScript)
-<script type="text/javascript">
-const iconCheckboxes = document.getElementsByClassName('icon-checkbox');
-
-Array.from(iconCheckboxes).forEach(function(element) {
-    element.addEventListener(
-        'click',
-        function(event) {
-
-            element.classList.toggle('checked');
-
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    );
-});
-</script>
-@endif
-@endpush

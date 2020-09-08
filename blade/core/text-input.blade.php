@@ -13,8 +13,9 @@
     $labelText = $labelText ?? '';
     $validationErrorText = $validationErrorText ?? '';
     $forceFocus = $forceFocus ?? false;
+    $classes = $classes ?? [];
 
-    $_inputClasses = ['theme-' . $theme];
+    $_inputClasses = array_merge(['theme-' . $theme], $classes);
 
     if ($theme == 'gray') {
         $_inputClasses[] = 'bg-light-gray';

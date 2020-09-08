@@ -2,13 +2,6 @@
 
 @section('title', 'Create Account - Lessons')
 
-@push('styles')
-<link
-    rel="stylesheet"
-    href="https://d1prhhmg8i11jr.cloudfront.net/v1.0.0/dist/icons.css"
->
-@endpush
-
 @php
 $checkboxes = [
     [

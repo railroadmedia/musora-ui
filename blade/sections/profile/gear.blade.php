@@ -8,6 +8,7 @@ $years = array_reverse(range(1900, 2020));
         @component(
             'core.anchor-button',
             [
+                'id' => 'edit-gear',
                 'labelText' => 'edit',
                 'theme' => 'black',
                 'classes' => ['modal-trigger'],

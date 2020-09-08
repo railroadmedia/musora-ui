@@ -1,21 +1,10 @@
-@push('styles')
-<style type="text/css">
-#profile-avatar {
-    flex-basis: 200px;
-    width: 200px;
-}
-#clear-avatar {
-    background: #f71b26;
-}
-</style>
-@endpush
-
 <div class="p-8 border-b border-gray">
     <div class="flex items-center py-1">
         <h2 class="flex-1 leading-none text-lg sm:text-2xl font-bold capitalize pr-3">{{ $data['title'] }}</h2>
         @component(
             'core.anchor-button',
             [
+                'id' => 'edit-avatar',
                 'labelText' => 'edit',
                 'theme' => 'black',
                 'classes' => ['modal-trigger'],

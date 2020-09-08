@@ -140,25 +140,3 @@ $inputErrors = [
         </div>
     </div>
 @endsection
-
-@push('scripts')
-<script type="text/javascript">
-let modalForms = Array.from(document.getElementsByClassName('modal-trigger'));
-
-modalForms.forEach(function(element) {
-    element.addEventListener(
-        'click',
-        function(event) {
-
-            let modalId = element.getAttribute('data-target');
-            let modalElement = document.getElementById(modalId);
-
-            modalElement.classList.add('active');
-
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    );
-});
-</script>
-@endpush

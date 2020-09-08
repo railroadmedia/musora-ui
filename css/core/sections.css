@@ -155,6 +155,65 @@
     }
 }
 
+/* modal dialogs */
+.modal-dialog {
+    background-color: rgba(0,0,0,.6);
+    transition: opacity .3s ease-in-out,visibility .3s ease-in-out;
+    -webkit-transition: opacity .3s ease-in-out,visibility .3s ease-in-out;
+    cursor: pointer;
+}
+.modal-dialog.active {
+    display: flex;
+    opacity: 1;
+}
+
+@media screen and (min-width:40rem) {
+    #avatar-modal .modal-container,
+    #gear-modal .modal-container {
+        height: 540px;
+        width: 800px;
+    }
+}
+
+/* sections/profile/avatar */
+#profile-avatar {
+    flex-basis: 200px;
+    width: 200px;
+}
+#clear-avatar {
+    background: #f71b26;
+}
+
+/* sections/profile/gear-image */
+@media screen and (min-width:64rem) {
+    #profile-gear-image {
+        flex-basis: 300px;
+    }
+}
+#clear-gear-image {
+    background: #f71b26;
+}
+
+/* sections/profile/payment-methods */
+.payment-methods .default-col {
+    width: 60px;
+}
+.payment-methods .expiry-col {
+    width: 120px;
+}
+.payment-methods .actions-col {
+    width: 70px;
+}
+.payment-methods .actions-col a div {
+    width: 25px;
+    height: 25px;
+}
+
+/* settings profile login credentials */
+.profile-label {
+    width: 200px;
+}
+
 /* course-data */
 #course-info {
     transform: translate(0, 50%);
@@ -248,4 +307,32 @@
 }
 .profile-sidenav-item i {
     flex-basis: 20px;
+}
+
+/* live */
+.event-date-thumbnail {
+    flex-basis: 80px;
+}
+.event-col {
+    flex-basis: 100px;
+}
+.event-card:hover {
+    background-color: #f3f9ff;
+}
+.event-month {
+    width: 19px;
+}
+.show-month .event-month {
+    visibility: visible;
+}
+
+/* packs */
+#menu-spacer {
+    padding-top: 50px;
+}
+
+@media (min-width: 40rem) {
+    #menu-spacer {
+        padding-top: 65px;
+    }
 }

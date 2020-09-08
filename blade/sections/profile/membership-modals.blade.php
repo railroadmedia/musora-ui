@@ -259,21 +259,3 @@
         </p>
     </div>
 @endcomponent
-
-@push('scripts')
-<script type="text/javascript">
-document
-    .getElementById('90-day-help')
-    .addEventListener(
-        'click',
-        function(event) {
-
-            document.getElementById('modal-post-90-day-cancel-letter').classList.remove('active');
-            document.getElementById('modal-how-can-we-help').classList.add('active');
-
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    );
-</script>
-@endpush

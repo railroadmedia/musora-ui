@@ -64,26 +64,6 @@ $contentData = [
 $lastMonth = null;
 @endphp
 
-@push('styles')
-<style type="text/css">
-.event-date-thumbnail {
-    flex-basis: 80px;
-}
-.event-col {
-    flex-basis: 100px;
-}
-.event-card:hover {
-    background-color: #f3f9ff;
-}
-.event-month {
-    width: 19px;
-}
-.show-month .event-month {
-    visibility: visible;
-}
-</style>
-@endpush
-
 @section('content')
     @include('sections.user-stats')
 

@@ -77,6 +77,7 @@
 
     $_inputClasses = implode(' ', $_inputClasses);
 @endphp
+
 <a
     id="{{ $id }}"
     href="{{ $href }}"
