@@ -10,8 +10,6 @@ Array.from(iconCheckboxes).forEach(function(element) {
 
             element.classList.toggle('checked');
 
-            console.log('works');
-
             event.preventDefault();
             event.stopPropagation();
         }
@@ -46,4 +44,30 @@ if (flatpickrInputs.length) {
             dateFormat,
         }
     );
+}
+
+// badge-checkbox
+const badgeCheckboxElements = document.getElementsByClassName('badge-checkbox');
+
+if (badgeCheckboxElements.length) {
+    Array.from(badgeCheckboxElements).forEach(function(element) {
+        element.addEventListener(
+            'click',
+            function(event) {
+
+                const checkbox = element.getElementsByTagName('input')[0];
+
+                checkbox.checked = !checkbox.checked;
+
+                if (checkbox.checked) {
+                    element.classList.add('active');
+                } else {
+                    element.classList.remove('active');
+                }
+
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        );
+    });
 }

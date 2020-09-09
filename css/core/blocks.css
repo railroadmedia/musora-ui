@@ -101,7 +101,7 @@ select::-ms-expand {
 }
 
 /* next-lesson-card */
-.bg-next-lesson-gradient {
+.next-lesson .bg-next-lesson-gradient {
     background: -webkit-gradient(linear,left top,left bottom,from(transparent),to(rgba(85, 85, 85, .75)));
     background: linear-gradient(180deg,transparent 0,rgba(85, 85, 85, .75));
 }
@@ -123,4 +123,15 @@ select::-ms-expand {
 }
 .icon-checkbox:not(.checked) .checkbox-icon {
     display: none;
+}
+
+/* badge-checkbox */
+.badge-checkbox:not(.active) {
+    color: #0B76DB;
+    font-weight: 500;
+}
+.badge-checkbox.active {
+    background-color: #0B76DB;
+    color: #fff;
+    font-weight: 800;
 }

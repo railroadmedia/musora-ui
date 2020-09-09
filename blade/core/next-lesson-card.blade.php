@@ -6,16 +6,6 @@
     }
 @endphp
 
-@push('styles')
-<style type="text/css">
-/* todo - fix this rule not working from .css */
-.bg-next-lesson-gradient {
-    background: -webkit-gradient(linear,left top,left bottom,from(transparent),to(rgba(85, 85, 85, .75)));
-    background: linear-gradient(180deg,transparent 0,rgba(85, 85, 85, .75));
-}
-</style>
-@endpush
-
 <a href="#" class="next-lesson flex flex-col sm:flex-row items-center">
     <div class="flex-none relative w-full h-auto sm:h-32 sm:w-48 rounded-lg overflow-hidden">
         <img src="{{ $thumbnail }}" class="object-cover object-center w-auto sm:h-full">

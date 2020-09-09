@@ -2,13 +2,6 @@
 
 @section('title', 'Create Account - Profile Name')
 
-@push('styles')
-<link
-    rel="stylesheet"
-    href="https://d1prhhmg8i11jr.cloudfront.net/v1.0.0/dist/icons.css"
->
-@endpush
-
 @section('app')
     <div class="">
         <h2 class="font-extrabold text-center uppercase mb-8">choose your profile image</h2>

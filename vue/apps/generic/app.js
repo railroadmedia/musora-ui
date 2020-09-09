@@ -30,6 +30,7 @@ import AccountSkillLevel from '../../components/Content/AccountSkillLevel';
 import ContentSearch from '../../components/Content/Search';
 import SettingsProfileImage from '../../components/Content/SettingsProfileImage';
 import PaymentMethods from '../../components/Payments/Methods';
+import ShowsContent from '../../components/Content/Shows';
 
 Vue.component('content-row', ContentRow);
 Vue.component('content-catalogue', ContentCatalogue);
@@ -44,6 +45,7 @@ Vue.component('account-skill-level', AccountSkillLevel);
 Vue.component('content-search', ContentSearch);
 Vue.component('settings-profile-image', SettingsProfileImage);
 Vue.component('payment-methods', PaymentMethods);
+Vue.component('shows-content', ShowsContent);
 
 const app = new Vue({
     el: '#vue-app'

@@ -7,6 +7,7 @@
                     <button-input
                         label="search"
                         theme="blue"
+                        fixed-width
                     ></button-input>
                 </div>
             </div>

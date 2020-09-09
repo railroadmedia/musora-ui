@@ -35,6 +35,27 @@ if (flatpickrInputs.length) {
     altFormat: altFormat,
     dateFormat: dateFormat
   });
+} // badge-checkbox
+
+
+var badgeCheckboxElements = document.getElementsByClassName('badge-checkbox');
+
+if (badgeCheckboxElements.length) {
+  Array.from(badgeCheckboxElements).forEach(function (element) {
+    element.addEventListener('click', function (event) {
+      var checkbox = element.getElementsByTagName('input')[0];
+      checkbox.checked = !checkbox.checked;
+
+      if (checkbox.checked) {
+        element.classList.add('active');
+      } else {
+        element.classList.remove('active');
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+    });
+  });
 } // menu
 
 

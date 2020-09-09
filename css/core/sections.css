@@ -89,19 +89,22 @@
 .collapse-trigger.active .collapse-trigger-close {
     display: inline-block;
 }
-.collapse-trigger.active + .collapse-container {
+.collapse-trigger.active + .collapse-container,
+.vue-collapse-trigger.active + .collapse-container {
     max-height: 2000px;
 }
-.collapse-trigger:not(.active) + .collapse-container {
+.collapse-trigger:not(.active) + .collapse-container,
+.vue-collapse-trigger:not(.active) + .collapse-container {
     max-height: 0;
 }
 .collapse-container {
     -webkit-transition: max-height .2s ease-in-out;
-    transition: max-height .3s ease-in-out;
+    transition: max-height .2s ease-in-out;
 }
 @media (min-width: 40rem) {
     .collapse-trigger.active + .collapse-container.small\:expand,
-    .collapse-trigger:not(.active) + .collapse-container.small\:expand {
+    .collapse-trigger:not(.active) + .collapse-container.small\:expand,
+    .vue-collapse-trigger:not(.active) + .collapse-container.small\:expand {
         max-height: 2000px;
     }
 }
@@ -336,3 +339,21 @@
         padding-top: 65px;
     }
 }
+
+/* schedule */
+.event-date-thumbnail {
+    flex-basis: 80px;
+}
+.event-col {
+    flex-basis: 100px;
+}
+.event-card:hover {
+    background-color: #f3f9ff;
+}
+.event-month {
+    width: 19px;
+}
+.show-month .event-month {
+    visibility: visible;
+}
+

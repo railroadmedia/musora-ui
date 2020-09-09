@@ -2,8 +2,8 @@
     <div class="w-full mb-2">
         <div class="text-dark-gray text-xs border-2 border-light-gray rounded-lg">
             <div
-                class="collapse-trigger flex content-center justify-between px-3 py-2 small:text-sm cursor-pointer"
-                :class="{active: !filterGroup.collapsed}"
+                class="vue-collapse-trigger flex content-center justify-between px-3 py-2 small:text-sm cursor-pointer"
+                :class="{active: !this.filterGroup.collapsed }"
                 @click.stop.prevent="toggleCollapse()"
             >
                 <span class="uppercase font-bold font-roboto-cond">{{ filterGroup.title }}</span>
@@ -31,8 +31,6 @@
 import FilterCheckbox from '../Blocks/FilterCheckbox';
 import FilterGroup from '../../models/filterGroup';
 import simplebar from 'simplebar-vue';
-
-// todo - update global css for collapsable
 
 export default {
     components: {

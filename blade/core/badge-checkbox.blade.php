@@ -8,65 +8,9 @@
     $active = $active ?? false;
     $checked = $active ? 'checked=checked' : '';
     $padding = $padding ?? false;
-
-    $_containerClasses = [];
-    $_labelClasses = [];
-
-    $_checkedClasses = [];
-    $_uncheckedClasses = [];
-
-    if ($padding) {
-        $_containerClasses[] = 'py-1';
-    }
-
-    if ($theme == 'white') {
-        $_containerClasses[] = 'border-edge-blue';
-        $_containerClasses[] = 'py-2';
-        $_containerClasses[] = 'text-edge-blue';
-        $_containerClasses[] = 'text-sm';
-        $_containerClasses[] = 'font-medium';
-
-        $_labelClasses[] = 'ml-2';
-        $_labelClasses[] = 'flex';
-        $_labelClasses[] = 'content-center';
-
-        $_checkedClasses[] = 'bg-edge-blue';
-        $_checkedClasses[] = 'text-white';
-        $_checkedClasses[] = 'font-extrabold';
-        $_uncheckedClasses[] = 'text-edge-blue';
-        $_uncheckedClasses[] = 'font-medium';
-    } else {
-        // theme 'blue'
-        $_containerClasses[] = 'justify-center';
-        $_containerClasses[] = 'border-edge-dark-blue';
-        $_containerClasses[] = 'text-edge-dark-blue';
-        $_containerClasses[] = 'text-xs';
-        $_containerClasses[] = 'leading-none';
-        $_containerClasses[] = 'font-medium';
-
-        $_labelClasses[] = 'py-2';
-        $_labelClasses[] = 'text-xs';
-
-        $_checkedClasses[] = 'bg-white';
-        $_checkedClasses[] = 'text-edge-blue';
-        $_checkedClasses[] = 'border-white';
-        $_checkedClasses[] = 'font-extrabold';
-        $_uncheckedClasses[] = 'bg-edge-blue';
-        $_uncheckedClasses[] = 'text-edge-dark-blue';
-        $_uncheckedClasses[] = 'border-edge-dark-blue';
-        $_uncheckedClasses[] = 'font-medium';
-    }
-
-    if ($active) {
-        $_containerClasses = array_merge($_containerClasses, $_checkedClasses);
-        $_containerClasses = array_diff($_containerClasses, $_uncheckedClasses);
-    }
-
-    $_containerClasses = implode(' ', $_containerClasses);
-    $_labelClasses = implode(' ', $_labelClasses);
 @endphp
 
-<div class="badge-checkbox rounded-full border-2 flex cursor-pointer uppercase {{ $_containerClasses }}">
+<div class="badge-checkbox rounded-full border-2 flex cursor-pointer uppercase border-edge-blue py-2 text-sm">
     <input
         type="checkbox"
         id="{{ $inputId }}"
@@ -76,43 +20,8 @@
         {{ $checked }}
     ><label
         for="{{ $inputId }}"
-        class="cursor-pointer font-roboto {{ $_labelClasses }}"
+        class="cursor-pointer font-roboto ml-2 flex content-center"
     >@isset($iconClass)<i
         class="{{ $iconClass }} text-lg pr-1"
     ></i> @endisset{{ $labelText }}</label>
 </div>
-
-@push('scripts')
-@if (!$skipScript)
-<script type="text/javascript">
-
-const elements = document.getElementsByClassName('badge-checkbox');
-
-Array.from(elements).forEach(function(element) {
-    element.addEventListener(
-        'click',
-        function(event) {
-
-            const checkbox = element.getElementsByTagName('input')[0];
-
-            checkbox.checked = !checkbox.checked;
-
-            let checkedClasses = @json($_checkedClasses);
-            let uncheckedClasses = @json($_uncheckedClasses);
-
-            if (checkbox.checked) {
-                element.classList.remove(...uncheckedClasses);
-                element.classList.add(...checkedClasses);
-            } else {
-                element.classList.remove(...checkedClasses);
-                element.classList.add(...uncheckedClasses);
-            }
-
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    );
-});
-</script>
-@endif
-@endpush
