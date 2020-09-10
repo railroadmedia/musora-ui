@@ -44,8 +44,8 @@ export default {
             classes: {
                 white: {
                     container: {
-                        checked: ['badge-checkbox', 'rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'border-edge-blue', 'py-2', 'text-sm', 'bg-edge-blue', 'text-white', 'font-extrabold'],
-                        unchecked: ['badge-checkbox', 'rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'border-edge-blue', 'py-2', 'text-edge-blue', 'text-sm', 'font-medium'],
+                        checked: ['rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'border-edge-blue', 'py-2', 'text-sm', 'bg-edge-blue', 'text-white', 'font-extrabold'],
+                        unchecked: ['rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'border-edge-blue', 'py-2', 'text-edge-blue', 'text-sm', 'font-medium'],
                     },
                     label: {
                         checked: ['ml-2', 'flex', 'content-center', 'font-roboto'],
@@ -58,8 +58,8 @@ export default {
                 },
                 blue: {
                     container: {
-                        checked: ['badge-checkbox', 'rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'justify-center', 'text-xs', 'leading-none', 'border-white', 'text-edge-blue', 'bg-white', 'font-extrabold'],
-                        unchecked: ['badge-checkbox', 'rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'justify-center', 'text-xs', 'leading-none', 'border-edge-dark-blue', 'text-edge-dark-blue', 'font-medium', 'hover:border-white', 'hover:text-edge-blue', 'hover:bg-white', 'hover:font-extrabold'],
+                        checked: ['rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'justify-center', 'text-xs', 'leading-none', 'border-white', 'text-edge-blue', 'bg-white', 'font-extrabold'],
+                        unchecked: ['rounded-full', 'border-2', 'flex cursor-pointer', 'uppercase', 'justify-center', 'text-xs', 'leading-none', 'border-edge-dark-blue', 'text-edge-dark-blue', 'font-medium', 'hover:border-white', 'hover:text-edge-blue', 'hover:bg-white', 'hover:font-extrabold'],
                     },
                     label:  {
                         checked: ['py-2', 'text-xs', 'font-bold', 'font-roboto-cond'],

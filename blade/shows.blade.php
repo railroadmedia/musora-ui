@@ -62,51 +62,51 @@ $continueVideos = [
 $shows = [
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/show-live.jpg',
-        'url' => '/router.php/shows_show',
+        'url' => '/router.php/vue/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/behind-the-scenes.jpg',
-        'url' => '/router.php/shows_show',
+        'url' => '/router.php/vue/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/bootcamps.jpg',
-        'url' => '/router.php/shows_show',
+        'url' => '/router.php/vue/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/challenges.jpg',
-        'url' => '/router.php/shows_show',
+        'url' => '/router.php/vue/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/sonor-drums.jpg',
-        'url' => '/router.php/shows_show',
+        'url' => '/router.php/vue/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/exploring-beats.jpg',
-        'url' => '/router.php/shows_show',
+        'url' => '/router.php/vue/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/gear.jpg',
-        'url' => '/router.php/shows_show',
+        'url' => '/router.php/vue/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/on-the-road.jpg',
-        'url' => '/router.php/shows_show',
+        'url' => '/router.php/vue/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/performances.jpg',
-        'url' => '/router.php/shows_show',
+        'url' => '/router.php/vue/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/show-podcast.jpg',
-        'url' => '/router.php/shows_show',
+        'url' => '/router.php/vue/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/show-quick-tips.jpg',
-        'url' => '/router.php/shows_show',
+        'url' => '/router.php/vue/shows_show',
     ],
     [
         'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/advent-calendar-show-card.jpg',
-        'url' => '/router.php/shows_show',
+        'url' => '/router.php/vue/shows_show',
     ],
 ];
 @endphp

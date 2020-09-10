@@ -24,6 +24,7 @@
 <script lang="ts">
 import ContentModel from '../../models/content';
 import ContentInstructorsMixin from '../../mixins/contentInstructors';
+import ContentCardMixin from '../../mixins/contentCard';
 
 export default {
     props: {
@@ -35,7 +36,7 @@ export default {
             default: () => true,
         },
     },
-    mixins: [ContentInstructorsMixin],
+    mixins: [ContentInstructorsMixin, ContentCardMixin],
     computed: {
         $_icon() {
             let icon;

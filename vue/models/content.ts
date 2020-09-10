@@ -18,6 +18,8 @@ export default class Content {
         public liked?: boolean,
         public sheet?: string,
         public topic?: string,
+        public length?: number,
+        public totalXp?: number,
         public parent?: Content,
         public progress = 0
     ) {

@@ -76,6 +76,7 @@
                         v-for="item in content"
                         :key="item.id"
                         :content="item"
+                        show-add-icon
                     ></show-content-card>
                 </div>
             </div>

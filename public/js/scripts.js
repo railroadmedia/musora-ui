@@ -4,7 +4,6 @@ var iconCheckboxes = document.getElementsByClassName('icon-checkbox');
 Array.from(iconCheckboxes).forEach(function (element) {
   element.addEventListener('click', function (event) {
     element.classList.toggle('checked');
-    console.log('works');
     event.preventDefault();
     event.stopPropagation();
   });

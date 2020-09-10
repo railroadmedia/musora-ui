@@ -81,11 +81,11 @@
 <a
     id="{{ $id }}"
     href="{{ $href }}"
-    class="rounded-full leading-none font-bold focus:outline-none focus:shadow-outline uppercase {{ $_inputClasses }} font-roboto"
+    class="flex content-center rounded-full leading-none font-bold focus:outline-none focus:shadow-outline uppercase {{ $_inputClasses }} font-roboto"
     tabindex="{{ $tabIndex }}"
 @isset($attrs)
     @foreach ($attrs as $attr => $value)
     {{ $attr }}="{{ $value }}"
     @endforeach
 @endisset
->@isset($iconClass)<i class="{{ $iconClass }} text-lg pr-3"></i> @endisset{{ $labelText }}</a>
+>@isset($iconClass)<i class="{{ $iconClass }} text-lg pr-3"></i>@endisset{{ $labelText }}@isset($rightIconClass)<i class="{{ $rightIconClass }} text-lg pl-3"></i>@endisset</a>

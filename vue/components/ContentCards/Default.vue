@@ -1,5 +1,5 @@
 <template>
-    <a :href="content.url" class="content-card">
+    <a :href="getUrl(content)" class="content-card">
         <div
             class="rounded-lg overflow-hidden relative"
             :class="$_aspectRatio"
@@ -22,6 +22,7 @@
 <script lang="ts">
 import ContentModel from '../../models/content';
 import ContentInstructorsMixin from '../../mixins/contentInstructors';
+import ContentCardMixin from '../../mixins/contentCard';
 
 export default {
     props: {
@@ -37,7 +38,7 @@ export default {
             default: () => 'contentType',
         },
     },
-    mixins: [ContentInstructorsMixin],
+    mixins: [ContentInstructorsMixin, ContentCardMixin],
     computed: {
         $_aspectRatio(): string[] {
             if (this.content.contentType == 'song') {
@@ -63,15 +64,3 @@ export default {
     },
 };
 </script>
-
-<style type="text/css">
-/*.content-card-play {
-    -webkit-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
-    background-color: rgba(0,0,0,.4);
-}
-.content-card:hover .content-card-play {
-    visibility: visible;
-    opacity: 1;
-}*/
-</style>

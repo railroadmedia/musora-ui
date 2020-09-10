@@ -8,16 +8,16 @@
                 </div>
             </div>
             <div class="flex-1 sm:ml-6">
-                <div class="text-dark-gray uppercase text-xs">{{ content.contentType }}</div>
+                <div class="text-dark-gray uppercase text-xs">{{ getInstructors(content) }}</div>
                 <div class="font-bold text-lg capitalize">{{ content.title }}</div>
             </div>
         </div>
-        <div class="flex w-full flex-1 items-center justify-between">
-            <div class="text-medium-gray text-xs capitalize">detail</div>
-            <div class="text-medium-gray text-xs capitalize">{{ getInstructors(content) }}</div>
-            <div class="text-medium-gray text-xs capitalize">{{ content.date }}</div>
-            <div class="" v-if="showRemoveIcon"><i class="fas fa-times text-edge-blue text-3xl"></i></div>
-            <div class="" v-if="showAddIcon"><i class="fal fa-plus text-medium-gray hover:text-edge-blue text-3xl"></i></div>
+        <div class="flex w-full flex-1 items-center justify-end">
+            <div class="col text-center text-medium-gray text-xs uppercase" v-if="content.length">{{ getDuration(content) }} mins</div>
+            <div class="col text-center text-medium-gray text-xs uppercase" v-if="content.totalXp">{{ content.totalXp }} xp</div>
+            <div class="icon-col text-center" v-if="showRemoveIcon"><i class="fa fa-times text-medium-gray hover:text-edge-blue text-3xl"></i></div>
+            <div class="icon-col text-center" v-if="showAddIcon"><i class="fa fa-plus text-medium-gray hover:text-edge-blue text-3xl"></i></div>
+            <div class="icon-col text-center"><i class="fa fa-play-circle text-medium-gray hover:text-edge-blue text-3xl"></i></div>
         </div>
     </a>
 </template>
@@ -33,13 +33,27 @@ export default {
         },
         showRemoveIcon: {
             type: Boolean,
-            default: () => true,
+            default: () => false,
         },
         showAddIcon: {
             type: Boolean,
-            default: () => false,
+            default: () => true,
         },
     },
     mixins: [ContentInstructorsMixin],
+    methods: {
+        getDuration(content) {
+            return content.length ? Math.ceil(content.length / 60) : 0;
+        }
+    },
 };
 </script>
+
+<style type="text/css">
+.col {
+    width: 100px;
+}
+.icon-col {
+    width: 50px;
+}
+</style>

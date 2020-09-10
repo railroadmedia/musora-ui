@@ -49,9 +49,6 @@ export default {
         preloadData: {
             type: String
         },
-        videoData: {
-            type: Object,
-        },
     },
     data(): object {
         return {

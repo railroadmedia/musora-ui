@@ -105,7 +105,9 @@ export default class Content {
                 item.attributes.like_count,
                 item.attributes.is_liked_by_current_user,
                 sheet,
-                topic
+                topic,
+                item.attributes.lengthInSeconds,
+                item.attributes.totalXp
             );
 
             if (relatedDataMap.hasOwnProperty('parent')) {

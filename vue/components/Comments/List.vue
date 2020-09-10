@@ -8,7 +8,7 @@
                 <div>
                     <span class="text-medium-gray text-sm font-semibold">Sort by: </span>
                     <select
-                        class="bg-white text-medium-gray text-sm"
+                        class="bg-white text-medium-gray text-sm w-32"
                         v-model="$_sort"
                     >
                         <option
