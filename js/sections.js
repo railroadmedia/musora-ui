@@ -208,3 +208,16 @@ if (courseInfoTrigger && courseInfoContainer) {
         event.stopPropagation();
     });
 }
+
+// content-data
+const contentInfoTrigger = document.getElementById('content-info');
+const contentInfoContainer = document.getElementById('content-info-container');
+
+if (contentInfoTrigger && contentInfoContainer) {
+    contentInfoTrigger.addEventListener('click', (event) => {
+        contentInfoTrigger.classList.toggle('active');
+        contentInfoContainer.classList.toggle('active');
+        event.preventDefault();
+        event.stopPropagation();
+    });
+}

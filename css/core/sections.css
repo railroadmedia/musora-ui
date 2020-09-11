@@ -221,20 +221,42 @@
 #course-info {
     transform: translate(0, 50%);
 }
+/* content-data */
+#content-info {
+    transform: translate(0, 100%);
+    background-color: #191b1c;
+    height: 20px;
+    width: 40px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+#content-info span {
+    font-size: 9px;
+    line-height: 9px;
+}
+#content-info i {
+    font-size: 12px;
+}
 #course-info.active .open,
-#course-info:not(.active) .close {
+#course-info:not(.active) .close,
+#content-info.active .open,
+#content-info:not(.active) .close  {
     display:none;
 }
 #course-info.active .close,
-#course-info:not(.active) .open {
+#course-info:not(.active) .open,
+#content-info.active .close,
+#content-info:not(.active) .open {
     display:block;
 }
-#course-info-container {
+#course-info-container,
+#content-info-container {
     -webkit-transition: max-height .5s ease-in-out;
     transition: max-height .5s ease-in-out;
     max-height: 1000px;
 }
-#course-info-container:not(.active) {
+#course-info-container:not(.active),
+#content-info-container:not(.active) {
     max-height: 0;
 }
 

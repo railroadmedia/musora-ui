@@ -254,4 +254,17 @@ if (courseInfoTrigger && courseInfoContainer) {
     event.preventDefault();
     event.stopPropagation();
   });
+} // content-data
+
+
+var contentInfoTrigger = document.getElementById('content-info');
+var contentInfoContainer = document.getElementById('content-info-container');
+
+if (contentInfoTrigger && contentInfoContainer) {
+  contentInfoTrigger.addEventListener('click', function (event) {
+    contentInfoTrigger.classList.toggle('active');
+    contentInfoContainer.classList.toggle('active');
+    event.preventDefault();
+    event.stopPropagation();
+  });
 }

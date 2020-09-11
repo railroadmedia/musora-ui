@@ -14694,6 +14694,38 @@ $breadcrumbs = [
         'label' => 'Kick Drum Tuning'
     ],
 ];
+
+$lessonProgress = [
+    'percent' => 25,
+    'xp' => 100,
+    'fixed' => false,
+    'button' => [
+        'theme' => 'white-wire',
+        'iconClass' => 'fas fa-check',
+        'labelText' => 'mark as complete',
+        'href' => '#',
+    ],
+];
+
+$description = [
+    'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.',
+    'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.',
+    'Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.'
+];
+
+$themeColor = 'drumeo';
+$lessonContent = [
+    'video_poster_image_url' => 'https://i.vimeocdn.com/video/935088558_1280x720.jpg?r=pad',
+    'video_playback_endpoints' => '[{"file":"https:\/\/player.vimeo.com\/external\/444685587.sd.mp4?s=f2a3d5629ceca6aaca92aeeaa8002690a8121966&profile_id=139&oauth2_token_id=1284792283","width":426,"height":240},{"file":"https:\/\/player.vimeo.com\/external\/444685587.sd.mp4?s=f2a3d5629ceca6aaca92aeeaa8002690a8121966&profile_id=164&oauth2_token_id=1284792283","width":640,"height":360},{"file":"https:\/\/player.vimeo.com\/external\/444685587.sd.mp4?s=f2a3d5629ceca6aaca92aeeaa8002690a8121966&profile_id=165&oauth2_token_id=1284792283","width":960,"height":540},{"file":"https:\/\/player.vimeo.com\/external\/444685587.hd.mp4?s=53d1b30d79e3cd7e5375468b0aa27f07a633dab5&profile_id=174&oauth2_token_id=1284792283","width":1280,"height":720},{"file":"https:\/\/player.vimeo.com\/external\/444685587.hd.mp4?s=53d1b30d79e3cd7e5375468b0aa27f07a633dab5&profile_id=175&oauth2_token_id=1284792283","width":1920,"height":1080},{"file":"https:\/\/player.vimeo.com\/external\/444685587.hd.mp4?s=53d1b30d79e3cd7e5375468b0aa27f07a633dab5&profile_id=170&oauth2_token_id=1284792283","width":2560,"height":1440},{"file":"https:\/\/player.vimeo.com\/external\/444685587.hd.mp4?s=53d1b30d79e3cd7e5375468b0aa27f07a633dab5&profile_id=172&oauth2_token_id=1284792283","width":3840,"height":2160}]',
+    'hlsManifestUrl' => 'https://player.vimeo.com/external/444685587.m3u8?s=081d3b4db34f62c05927360023f1401ab6169a3d&oauth2_token_id=1284792283',
+    'captions' => '',
+    'chapters' => [],
+    'currentSecond' => '207',
+    'contentId' => '265255',
+    'userId' => '150259',
+    'videoId' => '444685587',
+    'castTitle' => 'Kick Drum Tuning',
+];
 @endphp
 
 @section('menu')
@@ -14702,54 +14734,33 @@ $breadcrumbs = [
 @endsection
 
 @section('app')
-    <div class="" style="background-color: #191b1c;">
-        <!-- todo: protopying, to be moved in vue component -->
+    <div class="relative" style="background-color: #191b1c;">
         <div class="mx-auto" style="max-width: 72.5rem;">
-            <div class="flex flex-row items-center justify-between py-6">
-                <div class="">
-                    <h1 class="text-white text-3xl font-bold">Sonor Drums - A Drumeo Documentary</h1>
-                    <div class="text-medium-gray">With Jared Falk</div>
-                </div>
-                <div class="flex flex-row">
-                    <div class="px-1">
-                        <button class="px-1 flex flex-col space-y-2 text-medium-gray font-bold uppercase">
-                            <i class="fal fa-thumbs-up"></i><span>61</span>
-                        </button>
-                    </div>
-                    <div class="px-1">
-                        <button class="px-1 flex flex-col space-y-2 text-medium-gray font-bold uppercase">
-                            <i class="fas fa-share"></i><span>share</span>
-                        </button>
-                    </div>
-                    <div class="px-1">
-                        <button class="px-1 flex flex-col space-y-2 text-medium-gray font-bold uppercase">
-                            <i class="fas fa-plus"></i><span>add to list</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="flex flex-row items-center justify-between pt-4 pb-6">
-                <div>
-                    @component('core.anchor-button', [
-                        'labelText' => 'previous lesson',
-                        'href' => '#',
-                        'theme' => 'blue-reversed',
-                        'iconClass' => 'fas fa-chevron-left',
-                    ])
-                    @endcomponent
-                </div>
-                <div>
-                    @component('core.anchor-button', [
-                        'labelText' => 'next lesson',
-                        'href' => '#',
-                        'theme' => 'blue-reversed',
-                        'rightIconClass' => 'fas fa-chevron-right',
-                    ])
-                    @endcomponent
-                </div>
-            </div>
+            <video-player
+                    ref="mediaElementVueInstance"
+                    theme-color="{{ $themeColor }}"
+                    poster="{{ $lessonContent['video_poster_image_url'] ?? '' }}"
+                    :sources="{{ $lessonContent['video_playback_endpoints'] }}"
+                    hls-manifest-url="{{ $lessonContent['hlsManifestUrl'] ?? '' }}"
+                    captions="{{ $lessonContent['captions'] ?? '' }}"
+                    :chapters="{{ json_encode($lessonContent['chapters'] ?? []) }}"
+                    current-second="{{ $lessonContent['currentSecond'] }}"
+                    content-id="{{ $lessonContent['contentId'] }}"
+                    user-id="{{ $lessonContent['userId'] }}"
+                    video-id="{{ $lessonContent['videoId'] }}"
+                    cast-title="{{ $lessonContent['castTitle'] }}"
+                    :use-intersection-observer="true"
+            >
+                <div class="widescreen title text-{{ $themeColor }} mb-2"></div>
+            </video-player>
+            <video-resources></video-resources>
         </div>
+        
+        @include('sections.content-info', ['description' => $description])
     </div>
+
+    @include('sections.lesson-progress', $lessonProgress)
+
     <div class="mx-auto w-full container relative px-3 pb-24">
         <div class="flex flex-row">
             <div class="flex-1 px-3">

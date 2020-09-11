@@ -5,7 +5,7 @@
         :class="$_inputClasses"
         :tabindex="tabIndex"
         @click.stop.prevent="click()"
-    ><i class="text-lg pr-3" :class="$_iconClass" v-if="iconClass"></i> {{ label }}</button>
+    ><i class="text-lg pr-3" :class="$_iconClass" v-if="iconClass"></i>{{ label }}<i class="text-lg pl-3" :class="$_rightIconClass" v-if="rightIconClass"></i></button>
 </template>
 
 <script lang="ts">
@@ -17,6 +17,10 @@ export default {
             default: 'button'
         },
         iconClass: {
+            type: String,
+            default: ''
+        },
+        rightIconClass: {
             type: String,
             default: ''
         },
@@ -75,6 +79,12 @@ export default {
                 classes.push('text-edge-blue');
                 classes.push('active:text-white');
                 classes.push('active:bg-blue-700');
+
+                if (!this.fullWidth && !this.fixedWidth && !this.extraSmallCollapse) {
+                    classes.push('flex');
+                    classes.push('content-center');
+                    classes.push('py-3');
+                }
             } else if (this.theme == 'white') {
                 classes.push('border-2');
                 classes.push('border-white');
@@ -112,7 +122,18 @@ export default {
             }
 
             return classes;
-        }
+        },
+        $_rightIconClass(): string[] {
+            let classes = [this.rightIconClass];
+
+            if (this.extraSmallCollapse) {
+                let displayClass = this.collapse + ':inline-block';
+                classes.push('hidden');
+                classes.push(displayClass);
+            }
+
+            return classes;
+        },
     },
     methods: {
         click() {

@@ -31,8 +31,9 @@ import ContentSearch from '../../components/Content/Search';
 import SettingsProfileImage from '../../components/Content/SettingsProfileImage';
 import PaymentMethods from '../../components/Payments/Methods';
 import ShowsContent from '../../components/Content/Shows';
-import VideoContent from '../../components/Content/Video';
 import RelatedVideos from '../../components/Content/RelatedVideos';
+import VideoResources from '../../components/Video/Resources';
+import VideoPlayer from 'vuesora/src/components/VideoPlayer';
 
 Vue.component('content-row', ContentRow);
 Vue.component('content-catalogue', ContentCatalogue);
@@ -48,8 +49,10 @@ Vue.component('content-search', ContentSearch);
 Vue.component('settings-profile-image', SettingsProfileImage);
 Vue.component('payment-methods', PaymentMethods);
 Vue.component('shows-content', ShowsContent);
-Vue.component('video-content', VideoContent);
 Vue.component('related-videos', RelatedVideos);
+Vue.component('video-resources', VideoResources);
+
+Vue.use(VideoPlayer);
 
 const app = new Vue({
     el: '#vue-app'

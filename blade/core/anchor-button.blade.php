@@ -67,6 +67,10 @@
         $_inputClasses[] = 'hover-trans';
         $_inputClasses[] = 'hover:bg-light-gray';
         $_inputClasses[] = 'hover:border-light-gray';
+    } else if ($theme == 'white-wire') {
+        $_inputClasses[] = 'border-2';
+        $_inputClasses[] = 'border-white';
+        $_inputClasses[] = 'text-white';
     } else {
         // theme gray, outlined
         $_inputClasses[] = 'border-2';
