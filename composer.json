@@ -12,6 +12,6 @@
     "minimum-stability": "dev",
     "require": {
         "jenssegers/blade": "dev-master",
-        "nesbot/carbon": "^2.0@dev"
+        "nesbot/carbon": "^1.0"
     }
 }
