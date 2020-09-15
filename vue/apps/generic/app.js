@@ -34,6 +34,8 @@ import ShowsContent from '../../components/Content/Shows';
 import RelatedVideos from '../../components/Content/RelatedVideos';
 import VideoResources from '../../components/Video/Resources';
 import VideoPlayer from 'vuesora/src/components/VideoPlayer';
+import MediaElement from 'vuesora/src/components/MediaElement';
+import YoutubePlayer from 'vuesora/src/components/YoutubePlayer';
 
 Vue.component('content-row', ContentRow);
 Vue.component('content-catalogue', ContentCatalogue);
@@ -53,6 +55,8 @@ Vue.component('related-videos', RelatedVideos);
 Vue.component('video-resources', VideoResources);
 
 Vue.use(VideoPlayer);
+Vue.use(MediaElement);
+Vue.use(YoutubePlayer);
 
 const app = new Vue({
     el: '#vue-app'

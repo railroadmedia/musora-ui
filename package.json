@@ -8,7 +8,8 @@
     "bdd": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css",
     "watch": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css --watch",
     "vue": "node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "vue-watch": "node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "vue-watch": "node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "build-vuesora-css": "sass node_modules/vuesora/src/assets/sass/app.scss public/build/drumeo/vuesora.css"
   },
   "keywords": [],
   "author": "",

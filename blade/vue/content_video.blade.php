@@ -2,6 +2,10 @@
 
 @section('title', 'Members - Video')
 
+@push('styles')
+    <link rel="stylesheet" href="/build/drumeo/vuesora.css">
+@endpush
+
 @php
 // <!--
 $rc = <<<'EOT'
@@ -14725,7 +14729,20 @@ $lessonContent = [
     'userId' => '150259',
     'videoId' => '444685587',
     'castTitle' => 'Kick Drum Tuning',
+    'progressState' => 'started',
+    'videoLength' => 207,
+    'like_count' => 13,
+    'is_liked_by_current_user' => false,
 ];
+$lessonContentYoutube = [
+    'videoId' => '_Ye1nhmRMCo',
+    'currentSecond' => '0',
+    'totalDuration' => '15000',
+    'progressState' => '',
+    'contentId' => 23033,
+];
+$useLegacyPlayer = true;
+$useYoutubePlayer = true;
 @endphp
 
 @section('menu')
@@ -14736,23 +14753,68 @@ $lessonContent = [
 @section('app')
     <div class="relative" style="background-color: #191b1c;">
         <div class="mx-auto" style="max-width: 72.5rem;">
-            <video-player
-                    ref="mediaElementVueInstance"
-                    theme-color="{{ $themeColor }}"
-                    poster="{{ $lessonContent['video_poster_image_url'] ?? '' }}"
-                    :sources="{{ $lessonContent['video_playback_endpoints'] }}"
-                    hls-manifest-url="{{ $lessonContent['hlsManifestUrl'] ?? '' }}"
-                    captions="{{ $lessonContent['captions'] ?? '' }}"
-                    :chapters="{{ json_encode($lessonContent['chapters'] ?? []) }}"
-                    current-second="{{ $lessonContent['currentSecond'] }}"
-                    content-id="{{ $lessonContent['contentId'] }}"
-                    user-id="{{ $lessonContent['userId'] }}"
-                    video-id="{{ $lessonContent['videoId'] }}"
-                    cast-title="{{ $lessonContent['castTitle'] }}"
-                    :use-intersection-observer="true"
-            >
-                <div class="widescreen title text-{{ $themeColor }} mb-2"></div>
-            </video-player>
+            @if($useYoutubePlayer)
+                <transition appear name="fade">
+                    <youtube-player
+                            ref="mediaElementVueInstance"
+                            video-id="{{ $lessonContentYoutube['videoId'] }}"
+                            :current-second="{{ $lessonContentYoutube['currentSecond'] }}"
+                            :total-duration="{{ $lessonContentYoutube['totalDuration'] }}"
+                            progress-state="{{ $lessonContentYoutube['progressState'] }}"
+                            content-id="{{ $lessonContentYoutube['contentId'] }}"
+                            :use-intersection-observer="true"
+                    >
+                    </youtube-player>
+                </transition>
+            @else
+                @if($useLegacyPlayer)
+                    <transition appear name="fade">
+                        <video-media-element
+                                ref="mediaElementVueInstance"
+                                element-id="lessonPlayer"
+                                brand="drumeo"
+                                theme-color="{{ $themeColor }}"
+                                poster="{{ $lessonContent['video_poster_image_url'] ?? '' }}"
+                                :sources="{{ $lessonContent['video_playback_endpoints'] }}"
+                                hls-manifest-url="{{ $lessonContent['hlsManifestUrl'] ?? '' }}"
+                                video-id="{{ $lessonContent['videoId'] }}"
+                                content-id="{{ $lessonContent['contentId'] }}"
+                                current-second="{{ $lessonContent['currentSecond'] }}"
+                                progress-state="{{ $lessonContent['progressState'] }}"
+                                video-length="{{ $lessonContent['videoLength'] }}"
+                                :chapters="{{ json_encode($lessonContent['chapters'] ?? []) }}"
+                                user-id="{{ $lessonContent['userId'] }}"
+                                like-count="{{ $lessonContent['like_count'] ?? 0 }}"
+                                :is-liked="{{ json_encode($lessonContent['is_liked_by_current_user'] ?? false) }}"
+                                :check-for-timecode="true"
+                        >
+                            <div class="vs-widescreen vs-title vs-text-{{ $themeColor }}">
+                                <i class="fas fa-spinner fa-spin vs-absolute-center"></i>
+                            </div>
+                        </video-media-element>
+                    </transition>
+                @else
+                    <transition appear name="fade">
+                        <video-player
+                                ref="mediaElementVueInstance"
+                                theme-color="{{ $themeColor }}"
+                                poster="{{ $lessonContent['video_poster_image_url'] ?? '' }}"
+                                :sources="{{ $lessonContent['video_playback_endpoints'] }}"
+                                hls-manifest-url="{{ $lessonContent['hlsManifestUrl'] ?? '' }}"
+                                captions="{{ $lessonContent['captions'] ?? '' }}"
+                                :chapters="{{ json_encode($lessonContent['chapters'] ?? []) }}"
+                                current-second="{{ $lessonContent['currentSecond'] }}"
+                                content-id="{{ $lessonContent['contentId'] }}"
+                                user-id="{{ $lessonContent['userId'] }}"
+                                video-id="{{ $lessonContent['videoId'] }}"
+                                cast-title="{{ $lessonContent['castTitle'] }}"
+                                :use-intersection-observer="true"
+                        >
+                            <div class="widescreen title text-{{ $themeColor }} mb-2"></div>
+                        </video-player>
+                    </transition>
+                @endif
+            @endif
             <video-resources></video-resources>
         </div>
         
