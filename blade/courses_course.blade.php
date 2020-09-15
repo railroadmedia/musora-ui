@@ -1,10 +1,10 @@
-@extends('layouts.members')
+@extends('musora-ui::layouts.members')
 
-@section('title', 'Members - Course')
+@section('musora-ui::title', 'Members - Course')
 
-@section('menu')
-    @include('sections.menu', ['active' => 'edge'])
-    @include('sections.edge-nav', ['active' => 'courses'])
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu', ['active' => 'edge'])
+    @include('musora-ui::sections.edge-nav', ['active' => 'courses'])
 @endsection
 
 @php
@@ -84,7 +84,7 @@ $videos = [
 ];
 @endphp
 
-@section('content')
+@section('musora-ui::content')
     @include('sections.course-description', $description)
     @include(
         'sections.course-data',

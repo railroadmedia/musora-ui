@@ -1,8 +1,8 @@
-@extends('vue.public_layout')
+@extends('musora-ui::vue.public_layout')
 
-@section('title', 'Create Account - Profile Name')
+@section('musora-ui::title', 'Create Account - Profile Name')
 
-@section('app')
+@section('musora-ui::app')
     <div class="">
         <h2 class="font-extrabold text-center uppercase mb-8">choose your profile image</h2>
         <div class="text-center">
@@ -15,7 +15,7 @@
     </div>
 @endsection
 
-@section('footer')
+@section('musora-ui::footer')
 <div class="bg-white flex flex-wrap p-6 uppercase mt-8 lg:mt-0">
     <div class="hide lg:w-1/6"></div>
     <div class="w-full lg:w-4/6">
@@ -37,7 +37,7 @@
     </div>
     <div class="w-full text-center pt-6 lg:w-1/6 lg:text-right lg:pt-0">
         <div class="flex justify-center lg:justify-end leading-none">
-            @component('core.anchor-button', [
+            @component('musora-ui::core.anchor-button', [
                 'labelText' => 'skip',
                 'href' => '#',
                 'theme' => 'gray'

@@ -244,5 +244,5 @@ $trialMembershipProductIds = [];
         @endif
     </div>
 
-    @include('sections.profile.membership-modals')
+    @include('musora-ui::sections.profile.membership-modals')
 </div>

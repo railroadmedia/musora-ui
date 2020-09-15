@@ -7,6 +7,7 @@ chmod('../cache', 777);
 use Jenssegers\Blade\Blade;
 
 $blade = new Blade('../blade', '../cache');
+$blade->addNamespace('musora-ui', '../blade');
 
 $filePath = substr($_SERVER['REQUEST_URI'], 11);
 $filePathDots = str_replace('/', '.', $filePath);

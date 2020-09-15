@@ -1,9 +1,9 @@
-@extends('layouts.members')
+@extends('musora-ui::layouts.members')
 
-@section('title', 'Members - Packs')
+@section('musora-ui::title', 'Members - Packs')
 
-@section('menu')
-    @include('sections.menu', ['active' => 'packs'])
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu', ['active' => 'packs'])
     <div id="menu-spacer"></div>
 @endsection
 
@@ -87,8 +87,8 @@ $packs = [
 ];
 @endphp
 
-@section('content')
-    @include('sections.user-stats')
+@section('musora-ui::content')
+    @include('musora-ui::sections.user-stats')
 
     <h1 class="container w-full mx-auto px-3 pt-6 font-extrabold text-4xl">Packs</h1>
 

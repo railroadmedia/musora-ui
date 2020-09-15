@@ -1,11 +1,11 @@
 @extends('layouts.public')
 
-@section('title', 'Login')
+@section('musora-ui::title', 'Login')
 
-@section('content')
+@section('musora-ui::content')
 <div class="m-10 w-full">
     <div class="mb-2">
-        @component('core.text-input', [
+        @component('musora-ui::core.text-input', [
             'labelText' => 'Email Address',
             'inputId' => 'login-email',
             'tabIndex' => 1,
@@ -14,7 +14,7 @@
         @endcomponent
     </div>
     <div class="">
-        @component('core.text-input', [
+        @component('musora-ui::core.text-input', [
             'labelText' => 'Password',
             'inputId' => 'login-password',
             'type' => 'password',
@@ -24,7 +24,7 @@
         @endcomponent
     </div>
     <div class="my-4">
-        @component('core.button', [
+        @component('musora-ui::core.button', [
             'labelText' => 'sign in',
             'type' => 'submit',
             'tabIndex' => 3,

@@ -1,12 +1,12 @@
 @extends('layouts.public')
 
-@section('title', 'Reset')
+@section('musora-ui::title', 'Reset')
 
-@section('content')
+@section('musora-ui::content')
 <div class="m-10 w-full">
     <p class="text-medium-gray text-sm">Please enter your email address and we will send you instructions to reset your password.</p>
     <div class="mt-3">
-        @component('core.text-input', [
+        @component('musora-ui::core.text-input', [
             'labelText' => 'Email Address',
             'inputId' => 'login-email',
             'tabIndex' => 1,
@@ -15,7 +15,7 @@
         @endcomponent
     </div>
     <div class="mt-4">
-        @component('core.button', [
+        @component('musora-ui::core.button', [
             'labelText' => 'get new password',
             'fullWidth' => 'true',
             'type' => 'submit',

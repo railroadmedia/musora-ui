@@ -1,9 +1,9 @@
-@extends('vue.layout')
+@extends('musora-ui::vue.layout')
 
-@section('title', 'Members - Profile')
+@section('musora-ui::title', 'Members - Profile')
 
-@section('menu')
-    @include('sections.menu')
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu')
     @include('sections.profile-nav', ['active' => 'settings'])
 @endsection
 
@@ -61,7 +61,7 @@ $inputErrors = [
 @endphp
 
 
-@section('app')
+@section('musora-ui::app')
     <div class="mx-auto w-full container pt-8 px-3 sm:pr-0 sm:pl-3 h-full flex flex-col sm:flex-row items-stretch">
         @include('sections.profile-sidenav', ['active' => 'profile'])
 

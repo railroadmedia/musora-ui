@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="flex-none self-center">
-            @component('core.anchor-button', [
+            @component('musora-ui::core.anchor-button', [
                 'labelText' => 'next lesson',
                 'theme' => 'reversed',
                 'href' => $nextUrl,

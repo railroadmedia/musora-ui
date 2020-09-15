@@ -1,12 +1,12 @@
 @extends('layouts.public')
 
-@section('content')
+@section('musora-ui::content')
     <div id="vue-app" class="my-10 sm:mx-10 w-full">
-        @yield('app')
+        @yield('musora-ui::app')
     </div>
 @endsection
 
 
-@push('scripts')
+@push('musora-ui::scripts')
     <script type="text/javascript" src="../../js/generic/app.js"></script>
 @endpush

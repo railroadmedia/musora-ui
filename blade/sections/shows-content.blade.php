@@ -5,7 +5,7 @@
 
     <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
         @foreach ($shows as $show)
-            @component('core.show-card', $show + ['skipStyle' => true])
+            @component('musora-ui::core.show-card', $show + ['skipStyle' => true])
             @endcomponent
         @endforeach
     </div>

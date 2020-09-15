@@ -5,7 +5,7 @@
         </div>
         <div class="flex py-2">
             @component(
-                'core.toggle-input',
+                'musora-ui::core.toggle-input',
                 [
                     'labelText' => 'Weekly Community Updates.',
                     'inputId' => 'notify_weekly_update',
@@ -18,7 +18,7 @@
         <!-- todo - add user edge membership condition to display the following settings -->
         <div class="flex py-2">
             @component(
-                'core.toggle-input',
+                'musora-ui::core.toggle-input',
                 [
                     'labelText' => 'When a user replies to my comment.',
                     'inputId' => 'notify_on_lesson_comment_reply',
@@ -31,7 +31,7 @@
         </div>
         <div class="flex py-2">
             @component(
-                'core.toggle-input',
+                'musora-ui::core.toggle-input',
                 [
                     'labelText' => 'When a user likes my comment.',
                     'inputId' => 'notify_on_lesson_comment_like',
@@ -44,7 +44,7 @@
         </div>
         <div class="flex py-2">
             @component(
-                'core.toggle-input',
+                'musora-ui::core.toggle-input',
                 [
                     'labelText' => 'When a user replies to my forum posts',
                     'inputId' => 'notify_on_forum_followed_thread_reply',
@@ -57,7 +57,7 @@
         </div>
         <div class="flex py-2">
             @component(
-                'core.toggle-input',
+                'musora-ui::core.toggle-input',
                 [
                     'labelText' => 'When a user likes my forum posts',
                     'inputId' => 'notify_on_forum_post_like',
@@ -80,7 +80,7 @@
         </div>
         <div class="flex py-2">
             @component(
-                'core.toggle-input',
+                'musora-ui::core.toggle-input',
                 [
                     'labelText' => 'Use legacy video player.',
                     'inputId' => 'use_legacy_video_player',
@@ -93,7 +93,7 @@
         </div>
         <div class="flex pt-14 pb-2 items-center space-x-3">
             <div>
-                @component('core.button', [
+                @component('musora-ui::core.button', [
                     'labelText' => 'save',
                     'type' => 'submit',
                     'extraSmallCollapse' => true,
@@ -102,7 +102,7 @@
                 @endcomponent
             </div>
             <div>
-                @component('core.anchor-button', [
+                @component('musora-ui::core.anchor-button', [
 
                     'labelText' => 'cancel',
                     'type' => 'submit',

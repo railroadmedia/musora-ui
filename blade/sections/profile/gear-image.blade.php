@@ -2,7 +2,7 @@
     <div class="flex items-center py-1">
         <h2 class="flex-1 leading-none text-lg sm:text-2xl font-bold capitalize">{{ $data['title'] }}</h2>
         @component(
-            'core.anchor-button',
+            'musora-ui::core.anchor-button',
             [
                 'id' => 'edit-gear-image',
                 'labelText' => 'edit',
@@ -35,5 +35,5 @@
             </div>
         </div>
     </div>
-    @include('sections.profile.gear-image-modal')
+    @include('musora-ui::sections.profile.gear-image-modal')
 </div>

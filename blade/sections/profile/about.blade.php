@@ -6,7 +6,7 @@ $countries = ['United States', 'Canada', 'United Kingdom'];
     <div class="flex items-center py-1">
         <h2 class="flex-1 leading-none text-lg sm:text-2xl font-bold capitalize">{{ $data['title'] }}</h2>
         @component(
-            'core.anchor-button',
+            'musora-ui::core.anchor-button',
             [
                 'labelText' => 'edit',
                 'theme' => 'black',
@@ -35,7 +35,7 @@ $countries = ['United States', 'Canada', 'United Kingdom'];
     </div>
 
     @component(
-        'core.modal-form',
+        'musora-ui::core.modal-form',
         [
             'id' => 'modal-settings-about',
             'title' => 'Edit: About',
@@ -44,7 +44,7 @@ $countries = ['United States', 'Canada', 'United Kingdom'];
     )
         <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-3">
             <div class="flex-1">
-                @component('core.text-input', [
+                @component('musora-ui::core.text-input', [
                     'labelText' => 'First Name',
                     'inputName' => 'first_name',
                     'inputValue' => $data['inputs']['first_name'],
@@ -54,7 +54,7 @@ $countries = ['United States', 'Canada', 'United Kingdom'];
                 @endcomponent
             </div>
             <div class="flex-1">
-                @component('core.text-input', [
+                @component('musora-ui::core.text-input', [
                     'labelText' => 'Last Name',
                     'inputName' => 'last_name',
                     'inputValue' => $data['inputs']['last_name'],
@@ -66,7 +66,7 @@ $countries = ['United States', 'Canada', 'United Kingdom'];
         </div>
         <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-3">
             <div class="flex-1">
-                @component('core.select-input', [
+                @component('musora-ui::core.select-input', [
                     'labelText' => 'Country',
                     'inputName' => 'country',
                     'inputValue' => $data['inputs']['country'],
@@ -77,7 +77,7 @@ $countries = ['United States', 'Canada', 'United Kingdom'];
                 @endcomponent
             </div>
             <div class="flex-1">
-                @component('core.flatpickr-input', [
+                @component('musora-ui::core.flatpickr-input', [
                     'labelText' => 'Birthday',
                     'inputName' => 'birthday',
                     'inputValue' => $data['inputs']['birthday'],
@@ -89,7 +89,7 @@ $countries = ['United States', 'Canada', 'United Kingdom'];
             </div>
         </div>
         <div>
-            @component('core.textarea-input', [
+            @component('musora-ui::core.textarea-input', [
                 'labelText' => 'Biography',
                 'inputName' => 'biography',
                 'inputValue' => $data['inputs']['biography'],

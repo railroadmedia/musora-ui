@@ -1,10 +1,10 @@
-@extends('vue.layout')
+@extends('musora-ui::vue.layout')
 
-@section('title', 'Members - Edge')
+@section('musora-ui::title', 'Members - Edge')
 
-@section('menu')
-    @include('sections.menu', ['active' => 'edge'])
-    @include('sections.edge-nav')
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu', ['active' => 'edge'])
+    @include('musora-ui::sections.edge-nav')
 @endsection
 
 @php
@@ -102,8 +102,8 @@ EOT;
 // -->
 @endphp
 
-@section('app')
-    @include('sections.user-stats')
+@section('musora-ui::app')
+    @include('musora-ui::sections.user-stats')
 
     <div class="mx-auto w-full container px-3 h-full pt-4">
         <div class="w-full mb-6 flex flex-row space-x-3 mt-6 uppercase">

@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="flex-none mt-6 mb-4 sm:my-0 sm:ml-4">
-                        @component('core.anchor-button', $button)
+                        @component('musora-ui::core.anchor-button', $button)
                         @endcomponent
                     </div>
                 </div>

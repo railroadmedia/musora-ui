@@ -1,10 +1,10 @@
-@extends('layouts.members')
+@extends('musora-ui::layouts.members')
 
-@section('title', 'Members - Drumeo Method')
+@section('musora-ui::title', 'Members - Drumeo Method')
 
-@section('menu')
-    @include('sections.menu', ['active' => 'edge'])
-    @include('sections.edge-nav', ['active' => 'method'])
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu', ['active' => 'edge'])
+    @include('musora-ui::sections.edge-nav', ['active' => 'method'])
 @endsection
 
 @php
@@ -82,7 +82,7 @@ $videos = [
 ];
 @endphp
 
-@section('content')
+@section('musora-ui::content')
     @include('sections.course-data', ['data' => $data, 'description' => $description])
 
     @include('sections.course-content', ['videos' => $videos])

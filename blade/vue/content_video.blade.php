@@ -1,8 +1,8 @@
-@extends('vue.layout')
+@extends('musora-ui::vue.layout')
 
-@section('title', 'Members - Video')
+@section('musora-ui::title', 'Members - Video')
 
-@push('styles')
+@push('musora-ui::styles')
     <link rel="stylesheet" href="/build/drumeo/vuesora.css">
 @endpush
 
@@ -14745,12 +14745,12 @@ $useLegacyPlayer = true;
 $useYoutubePlayer = true;
 @endphp
 
-@section('menu')
-    @include('sections.menu', ['active' => 'edge'])
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu', ['active' => 'edge'])
     @include('sections.breadcrumbs-nav', $breadcrumbs)
 @endsection
 
-@section('app')
+@section('musora-ui::app')
     <div class="relative" style="background-color: #191b1c;">
         <div class="mx-auto" style="max-width: 72.5rem;">
             @if($useYoutubePlayer)

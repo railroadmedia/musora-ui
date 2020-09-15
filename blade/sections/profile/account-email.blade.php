@@ -2,7 +2,7 @@
     <div class="flex items-center py-1">
         <h2 class="flex-1 leading-none text-lg md:text-2xl font-bold capitalize">{{ $data['title'] }}</h2>
         @component(
-            'core.anchor-button',
+            'musora-ui::core.anchor-button',
             [
                 'labelText' => 'edit',
                 'theme' => 'black',
@@ -20,7 +20,7 @@
     </div>
 
     @component(
-        'core.modal-form',
+        'musora-ui::core.modal-form',
         [
             'id' => 'modal-account-email',
             'title' => 'Edit: Login Email',
@@ -28,7 +28,7 @@
         ]
     )
         <div class="flex-1">
-            @component('core.text-input', [
+            @component('musora-ui::core.text-input', [
                 'labelText' => 'Login Email',
                 'inputName' => 'email',
                 'inputType' => 'email',
@@ -39,7 +39,7 @@
             @endcomponent
         </div>
         <div class="flex-1">
-            @component('core.text-input', [
+            @component('musora-ui::core.text-input', [
                 'labelText' => 'Password',
                 'inputName' => 'user_password',
                 'inputType' => 'password',

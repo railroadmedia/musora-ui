@@ -6,7 +6,7 @@ $years = array_reverse(range(1900, 2020));
     <div class="flex items-center py-1">
         <h2 class="flex-1 leading-none text-lg sm:text-2xl font-bold capitalize">{{ $data['title'] }}</h2>
         @component(
-            'core.anchor-button',
+            'musora-ui::core.anchor-button',
             [
                 'id' => 'edit-gear',
                 'labelText' => 'edit',
@@ -40,7 +40,7 @@ $years = array_reverse(range(1900, 2020));
     </div>
 
     @component(
-        'core.modal-form',
+        'musora-ui::core.modal-form',
         [
             'id' => 'modal-settings-gear',
             'title' => 'Edit: My Gear',
@@ -49,7 +49,7 @@ $years = array_reverse(range(1900, 2020));
     )
         <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-3">
             <div class="flex-1">
-                @component('core.select-input', [
+                @component('musora-ui::core.select-input', [
                     'labelText' => 'Drumming Since',
                     'inputName' => 'drums_playing_since_year',
                     'inputValue' => $data['inputs']['drums_playing_since_year'],
@@ -62,7 +62,7 @@ $years = array_reverse(range(1900, 2020));
         </div>
         <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-3">
             <div class="flex-1">
-                @component('core.text-input', [
+                @component('musora-ui::core.text-input', [
                     'labelText' => 'Drum Set',
                     'inputName' => 'drums_gear_set_brands',
                     'inputValue' => $data['inputs']['drums_gear_set_brands'],
@@ -72,7 +72,7 @@ $years = array_reverse(range(1900, 2020));
                 @endcomponent
             </div>
             <div class="flex-1">
-                @component('core.text-input', [
+                @component('musora-ui::core.text-input', [
                     'labelText' => 'Cymbals',
                     'inputName' => 'drums_gear_cymbal_brands',
                     'inputValue' => $data['inputs']['drums_gear_cymbal_brands'],
@@ -84,7 +84,7 @@ $years = array_reverse(range(1900, 2020));
         </div>
         <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:space-x-3">
             <div class="flex-1">
-                @component('core.text-input', [
+                @component('musora-ui::core.text-input', [
                     'labelText' => 'Hardware',
                     'inputName' => 'drums_gear_hardware_brands',
                     'inputValue' => $data['inputs']['drums_gear_hardware_brands'],
@@ -94,7 +94,7 @@ $years = array_reverse(range(1900, 2020));
                 @endcomponent
             </div>
             <div class="flex-1">
-                @component('core.text-input', [
+                @component('musora-ui::core.text-input', [
                     'labelText' => 'Drumsticks',
                     'inputName' => 'drums_gear_stick_brands',
                     'inputValue' => $data['inputs']['drums_gear_stick_brands'],

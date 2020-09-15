@@ -1,13 +1,13 @@
-@extends('vue.layout')
+@extends('musora-ui::vue.layout')
 
-@section('title', 'Members - Payments')
+@section('musora-ui::title', 'Members - Payments')
 
-@section('menu')
-    @include('sections.menu')
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu')
     @include('sections.profile-nav', ['active' => 'settings'])
 @endsection
 
-@push('styles')
+@push('musora-ui::styles')
 <script src="https://js.stripe.com/v3/"></script>
 @endpush
 
@@ -389,7 +389,7 @@ EOC;
 // -->
 @endphp
 
-@section('app')
+@section('musora-ui::app')
     <div class="mx-auto w-full container pt-8 px-3 sm:pr-0 sm:pl-3 h-full flex flex-col sm:flex-row">
         @include('sections.profile-sidenav', ['active' => 'payments'])
 

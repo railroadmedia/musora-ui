@@ -1,14 +1,14 @@
 @extends('layouts.public')
 
-@section('title', 'Create Account - Profile Name')
+@section('musora-ui::title', 'Create Account - Profile Name')
 
-@section('content')
+@section('musora-ui::content')
 <div class="m-10 w-full">
     <div class="text-center mb-6">
         <p class="font-roboto">You are ready to get started! We've added some lessons to your list - we suggest starting with the "How To Use Drumeo Edge" course.</p>
     </div>
     <div class="sm:px-8 sm:py-4">
-        @component('core.video-card', [
+        @component('musora-ui::core.video-card', [
             'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
             'teacherName' => 'teacher name',
             'icon' => 'icon-courses',
@@ -22,7 +22,7 @@
 </div>
 @endsection
 
-@section('footer')
+@section('musora-ui::footer')
 <div class="bg-white flex flex-wrap p-6 uppercase mt-8 lg:mt-0">
         <div class="hide lg:w-1/6"></div>
         <div class="w-full lg:w-4/6">

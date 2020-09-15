@@ -1,9 +1,9 @@
-@extends('vue.layout')
+@extends('musora-ui::vue.layout')
 
-@section('title', 'Members - Profile My List')
+@section('musora-ui::title', 'Members - Profile My List')
 
-@section('menu')
-    @include('sections.menu')
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu')
     @include('sections.profile-nav', ['active' => 'my list'])
 @endsection
 
@@ -4625,7 +4625,7 @@ EOT;
 // -->
 @endphp
 
-@section('app')
+@section('musora-ui::app')
     <my-list-content
         preload-data='{{ $rc1 }}'
         topics-filters-title='choose your list'

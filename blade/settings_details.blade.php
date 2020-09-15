@@ -1,9 +1,9 @@
-@extends('layouts.members')
+@extends('musora-ui::layouts.members')
 
-@section('title', 'Members - Account Details')
+@section('musora-ui::title', 'Members - Account Details')
 
-@section('menu')
-    @include('sections.menu')
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu')
     @include('sections.profile-nav', ['active' => 'settings'])
 @endsection
 
@@ -14,7 +14,7 @@ $userData = [
 ];
 @endphp
 
-@section('content')
+@section('musora-ui::content')
     <div class="mx-auto w-full container pt-8 sm:pl-3 h-full flex flex-col sm:flex-row">
         @include('sections.profile-sidenav', ['active' => 'account details'])
 

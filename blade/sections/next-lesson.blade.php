@@ -10,6 +10,6 @@
 @endphp
 
 <div class="">
-    @component('core.next-lesson-card', $nextLesson)
+    @component('musora-ui::core.next-lesson-card', $nextLesson)
     @endcomponent
 </div>

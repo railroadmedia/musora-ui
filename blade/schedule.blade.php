@@ -1,10 +1,10 @@
-@extends('layouts.members')
+@extends('musora-ui::layouts.members')
 
-@section('title', 'Members - Live')
+@section('musora-ui::title', 'Members - Live')
 
-@section('menu')
-    @include('sections.menu', ['active' => 'edge'])
-    @include('sections.edge-nav', ['active' => 'live'])
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu', ['active' => 'edge'])
+    @include('musora-ui::sections.edge-nav', ['active' => 'live'])
 @endsection
 
 @php
@@ -94,14 +94,14 @@ $contentData = [
 $lastMonth = null;
 @endphp
 
-@section('content')
-    @include('sections.user-stats')
+@section('musora-ui::content')
+    @include('musora-ui::sections.user-stats')
 
     <div class="container w-full mx-auto px-3 pt-6 flex justify-between items-center">
         <h1 class="font-extrabold text-4xl">Live Schedule</h1>
         <div>
             @component(
-                'core.anchor-button',
+                'musora-ui::core.anchor-button',
                 [
                     'labelText' => 'subscribe to calendar',
                     'theme' => 'blue-reversed',
@@ -130,7 +130,7 @@ $lastMonth = null;
         </div>
         <div class="py-4 flex items-center justify-center">
             @component(
-                'core.anchor-button',
+                'musora-ui::core.anchor-button',
                 [
                     'labelText' => 'print schedule',
                     'theme' => 'blue',

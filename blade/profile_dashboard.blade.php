@@ -1,9 +1,9 @@
-@extends('layouts.members')
+@extends('musora-ui::layouts.members')
 
-@section('title', 'Members - Profile Dashboard')
+@section('musora-ui::title', 'Members - Profile Dashboard')
 
-@section('menu')
-    @include('sections.menu')
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu')
     @include('sections.profile-nav', ['active' => 'dashboard'])
 @endsection
 
@@ -129,9 +129,9 @@ $videosComplete = [
 ];
 @endphp
 
-@section('content')
-    @include('sections.user-stats-short')
-    @include('sections.user-stats-details')
+@section('musora-ui::content')
+    @include('musora-ui::sections.user-stats-short')
+    @include('musora-ui::sections.user-stats-details')
 
     <div class="mx-auto w-full container px-3 h-full">
         @include(

@@ -1,5 +1,5 @@
 @component(
-    'core.modal',
+    'musora-ui::core.modal',
     [
         'id' => 'modal-post-90-day-cancel-letter',
     ]
@@ -72,7 +72,7 @@
 @endcomponent
 
 @component(
-    'core.modal',
+    'musora-ui::core.modal',
     [
         'id' => 'modal-how-can-we-help',
     ]
@@ -143,7 +143,7 @@
 @endcomponent
 
 @component(
-    'core.modal',
+    'musora-ui::core.modal',
     [
         'id' => 'modal-extend-trial-14-days',
     ]
@@ -170,7 +170,7 @@
 @endcomponent
 
 @component(
-    'core.modal',
+    'musora-ui::core.modal',
     [
         'id' => 'modal-free-30-days',
     ]
@@ -207,7 +207,7 @@
 @endcomponent
 
 @component(
-    'core.modal',
+    'musora-ui::core.modal',
     [
         'id' => 'modal-upgrade-to-annual',
     ]

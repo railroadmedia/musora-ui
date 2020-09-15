@@ -1,6 +1,6 @@
-@extends('vue.layout')
+@extends('musora-ui::vue.layout')
 
-@section('title', 'Members - Song')
+@section('musora-ui::title', 'Members - Song')
 
 @php
 // <!--
@@ -10561,12 +10561,12 @@ $breadcrumbs = [
 ];
 @endphp
 
-@section('menu')
-    @include('sections.menu', ['active' => 'edge'])
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu', ['active' => 'edge'])
     @include('sections.breadcrumbs-nav', $breadcrumbs)
 @endsection
 
-@section('app')
+@section('musora-ui::app')
     <div class="mx-auto w-full container relative px-3 pb-24">
         <div class="lg:mr-64">
             <song-content

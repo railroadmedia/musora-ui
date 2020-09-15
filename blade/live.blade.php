@@ -1,10 +1,10 @@
-@extends('layouts.members')
+@extends('musora-ui::layouts.members')
 
-@section('title', 'Members - Live')
+@section('musora-ui::title', 'Members - Live')
 
-@section('menu')
-    @include('sections.menu', ['active' => 'edge'])
-    @include('sections.edge-nav', ['active' => 'live'])
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu', ['active' => 'edge'])
+    @include('musora-ui::sections.edge-nav', ['active' => 'live'])
 @endsection
 
 @php
@@ -64,8 +64,8 @@ $contentData = [
 $lastMonth = null;
 @endphp
 
-@section('content')
-    @include('sections.user-stats')
+@section('musora-ui::content')
+    @include('musora-ui::sections.user-stats')
 
     <h1 class="container w-full mx-auto px-3 pt-6 font-extrabold text-4xl">Live Schedule</h1>
 

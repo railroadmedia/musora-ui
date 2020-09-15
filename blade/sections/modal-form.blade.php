@@ -7,7 +7,7 @@
         <div class="px-6">
             @foreach ($items as $item)
                 <div>
-                    @component('core.text-input', [
+                    @component('musora-ui::core.text-input', [
                         'inputName' => $item['name'],
                         'labelText' => $item['label'],
                         'inputValue' => $item['value'],

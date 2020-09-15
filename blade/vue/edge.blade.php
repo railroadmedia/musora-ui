@@ -1,10 +1,10 @@
-@extends('vue.layout')
+@extends('musora-ui::vue.layout')
 
-@section('title', 'Members - Edge')
+@section('musora-ui::title', 'Members - Edge')
 
-@section('menu')
-    @include('sections.menu', ['active' => 'edge'])
-    @include('sections.edge-nav')
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu', ['active' => 'edge'])
+    @include('musora-ui::sections.edge-nav')
 @endsection
 
 @php
@@ -14423,12 +14423,12 @@ EOT;
 // -->
 @endphp
 
-@section('app')
-    @include('sections.user-stats')
+@section('musora-ui::app')
+    @include('musora-ui::sections.user-stats')
 
     <div class="bg-blue-100 py-6">
         <div class="mx-auto w-full container px-3">
-            @include('sections.next-lesson')
+            @include('musora-ui::sections.next-lesson')
         </div>
     </div>
 

@@ -1,10 +1,10 @@
-@extends('vue.layout')
+@extends('musora-ui::vue.layout')
 
-@section('title', 'Members - Songs')
+@section('musora-ui::title', 'Members - Songs')
 
-@section('menu')
-    @include('sections.menu', ['active' => 'edge'])
-    @include('sections.edge-nav', ['active' => 'songs'])
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu', ['active' => 'edge'])
+    @include('musora-ui::sections.edge-nav', ['active' => 'songs'])
 @endsection
 
 @php
@@ -8868,8 +8868,8 @@ EOT;
 // -->
 @endphp
 
-@section('app')
-    @include('sections.user-stats')
+@section('musora-ui::app')
+    @include('musora-ui::sections.user-stats')
 
     <h1 class="container w-full mx-auto px-3 pt-6 font-extrabold text-4xl">Songs</h1>
 

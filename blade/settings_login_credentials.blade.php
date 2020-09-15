@@ -1,9 +1,9 @@
-@extends('layouts.members')
+@extends('musora-ui::layouts.members')
 
-@section('title', 'Members - Login Credentials')
+@section('musora-ui::title', 'Members - Login Credentials')
 
-@section('menu')
-    @include('sections.menu')
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu')
     @include('sections.profile-nav', ['active' => 'settings'])
 @endsection
 
@@ -29,7 +29,7 @@ $inputErrors = [
 ];
 @endphp
 
-@section('content')
+@section('musora-ui::content')
     <div class="mx-auto w-full container pt-8 sm:pl-3 h-full flex flex-col sm:flex-row">
         @include('sections.profile-sidenav', ['active' => 'login credentials'])
 

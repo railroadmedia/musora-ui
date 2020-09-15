@@ -2,7 +2,7 @@
     <div class="flex items-center py-1">
         <h2 class="flex-1 leading-none text-lg sm:text-2xl font-bold capitalize">{{ $data['title'] }}</h2>
         @component(
-            'core.anchor-button',
+            'musora-ui::core.anchor-button',
             [
                 'id' => 'edit-display-name',
                 'labelText' => 'edit',
@@ -21,7 +21,7 @@
     <div class="text-xs text-medium-gray italic">This is the name other users will see on your profile, comments and forum posts.</div>
 
     @component(
-        'core.modal-form',
+        'musora-ui::core.modal-form',
         [
             'id' => 'modal-settings-display-name',
             'title' => 'Edit: Display Name',
@@ -29,7 +29,7 @@
         ]
     )
         <div>
-            @component('core.text-input', [
+            @component('musora-ui::core.text-input', [
                 'labelText' => 'Display Name',
                 'inputName' => 'display_name',
                 'inputValue' => $data['inputs']['display_name'],

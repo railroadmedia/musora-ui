@@ -1,9 +1,9 @@
-@extends('vue.layout')
+@extends('musora-ui::vue.layout')
 
-@section('title', 'Members - Search')
+@section('musora-ui::title', 'Members - Search')
 
-@section('menu')
-    @include('sections.menu', ['active' => 'edge'])
+@section('musora-ui::menu')
+    @include('musora-ui::sections.menu', ['active' => 'edge'])
 @endsection
 
 @php
@@ -4624,7 +4624,7 @@ EOT;
 // -->
 @endphp
 
-@section('app')
+@section('musora-ui::app')
     <content-search
         preload-data='{{ $rc1 }}'
         use-progress-filters

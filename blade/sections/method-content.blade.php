@@ -106,7 +106,7 @@
 <div>
     @foreach ($lessons as $lesson)
         <div class="">
-            @component('core.method-card', $lesson)
+            @component('musora-ui::core.method-card', $lesson)
             @endcomponent
         </div>
     @endforeach

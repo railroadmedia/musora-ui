@@ -3,4 +3,4 @@ $inputId = $inputId ?? 'text-input-' . md5(__FILE__ . $inputName . $inputValue .
 $classes = ['flatpickr'];
 @endphp
 
-@include('core.text-input')
+@include('musora-ui::musora-ui::core.text-input')

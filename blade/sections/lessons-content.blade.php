@@ -71,7 +71,7 @@
             <div class="">
                 @foreach ($videos as $video)
                     <div class="">
-                        @component('core.lesson-video-card', $video)
+                        @component('musora-ui::core.lesson-video-card', $video)
                         @endcomponent
                     </div>
                 @endforeach

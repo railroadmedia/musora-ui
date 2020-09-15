@@ -13,7 +13,7 @@
                 </div>
                 <div class="py-6 flex items-center space-x-3">
                     <div>
-                        @component('core.button', [
+                        @component('musora-ui::core.button', [
                             'inputId' => 'save-' . $id,
                             'labelText' => 'save',
                             'type' => 'submit',
@@ -22,7 +22,7 @@
                         @endcomponent
                     </div>
                     <div>
-                        @component('core.button', [
+                        @component('musora-ui::core.button', [
                             'inputId' => 'cancel-' . $id,
                             'classes' => ['close-modal'],
                             'labelText' => 'cancel',
