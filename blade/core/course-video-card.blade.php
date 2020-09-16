@@ -1,4 +1,4 @@
-<a href="#" class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 py-6 sm:py-2 px-3 content-card">
+<a href="/router.php/vue/content_video" class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 py-6 sm:py-2 px-3 content-card">
     <div class="flex-none font-extrabold text-xl hidden sm:block">{{ $index }}</div>
     <div class="flex-none rounded-lg overflow-hidden max-w-full sm:w-32 h-40 sm:h-20 relative">
         <img src="{{ $thumbnail }}" class="object-cover object-center w-full h-auto">

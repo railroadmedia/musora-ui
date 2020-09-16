@@ -14823,8 +14823,8 @@ $useYoutubePlayer = true;
 
     @include('sections.lesson-progress', $lessonProgress)
 
-    <div class="mx-auto w-full container relative px-3 pb-24">
-        <div class="flex flex-row">
+    <div class="mx-auto w-full container relative lg:px-3 pb-24">
+        <div class="flex flex-col-reverse md:flex-row">
             <div class="flex-1 px-3">
                 <comments-list
                     comments-data='{{ $commentsData }}'
@@ -14832,7 +14832,7 @@ $useYoutubePlayer = true;
                     :content-id='1'
                 ></comments-list>
             </div>
-            <div class="pl-3" style="width: 400px;">
+            <div class="lg:pl-3 lg:w-100">
                 <related-videos
                     preload-data='{{ $rc }}'
                 ></related-videos>

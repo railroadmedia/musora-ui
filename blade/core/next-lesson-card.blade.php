@@ -6,7 +6,7 @@
     }
 @endphp
 
-<a href="#" class="next-lesson flex flex-col sm:flex-row items-center">
+<a href="/router.php/vue/content_video" class="next-lesson flex flex-col sm:flex-row items-center">
     <div class="flex-none relative w-full h-auto sm:h-32 sm:w-48 rounded-lg overflow-hidden">
         <img src="{{ $thumbnail }}" class="object-cover object-center w-auto sm:h-full">
         <div class="absolute bottom-0 p-3 text-white font-medium uppercase text-xs w-full bg-gray bg-next-lesson-gradient">{{ $teacherName }}</div>

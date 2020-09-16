@@ -5,7 +5,7 @@
         :class="$_inputClasses"
         :tabindex="tabIndex"
         @click.stop.prevent="click()"
-    ><i class="text-lg pr-3" :class="$_iconClass" v-if="iconClass"></i>{{ label }}<i class="text-lg pl-3" :class="$_rightIconClass" v-if="rightIconClass"></i></button>
+    ><i class="text-lg" :class="$_leftIconClasses" v-if="iconClass"></i><span :class="$_labelClasses">{{ label }}</span><i class="text-lg" :class="$_rightIconClasses" v-if="rightIconClass"></i></button>
 </template>
 
 <script lang="ts">
@@ -51,7 +51,11 @@ export default {
         collapse: {
             type: String,
             default: 'sm'
-        }
+        },
+        collapseIcon: {
+            type: Boolean,
+            default: false
+        },
     },
     computed: {
         $_inputClasses(): string[] {
@@ -65,6 +69,8 @@ export default {
                 let collapseClassX = this.collapse + ':px-16';
                 let collapseClassY = this.collapse + ':py-3';
                 classes = ['py-2', 'px-6', collapseClassX, collapseClassY];
+            } else if (this.collapseIcon) {
+                classes = ['py-4', 'px-5', 'sm:py-3', 'sm:px-16'];
             }
 
             if (this.theme == 'blue') {
@@ -83,7 +89,10 @@ export default {
                 if (!this.fullWidth && !this.fixedWidth && !this.extraSmallCollapse) {
                     classes.push('flex');
                     classes.push('content-center');
-                    classes.push('py-3');
+
+                    if (!this.collapseIcon) {
+                        classes.push('py-3');
+                    }
                 }
             } else if (this.theme == 'white') {
                 classes.push('border-2');
@@ -112,9 +121,15 @@ export default {
 
             return classes;
         },
-        $_iconClass(): string[] {
+        $_leftIconClasses(): string[] {
             let classes = [this.iconClass];
 
+            if (this.collapseIcon) {
+                classes.push('sm:pr-3');
+            } else {
+                classes.push('pr-3');
+            }
+
             if (this.extraSmallCollapse) {
                 let displayClass = this.collapse + ':inline-block';
                 classes.push('hidden');
@@ -123,9 +138,15 @@ export default {
 
             return classes;
         },
-        $_rightIconClass(): string[] {
+        $_rightIconClasses(): string[] {
             let classes = [this.rightIconClass];
 
+            if (this.collapseIcon) {
+                classes.push('sm:pl-3');
+            } else {
+                classes.push('pl-3');
+            }
+
             if (this.extraSmallCollapse) {
                 let displayClass = this.collapse + ':inline-block';
                 classes.push('hidden');
@@ -134,6 +155,16 @@ export default {
 
             return classes;
         },
+        $_labelClasses(): string[] {
+            let classes = [];
+
+            if (this.collapseIcon) {
+                classes.push('hidden');
+                classes.push('sm:inline');
+            }
+
+            return classes;
+        }
     },
     methods: {
         click() {

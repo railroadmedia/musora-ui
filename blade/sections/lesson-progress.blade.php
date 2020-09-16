@@ -26,7 +26,7 @@
             @endisset
             <div id="lesson-progress-inner" class="w-full h-full px-3 lg:px-0 lg:flex-1">
                 <div class="flex h-full items-center flex-col sm:flex-row">
-                    <div class="w-full sm:flex-1 h-full rounded-full flex items-center relative">
+                    <div class="flex-none w-full sm:flex-1 rounded-full flex items-center relative h-14 sm:h-full">
                         <div class="absolute bg-blue-800 h-full w-full border-4 rounded-full border-edge-blue">
                             <div class="h-full flex items-center justify-end text-edge-blue font-semibold">
                                 <i class="fas fa-trophy"></i><span class="px-2 text-xs">{{ $xp }} XP</span>

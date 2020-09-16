@@ -1,10 +1,10 @@
 @extends('musora-ui::layouts.members')
 
-@section('musora-ui::title', 'Members - Live')
+@section('musora-ui::title', 'Members - Schedule')
 
 @section('musora-ui::menu')
     @include('musora-ui::sections.menu', ['active' => 'edge'])
-    @include('musora-ui::sections.edge-nav', ['active' => 'live'])
+    @include('musora-ui::sections.edge-nav', ['active' => 'schedule'])
 @endsection
 
 @php

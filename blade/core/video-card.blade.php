@@ -1,4 +1,4 @@
-<a href="{{ $url ?? '#' }}" class="content-card">
+<a href="{{ $url ?? '/router.php/vue/content_video' }}" class="content-card">
     <div class="relative">
         <div class="rounded-lg overflow-hidden">
             <img src="{{ $thumbnail }}">

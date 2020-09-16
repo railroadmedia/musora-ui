@@ -1,4 +1,4 @@
-<a href="#" class="hover-trans event-card flex flex-row items-center px-3 py-2 space-x-3">
+<a href="/router.php/vue/content_video" class="hover-trans event-card flex flex-row items-center px-3 py-2 space-x-3">
     <div class="event-month leading-none break-words uppercase p-1 bg-gray text-white font-bold invisible">{{ $month }}</div>
     <div class="event-date-thumbnail flex flex-col items-center px-2 py-1 rounded-md bg-black text-white text-xs">
         <div class="font-bold">{{ $date }}</div>

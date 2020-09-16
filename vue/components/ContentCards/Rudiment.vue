@@ -1,5 +1,5 @@
 <template>
-    <a href="#" class="rudiment-card flex flex-row items-center px-3 py-1">
+    <a :href="getUrl(content)" class="rudiment-card flex flex-row items-center px-3 py-1">
         <div class="rudiment-thumbnail-container rounded-lg overflow-hidden relative">
             <img :src="content.thumbnail" class="object-cover object-center w-full h-full">
             <div class="absolute bottom-0 left-0 right-0 rudiment-card-teacher-gradient text-white pl-2 pb-1 uppercase text-xs font-bold">{{ getInstructors(content) }}</div>
@@ -18,6 +18,7 @@
 <script lang="ts">
 import ContentModel from '../../models/content';
 import ContentInstructorsMixin from '../../mixins/contentInstructors';
+import ContentCardMixin from '../../mixins/contentCard';
 
 export default {
     props: {
@@ -25,7 +26,7 @@ export default {
             type: ContentModel,
         },
     },
-    mixins: [ContentInstructorsMixin],
+    mixins: [ContentInstructorsMixin, ContentCardMixin],
 };
 </script>
 
