@@ -1,15 +1,15 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import MockSetup from './mock';
+// import MockSetup from './mock';
 
 export const BASE_URL = 'http://dev.musora.com';
 
 const instance = axios.create({
   baseURL: BASE_URL
 });
-const mock = new MockAdapter(instance);
+// const mock = new MockAdapter(instance);
 
-MockSetup.setupMock(mock);
+// MockSetup.setupMock(mock);
 
 export default instance;

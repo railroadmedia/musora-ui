@@ -5,5 +5,6 @@ module.exports = (ctx) => ({
         require('tailwindcss'),
         require('postcss-nested'),
         require('autoprefixer'),
+        ctx.env === 'production' ? require('cssnano') : false
     ]
 })

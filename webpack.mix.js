@@ -7,9 +7,10 @@ require('laravel-mix-purgecss');
 mix.setPublicPath('./public');
 
 mix.js(
-    path.join(__dirname, 'vue/apps/generic/app.js'),
-    path.join(__dirname, 'public/js/generic/app.js')
+    path.join(__dirname, 'vue/apps/generic/musora-ui.js'),
+    path.join(__dirname, 'public/js/generic/musora-ui.js')
 );
+mix.extract(['vue']);
 
 mix.babel(
     [

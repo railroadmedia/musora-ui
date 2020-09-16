@@ -4,6 +4,8 @@
   "description": "Musora front end package for our UI.",
   "main": "index.js",
   "scripts": {
+    "prod": "npm run production",
+    "production": "NODE_ENV=production postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css && NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "build-drumeo-dev": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css",
     "bdd": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css",
     "watch": "postcss css/drumeo/drumeo.css -o public/build/drumeo/drumeo.css --watch",
@@ -42,6 +44,7 @@
     "@babel/preset-env": "^7.10.2",
     "axios-mock-adapter": "^1.18.1",
     "babel-loader": "^8.1.0",
+    "cssnano": "^4.1.10",
     "postcss-import": "^12.0.1",
     "postcss-nested": "^4.2.1",
     "postcss-simple-vars": "^5.0.2",
