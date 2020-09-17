@@ -3,7 +3,7 @@
 @section('musora-ui::title', 'Members - Packs')
 
 @section('musora-ui::menu')
-    @include('musora-ui::sections.hamburger_edge_nav', ['active' => 'packs'])
+    @include('musora-ui::sections.hamburger-edge-nav', ['active' => 'packs'])
     <div id="menu-spacer"></div>
 @endsection
 

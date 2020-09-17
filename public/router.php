@@ -4,7 +4,6 @@ require_once('../vendor/autoload.php');
 
 chmod('../cache', 777);
 
-use Illuminate\Support\Facades\View;
 use Jenssegers\Blade\Blade;
 use Railroad\MusoraUI\ViewComposers\DrumeoViewComposer;
 
@@ -15,22 +14,24 @@ $filePath = substr($_SERVER['REQUEST_URI'], 11);
 $filePathDots = str_replace('/', '.', $filePath);
 
 // setup view composers
-$blade->composer('musora-ui::sections.edge_nav', DrumeoViewComposer::class . '@edgeNav');
-$blade->composer('musora-ui::sections.hamburger_edge_nav', DrumeoViewComposer::class . '@hamburgerEdgeNav');
+$blade->composer('musora-ui::*', DrumeoViewComposer::class . '@assetPaths');
+
+$blade->composer('musora-ui::sections.edge-nav', DrumeoViewComposer::class . '@edgeNav');
+$blade->composer('musora-ui::sections.hamburger-edge-nav', DrumeoViewComposer::class . '@hamburgerEdgeNav');
+$blade->composer('musora-ui::sections.method-content', DrumeoViewComposer::class . '@methodContent');
+$blade->composer('musora-ui::sections.next-lesson', DrumeoViewComposer::class . '@nextLesson');
+$blade->composer('musora-ui::sections.profile-nav', DrumeoViewComposer::class . '@profileNav');
+$blade->composer('musora-ui::sections.profile-sidenav', DrumeoViewComposer::class . '@profileSideNav');
+$blade->composer('musora-ui::sections.user-about', DrumeoViewComposer::class . '@userAbout');
+$blade->composer('musora-ui::sections.user-stats', DrumeoViewComposer::class . '@userStats');
+$blade->composer('musora-ui::sections.user-stats-details', DrumeoViewComposer::class . '@userStatsDetails');
+$blade->composer('musora-ui::sections.user-stats-short', DrumeoViewComposer::class . '@userStatsShort');
 
 // render the blade if its found
 if ($blade->exists($filePathDots)) {
     $view = $blade->make(
         $filePathDots,
         [
-            // asset paths
-            'manifestJsPath' => '../../js/generic/manifest.js',
-            'vendorJsPath' => '../../js/generic/vendor.js',
-            'musoraContentJsPath' => '../../js/generic/musora-content.js',
-            'musoraLessonJsPath' => '../../js/generic/musora-lesson.js',
-            'musoraProfileJsPath' => '../../js/generic/musora-profile.js',
-            'drumeoCssPath' => '/build/drumeo/drumeo.css',
-
             // urls for links
             // vue
             'contentVideoLink' => '/router.php/vue/content_video',

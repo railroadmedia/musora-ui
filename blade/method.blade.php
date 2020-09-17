@@ -3,8 +3,8 @@
 @section('musora-ui::title', 'Members - Drumeo Method')
 
 @section('musora-ui::menu')
-    @include('musora-ui::sections.hamburger_edge_nav', ['active' => 'edge'])
-    @include('musora-ui::sections.edge_nav', ['active' => 'method'])
+    @include('musora-ui::sections.hamburger-edge-nav', ['active' => 'edge'])
+    @include('musora-ui::sections.edge-nav', ['active' => 'method'])
 @endsection
 
 @php
@@ -25,8 +25,8 @@ $lessonProgress = [
     </div>
 
     <div class="mx-auto w-full container h-full pt-4 pb-10 mb-40 sm:mb-24 sm:pb-16 md:mb-20 lg:pb-12 lg:mb-12">
-        @include('sections.method-content')
+        @include('musora-ui::sections.method-content')
     </div>
 
-    @include('sections.lesson-progress', $lessonProgress)
+    @include('musora-ui::sections.lesson-progress', $lessonProgress)
 @endsection

@@ -3,8 +3,8 @@
 @section('musora-ui::title', 'Members - Profile')
 
 @section('musora-ui::menu')
-    @include('musora-ui::sections.hamburger_edge_nav')
-    @include('musora-ui::sections.profile-nav', ['active' => 'settings'])
+    @include('musora-ui::sections.hamburger-edge-nav')
+    @include('musora-ui::musora-ui::sections.profile-nav', ['active' => 'settings'])
 @endsection
 
 @push('musora-ui::scripts')

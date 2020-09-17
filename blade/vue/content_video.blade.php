@@ -14750,7 +14750,7 @@ $useYoutubePlayer = true;
 @endphp
 
 @section('musora-ui::menu')
-    @include('musora-ui::sections.hamburger_edge_nav', ['active' => 'edge'])
+    @include('musora-ui::sections.hamburger-edge-nav', ['active' => 'edge'])
     @include('sections.breadcrumbs-nav', $breadcrumbs)
 @endsection
 
@@ -14825,7 +14825,7 @@ $useYoutubePlayer = true;
         @include('sections.content-info', ['description' => $description])
     </div>
 
-    @include('sections.lesson-progress', $lessonProgress)
+    @include('musora-ui::sections.lesson-progress', $lessonProgress)
 
     <div class="mx-auto w-full container relative lg:px-3 pb-24">
         <div class="flex flex-col-reverse md:flex-row">

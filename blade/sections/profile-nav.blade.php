@@ -1,23 +1,3 @@
-@php
-$items = [
-    [
-        'icon' => 'fas fa-tachometer-alt-slow',
-        'label' => 'dashboard',
-        'url' => '/router.php/profile_dashboard',
-    ],
-    [
-        'icon' => 'icon-my-list',
-        'label' => 'my list',
-        'url' => '/router.php/vue/profile_my_list',
-    ],
-    [
-        'icon' => 'icon-gear',
-        'label' => 'settings',
-        'url' => '/router.php/settings_profile',
-    ],
-];
-@endphp
-
 <div id="sub-nav-container" class="bg-header w-full border-b border-header-gray">
     <div class="mx-auto w-full container leading-none text-header-gray uppercase h-20">
         <div class="flex h-full items-center justify-center">

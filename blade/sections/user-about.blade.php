@@ -1,17 +1,3 @@
-@php
-$aboutFields = [
-    'full name' => 'brandon toews',
-    'birthday' => 'may 26, 1987',
-];
-
-$userFields = [
-    'drums' => 'Yamaha',
-    'cymbals' => 'Paiste',
-    'hardware' => 'Yamaha',
-    'sticks' => 'Pro-Mark',
-];
-@endphp
-
 <div class="w-full mt-6 mb-20">
     <div class="flex flex-row justify-between items-center uppercase text-sm font-semibold">
         <div class="text-medium-gray">

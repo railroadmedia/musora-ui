@@ -1,33 +1,3 @@
-@php
-$items = [
-    [
-        'icon' => 'fas fa-edit',
-        'label' => 'profile',
-        'url' => '/router.php/vue/settings_profile',
-    ],
-    [
-        'icon' => 'fas fa-lock',
-        'label' => 'login credentials',
-        'url' => '/router.php/settings_login_credentials',
-    ],
-    [
-        'icon' => 'far fa-credit-card',
-        'label' => 'payments',
-        'url' => '/router.php/vue/settings_payments',
-    ],
-    [
-        'icon' => 'fas fa-bell',
-        'label' => 'settings',
-        'url' => '/router.php/settings_setup',
-    ],
-    [
-        'icon' => 'fas fa-calendar-alt',
-        'label' => 'account details',
-        'url' => '/router.php/settings_details',
-    ],
-];
-@endphp
-
 <div id="profile-sidenav" class="flex-1 sm:flex-none px-3 sm:px-0 flex flex-row overflow-hidden border-gray sm:border-r sm:flex-col sm:rounded-t-lg">
     @foreach ($items as $index => $item)
         @php

@@ -6,6 +6,15 @@ use Illuminate\View\View;
 
 class DrumeoViewComposer
 {
+    public static $assetPaths = [
+        'manifestJsPath' => '../../js/generic/manifest.js',
+        'vendorJsPath' => '../../js/generic/vendor.js',
+        'musoraContentJsPath' => '../../js/generic/musora-content.js',
+        'musoraLessonJsPath' => '../../js/generic/musora-lesson.js',
+        'musoraProfileJsPath' => '../../js/generic/musora-profile.js',
+        'drumeoCssPath' => '/build/drumeo/drumeo.css',
+    ];
+
     public static $staticUrls = [
         // vue
         'contentVideoLink' => '/router.php/vue/content_video',
@@ -47,6 +56,20 @@ class DrumeoViewComposer
         'forumsLink' => 'https://forums.drumeo.com/',
         'shopLink' => '/shop',
     ];
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function assetPaths(View $view)
+    {
+        $view->with(
+            self::$assetPaths
+        );
+    }
+
 
     /**
      * Bind data to the view.
@@ -165,4 +188,343 @@ class DrumeoViewComposer
             ]
         );
     }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function methodContent(View $view)
+    {
+        $view->with(
+            [
+                'lessons' => [
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'getting started on the drums',
+                        'lessonLevel' => 'level 1',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241248-card-thumbnail-1577144969.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'basic theory & ear training',
+                        'lessonLevel' => 'level 2',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241284-card-thumbnail-1577144975.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'the motions of drumming',
+                        'lessonLevel' => 'level 3',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241285-card-thumbnail-1577144979.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'the moeller method & essential grooves',
+                        'lessonLevel' => 'level 4',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241286-card-thumbnail-1577144984.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'rhythmic groupings & improvisation',
+                        'lessonLevel' => 'level 5',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241287-card-thumbnail-1577144994.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'odd time & finger control',
+                        'lessonLevel' => 'level 6',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241288-card-thumbnail-1577144999.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'foot technique & combinations',
+                        'lessonLevel' => 'level 7',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241289-card-thumbnail-1577145007.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'brushes, textures & articulation',
+                        'lessonLevel' => 'level 8',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241290-card-thumbnail-1577145012.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'advanced styles & musical decisions',
+                        'lessonLevel' => 'level 9',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241291-card-thumbnail-1577145017.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'go anywhere on the drums',
+                        'lessonLevel' => 'level 10',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241292-card-thumbnail-1577145021.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                ]
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function nextLesson(View $view)
+    {
+        $view->with(
+            [
+                'nextLesson' => [
+                    'teacherName' => 'teacher name',
+                    'lessonTitle' => 'this is the lesson title',
+                    'lessonLength' => '8 mins',
+                    'lessonXp' => 150,
+                    'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                    'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/247400-card-thumbnail-maxres-1584796503.jpg',
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function profileNav(View $view)
+    {
+        $view->with(
+            [
+                'items' => [
+                    [
+                        'icon' => 'fas fa-tachometer-alt-slow',
+                        'label' => 'dashboard',
+                        'url' => self::$staticUrls['profileDashboardLink'],
+                    ],
+                    [
+                        'icon' => 'icon-my-list',
+                        'label' => 'my list',
+                        'url' => self::$staticUrls['profileMyListLink'],
+                    ],
+                    [
+                        'icon' => 'icon-gear',
+                        'label' => 'settings',
+                        'url' => self::$staticUrls['settingsProfileLink'],
+                    ],
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function profileSideNav(View $view)
+    {
+        $view->with(
+            [
+                'items' => [
+                    [
+                        'icon' => 'fas fa-edit',
+                        'label' => 'profile',
+                        'url' => self::$staticUrls['settingsProfileLink'],
+                    ],
+                    [
+                        'icon' => 'fas fa-lock',
+                        'label' => 'login credentials',
+                        'url' => self::$staticUrls['settingsLoginCredentialsLink'],
+                    ],
+                    [
+                        'icon' => 'far fa-credit-card',
+                        'label' => 'payments',
+                        'url' => self::$staticUrls['settingsPaymentsLink'],
+                    ],
+                    [
+                        'icon' => 'fas fa-bell',
+                        'label' => 'settings',
+                        'url' => self::$staticUrls['settingsSetupLink'],
+                    ],
+                    [
+                        'icon' => 'fas fa-calendar-alt',
+                        'label' => 'account details',
+                        'url' => self::$staticUrls['settingsDetailsLink'],
+                    ],
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function userAbout(View $view)
+    {
+        $view->with(
+            [
+                'aboutFields' => [
+                    'full name' => 'brandon toews',
+                    'birthday' => 'may 26, 1987',
+                ],
+
+                'userFields' => [
+                    'drums' => 'Yamaha',
+                    'cymbals' => 'Paiste',
+                    'hardware' => 'Yamaha',
+                    'sticks' => 'Pro-Mark',
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function userStats(View $view)
+    {
+        $view->with(
+            [
+                'displayName' => 'brandon towes',
+                'stats' => [
+                    [
+                        'label' => 'days as a member',
+                        'value' => 857,
+                    ],
+                    [
+                        'label' => 'lessons completed',
+                        'value' => 71,
+                    ],
+                    [
+                        'label' => 'xp',
+                        'value' => '15k',
+                    ],
+                    [
+                        'label' => 'drumeo method',
+                        'value' => 'level 1.4',
+                    ],
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function userStatsDetails(View $view)
+    {
+        $view->with(
+            [
+                'stats' => [
+                    [
+                        'icon' => 'icon-comments-liked',
+                        'label' => 'days as a member',
+                        'value' => 857,
+                    ],
+                    [
+                        'icon' => 'icon-comments-liked',
+                        'label' => 'lessons completed',
+                        'value' => 71,
+                    ],
+                    [
+                        'icon' => 'icon-comments-liked',
+                        'label' => 'courses completed',
+                        'value' => 19,
+                    ],
+                    [
+                        'icon' => 'icon-comments-liked',
+                        'label' => 'assignments completed',
+                        'value' => 187,
+                    ],
+                    [
+                        'icon' => 'icon-comments-liked',
+                        'label' => 'minutes practiced',
+                        'value' => 594,
+                    ],
+                    [
+                        'icon' => 'icon-comments-liked',
+                        'label' => 'comments posted',
+                        'value' => 98,
+                    ],
+                    [
+                        'icon' => 'icon-comments-liked',
+                        'label' => 'comment likes',
+                        'value' => 9,
+                    ],
+                ],
+            ]
+        );
+    }
+
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function userStatsShort(View $view)
+    {
+        $view->with(
+            [
+                'displayName' => 'brandon towes',
+                'memberSinceYear' => '2012',
+                'xp' => '12k',
+                'methodLevel' => 'level 1.4',
+            ]
+        );
+    }
+
 }

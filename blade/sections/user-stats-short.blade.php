@@ -5,18 +5,18 @@
                 <img src="https://s3.amazonaws.com/pianote/defaults/avatar.png" class="h-full w-auto">
             </div>
             <a href="/router.php/profile_dashboard" class="ml-2 sm:ml-6">
-                <div class="font-black capitalize text-2xl sm:text-3xl md:text-4xl">brandon toews</div>
-                <div class="mt-2 text-xs text-dark-gray">drumeo member since 2012</div>
+                <div class="font-black capitalize text-2xl sm:text-3xl md:text-4xl">{{ $displayName }}</div>
+                <div class="mt-2 text-xs text-dark-gray">drumeo member since {{ $memberSinceYear }}</div>
             </a>
         </div>
         <div class="flex items-center justify-between mt-4 sm:mt-0 text-medium-gray">
             <div class="mr-4 lg:mr-12 flex flex-col items-center">
                 <span class="text-xs">xp</span>
-                <p class="text-dark-gray font-extrabold text-3xl">32.2k</p>
+                <p class="text-dark-gray font-extrabold text-3xl">{{ $xp }}</p>
             </div>
             <div class="ml-4 lgml-12 flex flex-col items-center">
                 <span class="text-xs">drumeo method</span>
-                <p class="text-dark-gray font-extrabold text-3xl">level 1.3</p>
+                <p class="text-dark-gray font-extrabold text-3xl">{{ $methodLevel }}</p>
             </div>
         </div>
     </div>

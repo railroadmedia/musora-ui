@@ -3,7 +3,7 @@
 @section('musora-ui::title', 'Members - Search')
 
 @section('musora-ui::menu')
-    @include('musora-ui::sections.hamburger_edge_nav', ['active' => 'edge'])
+    @include('musora-ui::sections.hamburger-edge-nav', ['active' => 'edge'])
 @endsection
 
 @php

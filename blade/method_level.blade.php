@@ -3,8 +3,8 @@
 @section('musora-ui::title', 'Members - Drumeo Method')
 
 @section('musora-ui::menu')
-    @include('musora-ui::sections.hamburger_edge_nav', ['active' => 'edge'])
-    @include('musora-ui::sections.edge_nav', ['active' => 'method'])
+    @include('musora-ui::sections.hamburger-edge-nav', ['active' => 'edge'])
+    @include('musora-ui::sections.edge-nav', ['active' => 'method'])
 @endsection
 
 @php
