@@ -3,7 +3,9 @@
 namespace Railroad\MusoraUI\Providers;
 
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Railroad\MusoraUI\ViewComposers\DrumeoViewComposer;
 
 class MusoraUIServiceProvider extends ServiceProvider
 {
@@ -31,6 +33,10 @@ class MusoraUIServiceProvider extends ServiceProvider
                 __DIR__ . '/../../public/js/generic' => public_path('vendor/musora-ui'),
             ],
             'musora-ui'
+        );
+
+        View::composer(
+            'musora-ui::sections.edge-nav', DrumeoViewComposer::class . '@edgeNav'
         );
     }
 
