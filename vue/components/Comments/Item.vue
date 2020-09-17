@@ -66,7 +66,7 @@
 import Comment from '../../models/comment';
 import User from '../../models/user';
 import NewComment from './New';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 
 import CommentMixin from '../../mixins/comment';
 
@@ -145,7 +145,7 @@ export default {
         },
 
         getDate(): string {
-            return moment(this.comment.added).fromNow();
+            return DateTime.fromSQL(this.comment.added).toRelative();
         },
     },
     mounted(): void {

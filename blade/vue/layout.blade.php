@@ -8,5 +8,7 @@
 
 
 @push('musora-ui::scripts')
+	<script type="text/javascript" src="../../js/generic/manifest.js"></script>
+	<script type="text/javascript" src="../../js/generic/vendor.js"></script>
     <script type="text/javascript" src="../../js/generic/musora-ui.js"></script>
 @endpush

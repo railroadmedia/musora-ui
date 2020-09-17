@@ -2,7 +2,7 @@ import Billing from '../models/billing';
 import CartTotals from '../models/cartTotals';
 import Errors from './errors';
 import http from './http';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 import PaymentMethod from '../models/paymentMethod';
 
 export default class Ecommerce {
@@ -121,7 +121,8 @@ export default class Ecommerce {
                 let cardLastFourDigits = method.last_four_digits || 'N/A';
 
                 info = cardCompany + ' - ' + cardLastFourDigits;
-                expiry = (method.expiration_date) ? moment(method.expiration_date).format('MM/YY') : 'N/A';
+                expiry = (method.expiration_date) ? DateTime.fromSQL(method.expiration_date).toFormat('MM/yy') : 'N/A';
+
             } else {
                 info = 'PayPal';
                 expiry = 'N/A';
