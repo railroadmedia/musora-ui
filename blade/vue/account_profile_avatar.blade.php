@@ -3,7 +3,7 @@
 @section('musora-ui::title', 'Create Account - Profile Name')
 
 @push('musora-ui::scripts')
-    <script type="text/javascript" src="../../js/generic/musora-profile.js"></script>
+    <script type="text/javascript" src="{{ $musoraProfileJsPath }}"></script>
 @endpush
 
 @section('musora-ui::app')

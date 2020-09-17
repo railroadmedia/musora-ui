@@ -25,6 +25,13 @@ class MusoraUIServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__ . '/../../blade', 'musora-ui');
+
+        $this->publishes(
+            [
+                __DIR__ . '/../../public/js/generic' => public_path('vendor/musora-ui'),
+            ],
+            'musora-ui'
+        );
     }
 
     /**

@@ -3,7 +3,7 @@
 @section('musora-ui::title', 'Members - Song')
 
 @push('musora-ui::scripts')
-    <script type="text/javascript" src="../../js/generic/musora-lesson.js"></script>
+    <script type="text/javascript" src="{{ $musoraLessonJsPath }}"></script>
 @endpush
 
 @php

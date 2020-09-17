@@ -8,7 +8,7 @@
     <title>UI</title>
 
     <!-- todo: use non-branded css -->
-    <link rel="stylesheet" href="/build/drumeo/drumeo.css">
+    <link rel="stylesheet" href="{{ $drumeoCssPath }}">
 
     <link
         rel="stylesheet"

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('musora-ui::title')</title>
 
-    <link rel="stylesheet" href="/build/drumeo/drumeo.css">
+    <link rel="stylesheet" href="{{ $drumeoCssPath }}">
     <link rel="stylesheet" href="https://dpwjbsxqtam5n.cloudfront.net/fonts/font-awesome-5/fontawesome-all.min.css">
     <link rel="stylesheet" href="https://d1prhhmg8i11jr.cloudfront.net/v1.0.0/dist/icons.css">
     @stack('musora-ui::styles')

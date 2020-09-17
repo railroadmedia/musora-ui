@@ -8,7 +8,7 @@
 
 
 @push('musora-ui::scripts')
-	<script type="text/javascript" src="../../js/generic/manifest.js"></script>
-	<script type="text/javascript" src="../../js/generic/vendor.js"></script>
-    <script type="text/javascript" src="../../js/generic/musora-content.js"></script>
+	<script type="text/javascript" src="{{ $manifestJsPath }}"></script>
+	<script type="text/javascript" src="{{ $vendorJsPath }}"></script>
+	<script type="text/javascript" src="{{ $musoraContentJsPath }}"></script>
 @endpush
