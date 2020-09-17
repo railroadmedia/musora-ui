@@ -14750,7 +14750,7 @@ $useYoutubePlayer = true;
 @endphp
 
 @section('musora-ui::menu')
-    @include('musora-ui::sections.menu', ['active' => 'edge'])
+    @include('musora-ui::sections.hamburger_edge_nav', ['active' => 'edge'])
     @include('sections.breadcrumbs-nav', $breadcrumbs)
 @endsection
 

@@ -3,7 +3,7 @@
 @section('musora-ui::title', 'Members - Profile My List')
 
 @section('musora-ui::menu')
-    @include('musora-ui::sections.menu')
+    @include('musora-ui::sections.hamburger_edge_nav')
     @include('sections.profile-nav', ['active' => 'my list'])
 @endsection
 

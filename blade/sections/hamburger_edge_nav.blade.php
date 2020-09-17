@@ -1,34 +1,3 @@
-@php
-    $skipCollapseScript = $skipCollapseScript ?? false;
-    $active = $active ?? 'edge';
-    $items = [
-        [
-            'title' => '',
-            'active' => $active == 'edge' ? 'active': null,
-            'logo' => 'logo-edge',
-            'url' => '/router.php/vue/edge'
-        ],
-        [
-            'title' => 'packs',
-            'active' => $active == 'packs' ? 'active': null,
-            'logo' => '',
-            'url' => '/router.php/packs'
-        ],
-        [
-            'title' => 'forums',
-            'active' => $active == 'forums' ? 'active': null,
-            'logo' => '',
-            'url' => '#'
-        ],
-        [
-            'title' => 'shop',
-            'active' => $active == 'shop' ? 'active': null,
-            'logo' => '',
-            'url' => '#'
-        ],
-    ];
-@endphp
-
 <header id="nav" class="bg-header fixed w-full top-0 left-0 border-b z-40">
     <div class="mx-auto w-full container pl-3 small:pr-3 h-full">
         <div class="flex flex-row items-end small:items-center h-full relative">

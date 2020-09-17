@@ -4,7 +4,9 @@ require_once('../vendor/autoload.php');
 
 chmod('../cache', 777);
 
+use Illuminate\Support\Facades\View;
 use Jenssegers\Blade\Blade;
+use Railroad\MusoraUI\ViewComposers\DrumeoViewComposer;
 
 $blade = new Blade('../blade', '../cache');
 $blade->addNamespace('musora-ui', '../blade');
@@ -12,6 +14,11 @@ $blade->addNamespace('musora-ui', '../blade');
 $filePath = substr($_SERVER['REQUEST_URI'], 11);
 $filePathDots = str_replace('/', '.', $filePath);
 
+// setup view composers
+$blade->composer('musora-ui::sections.edge_nav', DrumeoViewComposer::class . '@edgeNav');
+$blade->composer('musora-ui::sections.hamburger_edge_nav', DrumeoViewComposer::class . '@hamburgerEdgeNav');
+
+// render the blade if its found
 if ($blade->exists($filePathDots)) {
     $view = $blade->make(
         $filePathDots,
@@ -62,10 +69,6 @@ if ($blade->exists($filePathDots)) {
             'uiLink' => '/router.php/ui',
         ]
     );
-
-    $drumeoViewComposer = new \Railroad\MusoraUI\ViewComposers\DrumeoViewComposer();
-
-    $drumeoViewComposer->edgeNav($view);
 
     echo $view->render();
 } else {
