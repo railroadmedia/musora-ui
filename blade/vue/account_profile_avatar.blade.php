@@ -2,6 +2,10 @@
 
 @section('musora-ui::title', 'Create Account - Profile Name')
 
+@push('musora-ui::scripts')
+    <script type="text/javascript" src="../../js/generic/musora-profile.js"></script>
+@endpush
+
 @section('musora-ui::app')
     <div class="">
         <h2 class="font-extrabold text-center uppercase mb-8">choose your profile image</h2>

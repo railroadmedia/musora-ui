@@ -11,6 +11,10 @@
 <script src="https://js.stripe.com/v3/"></script>
 @endpush
 
+@push('musora-ui::scripts')
+    <script type="text/javascript" src="../../js/generic/musora-profile.js"></script>
+@endpush
+
 @php
 $data = [
     'user' => [

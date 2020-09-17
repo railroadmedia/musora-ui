@@ -9,8 +9,16 @@ require('laravel-mix-purgecss');
 mix.setPublicPath('./public');
 
 mix.js(
-    path.join(__dirname, 'vue/apps/generic/musora-ui.js'),
-    path.join(__dirname, 'public/js/generic/musora-ui.js')
+    path.join(__dirname, 'vue/apps/generic/musora-content.js'),
+    path.join(__dirname, 'public/js/generic/musora-content.js')
+);
+mix.js(
+    path.join(__dirname, 'vue/apps/generic/musora-lesson.js'),
+    path.join(__dirname, 'public/js/generic/musora-lesson.js')
+);
+mix.js(
+    path.join(__dirname, 'vue/apps/generic/musora-profile.js'),
+    path.join(__dirname, 'public/js/generic/musora-profile.js')
 );
 mix.extract(['vue']);
 

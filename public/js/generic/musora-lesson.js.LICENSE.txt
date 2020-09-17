@@ -1,0 +1,59 @@
+/*
+    @license
+    Copyright 2006 The Closure Library Authors
+    SPDX-License-Identifier: Apache-2.0
+    */
+
+/*
+    @license
+    Copyright 2008 The Closure Library Authors
+    SPDX-License-Identifier: Apache-2.0
+    */
+
+/*
+    @license
+    EME Encryption Scheme Polyfill
+    Copyright 2019 Google LLC
+    SPDX-License-Identifier: Apache-2.0
+    */
+
+/*
+ @license
+ Shaka Player
+ Copyright 2016 Google LLC
+ SPDX-License-Identifier: Apache-2.0
+*/
+
+/* 
+  @package NOTY - Dependency-free notification library 
+  @version version: 3.2.0-beta 
+  @contributors https://github.com/needim/noty/graphs/contributors 
+  @documentation Examples and Documentation - https://ned.im/noty 
+  @license Licensed under the MIT licenses: http://www.opensource.org/licenses/mit-license.php 
+*/
+
+/*!
+        * @overview es6-promise - a tiny implementation of Promises/A+.
+        * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
+        * @license   Licensed under MIT license
+        *            See https://raw.githubusercontent.com/stefanpenner/es6-promise/master/LICENSE
+        * @version   4.1.1
+        */
+
+/*!
+ * MediaElement.js
+ * http://www.mediaelementjs.com/
+ *
+ * Wrapper that mimics native HTML5 MediaElement (audio and video)
+ * using a variety of technologies (pure JavaScript, Flash, iframe)
+ *
+ * Copyright 2010-2017, John Dyer (http://j.hn/)
+ * License: MIT
+ *
+ */
+
+/*!
+* screenfull
+* v4.2.1 - 2019-07-27
+* (c) Sindre Sorhus; MIT License
+*/

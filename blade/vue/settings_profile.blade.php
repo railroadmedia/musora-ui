@@ -7,6 +7,10 @@
     @include('musora-ui::sections.profile-nav', ['active' => 'settings'])
 @endsection
 
+@push('musora-ui::scripts')
+    <script type="text/javascript" src="../../js/generic/musora-profile.js"></script>
+@endpush
+
 @php
 $userData = [
     'id' => 1,

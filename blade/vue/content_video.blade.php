@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="/build/drumeo/vuesora.css">
 @endpush
 
+@push('musora-ui::scripts')
+    <script type="text/javascript" src="../../js/generic/musora-lesson.js"></script>
+@endpush
+
 @php
 // <!--
 $rc = <<<'EOT'

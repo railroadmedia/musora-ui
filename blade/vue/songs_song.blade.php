@@ -2,6 +2,10 @@
 
 @section('musora-ui::title', 'Members - Song')
 
+@push('musora-ui::scripts')
+    <script type="text/javascript" src="../../js/generic/musora-lesson.js"></script>
+@endpush
+
 @php
 // <!--
 $rc1 = <<<'EOT'
