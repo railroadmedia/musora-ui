@@ -26,14 +26,14 @@
 
         {{-- Regular --}}
         <div class="mb-5">
-            @component('musora-ui::core.text-input', [
+            @component('musora-ui::utilities.text-input', [
                 'labelText' => 'Regular Gray Style Text Input Placeholder',
                 'theme' => 'gray',
             ])
             @endcomponent
         </div>
         <div class="mb-5">
-            @component('musora-ui::core.text-input', [
+            @component('musora-ui::utilities.text-input', [
                 'labelText' => 'Regular Wire Style Text Input Placeholder',
                 'theme' => 'wire',
             ])
@@ -42,7 +42,7 @@
 
         {{-- Focus --}}
         <div class="mb-5">
-            @component('musora-ui::core.text-input', [
+            @component('musora-ui::utilities.text-input', [
                 'labelText' => 'Regular Text Input',
                 'inputValue' => 'A focused text input.',
                 'forceFocus' => true
@@ -50,7 +50,7 @@
             @endcomponent
         </div>
         <div class="mb-5">
-            @component('musora-ui::core.text-input', [
+            @component('musora-ui::utilities.text-input', [
                 'labelText' => 'Regular Text Input',
                 'inputValue' => 'A focused text input.',
                 'forceFocus' => true,
@@ -61,7 +61,7 @@
 
         {{-- Validation Error --}}
         <div class="mb-5">
-            @component('musora-ui::core.text-input', [
+            @component('musora-ui::utilities.text-input', [
                'labelText' => 'Empty Error Text Input Placeholder',
                'validationErrorText' => 'This input is required.',
                'inputValue' => ''
@@ -70,7 +70,7 @@
         </div>
 
         <div class="mb-5">
-            @component('musora-ui::core.text-input', [
+            @component('musora-ui::utilities.text-input', [
                 'labelText' => 'Error Text Input',
                 'validationErrorText' => 'Error the input is incorrect, try again.',
                 'inputValue' => 'Invalid text input.'
@@ -79,7 +79,7 @@
         </div>
 
         <div class="mb-5">
-            @component('musora-ui::core.text-input', [
+            @component('musora-ui::utilities.text-input', [
                'labelText' => 'Empty Error Text Input Placeholder',
                'validationErrorText' => 'This input is required.',
                'theme' => 'wire'
@@ -196,17 +196,17 @@
         <h3 class="text-xl mb-5 pl-1">Checkboxes</h3>
 
         <div class="mb-5">
-            @component('core.badge-checkbox', [
+            @component('musora-ui::utilities.badge-checkbox', [
                 'labelText' => 'badge checkbox',
                 'id' => 'id-badge-checkbox',
-                'name' => 'name-badge-checkbox',
+                'inputName' => 'name-badge-checkbox',
                 'iconClass' => 'icon-drums',
             ])
             @endcomponent
         </div>
 
         <div class="mb-5">
-            @component('core.icon-checkbox', [
+            @component('musora-ui::utilities.icon-checkbox', [
                 'labelText' => 'icon checkbox',
                 'id' => 'id-icon-checkbox',
                 'name' => 'name-icon-checkbox',
@@ -214,7 +214,7 @@
             @endcomponent
         </div>
         <div class="mb-5">
-            @component('musora-ui::core.toggle-input', [
+            @component('musora-ui::utilities.toggle-input', [
                 'inputId' => 'id-toggle-input',
                 'inputName' => 'name-toggle-input',
                 'labelText' => 'toggle input checked',
@@ -223,7 +223,7 @@
             @endcomponent
         </div>
         <div class="mb-5">
-            @component('musora-ui::core.toggle-input', [
+            @component('musora-ui::utilities.toggle-input', [
                 'inputId' => 'id-toggle-input-unchecked',
                 'inputName' => 'name-toggle-input',
                 'labelText' => 'toggle input un-checked',
@@ -238,7 +238,7 @@
         <h3 class="text-xl mb-5 pl-1">Buttons</h3>
 
         <div class="mb-5">
-            @component('musora-ui::core.button', [
+            @component('musora-ui::utilities.button', [
                 'labelText' => 'full width button',
                 'fullWidth' => 'true',
                 'type' => 'submit',
@@ -247,7 +247,7 @@
         </div>
 
         <div class="mb-5">
-            @component('musora-ui::core.button', [
+            @component('musora-ui::utilities.button', [
                 'labelText' => 'regular button',
                 'type' => 'submit',
             ])
@@ -255,7 +255,7 @@
         </div>
 
         <div class="mb-5 flex">
-            @component('musora-ui::core.anchor-button', [
+            @component('musora-ui::utilities.anchor-button', [
                 'labelText' => 'grey outlined anchor button',
                 'theme' => 'grey',
                 'href' => '#',

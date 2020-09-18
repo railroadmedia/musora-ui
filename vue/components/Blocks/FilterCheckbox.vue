@@ -72,8 +72,8 @@ export default {
                 },
                 side: {
                     container: {
-                        checked: ['icon-checkbox', 'px-4', 'text-base'],
-                        unchecked: ['icon-checkbox', 'px-4', 'text-base'],
+                        checked: ['px-4', 'text-base'],
+                        unchecked: ['px-4', 'text-base'],
                     },
                     label: {
                         checked: ['font-bold', 'text-black', 'cursor-pointer', 'flex', 'items-center', 'py-1', 'text-xs', 'capitalize'],

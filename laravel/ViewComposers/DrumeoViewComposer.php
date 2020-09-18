@@ -17,39 +17,38 @@ class DrumeoViewComposer
 
     public static $staticUrls = [
         // vue
-        'contentVideoLink' => '/router.php/vue/content_video',
-        'coursesLink' => '/router.php/vue/courses',
-        'edgeLink' => '/router.php/vue/edge',
-        'playAlongsLink' => '/router.php/vue/play_alongs',
-        'profileMyListLink' => '/router.php/vue/profile_my_list',
-        'publicLayoutLink' => '/router.php/vue/public_layout',
-        'rudimentsLink' => '/router.php/vue/rudiments',
-        'searchResultsLink' => '/router.php/vue/search_results',
-        'settingsPaymentsLink' => '/router.php/vue/settings_payments',
-        'settingsProfileLink' => '/router.php/vue/settings_profile',
-        'showsShowLink' => '/router.php/vue/shows_show',
-        'sliderLink' => '/router.php/vue/slider',
-        'songsLink' => '/router.php/vue/songs',
-        'songsSongLink' => '/router.php/vue/songs_song',
-        'studentFocusLink' => '/router.php/vue/student_focus',
+        'contentVideoLink' => '/router.php/pages/content_video', // todo - review & update - video player and related videos not displayed
+        'coursesLink' => '/router.php/pages/courses',
+        'edgeLink' => '/router.php/pages/edge',
+        'playAlongsLink' => '/router.php/pages/play_alongs',
+        'profileMyListLink' => '/router.php/pages/profile_my_list',
+        'publicLayoutLink' => '/router.php/pages/public_layout', // todo - review & update - not sure the link is used anywhere
+        'rudimentsLink' => '/router.php/pages/rudiments', // todo - review & update - blue filter click
+        'searchResultsLink' => '/router.php/pages/search_results',
+        'settingsPaymentsLink' => '/router.php/pages/settings_payments', // todo - review & update - payments list error
+        'settingsProfileLink' => '/router.php/pages/settings_profile', // todo - review & update - image cropper error
+        'showsShowLink' => '/router.php/pages/shows_show',
+        'songsLink' => '/router.php/pages/songs',
+        'songsSongLink' => '/router.php/pages/songs_song', // todo - review & update - related songs not displayed
+        'studentFocusLink' => '/router.php/pages/student_focus',
 
         // blade
-        'accountLessonsLink' => '/router.php/account_lessons',
-        'accountProfile_nameLink' => '/router.php/account_profile_name',
-        'accountStartLink' => '/router.php/account_start',
-        'coursesCourseLink' => '/router.php/courses_course',
-        'liveLink' => '/router.php/live',
-        'loginLink' => '/router.php/login',
-        'methodLink' => '/router.php/method',
-        'methodLevelLink' => '/router.php/method_level',
-        'packsLink' => '/router.php/packs',
-        'profileDashboardLink' => '/router.php/profile_dashboard',
-        'resetLink' => '/router.php/reset',
-        'scheduleLink' => '/router.php/schedule',
-        'settingsDetailsLink' => '/router.php/settings_details',
-        'settingsLoginCredentialsLink' => '/router.php/settings_login_credentials',
-        'settingsSetupLink' => '/router.php/settings_setup',
-        'showsLink' => '/router.php/shows',
+        'accountLessonsLink' => '/router.php/pages/account_lessons',
+        'accountProfile_nameLink' => '/router.php/pages/account_profile_name',
+        'accountStartLink' => '/router.php/pages/account_start',
+        'coursesCourseLink' => '/router.php/pages/courses_course',
+        'liveLink' => '/router.php/pages/live',
+        'loginLink' => '/router.php/pages/login',
+        'methodLink' => '/router.php/pages/method',
+        'methodLevelLink' => '/router.php/pages/method_level',
+        'packsLink' => '/router.php/pages/packs',
+        'profileDashboardLink' => '/router.php/pages/profile_dashboard',
+        'resetLink' => '/router.php/pages/reset',
+        'scheduleLink' => '/router.php/pages/schedule',
+        'settingsDetailsLink' => '/router.php/pages/settings_details',
+        'settingsLoginCredentialsLink' => '/router.php/pages/settings_login_credentials',
+        'settingsSetupLink' => '/router.php/pages/settings_setup',
+        'showsLink' => '/router.php/pages/shows',
         'uiLink' => '/router.php/ui',
 
         // misc
@@ -185,144 +184,6 @@ class DrumeoViewComposer
                         'url' => self::$staticUrls['shopLink']
                     ],
                 ]
-            ]
-        );
-    }
-
-    /**
-     * Bind data to the view.
-     *
-     * @param View $view
-     * @return void
-     */
-    public function methodContent(View $view)
-    {
-        $view->with(
-            [
-                'lessons' => [
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'getting started on the drums',
-                        'lessonLevel' => 'level 1',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241248-card-thumbnail-1577144969.jpg',
-                        'url' => '/router.php/method_level',
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'basic theory & ear training',
-                        'lessonLevel' => 'level 2',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241284-card-thumbnail-1577144975.jpg',
-                        'url' => '/router.php/method_level',
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'the motions of drumming',
-                        'lessonLevel' => 'level 3',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241285-card-thumbnail-1577144979.jpg',
-                        'url' => '/router.php/method_level',
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'the moeller method & essential grooves',
-                        'lessonLevel' => 'level 4',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241286-card-thumbnail-1577144984.jpg',
-                        'url' => '/router.php/method_level',
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'rhythmic groupings & improvisation',
-                        'lessonLevel' => 'level 5',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241287-card-thumbnail-1577144994.jpg',
-                        'url' => '/router.php/method_level',
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'odd time & finger control',
-                        'lessonLevel' => 'level 6',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241288-card-thumbnail-1577144999.jpg',
-                        'url' => '/router.php/method_level',
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'foot technique & combinations',
-                        'lessonLevel' => 'level 7',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241289-card-thumbnail-1577145007.jpg',
-                        'url' => '/router.php/method_level',
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'brushes, textures & articulation',
-                        'lessonLevel' => 'level 8',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241290-card-thumbnail-1577145012.jpg',
-                        'url' => '/router.php/method_level',
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'advanced styles & musical decisions',
-                        'lessonLevel' => 'level 9',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241291-card-thumbnail-1577145017.jpg',
-                        'url' => '/router.php/method_level',
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'go anywhere on the drums',
-                        'lessonLevel' => 'level 10',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241292-card-thumbnail-1577145021.jpg',
-                        'url' => '/router.php/method_level',
-                    ],
-                ]
-            ]
-        );
-    }
-
-    /**
-     * Bind data to the view.
-     *
-     * @param View $view
-     * @return void
-     */
-    public function nextLesson(View $view)
-    {
-        $view->with(
-            [
-                'nextLesson' => [
-                    'teacherName' => 'teacher name',
-                    'lessonTitle' => 'this is the lesson title',
-                    'lessonLength' => '8 mins',
-                    'lessonXp' => 150,
-                    'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                    'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/247400-card-thumbnail-maxres-1584796503.jpg',
-                ],
             ]
         );
     }
@@ -527,4 +388,377 @@ class DrumeoViewComposer
         );
     }
 
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function coursePageContent(View $view)
+    {
+        $view->with(
+            [
+                'courseDescription' => [
+                    'teacher' => 'jared falk',
+                    'difficulty' => 'difficulty here',
+                    'title' => 'how to use drumeo',
+                    'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti. Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus.',
+                    'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-06.jpg',
+                ],
+                'courseData' => [
+                    'data' => [
+                        [
+                            'stat' => 'lessons',
+                            'value' => 7,
+                        ],
+                        [
+                            'stat' => 'minutes',
+                            'value' => 17,
+                        ],
+                        [
+                            'stat' => 'xp',
+                            'value' => '32.2k',
+                        ],
+                    ],
+                    'description' => [
+                        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.',
+                        'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.',
+                        'Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.',
+                    ]
+                ],
+                'courseContent' => [
+                    'videos' => [
+                        [
+                            'index' => 1,
+                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-06.jpg',
+                            'title' => 'this is the lesson title',
+                            'length' => '10 mins',
+                            'xp' => '150 xp',
+                            'url' => self::$staticUrls['contentVideoLink'],
+                        ],
+                        [
+                            'index' => 2,
+                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-63.jpg',
+                            'title' => 'this is the lesson title',
+                            'length' => '26 mins',
+                            'xp' => '150 xp',
+                            'url' => self::$staticUrls['contentVideoLink'],
+                        ],
+                        [
+                            'index' => 3,
+                            'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/dcb-52a-550.jpg',
+                            'title' => 'this is the lesson title',
+                            'length' => '10 mins',
+                            'xp' => '150 xp',
+                            'url' => self::$staticUrls['contentVideoLink'],
+                        ],
+                        [
+                            'index' => 4,
+                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-15.jpg',
+                            'title' => 'this is the lesson title',
+                            'length' => '35 mins',
+                            'xp' => '150 xp',
+                            'url' => self::$staticUrls['contentVideoLink'],
+                        ],
+                        [
+                            'index' => 5,
+                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-45.jpg',
+                            'title' => 'this is the lesson title',
+                            'length' => '10 mins',
+                            'xp' => '150 xp',
+                            'url' => self::$staticUrls['contentVideoLink'],
+                        ],
+                        [
+                            'index' => 6,
+                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dca-11.jpg',
+                            'title' => 'this is the lesson title',
+                            'length' => '10 mins',
+                            'xp' => '150 xp',
+                            'url' => self::$staticUrls['contentVideoLink'],
+                        ],
+                        [
+                            'index' => 7,
+                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-06.jpg',
+                            'title' => 'this is the lesson title',
+                            'length' => '10 mins',
+                            'xp' => '150 xp',
+                            'url' => self::$staticUrls['contentVideoLink'],
+                        ],
+                    ],
+                ],
+                'courseProgress' => [
+                    'percent' => 38,
+                    'nextUrl' => self::$staticUrls['coursesCourseLink'],
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function methodLevelPageContent(View $view)
+    {
+        $view->with(
+            [
+                'courseData' => [
+                    'data' => [
+                        [
+                            'stat' => 'courses',
+                            'value' => 11,
+                        ],
+                        [
+                            'stat' => 'minutes',
+                            'value' => 48,
+                        ],
+                        [
+                            'stat' => 'xp',
+                            'value' => '31.2k',
+                        ],
+                    ],
+                    'description' => [
+                        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.',
+                        'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.',
+                        'Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.'
+                    ],
+                ],
+                'courseContent' => [
+                    'videos' => [
+                        [
+                            'index' => 1,
+                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-06.jpg',
+                            'title' => 'this is the course title',
+                            'length' => '19 mins',
+                            'xp' => '150 xp',
+                            'url' => self::$staticUrls['contentVideoLink'],
+                        ],
+                        [
+                            'index' => 2,
+                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-63.jpg',
+                            'title' => 'this is the course title',
+                            'length' => '10 mins',
+                            'xp' => '150 xp',
+                            'url' => self::$staticUrls['contentVideoLink'],
+                        ],
+                        [
+                            'index' => 3,
+                            'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/dcb-52a-550.jpg',
+                            'title' => 'this is the course title',
+                            'length' => '17 mins',
+                            'xp' => '150 xp',
+                            'url' => self::$staticUrls['contentVideoLink'],
+                        ],
+                        [
+                            'index' => 4,
+                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-15.jpg',
+                            'title' => 'this is the course title',
+                            'length' => '10 mins',
+                            'xp' => '150 xp',
+                            'url' => self::$staticUrls['contentVideoLink'],
+                        ],
+                        [
+                            'index' => 5,
+                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-45.jpg',
+                            'title' => 'this is the course title',
+                            'length' => '21 mins',
+                            'xp' => '150 xp',
+                            'url' => self::$staticUrls['contentVideoLink'],
+                        ],
+                        [
+                            'index' => 6,
+                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dca-11.jpg',
+                            'title' => 'this is the course title',
+                            'length' => '10 mins',
+                            'xp' => '150 xp',
+                            'url' => self::$staticUrls['contentVideoLink'],
+                        ],
+                        [
+                            'index' => 7,
+                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-06.jpg',
+                            'title' => 'this is the course title',
+                            'length' => '10 mins',
+                            'xp' => '150 xp',
+                            'url' => self::$staticUrls['contentVideoLink'],
+                        ],
+                    ],
+                ],
+                'courseProgress' => [
+                    'percent' => 72,
+                    'nextUrl' => self::$staticUrls['coursesCourseLink'],
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function edgePageContent(View $view)
+    {
+        $mockData = $this->getMockData('edge.json');
+
+        $view->with(
+            [
+                'nextLesson' => [
+                    'teacherName' => 'teacher name',
+                    'lessonTitle' => 'this is the lesson title',
+                    'lessonLength' => '8 mins',
+                    'lessonXp' => 150,
+                    'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                    'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/247400-card-thumbnail-maxres-1584796503.jpg',
+                    'url' => '/router.php/pages/content_video'
+                ],
+                'continueContentData' => $mockData,
+                'newContentData' => $mockData,
+                'catalogueContentData' => $mockData,
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function methodPageContent(View $view)
+    {
+        $view->with(
+            [
+                'nextLesson' => [
+                    'teacherName' => 'teacher name',
+                    'lessonTitle' => 'this is the lesson title',
+                    'lessonLength' => '8 mins',
+                    'lessonXp' => 150,
+                    'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                    'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/247400-card-thumbnail-maxres-1584796503.jpg',
+                    'url' => '/router.php/pages/content_video'
+                ],
+                'lessonProgress' => [
+                    'level' => '3.5',
+                    'percent' => 64,
+                    'xp' => 1250
+                ],
+                'lessons' => [
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'getting started on the drums',
+                        'lessonLevel' => 'level 1',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241248-card-thumbnail-1577144969.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'basic theory & ear training',
+                        'lessonLevel' => 'level 2',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241284-card-thumbnail-1577144975.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'the motions of drumming',
+                        'lessonLevel' => 'level 3',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241285-card-thumbnail-1577144979.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'the moeller method & essential grooves',
+                        'lessonLevel' => 'level 4',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241286-card-thumbnail-1577144984.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'rhythmic groupings & improvisation',
+                        'lessonLevel' => 'level 5',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241287-card-thumbnail-1577144994.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'odd time & finger control',
+                        'lessonLevel' => 'level 6',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241288-card-thumbnail-1577144999.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'foot technique & combinations',
+                        'lessonLevel' => 'level 7',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241289-card-thumbnail-1577145007.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'brushes, textures & articulation',
+                        'lessonLevel' => 'level 8',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241290-card-thumbnail-1577145012.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'advanced styles & musical decisions',
+                        'lessonLevel' => 'level 9',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241291-card-thumbnail-1577145017.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                    [
+                        'teacherName' => 'jared falk',
+                        'lessonTitle' => 'go anywhere on the drums',
+                        'lessonLevel' => 'level 10',
+                        'lessonLength' => '8 mins',
+                        'lessonXp' => 150,
+                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
+                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241292-card-thumbnail-1577145021.jpg',
+                        'url' => '/router.php/method_level',
+                    ],
+                ]
+            ]
+        );
+    }
+
+    protected function getMockData($fileName)
+    {
+        $filePath = sprintf('%s/../../mocks/%s', __DIR__, $fileName);
+
+        if (file_exists($filePath)) {
+            return file_get_contents($filePath);
+        }
+
+        return;
+    }
 }
