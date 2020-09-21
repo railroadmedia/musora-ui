@@ -20,7 +20,7 @@
             </div>
             <a href="/router.php/profile_dashboard" class="h-full flex items-end small:items-center">
                 <div class="rounded-full overflow-hidden border-2 border-header-gray w-8">
-                    <img src="https://musora.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fpianote%2Fdefaults%2Favatar.png?blur=2&fit=crop&h=50&ixlib=php-1.2.1&q=50&w=50&s=0a284a726ec34f3bca2bb253a0dfc869">
+                    <img src="{{ $profilePictureUrl }}">
                 </div>
             </a>
             <div id="side-menu" class="text-white px-4 border-l border-header-gray h-full small:hidden flex items-end small:items-center justify-center cursor-pointer open pb-2 small:pb-0"><i id="icon-open" class="fas fa-bars text-xl font-bold"></i><i id="icon-close" class="fas fa-times text-xl font-bold"></i></div>

@@ -34,10 +34,6 @@ class MusoraUIServiceProvider extends ServiceProvider
             ],
             'musora-ui'
         );
-
-        View::composer(
-            'musora-ui::partials.edge-nav', DrumeoViewComposer::class . '@edgeNav'
-        );
     }
 
     /**

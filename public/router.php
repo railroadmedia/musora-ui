@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 require_once('../vendor/autoload.php');
 
-chmod('../cache', 777);
+//chmod('../cache', 777);
 
 use Jenssegers\Blade\Blade;
 use Railroad\MusoraUI\ViewComposers\DrumeoViewComposer;
@@ -19,6 +19,7 @@ $filePath = substr($_SERVER['REQUEST_URI'], 11);
 $filePathDots = str_replace('/', '.', $filePath);
 
 // setup view composers
+$blade->composer('musora-ui::*', DrumeoViewComposer::class . '@all');
 $blade->composer('musora-ui::*', DrumeoViewComposer::class . '@assetPaths');
 
 $blade->composer('musora-ui::partials.edge-nav', DrumeoViewComposer::class . '@edgeNav');

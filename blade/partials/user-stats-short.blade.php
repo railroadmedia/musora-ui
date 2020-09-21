@@ -2,7 +2,7 @@
     <div class="mx-auto w-full container px-3 h-full flex flex-col sm:flex-row justify-between leading-none uppercase">
         <div class="flex items-center justify-center">
             <div class="rounded-full overflow-hidden border-4 border-blue-500 mr-4 h-20 sm:h-24 md:h-32">
-                <img src="https://s3.amazonaws.com/pianote/defaults/avatar.png" class="h-full w-auto">
+                <img src="{{ $profilePictureUrl }}" class="h-full w-auto">
             </div>
             <a href="/router.php/profile_dashboard" class="ml-2 sm:ml-6">
                 <div class="font-black capitalize text-2xl sm:text-3xl md:text-4xl">{{ $displayName }}</div>

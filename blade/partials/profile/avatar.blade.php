@@ -25,7 +25,7 @@
                     <i class="fas fa-times"></i>
                 </div>
             @else
-                <img src="https://s3.amazonaws.com/pianote/defaults/avatar.png" class="rounded-full overflow-hidden">
+                <img src="{{ $profilePictureUrl }}" class="rounded-full overflow-hidden">
             @endif
         </div>
         <div class="flex-1 flex justify-center">

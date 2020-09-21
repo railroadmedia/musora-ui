@@ -58,6 +58,19 @@ class DrumeoViewComposer
     ];
 
     /**
+     * @param View $view
+     * @return void
+     */
+    public function all(View $view)
+    {
+        $view->with(
+            [
+                'profilePictureUrl' => 'https://s3.amazonaws.com/pianote/defaults/avatar.png',
+            ]
+        );
+    }
+
+    /**
      * Bind data to the view.
      *
      * @param View $view
@@ -382,6 +395,7 @@ class DrumeoViewComposer
     {
         $view->with(
             [
+                'profilePictureUrl' => 'https://s3.amazonaws.com/pianote/defaults/avatar.png',
                 'displayName' => 'brandon towes',
                 'memberSinceYear' => '2012',
                 'xp' => '12k',
