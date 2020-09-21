@@ -7,13 +7,6 @@
     @include('musora-ui::partials.profile-nav', ['active' => 'settings'])
 @endsection
 
-@php
-$userData = [
-    'id' => 1,
-    'inputs' => [],
-];
-@endphp
-
 @section('musora-ui::content')
     <div class="mx-auto w-full container pt-8 sm:pl-3 h-full flex flex-col sm:flex-row">
         @include('musora-ui::partials.profile-sidenav', ['active' => 'account details'])
@@ -23,16 +16,7 @@ $userData = [
                 <h1 class="leading-none text-3xl font-bold capitalize">account details</h1>
             </div>
 
-            @include(
-                'musora-ui::partials.profile.membership',
-                [
-                    'data' => $userData['inputs'],
-                    'form' => [
-                        'method' => 'POST',
-                        'action' => '/usora/user/update/' . $userData['id'] . '/',
-                    ],
-                ]
-            )
+            @include('musora-ui::partials.profile.membership')
         </div>
     </div>
 @endsection

@@ -8,59 +8,6 @@
 @endsection
 
 @php
-$contentData = [
-    [
-        'month' => 'aug',
-        'date' => 'Mon 17',
-        'time' => '11:00 AM',
-        'title' => 'question and answer',
-        'subtitle' => 'Weekly Q&A',
-        'type' => 'live broadcast',
-        'instructor' => 'Kyle Radomsky',
-        'difficulty' => 'all skill levels',
-    ],
-    [
-        'month' => 'aug',
-        'date' => 'Tue 18',
-        'time' => '11:00 AM',
-        'title' => 'student focus',
-        'subtitle' => 'Student Focus',
-        'type' => 'live broadcast',
-        'instructor' => 'Kyle Radomsky',
-        'difficulty' => 'all skill levels',
-    ],
-    [
-        'month' => 'aug',
-        'date' => 'Wed 19',
-        'time' => '10:00 AM',
-        'title' => 'question and answer',
-        'subtitle' => 'Electronic Drums Q&A',
-        'type' => 'live broadcast',
-        'instructor' => 'Kyle Radomsky',
-        'difficulty' => 'all skill levels',
-    ],
-    [
-        'month' => 'aug',
-        'date' => 'Thu 20',
-        'time' => '3:00 PM',
-        'title' => 'question and answer',
-        'subtitle' => 'Rudiment Throwdown - All Strokes',
-        'type' => 'live broadcast',
-        'instructor' => 'John Wooton',
-        'difficulty' => 'all skill levels',
-    ],
-    [
-        'month' => 'aug',
-        'date' => 'Fri 21',
-        'time' => '11:00 AM',
-        'title' => 'question and answer',
-        'subtitle' => 'Weekly Q&A',
-        'type' => 'live broadcast',
-        'instructor' => 'Aaron Edgar',
-        'difficulty' => 'all skill levels',
-    ],
-];
-
 $lastMonth = null;
 @endphp
 

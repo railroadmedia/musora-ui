@@ -1,29 +1,3 @@
-@php
-$membershipType = '1-year';
-$membershipStatus = 'active';
-$isAdmin = true;
-$userProduct = [
-    'startDate' => \Carbon\Carbon::parse('2020-07-28 06:16:08'),
-    'paidUntil' => \Carbon\Carbon::parse('2020-09-28 06:16:08'),
-];
-$subscription = [
-    'intervalCount' => 1,
-    'intervalType' => 'month',
-    'totalPrice' => 197,
-    'paidUntil' => \Carbon\Carbon::parse('2020-09-28 06:16:08'),
-    'productId' => 1,
-    'payments' => [],
-    'startDate' => \Carbon\Carbon::parse('2020-01-28 06:16:08')
-];
-$edgeExpirationDate = \Carbon\Carbon::parse('2020-09-28 06:16:08');
-$user = [
-    'createdAt' => \Carbon\Carbon::parse('2019-01-01 06:16:08'),
-];
-$subscriptionManagedElsewhere = false;
-$hasClaimedRetentionOfferAlready = false;
-$trialMembershipProductIds = [];
-@endphp
-
 <div>
     <div class="border-b border-gray p-8 pt-0">
         <div>

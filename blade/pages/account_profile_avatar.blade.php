@@ -1,4 +1,4 @@
-@extends('musora-ui::vue.public_layout')
+@extends('musora-ui::layouts.public_vue')
 
 @section('musora-ui::title', 'Create Account - Profile Name')
 

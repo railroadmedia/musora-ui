@@ -8,15 +8,7 @@
         <p class="font-roboto">You are ready to get started! We've added some lessons to your list - we suggest starting with the "How To Use Drumeo Edge" course.</p>
     </div>
     <div class="sm:px-8 sm:py-4">
-        @component('musora-ui::utilities.video-card', [
-            'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-            'teacherName' => 'teacher name',
-            'icon' => 'icon-courses',
-            'contentType' => 'content type',
-            'videoTitle' => 'How To Use Drumeo Edge',
-            'difficulty' => 'Beginner - 1',
-            'hideAddIcon' => true,
-        ])
+        @component('musora-ui::utilities.video-card', $lesson)
         @endcomponent
     </div>
 </div>

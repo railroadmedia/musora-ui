@@ -20,7 +20,7 @@
     <div class="mt-4 mb-2 flex justify-center">
         @component('musora-ui::utilities.anchor-button', [
             'labelText' => 'next',
-            'href' => '/router.php/account_profile_avatar',
+            'href' => $nextUrl,
         ])
         @endcomponent
     </div>
@@ -51,7 +51,7 @@
         <div class="flex justify-center lg:justify-end leading-none">
             @component('musora-ui::utilities.anchor-button', [
                 'labelText' => 'skip',
-                'href' => '#',
+                'href' => $skipUrl,
                 'theme' => 'gray'
             ])
             @endcomponent

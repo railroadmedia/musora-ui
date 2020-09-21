@@ -34,7 +34,8 @@ class DrumeoViewComposer
 
         // blade
         'accountLessonsLink' => '/router.php/pages/account_lessons',
-        'accountProfile_nameLink' => '/router.php/pages/account_profile_name',
+        'accountProfileNameLink' => '/router.php/pages/account_profile_name',
+        'accountProfileAvatarLink' => '/router.php/pages/account_profile_avatar',
         'accountStartLink' => '/router.php/pages/account_start',
         'coursesCourseLink' => '/router.php/pages/courses_course',
         'liveLink' => '/router.php/pages/live',
@@ -271,6 +272,7 @@ class DrumeoViewComposer
         $view->with(
             [
                 'aboutFields' => [
+                    'firstName' => 'brandon',
                     'full name' => 'brandon toews',
                     'birthday' => 'may 26, 1987',
                 ],
@@ -612,7 +614,7 @@ class DrumeoViewComposer
                     'lessonXp' => 150,
                     'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
                     'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/247400-card-thumbnail-maxres-1584796503.jpg',
-                    'url' => '/router.php/pages/content_video'
+                    'url' => self::$staticUrls['contentVideoLink'],
                 ],
                 'continueContentData' => $mockData,
                 'newContentData' => $mockData,
@@ -638,7 +640,7 @@ class DrumeoViewComposer
                     'lessonXp' => 150,
                     'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
                     'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/247400-card-thumbnail-maxres-1584796503.jpg',
-                    'url' => '/router.php/pages/content_video'
+                    'url' => self::$staticUrls['contentVideoLink'],
                 ],
                 'lessonProgress' => [
                     'level' => '3.5',
@@ -654,7 +656,7 @@ class DrumeoViewComposer
                         'lessonXp' => 150,
                         'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
                         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241248-card-thumbnail-1577144969.jpg',
-                        'url' => '/router.php/method_level',
+                        'url' => self::$staticUrls['methodLevelLink'],
                     ],
                     [
                         'teacherName' => 'jared falk',
@@ -664,7 +666,7 @@ class DrumeoViewComposer
                         'lessonXp' => 150,
                         'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
                         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241284-card-thumbnail-1577144975.jpg',
-                        'url' => '/router.php/method_level',
+                        'url' => self::$staticUrls['methodLevelLink'],
                     ],
                     [
                         'teacherName' => 'jared falk',
@@ -674,7 +676,7 @@ class DrumeoViewComposer
                         'lessonXp' => 150,
                         'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
                         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241285-card-thumbnail-1577144979.jpg',
-                        'url' => '/router.php/method_level',
+                        'url' => self::$staticUrls['methodLevelLink'],
                     ],
                     [
                         'teacherName' => 'jared falk',
@@ -684,7 +686,7 @@ class DrumeoViewComposer
                         'lessonXp' => 150,
                         'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
                         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241286-card-thumbnail-1577144984.jpg',
-                        'url' => '/router.php/method_level',
+                        'url' => self::$staticUrls['methodLevelLink'],
                     ],
                     [
                         'teacherName' => 'jared falk',
@@ -694,7 +696,7 @@ class DrumeoViewComposer
                         'lessonXp' => 150,
                         'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
                         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241287-card-thumbnail-1577144994.jpg',
-                        'url' => '/router.php/method_level',
+                        'url' => self::$staticUrls['methodLevelLink'],
                     ],
                     [
                         'teacherName' => 'jared falk',
@@ -704,7 +706,7 @@ class DrumeoViewComposer
                         'lessonXp' => 150,
                         'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
                         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241288-card-thumbnail-1577144999.jpg',
-                        'url' => '/router.php/method_level',
+                        'url' => self::$staticUrls['methodLevelLink'],
                     ],
                     [
                         'teacherName' => 'jared falk',
@@ -714,7 +716,7 @@ class DrumeoViewComposer
                         'lessonXp' => 150,
                         'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
                         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241289-card-thumbnail-1577145007.jpg',
-                        'url' => '/router.php/method_level',
+                        'url' => self::$staticUrls['methodLevelLink'],
                     ],
                     [
                         'teacherName' => 'jared falk',
@@ -724,7 +726,7 @@ class DrumeoViewComposer
                         'lessonXp' => 150,
                         'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
                         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241290-card-thumbnail-1577145012.jpg',
-                        'url' => '/router.php/method_level',
+                        'url' => self::$staticUrls['methodLevelLink'],
                     ],
                     [
                         'teacherName' => 'jared falk',
@@ -734,7 +736,7 @@ class DrumeoViewComposer
                         'lessonXp' => 150,
                         'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
                         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241291-card-thumbnail-1577145017.jpg',
-                        'url' => '/router.php/method_level',
+                        'url' => self::$staticUrls['methodLevelLink'],
                     ],
                     [
                         'teacherName' => 'jared falk',
@@ -744,9 +746,602 @@ class DrumeoViewComposer
                         'lessonXp' => 150,
                         'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
                         'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241292-card-thumbnail-1577145021.jpg',
-                        'url' => '/router.php/method_level',
+                        'url' => self::$staticUrls['methodLevelLink'],
                     ],
                 ]
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function accountLessonsPageContent(View $view)
+    {
+        $view->with(
+            [
+                'lessons' => [
+                    [
+                        'name' => 'beats',
+                        'icon' => 'icon-rudiments',
+                        'tab' => 1
+                    ],
+                    [
+                        'name' => 'theory',
+                        'icon' => 'icon-blank-staff',
+                        'tab' => 2
+                    ],
+                    [
+                        'name' => 'fills',
+                        'icon' => 'icon-drums',
+                        'tab' => 3
+                    ],
+                    [
+                        'name' => 'styles',
+                        'icon' => 'icon-rudiments',
+                        'tab' => 4
+                    ],
+                    [
+                        'name' => 'technique',
+                        'icon' => 'icon-rudiments',
+                        'tab' => 5
+                    ],
+                    [
+                        'name' => 'rudiments',
+                        'icon' => 'icon-rudiments',
+                        'tab' => 6
+                    ],
+                    [
+                        'label' => 'ear training',
+                        'name' => 'ear-training',
+                        'icon' => 'icon-rudiments',
+                        'tab' => 7
+                    ],
+                    [
+                        'name' => 'independence',
+                        'icon' => 'icon-rudiments',
+                        'tab' => 8
+                    ],
+                    [
+                        'name' => 'musicality',
+                        'icon' => 'icon-rudiments',
+                        'tab' => 9
+                    ],
+                    [
+                        'name' => 'gear',
+                        'icon' => 'icon-rudiments',
+                        'tab' => 10
+                    ]
+                ],
+                'nextUrl' => self::$staticUrls['accountProfileNameLink'],
+                'skipUrl' => '#',
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function accountProfileNamePageContent(View $view)
+    {
+        $view->with(
+            [
+                'nextUrl' => self::$staticUrls['accountProfileAvatarLink'],
+                'skipUrl' => '#',
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function accountStartPageContent(View $view)
+    {
+        $view->with(
+            [
+                'lesson' => [
+                    'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                    'teacherName' => 'teacher name',
+                    'icon' => 'icon-courses',
+                    'contentType' => 'content type',
+                    'videoTitle' => 'How To Use Drumeo Edge',
+                    'difficulty' => 'Beginner - 1',
+                    'hideAddIcon' => true,
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function livePageContent(View $view)
+    {
+        $view->with(
+            [
+                'contentData' => [
+                    [
+                        'month' => 'aug',
+                        'date' => 'Mon 17',
+                        'time' => '11:00 AM',
+                        'title' => 'question and answer',
+                        'subtitle' => 'Weekly Q&A',
+                        'type' => 'live broadcast',
+                        'instructor' => 'Kyle Radomsky',
+                        'difficulty' => 'all skill levels',
+                    ],
+                    [
+                        'month' => 'aug',
+                        'date' => 'Tue 18',
+                        'time' => '11:00 AM',
+                        'title' => 'student focus',
+                        'subtitle' => 'Student Focus',
+                        'type' => 'live broadcast',
+                        'instructor' => 'Kyle Radomsky',
+                        'difficulty' => 'all skill levels',
+                    ],
+                    [
+                        'month' => 'aug',
+                        'date' => 'Wed 19',
+                        'time' => '10:00 AM',
+                        'title' => 'question and answer',
+                        'subtitle' => 'Electronic Drums Q&A',
+                        'type' => 'live broadcast',
+                        'instructor' => 'Kyle Radomsky',
+                        'difficulty' => 'all skill levels',
+                    ],
+                    [
+                        'month' => 'aug',
+                        'date' => 'Thu 20',
+                        'time' => '3:00 PM',
+                        'title' => 'question and answer',
+                        'subtitle' => 'Rudiment Throwdown - All Strokes',
+                        'type' => 'live broadcast',
+                        'instructor' => 'John Wooton',
+                        'difficulty' => 'all skill levels',
+                    ],
+                    [
+                        'month' => 'aug',
+                        'date' => 'Fri 21',
+                        'time' => '11:00 AM',
+                        'title' => 'question and answer',
+                        'subtitle' => 'Weekly Q&A',
+                        'type' => 'live broadcast',
+                        'instructor' => 'Aaron Edgar',
+                        'difficulty' => 'all skill levels',
+                    ],
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function packsPageContent(View $view)
+    {
+        $view->with(
+            [
+                'continueVideos' => [
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor one',
+                        'icon' => 'icon-packs',
+                        'contentType' => 'successful drumming',
+                        'videoTitle' => 'this is the lesson title',
+                        'difficulty' => 'Beginner - 1',
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor Two',
+                        'icon' => 'icon-packs',
+                        'contentType' => 'rock drumming masterclass',
+                        'videoTitle' => 'Continue Video Two',
+                        'difficulty' => 'Beginner - 1',
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Other Instructor',
+                        'icon' => 'icon-packs',
+                        'contentType' => 'cobus method',
+                        'videoTitle' => 'Continue Video Three',
+                        'difficulty' => 'Beginner - 1',
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor one',
+                        'icon' => 'icon-packs',
+                        'contentType' => 'bass drum secrets',
+                        'videoTitle' => 'Continue Video Four',
+                        'difficulty' => 'Beginner - 1',
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor Two',
+                        'icon' => 'icon-packs',
+                        'contentType' => 'independence made easy',
+                        'videoTitle' => 'Continue Video Five',
+                        'difficulty' => 'Beginner - 1',
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Other Instructor',
+                        'icon' => 'icon-packs',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Six',
+                        'difficulty' => 'Beginner - 1',
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ]
+                ],
+                'continueAllUrl' => '#',
+                'packs' => [
+                    [
+                        'background' => 'https://dz5i3s4prcfun.cloudfront.net/drum-technique-made-easy/dtme-pack-card-thumb-w-o-logo.png',
+                        'foreground' => 'https://dpwjbsxqtam5n.cloudfront.net/drum-technique-made-easy/logo-white.png',
+                    ],
+                    [
+                        'background' => 'https://dpwjbsxqtam5n.cloudfront.net/drum-shop/card-thumbs/drumming-system-2.jpg',
+                        'foreground' => 'https://dpwjbsxqtam5n.cloudfront.net/drum-shop/card-thumbs/drumming-system-2.png',
+                    ],
+                    [
+                        'background' => 'https://dpwjbsxqtam5n.cloudfront.net/drum-shop/card-thumbs/independence-made-easy.jpg',
+                        'foreground' => 'https://dzryyo1we6bm3.cloudfront.net/independence-made-easy/sales/logo.png',
+                    ],
+                    [
+                        'background' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/packs/550/methods-and-mechanics.jpg',
+                        'foreground' => 'https://s3.amazonaws.com/drumeo-packs/Pack%20Images/Methods%20And%20Mechanics/logo-white.png',
+                    ],
+                    [
+                        'background' => 'https://dpwjbsxqtam5n.cloudfront.net/drum-shop/card-thumbs/successful-drumming.jpg',
+                        'foreground' => 'https://dpwjbsxqtam5n.cloudfront.net/drum-shop/card-thumbs/successful-drumming.png',
+                    ],
+                    [
+                        'background' => 'https://dpwjbsxqtam5n.cloudfront.net/drum-shop/card-thumbs/anatomy-of-a-drum-solo.jpg',
+                        'foreground' => 'https://s3.amazonaws.com/drumeo-packs/Pack%20Images/Anatomy%20Of%20A%20Drum%20Solo/logo-white.png',
+                    ],
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function accountProfileDashboardPageContent(View $view)
+    {
+        $view->with(
+            [
+                'videosContinue' => [
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor one',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video One',
+                        'difficulty' => 'Beginner - 1',
+                        'hideAddIcon' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor Two',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Two',
+                        'difficulty' => 'Beginner - 1',
+                        'hideAddIcon' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Other Instructor',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Three',
+                        'difficulty' => 'Beginner - 1',
+                        'hideAddIcon' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor one',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Four',
+                        'difficulty' => 'Beginner - 1',
+                        'hideAddIcon' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor Two',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Five',
+                        'difficulty' => 'Beginner - 1',
+                        'hideAddIcon' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Other Instructor',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Six',
+                        'difficulty' => 'Beginner - 1',
+                        'hideAddIcon' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ]
+                ],
+                'continueAllUrl' => '#',
+                'videosComplete' => [
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor one',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video One',
+                        'difficulty' => 'Beginner - 1',
+                        'hideAddIcon' => true,
+                        'showCompleteIcon' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor Two',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Two',
+                        'difficulty' => 'Beginner - 1',
+                        'hideAddIcon' => true,
+                        'showCompleteIcon' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Other Instructor',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Three',
+                        'difficulty' => 'Beginner - 1',
+                        'hideAddIcon' => true,
+                        'showCompleteIcon' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor one',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Four',
+                        'difficulty' => 'Beginner - 1',
+                        'hideAddIcon' => true,
+                        'showCompleteIcon' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor Two',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Five',
+                        'difficulty' => 'Beginner - 1',
+                        'hideAddIcon' => true,
+                        'showCompleteIcon' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Other Instructor',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Six',
+                        'difficulty' => 'Beginner - 1',
+                        'hideAddIcon' => true,
+                        'showCompleteIcon' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ]
+                ],
+                'completedAllUrl' => '#',
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function schedulePageContent(View $view)
+    {
+        $view->with(
+            [
+                'contentData' => [
+                    [
+                        'month' => 'aug',
+                        'date' => 'Mon 17',
+                        'time' => '8:00 AM',
+                        'title' => 'quick tips',
+                        'subtitle' => '5 Proven Ways To Fix Your Doubles',
+                        'type' => 'lesson release',
+                        'instructor' => 'TBD',
+                        'difficulty' => 'all skill levels',
+                    ],
+                    [
+                        'month' => 'aug',
+                        'date' => 'Mon 17',
+                        'time' => '11:00 AM',
+                        'title' => 'question and answer',
+                        'subtitle' => 'Weekly Q&A',
+                        'type' => 'live broadcast',
+                        'instructor' => 'Kyle Radomsky',
+                        'difficulty' => 'all skill levels',
+                    ],
+                    [
+                        'month' => 'aug',
+                        'date' => 'Tue 18',
+                        'time' => '11:00 AM',
+                        'title' => 'student focus',
+                        'subtitle' => 'Student Focus',
+                        'type' => 'live broadcast',
+                        'instructor' => 'Kyle Radomsky',
+                        'difficulty' => 'all skill levels',
+                    ],
+                    [
+                        'month' => 'aug',
+                        'date' => 'Wed 19',
+                        'time' => '10:00 AM',
+                        'title' => 'question and answer',
+                        'subtitle' => 'Electronic Drums Q&A',
+                        'type' => 'live broadcast',
+                        'instructor' => 'John Wooton',
+                        'difficulty' => 'all skill levels',
+                    ],
+                    [
+                        'month' => 'aug',
+                        'date' => 'Thu 20',
+                        'time' => '8:00 AM',
+                        'title' => 'quick tips',
+                        'subtitle' => 'Consitency As A Drummer',
+                        'type' => 'live broadcast',
+                        'instructor' => "Nick D'Virgilio",
+                        'difficulty' => 'all skill levels',
+                    ],
+                    [
+                        'month' => 'aug',
+                        'date' => 'Thu 20',
+                        'time' => '3:00 PM',
+                        'title' => 'question and answer',
+                        'subtitle' => 'Rudiment Throwdown - All Strokes',
+                        'type' => 'live broadcast',
+                        'instructor' => 'John Wooton',
+                        'difficulty' => 'all skill levels',
+                    ],
+                    [
+                        'month' => 'aug',
+                        'date' => 'Fri 21',
+                        'time' => '11:00 AM',
+                        'title' => 'student focus',
+                        'subtitle' => 'Student Focus',
+                        'type' => 'live broadcast',
+                        'instructor' => 'Aaron Edgar',
+                        'difficulty' => 'all skill levels',
+                    ],
+                    [
+                        'month' => 'aug',
+                        'date' => 'Sat 22',
+                        'time' => '8:00 AM',
+                        'title' => 'course',
+                        'subtitle' => "Glen's Linear Lickss",
+                        'type' => 'lesson release',
+                        'instructor' => 'Glen Sobel',
+                        'difficulty' => 'all skill levels',
+                    ],
+                ]
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function accountSettingsDetailsPageContent(View $view)
+    {
+        $view->with(
+            [
+                'membershipType' => '1-year',
+                'membershipStatus' => 'active',
+                'isAdmin' => true,
+                'userProduct' => [
+                    'startDate' => \Carbon\Carbon::parse('2020-07-28 06:16:08'),
+                    'paidUntil' => \Carbon\Carbon::parse('2020-09-28 06:16:08'),
+                ],
+                'subscription' => [
+                    'intervalCount' => 1,
+                    'intervalType' => 'month',
+                    'totalPrice' => 197,
+                    'paidUntil' => \Carbon\Carbon::parse('2020-09-28 06:16:08'),
+                    'productId' => 1,
+                    'payments' => [],
+                    'startDate' => \Carbon\Carbon::parse('2020-01-28 06:16:08')
+                ],
+                'edgeExpirationDate' => \Carbon\Carbon::parse('2020-09-28 06:16:08'),
+                'user' => [
+                    'createdAt' => \Carbon\Carbon::parse('2019-01-01 06:16:08'),
+                ],
+                'subscriptionManagedElsewhere' => false,
+                'hasClaimedRetentionOfferAlready' => false,
+                'trialMembershipProductIds' => [],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function accountLoginCredentialsPageContent(View $view)
+    {
+        $view->with(
+            [
+                'userData' => [
+                    'id' => 1,
+                    'email' => [
+                        'title' => 'login email',
+                        'inputs' => [
+                            'email' => 'brandon@toews.com',
+                        ],
+                    ],
+                    'password' => [
+                        'title' => 'login password',
+                        'inputs' => [
+                            'password' => '********',
+                        ],
+                    ],
+                ],
+                'inputErrors' => [
+                    'email' => [],
+                    'password' => [],
+                ],
+                'forms' => [
+                    'email' => [
+                        'method' => 'patch',
+                        'action' => '/usora/email-change/request/',
+                    ],
+                    'password' => [
+                        'method' => 'patch',
+                        'action' => '/usora/user/update-password/',
+                    ],
+                ],
             ]
         );
     }

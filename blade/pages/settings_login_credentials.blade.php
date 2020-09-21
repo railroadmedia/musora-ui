@@ -7,28 +7,6 @@
     @include('musora-ui::partials.profile-nav', ['active' => 'settings'])
 @endsection
 
-@php
-$userData = [
-    'id' => 1,
-    'email' => [
-        'title' => 'login email',
-        'inputs' => [
-            'email' => 'brandon@toews.com',
-        ],
-    ],
-    'password' => [
-        'title' => 'login password',
-        'inputs' => [
-            'password' => '********',
-        ],
-    ],
-];
-$inputErrors = [
-    'email' => [],
-    'password' => [],
-];
-@endphp
-
 @section('musora-ui::content')
     <div class="mx-auto w-full container pt-8 sm:pl-3 h-full flex flex-col sm:flex-row">
         @include('musora-ui::partials.profile-sidenav', ['active' => 'login credentials'])
@@ -43,10 +21,7 @@ $inputErrors = [
                 [
                     'data' => $userData['email'],
                     'errors' => $inputErrors['email'],
-                    'form' => [
-                        'method' => 'patch',
-                        'action' => '/usora/email-change/request/',
-                    ],
+                    'form' => $forms['email'],
                 ]
             )
 
@@ -55,10 +30,7 @@ $inputErrors = [
                 [
                     'data' => $userData['password'],
                     'errors' => $inputErrors['password'],
-                    'form' => [
-                        'method' => 'patch',
-                        'action' => '/usora/user/update-password/',
-                    ],
+                    'form' => $forms['password'],
                 ]
             )
         </div>

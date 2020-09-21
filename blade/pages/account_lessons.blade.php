@@ -2,76 +2,19 @@
 
 @section('musora-ui::title', 'Create Account - Lessons')
 
-@php
-$checkboxes = [
-    [
-        'name' => 'beats',
-        'icon' => 'icon-rudiments',
-        'tab' => 1
-    ],
-    [
-        'name' => 'theory',
-        'icon' => 'icon-blank-staff',
-        'tab' => 2
-    ],
-    [
-        'name' => 'fills',
-        'icon' => 'icon-drums',
-        'tab' => 3
-    ],
-    [
-        'name' => 'styles',
-        'icon' => 'icon-rudiments',
-        'tab' => 4
-    ],
-    [
-        'name' => 'technique',
-        'icon' => 'icon-rudiments',
-        'tab' => 5
-    ],
-    [
-        'name' => 'rudiments',
-        'icon' => 'icon-rudiments',
-        'tab' => 6
-    ],
-    [
-        'label' => 'ear training',
-        'name' => 'ear-training',
-        'icon' => 'icon-rudiments',
-        'tab' => 7
-    ],
-    [
-        'name' => 'independence',
-        'icon' => 'icon-rudiments',
-        'tab' => 8
-    ],
-    [
-        'name' => 'musicality',
-        'icon' => 'icon-rudiments',
-        'tab' => 9
-    ],
-    [
-        'name' => 'gear',
-        'icon' => 'icon-rudiments',
-        'tab' => 10
-    ]
-];
-@endphp
-
 @section('musora-ui::content')
 <div class="m-10 w-full">
     <h2 class="font-extrabold text-center uppercase mb-8">what do you want to work on?</h2>
     <div class="mb-6">
         <div class="flex flex-wrap">
-            @foreach ($checkboxes as $checkbox)
+            @foreach ($lessons as $lesson)
                 <div class="w-full sm:w-1/2 sm:px-1 py-1">
                     @component('musora-ui::utilities.badge-checkbox', [
-                        'labelText' => $checkbox['label'] ?? $checkbox['name'],
-                        'id' => $checkbox['name'],
-                        'inputName' => $checkbox['name'],
-                        'iconClass' => $checkbox['icon'] ?? null,
-                        'tabIndex' => $checkbox['tab'] ?? null,
-                        'skipScript' => !$loop->last
+                        'labelText' => $lesson['label'] ?? $lesson['name'],
+                        'id' => $lesson['name'],
+                        'inputName' => $lesson['name'],
+                        'iconClass' => $lesson['icon'] ?? null,
+                        'tabIndex' => $lesson['tab'] ?? null,
                     ])
                     @endcomponent
                 </div>
@@ -81,7 +24,7 @@ $checkboxes = [
     <div class="flex justify-center pt-4">
         @component('musora-ui::utilities.anchor-button', [
             'labelText' => 'next',
-            'href' => '/router.php/account_profile_name',
+            'href' => $nextUrl,
         ])
         @endcomponent
     </div>
@@ -112,7 +55,7 @@ $checkboxes = [
         <div class="flex justify-center lg:justify-end leading-none">
             @component('musora-ui::utilities.anchor-button', [
                 'labelText' => 'skip',
-                'href' => '#',
+                'href' => $skipUrl,
                 'theme' => 'gray'
             ])
             @endcomponent

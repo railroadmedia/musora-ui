@@ -1,7 +1,7 @@
 <template>
     <div class="profile-avatar">
         <div
-            v-show="!hasFileToCrop"
+            v-show="!$_hasFileToCrop"
             ref="uploader"
             class="cursor-pointer border-2 border-blue-600 rounded-full text-blue-600 mx-auto text-4xl flex flex-col justify-center"
             style="height: 120px; width: 120px;"
@@ -9,7 +9,7 @@
             <i class="fal fa-plus dz-message"></i>
         </div>
         <div
-            v-show="hasFileToCrop"
+            v-show="$_hasFileToCrop"
             class="relative"
         >
             <div class="" style="height: 260px;" :class="{invisible: croppedImage}">
@@ -20,7 +20,7 @@
             </div>
 
             <div
-                class="mx-2 sm:mx-0 py-3 flex items-center justify-between"
+                class="mx-2 sm:mx-0 py-3 flex items-center sm:justify-between"
                 v-show="!croppedImage"
             >
                 <a
@@ -28,7 +28,7 @@
                     @click="resetCrop"
                 >Cancel</a>
 
-                <div class="inline-block">
+                <div class="flex flex-row">
                     <a
                         class="bg-dark-gray text-white rounded-full font-bold focus:outline-none focus:shadow-outline active:bg-edge-blue uppercase inline-block mx-1 cursor-pointer flex items-center justify-center"
                         style="height: 30px; width: 30px;"

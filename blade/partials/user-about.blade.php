@@ -1,7 +1,7 @@
 <div class="w-full mt-6 mb-20">
     <div class="flex flex-row justify-between items-center uppercase text-sm font-semibold">
         <div class="text-medium-gray">
-            <span>about brandon</span>
+            <span>about {{ $aboutFields['firstName'] }}</span>
         </div>
         <div class="">
             <a href="#" class="text-blue-500 text-xs">edit</a>

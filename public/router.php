@@ -35,6 +35,15 @@ $blade->composer('.pages.courses_course', DrumeoViewComposer::class . '@coursePa
 $blade->composer('.pages.method_level', DrumeoViewComposer::class . '@methodLevelPageContent');
 $blade->composer('.pages.edge', DrumeoViewComposer::class . '@edgePageContent');
 $blade->composer('.pages.method', DrumeoViewComposer::class . '@methodPageContent');
+$blade->composer('.pages.account_lessons', DrumeoViewComposer::class . '@accountLessonsPageContent');
+$blade->composer('.pages.account_profile_name', DrumeoViewComposer::class . '@accountProfileNamePageContent');
+$blade->composer('.pages.account_start', DrumeoViewComposer::class . '@accountStartPageContent');
+$blade->composer('.pages.live', DrumeoViewComposer::class . '@livePageContent');
+$blade->composer('.pages.packs', DrumeoViewComposer::class . '@packsPageContent');
+$blade->composer('.pages.profile_dashboard', DrumeoViewComposer::class . '@accountProfileDashboardPageContent');
+$blade->composer('.pages.schedule', DrumeoViewComposer::class . '@schedulePageContent');
+$blade->composer('.pages.settings_details', DrumeoViewComposer::class . '@accountSettingsDetailsPageContent');
+$blade->composer('.pages.settings_login_credentials', DrumeoViewComposer::class . '@accountLoginCredentialsPageContent');
 
 // echo 'page: ' . var_export($filePathDots, true); die();
 
