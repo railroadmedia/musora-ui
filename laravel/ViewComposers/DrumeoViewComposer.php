@@ -12,6 +12,7 @@ class DrumeoViewComposer
         'musoraContentJsPath' => '../../js/generic/musora-content.js',
         'musoraLessonJsPath' => '../../js/generic/musora-lesson.js',
         'musoraProfileJsPath' => '../../js/generic/musora-profile.js',
+        'scriptsJsPath' => '../../js/generic/musora-utility-scripts.js',
         'drumeoCssPath' => '/build/drumeo/drumeo.css',
     ];
 

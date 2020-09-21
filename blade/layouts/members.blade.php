@@ -30,6 +30,6 @@
 <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 @stack('musora-ui::scripts')
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="/js/scripts.js"></script>
+<script src="{{ $scriptsJsPath }}"></script>
 </body>
 </html>

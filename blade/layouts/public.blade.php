@@ -27,6 +27,6 @@
     @yield('musora-ui::footer')
 </div>
 @stack('musora-ui::scripts')
-<script src="/js/scripts.js"></script>
+<script src="{{ $scriptsJsPath }}"></script>
 </body>
 </html>

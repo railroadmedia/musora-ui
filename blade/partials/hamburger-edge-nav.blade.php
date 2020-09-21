@@ -18,7 +18,7 @@
                 </div>
                 <a href="#" class="search-toggle hidden search-bar-close h-full px-4 flex items-end small:items-center text-header-gray pb-2 small:pb-0"><i class="fas fa-times text-xl font-bold"></i></a>
             </div>
-            <a href="/router.php/profile_dashboard" class="h-full flex items-end small:items-center">
+            <a href="{{ $profileDashboardLink }}" class="h-full flex items-end small:items-center">
                 <div class="rounded-full overflow-hidden border-2 border-header-gray w-8">
                     <img src="{{ $profilePictureUrl }}">
                 </div>

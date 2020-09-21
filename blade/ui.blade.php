@@ -266,6 +266,6 @@
 </div>
 
 @stack('scripts')
-<script src="/js/scripts.js"></script>
+<script src="{{ $scriptsJsPath }}"></script>
 </body>
 </html>

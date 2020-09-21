@@ -27,7 +27,7 @@ mix.babel(
         path.join(__dirname, 'js/blocks.js'),
         path.join(__dirname, 'js/sections.js'),
     ],
-    path.join(__dirname, 'public/js/scripts.js')
+    path.join(__dirname, 'public/js/generic/musora-utility-scripts.js')
 );
 
 mix.webpackConfig({
