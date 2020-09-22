@@ -18,7 +18,7 @@
         <input
             id="{{ $inputId }}"
             class="displayed"
-            {{ !empty($inputValue) && $inputValue === true ? 'checked' : '' }}
+            {{ !empty($inputValue) && $inputValue ? 'checked="on"' : '' }}
             type="checkbox"
         >
 

@@ -7,20 +7,6 @@
     @include('musora-ui::partials.profile-nav', ['active' => 'settings'])
 @endsection
 
-@php
-$userData = [
-    'id' => 1,
-    'inputs' => [
-        'notify_weekly_update' => 1,
-        'notify_on_lesson_comment_reply' => 0,
-        'notify_on_lesson_comment_like' => 1,
-        'notify_on_forum_followed_thread_reply' => 0,
-        'notify_on_forum_post_like' => 1,
-        'use_legacy_video_player' => 0,
-    ],
-];
-@endphp
-
 @section('musora-ui::content')
     <div class="mx-auto w-full container pt-8 px-3 sm:pr-0 sm:pl-3 h-full flex flex-col sm:flex-row">
         @include('musora-ui::partials.profile-sidenav', ['active' => 'settings'])
@@ -33,11 +19,8 @@ $userData = [
             @include(
                 'musora-ui::partials.profile.settings',
                 [
-                    'data' => $userData['inputs'],
-                    'form' => [
-                        'method' => 'POST',
-                        'action' => '/usora/user/update/' . $userData['id'] . '/',
-                    ],
+                    'data' => $data,
+                    'form' => $form,
                 ]
             )
         </div>

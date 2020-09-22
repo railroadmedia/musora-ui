@@ -18,16 +18,15 @@ class DrumeoViewComposer
 
     public static $staticUrls = [
         // vue
-        'contentVideoLink' => '/router.php/pages/content_video', // todo - review & update - video player and related videos not displayed
+        'contentVideoLink' => '/router.php/pages/content_video',
         'coursesLink' => '/router.php/pages/courses',
         'edgeLink' => '/router.php/pages/edge',
         'playAlongsLink' => '/router.php/pages/play_alongs',
         'profileMyListLink' => '/router.php/pages/profile_my_list',
-        'publicLayoutLink' => '/router.php/pages/public_layout', // todo - review & update - not sure the link is used anywhere
-        'rudimentsLink' => '/router.php/pages/rudiments', // todo - review & update - blue filter click
+        'rudimentsLink' => '/router.php/pages/rudiments',
         'searchResultsLink' => '/router.php/pages/search_results',
-        'settingsPaymentsLink' => '/router.php/pages/settings_payments', // todo - review & update - payments list error
-        'settingsProfileLink' => '/router.php/pages/settings_profile', // todo - review & update - image cropper error
+        'settingsPaymentsLink' => '/router.php/pages/settings_payments',
+        'settingsProfileLink' => '/router.php/pages/settings_profile',
         'showsShowLink' => '/router.php/pages/shows_show',
         'songsLink' => '/router.php/pages/songs',
         'songsSongLink' => '/router.php/pages/songs_song', // todo - review & update - related songs not displayed
@@ -1357,6 +1356,449 @@ class DrumeoViewComposer
                         'action' => '/usora/user/update-password/',
                     ],
                 ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function accountSetupPageContent(View $view)
+    {
+        $view->with(
+            [
+                'data' => [
+                    'notify_weekly_update' => 1,
+                    'notify_on_lesson_comment_reply' => 0,
+                    'notify_on_lesson_comment_like' => 1,
+                    'notify_on_forum_followed_thread_reply' => 0,
+                    'notify_on_forum_post_like' => 1,
+                    'use_legacy_video_player' => 0,
+                ],
+                'form' => [
+                    'method' => 'POST',
+                    'action' => '/usora/user/update/1/',
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function showsPageContent(View $view)
+    {
+        $view->with(
+            [
+                'continueVideos' => [
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor one',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video One',
+                        'difficulty' => 'Beginner - 1',
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor Two',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Two',
+                        'difficulty' => 'Beginner - 1',
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Other Instructor',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Three',
+                        'difficulty' => 'Beginner - 1',
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor one',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Four',
+                        'difficulty' => 'Beginner - 1',
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Instructor Two',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Five',
+                        'difficulty' => 'Beginner - 1',
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
+                        'teacherName' => 'Other Instructor',
+                        'icon' => 'icon-courses',
+                        'contentType' => 'content type',
+                        'videoTitle' => 'Continue Video Six',
+                        'difficulty' => 'Beginner - 1',
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ]
+                ],
+                'continueAllUrl' => '#',
+                'shows' => [
+                    [
+                        'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/show-live.jpg',
+                        'url' => self::$staticUrls['showsShowLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/behind-the-scenes.jpg',
+                        'url' => self::$staticUrls['showsShowLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/bootcamps.jpg',
+                        'url' => self::$staticUrls['showsShowLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/challenges.jpg',
+                        'url' => self::$staticUrls['showsShowLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/sonor-drums.jpg',
+                        'url' => self::$staticUrls['showsShowLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/exploring-beats.jpg',
+                        'url' => self::$staticUrls['showsShowLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/gear.jpg',
+                        'url' => self::$staticUrls['showsShowLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/on-the-road.jpg',
+                        'url' => self::$staticUrls['showsShowLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/performances.jpg',
+                        'url' => self::$staticUrls['showsShowLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/show-podcast.jpg',
+                        'url' => self::$staticUrls['showsShowLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/show-quick-tips.jpg',
+                        'url' => self::$staticUrls['showsShowLink'],
+                    ],
+                    [
+                        'thumbnail' => 'https://dpwjbsxqtam5n.cloudfront.net/shows/advent-calendar-show-card.jpg',
+                        'url' => self::$staticUrls['showsShowLink'],
+                    ],
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function videoPageContent(View $view)
+    {
+        $relatedVideosData = $this->getMockData('related_videos.json');
+        $commentsData = $this->getMockData('comments.json');
+
+        $view->with(
+            [
+                'relatedVideosData' => $relatedVideosData,
+                'commentsData' => $commentsData,
+                'userData' => [
+                    'avatar' => 'https://s3.amazonaws.com/pianote/defaults/avatar.png',
+                    'name' => 'brandon toews',
+                    'membership' => 'team',
+                    'level' => '2.3',
+                    'border' => 'blue',
+                ],
+                'breadcrumbs' => [
+                    'parents' => [
+                        [
+                            'label' => 'courses',
+                            'url' => '/router.php/vue/courses',
+                        ],
+                        [
+                            'label' => 'breaking the rules of drum tuning',
+                            'url' => '/router.php/vue/courses',
+                        ],
+                    ],
+                    'current' => [
+                        'label' => 'Kick Drum Tuning'
+                    ],
+                ],
+                'lessonProgress' => [
+                    'percent' => 48,
+                    'xp' => 150,
+                    'fixed' => false,
+                    'button' => [
+                        'theme' => 'white-wire',
+                        'iconClass' => 'fas fa-check',
+                        'labelText' => 'mark as complete',
+                        'href' => '#',
+                    ],
+                ],
+                'description' => [
+                    'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.',
+                    'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.',
+                    'Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.'
+                ],
+                'themeColor' => 'drumeo',
+                'lessonContent' => [
+                    'video_poster_image_url' => 'https://i.vimeocdn.com/video/935088558_1280x720.jpg?r=pad',
+                    'video_playback_endpoints' => '[{"file":"https:\/\/player.vimeo.com\/external\/444685587.sd.mp4?s=f2a3d5629ceca6aaca92aeeaa8002690a8121966&profile_id=139&oauth2_token_id=1284792283","width":426,"height":240},{"file":"https:\/\/player.vimeo.com\/external\/444685587.sd.mp4?s=f2a3d5629ceca6aaca92aeeaa8002690a8121966&profile_id=164&oauth2_token_id=1284792283","width":640,"height":360},{"file":"https:\/\/player.vimeo.com\/external\/444685587.sd.mp4?s=f2a3d5629ceca6aaca92aeeaa8002690a8121966&profile_id=165&oauth2_token_id=1284792283","width":960,"height":540},{"file":"https:\/\/player.vimeo.com\/external\/444685587.hd.mp4?s=53d1b30d79e3cd7e5375468b0aa27f07a633dab5&profile_id=174&oauth2_token_id=1284792283","width":1280,"height":720},{"file":"https:\/\/player.vimeo.com\/external\/444685587.hd.mp4?s=53d1b30d79e3cd7e5375468b0aa27f07a633dab5&profile_id=175&oauth2_token_id=1284792283","width":1920,"height":1080},{"file":"https:\/\/player.vimeo.com\/external\/444685587.hd.mp4?s=53d1b30d79e3cd7e5375468b0aa27f07a633dab5&profile_id=170&oauth2_token_id=1284792283","width":2560,"height":1440},{"file":"https:\/\/player.vimeo.com\/external\/444685587.hd.mp4?s=53d1b30d79e3cd7e5375468b0aa27f07a633dab5&profile_id=172&oauth2_token_id=1284792283","width":3840,"height":2160}]',
+                    'hlsManifestUrl' => 'https://player.vimeo.com/external/444685587.m3u8?s=081d3b4db34f62c05927360023f1401ab6169a3d&oauth2_token_id=1284792283',
+                    'captions' => '',
+                    'chapters' => [],
+                    'currentSecond' => '207',
+                    'contentId' => '265255',
+                    'userId' => '150259',
+                    'videoId' => '444685587',
+                    'castTitle' => 'Kick Drum Tuning',
+                    'progressState' => 'started',
+                    'videoLength' => 207,
+                    'like_count' => 13,
+                    'is_liked_by_current_user' => false,
+                ],
+                'lessonContentYoutube' => [
+                    'videoId' => '_Ye1nhmRMCo',
+                    'currentSecond' => '0',
+                    'totalDuration' => '15000',
+                    'progressState' => '',
+                    'contentId' => 23033,
+                ],
+                'useLegacyPlayer' => true,
+                'useYoutubePlayer' => true,
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function coursesPageContent(View $view)
+    {
+        $coursesData = $this->getMockData('courses.json');
+
+        $view->with(
+            [
+                'coursesData' => $coursesData,
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function playAlongsPageContent(View $view)
+    {
+        $playAlongsData = $this->getMockData('play_alongs.json');
+
+        $view->with(
+            [
+                'playAlongsData' => $playAlongsData,
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function profileMyListPageContent(View $view)
+    {
+        $mylistData = $this->getMockData('mylist.json');
+
+        $view->with(
+            [
+                'mylistData' => $mylistData,
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function rudimentsPageContent(View $view)
+    {
+        $rudimentsData = $this->getMockData('rudiments.json');
+
+        $view->with(
+            [
+                'continueVideos' => $rudimentsData,
+                'continueAllUrl' => '#',
+                'rudimentsData' => $rudimentsData,
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function searchResultsPageContent(View $view)
+    {
+        $searchResultsData = $this->getMockData('search_results.json');
+
+        $view->with(
+            [
+                'searchResultsData' => $searchResultsData,
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function accountSettingsPaymentsPageContent(View $view)
+    {
+        $paymentMethodsData = $this->getMockData('paymentMethods.json');
+        $cartData = $this->getMockData('cartData.json');
+
+        $view->with(
+            [
+                'paymentMethodsData' => $paymentMethodsData,
+                'cartData' => $cartData,
+                'countries' => ['United States', 'Canada', 'United Kingdom', 'Australia'],
+                'regions' => ['Alberta', 'British Columbia'],
+                'inputErrors' => ['methods' => []],
+                'user' => [
+                    'id' => 1,
+                    'hasSubscription' => true,
+                    'isActive' => false,
+                ],
+                'payments' => [
+                    [
+                        'id' => 1,
+                        'date' => 'August 24, 2020',
+                        'payment-method' => 'Visa - 4242',
+                        'type' => 'INITIAL_ORDER',
+                        'amount' => '$197.00',
+                    ],
+                    [
+                        'id' => 2,
+                        'date' => 'July 24, 2020',
+                        'payment-method' => 'Visa - 4242',
+                        'type' => 'INITIAL_ORDER',
+                        'amount' => '$197.00',
+                    ]
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function accountProfilePageContent(View $view)
+    {
+        $view->with(
+            [
+                'userData' => [
+                    'id' => 1,
+                    'display' => [
+                        'title' => 'display name',
+                        'inputs' => [
+                            'display_name' => 'Brandon Toews',
+                        ],
+                    ],
+                    'avatar' => [
+                        'title' => 'Profile Picture',
+                        'inputs' => [
+                            // 'avatar' => '',
+                            'avatar' => 'https://d2vyvo0tyx8ig5.cloudfront.net/avatars/150259_1557736362228.jpg'
+                        ],
+                    ],
+                    'about' => [
+                        'title' => 'about brandon toews',
+                        'inputs' => [
+                            'first_name' => 'Brandon',
+                            'last_name' => 'Toews',
+                            'country' => '',
+                            'birthday' => '2018-05-07',
+                            'biography' => 'test bio text',
+                        ],
+                    ],
+                    'gear' => [
+                        'title' => 'my gear',
+                        'inputs' => [
+                            'drums_playing_since_year' => '1996',
+                            'drums_gear_set_brands' => 'gear set brand',
+                            'drums_gear_cymbal_brands' => 'gear cymbal brand',
+                            'drums_gear_hardware_brands' => 'gear hardware brand',
+                            'drums_gear_stick_brands' => 'gear stick brands',
+                        ],
+                    ],
+                    'gear-photo' => [
+                        'title' => 'Gear Photo',
+                        'inputs' => [
+                            // 'gear' => '',
+                            'gear' => 'https://drumeo-profile-images.s3.us-west-2.amazonaws.com/150386_drumkit-image_1530547770.jpg'
+                        ],
+                    ],
+                ],
+                'inputErrors' => [
+                    'display' => [],
+                    'about' => [
+                        // 'first_name' => 'test error message',
+                    ],
+                    'gear' => [],
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function showsShowPageContent(View $view)
+    {
+        $showsData = $this->getMockData('shows.json');
+
+        $view->with(
+            [
+                'continueVideos' => $showsData,
+                'continueAllUrl' => '#',
+                'showsData' => $showsData,
             ]
         );
     }

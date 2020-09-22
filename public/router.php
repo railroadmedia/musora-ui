@@ -45,6 +45,17 @@ $blade->composer('.pages.profile_dashboard', DrumeoViewComposer::class . '@accou
 $blade->composer('.pages.schedule', DrumeoViewComposer::class . '@schedulePageContent');
 $blade->composer('.pages.settings_details', DrumeoViewComposer::class . '@accountSettingsDetailsPageContent');
 $blade->composer('.pages.settings_login_credentials', DrumeoViewComposer::class . '@accountLoginCredentialsPageContent');
+$blade->composer('.pages.settings_setup', DrumeoViewComposer::class . '@accountSetupPageContent');
+$blade->composer('.pages.shows', DrumeoViewComposer::class . '@showsPageContent');
+$blade->composer('.pages.content_video', DrumeoViewComposer::class . '@videoPageContent');
+$blade->composer('.pages.courses', DrumeoViewComposer::class . '@coursesPageContent');
+$blade->composer('.pages.play_alongs', DrumeoViewComposer::class . '@playAlongsPageContent');
+$blade->composer('.pages.profile_my_list', DrumeoViewComposer::class . '@profileMyListPageContent');
+$blade->composer('.pages.rudiments', DrumeoViewComposer::class . '@rudimentsPageContent');
+$blade->composer('.pages.search_results', DrumeoViewComposer::class . '@searchResultsPageContent');
+$blade->composer('.pages.settings_payments', DrumeoViewComposer::class . '@accountSettingsPaymentsPageContent');
+$blade->composer('.pages.settings_profile', DrumeoViewComposer::class . '@accountProfilePageContent');
+$blade->composer('.pages.shows_show', DrumeoViewComposer::class . '@showsShowPageContent');
 
 // echo 'page: ' . var_export($filePathDots, true); die();
 

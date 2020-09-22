@@ -19,6 +19,7 @@ Vue.use(Toasted, toastsOptions);
 
 import RelatedVideos from '../../components/Content/RelatedVideos';
 import RelatedSongs from '../../components/Content/RelatedSongs';
+import CommentsList from '../../components/Comments/List';
 import VideoResources from '../../components/Video/Resources';
 import VideoPlayer from 'vuesora/src/components/VideoPlayer';
 import MediaElement from 'vuesora/src/components/MediaElement';
@@ -27,6 +28,7 @@ import YoutubePlayer from 'vuesora/src/components/YoutubePlayer';
 Vue.component('related-videos', RelatedVideos);
 Vue.component('related-songs', RelatedSongs);
 Vue.component('video-resources', VideoResources);
+Vue.component('comments-list', CommentsList);
 
 Vue.use(VideoPlayer);
 Vue.use(MediaElement);

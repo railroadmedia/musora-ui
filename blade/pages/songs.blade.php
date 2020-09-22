@@ -1,4 +1,4 @@
-@extends('musora-ui::layouts.vue')
+@extends('musora-ui::layouts.vue_content')
 
 @section('musora-ui::title', 'Members - Songs')
 

@@ -9,7 +9,6 @@
 @tailwind base;
 @tailwind components;
 
-/* todo - add parts of the rules below in tailwind config extend */
 .floating-label ~ label,
 .stripe-element-container ~ label {
     transform-origin: 0 0;
