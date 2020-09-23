@@ -56,6 +56,9 @@ $blade->composer('.pages.search_results', DrumeoViewComposer::class . '@searchRe
 $blade->composer('.pages.settings_payments', DrumeoViewComposer::class . '@accountSettingsPaymentsPageContent');
 $blade->composer('.pages.settings_profile', DrumeoViewComposer::class . '@accountProfilePageContent');
 $blade->composer('.pages.shows_show', DrumeoViewComposer::class . '@showsShowPageContent');
+$blade->composer('.pages.songs', DrumeoViewComposer::class . '@songsPageContent');
+$blade->composer('.pages.student_focus', DrumeoViewComposer::class . '@studentFocusPageContent');
+$blade->composer('.pages.songs_song', DrumeoViewComposer::class . '@songsSongPageContent');
 
 // echo 'page: ' . var_export($filePathDots, true); die();
 

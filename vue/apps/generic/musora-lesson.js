@@ -24,11 +24,13 @@ import VideoResources from '../../components/Video/Resources';
 import VideoPlayer from 'vuesora/src/components/VideoPlayer';
 import MediaElement from 'vuesora/src/components/MediaElement';
 import YoutubePlayer from 'vuesora/src/components/YoutubePlayer';
+import SongContent from '../../components/Content/Song';
 
 Vue.component('related-videos', RelatedVideos);
 Vue.component('related-songs', RelatedSongs);
 Vue.component('video-resources', VideoResources);
 Vue.component('comments-list', CommentsList);
+Vue.component('song-content', SongContent);
 
 Vue.use(VideoPlayer);
 Vue.use(MediaElement);

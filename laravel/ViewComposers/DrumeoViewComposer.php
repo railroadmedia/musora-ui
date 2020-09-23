@@ -29,7 +29,7 @@ class DrumeoViewComposer
         'settingsProfileLink' => '/router.php/pages/settings_profile',
         'showsShowLink' => '/router.php/pages/shows_show',
         'songsLink' => '/router.php/pages/songs',
-        'songsSongLink' => '/router.php/pages/songs_song', // todo - review & update - related songs not displayed
+        'songsSongLink' => '/router.php/pages/songs_song',
         'studentFocusLink' => '/router.php/pages/student_focus',
 
         // blade
@@ -1584,8 +1584,8 @@ class DrumeoViewComposer
                     'progressState' => '',
                     'contentId' => 23033,
                 ],
-                'useLegacyPlayer' => true,
-                'useYoutubePlayer' => true,
+                'useLegacyPlayer' => false,
+                'useYoutubePlayer' => false,
             ]
         );
     }
@@ -1799,6 +1799,83 @@ class DrumeoViewComposer
                 'continueVideos' => $showsData,
                 'continueAllUrl' => '#',
                 'showsData' => $showsData,
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function songsPageContent(View $view)
+    {
+        $songsData = $this->getMockData('songs.json');
+
+        $view->with(
+            [
+                'continueVideos' => $songsData,
+                'continueAllUrl' => '#',
+                'songsData' => $songsData,
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function studentFocusPageContent(View $view)
+    {
+        $studentFocusData = $this->getMockData('student_focus.json');
+
+        $view->with(
+            [
+                'continueVideos' => $studentFocusData,
+                'continueAllUrl' => '#',
+                'studentFocusData' => $studentFocusData,
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function songsSongPageContent(View $view)
+    {
+        $songData = $this->getMockData('song.json');
+        $relatedSongsData = $this->getMockData('related_songs.json');
+        $commentsData = $this->getMockData('comments.json');
+
+        $view->with(
+            [
+                'songData' => $songData,
+                'relatedSongsData' => $relatedSongsData,
+                'commentsData' => $commentsData,
+                'breadcrumbs' => [
+                    'parents' => [
+                        [
+                            'label' => 'songs',
+                            'url' => '/router.php/songs',
+                        ],
+                    ],
+                    'current' => [
+                        'label' => 'american idiot'
+                    ],
+                ],
+                'userData' => [
+                    'avatar' => 'https://s3.amazonaws.com/pianote/defaults/avatar.png',
+                    'name' => 'brandon toews',
+                    'membership' => 'team',
+                    'level' => '2.3',
+                    'border' => 'blue',
+                ],
             ]
         );
     }

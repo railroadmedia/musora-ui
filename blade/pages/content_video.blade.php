@@ -6,10 +6,6 @@
     <link rel="stylesheet" href="/build/drumeo/vuesora.css">
 @endpush
 
-@push('musora-ui::scripts')
-    <script type="text/javascript" src="{{ $musoraLessonJsPath }}"></script>
-@endpush
-
 @section('musora-ui::menu')
     @include('musora-ui::partials.hamburger-edge-nav', ['active' => 'edge'])
     @include('musora-ui::partials.breadcrumbs-nav', $breadcrumbs)

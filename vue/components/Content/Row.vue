@@ -12,7 +12,7 @@
             <div
                 v-for="(item, index) in content"
                 :class="cardClasses[index]"
-                :key="index"
+                :key="item.id"
             >
                 <default-content-card
                     :content="item"
