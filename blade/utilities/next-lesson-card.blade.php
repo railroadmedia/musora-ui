@@ -1,3 +1,13 @@
+{{-- Variables:
+$url
+$thumbnail
+$teacherName
+$lessonTitle
+$lessonDescriptionTruncated
+$lessonLength
+$lessonXp
+--}}
+
 @php
     if (strlen($lessonDescription) > 250) {
         $lessonDescriptionTruncated = substr($lessonDescription, 0, 250) . '...';

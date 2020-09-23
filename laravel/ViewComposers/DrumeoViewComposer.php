@@ -317,8 +317,8 @@ class DrumeoViewComposer
                         'value' => 857,
                     ],
                     [
-                        'label' => 'lessons completed',
-                        'value' => 71,
+                        'label' => 'minutes practiced',
+                        'value' => 4590,
                     ],
                     [
                         'label' => 'xp',
