@@ -1,7 +1,7 @@
 @php
     $url = $url ?? '#';
     $lessonDescription = $lessonDescription ?? '';
-    if (strlen($lessonDescription) > 400) {
+    if (strlen($lessonDescription) > 400 && ($truncateLessonDescription ?? true) != false) {
         $lessonDescriptionTruncated = substr($lessonDescription, 0, 400) . '...';
     } else {
         $lessonDescriptionTruncated = $lessonDescription;
@@ -23,7 +23,7 @@
         <div class="w-full sm:w-3/5 leading-none">
             <div class="my-2 capitalize font-bold text-2xl">{{ $lessonTitle }}</div>
             <div class="my-2 capitalize text-xs text-medium-gray">{{ $teacherName }}</div>
-            <div class="my-2 leading-relaxed text-sm text-dark-gray">{{ $lessonDescriptionTruncated }}</div>
+            <div class="my-2 leading-relaxed text-sm text-dark-gray">{!! $lessonDescriptionTruncated !!}</div>
             <div class="text-medium-gray text-xs lg:hidden">{{ $lessonLength }} - {{ $lessonXp }} XP</div>
         </div>
         <div class="hidden sm:flex flex-row justify-end w-2/5 text-medium-gray text-xs">

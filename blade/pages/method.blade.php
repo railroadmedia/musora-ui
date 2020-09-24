@@ -12,7 +12,8 @@
 
     <div class="bg-blue-100 py-6">
         <div class="mx-auto w-full container px-3">
-            @include('musora-ui::partials.next-lesson', ['nextLesson' => $nextLesson])
+            @component('musora-ui::utilities.next-lesson-card', $nextLesson)
+            @endcomponent
         </div>
     </div>
 
