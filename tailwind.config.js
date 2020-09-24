@@ -66,6 +66,9 @@ module.exports = {
             maxWidth: {
                 page: '97.5rem'
             },
+            maxHeight: {
+                '40': '10rem',
+            },
             screens: {
                 small: '40rem',
                 medium: '64rem',

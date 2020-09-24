@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 
 // import MockSetup from './mock';
 
-export const BASE_URL = 'http://dev.musora.com';
+export const BASE_URL = '//dev.drumeo.com/laravel/public/';
 
 const instance = axios.create({
   baseURL: BASE_URL

@@ -4,11 +4,11 @@
             <div class="text-medium-gray">
                 <span class="font-bold font-roboto-cond">{{ sectionTitle }}</span>
             </div>
-            <div class="">
+            <div v-if="content.length">
                 <a :href="sectionUrl" class="text-edge-blue text-sm font-bold font-roboto-cond">see all</a>
             </div>
         </div>
-        <div class="py-6 small:flex small:space-x-3">
+        <div class="py-6 small:flex small:space-x-3" v-if="content.length">
             <div
                 v-for="(item, index) in content"
                 :class="cardClasses[index]"
@@ -19,6 +19,9 @@
                     :text-details-top="cardTextDetailsTop"
                 ></default-content-card>
             </div>
+        </div>
+        <div class="py-6" v-if="!content.length">
+            <p>Looks like you haven't started any lessons. Once you watch a video, it will show up here for you to access later.</p>
         </div>
     </div>
 </template>

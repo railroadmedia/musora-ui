@@ -28,7 +28,9 @@ export default class Filters {
                             payload.required_fields = [];
                         }
 
-                        payload.required_fields.push(group.id + "," + item.value);
+                        let key = group.id == 'instructors' ? 'instructor' : group.id;
+
+                        payload.required_fields.push(key + "," + item.value);
                     }
                 }
             });
@@ -103,7 +105,7 @@ export default class Filters {
         let icon = FiltersType[groupId].icon;
 
         data.forEach((item) => {
-            let id = item.toLowerCase().replace(/ |\//g, '-');
+            let id = groupId + item.toLowerCase().replace(/ |\//g, '-');
             let value = encodeURI(item);
             let active = false;
             let label = groupId == 'difficulty' ? 'Level ' + item : item;

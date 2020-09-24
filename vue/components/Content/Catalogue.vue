@@ -207,27 +207,11 @@ export default {
     mounted(): void {
         this.$root.$on('filterClicked', this.handleFilterClick);
 
-        console.log("Catalogue::mounted");
-
         let preloadData = JSON.parse(this.preloadData);
 
         this.setupFilters(preloadData);
         this.setupContent(preloadData);
         this.setupPagination(preloadData);
-
-        // console.log("Catalogue::mounted content type: %s, length: %s", JSON.stringify(typeof this.content), JSON.stringify(this.content.length));
-
-        // this.content.forEach(item => {
-        //     console.log("content id: %s, title: %s", JSON.stringify(item.id), JSON.stringify(item.title));
-        // });
-
-        this.filters.forEach(item => {
-            console.log("filter group id: %s, title: %s", JSON.stringify(item.id), JSON.stringify(item.title));
-
-            item.filters.forEach(item => {
-                console.log("filter id: %s, name: %s", JSON.stringify(item.id), JSON.stringify(item.name));
-            });
-        });
 
         this.selectFilterByValue('difficulty', this.levelSelector || 1);
     },
@@ -392,7 +376,11 @@ export default {
 
             let payload = this.getPayload();
 
+            console.log("catalogue::fetchData payload before: %s", JSON.stringify(payload));
+
             payload = FiltersService.decorateRequestParams(payload, this.getFilters());
+
+            console.log("catalogue::fetchData payload: %s", JSON.stringify(payload));
 
             ContentService
                 .getContent(payload)

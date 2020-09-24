@@ -30,6 +30,7 @@ $blade->composer('musora-ui::partials.user-about', DrumeoViewComposer::class . '
 $blade->composer('musora-ui::partials.user-stats', DrumeoViewComposer::class . '@userStats');
 $blade->composer('musora-ui::partials.user-stats-details', DrumeoViewComposer::class . '@userStatsDetails');
 $blade->composer('musora-ui::partials.user-stats-short', DrumeoViewComposer::class . '@userStatsShort');
+$blade->composer('musora-ui::partials.footer', DrumeoViewComposer::class . '@footer');
 
 // pages
 $blade->composer('.pages.courses_course', DrumeoViewComposer::class . '@coursePageContent');

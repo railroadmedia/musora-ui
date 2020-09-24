@@ -55,6 +55,13 @@ class DrumeoViewComposer
         // misc
         'forumsLink' => 'https://forums.drumeo.com/',
         'shopLink' => '/shop',
+
+        // footer
+        'termsLink' => '/terms/',
+        'privacyLink' => '/privacy/',
+        'legacyResourcesLink' => '/laravel/public/members/legacy-resources',
+        'supportLink' => '/laravel/public/members/support',
+        'logoutLink' => '/laravel/public/logout',
     ];
 
     /**
@@ -617,7 +624,7 @@ class DrumeoViewComposer
      */
     public function edgePageContent(View $view)
     {
-        $mockData = $this->getMockData('edge.json');
+        $mockData = $this->getMockData('debug.json');
 
         $view->with(
             [
@@ -627,7 +634,8 @@ class DrumeoViewComposer
                     'lessonLength' => '8 mins',
                     'lessonXp' => 150,
                     'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                    'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/247400-card-thumbnail-maxres-1584796503.jpg',
+                    // 'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/247400-card-thumbnail-maxres-1584796503.jpg',
+                    'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241250-card-thumbnail-maxres-1593029818.png',
                     'url' => self::$staticUrls['contentVideoLink'],
                 ],
                 'continueContentData' => $mockData,
@@ -1876,6 +1884,25 @@ class DrumeoViewComposer
                     'level' => '2.3',
                     'border' => 'blue',
                 ],
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function footer(View $view)
+    {
+        $view->with(
+            [
+                'termsLink' => self::$staticUrls['termsLink'],
+                'privacyLink' => self::$staticUrls['privacyLink'],
+                'legacyResourcesLink' => self::$staticUrls['legacyResourcesLink'],
+                'supportLink' => self::$staticUrls['supportLink'],
+                'logoutLink' => self::$staticUrls['logoutLink'],
             ]
         );
     }

@@ -16,8 +16,10 @@ $nextLesson (data array)
 
     <div class="bg-blue-100 py-6">
         <div class="mx-auto w-full container px-3">
-            @component('musora-ui::utilities.next-lesson-card', $nextLesson)
-            @endcomponent
+            <div class="">
+                @component('musora-ui::utilities.next-lesson-card', $nextLesson)
+                @endcomponent
+            </div>
         </div>
     </div>
 
@@ -41,7 +43,7 @@ $nextLesson (data array)
     </div>
 
     <content-catalogue
-        level-selector='2'
+        level-selector='0'
         topics-filters-title='what do you want to work on?'
         :cards-per-row='4'
         preload-data='{{ $catalogueContentData }}'

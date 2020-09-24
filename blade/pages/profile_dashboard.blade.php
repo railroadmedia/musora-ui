@@ -32,4 +32,6 @@
 
         @include('musora-ui::partials.user-about')
     </div>
+
+    @include('musora-ui::partials.footer')
 @endsection

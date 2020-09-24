@@ -1,5 +1,5 @@
 <template>
-    <a :href="getUrl(content)" class="content-card">
+    <a :href="getUrl(content)" class="content-card" :data-content-id="content.id">
         <div
             class="rounded-lg overflow-hidden relative"
             :class="$_aspectRatio"
