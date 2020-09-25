@@ -8,7 +8,7 @@
 @endsection
 
 @section('musora-ui::content')
-    <div class="mx-auto w-full container pt-8 sm:pl-3 h-full flex flex-col sm:flex-row">
+    <div class="mx-auto w-full container pt-8 pb-8 sm:pl-3 h-full flex flex-col sm:flex-row">
         @include('musora-ui::partials.profile-sidenav', ['active' => 'login credentials'])
 
         <div class="flex-1 flex flex-col">
@@ -35,4 +35,6 @@
             )
         </div>
     </div>
+
+    @include('musora-ui::partials.footer')
 @endsection

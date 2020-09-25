@@ -20,9 +20,13 @@
         ></content-row>
     </div>
 
-    <rudiments-content
-        preload-data='{{ $rudimentsData }}'
-        topics-filters-title='rudiment types'
-        infinite-scroll
-    ></rudiments-content>
+    <div class="pb-6">
+        <rudiments-content
+            preload-data='{{ $rudimentsData }}'
+            topics-filters-title='rudiment types'
+            infinite-scroll
+        ></rudiments-content>
+    </div>
+
+    @include('musora-ui::partials.footer')
 @endsection

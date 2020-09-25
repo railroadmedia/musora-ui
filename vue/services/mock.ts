@@ -351,14 +351,14 @@ export default class Mock {
                 });
 
                 contentTypes.forEach(filter => {
-                    if (!activeFiltersMap['content-type']) {
-                        activeFiltersMap['content-type'] = {};
+                    if (!activeFiltersMap['content_type']) {
+                        activeFiltersMap['content_type'] = {};
                     }
-                    if (!activeFilters['content-type']) {
-                        activeFilters['content-type'] = [];
+                    if (!activeFilters['content_type']) {
+                        activeFilters['content_type'] = [];
                     }
-                    activeFilters['content-type'].push(filter);
-                    activeFiltersMap['content-type'][filter] = true;
+                    activeFilters['content_type'].push(filter);
+                    activeFiltersMap['content_type'][filter] = true;
                 });
 
                 // setting active filters on response

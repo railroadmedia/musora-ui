@@ -29,7 +29,7 @@ $lastMonth = null;
         </div>
     </div>
 
-    <div class="mx-auto w-full container h-full pt-4">
+    <div class="mx-auto w-full container h-full pt-4 pb-6">
 
         <div class="">
             @foreach($contentData as $content)
@@ -57,4 +57,6 @@ $lastMonth = null;
             @endcomponent
         </div>
     </div>
+
+    @include('musora-ui::partials.footer')
 @endsection

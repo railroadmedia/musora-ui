@@ -16,7 +16,7 @@ $lastMonth = null;
 
     <h1 class="container w-full mx-auto px-3 pt-6 font-extrabold text-4xl">Live Schedule</h1>
 
-    <div class="mx-auto w-full container h-full pt-4">
+    <div class="mx-auto w-full container h-full pt-4 mb-8">
 
         <div class="">
             @foreach($contentData as $content)
@@ -33,4 +33,6 @@ $lastMonth = null;
             @endforeach
         </div>
     </div>
+
+    @include('musora-ui::partials.footer')
 @endsection

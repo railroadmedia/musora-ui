@@ -31,4 +31,7 @@
     ></content-catalogue>
 
     @include('musora-ui::partials.student-plan')
+    <!-- todo - the student plan is fixed bottom, footer wont show -->
+
+    @include('musora-ui::partials.footer')
 @endsection

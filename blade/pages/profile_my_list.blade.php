@@ -13,4 +13,6 @@
         topics-filters-title='choose your list'
         infinite-scroll
     ></my-list-content>
+
+    @include('musora-ui::partials.footer')
 @endsection

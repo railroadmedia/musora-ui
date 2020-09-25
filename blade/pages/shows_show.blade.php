@@ -21,4 +21,6 @@
         infinite-scroll
         use-progress-filters
     ></shows-content>
+
+    @include('musora-ui::partials.footer')
 @endsection

@@ -8,7 +8,7 @@ if (isset($author['border']) && $author['border'] == 'yellow') {
 }
 @endphp
 
-<div class="flex">
+<div class="flex max-w-full">
     <div class="flex-none relative rounded-full overflow-hidden h-20 w-20 mr-6">
         <div class="rounded-full overflow-hidden border-4 {{ $_borderColorClass }} h-20 w-20">
             <img src="{{ $author['avatar'] }}" class="h-full w-auto">
@@ -19,7 +19,7 @@ if (isset($author['border']) && $author['border'] == 'yellow') {
     </div>
     <div class="flex flex-col">
         <div class="flex flex-col items-start sm:flex-row sm:items-center">
-            <div class="capitalize font-semibold">{{ $author['name'] }}</div>
+            <div class="capitalize font-semibold" style="word-break: break-all;">{{ $author['name'] }}</div>
             <div class="sm:ml-2 rounded-lg px-3 bg-medium-gray uppercase text-xs text-white">level - {{ $author['level'] }}</div>
         </div>
         <div class="my-2">{{ $comment }}</div>

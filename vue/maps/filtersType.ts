@@ -29,19 +29,19 @@ export default {
         type: 'string',
         label: 'Topic'
     },
-    'content-type': {
+    'content_type': {
         type: 'string',
         label: 'Content Type',
         icon: 'fa-times-circle',
     },
-    instructors: {
+    instructor: {
         type: 'entity',
         label: 'Instructor',
         icon: 'fa-times-circle',
         constructor: (value, groupId) => {
             return new Filter(
                 value.id,
-                'instructors', // current block key
+                'instructor', // current block key
                 value.slug,
                 value.name,
                 0,

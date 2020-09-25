@@ -51,4 +51,6 @@ $nextLesson (data array)
         use-edge-content-type-filters
         use-progress-filters
     ></content-catalogue>
+
+    @include('musora-ui::partials.footer')
 @endsection

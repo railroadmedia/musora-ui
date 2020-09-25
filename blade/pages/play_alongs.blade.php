@@ -21,4 +21,6 @@
         use-play-alongs-content-type-filters
         use-progress-filters
     ></content-catalogue>
+
+    @include('musora-ui::partials.footer')
 @endsection

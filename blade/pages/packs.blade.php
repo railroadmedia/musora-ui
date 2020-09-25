@@ -12,7 +12,7 @@
 
     <h1 class="container w-full mx-auto px-3 pt-6 font-extrabold text-4xl">Packs</h1>
 
-    <div class="mx-auto w-full container px-3 h-full">
+    <div class="mx-auto w-full container px-3 h-full mb-8">
         @include(
             'musora-ui::partials.video-row',
             [
@@ -29,4 +29,6 @@
             ]
         )
     </div>
+
+    @include('musora-ui::partials.footer')
 @endsection

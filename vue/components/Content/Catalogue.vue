@@ -266,7 +266,7 @@ export default {
             let filters = FiltersService.getFilterGroupsFromResponse(response, this.topicsFiltersKey);
 
             if (this.useEdgeContentTypeFilters) {
-                let edgeContentTypeFilterGroup = FiltersService.getEdgeContentTypeFilterGroup(this.filters);
+                let edgeContentTypeFilterGroup = FiltersService.getEdgeContentTypeFilterGroup(response);
 
                 this.filters = [
                     edgeContentTypeFilterGroup,
@@ -284,7 +284,7 @@ export default {
             }
 
             if (this.useProgressFilters) {
-                let progressFilterGroup = FiltersService.getProgressFilterGroup(this.filters);
+                let progressFilterGroup = FiltersService.getProgressFilterGroup(response);
 
                 this.filters.push(progressFilterGroup);
             }
@@ -298,7 +298,7 @@ export default {
                 let hasContentTypeFilter = false;
 
                 this.filters.forEach((group) => {
-                    if (group.id == 'content-type') {
+                    if (group.id == 'content_type') {
                         group.filters.forEach((item) => {
                             if (item.active) {
                                 hasContentTypeFilter = true;
@@ -313,7 +313,7 @@ export default {
 
                         let result = group;
 
-                        if (group.id == 'content-type') {
+                        if (group.id == 'content_type') {
 
                             let groupCopy = group.copy();
 
@@ -376,11 +376,7 @@ export default {
 
             let payload = this.getPayload();
 
-            console.log("catalogue::fetchData payload before: %s", JSON.stringify(payload));
-
             payload = FiltersService.decorateRequestParams(payload, this.getFilters());
-
-            console.log("catalogue::fetchData payload: %s", JSON.stringify(payload));
 
             ContentService
                 .getContent(payload)

@@ -22,4 +22,8 @@
     </div>
 
     @include('musora-ui::partials.lesson-progress', $lessonProgress)
+
+    <!-- todo: lesson-progress sections is fixed bottom, it covers the footer -->
+
+    @include('musora-ui::partials.footer')
 @endsection

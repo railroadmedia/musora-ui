@@ -100,5 +100,7 @@
             </div>
         </div>
     </div>
+
+    @include('musora-ui::partials.footer')
 @endsection
 

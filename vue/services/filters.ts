@@ -13,12 +13,12 @@ export default class Filters {
         filters.forEach((group) => {
             group.filters.forEach((item) => {
                 if (item.active) {
-                    if (group.id == 'content-type') {
+                    if (group.id == 'content_type') {
                         if (!payload.included_types) {
                             payload.included_types = [];
                         }
                         payload.included_types.push(item.value);
-                    } else if (group.id == 'progress') {
+                    } else if (group.id == 'user_states') {
                         if (!payload.required_user_states) {
                             payload.required_user_states = [];
                         }
@@ -28,9 +28,7 @@ export default class Filters {
                             payload.required_fields = [];
                         }
 
-                        let key = group.id == 'instructors' ? 'instructor' : group.id;
-
-                        payload.required_fields.push(key + "," + item.value);
+                        payload.required_fields.push(group.id + "," + item.value);
                     }
                 }
             });
@@ -51,7 +49,10 @@ export default class Filters {
                 if (!activeFiltersMap[key]) {
                     activeFiltersMap[key] = {};
                 }
-                activeFiltersMap[key][value] = true;
+
+                let filterValue = (typeof value == 'object') ? value.id : value;
+
+                activeFiltersMap[key][filterValue] = true;
             });
         });
 
@@ -162,60 +163,60 @@ export default class Filters {
         );
     }
 
-    static getEdgeContentTypeFilterGroup(currentFilters: FilterGroup[]): FilterGroup {
-        let groupId = 'content-type';
+    static getEdgeContentTypeFilterGroup(response): FilterGroup {
+        let groupId = 'content_type';
         let title = 'content type';
         let icon = 'fa-times-circle';
 
-        return this.createFilterGroup(groupId, title, icon, FiltersContentType, currentFilters);
+        return this.createFilterGroup(groupId, title, icon, FiltersContentType, response);
     }
 
-    static getProgressFilterGroup(currentFilters: FilterGroup[]): FilterGroup {
-        let groupId = 'progress';
+    static getProgressFilterGroup(response): FilterGroup {
+        let groupId = 'user_states';
         let title = 'progress';
         let icon = 'fa-times-circle';
 
-        return this.createFilterGroup(groupId, title, icon, FiltersProgress, currentFilters);
+        return this.createFilterGroup(groupId, title, icon, FiltersProgress, response);
     }
 
     static getRudimentsFilterGroup(): FilterGroup {
-        let groupId = 'content-type';
+        let groupId = 'content_type';
         let title = 'content type';
         let icon = 'fa-times-circle';
 
-        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.rudiments, [], true);
+        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.rudiments, {meta:{}}, true);
     }
 
     static getCoursesFilterGroup(): FilterGroup {
-        let groupId = 'content-type';
+        let groupId = 'content_type';
         let title = 'content type';
         let icon = 'fa-times-circle';
 
-        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.courses, [], true);
+        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.courses, {meta:{}}, true);
     }
 
     static getSongsFilterGroup(): FilterGroup {
-        let groupId = 'content-type';
+        let groupId = 'content_type';
         let title = 'content type';
         let icon = 'fa-times-circle';
 
-        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.songs, [], true);
+        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.songs, {meta:{}}, true);
     }
 
     static getPlayAlongsFilterGroup(): FilterGroup {
-        let groupId = 'content-type';
+        let groupId = 'content_type';
         let title = 'content type';
         let icon = 'fa-times-circle';
 
-        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.playAlongs, [], true);
+        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.playAlongs, {meta:{}}, true);
     }
 
     static getStudentFocusFilterGroup(): FilterGroup {
-        let groupId = 'content-type';
+        let groupId = 'content_type';
         let title = 'content type';
         let icon = 'fa-times-circle';
 
-        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.studentFocus, [], true);
+        return this.createFilterGroup(groupId, title, icon, FiltersPageContentType.studentFocus, {meta:{}}, true);
     }
 
     static createFilterGroup(
@@ -223,26 +224,30 @@ export default class Filters {
         title: string,
         icon: string,
         filtersMap,
-        currentFilters: FilterGroup[],
+        response,
         setActive = false
     ): FilterGroup {
         let keys = Object.keys(filtersMap);
         let filters = [];
-        let activeGroupFilters = {};
 
-        currentFilters.forEach(group => {
-            if (group.id == groupId) {
-                group.filters.forEach(filter => {
-                    if (filter.active) {
-                        activeGroupFilters[filter.id] = true;
-                    }
-                });
-            }
+        let activeFiltersMap = {};
+        let activeFilters = response.meta.activeFilters || {};
+
+         Object.keys(activeFilters).forEach((key) => {
+            activeFilters[key].forEach(value => {
+                if (!activeFiltersMap[key]) {
+                    activeFiltersMap[key] = {};
+                }
+
+                let filterValue = (typeof value == 'object') ? value.id : value;
+
+                activeFiltersMap[key][filterValue] = true;
+            });
         });
 
         keys.forEach(key => {
             let id = key;
-            let active = activeGroupFilters[id] || setActive || false;
+            let active = (activeFiltersMap[groupId] && activeFiltersMap[groupId][id]) || setActive || false;
 
             filters.push(
                 new Filter(
@@ -257,6 +262,21 @@ export default class Filters {
                 )
             );
         });
+
+        // for content_type filters, if all active, dont show any as checked
+        if (groupId == 'content_type' && filters.length > 1) {
+            let allActive = true;
+
+            filters.forEach((filter) => {
+                allActive = allActive && filter.active;
+            });
+
+            if (allActive) {
+                filters.forEach((filter) => {
+                    filter.active = false;
+                });
+            }
+        }
 
         return new FilterGroup(
             groupId,

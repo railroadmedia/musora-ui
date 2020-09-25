@@ -12,7 +12,7 @@
 @endpush
 
 @section('musora-ui::app')
-    <div class="mx-auto w-full container pt-8 px-3 sm:pr-0 sm:pl-3 h-full flex flex-col sm:flex-row items-stretch">
+    <div class="mx-auto w-full container pt-8 pb-4 px-3 sm:pr-0 sm:pl-3 h-full flex flex-col sm:flex-row items-stretch">
         @include('musora-ui::partials.profile-sidenav', ['active' => 'profile'])
 
         <div class="flex-1 flex-grow">
@@ -71,4 +71,6 @@
             )
         </div>
     </div>
+
+    @include('musora-ui::partials.footer')
 @endsection

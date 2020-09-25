@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="pb-6">
         <div id="search-input-container" class="bg-header w-full border-b border-header-gray">
             <div class="mx-auto w-full container leading-none sm:h-16 flex flex-col sm:flex-row items-center justify-between px-3 py-4">
                 <input type="text" name="search-term" v-model="$_searchTerm" class="text-center mb-4 sm:mb-0 sm:text-left text-white bg-header w-full sm:w-64 text-xl" placeholder="Enter search term">

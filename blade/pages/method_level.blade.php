@@ -16,4 +16,8 @@
     @include('musora-ui::partials.course-content', $courseContent)
 
     @include('musora-ui::partials.course-progress', $courseProgress)
+
+    <!-- todo: course-progress section is fixed bottom, it covers footer -->
+
+    @include('musora-ui::partials.footer')
 @endsection

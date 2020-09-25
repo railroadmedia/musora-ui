@@ -1907,6 +1907,153 @@ class DrumeoViewComposer
         );
     }
 
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function packBundlesPageContent(View $view)
+    {
+        $view->with(
+            [
+                'breadcrumbs' => [
+                    'parents' => [
+                        [
+                            'label' => 'packs',
+                            'url' => '/router.php/pages/packs',
+                        ],
+                    ],
+                    'current' => [
+                        'label' => 'cobus method'
+                    ],
+                ],
+                'details' => [
+                    'lessons' => 131,
+                    'xp' => 32150,
+                ],
+                'description' => [
+                    [
+                        'title' => 'About the Lesson',
+                        'text' => 'The Cobus Method is based entirely around playing the drums by ear. This natural approach completely avoids sheet music and complex theory - focusing instead on playing the drums along with real music!'
+                    ],
+                    [
+                        'title' => 'About Cobus Potgieter',
+                        'text' => 'The godfather of YouTube drum covers, with over 100 million views, Cobus Potgieter’s unique and creative drumming while playing along to music, has made him one of the best known drummers in the world. With no formal training, Cobus developed a fresh drumming style and creative and effective teaching methods that have made learning drums by ear through his highly-acclaimed “Cobus Method” training pack, an exquisite, fulfilling, and fun experience for thousands of drummers around the world.'
+                    ]
+                ],
+                'title' => 'Cobus Method',
+                'bundles' => [
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/01.png',
+                        'title' => 'getting started',
+                        'description' => 'In this section, you\'ll learn about choosing the right drum setup, hand technique, practicing, and much more!',
+                        'type' => 'pack bundle',
+                        'lessons' => 8,
+                    ],
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/02.png',
+                        'title' => 'what is the cobus method',
+                        'description' => 'Here, you will learn the five steps that make up The Cobus Method. You\'ll be able to use this method for learning any song!',
+                        'type' => 'pack bundle',
+                        'lessons' => 8,
+                    ],
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/03.png',
+                        'title' => 'figuring out songs by ear pt. 1',
+                        'description' => 'This section will teach you how to figure out a song by ear. It will focus on topics like listening to other musicians, song structure, and training your ears.',
+                        'type' => 'pack bundle',
+                        'lessons' => 4,
+                    ],
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/04.png',
+                        'title' => 'figuring out songs by ear pt. 2',
+                        'description' => 'In this section, Cobus will demonstrate how to figure out two different songs by ear.',
+                        'type' => 'pack bundle',
+                        'lessons' => 2,
+                    ],
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/05.png',
+                        'title' => 'writing you own drum beats',
+                        'description' => 'Cobus will teach you a variety of ways to create your own drum beats. He will also show you some of his favorite drum beats!',
+                        'type' => 'pack bundle',
+                        'lessons' => 3,
+                    ],
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/06.png',
+                        'title' => 'writing you own drum fills',
+                        'description' => 'This section will explain how to compose your own drum fills. You will learn about Cobus\' "Fill Shizzle System," playing melodic fills, how your musical influences affect your drum fills, and also some of Cobus\' favorite drum fills!',
+                        'type' => 'pack bundle',
+                        'lessons' => 4,
+                    ],
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/07.png',
+                        'title' => 'drum techniques',
+                        'description' => 'In this section, Cobus will cover topics like hand and foot technique, speed, rudiments, and practicing.',
+                        'type' => 'pack bundle',
+                        'lessons' => 9,
+                    ],
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/08.png',
+                        'title' => 'dynamic drumming',
+                        'description' => 'Cobus will teach you a number of different ways to incorporate dynamics into your playing throughout this section.',
+                        'type' => 'pack bundle',
+                        'lessons' => 12,
+                    ],
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/09.png',
+                        'title' => 'playing to music tracks #1',
+                        'description' => 'This section will include the following play-along tracks: Slow Funk, Pop, Fast Rock, R&B, and Punk.',
+                        'type' => 'pack bundle',
+                        'lessons' => 30,
+                    ],
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/10.png',
+                        'title' => 'playing to music tracks #2',
+                        'description' => 'This section will include the following play-along tracks: 7/4 Fusion, Hard Rock, Fast Funk, 6/8 Ballad, and Fast Pop.',
+                        'type' => 'pack bundle',
+                        'lessons' => 30,
+                    ],
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/11.png',
+                        'title' => 'writing with a band song #1',
+                        'description' => 'Cobus will demonstrate the process of writing a song with a band in this section.',
+                        'type' => 'pack bundle',
+                        'lessons' => 3,
+                    ],
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/12.png',
+                        'title' => 'writing with a band song #2',
+                        'description' => 'Cobus will demonstrate the process of writing a song with a band in this section.',
+                        'type' => 'pack bundle',
+                        'lessons' => 3,
+                    ],
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/13.png',
+                        'title' => 'writing with a band song #3',
+                        'description' => 'Cobus will demonstrate the process of writing a song with a band in this section.',
+                        'type' => 'pack bundle',
+                        'lessons' => 3,
+                    ],
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/14.png',
+                        'title' => 'writing with a band song #4 & #5',
+                        'description' => 'Cobus will demonstrate the process of writing two songs with a band in this section.',
+                        'type' => 'pack bundle',
+                        'lessons' => 6,
+                    ],
+                    [
+                        'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/15.png',
+                        'title' => 'extras',
+                        'description' => 'The final section of The Cobus Method will feature two drum solos, a live lesson with Cobus, outtakes, and more behind the scenes footage!',
+                        'type' => 'pack bundle',
+                        'lessons' => 7,
+                    ],
+                ]
+            ]
+        );
+    }
+
     protected function getMockData($fileName)
     {
         $filePath = sprintf('%s/../../mocks/%s', __DIR__, $fileName);

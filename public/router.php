@@ -60,6 +60,7 @@ $blade->composer('.pages.shows_show', DrumeoViewComposer::class . '@showsShowPag
 $blade->composer('.pages.songs', DrumeoViewComposer::class . '@songsPageContent');
 $blade->composer('.pages.student_focus', DrumeoViewComposer::class . '@studentFocusPageContent');
 $blade->composer('.pages.songs_song', DrumeoViewComposer::class . '@songsSongPageContent');
+$blade->composer('.pages.pack_bundles', DrumeoViewComposer::class . '@packBundlesPageContent');
 
 // echo 'page: ' . var_export($filePathDots, true); die();
 

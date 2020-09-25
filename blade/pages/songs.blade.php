@@ -30,4 +30,6 @@
         use-progress-filters
         infinite-scroll
     ></content-catalogue>
+
+    @include('musora-ui::partials.footer')
 @endsection

@@ -1,4 +1,4 @@
-<div class="p-8 border-b border-gray">
+<div class="p-8">
     <div class="flex items-center py-1">
         <h2 class="flex-1 leading-none text-lg md:text-2xl font-bold capitalize">{{ $data['title'] }}</h2>
         @component(

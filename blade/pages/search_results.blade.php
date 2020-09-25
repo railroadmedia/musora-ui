@@ -12,4 +12,6 @@
         use-progress-filters
     >
     </content-search>
+
+    @include('musora-ui::partials.footer')
 @endsection

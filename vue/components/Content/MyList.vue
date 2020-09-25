@@ -118,7 +118,7 @@ export default {
             let result;
 
             this.filters.forEach((group) => {
-                if (group.id == 'content-type') {
+                if (group.id == 'content_type') {
                     result = group;
                 }
             });
@@ -146,7 +146,7 @@ export default {
             this.filters = [this.$_topics];
 
             filterGroups.forEach(filterGroup => {
-                if (filterGroup.id == 'content-type') {
+                if (filterGroup.id == 'content_type') {
                     this.filters.push(filterGroup);
                 }
             });
