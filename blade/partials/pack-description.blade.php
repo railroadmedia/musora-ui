@@ -1,12 +1,14 @@
 <div class="w-full h-full" style="background-color: #191b1c;">
-    <div class="mx-auto w-full container h-full relative">
+    <div class="mx-auto w-full container h-full relative px-3">
         <div class="text-white py-6">
-            <div class="flex flex-row space-x-6">
-                <div class="space-x-2">
-                    <span class="font-bold text-2xl">{{ $details['lessons'] }}</span><span class="uppercase">lessons</span>
-                </div>
-                <div class="space-x-2">
-                    <span class="font-bold text-2xl">{{ $details['xp'] }}</span><span class="uppercase">xp</span>
+            <div class="flex flex-row">
+                <div class="flex-row space-x-6 hidden sm:flex">
+                    <div class="space-x-2">
+                        <span class="font-bold text-2xl">{{ $details['lessons'] }}</span><span class="uppercase">lessons</span>
+                    </div>
+                    <div class="space-x-2">
+                        <span class="font-bold text-2xl">{{ $details['xp'] }}</span><span class="uppercase">xp</span>
+                    </div>
                 </div>
             </div>
         </div>

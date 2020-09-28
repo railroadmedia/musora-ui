@@ -135,3 +135,13 @@ select::-ms-expand {
     color: #fff;
     font-weight: 800;
 }
+
+/* truncate-text for pack-bundle-card */
+.truncate-text {
+    max-height: 10rem;
+    -webkit-transition: max-height .5s ease-in-out;
+    transition: max-height .5s ease-in-out;
+}
+.truncate-text:not(.active) {
+    max-height: 3rem;
+}

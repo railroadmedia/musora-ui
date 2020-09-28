@@ -1,21 +1,3 @@
-// icon checkboxes
-// todo - remove after updating shows_show to vue components
-
-const iconCheckboxes = document.getElementsByClassName('icon-checkbox');
-
-Array.from(iconCheckboxes).forEach(function(element) {
-    element.addEventListener(
-        'click',
-        function(event) {
-
-            element.classList.toggle('checked');
-
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    );
-});
-
 // toggle-input
 const toggleInputs = document.querySelectorAll('.toggle-input .displayed');
 
@@ -71,3 +53,19 @@ if (badgeCheckboxElements.length) {
         );
     });
 }
+
+// truncate-text for pack-bundle-card
+const truncateTextElements = document.getElementsByClassName('truncate-text');
+
+Array.from(truncateTextElements).forEach(function(element) {
+    element.addEventListener(
+        'click',
+        function(event) {
+
+            element.classList.toggle('active');
+
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    );
+});

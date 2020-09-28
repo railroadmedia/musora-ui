@@ -51,6 +51,8 @@ class DrumeoViewComposer
         'settingsSetupLink' => '/router.php/pages/settings_setup',
         'showsLink' => '/router.php/pages/shows',
         'uiLink' => '/router.php/ui',
+        'packBundles' => '/router.php/pages/pack_bundles',
+        'packBundleLessons' => '/router.php/pages/pack_bundle_lessons',
 
         // misc
         'forumsLink' => 'https://forums.drumeo.com/',
@@ -1020,26 +1022,32 @@ class DrumeoViewComposer
                     [
                         'background' => 'https://dz5i3s4prcfun.cloudfront.net/drum-technique-made-easy/dtme-pack-card-thumb-w-o-logo.png',
                         'foreground' => 'https://dpwjbsxqtam5n.cloudfront.net/drum-technique-made-easy/logo-white.png',
+                        'url' => self::$staticUrls['packBundles'],
                     ],
                     [
                         'background' => 'https://dpwjbsxqtam5n.cloudfront.net/drum-shop/card-thumbs/drumming-system-2.jpg',
                         'foreground' => 'https://dpwjbsxqtam5n.cloudfront.net/drum-shop/card-thumbs/drumming-system-2.png',
+                        'url' => self::$staticUrls['packBundles'],
                     ],
                     [
                         'background' => 'https://dpwjbsxqtam5n.cloudfront.net/drum-shop/card-thumbs/independence-made-easy.jpg',
                         'foreground' => 'https://dzryyo1we6bm3.cloudfront.net/independence-made-easy/sales/logo.png',
+                        'url' => self::$staticUrls['packBundles'],
                     ],
                     [
                         'background' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/packs/550/methods-and-mechanics.jpg',
                         'foreground' => 'https://s3.amazonaws.com/drumeo-packs/Pack%20Images/Methods%20And%20Mechanics/logo-white.png',
+                        'url' => self::$staticUrls['packBundles'],
                     ],
                     [
                         'background' => 'https://dpwjbsxqtam5n.cloudfront.net/drum-shop/card-thumbs/successful-drumming.jpg',
                         'foreground' => 'https://dpwjbsxqtam5n.cloudfront.net/drum-shop/card-thumbs/successful-drumming.png',
+                        'url' => self::$staticUrls['packBundles'],
                     ],
                     [
                         'background' => 'https://dpwjbsxqtam5n.cloudfront.net/drum-shop/card-thumbs/anatomy-of-a-drum-solo.jpg',
                         'foreground' => 'https://s3.amazonaws.com/drumeo-packs/Pack%20Images/Anatomy%20Of%20A%20Drum%20Solo/logo-white.png',
+                        'url' => self::$staticUrls['packBundles'],
                     ],
                 ],
             ]
@@ -1950,6 +1958,7 @@ class DrumeoViewComposer
                         'description' => 'In this section, you\'ll learn about choosing the right drum setup, hand technique, practicing, and much more!',
                         'type' => 'pack bundle',
                         'lessons' => 8,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                     [
                         'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/02.png',
@@ -1957,6 +1966,7 @@ class DrumeoViewComposer
                         'description' => 'Here, you will learn the five steps that make up The Cobus Method. You\'ll be able to use this method for learning any song!',
                         'type' => 'pack bundle',
                         'lessons' => 8,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                     [
                         'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/03.png',
@@ -1964,6 +1974,7 @@ class DrumeoViewComposer
                         'description' => 'This section will teach you how to figure out a song by ear. It will focus on topics like listening to other musicians, song structure, and training your ears.',
                         'type' => 'pack bundle',
                         'lessons' => 4,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                     [
                         'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/04.png',
@@ -1971,6 +1982,7 @@ class DrumeoViewComposer
                         'description' => 'In this section, Cobus will demonstrate how to figure out two different songs by ear.',
                         'type' => 'pack bundle',
                         'lessons' => 2,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                     [
                         'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/05.png',
@@ -1978,6 +1990,7 @@ class DrumeoViewComposer
                         'description' => 'Cobus will teach you a variety of ways to create your own drum beats. He will also show you some of his favorite drum beats!',
                         'type' => 'pack bundle',
                         'lessons' => 3,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                     [
                         'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/06.png',
@@ -1985,6 +1998,7 @@ class DrumeoViewComposer
                         'description' => 'This section will explain how to compose your own drum fills. You will learn about Cobus\' "Fill Shizzle System," playing melodic fills, how your musical influences affect your drum fills, and also some of Cobus\' favorite drum fills!',
                         'type' => 'pack bundle',
                         'lessons' => 4,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                     [
                         'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/07.png',
@@ -1992,6 +2006,7 @@ class DrumeoViewComposer
                         'description' => 'In this section, Cobus will cover topics like hand and foot technique, speed, rudiments, and practicing.',
                         'type' => 'pack bundle',
                         'lessons' => 9,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                     [
                         'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/08.png',
@@ -1999,6 +2014,7 @@ class DrumeoViewComposer
                         'description' => 'Cobus will teach you a number of different ways to incorporate dynamics into your playing throughout this section.',
                         'type' => 'pack bundle',
                         'lessons' => 12,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                     [
                         'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/09.png',
@@ -2006,6 +2022,7 @@ class DrumeoViewComposer
                         'description' => 'This section will include the following play-along tracks: Slow Funk, Pop, Fast Rock, R&B, and Punk.',
                         'type' => 'pack bundle',
                         'lessons' => 30,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                     [
                         'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/10.png',
@@ -2013,6 +2030,7 @@ class DrumeoViewComposer
                         'description' => 'This section will include the following play-along tracks: 7/4 Fusion, Hard Rock, Fast Funk, 6/8 Ballad, and Fast Pop.',
                         'type' => 'pack bundle',
                         'lessons' => 30,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                     [
                         'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/11.png',
@@ -2020,6 +2038,7 @@ class DrumeoViewComposer
                         'description' => 'Cobus will demonstrate the process of writing a song with a band in this section.',
                         'type' => 'pack bundle',
                         'lessons' => 3,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                     [
                         'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/12.png',
@@ -2027,6 +2046,7 @@ class DrumeoViewComposer
                         'description' => 'Cobus will demonstrate the process of writing a song with a band in this section.',
                         'type' => 'pack bundle',
                         'lessons' => 3,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                     [
                         'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/13.png',
@@ -2034,6 +2054,7 @@ class DrumeoViewComposer
                         'description' => 'Cobus will demonstrate the process of writing a song with a band in this section.',
                         'type' => 'pack bundle',
                         'lessons' => 3,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                     [
                         'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/14.png',
@@ -2041,6 +2062,7 @@ class DrumeoViewComposer
                         'description' => 'Cobus will demonstrate the process of writing two songs with a band in this section.',
                         'type' => 'pack bundle',
                         'lessons' => 6,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                     [
                         'thumbnail' => 'https://s3.amazonaws.com/drumeo-packs/Pack+Images/The+Cobus+Method/15.png',
@@ -2048,8 +2070,131 @@ class DrumeoViewComposer
                         'description' => 'The final section of The Cobus Method will feature two drum solos, a live lesson with Cobus, outtakes, and more behind the scenes footage!',
                         'type' => 'pack bundle',
                         'lessons' => 7,
+                        'url' => self::$staticUrls['packBundleLessons'],
                     ],
                 ]
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
+    public function packBundleLessonsPageContent(View $view)
+    {
+        $view->with(
+            [
+                'breadcrumbs' => [
+                    'parents' => [
+                        [
+                            'label' => 'packs',
+                            'url' => self::$staticUrls['packsLink'],
+                        ],
+                        [
+                            'label' => 'cobus method',
+                            'url' => self::$staticUrls['packBundles'],
+                        ],
+                    ],
+                    'current' => [
+                        'label' => 'getting started'
+                    ],
+                ],
+                'details' => [
+                    'lessons' => 8,
+                    'xp' => 1700,
+                ],
+                'description' => [
+                    [
+                        'title' => 'About the Lesson',
+                        'text' => 'The Cobus Method is based entirely around playing the drums by ear. This natural approach completely avoids sheet music and complex theory - focusing instead on playing the drums along with real music!'
+                    ],
+                    [
+                        'title' => 'About Cobus Potgieter',
+                        'text' => 'The godfather of YouTube drum covers, with over 100 million views, Cobus Potgieter’s unique and creative drumming while playing along to music, has made him one of the best known drummers in the world. With no formal training, Cobus developed a fresh drumming style and creative and effective teaching methods that have made learning drums by ear through his highly-acclaimed “Cobus Method” training pack, an exquisite, fulfilling, and fun experience for thousands of drummers around the world.'
+                    ]
+                ],
+                'lessonProgress' => [
+                    'percent' => 12,
+                    'xp' => 1700,
+                    'fixed' => false,
+                    'button' => [
+                        'theme' => 'white-wire',
+                        'labelText' => 'next lesson »',
+                        'href' => '#',
+                    ],
+                ],
+                'lessons' => [
+                    [
+                        'index' => 1,
+                        'thumbnail' => 'https://i.vimeocdn.com/video/457746040_640x360.jpg?r=pad',
+                        'title' => 'introduction',
+                        'length' => 5,
+                        'showAdd' => true,
+                        'progress' => 100,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'index' => 2,
+                        'thumbnail' => 'https://i.vimeocdn.com/video/457746877_640x360.jpg?r=pad',
+                        'title' => 'choosing the right drum setup',
+                        'length' => 11,
+                        'showAdd' => true,
+                        'progress' => 40,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'index' => 3,
+                        'thumbnail' => 'https://i.vimeocdn.com/video/457746547_640x360.jpg?r=pad',
+                        'title' => 'basic stick grip',
+                        'length' => 8,
+                        'showAdd' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'index' => 4,
+                        'thumbnail' => 'https://i.vimeocdn.com/video/457747321_640x360.jpg?r=pad',
+                        'title' => 'time signatures',
+                        'length' => 10,
+                        'showAdd' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'index' => 5,
+                        'thumbnail' => 'https://i.vimeocdn.com/video/457748206_640x360.jpg?r=pad',
+                        'title' => 'note values',
+                        'length' => 17,
+                        'showAdd' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'index' => 6,
+                        'thumbnail' => 'https://i.vimeocdn.com/video/457749435_640x360.jpg?r=pad',
+                        'title' => 'how to practice on the drums',
+                        'length' => 27,
+                        'showAdd' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'index' => 7,
+                        'thumbnail' => 'https://i.vimeocdn.com/video/457748633_640x360.jpg?r=pad',
+                        'title' => 'playing your first beat',
+                        'length' => 4,
+                        'showAdd' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                    [
+                        'index' => 8,
+                        'thumbnail' => 'https://i.vimeocdn.com/video/457748985_640x360.jpg?r=pad',
+                        'title' => 'playing your first fill',
+                        'length' => 5,
+                        'showAdd' => true,
+                        'url' => self::$staticUrls['contentVideoLink'],
+                    ],
+                ],
+                'completionBonus' => 500,
             ]
         );
     }
