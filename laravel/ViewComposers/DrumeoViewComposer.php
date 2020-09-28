@@ -1637,6 +1637,7 @@ class DrumeoViewComposer
         $view->with(
             [
                 'coursesData' => $coursesData,
+                'continueCoursesData' => $coursesData,
             ]
         );
     }
