@@ -529,6 +529,13 @@ class DrumeoViewComposer
     {
         $view->with(
             [
+                'courseDescription' => [
+                    'teacher' => 'jared falk',
+                    'difficulty' => 'Level 1',
+                    'title' => 'How To Setup Your Gear',
+                    'description' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti. Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus.',
+                    'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-06.jpg',
+                ],
                 'courseData' => [
                     'data' => [
                         [
@@ -611,8 +618,14 @@ class DrumeoViewComposer
                     ],
                 ],
                 'courseProgress' => [
-                    'percent' => 72,
-                    'nextUrl' => self::$staticUrls['coursesCourseLink'],
+                    'level' => '3.5',
+                    'percent' => 64,
+                    'xp' => 1250,
+                    'button' => [
+                        'labelText' => 'next lesson',
+                        'theme' => 'reversed',
+                        'href' => '/test',
+                    ]
                 ],
             ]
         );
@@ -669,7 +682,12 @@ class DrumeoViewComposer
                 'lessonProgress' => [
                     'level' => '3.5',
                     'percent' => 64,
-                    'xp' => 1250
+                    'xp' => 1250,
+                    'button' => [
+                        'labelText' => 'next lesson',
+                        'theme' => 'reversed',
+                        'href' => '/test',
+                    ]
                 ],
                 'lessons' => [
                     [

@@ -11,11 +11,12 @@
 @endphp
 
 @section('musora-ui::content')
+    @include('musora-ui::partials.method-level-description', $courseDescription)
     @include('musora-ui::partials.course-data', $courseData)
 
     @include('musora-ui::partials.course-content', $courseContent)
 
-    @include('musora-ui::partials.course-progress', $courseProgress)
+    @include('musora-ui::partials.lesson-progress', $courseProgress)
 
     <!-- todo: course-progress section is fixed bottom, it covers footer -->
 
