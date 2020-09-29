@@ -7,7 +7,7 @@
         <h4 class="font-bold capitalize">{{ $title }}</h4>
     </div>
     <div class="py-2">
-        <div class="text-xs text-medium-gray leading-snug overflow-hidden truncate-text">{{ $description }}</div>
+        <div class="text-xs text-medium-gray leading-snug overflow-hidden truncate-text">{!! $description !!}</div>
     </div>
     <div class="text-xs text-medium-gray capitalize">{{ $type }} - {{ $lessons }} lessons</div>
 </a>

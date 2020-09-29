@@ -21,12 +21,21 @@
         </div>
         <div id="content-info-container" class="text-white overflow-hidden">
             <div class="pb-10 space-y-6">
-                @foreach ($description as $section)
+                @if(!empty($description['contentDescription']))
                     <div class="space-y-3">
-                        <h3 class="font-bold text-xl">{{ $section['title'] }}</h3>
-                        <div>{{ $section['text'] }}</div>
+                        <h3 class="font-bold text-xl uppercase">about the lesson</h3>
+                        <div>{!! $description['contentDescription'] !!}</div>
                     </div>
-                @endforeach
+                @endif
+
+                @if(!empty($description['instructors']))
+                    @foreach ($description['instructors'] as $instructorData)
+                        <div class="space-y-3">
+                            <h3 class="font-bold text-xl uppercase">About {{ $instructorData['name'] }}</h3>
+                            <div>{!! $instructorData['bio'] !!}</div>
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>

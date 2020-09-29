@@ -4,7 +4,7 @@
             <div class="absolute pack-card-icon">
                 <i class="pack-card-icon icon-live text-6xl text-white"></i>
             </div>
-            <div class="absolute bottom-0 mb-8 mx-6">
+            <div class="absolute bottom-0 pb-8 px-6 w-full">
                 <img src="{{ $foreground }}">
             </div>
         </div>
