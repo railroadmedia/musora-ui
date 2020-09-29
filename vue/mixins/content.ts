@@ -21,7 +21,7 @@ export default {
         },
         initialSort: {
             type: String,
-            default: () => 'relevance',
+            default: () => 'newest',
         },
         statuses: {
             type: Array,
@@ -62,10 +62,9 @@ export default {
             pagination: new PaginationModel(this.initialLimit, this.initialPage, this.initialSort),
             limitOptions: [10, 20, 30, 40, 50],
             sortOptions: {
-                'relevance': 'Relevance',
+                'newest': 'Newest First',
                 'trend': 'Trending',
                 'popular': 'Most Popular',
-                'newest': 'Newest First',
                 'oldest': 'Oldest First',
             },
         }

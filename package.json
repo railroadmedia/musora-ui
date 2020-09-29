@@ -1,6 +1,6 @@
 {
   "name": "musora-ui",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Musora front end package for our UI.",
   "main": "index.js",
   "scripts": {
@@ -14,8 +14,11 @@
     "build-vuesora-css": "sass node_modules/vuesora/src/assets/sass/app.scss public/build/drumeo/vuesora.css"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Bogdan Damian",
+    "email": "bogdand@drumeo.com"
+  },
+  "license": "MIT",
   "dependencies": {
     "@musora/icons": "^1.0.3",
     "@tinymce/tinymce-vue": "^3.2.2",

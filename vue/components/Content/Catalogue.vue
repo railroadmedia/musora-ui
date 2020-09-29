@@ -142,7 +142,7 @@ export default {
         },
         levelSelector: {
             type: String,
-            default: () => '1',
+            default: () => '0',
         },
         cardsPerRow: {
             type: Number,
