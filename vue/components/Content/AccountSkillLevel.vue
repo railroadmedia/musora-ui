@@ -48,7 +48,7 @@ export default {
     },
     data(): object {
         return {
-            value: 2,
+            value: 0,
         };
     },
     methods: {

@@ -24,7 +24,7 @@
     @endif
 
     <content-catalogue
-        level-selector='2'
+        level-selector='{{ $currentDifficultyLevel ?? '0' }}'
         topics-filters-title='what do you want to work on?'
         :cards-per-row='4'
         preload-data='{{ $catalogueCoursesJsonData }}'

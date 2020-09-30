@@ -1,5 +1,5 @@
 {
-  "name": "musora-ui",
+  "name": "@musora/musora-ui",
   "version": "0.0.2",
   "description": "Musora front end package for our UI.",
   "main": "index.js",
