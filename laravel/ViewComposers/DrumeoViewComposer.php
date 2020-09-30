@@ -2125,14 +2125,13 @@ class DrumeoViewComposer
                     'xp' => 1700,
                 ],
                 'description' => [
-                    [
-                        'title' => 'About the Lesson',
-                        'text' => 'The Cobus Method is based entirely around playing the drums by ear. This natural approach completely avoids sheet music and complex theory - focusing instead on playing the drums along with real music!'
+                    'contentDescription' => 'The Cobus Method is based entirely around playing the drums by ear. This natural approach completely avoids sheet music and complex theory - focusing instead on playing the drums along with real music!',
+                    'instructors' => [
+                        [
+                            'name' => 'Cobus Potgieter',
+                            'bio' => 'The godfather of YouTube drum covers, with over 100 million views, Cobus Potgieter’s unique and creative drumming while playing along to music, has made him one of the best known drummers in the world. With no formal training, Cobus developed a fresh drumming style and creative and effective teaching methods that have made learning drums by ear through his highly-acclaimed “Cobus Method” training pack, an exquisite, fulfilling, and fun experience for thousands of drummers around the world.'
+                        ],
                     ],
-                    [
-                        'title' => 'About Cobus Potgieter',
-                        'text' => 'The godfather of YouTube drum covers, with over 100 million views, Cobus Potgieter’s unique and creative drumming while playing along to music, has made him one of the best known drummers in the world. With no formal training, Cobus developed a fresh drumming style and creative and effective teaching methods that have made learning drums by ear through his highly-acclaimed “Cobus Method” training pack, an exquisite, fulfilling, and fun experience for thousands of drummers around the world.'
-                    ]
                 ],
                 'lessonProgress' => [
                     'percent' => 12,

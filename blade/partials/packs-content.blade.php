@@ -2,7 +2,5 @@
     @foreach ($packs as $pack)
         @component('musora-ui::utilities.pack-card', $pack)
         @endcomponent
-
-        <!-- {{ var_export($pack, true) }} -->
     @endforeach
 </div>
