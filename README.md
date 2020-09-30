@@ -3,6 +3,24 @@
 Musora UI is a tool for prototyping, building, and testing the front end (HTML/JS/Blade) for projects.
 
 
+## Publishing NPM Version
+- First you need to build all the nessecary files, build command docs WIP
+
+- ```npm adduser``` - follow on screen instructions using the 'musora_dev' npmjs 1pass entry
+- ```git config --global user.name "your-username"``` - configure local git
+- ```git config --global user.email "your-email"``` - configure local git
+- ```npm version patch``` - increase the npm version by 1
+- ```npm publish``` - publish new version to npmjs
+
+## Symlinking With Other Repositories
+- ```cd /app/musora-ui``` - navigate to this packages root
+- ```npm link``` - add musora-ui to npms global list of packages that can be symlinked locally
+- ```cd /app/drumeo/laravel``` - navigate to the repo you want to symlink musora-ui to (may need to change path)
+- ```npm link musora-ui``` - create the symlink
+
+## Build Commands
+WIP
+
 ## Setup
 
 1. Ensure your railenvironment repository and docker build are up to date.
