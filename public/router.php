@@ -43,7 +43,7 @@ $blade->composer('.pages.account_start', DrumeoViewComposer::class . '@accountSt
 $blade->composer('.pages.live', DrumeoViewComposer::class . '@livePageContent');
 $blade->composer('.pages.packs', DrumeoViewComposer::class . '@packsPageContent');
 $blade->composer('.pages.profile_dashboard', DrumeoViewComposer::class . '@accountProfileDashboardPageContent');
-$blade->composer('.pages.schedule', DrumeoViewComposer::class . '@schedulePageContent');
+$blade->composer('.pages.schedule', DrumeoViewComposer::class . '@schedulePageContent'); // todo - remove setup when vue schedule catalogue component is done
 $blade->composer('.pages.settings_details', DrumeoViewComposer::class . '@accountSettingsDetailsPageContent');
 $blade->composer('.pages.settings_login_credentials', DrumeoViewComposer::class . '@accountLoginCredentialsPageContent');
 $blade->composer('.pages.settings_setup', DrumeoViewComposer::class . '@accountSetupPageContent');
@@ -62,6 +62,7 @@ $blade->composer('.pages.student_focus', DrumeoViewComposer::class . '@studentFo
 $blade->composer('.pages.songs_song', DrumeoViewComposer::class . '@songsSongPageContent');
 $blade->composer('.pages.pack_bundles', DrumeoViewComposer::class . '@packBundlesPageContent');
 $blade->composer('.pages.pack_bundle_lessons', DrumeoViewComposer::class . '@packBundleLessonsPageContent');
+$blade->composer('.pages.schedule_vue', DrumeoViewComposer::class . '@scheduleVuePageContent'); // todo - replace page name with schedule when vue schedule catalogue component is done
 
 // echo 'page: ' . var_export($filePathDots, true); die();
 

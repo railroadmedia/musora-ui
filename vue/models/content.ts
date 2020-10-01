@@ -20,6 +20,7 @@ export default class Content {
         public topic?: string,
         public length?: number,
         public totalXp?: number,
+        public status?: string,
         public parent?: Content,
         public progress = 0
     ) {

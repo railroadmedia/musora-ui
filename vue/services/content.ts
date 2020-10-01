@@ -107,7 +107,8 @@ export default class Content {
                 sheet,
                 topic,
                 item.attributes.lengthInSeconds,
-                item.attributes.totalXp
+                item.attributes.totalXp,
+                item.attributes.status
             );
 
             if (relatedDataMap.hasOwnProperty('parent')) {

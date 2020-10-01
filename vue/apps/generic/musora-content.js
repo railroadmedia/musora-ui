@@ -25,6 +25,8 @@ import ModalDefault from '../../components/Modals/Default';
 import AccountSkillLevel from '../../components/Content/AccountSkillLevel';
 import ContentSearch from '../../components/Content/Search';
 import ShowsContent from '../../components/Content/Shows';
+import ScheduleCatalogue from '../../components/Content/Schedule';
+
 
 Vue.component('content-row', ContentRow);
 Vue.component('content-catalogue', ContentCatalogue);
@@ -34,6 +36,7 @@ Vue.component('modal-default', ModalDefault);
 Vue.component('account-skill-level', AccountSkillLevel);
 Vue.component('content-search', ContentSearch);
 Vue.component('shows-content', ShowsContent);
+Vue.component('schedule-catalogue', ScheduleCatalogue);
 
 const app = new Vue({
     el: '#vue-musora-ui'

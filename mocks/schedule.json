@@ -1,0 +1,1994 @@
+{
+  "data": [
+    {
+      "type": "content",
+      "id": "270971",
+      "attributes": {
+        "slug": "student-focus",
+        "type": "student-focus",
+        "sort": 0,
+        "status": "scheduled",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-09 20:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-28 09:37:11",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Student Focus",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": "2020-10-09 20:00:00",
+        "liveEventEndTime": "2020-10-09 21:00:00",
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "live_event_start_time_in_timezone": {
+          "date": "2020-10-09 13:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "live_event_end_time_in_timezone": {
+          "date": "2020-10-09 14:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "published_on_in_timezone": {
+          "date": "2020-10-09 13:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/student-focus/270971",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6610"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "270970",
+      "attributes": {
+        "slug": "student-focus",
+        "type": "student-focus",
+        "sort": 0,
+        "status": "scheduled",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-09 18:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-28 09:33:47",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Student Focus",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": "2020-10-09 18:00:00",
+        "liveEventEndTime": "2020-10-09 19:00:00",
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "live_event_start_time_in_timezone": {
+          "date": "2020-10-09 11:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "live_event_end_time_in_timezone": {
+          "date": "2020-10-09 12:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "published_on_in_timezone": {
+          "date": "2020-10-09 11:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/student-focus/270970",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6609"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "270969",
+      "attributes": {
+        "slug": "rudiment-throwdown",
+        "type": "question-and-answer",
+        "sort": 0,
+        "status": "scheduled",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-08 22:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-28 09:30:41",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Rudiment Throwdown",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": "2020-10-08 22:00:00",
+        "liveEventEndTime": "2020-10-08 23:00:00",
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "live_event_start_time_in_timezone": {
+          "date": "2020-10-08 15:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "live_event_end_time_in_timezone": {
+          "date": "2020-10-08 16:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "published_on_in_timezone": {
+          "date": "2020-10-08 15:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/question-and-answer/270969",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "8271"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "6527"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "270968",
+      "attributes": {
+        "slug": "electronic-drums-qa",
+        "type": "question-and-answer",
+        "sort": 0,
+        "status": "scheduled",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-07 17:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-28 09:26:26",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Electronic Drums Q&A",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": "2020-10-07 17:00:00",
+        "liveEventEndTime": "2020-10-07 18:00:00",
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "live_event_start_time_in_timezone": {
+          "date": "2020-10-07 10:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "live_event_end_time_in_timezone": {
+          "date": "2020-10-07 11:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "published_on_in_timezone": {
+          "date": "2020-10-07 10:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/question-and-answer/270968",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5902"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "270967",
+      "attributes": {
+        "slug": "student-focus",
+        "type": "student-focus",
+        "sort": 0,
+        "status": "scheduled",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-06 17:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-28 09:22:30",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Student Focus",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": "2020-10-06 17:00:00",
+        "liveEventEndTime": "2020-10-06 18:00:00",
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "live_event_start_time_in_timezone": {
+          "date": "2020-10-06 10:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "live_event_end_time_in_timezone": {
+          "date": "2020-10-06 11:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "published_on_in_timezone": {
+          "date": "2020-10-06 10:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/student-focus/270967",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5901"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "270966",
+      "attributes": {
+        "slug": "weekly-qa",
+        "type": "question-and-answer",
+        "sort": 0,
+        "status": "scheduled",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-05 17:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-28 09:17:21",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Weekly Q&A",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": "2020-10-05 17:00:00",
+        "liveEventEndTime": "2020-10-05 18:00:00",
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "live_event_start_time_in_timezone": {
+          "date": "2020-10-05 10:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "live_event_end_time_in_timezone": {
+          "date": "2020-10-05 11:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "published_on_in_timezone": {
+          "date": "2020-10-05 10:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/question-and-answer/270966",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5900"
+            }
+          ]
+        },
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "150774"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "270169",
+      "attributes": {
+        "slug": "student-focus",
+        "type": "student-focus",
+        "sort": 0,
+        "status": "scheduled",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-03 21:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-24 15:11:43",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Student Focus",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": "2020-10-03 21:00:00",
+        "liveEventEndTime": "2020-10-03 22:00:00",
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "live_event_start_time_in_timezone": {
+          "date": "2020-10-03 14:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "live_event_end_time_in_timezone": {
+          "date": "2020-10-03 15:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "published_on_in_timezone": {
+          "date": "2020-10-03 14:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/student-focus/270169",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6608"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "269443",
+      "attributes": {
+        "slug": "student-focus",
+        "type": "student-focus",
+        "sort": 0,
+        "status": "scheduled",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-03 19:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-14 10:59:47",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Student Focus",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": "2020-10-03 19:00:00",
+        "liveEventEndTime": "2020-10-03 20:00:00",
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "live_event_start_time_in_timezone": {
+          "date": "2020-10-03 12:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "live_event_end_time_in_timezone": {
+          "date": "2020-10-03 13:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "published_on_in_timezone": {
+          "date": "2020-10-03 12:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/student-focus/269443",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6606"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "269442",
+      "attributes": {
+        "slug": "rudiment-throwdown",
+        "type": "question-and-answer",
+        "sort": 0,
+        "status": "scheduled",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-01 22:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-14 10:57:50",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Rudiment Throwdown - Double Paradiddles",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": "2020-10-01 22:00:00",
+        "liveEventEndTime": "2020-10-01 23:00:00",
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "live_event_start_time_in_timezone": {
+          "date": "2020-10-01 15:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "live_event_end_time_in_timezone": {
+          "date": "2020-10-01 16:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "published_on_in_timezone": {
+          "date": "2020-10-01 15:00:00.000000",
+          "timezone_type": 3,
+          "timezone": "America/Los_Angeles"
+        },
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/question-and-answer/269442",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "8270"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "270975",
+      "attributes": {
+        "slug": "drumeo-gab-tony-royster-jr",
+        "type": "podcasts",
+        "sort": 0,
+        "status": "published",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-11 15:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-28 09:49:47",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Drumeo GAB - Tony Royster Jr.",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": null,
+        "liveEventEndTime": null,
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/podcasts/270975",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "2892"
+            },
+            {
+              "type": "instructor",
+              "id": "7472"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "1944"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "270973",
+      "attributes": {
+        "slug": "jk-drumplate-gear-guide",
+        "type": "gear-guides",
+        "sort": 0,
+        "status": "published",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-10 16:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-28 09:43:39",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "JK DrumPlate Gear Guide",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": null,
+        "liveEventEndTime": null,
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/gear-guides/270973",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5903"
+            }
+          ]
+        },
+        "topic": {
+          "data": [
+            {
+              "type": "topic",
+              "id": "1943"
+            }
+          ]
+        },
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "150775"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "269446",
+      "attributes": {
+        "slug": "drumeo-gab-jeremy-taggart",
+        "type": "podcasts",
+        "sort": 0,
+        "status": "published",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-04 15:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-14 11:11:30",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Drumeo Gab - Jeremy Taggart",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": null,
+        "liveEventEndTime": null,
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/podcasts/269446",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "2891"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "269444",
+      "attributes": {
+        "slug": "blaster-master",
+        "type": "performances",
+        "sort": 0,
+        "status": "published",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-02 15:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-14 11:04:14",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Blaster Master",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": null,
+        "liveEventEndTime": null,
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/performances/269444",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6964"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "269445",
+      "attributes": {
+        "slug": "blaster-master",
+        "type": "play-along",
+        "sort": 0,
+        "status": "published",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-02 15:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-14 11:05:47",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Blaster Master",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": null,
+        "liveEventEndTime": null,
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/play-alongs/269445",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "6965"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "269441",
+      "attributes": {
+        "slug": "october-student-collab-announcement",
+        "type": "student-collaborations",
+        "sort": 0,
+        "status": "published",
+        "totalXp": "150",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": true,
+        "user": "",
+        "publishedOn": "2020-10-01 15:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-09-14 10:54:48",
+        "difficulty": "All Skill Levels",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "October Student Collab Announcement",
+        "xp": "150",
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": null,
+        "liveEventEndTime": null,
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "is_new": true,
+        "resources": [],
+        "url": "https://dev.drumeo.com/laravel/public/members/lessons/student-collaborations/269441",
+        "xp_bonus": 150,
+        "like_count": "0",
+        "is_liked_by_current_user": false
+      },
+      "relationships": {
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "5899"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "type": "instructor",
+      "id": "31888",
+      "attributes": {
+        "slug": "aaron-edgar",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:21",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:21",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Aaron Edgar",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "31978",
+      "attributes": {
+        "slug": "john-wooton",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:29",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:29",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "John Wooton",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "31885",
+      "attributes": {
+        "slug": "kyle-radomsky",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:21",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:21",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Kyle Radomsky",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "206503",
+      "attributes": {
+        "slug": "seamus-evely",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2018-06-01 19:00:00",
+        "archived_on": null,
+        "created_on": "2018-06-02 09:56:08",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Seamus Evely",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "31917",
+      "attributes": {
+        "slug": "tony-royster-jr",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:23",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:23",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Tony Royster Jr.",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "31896",
+      "attributes": {
+        "slug": "ash-pearson",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:21",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:21",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Ash Pearson",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6610",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31888"
+          }
+        }
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6609",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31888"
+          }
+        }
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "8271",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31978"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "6527",
+      "attributes": {
+        "topic": "Rudiments",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5902",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31885"
+          }
+        }
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5901",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31885"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "150774",
+      "attributes": {
+        "key": "description",
+        "value": "<p>Q&amp;A is the place to ask any questions you have about drums and drumming! Ask about anything!&nbsp;</p>",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5900",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31885"
+          }
+        }
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6608",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31888"
+          }
+        }
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6606",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31888"
+          }
+        }
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "8270",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31978"
+          }
+        }
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "2892",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "206503"
+          }
+        }
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "7472",
+      "attributes": {
+        "position": 2
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31917"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "1944",
+      "attributes": {
+        "topic": "Edutainment",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "150775",
+      "attributes": {
+        "key": "description",
+        "value": "<p>In this lesson, Kyle Radomsky reviews the JK Systems DrumPlate, a product made to secure your drum kit on the floor so it doesn't move all over the place.</p>",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5903",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31885"
+          }
+        }
+      }
+    },
+    {
+      "type": "topic",
+      "id": "1943",
+      "attributes": {
+        "topic": "Edutainment",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "2891",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "206503"
+          }
+        }
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6964",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31896"
+          }
+        }
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "6965",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31896"
+          }
+        }
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "5899",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31885"
+          }
+        }
+      }
+    }
+  ]
+}

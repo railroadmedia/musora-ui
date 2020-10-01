@@ -1320,6 +1320,23 @@ class DrumeoViewComposer
      * @param View $view
      * @return void
      */
+    public function scheduleVuePageContent(View $view)
+    {
+        $mockData = $this->getMockData('schedule.json');
+
+        $view->with(
+            [
+                'catalogueJsonData' => $mockData,
+            ]
+        );
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param View $view
+     * @return void
+     */
     public function accountSettingsDetailsPageContent(View $view)
     {
         $view->with(
