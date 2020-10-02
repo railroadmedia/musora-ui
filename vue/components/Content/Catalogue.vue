@@ -95,7 +95,10 @@
                         v-for="item in content"
                         :key="item.id"
                     >
-                        <default-content-card :content="item"></default-content-card>
+                        <default-content-card
+                            :content="item"
+                            @toggleAddToPrimary="toggleAddToPrimary"
+                        ></default-content-card>
                     </div>
                 </div>
             </div>
@@ -117,6 +120,7 @@ import FilterBadge from '../Blocks/FilterBadge';
 import DefaultContentCard from '../ContentCards/Default';
 
 import ContentMixin from '../../mixins/content';
+import PrimaryListMixin from '../../mixins/primaryList';
 
 export default {
     components: {
@@ -126,7 +130,7 @@ export default {
         'filter-badge': FilterBadge,
         'default-content-card': DefaultContentCard,
     },
-    mixins: [ContentMixin],
+    mixins: [ContentMixin, PrimaryListMixin],
     props: {
         topicsFiltersDisabled: {
             type: Boolean,

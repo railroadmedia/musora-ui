@@ -7,6 +7,38 @@ import Errors from './errors';
 export default class Content {
     static readonly defaultContentThumbnail = '';
 
+    static toggleAddToPrimary(content: ContentModel) {
+        if (content.isAddedToPrimaryPlaylist) {
+            return http
+                .post(
+                    '/members-area/event-json-api/remove-from-primary-playlist-list',
+                    {
+                        "content_id": content.id,
+                        "type":"remove-from-list"
+                    }
+                )
+                .then(response => response)
+                .catch(error => {
+                    Errors.report(error, 'Content::toggleAddToPrimary remove-from-primary-playlist-list');
+                    return error;
+                });
+        } else {
+            return http
+                .post(
+                    '/members-area/event-json-api/add-to-primary-playlist-list',
+                    {
+                        "content_id": content.id,
+                        "type":"my-list-addition"
+                    }
+                )
+                .then(response => response)
+                .catch(error => {
+                    Errors.report(error, 'Content::toggleAddToPrimary add-to-primary-playlist-list');
+                    return error;
+                });
+        }
+    }
+
     static toggleLike(content: ContentModel) {
 
         if (content.liked) {
@@ -108,7 +140,8 @@ export default class Content {
                 topic,
                 item.attributes.lengthInSeconds,
                 item.attributes.totalXp,
-                item.attributes.status
+                item.attributes.status,
+                item.attributes.is_added_to_primary_playlist
             );
 
             if (relatedDataMap.hasOwnProperty('parent')) {

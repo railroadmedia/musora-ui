@@ -21,8 +21,9 @@ export default class Content {
         public length?: number,
         public totalXp?: number,
         public status?: string,
-        public parent?: Content,
-        public progress = 0
+        public isAddedToPrimaryPlaylist = false,
+        public progress = 0,
+        public parent?: Content
     ) {
     }
 }

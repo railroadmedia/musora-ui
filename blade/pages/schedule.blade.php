@@ -1,4 +1,4 @@
-@extends('musora-ui::layouts.members')
+@extends('musora-ui::layouts.vue_content')
 
 @section('musora-ui::title', 'Members - Schedule')
 
@@ -7,11 +7,7 @@
     @include('musora-ui::partials.edge-nav', ['active' => 'schedule'])
 @endsection
 
-@php
-$lastMonth = null;
-@endphp
-
-@section('musora-ui::content')
+@section('musora-ui::app')
     @include('musora-ui::partials.user-stats')
 
     <div class="container w-full mx-auto px-3 pt-6 flex justify-between items-center">
@@ -31,20 +27,10 @@ $lastMonth = null;
 
     <div class="mx-auto w-full container h-full pt-4 pb-6">
 
-        <div class="">
-            @foreach($contentData as $content)
+        <schedule-catalogue
+            preload-data='{{ $catalogueJsonData }}'
+        ></schedule-catalogue>
 
-                @php
-                    $showMonthClass = $content['month'] != $lastMonth ? 'show-month' : '';
-                    $lastMonth = $content['month'];
-                @endphp
-
-                <div class="{{ $showMonthClass }}">
-                    @component('musora-ui::utilities.event-card', $content)
-                    @endcomponent
-                </div>
-            @endforeach
-        </div>
         <div class="py-4 flex items-center justify-center">
             @component(
                 'musora-ui::utilities.button',
@@ -59,6 +45,5 @@ $lastMonth = null;
             @endcomponent
         </div>
     </div>
-
     @include('musora-ui::partials.footer')
 @endsection

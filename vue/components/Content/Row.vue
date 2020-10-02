@@ -17,6 +17,7 @@
                 <default-content-card
                     :content="item"
                     :text-details-top="cardTextDetailsTop"
+                    @toggleAddToPrimary="toggleAddToPrimary"
                 ></default-content-card>
             </div>
         </div>
@@ -28,12 +29,14 @@
 
 <script lang="ts">
 import ContentService from '../../services/content';
-import DefaultContentCard from '../ContentCards/Default'
+import DefaultContentCard from '../ContentCards/Default';
+import PrimaryListMixin from '../../mixins/primaryList';
 
 export default {
     components: {
         'default-content-card': DefaultContentCard,
     },
+    mixins: [PrimaryListMixin],
     props: {
         contentList: {
             type: String,

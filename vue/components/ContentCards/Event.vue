@@ -15,7 +15,10 @@
         <div class="event-col text-medium-gray text-xs uppercase">{{ getType() }}</div>
         <div class="event-col text-medium-gray text-xs text-center uppercase">{{ getInstructors(content) }}</div>
         <div class="text-medium-gray text-xs uppercase">{{ content.difficulty }}</div>
-        <div class="cursor-pointer text-gray hover:text-medium-gray hover-trans"><i class="fal fa-plus fa-2x"></i></div>
+        <div
+            class="add-to-list cursor-pointer text-gray hover:text-medium-gray hover-trans"
+            :class="{'is-added': content.isAddedToPrimaryPlaylist}"
+        ><i class="fas fa-plus fa-2x" @click.stop.prevent="toggleAddToPrimary()"></i></div>
         <div class="cursor-pointer text-gray hover:text-medium-gray hover-trans"><i class="fas fa-calendar-plus fa-2x"></i></div>
     </div>
 
@@ -62,6 +65,10 @@ export default {
 
         getType(): string {
             return this.content.status == 'scheduled' ? 'Live Broadcast' : 'Lesson Release';
+        },
+
+        toggleAddToPrimary() {
+            this.$emit('toggleAddToPrimary', this.content);
         },
     }
 };

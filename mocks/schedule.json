@@ -62,7 +62,7 @@
         "user_playlists": {
           "150259": []
         },
-        "is_added_to_primary_playlist": false,
+        "is_added_to_primary_playlist": true,
         "live_event_start_time_in_timezone": {
           "date": "2020-10-09 13:00:00.000000",
           "timezone_type": 3,
@@ -254,7 +254,7 @@
         "user_playlists": {
           "150259": []
         },
-        "is_added_to_primary_playlist": false,
+        "is_added_to_primary_playlist": true,
         "live_event_start_time_in_timezone": {
           "date": "2020-10-08 15:00:00.000000",
           "timezone_type": 3,
@@ -454,7 +454,7 @@
         "user_playlists": {
           "150259": []
         },
-        "is_added_to_primary_playlist": false,
+        "is_added_to_primary_playlist": true,
         "live_event_start_time_in_timezone": {
           "date": "2020-10-06 10:00:00.000000",
           "timezone_type": 3,

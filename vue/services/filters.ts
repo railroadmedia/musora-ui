@@ -24,11 +24,14 @@ export default class Filters {
                         }
                         payload.required_user_states.push(item.value);
                     } else {
-                        if (!payload.required_fields) {
-                            payload.required_fields = [];
+                        let key = (group.id == 'difficulty') ?
+                                    'required_fields' : 'included_fields';
+                        
+                        if (!payload[key]) {
+                            payload[key] = [];
                         }
 
-                        payload.required_fields.push(group.id + "," + item.value);
+                        payload[key].push(group.id + "," + item.value);
                     }
                 }
             });

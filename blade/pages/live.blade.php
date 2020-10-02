@@ -1,4 +1,4 @@
-@extends('musora-ui::layouts.members')
+@extends('musora-ui::layouts.vue_content')
 
 @section('musora-ui::title', 'Members - Live')
 
@@ -11,27 +11,16 @@
 $lastMonth = null;
 @endphp
 
-@section('musora-ui::content')
+@section('musora-ui::app')
     @include('musora-ui::partials.user-stats')
 
     <h1 class="container w-full mx-auto px-3 pt-6 font-extrabold text-4xl">Live Schedule</h1>
 
     <div class="mx-auto w-full container h-full pt-4 mb-8">
 
-        <div class="">
-            @foreach($contentData as $content)
-
-                @php
-                    $showMonthClass = $content['month'] != $lastMonth ? 'show-month' : '';
-                    $lastMonth = $content['month'];
-                @endphp
-
-                <div class="{{ $showMonthClass }}">
-                    @component('musora-ui::utilities.event-card', $content)
-                    @endcomponent
-                </div>
-            @endforeach
-        </div>
+        <schedule-catalogue
+            preload-data='{{ $catalogueJsonData }}'
+        ></schedule-catalogue>
     </div>
 
     @include('musora-ui::partials.footer')

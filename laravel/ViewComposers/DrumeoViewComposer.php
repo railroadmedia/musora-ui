@@ -911,60 +911,11 @@ class DrumeoViewComposer
      */
     public function livePageContent(View $view)
     {
+        $mockData = $this->getMockData('live.json');
+
         $view->with(
             [
-                'contentData' => [
-                    [
-                        'month' => 'aug',
-                        'date' => 'Mon 17',
-                        'time' => '11:00 AM',
-                        'title' => 'question and answer',
-                        'subtitle' => 'Weekly Q&A',
-                        'type' => 'live broadcast',
-                        'instructor' => 'Kyle Radomsky',
-                        'difficulty' => 'all skill levels',
-                    ],
-                    [
-                        'month' => 'aug',
-                        'date' => 'Tue 18',
-                        'time' => '11:00 AM',
-                        'title' => 'student focus',
-                        'subtitle' => 'Student Focus',
-                        'type' => 'live broadcast',
-                        'instructor' => 'Kyle Radomsky',
-                        'difficulty' => 'all skill levels',
-                    ],
-                    [
-                        'month' => 'aug',
-                        'date' => 'Wed 19',
-                        'time' => '10:00 AM',
-                        'title' => 'question and answer',
-                        'subtitle' => 'Electronic Drums Q&A',
-                        'type' => 'live broadcast',
-                        'instructor' => 'Kyle Radomsky',
-                        'difficulty' => 'all skill levels',
-                    ],
-                    [
-                        'month' => 'aug',
-                        'date' => 'Thu 20',
-                        'time' => '3:00 PM',
-                        'title' => 'question and answer',
-                        'subtitle' => 'Rudiment Throwdown - All Strokes',
-                        'type' => 'live broadcast',
-                        'instructor' => 'John Wooton',
-                        'difficulty' => 'all skill levels',
-                    ],
-                    [
-                        'month' => 'aug',
-                        'date' => 'Fri 21',
-                        'time' => '11:00 AM',
-                        'title' => 'question and answer',
-                        'subtitle' => 'Weekly Q&A',
-                        'type' => 'live broadcast',
-                        'instructor' => 'Aaron Edgar',
-                        'difficulty' => 'all skill levels',
-                    ],
-                ],
+                'catalogueJsonData' => $mockData,
             ]
         );
     }
@@ -1225,102 +1176,6 @@ class DrumeoViewComposer
      * @return void
      */
     public function schedulePageContent(View $view)
-    {
-        $view->with(
-            [
-                'contentData' => [
-                    [
-                        'month' => 'aug',
-                        'date' => 'Mon 17',
-                        'time' => '8:00 AM',
-                        'title' => 'quick tips',
-                        'subtitle' => '5 Proven Ways To Fix Your Doubles',
-                        'type' => 'lesson release',
-                        'instructor' => 'TBD',
-                        'difficulty' => 'all skill levels',
-                    ],
-                    [
-                        'month' => 'aug',
-                        'date' => 'Mon 17',
-                        'time' => '11:00 AM',
-                        'title' => 'question and answer',
-                        'subtitle' => 'Weekly Q&A',
-                        'type' => 'live broadcast',
-                        'instructor' => 'Kyle Radomsky',
-                        'difficulty' => 'all skill levels',
-                    ],
-                    [
-                        'month' => 'aug',
-                        'date' => 'Tue 18',
-                        'time' => '11:00 AM',
-                        'title' => 'student focus',
-                        'subtitle' => 'Student Focus',
-                        'type' => 'live broadcast',
-                        'instructor' => 'Kyle Radomsky',
-                        'difficulty' => 'all skill levels',
-                    ],
-                    [
-                        'month' => 'aug',
-                        'date' => 'Wed 19',
-                        'time' => '10:00 AM',
-                        'title' => 'question and answer',
-                        'subtitle' => 'Electronic Drums Q&A',
-                        'type' => 'live broadcast',
-                        'instructor' => 'John Wooton',
-                        'difficulty' => 'all skill levels',
-                    ],
-                    [
-                        'month' => 'aug',
-                        'date' => 'Thu 20',
-                        'time' => '8:00 AM',
-                        'title' => 'quick tips',
-                        'subtitle' => 'Consitency As A Drummer',
-                        'type' => 'live broadcast',
-                        'instructor' => "Nick D'Virgilio",
-                        'difficulty' => 'all skill levels',
-                    ],
-                    [
-                        'month' => 'aug',
-                        'date' => 'Thu 20',
-                        'time' => '3:00 PM',
-                        'title' => 'question and answer',
-                        'subtitle' => 'Rudiment Throwdown - All Strokes',
-                        'type' => 'live broadcast',
-                        'instructor' => 'John Wooton',
-                        'difficulty' => 'all skill levels',
-                    ],
-                    [
-                        'month' => 'aug',
-                        'date' => 'Fri 21',
-                        'time' => '11:00 AM',
-                        'title' => 'student focus',
-                        'subtitle' => 'Student Focus',
-                        'type' => 'live broadcast',
-                        'instructor' => 'Aaron Edgar',
-                        'difficulty' => 'all skill levels',
-                    ],
-                    [
-                        'month' => 'aug',
-                        'date' => 'Sat 22',
-                        'time' => '8:00 AM',
-                        'title' => 'course',
-                        'subtitle' => "Glen's Linear Lickss",
-                        'type' => 'lesson release',
-                        'instructor' => 'Glen Sobel',
-                        'difficulty' => 'all skill levels',
-                    ],
-                ]
-            ]
-        );
-    }
-
-    /**
-     * Bind data to the view.
-     *
-     * @param View $view
-     * @return void
-     */
-    public function scheduleVuePageContent(View $view)
     {
         $mockData = $this->getMockData('schedule.json');
 

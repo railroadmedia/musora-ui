@@ -50366,35 +50366,35 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     themeBgClass: function themeBgClass() {
       if (this.useThemeColor) {
-        return "vs-bg-".concat(this.themeColor);
+        return "bg-".concat(this.themeColor);
       }
 
       var type = _musora_helper_functions_modules_utils__WEBPACK_IMPORTED_MODULE_0__["default"].getThemeColorByContentType(this.contentType);
-      return "vs-bg-".concat(type);
+      return "bg-".concat(type);
     },
     themeTextClass: function themeTextClass() {
       if (this.useThemeColor) {
-        return "vs-text-".concat(this.themeColor);
+        return "text-".concat(this.themeColor);
       }
 
       var type = _musora_helper_functions_modules_utils__WEBPACK_IMPORTED_MODULE_0__["default"].getThemeColorByContentType(this.contentType);
-      return "vs-text-".concat(type);
+      return "text-".concat(type);
     },
     themeHoverBgClass: function themeHoverBgClass() {
       if (this.useThemeColor) {
-        return "vs-hover-bg-".concat(this.themeColor);
+        return "hover-bg-".concat(this.themeColor);
       }
 
       var type = _musora_helper_functions_modules_utils__WEBPACK_IMPORTED_MODULE_0__["default"].getThemeColorByContentType(this.contentType);
-      return "vs-hover-bg-".concat(type);
+      return "hover-bg-".concat(type);
     },
     themeHoverTextClass: function themeHoverTextClass() {
       if (this.useThemeColor) {
-        return "vs-hover-text-".concat(this.themeColor);
+        return "hover-text-".concat(this.themeColor);
       }
 
       var type = _musora_helper_functions_modules_utils__WEBPACK_IMPORTED_MODULE_0__["default"].getThemeColorByContentType(this.contentType);
-      return "vs-hover-text-".concat(type);
+      return "hover-text-".concat(type);
     }
   }
 });
@@ -52047,11 +52047,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.settingsDrawer = !this.settingsDrawer;
 
       if (this.drawersShouldOpenFromBottom && this.settingsDrawer) {
-        document.body.classList.add('drawer-open'); // todo - review this class name useage
+        document.body.classList.add('drawer-open');
       }
 
       if (this.drawersShouldOpenFromBottom && !this.settingsDrawer) {
-        document.body.classList.remove('drawer-open'); // todo - review this class name useage
+        document.body.classList.remove('drawer-open');
       }
     },
     toggleCaptionsDrawer: function toggleCaptionsDrawer() {
@@ -52059,18 +52059,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.settingsDrawer = false;
 
       if (this.drawersShouldOpenFromBottom && this.captionsDrawer) {
-        document.body.classList.add('drawer-open'); // todo - review this class name useage
+        document.body.classList.add('drawer-open');
       }
 
       if (this.drawersShouldOpenFromBottom && !this.captionsDrawer) {
-        document.body.classList.remove('drawer-open'); // todo - review this class name useage
+        document.body.classList.remove('drawer-open');
       }
     },
     closeDrawers: function closeDrawers() {
       this.settingsDrawer = false;
       this.captionsDrawer = false;
       this.contextMenu = false;
-      document.body.classList.remove('drawer-open'); // todo - review this class name useage
+      document.body.classList.remove('drawer-open');
     },
     enableCaptions: function enableCaptions(payload) {
       if (payload) {
@@ -53302,7 +53302,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../../mnt/7A34
 
 
 // module
-exports.push([module.i, ".vs-spin-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n.vs-spin-wrapper .vs-spinner {\n  position: absolute;\n  height: 60px;\n  width: 60px;\n  border: 7px solid transparent;\n  top: 50%;\n  left: 50%;\n  margin: -30px;\n  border-radius: 50%;\n  -webkit-animation: spin 1.5s linear infinite;\n          animation: spin 1.5s linear infinite;\n}\n.vs-spin-wrapper .vs-spinner:before, .vs-spin-wrapper .vs-spinner:after {\n  content: '';\n  position: absolute;\n  border: 7px solid transparent;\n  border-radius: 50%;\n}\n.vs-spin-wrapper .vs-spinner:before {\n  border-top-color: inherit;\n  top: -16px;\n  left: -16px;\n  right: -16px;\n  bottom: -16px;\n  animation: spin .75s linear infinite reverse;\n}\n.vs-spin-wrapper .vs-spinner:after {\n  border-top-color: inherit;\n  top: 4px;\n  left: 4px;\n  right: 4px;\n  bottom: 4px;\n  animation: spin .87s linear infinite reverse;\n}\n@-webkit-keyframes spin {\n0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n@keyframes spin {\n0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n", ""]);
+exports.push([module.i, ".spin-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n.spin-wrapper .spinner {\n  position: absolute;\n  height: 60px;\n  width: 60px;\n  border: 7px solid transparent;\n  top: 50%;\n  left: 50%;\n  margin: -30px;\n  border-radius: 50%;\n  -webkit-animation: spin 1.5s linear infinite;\n          animation: spin 1.5s linear infinite;\n}\n.spin-wrapper .spinner:before, .spin-wrapper .spinner:after {\n  content: '';\n  position: absolute;\n  border: 7px solid transparent;\n  border-radius: 50%;\n}\n.spin-wrapper .spinner:before {\n  border-top-color: inherit;\n  top: -16px;\n  left: -16px;\n  right: -16px;\n  bottom: -16px;\n  animation: spin .75s linear infinite reverse;\n}\n.spin-wrapper .spinner:after {\n  border-top-color: inherit;\n  top: 4px;\n  left: 4px;\n  right: 4px;\n  bottom: 4px;\n  animation: spin .87s linear infinite reverse;\n}\n@-webkit-keyframes spin {\n0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n@keyframes spin {\n0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n", ""]);
 
 // exports
 
@@ -53321,7 +53321,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../../mnt/7A34
 
 
 // module
-exports.push([module.i, "/**\n* Make a horizontal gradient with 2 colors\n*\n* @param $primaryColor - the first color at the start of the gradient\n* @param $secondaryColor - the second color at the end of the gradient\n*/\n/**\n* Make a vertical gradient with 2 colors\n*\n* @param $primaryColor - the first color at the start of the gradient\n* @param $secondaryColor - the second color at the end of the gradient\n*/\n#drumeoTheme .mejs__time-current {\n  background: #0B76DB;\n}\n#drumeoTheme .mejs__speed-selected, #drumeoTheme .mejs__qualities-selected {\n  color: #0B76DB;\n}\n#guitareoTheme .mejs__time-current {\n  background: #00C9AC;\n}\n#guitareoTheme .mejs__speed-selected, #guitareoTheme .mejs__qualities-selected {\n  color: #00C9AC;\n}\n#pianoteTheme .mejs__time-current {\n  background: #F61A30;\n}\n#pianoteTheme .mejs__speed-selected, #pianoteTheme .mejs__qualities-selected {\n  color: #F61A30;\n}\n#recordeoTheme .mejs__time-current {\n  background: #FFAE00;\n}\n#recordeoTheme .mejs__speed-selected, #recordeoTheme .mejs__qualities-selected {\n  color: #FFAE00;\n}\n#courseTheme .mejs__time-current {\n  background: #07A0FF;\n}\n#courseTheme .mejs__speed-selected, #courseTheme .mejs__qualities-selected {\n  color: #07A0FF;\n}\n#coursesTheme .mejs__time-current {\n  background: #07A0FF;\n}\n#coursesTheme .mejs__speed-selected, #coursesTheme .mejs__qualities-selected {\n  color: #07A0FF;\n}\n#packTheme .mejs__time-current {\n  background: #07A0FF;\n}\n#packTheme .mejs__speed-selected, #packTheme .mejs__qualities-selected {\n  color: #07A0FF;\n}\n#packsTheme .mejs__time-current {\n  background: #07A0FF;\n}\n#packsTheme .mejs__speed-selected, #packsTheme .mejs__qualities-selected {\n  color: #07A0FF;\n}\n#songTheme .mejs__time-current {\n  background: #F8004F;\n}\n#songTheme .mejs__speed-selected, #songTheme .mejs__qualities-selected {\n  color: #F8004F;\n}\n#songsTheme .mejs__time-current {\n  background: #F8004F;\n}\n#songsTheme .mejs__speed-selected, #songsTheme .mejs__qualities-selected {\n  color: #F8004F;\n}\n#play-alongTheme .mejs__time-current {\n  background: #FFB500;\n}\n#play-alongTheme .mejs__speed-selected, #play-alongTheme .mejs__qualities-selected {\n  color: #FFB500;\n}\n#play-alongsTheme .mejs__time-current {\n  background: #FFB500;\n}\n#play-alongsTheme .mejs__speed-selected, #play-alongsTheme .mejs__qualities-selected {\n  color: #FFB500;\n}\n#student-focusTheme .mejs__time-current {\n  background: #A82FFF;\n}\n#student-focusTheme .mejs__speed-selected, #student-focusTheme .mejs__qualities-selected {\n  color: #A82FFF;\n}\n#student-focussTheme .mejs__time-current {\n  background: #A82FFF;\n}\n#student-focussTheme .mejs__speed-selected, #student-focussTheme .mejs__qualities-selected {\n  color: #A82FFF;\n}\n#rudimentTheme .mejs__time-current {\n  background: #d06835;\n}\n#rudimentTheme .mejs__speed-selected, #rudimentTheme .mejs__qualities-selected {\n  color: #d06835;\n}\n#rudimentsTheme .mejs__time-current {\n  background: #d06835;\n}\n#rudimentsTheme .mejs__speed-selected, #rudimentsTheme .mejs__qualities-selected {\n  color: #d06835;\n}\n#dftTheme .mejs__time-current {\n  background: #0DD3BF;\n}\n#dftTheme .mejs__speed-selected, #dftTheme .mejs__qualities-selected {\n  color: #0DD3BF;\n}\n#dftsTheme .mejs__time-current {\n  background: #0DD3BF;\n}\n#dftsTheme .mejs__speed-selected, #dftsTheme .mejs__qualities-selected {\n  color: #0DD3BF;\n}\n#learning-pathTheme .mejs__time-current {\n  background: #0B76DB;\n}\n#learning-pathTheme .mejs__speed-selected, #learning-pathTheme .mejs__qualities-selected {\n  color: #0B76DB;\n}\n#learning-pathsTheme .mejs__time-current {\n  background: #0B76DB;\n}\n#learning-pathsTheme .mejs__speed-selected, #learning-pathsTheme .mejs__qualities-selected {\n  color: #0B76DB;\n}\n#my-listTheme .mejs__time-current {\n  background: #0B76DB;\n}\n#my-listTheme .mejs__speed-selected, #my-listTheme .mejs__qualities-selected {\n  color: #0B76DB;\n}\n#my-listsTheme .mejs__time-current {\n  background: #0B76DB;\n}\n#my-listsTheme .mejs__speed-selected, #my-listsTheme .mejs__qualities-selected {\n  color: #0B76DB;\n}\n#showTheme .mejs__time-current {\n  background: #00C278;\n}\n#showTheme .mejs__speed-selected, #showTheme .mejs__qualities-selected {\n  color: #00C278;\n}\n#showsTheme .mejs__time-current {\n  background: #00C278;\n}\n#showsTheme .mejs__speed-selected, #showsTheme .mejs__qualities-selected {\n  color: #00C278;\n}\n#semester-packTheme .mejs__time-current {\n  background: #00BC75;\n}\n#semester-packTheme .mejs__speed-selected, #semester-packTheme .mejs__qualities-selected {\n  color: #00BC75;\n}\n#semester-packsTheme .mejs__time-current {\n  background: #00BC75;\n}\n#semester-packsTheme .mejs__speed-selected, #semester-packsTheme .mejs__qualities-selected {\n  color: #00BC75;\n}\n#vs-errorContainer {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n@media screen and (max-width: 39.9375rem) {\n#vs-errorContainer .title {\n    font-size: 14px;\n}\n}\n#vs-errorContainer .vs-error-icon {\n  height: 50px;\n  min-height: 50px;\n  width: auto;\n}\n@media screen and (min-width: 40rem) {\n#vs-errorContainer .vs-error-icon {\n    height: 150px;\n    min-height: 150px;\n}\n}\n.vs-media-element .mejs__controls {\n  height: 96px;\n}\n.vs-media-element .mejs__time-rail {\n  position: absolute;\n  bottom: 4em;\n  left: 0;\n  right: 0;\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 1em 1em 0;\n  margin: 0;\n  height: 16px;\n}\n.vs-media-element .mejs__time-rail .mejs__time-total {\n  width: calc(100% - 2em);\n  height: 6px;\n  margin-top: 0;\n}\n.vs-media-element .mejs__time-rail .mejs__time-marker {\n  height: 6px;\n  pointer-events: none;\n}\n.vs-media-element .mejs__time-rail .mejs__time-current {\n  background: #0b76db;\n}\n.vs-media-element .mejs__time-rail .mejs__time-buffering, .vs-media-element .mejs__time-rail .mejs__time-current, .vs-media-element .mejs__time-rail .mejs__time-hovered, .vs-media-element .mejs__time-rail .mejs__time-loaded {\n  height: 6px;\n}\n.vs-media-element .mejs__time-rail .mejs__time-handle, .vs-media-element .mejs__time-rail .mejs__time-handle-content {\n  display: none;\n}\n.vs-media-element .mejs__fill-container {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n.vs-media-element .mejs__fill-container .mejs__overlay {\n  width: 100%;\n  height: 100%;\n}\n.vs-media-element .mejs__fill-container .mejs__player {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n.vs-media-element .mejs__skip-back-button {\n  position: absolute;\n  bottom: 5em;\n  left: 1em;\n}\n.vs-media-element .mejs__jump-forward-button {\n  position: absolute;\n  bottom: 5em;\n  right: 1em;\n}\n.vs-media-element .mejs__playpause-button {\n  position: absolute;\n  bottom: 0;\n  left: 1em;\n}\n.vs-media-element .mejs__time {\n  position: absolute;\n  bottom: 0;\n  left: 5em;\n}\n.vs-media-element .mejs__fullscreen-button {\n  position: absolute;\n  bottom: 0;\n  right: 1em;\n}\n.vs-media-element .mejs__volume-button {\n  position: absolute;\n  bottom: 0;\n  left: 14.5em;\n}\n.vs-media-element .mejs__chromecast-button,\n.vs-media-element .mejs__airplay-button {\n  position: absolute;\n  bottom: 0;\n  right: 14em;\n}\n.vs-media-element .mejs__speed-button {\n  position: absolute;\n  bottom: 0;\n  right: 5.5em;\n}\n.vs-media-element .mejs__speed-button button {\n  font-weight: 700;\n  font-family: 'Open Sans', sans-serif;\n}\n.vs-media-element .mejs__speed-button .mejs__speed-selector {\n  height: 125px;\n}\n.vs-media-element .mejs__speed-button .mejs__speed-selector .mejs__speed-selector-list-item {\n  margin: 0;\n  padding: 3px;\n}\n.vs-media-element .mejs__speed-button .mejs__speed-selector .mejs__speed-selector-list-item:hover {\n  background-color: rgba(255, 255, 255, 0.4) !important;\n}\n.vs-media-element .mejs__speed-button .mejs__speed-selector .mejs__speed-selector-label {\n  font-weight: 700;\n  font-family: 'Open Sans', sans-serif;\n  margin-left: 5px;\n}\n.vs-media-element .mejs__speed-button .mejs__speed-selector .mejs__speed-selector-label.mejs__speed-selected {\n  color: #0b76db;\n}\n.vs-media-element .mejs__qualities-button {\n  position: absolute;\n  bottom: 0;\n  right: 10em;\n}\n.vs-media-element .mejs__qualities-button button {\n  font-weight: 700;\n  font-family: 'Open Sans', sans-serif;\n}\n.vs-media-element .mejs__qualities-button .mejs__qualities-selector .mejs__qualities-selector-list-item {\n  margin: 0;\n  padding: 3px;\n}\n.vs-media-element .mejs__qualities-button .mejs__qualities-selector .mejs__qualities-selector-list-item:hover {\n  background-color: rgba(255, 255, 255, 0.4) !important;\n}\n.vs-media-element .mejs__qualities-button .mejs__qualities-selector .mejs__qualities-selector-label {\n  font-weight: 700;\n  font-family: 'Open Sans', sans-serif;\n  margin-left: 5px;\n}\n.vs-media-element .mejs__qualities-button .mejs__qualities-selector .mejs__qualities-selector-label.mejs__qualities-selected {\n  color: #0b76db;\n}\n#vs-currentTimeInSeconds {\n  opacity: 0;\n  position: absolute;\n  top: -9999px;\n  left: -9999px;\n}\n", ""]);
+exports.push([module.i, "/**\n* Make a horizontal gradient with 2 colors\n*\n* @param $primaryColor - the first color at the start of the gradient\n* @param $secondaryColor - the second color at the end of the gradient\n*/\n/**\n* Make a vertical gradient with 2 colors\n*\n* @param $primaryColor - the first color at the start of the gradient\n* @param $secondaryColor - the second color at the end of the gradient\n*/\n#drumeoTheme .mejs__time-current {\n  background: #0B76DB;\n}\n#drumeoTheme .mejs__speed-selected, #drumeoTheme .mejs__qualities-selected {\n  color: #0B76DB;\n}\n#guitareoTheme .mejs__time-current {\n  background: #00C9AC;\n}\n#guitareoTheme .mejs__speed-selected, #guitareoTheme .mejs__qualities-selected {\n  color: #00C9AC;\n}\n#pianoteTheme .mejs__time-current {\n  background: #F61A30;\n}\n#pianoteTheme .mejs__speed-selected, #pianoteTheme .mejs__qualities-selected {\n  color: #F61A30;\n}\n#recordeoTheme .mejs__time-current {\n  background: #FFAE00;\n}\n#recordeoTheme .mejs__speed-selected, #recordeoTheme .mejs__qualities-selected {\n  color: #FFAE00;\n}\n#courseTheme .mejs__time-current {\n  background: #07A0FF;\n}\n#courseTheme .mejs__speed-selected, #courseTheme .mejs__qualities-selected {\n  color: #07A0FF;\n}\n#coursesTheme .mejs__time-current {\n  background: #07A0FF;\n}\n#coursesTheme .mejs__speed-selected, #coursesTheme .mejs__qualities-selected {\n  color: #07A0FF;\n}\n#packTheme .mejs__time-current {\n  background: #07A0FF;\n}\n#packTheme .mejs__speed-selected, #packTheme .mejs__qualities-selected {\n  color: #07A0FF;\n}\n#packsTheme .mejs__time-current {\n  background: #07A0FF;\n}\n#packsTheme .mejs__speed-selected, #packsTheme .mejs__qualities-selected {\n  color: #07A0FF;\n}\n#songTheme .mejs__time-current {\n  background: #F8004F;\n}\n#songTheme .mejs__speed-selected, #songTheme .mejs__qualities-selected {\n  color: #F8004F;\n}\n#songsTheme .mejs__time-current {\n  background: #F8004F;\n}\n#songsTheme .mejs__speed-selected, #songsTheme .mejs__qualities-selected {\n  color: #F8004F;\n}\n#play-alongTheme .mejs__time-current {\n  background: #FFB500;\n}\n#play-alongTheme .mejs__speed-selected, #play-alongTheme .mejs__qualities-selected {\n  color: #FFB500;\n}\n#play-alongsTheme .mejs__time-current {\n  background: #FFB500;\n}\n#play-alongsTheme .mejs__speed-selected, #play-alongsTheme .mejs__qualities-selected {\n  color: #FFB500;\n}\n#student-focusTheme .mejs__time-current {\n  background: #A82FFF;\n}\n#student-focusTheme .mejs__speed-selected, #student-focusTheme .mejs__qualities-selected {\n  color: #A82FFF;\n}\n#student-focussTheme .mejs__time-current {\n  background: #A82FFF;\n}\n#student-focussTheme .mejs__speed-selected, #student-focussTheme .mejs__qualities-selected {\n  color: #A82FFF;\n}\n#rudimentTheme .mejs__time-current {\n  background: #d06835;\n}\n#rudimentTheme .mejs__speed-selected, #rudimentTheme .mejs__qualities-selected {\n  color: #d06835;\n}\n#rudimentsTheme .mejs__time-current {\n  background: #d06835;\n}\n#rudimentsTheme .mejs__speed-selected, #rudimentsTheme .mejs__qualities-selected {\n  color: #d06835;\n}\n#dftTheme .mejs__time-current {\n  background: #0DD3BF;\n}\n#dftTheme .mejs__speed-selected, #dftTheme .mejs__qualities-selected {\n  color: #0DD3BF;\n}\n#dftsTheme .mejs__time-current {\n  background: #0DD3BF;\n}\n#dftsTheme .mejs__speed-selected, #dftsTheme .mejs__qualities-selected {\n  color: #0DD3BF;\n}\n#learning-pathTheme .mejs__time-current {\n  background: #0B76DB;\n}\n#learning-pathTheme .mejs__speed-selected, #learning-pathTheme .mejs__qualities-selected {\n  color: #0B76DB;\n}\n#learning-pathsTheme .mejs__time-current {\n  background: #0B76DB;\n}\n#learning-pathsTheme .mejs__speed-selected, #learning-pathsTheme .mejs__qualities-selected {\n  color: #0B76DB;\n}\n#my-listTheme .mejs__time-current {\n  background: #0B76DB;\n}\n#my-listTheme .mejs__speed-selected, #my-listTheme .mejs__qualities-selected {\n  color: #0B76DB;\n}\n#my-listsTheme .mejs__time-current {\n  background: #0B76DB;\n}\n#my-listsTheme .mejs__speed-selected, #my-listsTheme .mejs__qualities-selected {\n  color: #0B76DB;\n}\n#showTheme .mejs__time-current {\n  background: #00C278;\n}\n#showTheme .mejs__speed-selected, #showTheme .mejs__qualities-selected {\n  color: #00C278;\n}\n#showsTheme .mejs__time-current {\n  background: #00C278;\n}\n#showsTheme .mejs__speed-selected, #showsTheme .mejs__qualities-selected {\n  color: #00C278;\n}\n#semester-packTheme .mejs__time-current {\n  background: #00BC75;\n}\n#semester-packTheme .mejs__speed-selected, #semester-packTheme .mejs__qualities-selected {\n  color: #00BC75;\n}\n#semester-packsTheme .mejs__time-current {\n  background: #00BC75;\n}\n#semester-packsTheme .mejs__speed-selected, #semester-packsTheme .mejs__qualities-selected {\n  color: #00BC75;\n}\n#errorContainer {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n@media screen and (max-width: 39.9375rem) {\n#errorContainer .title {\n    font-size: 14px;\n}\n}\n#errorContainer .error-icon {\n  height: 50px;\n  min-height: 50px;\n  width: auto;\n}\n@media screen and (min-width: 40rem) {\n#errorContainer .error-icon {\n    height: 150px;\n    min-height: 150px;\n}\n}\n.media-element .mejs__controls {\n  height: 96px;\n}\n.media-element .mejs__time-rail {\n  position: absolute;\n  bottom: 4em;\n  left: 0;\n  right: 0;\n  width: 100%;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 1em 1em 0;\n  margin: 0;\n  height: 16px;\n}\n.media-element .mejs__time-rail .mejs__time-total {\n  width: calc(100% - 2em);\n  height: 6px;\n  margin-top: 0;\n}\n.media-element .mejs__time-rail .mejs__time-marker {\n  height: 6px;\n  pointer-events: none;\n}\n.media-element .mejs__time-rail .mejs__time-current {\n  background: #0b76db;\n}\n.media-element .mejs__time-rail .mejs__time-buffering, .media-element .mejs__time-rail .mejs__time-current, .media-element .mejs__time-rail .mejs__time-hovered, .media-element .mejs__time-rail .mejs__time-loaded {\n  height: 6px;\n}\n.media-element .mejs__time-rail .mejs__time-handle, .media-element .mejs__time-rail .mejs__time-handle-content {\n  display: none;\n}\n.media-element .mejs__fill-container {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n.media-element .mejs__fill-container .mejs__overlay {\n  width: 100%;\n  height: 100%;\n}\n.media-element .mejs__fill-container .mejs__player {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n.media-element .mejs__skip-back-button {\n  position: absolute;\n  bottom: 5em;\n  left: 1em;\n}\n.media-element .mejs__jump-forward-button {\n  position: absolute;\n  bottom: 5em;\n  right: 1em;\n}\n.media-element .mejs__playpause-button {\n  position: absolute;\n  bottom: 0;\n  left: 1em;\n}\n.media-element .mejs__time {\n  position: absolute;\n  bottom: 0;\n  left: 5em;\n}\n.media-element .mejs__fullscreen-button {\n  position: absolute;\n  bottom: 0;\n  right: 1em;\n}\n.media-element .mejs__volume-button {\n  position: absolute;\n  bottom: 0;\n  left: 14.5em;\n}\n.media-element .mejs__chromecast-button,\n.media-element .mejs__airplay-button {\n  position: absolute;\n  bottom: 0;\n  right: 14em;\n}\n.media-element .mejs__speed-button {\n  position: absolute;\n  bottom: 0;\n  right: 5.5em;\n}\n.media-element .mejs__speed-button button {\n  font-weight: 700;\n  font-family: 'Open Sans', sans-serif;\n}\n.media-element .mejs__speed-button .mejs__speed-selector {\n  height: 125px;\n}\n.media-element .mejs__speed-button .mejs__speed-selector .mejs__speed-selector-list-item {\n  margin: 0;\n  padding: 3px;\n}\n.media-element .mejs__speed-button .mejs__speed-selector .mejs__speed-selector-list-item:hover {\n  background-color: rgba(255, 255, 255, 0.4) !important;\n}\n.media-element .mejs__speed-button .mejs__speed-selector .mejs__speed-selector-label {\n  font-weight: 700;\n  font-family: 'Open Sans', sans-serif;\n  margin-left: 5px;\n}\n.media-element .mejs__speed-button .mejs__speed-selector .mejs__speed-selector-label.mejs__speed-selected {\n  color: #0b76db;\n}\n.media-element .mejs__qualities-button {\n  position: absolute;\n  bottom: 0;\n  right: 10em;\n}\n.media-element .mejs__qualities-button button {\n  font-weight: 700;\n  font-family: 'Open Sans', sans-serif;\n}\n.media-element .mejs__qualities-button .mejs__qualities-selector .mejs__qualities-selector-list-item {\n  margin: 0;\n  padding: 3px;\n}\n.media-element .mejs__qualities-button .mejs__qualities-selector .mejs__qualities-selector-list-item:hover {\n  background-color: rgba(255, 255, 255, 0.4) !important;\n}\n.media-element .mejs__qualities-button .mejs__qualities-selector .mejs__qualities-selector-label {\n  font-weight: 700;\n  font-family: 'Open Sans', sans-serif;\n  margin-left: 5px;\n}\n.media-element .mejs__qualities-button .mejs__qualities-selector .mejs__qualities-selector-label.mejs__qualities-selected {\n  color: #0b76db;\n}\n#currentTimeInSeconds {\n  opacity: 0;\n  position: absolute;\n  top: -9999px;\n  left: -9999px;\n}\n", ""]);
 
 // exports
 
@@ -55522,9 +55522,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "vs-spin-wrapper" }, [
+  return _c("div", { staticClass: "spin-wrapper" }, [
     _c("div", {
-      staticClass: "vs-spinner",
+      staticClass: "spinner",
       style: "border-top-color:" + _vm.colorCode + ";"
     })
   ])
@@ -55551,12 +55551,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "vs vs-flex vs-flex-column" }, [
-    _c("div", { staticClass: "vs-widescreen" }, [
+  return _c("div", { staticClass: "flex flex-column" }, [
+    _c("div", { staticClass: "widescreen" }, [
       _c(
         "div",
         {
-          staticClass: "vs-media-element",
+          staticClass: "media-element",
           attrs: { id: _vm.themeColor + "Theme" }
         },
         [
@@ -55589,19 +55589,18 @@ var render = function() {
             : _c(
                 "div",
                 {
-                  staticClass: "vs-flex vs-flex-row vs-pv-5",
-                  attrs: { id: "vs-errorContainer" }
+                  staticClass: "flex flex-row pv-5",
+                  attrs: { id: "errorContainer" }
                 },
                 [
                   _c(
                     "div",
                     {
-                      staticClass:
-                        "vs-flex vs-flex-column vs-align-center vs-text-center"
+                      staticClass: "flex flex-column align-center text-center"
                     },
                     [
                       _c("img", {
-                        staticClass: "vs-error-icon vs-mb-2",
+                        staticClass: "error-icon mb-2",
                         attrs: {
                           src:
                             "https://dmmior4id2ysr.cloudfront.net/icons/emoji-doh.svg"
@@ -55610,7 +55609,7 @@ var render = function() {
                       _vm._v(" "),
                       _vm._m(0),
                       _vm._v(" "),
-                      _c("h6", { staticClass: "vs-tiny vs-text-white" }, [
+                      _c("h6", { staticClass: "tiny text-white" }, [
                         _vm._v(
                           "\n                        to contact support click the chat widget on the bottom of your screen,"
                         ),
@@ -55621,7 +55620,7 @@ var render = function() {
                         _c(
                           "a",
                           {
-                            staticClass: "vs-text-white",
+                            staticClass: "text-white",
                             attrs: {
                               href: "mailto:support@" + _vm.brand + ".com"
                             }
@@ -55644,7 +55643,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h1", { staticClass: "vs-title vs-text-white" }, [
+    return _c("h1", { staticClass: "title text-white" }, [
       _vm._v("\n                        Oops, something went wrong!"),
       _c("br"),
       _vm._v(
@@ -55674,22 +55673,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "vs" }, [
+  return _c("div", [
     _c(
       "div",
       {
         ref: "videoWrap",
-        staticClass: "vs-video-wrap",
-        class: { "vs-picture-in-picture": _vm.isPipEnabled }
+        staticClass: "video-wrap",
+        class: { "picture-in-picture": _vm.isPipEnabled }
       },
       [
-        _c("div", { staticClass: "vs-widescreen vs-bg-black" }, [
+        _c("div", { staticClass: "widescreen bg-black" }, [
           _c(
             "div",
             {
               ref: "container",
-              staticClass: "vs-flex vs-flex-column vs-video-player",
-              class: { "vs-user-active": _vm.userActive || !_vm.isPlaying },
+              staticClass: "flex flex-column video-player",
+              class: { "user-active": _vm.userActive || !_vm.isPlaying },
               on: {
                 contextmenu: function($event) {
                   $event.stopPropagation()
@@ -55745,8 +55744,7 @@ var render = function() {
                         expression: "currentPlaybackRate !== 1"
                       }
                     ],
-                    staticClass:
-                      "vs-rate-indicator vs-title vs-text-white vs-pa-1"
+                    staticClass: "rate-indicator title text-white pa-1"
                   },
                   [
                     _vm._v(
@@ -55771,7 +55769,7 @@ var render = function() {
                   ],
                   ref: "contextMenu",
                   staticClass:
-                    "vs-context-menu vs-bg-grey-5 vs-pointer vs-text-white vs-shadow vs-overflow",
+                    "context-menu bg-grey-5 pointer text-white shadow overflow",
                   style: _vm.contextMenuPosition,
                   on: {
                     click: function($event) {
@@ -55783,16 +55781,13 @@ var render = function() {
                 [
                   _c(
                     "ul",
-                    {
-                      staticClass:
-                        "vs-list-style-none vs-tiny vs-dense vs-font-bold"
-                    },
+                    { staticClass: "list-style-none tiny dense font-bold" },
                     [
                       !_vm.isMobile && _vm.useKeyboard
                         ? _c(
                             "li",
                             {
-                              staticClass: "vs-pa-1 vs-hover-bg-grey-4",
+                              staticClass: "pa-1 hover-bg-grey-4",
                               on: {
                                 click: function($event) {
                                   return _vm.openDialog("keyboardShortcuts")
@@ -55817,7 +55812,7 @@ var render = function() {
                         ? _c(
                             "li",
                             {
-                              staticClass: "vs-pa-1 vs-hover-bg-grey-4",
+                              staticClass: "pa-1 hover-bg-grey-4",
                               on: { click: _vm.togglePip }
                             },
                             [
@@ -55851,7 +55846,7 @@ var render = function() {
                         expression: "loading && !isPlaying"
                       }
                     ],
-                    staticClass: "vs-player-overlay",
+                    staticClass: "player-overlay",
                     on: {
                       click: function($event) {
                         $event.stopPropagation()
@@ -55881,14 +55876,14 @@ var render = function() {
                       }
                     ],
                     staticClass:
-                      "vs-cast-dialog vs-flex vs-flex-center vs-pa-3 vs-text-center vs-text-white"
+                      "cast-dialog flex flex-center pa-3 text-center text-white"
                   },
                   [
                     _c("span", { staticStyle: { "font-size": "72px" } }, [
                       _c("i", { staticClass: "fab fa-chromecast" })
                     ]),
                     _vm._v(" "),
-                    _c("h1", { staticClass: "vs-subheading" }, [
+                    _c("h1", { staticClass: "subheading" }, [
                       _vm._v(
                         "\n                            Video is playing on another device\n                        "
                       )
@@ -55927,7 +55922,7 @@ var render = function() {
                 "div",
                 {
                   ref: "controls",
-                  staticClass: "vs-controls-wrap",
+                  staticClass: "controls-wrap",
                   on: {
                     dblclick: function($event) {
                       $event.stopPropagation()
@@ -55953,15 +55948,14 @@ var render = function() {
                             expression: "isTransitioning"
                           }
                         ],
-                        staticClass:
-                          "vs-player-overlay vs-big-play-button vs-pointer"
+                        staticClass: "player-overlay big-play-button pointer"
                       },
                       [
                         _c(
                           "div",
                           {
                             staticClass:
-                              "vs-overlay-play vs-rounded vs-flex-center vs-shadows"
+                              "overlay-play rounded flex-center shadows"
                           },
                           [
                             _c("i", {
@@ -55974,10 +55968,10 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "vs-top-controls" }, [
+                  _c("div", { staticClass: "top-controls" }, [
                     _c(
                       "div",
-                      { staticClass: "vs-flex vs-flex-row vs-align-h-right" },
+                      { staticClass: "flex flex-row align-h-right" },
                       [
                         _c(
                           "transition",
@@ -56082,14 +56076,13 @@ var render = function() {
                   _c(
                     "div",
                     {
-                      staticClass:
-                        "vs-player-controls vs-flex vs-flex-column vs-noselect"
+                      staticClass: "player-controls flex flex-column noselect"
                     },
                     [
                       _c(
                         "div",
                         {
-                          staticClass: "vs-flex vs-flex-row",
+                          staticClass: "flex flex-row",
                           staticStyle: { "min-height": "50px" },
                           on: {
                             dblclick: function($event) {
@@ -56129,9 +56122,7 @@ var render = function() {
                               )
                             : _vm._e(),
                           _vm._v(" "),
-                          _c("div", {
-                            staticClass: "vs-flex vs-flex-column vs-spacer"
-                          }),
+                          _c("div", { staticClass: "flex flex-column spacer" }),
                           _vm._v(" "),
                           _vm.controls.forward
                             ? _c(
@@ -56160,7 +56151,7 @@ var render = function() {
                         ? _c(
                             "div",
                             {
-                              staticClass: "vs-flex vs-flex-row",
+                              staticClass: "flex flex-row",
                               on: {
                                 dblclick: function($event) {
                                   $event.stopPropagation()
@@ -56205,7 +56196,7 @@ var render = function() {
                       _c(
                         "div",
                         {
-                          staticClass: "vs-flex vs-flex-row",
+                          staticClass: "flex flex-row",
                           on: {
                             dblclick: function($event) {
                               $event.stopPropagation()
@@ -56258,7 +56249,7 @@ var render = function() {
                                 "div",
                                 {
                                   staticClass:
-                                    "vs-flex vs-flex-column vs-text-white vs-body vs-align-v-center vs-noselect vs-flex-auto"
+                                    "flex flex-column text-white body align-v-center noselect flex-auto"
                                 },
                                 [
                                   _vm._v(
@@ -56272,9 +56263,7 @@ var render = function() {
                               )
                             : _vm._e(),
                           _vm._v(" "),
-                          _c("div", {
-                            staticClass: "vs-flex vs-flex-column vs-spacer"
-                          }),
+                          _c("div", { staticClass: "flex flex-column spacer" }),
                           _vm._v(" "),
                           !_vm.isMobile && _vm.controls.volume
                             ? _c("PlayerVolume", {
@@ -56397,7 +56386,7 @@ var render = function() {
                     expression: "isMobileDrawerOpen"
                   }
                 ],
-                staticClass: "vs-settings-mobile-overlay",
+                staticClass: "settings-mobile-overlay",
                 on: {
                   click: function($event) {
                     _vm.settingsDrawer = false
@@ -56480,7 +56469,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _vm.isPipEnabled
-      ? _c("div", { staticClass: "vs-widescreen vs-bg-black" })
+      ? _c("div", { staticClass: "widescreen bg-black" })
       : _vm._e()
   ])
 }
@@ -56506,11 +56495,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "vs-flex vs-flex-column vs-player-button" }, [
+  return _c("div", { staticClass: "flex flex-column player-button" }, [
     _c(
       "button",
       {
-        staticClass: "vs-btn vs-collapse-square",
+        staticClass: "btn collapse-square",
         class: !_vm.disabled ? _vm.themeHoverTextClass : "",
         attrs: { title: _vm.title, disabled: _vm.disabled }
       },
@@ -56518,7 +56507,7 @@ var render = function() {
         _c(
           "span",
           {
-            staticClass: "vs-flat vs-text-white",
+            staticClass: "flat text-white",
             class: _vm.active ? _vm.themeTextClass : ""
           },
           [_vm._t("default")],
@@ -56554,17 +56543,16 @@ var render = function() {
     "div",
     {
       staticClass:
-        "vs-settings-drawer vs-captions vs-bg-grey-5 vs-text-white vs-shadow vs-overflow"
+        "settings-drawer captions bg-grey-5 text-white shadow overflow"
     },
     [
-      _c("div", { staticClass: "vs-flex vs-flex-column" }, [
-        _c("div", { staticClass: "vs-flex vs-flex-row" }, [
-          _c("div", { staticClass: "vs-flex vs-flex-column" }, [
+      _c("div", { staticClass: "flex flex-column" }, [
+        _c("div", { staticClass: "flex flex-row" }, [
+          _c("div", { staticClass: "flex flex-column" }, [
             _c(
               "ul",
               {
-                staticClass:
-                  "vs-list-style-none vs-body vs-text-right vs-dense vs-font-bold"
+                staticClass: "list-style-none body text-right dense font-bold"
               },
               [
                 _vm._l(_vm.captionOptions, function(caption) {
@@ -56572,10 +56560,9 @@ var render = function() {
                     "li",
                     {
                       key: caption.language,
-                      staticClass:
-                        "vs-pa-1 vs-hover-bg-grey-4 vs-pointer vs-relative",
+                      staticClass: "pa-1 hover-bg-grey-4 pointer relative",
                       class: [
-                        { "vs-selected-caption": _vm.isSelected(caption) },
+                        { "selected-caption": _vm.isSelected(caption) },
                         _vm.isSelected(caption) ? _vm.themeTextClass : ""
                       ],
                       on: {
@@ -56597,10 +56584,9 @@ var render = function() {
                 _c(
                   "li",
                   {
-                    staticClass:
-                      "vs-pa-1 vs-hover-bg-grey-4 vs-pointer vs-relative",
+                    staticClass: "pa-1 hover-bg-grey-4 pointer relative",
                     class: _vm.isOff
-                      ? [_vm.themeTextClass, "vs-selected-caption"]
+                      ? [_vm.themeTextClass, "selected-caption"]
                       : "",
                     on: {
                       click: function($event) {
@@ -56649,17 +56635,17 @@ var render = function() {
     "div",
     {
       staticClass:
-        "vs-player-error vs-bg-error vs-text-white vs-corners-3 vs-shadow vs-pa-1 vs-text-center"
+        "player-error bg-error text-white corners-3 shadow pa-1 text-center"
     },
     [
-      _c("p", { staticClass: "vs-body vs-font-bold vs-mb-2" }, [
+      _c("p", { staticClass: "body font-bold mb-2" }, [
         _vm._v(
           "\n        Oops! An error occurred on the player and it can't seem to recover.\n    "
         )
       ]),
       _vm._v(" "),
       _vm.errorCode
-        ? _c("p", { staticClass: "vs-body vs-dense vs-mb-2" }, [
+        ? _c("p", { staticClass: "body dense mb-2" }, [
             _vm._v("\n        Error Code: "),
             _c("br"),
             _vm._v(" "),
@@ -56667,7 +56653,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _c("p", { staticClass: "vs-tiny" }, [
+      _c("p", { staticClass: "tiny" }, [
         _vm._v(
           "\n        If the issue persists, please contact support using the chat\n        widget on the bottom right of your screen.\n    "
         )
@@ -56700,7 +56686,7 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "vs-player-progress",
+      staticClass: "player-progress",
       on: {
         click: function($event) {
           $event.stopPropagation()
@@ -56723,7 +56709,7 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "vs-progress-tooltip vs-tiny vs-text-white",
+          staticClass: "progress-tooltip tiny text-white",
           style: _vm.toolTipOffset
         },
         [_vm._v("\n        " + _vm._s(_vm.toolTipValue) + "\n    ")]
@@ -56731,10 +56717,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "vs-progress-rail" },
+        { staticClass: "progress-rail" },
         [
           _c("div", {
-            staticClass: "vs-progress-fill",
+            staticClass: "progress-fill",
             class: _vm.themeBgClass,
             style: _vm.progressTransforms
           }),
@@ -56742,7 +56728,7 @@ var render = function() {
           _vm._l(_vm.bufferedTimeRanges, function(range, i) {
             return _c("div", {
               key: "range-" + i,
-              staticClass: "vs-buffer-fill vs-bg-grey-3",
+              staticClass: "buffer-fill bg-grey-3",
               style: _vm.getTimeRangePosition(range)
             })
           }),
@@ -56750,11 +56736,11 @@ var render = function() {
           _vm._l(_vm.chapters, function(chapter, i) {
             return _c("span", {
               key: "chapter-" + i,
-              staticClass: "vs-chapter-marker",
+              staticClass: "chapter-marker",
               class:
                 chapter.chapter_timecode > _vm.currentTime
                   ? _vm.themeBgClass
-                  : "vs-bg-white",
+                  : "bg-white",
               style: _vm.getChapterPosition(chapter)
             })
           })
@@ -56788,18 +56774,15 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass:
-        "vs-settings-drawer vs-bg-grey-5 vs-text-white vs-shadow vs-overflow"
-    },
+    { staticClass: "settings-drawer bg-grey-5 text-white shadow overflow" },
     [
       _c("div", { staticClass: "flex flex-column" }, [
         _c(
           "div",
           {
             staticClass:
-              "vs-flex vs-flex-row vs-pa vs-hover-bg-grey-4 vs-bb-grey-4-1 vs-pointer vs-noselect",
-            class: _vm.isSingleSource ? "vs-bg-grey-4" : "",
+              "flex flex-row pa hover-bg-grey-4 bb-grey-4-1 pointer noselect",
+            class: _vm.isSingleSource ? "bg-grey-4" : "",
             on: {
               click: function($event) {
                 $event.stopPropagation()
@@ -56810,32 +56793,28 @@ var render = function() {
           [
             _vm._m(0),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "vs-flex vs-flex-column vs-align-v-center" },
-              [
-                _c(
-                  "p",
-                  {
-                    staticClass: "vs-tiny vs-dense vs-font-bold vs-text-right",
-                    class: _vm.themeTextClass
-                  },
-                  [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.currentSourceLabel) +
-                        "\n                        "
-                    ),
-                    _c("i", {
-                      staticClass: "fas vs-ml-1",
-                      class: _vm.qualitiesDropdown
-                        ? "fa-caret-down"
-                        : "fa-caret-up"
-                    })
-                  ]
-                )
-              ]
-            )
+            _c("div", { staticClass: "flex flex-column align-v-center" }, [
+              _c(
+                "p",
+                {
+                  staticClass: "tiny dense font-bold text-right",
+                  class: _vm.themeTextClass
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.currentSourceLabel) +
+                      "\n                        "
+                  ),
+                  _c("i", {
+                    staticClass: "fas ml-1",
+                    class: _vm.qualitiesDropdown
+                      ? "fa-caret-down"
+                      : "fa-caret-up"
+                  })
+                ]
+              )
+            ])
           ]
         ),
         _vm._v(" "),
@@ -56850,22 +56829,21 @@ var render = function() {
                 expression: "qualitiesDropdown"
               }
             ],
-            staticClass: "vs-flex vs-flex-row vs-bb-grey-4-1"
+            staticClass: "flex flex-row bb-grey-4-1"
           },
           [
-            _c("div", { staticClass: "vs-flex vs-flex-column" }, [
+            _c("div", { staticClass: "flex flex-column" }, [
               _c(
                 "ul",
                 {
-                  staticClass:
-                    "vs-list-style-none vs-tiny vs-text-right vs-dense vs-font-bold"
+                  staticClass: "list-style-none tiny text-right dense font-bold"
                 },
                 _vm._l(_vm.playbackQualities, function(quality) {
                   return _c(
                     "li",
                     {
                       key: quality.label,
-                      staticClass: "vs-pa-1 vs-hover-bg-grey-4 vs-pointer",
+                      staticClass: "pa-1 hover-bg-grey-4 pointer",
                       class:
                         quality.file === _vm.currentSource
                           ? _vm.themeTextClass
@@ -56894,8 +56872,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass:
-              "vs-flex vs-flex-row vs-pa vs-hover-bg-grey-4 vs-pointer vs-noselect",
+            staticClass: "flex flex-row pa hover-bg-grey-4 pointer noselect",
             on: {
               click: function($event) {
                 $event.stopPropagation()
@@ -56906,30 +56883,26 @@ var render = function() {
           [
             _vm._m(1),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "vs-flex vs-flex-column vs-align-v-center" },
-              [
-                _c(
-                  "p",
-                  {
-                    staticClass: "vs-tiny vs-dense vs-font-bold vs-text-right",
-                    class: _vm.themeTextClass
-                  },
-                  [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.currentPlaybackRate) +
-                        "x\n                        "
-                    ),
-                    _c("i", {
-                      staticClass: "fas vs-ml-1",
-                      class: _vm.ratesDropdown ? "fa-caret-down" : "fa-caret-up"
-                    })
-                  ]
-                )
-              ]
-            )
+            _c("div", { staticClass: "flex flex-column align-v-center" }, [
+              _c(
+                "p",
+                {
+                  staticClass: "tiny dense font-bold text-right",
+                  class: _vm.themeTextClass
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.currentPlaybackRate) +
+                      "x\n                        "
+                  ),
+                  _c("i", {
+                    staticClass: "fas ml-1",
+                    class: _vm.ratesDropdown ? "fa-caret-down" : "fa-caret-up"
+                  })
+                ]
+              )
+            ])
           ]
         ),
         _vm._v(" "),
@@ -56944,48 +56917,43 @@ var render = function() {
                 expression: "ratesDropdown"
               }
             ],
-            staticClass: "vs-flex vs-flex-row vs-bt-grey-4-1"
+            staticClass: "flex flex-row bt-grey-4-1"
           },
           [
-            _c(
-              "div",
-              { staticClass: "vs-flex vs-flex-column vs-align-v-center" },
-              [
-                _c(
-                  "ul",
-                  {
-                    staticClass:
-                      "vs-list-style-none vs-tiny vs-text-right vs-dense vs-font-bold"
-                  },
-                  _vm._l(_vm.playbackRates, function(rate) {
-                    return _c(
-                      "li",
-                      {
-                        key: "playbackRate-" + rate,
-                        staticClass: "vs-pa-1 vs-hover-bg-grey-4 vs-pointer",
-                        class:
-                          rate === _vm.currentPlaybackRate
-                            ? _vm.themeTextClass
-                            : "",
-                        on: {
-                          click: function($event) {
-                            return _vm.setRate(rate)
-                          }
+            _c("div", { staticClass: "flex flex-column align-v-center" }, [
+              _c(
+                "ul",
+                {
+                  staticClass: "list-style-none tiny text-right dense font-bold"
+                },
+                _vm._l(_vm.playbackRates, function(rate) {
+                  return _c(
+                    "li",
+                    {
+                      key: "playbackRate-" + rate,
+                      staticClass: "pa-1 hover-bg-grey-4 pointer",
+                      class:
+                        rate === _vm.currentPlaybackRate
+                          ? _vm.themeTextClass
+                          : "",
+                      on: {
+                        click: function($event) {
+                          return _vm.setRate(rate)
                         }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(rate) +
-                            "x\n                        "
-                        )
-                      ]
-                    )
-                  }),
-                  0
-                )
-              ]
-            )
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(rate) +
+                          "x\n                        "
+                      )
+                    ]
+                  )
+                }),
+                0
+              )
+            ])
           ]
         )
       ])
@@ -56997,8 +56965,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "vs-flex vs-flex-column" }, [
-      _c("p", { staticClass: "vs-body vs-dense vs-font-bold" }, [
+    return _c("div", { staticClass: "flex flex-column" }, [
+      _c("p", { staticClass: "body dense font-bold" }, [
         _vm._v("\n                        Quality:\n                    ")
       ])
     ])
@@ -57007,8 +56975,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "vs-flex vs-flex-column" }, [
-      _c("p", { staticClass: "vs-body vs-dense vs-font-bold" }, [
+    return _c("div", { staticClass: "flex flex-column" }, [
+      _c("p", { staticClass: "body dense font-bold" }, [
         _vm._v("\n                        Playback Rate:\n                    ")
       ])
     ])
@@ -57037,16 +57005,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass:
-        "vs-player-dialog vs-bg-grey-5 vs-text-white vs-corners-3 vs-shadow vs-pa-1"
-    },
+    { staticClass: "player-dialog bg-grey-5 text-white corners-3 shadow pa-1" },
     [
       _c(
         "span",
         {
           staticClass:
-            "vs-close-shortcuts vs-body vs-text-grey-3 vs-hover-text-white vs-pointer",
+            "close-shortcuts body text-grey-3 hover-text-white pointer",
           on: { click: _vm.close }
         },
         [_c("i", { staticClass: "fas fa-times" })]
@@ -57061,8 +57026,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "vs-dense" }, [
-      _c("thead", { staticClass: "vs-body vs-font-bold" }, [
+    return _c("table", { staticClass: "dense" }, [
+      _c("thead", { staticClass: "body font-bold" }, [
         _c("tr", [
           _c("td", [_vm._v("\n                    Key\n                ")]),
           _vm._v(" "),
@@ -57070,63 +57035,63 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("tbody", { staticClass: "vs-tiny" }, [
+      _c("tbody", { staticClass: "tiny" }, [
         _c("tr", [
-          _c("td", { staticClass: "vs-font-bold" }, [
+          _c("td", { staticClass: "font-bold" }, [
             _vm._v("\n                    Spacebar\n                ")
           ]),
           _vm._v(" "),
-          _c("td", { staticClass: "vs-text-grey-3" }, [
+          _c("td", { staticClass: "text-grey-3" }, [
             _vm._v("\n                    Play/Pause\n                ")
           ])
         ]),
         _vm._v(" "),
         _c("tr", [
-          _c("td", { staticClass: "vs-font-bold" }, [
+          _c("td", { staticClass: "font-bold" }, [
             _vm._v("\n                    Up Arrow\n                ")
           ]),
           _vm._v(" "),
-          _c("td", { staticClass: "vs-text-grey-3" }, [
+          _c("td", { staticClass: "text-grey-3" }, [
             _vm._v("\n                    Volume up\n                ")
           ])
         ]),
         _vm._v(" "),
         _c("tr", [
-          _c("td", { staticClass: "vs-font-bold" }, [
+          _c("td", { staticClass: "font-bold" }, [
             _vm._v("\n                    Down Arrow\n                ")
           ]),
           _vm._v(" "),
-          _c("td", { staticClass: "vs-text-grey-3" }, [
+          _c("td", { staticClass: "text-grey-3" }, [
             _vm._v("\n                    Volume down\n                ")
           ])
         ]),
         _vm._v(" "),
         _c("tr", [
-          _c("td", { staticClass: "vs-font-bold" }, [
+          _c("td", { staticClass: "font-bold" }, [
             _vm._v("\n                    Left Arrow\n                ")
           ]),
           _vm._v(" "),
-          _c("td", { staticClass: "vs-text-grey-3" }, [
+          _c("td", { staticClass: "text-grey-3" }, [
             _vm._v("\n                    Rewind 5 seconds\n                ")
           ])
         ]),
         _vm._v(" "),
         _c("tr", [
-          _c("td", { staticClass: "vs-font-bold" }, [
+          _c("td", { staticClass: "font-bold" }, [
             _vm._v("\n                    Right Arrow\n                ")
           ]),
           _vm._v(" "),
-          _c("td", { staticClass: "vs-text-grey-3" }, [
+          _c("td", { staticClass: "text-grey-3" }, [
             _vm._v("\n                    Forward 5 seconds\n                ")
           ])
         ]),
         _vm._v(" "),
         _c("tr", [
-          _c("td", { staticClass: "vs-font-bold" }, [
+          _c("td", { staticClass: "font-bold" }, [
             _vm._v("\n                    Numbers 0-9\n                ")
           ]),
           _vm._v(" "),
-          _c("td", { staticClass: "vs-text-grey-3" }, [
+          _c("td", { staticClass: "text-grey-3" }, [
             _vm._v(
               "\n                    Percentage of the video to seek to (1 = 10% etc..)\n                "
             )
@@ -57134,11 +57099,11 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("tr", [
-          _c("td", { staticClass: "vs-font-bold" }, [
+          _c("td", { staticClass: "font-bold" }, [
             _vm._v("\n                    Home\n                ")
           ]),
           _vm._v(" "),
-          _c("td", { staticClass: "vs-text-grey-3" }, [
+          _c("td", { staticClass: "text-grey-3" }, [
             _vm._v(
               "\n                    Seek to the beginning\n                "
             )
@@ -57146,41 +57111,41 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("tr", [
-          _c("td", { staticClass: "vs-font-bold" }, [
+          _c("td", { staticClass: "font-bold" }, [
             _vm._v("\n                    End\n                ")
           ]),
           _vm._v(" "),
-          _c("td", { staticClass: "vs-text-grey-3" }, [
+          _c("td", { staticClass: "text-grey-3" }, [
             _vm._v("\n                    Seek to the end\n                ")
           ])
         ]),
         _vm._v(" "),
         _c("tr", [
-          _c("td", { staticClass: "vs-font-bold" }, [
+          _c("td", { staticClass: "font-bold" }, [
             _vm._v("\n                    F\n                ")
           ]),
           _vm._v(" "),
-          _c("td", { staticClass: "vs-text-grey-3" }, [
+          _c("td", { staticClass: "text-grey-3" }, [
             _vm._v("\n                    Toggle fullscreen\n                ")
           ])
         ]),
         _vm._v(" "),
         _c("tr", [
-          _c("td", { staticClass: "vs-font-bold" }, [
+          _c("td", { staticClass: "font-bold" }, [
             _vm._v("\n                    M\n                ")
           ]),
           _vm._v(" "),
-          _c("td", { staticClass: "vs-text-grey-3" }, [
+          _c("td", { staticClass: "text-grey-3" }, [
             _vm._v("\n                    Mute\n                ")
           ])
         ]),
         _vm._v(" "),
         _c("tr", [
-          _c("td", { staticClass: "vs-font-bold" }, [
+          _c("td", { staticClass: "font-bold" }, [
             _vm._v("\n                    -\n                ")
           ]),
           _vm._v(" "),
-          _c("td", { staticClass: "vs-text-grey-3" }, [
+          _c("td", { staticClass: "text-grey-3" }, [
             _vm._v(
               "\n                    Slow down playback rate\n                "
             )
@@ -57188,11 +57153,11 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("tr", [
-          _c("td", { staticClass: "vs-font-bold" }, [
+          _c("td", { staticClass: "font-bold" }, [
             _vm._v("\n                    +\n                ")
           ]),
           _vm._v(" "),
-          _c("td", { staticClass: "vs-text-grey-3" }, [
+          _c("td", { staticClass: "text-grey-3" }, [
             _vm._v(
               "\n                    Speed up playback rate\n                "
             )
@@ -57223,41 +57188,37 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "vs-flex vs-flex-column vs-volume" }, [
+  return _c("div", { staticClass: "flex flex-column volume" }, [
     _c(
       "div",
-      { staticClass: "vs-flex vs-flex-row vs-align-v-center" },
+      { staticClass: "flex flex-row align-v-center" },
       [
-        _c(
-          "div",
-          { staticClass: "vs-flex vs-flex-column vs-volume-rail-wrap" },
-          [
-            _c("div", { staticClass: "vs-volume-rail" }, [
-              _c("div", {
-                staticClass: "vs-volume-fill",
-                class: _vm.themeBgClass,
-                style: _vm.volumeOffset,
-                on: {
-                  click: function($event) {
-                    $event.stopPropagation()
-                  }
+        _c("div", { staticClass: "flex flex-column volume-rail-wrap" }, [
+          _c("div", { staticClass: "volume-rail" }, [
+            _c("div", {
+              staticClass: "volume-fill",
+              class: _vm.themeBgClass,
+              style: _vm.volumeOffset,
+              on: {
+                click: function($event) {
+                  $event.stopPropagation()
                 }
-              }),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "vs-volume-range",
-                attrs: { type: "range", min: "0", max: "100" },
-                domProps: { value: _vm.currentVolume },
-                on: {
-                  click: function($event) {
-                    $event.stopPropagation()
-                  },
-                  input: _vm.emitVolumeChange
-                }
-              })
-            ])
-          ]
-        ),
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "volume-range",
+              attrs: { type: "range", min: "0", max: "100" },
+              domProps: { value: _vm.currentVolume },
+              on: {
+                click: function($event) {
+                  $event.stopPropagation()
+                },
+                input: _vm.emitVolumeChange
+              }
+            })
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "player-button",
@@ -57307,12 +57268,12 @@ var render = function() {
     "div",
     {
       ref: "videoWrap",
-      staticClass: "vs-video-wrap",
-      class: { "vs-picture-in-picture": _vm.isPipEnabled }
+      staticClass: "video-wrap",
+      class: { "picture-in-picture": _vm.isPipEnabled }
     },
     [
-      _c("div", { staticClass: "vs-widescreen" }, [
-        _c("div", { ref: "youtubeIframe", staticClass: "vs-iframe" })
+      _c("div", { staticClass: "widescreen" }, [
+        _c("div", { ref: "youtubeIframe", staticClass: "iframe" })
       ])
     ]
   )
@@ -59822,7 +59783,8 @@ exports.default = Comment;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Content = /** @class */ (function () {
-    function Content(id, url, thumbnail, title, instructors, contentType, difficulty, contentIcon, date, artist, style, likes, liked, sheet, topic, length, totalXp, status, parent, progress) {
+    function Content(id, url, thumbnail, title, instructors, contentType, difficulty, contentIcon, date, artist, style, likes, liked, sheet, topic, length, totalXp, status, isAddedToPrimaryPlaylist, progress, parent) {
+        if (isAddedToPrimaryPlaylist === void 0) { isAddedToPrimaryPlaylist = false; }
         if (progress === void 0) { progress = 0; }
         this.id = id;
         this.url = url;
@@ -59842,8 +59804,9 @@ var Content = /** @class */ (function () {
         this.length = length;
         this.totalXp = totalXp;
         this.status = status;
-        this.parent = parent;
+        this.isAddedToPrimaryPlaylist = isAddedToPrimaryPlaylist;
         this.progress = progress;
+        this.parent = parent;
     }
     return Content;
 }());
@@ -60132,6 +60095,32 @@ var errors_1 = __importDefault(__webpack_require__(/*! ./errors */ "./vue/servic
 var Content = /** @class */ (function () {
     function Content() {
     }
+    Content.toggleAddToPrimary = function (content) {
+        if (content.isAddedToPrimaryPlaylist) {
+            return http_1.default
+                .post('/members-area/event-json-api/remove-from-primary-playlist-list', {
+                "content_id": content.id,
+                "type": "remove-from-list"
+            })
+                .then(function (response) { return response; })
+                .catch(function (error) {
+                errors_1.default.report(error, 'Content::toggleAddToPrimary remove-from-primary-playlist-list');
+                return error;
+            });
+        }
+        else {
+            return http_1.default
+                .post('/members-area/event-json-api/add-to-primary-playlist-list', {
+                "content_id": content.id,
+                "type": "my-list-addition"
+            })
+                .then(function (response) { return response; })
+                .catch(function (error) {
+                errors_1.default.report(error, 'Content::toggleAddToPrimary add-to-primary-playlist-list');
+                return error;
+            });
+        }
+    };
     Content.toggleLike = function (content) {
         if (content.liked) {
             return http_1.default
@@ -60203,7 +60192,7 @@ var Content = /** @class */ (function () {
             var sheet = _this.getContentData(relatedDataMap, 'sheet_music_thumbnail_url');
             var topic = _this.getContentTopic(relatedDataMap);
             var content = new content_1.default(item.id, item.url || _this.getUrl(item), thumbnail, item.attributes.title, _this.getContentInstructors(relatedDataMap), item.attributes.type, item.attributes.difficulty, undefined, // todo - update contentIcon
-            item.attributes.publishedOn, item.attributes.artist, item.attributes.style, item.attributes.like_count, item.attributes.is_liked_by_current_user, sheet, topic, item.attributes.lengthInSeconds, item.attributes.totalXp, item.attributes.status);
+            item.attributes.publishedOn, item.attributes.artist, item.attributes.style, item.attributes.like_count, item.attributes.is_liked_by_current_user, sheet, topic, item.attributes.lengthInSeconds, item.attributes.totalXp, item.attributes.status, item.attributes.is_added_to_primary_playlist);
             if (relatedDataMap.hasOwnProperty('parent')) {
                 content.parent = _this.getParentContent(relatedDataMap);
             }

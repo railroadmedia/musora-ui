@@ -25339,6 +25339,7 @@ var Group_1 = __importDefault(__webpack_require__(/*! ../Filters/Group */ "./vue
 var FilterBadge_1 = __importDefault(__webpack_require__(/*! ../Blocks/FilterBadge */ "./vue/components/Blocks/FilterBadge.vue"));
 var Default_1 = __importDefault(__webpack_require__(/*! ../ContentCards/Default */ "./vue/components/ContentCards/Default.vue"));
 var content_2 = __importDefault(__webpack_require__(/*! ../../mixins/content */ "./vue/mixins/content.ts"));
+var primaryList_1 = __importDefault(__webpack_require__(/*! ../../mixins/primaryList */ "./vue/mixins/primaryList.ts"));
 exports.default = {
     components: {
         'topics-group-filters': TopicsGroup_1.default,
@@ -25347,7 +25348,7 @@ exports.default = {
         'filter-badge': FilterBadge_1.default,
         'default-content-card': Default_1.default,
     },
-    mixins: [content_2.default],
+    mixins: [content_2.default, primaryList_1.default],
     props: {
         topicsFiltersDisabled: {
             type: Boolean,
@@ -25690,10 +25691,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var content_1 = __importDefault(__webpack_require__(/*! ../../services/content */ "./vue/services/content.ts"));
 var Default_1 = __importDefault(__webpack_require__(/*! ../ContentCards/Default */ "./vue/components/ContentCards/Default.vue"));
+var primaryList_1 = __importDefault(__webpack_require__(/*! ../../mixins/primaryList */ "./vue/mixins/primaryList.ts"));
 exports.default = {
     components: {
         'default-content-card': Default_1.default,
     },
+    mixins: [primaryList_1.default],
     props: {
         contentList: {
             type: String,
@@ -25836,6 +25839,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var primaryList_1 = __importDefault(__webpack_require__(/*! ../../mixins/primaryList */ "./vue/mixins/primaryList.ts"));
 var content_1 = __importDefault(__webpack_require__(/*! ../../services/content */ "./vue/services/content.ts"));
 var Event_1 = __importDefault(__webpack_require__(/*! ../ContentCards/Event */ "./vue/components/ContentCards/Event.vue"));
 var luxon_1 = __webpack_require__(/*! luxon */ "../../../../../../../app/musora-ui/node_modules/luxon/build/cjs-browser/luxon.js");
@@ -25843,6 +25847,7 @@ exports.default = {
     components: {
         'event-content-card': Event_1.default,
     },
+    mixins: [primaryList_1.default],
     props: {
         preloadData: {
             type: String
@@ -26110,6 +26115,9 @@ exports.default = {
             }
             return content[prop];
         },
+        toggleAddToPrimary: function () {
+            this.$emit('toggleAddToPrimary', this.content);
+        },
     },
 };
 
@@ -26143,14 +26151,6 @@ exports.default = {
         },
     },
     mixins: [contentInstructors_1.default, contentCard_1.default],
-    computed: {
-        $_monthClass: function () {
-            return this.showMonth ? '' : 'invisible';
-        }
-    },
-    mounted: function () {
-        console.log('content id: %s, title: %s, show month: %s', this.content.id, this.content.title, JSON.stringify(this.showMonth));
-    },
     methods: {
         getMonth: function () {
             return luxon_1.DateTime.fromSQL(this.content.date).toFormat('LLL');
@@ -26170,6 +26170,9 @@ exports.default = {
         },
         getType: function () {
             return this.content.status == 'scheduled' ? 'Live Broadcast' : 'Lesson Release';
+        },
+        toggleAddToPrimary: function () {
+            this.$emit('toggleAddToPrimary', this.content);
         },
     }
 };
@@ -27127,7 +27130,12 @@ var render = function() {
               return _c(
                 "div",
                 { key: item.id },
-                [_c("default-content-card", { attrs: { content: item } })],
+                [
+                  _c("default-content-card", {
+                    attrs: { content: item },
+                    on: { toggleAddToPrimary: _vm.toggleAddToPrimary }
+                  })
+                ],
                 1
               )
             }),
@@ -27408,7 +27416,8 @@ var render = function() {
                   attrs: {
                     content: item,
                     "text-details-top": _vm.cardTextDetailsTop
-                  }
+                  },
+                  on: { toggleAddToPrimary: _vm.toggleAddToPrimary }
                 })
               ],
               1
@@ -27506,21 +27515,13 @@ var render = function() {
   return _c(
     "div",
     _vm._l(_vm.content, function(item) {
-      return _c(
-        "div",
-        { key: item.id },
-        [
-          _c("event-content-card", {
-            attrs: {
-              content: item,
-              "show-month": _vm.contentShowMonth[item.id]
-            }
-          })
-        ],
-        1
-      )
+      return _c("event-content-card", {
+        key: item.id,
+        attrs: { content: item, "show-month": _vm.contentShowMonth[item.id] },
+        on: { toggleAddToPrimary: _vm.toggleAddToPrimary }
+      })
     }),
-    0
+    1
   )
 }
 var staticRenderFns = []
@@ -28154,9 +28155,21 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "absolute top-0 right-0 mt-2 mr-2 cursor-pointer z-20"
+                    "add-to-list absolute top-0 right-0 mt-2 mr-2 cursor-pointer z-20",
+                  class: { "is-added": _vm.content.isAddedToPrimaryPlaylist }
                 },
-                [_c("i", { staticClass: "fal fa-plus text-xl text-white" })]
+                [
+                  _c("i", {
+                    staticClass: "fal fa-plus text-xl text-white",
+                    on: {
+                      click: function($event) {
+                        $event.stopPropagation()
+                        $event.preventDefault()
+                        return _vm.toggleAddToPrimary()
+                      }
+                    }
+                  })
+                ]
               )
             : _vm._e(),
           _vm._v(" "),
@@ -28253,10 +28266,7 @@ var render = function() {
     {
       staticClass:
         "hover-trans event-card flex flex-row items-center px-3 py-2 space-x-6",
-      attrs: {
-        "data-content-id": _vm.content.id,
-        "data-show-month": _vm.showMonth
-      }
+      attrs: { "data-content-id": _vm.content.id }
     },
     [
       _c(
@@ -28313,26 +28323,32 @@ var render = function() {
         _vm._v(_vm._s(_vm.content.difficulty))
       ]),
       _vm._v(" "),
-      _vm._m(0),
+      _c(
+        "div",
+        {
+          staticClass:
+            "add-to-list cursor-pointer text-gray hover:text-medium-gray hover-trans",
+          class: { "is-added": _vm.content.isAddedToPrimaryPlaylist }
+        },
+        [
+          _c("i", {
+            staticClass: "fas fa-plus fa-2x",
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+                $event.preventDefault()
+                return _vm.toggleAddToPrimary()
+              }
+            }
+          })
+        ]
+      ),
       _vm._v(" "),
-      _vm._m(1)
+      _vm._m(0)
     ]
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "cursor-pointer text-gray hover:text-medium-gray hover-trans"
-      },
-      [_c("i", { staticClass: "fal fa-plus fa-2x" })]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -31603,6 +31619,39 @@ exports.default = {
 
 /***/ }),
 
+/***/ "./vue/mixins/primaryList.ts":
+/*!***********************************!*\
+  !*** ./vue/mixins/primaryList.ts ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var content_1 = __importDefault(__webpack_require__(/*! ../services/content */ "./vue/services/content.ts"));
+exports.default = {
+    methods: {
+        toggleAddToPrimary: function (content) {
+            var _this = this;
+            content_1.default
+                .toggleAddToPrimary(content)
+                .then(function (response) {
+                _this.handleToggleAddToPrimary(response, content);
+            });
+        },
+        handleToggleAddToPrimary: function (response, content) {
+            content.isAddedToPrimaryPlaylist = !content.isAddedToPrimaryPlaylist;
+        },
+    }
+};
+
+
+/***/ }),
+
 /***/ "./vue/models/content.ts":
 /*!*******************************!*\
   !*** ./vue/models/content.ts ***!
@@ -31614,7 +31663,8 @@ exports.default = {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Content = /** @class */ (function () {
-    function Content(id, url, thumbnail, title, instructors, contentType, difficulty, contentIcon, date, artist, style, likes, liked, sheet, topic, length, totalXp, status, parent, progress) {
+    function Content(id, url, thumbnail, title, instructors, contentType, difficulty, contentIcon, date, artist, style, likes, liked, sheet, topic, length, totalXp, status, isAddedToPrimaryPlaylist, progress, parent) {
+        if (isAddedToPrimaryPlaylist === void 0) { isAddedToPrimaryPlaylist = false; }
         if (progress === void 0) { progress = 0; }
         this.id = id;
         this.url = url;
@@ -31634,8 +31684,9 @@ var Content = /** @class */ (function () {
         this.length = length;
         this.totalXp = totalXp;
         this.status = status;
-        this.parent = parent;
+        this.isAddedToPrimaryPlaylist = isAddedToPrimaryPlaylist;
         this.progress = progress;
+        this.parent = parent;
     }
     return Content;
 }());
@@ -31770,6 +31821,32 @@ var errors_1 = __importDefault(__webpack_require__(/*! ./errors */ "./vue/servic
 var Content = /** @class */ (function () {
     function Content() {
     }
+    Content.toggleAddToPrimary = function (content) {
+        if (content.isAddedToPrimaryPlaylist) {
+            return http_1.default
+                .post('/members-area/event-json-api/remove-from-primary-playlist-list', {
+                "content_id": content.id,
+                "type": "remove-from-list"
+            })
+                .then(function (response) { return response; })
+                .catch(function (error) {
+                errors_1.default.report(error, 'Content::toggleAddToPrimary remove-from-primary-playlist-list');
+                return error;
+            });
+        }
+        else {
+            return http_1.default
+                .post('/members-area/event-json-api/add-to-primary-playlist-list', {
+                "content_id": content.id,
+                "type": "my-list-addition"
+            })
+                .then(function (response) { return response; })
+                .catch(function (error) {
+                errors_1.default.report(error, 'Content::toggleAddToPrimary add-to-primary-playlist-list');
+                return error;
+            });
+        }
+    };
     Content.toggleLike = function (content) {
         if (content.liked) {
             return http_1.default
@@ -31841,7 +31918,7 @@ var Content = /** @class */ (function () {
             var sheet = _this.getContentData(relatedDataMap, 'sheet_music_thumbnail_url');
             var topic = _this.getContentTopic(relatedDataMap);
             var content = new content_1.default(item.id, item.url || _this.getUrl(item), thumbnail, item.attributes.title, _this.getContentInstructors(relatedDataMap), item.attributes.type, item.attributes.difficulty, undefined, // todo - update contentIcon
-            item.attributes.publishedOn, item.attributes.artist, item.attributes.style, item.attributes.like_count, item.attributes.is_liked_by_current_user, sheet, topic, item.attributes.lengthInSeconds, item.attributes.totalXp, item.attributes.status);
+            item.attributes.publishedOn, item.attributes.artist, item.attributes.style, item.attributes.like_count, item.attributes.is_liked_by_current_user, sheet, topic, item.attributes.lengthInSeconds, item.attributes.totalXp, item.attributes.status, item.attributes.is_added_to_primary_playlist);
             if (relatedDataMap.hasOwnProperty('parent')) {
                 content.parent = _this.getParentContent(relatedDataMap);
             }
@@ -32041,10 +32118,12 @@ var Filters = /** @class */ (function () {
                         payload.required_user_states.push(item.value);
                     }
                     else {
-                        if (!payload.required_fields) {
-                            payload.required_fields = [];
+                        var key = (group.id == 'difficulty') ?
+                            'required_fields' : 'included_fields';
+                        if (!payload[key]) {
+                            payload[key] = [];
                         }
-                        payload.required_fields.push(group.id + "," + item.value);
+                        payload[key].push(group.id + "," + item.value);
                     }
                 }
             });

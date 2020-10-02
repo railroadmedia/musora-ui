@@ -1,18 +1,17 @@
 <template>
     <div>
-        <div
+        <event-content-card
             v-for="item in content"
             :key="item.id"
-        >
-            <event-content-card
-                :content="item"
-                :show-month="contentShowMonth[item.id]"
-            ></event-content-card>
-        </div>
+            :content="item"
+            :show-month="contentShowMonth[item.id]"
+            @toggleAddToPrimary="toggleAddToPrimary"
+        ></event-content-card>
     </div>
 </template>
 
 <script lang="ts">
+import PrimaryListMixin from '../../mixins/primaryList';
 import ContentService from '../../services/content';
 import EventContentCard from '../ContentCards/Event';
 import { DateTime } from 'luxon';
@@ -21,6 +20,7 @@ export default {
     components: {
         'event-content-card': EventContentCard,
     },
+    mixins: [PrimaryListMixin],
     props: {
         preloadData: {
             type: String

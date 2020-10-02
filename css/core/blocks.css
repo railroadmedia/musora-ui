@@ -145,3 +145,20 @@ select::-ms-expand {
 .truncate-text:not(.active) {
     max-height: 3rem;
 }
+
+/* add to list */
+.add-to-list i {
+    -webkit-transition: color .1s ease-in-out,-webkit-transform .1s ease-in-out;
+    transition: color .1s ease-in-out,-webkit-transform .1s ease-in-out;
+    transition: color .1s ease-in-out,transform .1s ease-in-out;
+    transition: color .1s ease-in-out,transform .1s ease-in-out,-webkit-transform .1s ease-in-out;
+    will-change: color,transform;
+}
+.add-to-list.is-added i {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    color: #0b76db;
+}
+.add-to-list.is-added i:hover {
+    color: #999999;
+}
