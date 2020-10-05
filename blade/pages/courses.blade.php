@@ -15,7 +15,7 @@
     @if(($showStartedRow ?? false) == true)
         <div class="container w-full h-full mx-auto px-3">
             <content-row
-                content-list='{{ $startedCoursesJsonData }}'
+                content-list='{{ $startedContentJson }}'
                 section-title="continue"
                 section-url="#"
                 card-text-details-top="topic"
@@ -27,7 +27,7 @@
         level-selector='{{ $currentDifficultyLevel ?? '0' }}'
         topics-filters-title='what do you want to work on?'
         :cards-per-row='4'
-        preload-data='{{ $catalogueCoursesJsonData }}'
+        preload-data='{{ $catalogueContentJson }}'
         infinite-scroll
         use-courses-content-type-filters
         use-progress-filters

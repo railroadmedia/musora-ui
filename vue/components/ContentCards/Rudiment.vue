@@ -1,5 +1,9 @@
 <template>
-    <a :href="getUrl(content)" class="rudiment-card flex flex-row items-center px-3 py-1">
+    <a
+        :href="getUrl(content)"
+        class="rudiment-card flex flex-row items-center px-3 py-1"
+        :data-content-id="content.id"
+    >
         <div class="rudiment-thumbnail-container rounded-lg overflow-hidden relative">
             <img :src="content.thumbnail" class="object-cover object-center w-full h-full">
             <div class="absolute bottom-0 left-0 right-0 rudiment-card-teacher-gradient text-white pl-2 pb-1 uppercase text-xs font-bold">{{ getInstructors(content) }}</div>
@@ -10,7 +14,15 @@
             <div class="flex-none h-16 px-8 hidden small:block" v-if="content.sheet">
                 <img :src="content.sheet" class="h-full w-auto">
             </div>
-            <div class="flex-none"><i class="rudiment-card-icon fal fa-plus text-3xl cursor-pointer text-medium-gray hover:text-black"></i></div>
+            <div
+                class="flex-none add-to-list"
+                :class="{'is-added': content.isAddedToPrimaryPlaylist}"
+            >
+                <i
+                    class="rudiment-card-icon fal fa-plus text-3xl cursor-pointer text-medium-gray hover:text-black"
+                    @click.stop.prevent="toggleAddToPrimary()"
+                ></i>
+            </div>
         </div>
     </a>
 </template>
@@ -27,6 +39,11 @@ export default {
         },
     },
     mixins: [ContentInstructorsMixin, ContentCardMixin],
+    methods: {
+        toggleAddToPrimary() {
+            this.$emit('toggleAddToPrimary', this.content);
+        },
+    }
 };
 </script>
 

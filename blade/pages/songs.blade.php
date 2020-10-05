@@ -14,7 +14,7 @@
 
     <div class="container w-full h-full mx-auto px-3">
         <content-row
-            content-list='{{ $continueVideos }}'
+            content-list='{{ $startedContentJson }}'
             section-title="continue"
             section-url="{{ $continueAllUrl }}"
         ></content-row>
@@ -25,7 +25,7 @@
         topics-filters-title='what style do you want to play?'
         topics-filters-key='style'
         :cards-per-row='5'
-        preload-data='{{ $songsData }}'
+        preload-data='{{ $catalogueContentJson }}'
         use-songs-content-type-filters
         use-progress-filters
         infinite-scroll

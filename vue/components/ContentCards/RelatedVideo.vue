@@ -1,5 +1,9 @@
 <template>
-    <a :href="getUrl(content)" class="flex flex-row">
+    <a
+        :href="getUrl(content)"
+        class="flex flex-row"
+        :data-content-id="content.id"
+    >
         <div class="related-video-thumbnail flex-none rounded-lg overflow-hidden relative">
             <img :src="getThumbnailUrl(content)" class="absolute h-full w-full">
             <div class="absolute top-0 right-0 mt-2 mr-2 cursor-pointer z-20" v-if="canAddToList"><i class="fal fa-plus text-xl text-white"></i></div>

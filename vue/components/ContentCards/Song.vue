@@ -1,5 +1,9 @@
 <template>
-    <a :href="content.url" class="song-card flex space-x-3 ">
+    <a
+        :href="content.url"
+        class="song-card flex space-x-3"
+        :data-content-id="content.id"
+    >
         <div class="relative">
             <div class="rounded-lg overflow-hidden w-16">
                 <img :src="content.thumbnail" class="w-full h-auto">

@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="flex-none hidden sm:flex items-center space-x-12 text-gray">
-        <div class="hover:text-black"><i class="icon-add-to-list text-3xl"></i></div>
-        <div class="hover:text-black"><i class="icon-live text-3xl"></i></div>
+        <div class="hover:text-black"><i class="fas fa-plus text-3xl"></i></div>
+        <div class="hover:text-black"><i class="fas fa-play-circle text-3xl"></i></div>
     </div>
 </a>

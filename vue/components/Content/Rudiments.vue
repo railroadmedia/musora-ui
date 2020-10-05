@@ -12,6 +12,7 @@
                 v-for="item in content"
                 :key="item.id"
                 :content="item"
+                @toggleAddToPrimary="toggleAddToPrimary"
             ></rudiment-content-card>
         </div>
     </div>
@@ -25,13 +26,14 @@ import TopicsGroupFilters from '../Filters/TopicsGroup';
 import RudimentContentCard from '../ContentCards/Rudiment';
 
 import ContentMixin from '../../mixins/content';
+import PrimaryListMixin from '../../mixins/primaryList';
 
 export default {
     components: {
         'topics-group-filters': TopicsGroupFilters,
         'rudiment-content-card': RudimentContentCard,
     },
-    mixins: [ContentMixin],
+    mixins: [ContentMixin, PrimaryListMixin],
     props: {
         topicsFiltersTitle: {
             type: String,

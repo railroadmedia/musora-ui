@@ -58166,7 +58166,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "a",
-    { staticClass: "flex flex-row", attrs: { href: _vm.getUrl(_vm.content) } },
+    {
+      staticClass: "flex flex-row",
+      attrs: {
+        href: _vm.getUrl(_vm.content),
+        "data-content-id": _vm.content.id
+      }
+    },
     [
       _c(
         "div",
@@ -58282,8 +58288,8 @@ var render = function() {
   return _c(
     "a",
     {
-      staticClass: "song-card flex space-x-3 ",
-      attrs: { href: _vm.content.url }
+      staticClass: "song-card flex space-x-3",
+      attrs: { href: _vm.content.url, "data-content-id": _vm.content.id }
     },
     [
       _c("div", { staticClass: "relative" }, [

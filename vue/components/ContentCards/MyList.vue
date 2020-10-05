@@ -1,5 +1,9 @@
 <template>
-    <a :href="content.url" class="py-2 my-list-content-card flex flex-col sm:flex-row items-center px-3 mb-6 sm:mb-0">
+    <a
+        :href="content.url"
+        class="py-2 my-list-content-card flex flex-col sm:flex-row items-center px-3 mb-6 sm:mb-0"
+        :data-content-id="content.id"
+    >
         <div class="flex flex-col sm:flex-row flex-1 sm:items-center w-full sm:w-32">
             <div class="rounded-lg overflow-hidden w-full sm:w-32">
                 <div class="rounded-lg overflow-hidden relative pb-9/16">

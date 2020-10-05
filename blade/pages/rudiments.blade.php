@@ -14,7 +14,7 @@
 
     <div class="container w-full h-full mx-auto px-3">
         <content-row
-            content-list='{{ $continueVideos }}'
+            content-list='{{ $startedContentJson }}'
             section-title="continue"
             section-url="{{ $continueAllUrl }}"
         ></content-row>
@@ -22,7 +22,7 @@
 
     <div class="pb-6">
         <rudiments-content
-            preload-data='{{ $rudimentsData }}'
+            preload-data='{{ $catalogueContentJson }}'
             topics-filters-title='rudiment types'
             infinite-scroll
         ></rudiments-content>

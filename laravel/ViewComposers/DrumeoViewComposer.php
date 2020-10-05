@@ -1508,8 +1508,8 @@ class DrumeoViewComposer
 
         $view->with(
             [
-                'coursesData' => $coursesData,
-                'continueCoursesData' => $coursesData,
+                'catalogueContentJson' => $coursesData,
+                'startedContentJson' => $coursesData,
             ]
         );
     }
@@ -1560,9 +1560,9 @@ class DrumeoViewComposer
 
         $view->with(
             [
-                'continueVideos' => $rudimentsData,
+                'startedContentJson' => $rudimentsData,
                 'continueAllUrl' => '#',
-                'rudimentsData' => $rudimentsData,
+                'catalogueContentJson' => $rudimentsData,
             ]
         );
     }
@@ -1722,9 +1722,9 @@ class DrumeoViewComposer
 
         $view->with(
             [
-                'continueVideos' => $songsData,
+                'startedContentJson' => $songsData,
                 'continueAllUrl' => '#',
-                'songsData' => $songsData,
+                'catalogueContentJson' => $songsData,
             ]
         );
     }

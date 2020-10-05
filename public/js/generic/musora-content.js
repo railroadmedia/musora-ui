@@ -28389,7 +28389,7 @@ var render = function() {
     {
       staticClass:
         "py-2 my-list-content-card flex flex-col sm:flex-row items-center px-3 mb-6 sm:mb-0",
-      attrs: { href: _vm.content.url }
+      attrs: { href: _vm.content.url, "data-content-id": _vm.content.id }
     },
     [
       _c(
@@ -28506,7 +28506,10 @@ var render = function() {
     "a",
     {
       staticClass: "rudiment-card flex flex-row items-center px-3 py-1",
-      attrs: { href: _vm.getUrl(_vm.content) }
+      attrs: {
+        href: _vm.getUrl(_vm.content),
+        "data-content-id": _vm.content.id
+      }
     },
     [
       _c(
@@ -28609,7 +28612,7 @@ var render = function() {
     {
       staticClass:
         "py-2 my-list-content-card flex flex-col sm:flex-row items-center px-3 mb-6 sm:mb-0",
-      attrs: { href: _vm.content.url }
+      attrs: { href: _vm.content.url, "data-content-id": _vm.content.id }
     },
     [
       _c(

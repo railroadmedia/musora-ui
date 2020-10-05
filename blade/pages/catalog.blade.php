@@ -36,25 +36,15 @@ $catalogContentJsonData
         </div>
     @endif
 
-    @if($lessonType == 'rudiments')
-        <div class="pb-6">
-            <rudiments-content
-                    preload-data='{{ $catalogContentJsonData }}'
-                    topics-filters-title='rudiment types'
-                    infinite-scroll
-            ></rudiments-content>
-        </div>
-    @else
-        <content-catalogue
-                level-selector='{{ $currentUserContentLevel }}'
-                topics-filters-title='{{ $leftFilterTitle }}'
-                :cards-per-row='4'
-                preload-data='{{ $catalogContentJsonData }}'
-                infinite-scroll
-                use-courses-content-type-filters
-                use-progress-filters
-        ></content-catalogue>
-    @endif
+    <content-catalogue
+            level-selector='{{ $currentUserContentLevel }}'
+            topics-filters-title='{{ $leftFilterTitle }}'
+            :cards-per-row='{{ $cardsPerRow }}'
+            preload-data='{{ $catalogContentJsonData }}'
+            infinite-scroll
+            use-progress-filters
+            {{ $contentTypeFilters }}
+    ></content-catalogue>
 
 
     @if(($showStudentPlanButton ?? false) == true)

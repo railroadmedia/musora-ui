@@ -13,4 +13,5 @@
             <div class="text-white">{{ $truncatedDesc }}</div>
         </div>
     </div>
+    <!-- {{ $description }} -->
 </div>
