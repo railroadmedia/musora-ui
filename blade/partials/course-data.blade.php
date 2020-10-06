@@ -17,9 +17,22 @@
         <a href="#" id="course-info" class="flex flex-col items-center justify-center z-10 bg-white h-14 w-14 rounded-full border border-gray leading-none"><span class="text-xs uppercase font-bold font-roboto">info</span><i class="fas fa-angle-down open"></i><i class="fas fa-angle-up close"></i></a>
     </div>
     <div id="course-info-container" class="mx-auto w-full container overflow-hidden px-3 flex flex-col">
-        @foreach ($description as $paragraph)
-            <p>{{ $paragraph }}</p>
-        @endforeach
-        <div class="mb-10"></div>
+        <div class="pb-10 space-y-6">
+            @if(!empty($description['contentDescription']))
+                <div class="space-y-3">
+                    <h3 class="font-bold text-xl uppercase">about the lesson</h3>
+                    <div>{!! $description['contentDescription'] !!}</div>
+                </div>
+            @endif
+
+            @if(!empty($description['instructors']))
+                @foreach ($description['instructors'] as $instructorData)
+                    <div class="space-y-3">
+                        <h3 class="font-bold text-xl uppercase">About {{ $instructorData['name'] }}</h3>
+                        <div>{!! $instructorData['bio'] !!}</div>
+                    </div>
+                @endforeach
+            @endif
+        </div>
     </div>
 </div>

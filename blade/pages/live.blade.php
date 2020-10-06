@@ -7,10 +7,6 @@
     @include('musora-ui::partials.edge-nav', ['active' => 'live'])
 @endsection
 
-@php
-$lastMonth = null;
-@endphp
-
 @section('musora-ui::app')
     @include('musora-ui::partials.user-stats')
 

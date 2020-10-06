@@ -1,0 +1,1930 @@
+{
+  "data": [
+    {
+      "type": "content",
+      "id": "243084",
+      "attributes": {
+        "slug": "theory",
+        "type": "learning-path-course",
+        "sort": 0,
+        "status": "published",
+        "totalXp": "4200",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": null,
+        "user": "",
+        "publishedOn": "2020-01-31 22:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-01-13 16:26:25",
+        "difficulty": "2",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Theory",
+        "xp": 500,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": null,
+        "liveEventEndTime": null,
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "position": 1,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "is_new": false,
+        "resources": {
+          "1": {
+            "resource_id": 125177,
+            "resource_name": "Course Resources Pack",
+            "resource_url": "https://d1923uyy6spedc.cloudfront.net/243084-resource-1584632335.zip"
+          }
+        },
+        "like_count": "0",
+        "is_liked_by_current_user": false,
+        "url": "https://dev.drumeo.com/laravel/public/members/learning-paths-jump-to-course/243084",
+        "mobile_app_url": "https://dev.drumeo.com/laravel/public/api/members/learning-path-courses/243084",
+        "lesson_count": 12,
+        "thumbnail_url": "https://d1923uyy6spedc.cloudfront.net/243084-card-thumbnail-1593030799.png",
+        "incomplete_lessons": 12,
+        "current_lesson": {
+          "__initializer__": null,
+          "__cloner__": null,
+          "__isInitialized__": true,
+          "user_progress": {
+            "150259": []
+          },
+          "progress_state": false,
+          "progress_percent": 0.2840909090909091,
+          "completed": false,
+          "started": false,
+          "permissions": [],
+          "length_in_seconds": 352,
+          "position": 1,
+          "user_playlists": {
+            "150259": []
+          },
+          "is_added_to_primary_playlist": false,
+          "is_new": false,
+          "resources": [],
+          "last_watch_position_in_seconds": 0,
+          "like_count": "296",
+          "is_liked_by_current_user": false,
+          "xp_bonus": 150,
+          "url": "https://dev.drumeo.com/laravel/public/members/learning-paths-jump-to-lesson/243158",
+          "mobile_app_url": "https://dev.drumeo.com/laravel/public/api/members/learning-path-lessons/243158"
+        },
+        "course_position": 0
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "120624"
+            },
+            {
+              "type": "contentData",
+              "id": "120625"
+            },
+            {
+              "type": "contentData",
+              "id": "125176"
+            },
+            {
+              "type": "contentData",
+              "id": "125177"
+            },
+            {
+              "type": "contentData",
+              "id": "140413"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4371"
+            }
+          ]
+        },
+        "parent": {
+          "data": [
+            {
+              "type": "parent",
+              "id": "561125"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "243085",
+      "attributes": {
+        "slug": "df",
+        "type": "learning-path-course",
+        "sort": 0,
+        "status": "published",
+        "totalXp": "1500",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": null,
+        "user": "",
+        "publishedOn": "2020-01-31 22:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-01-13 16:26:50",
+        "difficulty": "2",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Practice",
+        "xp": 500,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": null,
+        "liveEventEndTime": null,
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "position": 2,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "is_new": false,
+        "resources": {
+          "1": {
+            "resource_id": 122123,
+            "resource_name": "Course Resources Pack",
+            "resource_url": "https://d1923uyy6spedc.cloudfront.net/243085-resource-1581071333.pdf"
+          }
+        },
+        "like_count": "0",
+        "is_liked_by_current_user": false,
+        "url": "https://dev.drumeo.com/laravel/public/members/learning-paths-jump-to-course/243085",
+        "mobile_app_url": "https://dev.drumeo.com/laravel/public/api/members/learning-path-courses/243085",
+        "lesson_count": 5,
+        "thumbnail_url": "https://d1923uyy6spedc.cloudfront.net/243085-card-thumbnail-1593031032.png",
+        "incomplete_lessons": 5,
+        "current_lesson": {
+          "__initializer__": null,
+          "__cloner__": null,
+          "__isInitialized__": true,
+          "user_progress": {
+            "150259": []
+          },
+          "progress_state": false,
+          "progress_percent": 0.17152658662092624,
+          "completed": false,
+          "started": false,
+          "permissions": [],
+          "length_in_seconds": 583,
+          "position": 1,
+          "user_playlists": {
+            "150259": []
+          },
+          "is_added_to_primary_playlist": false,
+          "is_new": false,
+          "resources": {
+            "1": {
+              "resource_id": 146272,
+              "resource_name": "Balanced & Consistent Practice Guide PDF",
+              "resource_url": "https://d1923uyy6spedc.cloudfront.net/243170-resource-1598447824.pdf"
+            }
+          },
+          "assignments": [
+            {
+              "__initializer__": null,
+              "__cloner__": null,
+              "__isInitialized__": true,
+              "user_progress": {
+                "150259": []
+              },
+              "progress_state": false,
+              "progress_percent": 0,
+              "completed": false,
+              "started": false,
+              "permissions": [],
+              "length_in_seconds": 0,
+              "position": 1,
+              "user_playlists": {
+                "150259": []
+              },
+              "is_added_to_primary_playlist": false,
+              "is_new": false,
+              "resources": [],
+              "like_count": "0",
+              "is_liked_by_current_user": false
+            }
+          ],
+          "last_watch_position_in_seconds": 0,
+          "like_count": "224",
+          "is_liked_by_current_user": false,
+          "xp_bonus": 150,
+          "url": "https://dev.drumeo.com/laravel/public/members/learning-paths-jump-to-lesson/243170",
+          "mobile_app_url": "https://dev.drumeo.com/laravel/public/api/members/learning-path-lessons/243170"
+        },
+        "course_position": 0
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "121288"
+            },
+            {
+              "type": "contentData",
+              "id": "121289"
+            },
+            {
+              "type": "contentData",
+              "id": "121290"
+            },
+            {
+              "type": "contentData",
+              "id": "122122"
+            },
+            {
+              "type": "contentData",
+              "id": "122123"
+            },
+            {
+              "type": "contentData",
+              "id": "140414"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4372"
+            }
+          ]
+        },
+        "parent": {
+          "data": [
+            {
+              "type": "parent",
+              "id": "561127"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "243086",
+      "attributes": {
+        "slug": "as",
+        "type": "learning-path-course",
+        "sort": 0,
+        "status": "published",
+        "totalXp": "2175",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": null,
+        "user": "",
+        "publishedOn": "2020-01-31 22:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-01-13 16:27:05",
+        "difficulty": "2",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Rudiments",
+        "xp": 500,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": null,
+        "liveEventEndTime": null,
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "position": 3,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "is_new": false,
+        "resources": {
+          "1": {
+            "resource_id": 122207,
+            "resource_name": "Course Resources Pack",
+            "resource_url": "https://d1923uyy6spedc.cloudfront.net/243086-resource-1581162683.zip"
+          }
+        },
+        "like_count": "0",
+        "is_liked_by_current_user": false,
+        "url": "https://dev.drumeo.com/laravel/public/members/learning-paths-jump-to-course/243086",
+        "mobile_app_url": "https://dev.drumeo.com/laravel/public/api/members/learning-path-courses/243086",
+        "lesson_count": 7,
+        "thumbnail_url": "https://d1923uyy6spedc.cloudfront.net/243086-card-thumbnail-1593031219.png",
+        "incomplete_lessons": 7,
+        "current_lesson": {
+          "__initializer__": null,
+          "__cloner__": null,
+          "__isInitialized__": true,
+          "user_progress": {
+            "150259": []
+          },
+          "progress_state": false,
+          "progress_percent": 0.20876826722338201,
+          "completed": false,
+          "started": false,
+          "permissions": [],
+          "length_in_seconds": 479,
+          "position": 1,
+          "user_playlists": {
+            "150259": []
+          },
+          "is_added_to_primary_playlist": false,
+          "is_new": false,
+          "resources": [],
+          "last_watch_position_in_seconds": 0,
+          "like_count": "321",
+          "is_liked_by_current_user": false,
+          "xp_bonus": 150,
+          "url": "https://dev.drumeo.com/laravel/public/members/learning-paths-jump-to-lesson/243177",
+          "mobile_app_url": "https://dev.drumeo.com/laravel/public/api/members/learning-path-lessons/243177"
+        },
+        "course_position": 0
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "121202"
+            },
+            {
+              "type": "contentData",
+              "id": "121203"
+            },
+            {
+              "type": "contentData",
+              "id": "121204"
+            },
+            {
+              "type": "contentData",
+              "id": "122206"
+            },
+            {
+              "type": "contentData",
+              "id": "122207"
+            },
+            {
+              "type": "contentData",
+              "id": "140415"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "8231"
+            }
+          ]
+        },
+        "parent": {
+          "data": [
+            {
+              "type": "parent",
+              "id": "561129"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "243087",
+      "attributes": {
+        "slug": "level-2-independence",
+        "type": "learning-path-course",
+        "sort": 0,
+        "status": "published",
+        "totalXp": "2775",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": null,
+        "user": "",
+        "publishedOn": "2020-01-31 22:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-01-13 16:27:16",
+        "difficulty": "2",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Independence",
+        "xp": 500,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": null,
+        "liveEventEndTime": null,
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "position": 4,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "is_new": false,
+        "resources": {
+          "1": {
+            "resource_id": 122497,
+            "resource_name": "Course Resources Pack",
+            "resource_url": "https://d1923uyy6spedc.cloudfront.net/243087-resource-1581693611.zip"
+          }
+        },
+        "like_count": "0",
+        "is_liked_by_current_user": false,
+        "url": "https://dev.drumeo.com/laravel/public/members/learning-paths-jump-to-course/243087",
+        "mobile_app_url": "https://dev.drumeo.com/laravel/public/api/members/learning-path-courses/243087",
+        "lesson_count": 6,
+        "thumbnail_url": "https://d1923uyy6spedc.cloudfront.net/243087-card-thumbnail-1593031340.png",
+        "incomplete_lessons": 6,
+        "current_lesson": {
+          "__initializer__": null,
+          "__cloner__": null,
+          "__isInitialized__": true,
+          "user_progress": {
+            "150259": []
+          },
+          "progress_state": false,
+          "progress_percent": 0.3875968992248062,
+          "completed": false,
+          "started": false,
+          "permissions": [],
+          "length_in_seconds": 258,
+          "position": 1,
+          "user_playlists": {
+            "150259": []
+          },
+          "is_added_to_primary_playlist": false,
+          "is_new": false,
+          "resources": [],
+          "last_watch_position_in_seconds": 0,
+          "like_count": "146",
+          "is_liked_by_current_user": false,
+          "xp_bonus": 150,
+          "url": "https://dev.drumeo.com/laravel/public/members/learning-paths-jump-to-lesson/243184",
+          "mobile_app_url": "https://dev.drumeo.com/laravel/public/api/members/learning-path-lessons/243184"
+        },
+        "course_position": 0
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "120850"
+            },
+            {
+              "type": "contentData",
+              "id": "120851"
+            },
+            {
+              "type": "contentData",
+              "id": "120852"
+            },
+            {
+              "type": "contentData",
+              "id": "122496"
+            },
+            {
+              "type": "contentData",
+              "id": "122497"
+            },
+            {
+              "type": "contentData",
+              "id": "140416"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4373"
+            }
+          ]
+        },
+        "parent": {
+          "data": [
+            {
+              "type": "parent",
+              "id": "561130"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "243088",
+      "attributes": {
+        "slug": "level-2-styles",
+        "type": "learning-path-course",
+        "sort": 0,
+        "status": "published",
+        "totalXp": "4775",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": null,
+        "user": "",
+        "publishedOn": "2020-01-31 22:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-01-13 16:27:45",
+        "difficulty": "2",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Styles",
+        "xp": 500,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": null,
+        "liveEventEndTime": null,
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "position": 5,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "is_new": false,
+        "resources": {
+          "1": {
+            "resource_id": 122360,
+            "resource_name": "Course Resources Pack",
+            "resource_url": "https://s3.amazonaws.com/drumeo/The%20Drumeo%20Method/Level%202/tdm-level-2-course-5-1.zip"
+          }
+        },
+        "like_count": "0",
+        "is_liked_by_current_user": false,
+        "url": "https://dev.drumeo.com/laravel/public/members/learning-paths-jump-to-course/243088",
+        "mobile_app_url": "https://dev.drumeo.com/laravel/public/api/members/learning-path-courses/243088",
+        "lesson_count": 12,
+        "thumbnail_url": "https://d1923uyy6spedc.cloudfront.net/243088-card-thumbnail-1593031473.png",
+        "incomplete_lessons": 12,
+        "current_lesson": {
+          "__initializer__": null,
+          "__cloner__": null,
+          "__isInitialized__": true,
+          "user_progress": {
+            "150259": []
+          },
+          "progress_state": false,
+          "progress_percent": 0.8849557522123894,
+          "completed": false,
+          "started": false,
+          "permissions": [],
+          "length_in_seconds": 113,
+          "position": 1,
+          "user_playlists": {
+            "150259": []
+          },
+          "is_added_to_primary_playlist": false,
+          "is_new": false,
+          "resources": [],
+          "last_watch_position_in_seconds": 0,
+          "like_count": "113",
+          "is_liked_by_current_user": false,
+          "xp_bonus": 150,
+          "url": "https://dev.drumeo.com/laravel/public/members/learning-paths-jump-to-lesson/243270",
+          "mobile_app_url": "https://dev.drumeo.com/laravel/public/api/members/learning-path-lessons/243270"
+        },
+        "course_position": 0
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "120847"
+            },
+            {
+              "type": "contentData",
+              "id": "120848"
+            },
+            {
+              "type": "contentData",
+              "id": "120849"
+            },
+            {
+              "type": "contentData",
+              "id": "122359"
+            },
+            {
+              "type": "contentData",
+              "id": "122360"
+            },
+            {
+              "type": "contentData",
+              "id": "140417"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4842"
+            }
+          ]
+        },
+        "parent": {
+          "data": [
+            {
+              "type": "parent",
+              "id": "561131"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "243089",
+      "attributes": {
+        "slug": "asd",
+        "type": "learning-path-course",
+        "sort": 0,
+        "status": "published",
+        "totalXp": "1475",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": null,
+        "user": "",
+        "publishedOn": "2020-01-31 22:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-01-13 16:28:09",
+        "difficulty": "2",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Ears",
+        "xp": 500,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": null,
+        "liveEventEndTime": null,
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "position": 6,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "is_new": false,
+        "resources": {
+          "1": {
+            "resource_id": 122363,
+            "resource_name": "Course Resources Pack",
+            "resource_url": "https://d1923uyy6spedc.cloudfront.net/243089-resource-1581523527.zip"
+          }
+        },
+        "like_count": "0",
+        "is_liked_by_current_user": false,
+        "url": "https://dev.drumeo.com/laravel/public/members/learning-paths-jump-to-course/243089",
+        "mobile_app_url": "https://dev.drumeo.com/laravel/public/api/members/learning-path-courses/243089",
+        "lesson_count": 5,
+        "thumbnail_url": "https://d1923uyy6spedc.cloudfront.net/243089-card-thumbnail-1593031811.png",
+        "incomplete_lessons": 5,
+        "current_lesson": {
+          "__initializer__": null,
+          "__cloner__": null,
+          "__isInitialized__": true,
+          "user_progress": {
+            "150259": []
+          },
+          "progress_state": false,
+          "progress_percent": 0.23923444976076555,
+          "completed": false,
+          "started": false,
+          "permissions": [],
+          "length_in_seconds": 418,
+          "position": 1,
+          "user_playlists": {
+            "150259": []
+          },
+          "is_added_to_primary_playlist": false,
+          "is_new": false,
+          "resources": [],
+          "assignments": [
+            {
+              "__initializer__": null,
+              "__cloner__": null,
+              "__isInitialized__": true,
+              "user_progress": {
+                "150259": []
+              },
+              "progress_state": false,
+              "progress_percent": 0,
+              "completed": false,
+              "started": false,
+              "permissions": [],
+              "length_in_seconds": 0,
+              "position": 1,
+              "user_playlists": {
+                "150259": []
+              },
+              "is_added_to_primary_playlist": false,
+              "is_new": false,
+              "resources": [],
+              "like_count": "0",
+              "is_liked_by_current_user": false
+            }
+          ],
+          "last_watch_position_in_seconds": 0,
+          "like_count": "138",
+          "is_liked_by_current_user": false,
+          "xp_bonus": 150,
+          "url": "https://dev.drumeo.com/laravel/public/members/learning-paths-jump-to-lesson/243197",
+          "mobile_app_url": "https://dev.drumeo.com/laravel/public/api/members/learning-path-lessons/243197"
+        },
+        "course_position": 0
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "120829"
+            },
+            {
+              "type": "contentData",
+              "id": "120830"
+            },
+            {
+              "type": "contentData",
+              "id": "120831"
+            },
+            {
+              "type": "contentData",
+              "id": "122362"
+            },
+            {
+              "type": "contentData",
+              "id": "122363"
+            },
+            {
+              "type": "contentData",
+              "id": "140418"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4374"
+            }
+          ]
+        },
+        "parent": {
+          "data": [
+            {
+              "type": "parent",
+              "id": "561132"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "content",
+      "id": "243090",
+      "attributes": {
+        "slug": "asd",
+        "type": "learning-path-course",
+        "sort": 0,
+        "status": "published",
+        "totalXp": "1175",
+        "brand": "drumeo",
+        "language": "en-US",
+        "showInNewFeed": null,
+        "user": "",
+        "publishedOn": "2020-01-31 22:00:00",
+        "archivedOn": null,
+        "createdOn": "2020-01-13 16:28:36",
+        "difficulty": "2",
+        "homeStaffPickRating": null,
+        "legacyId": null,
+        "legacyWordpressPostId": null,
+        "qnaVideo": null,
+        "title": "Music",
+        "xp": 500,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cdTracks": null,
+        "chordOrScale": null,
+        "difficultyRange": null,
+        "episodeNumber": null,
+        "exerciseBookPages": null,
+        "fastBpm": null,
+        "includesSong": null,
+        "instructors": null,
+        "liveEventStartTime": null,
+        "liveEventEndTime": null,
+        "liveEventYoutubeId": null,
+        "liveStreamFeedType": null,
+        "name": null,
+        "released": null,
+        "slowBpm": null,
+        "transcriberName": null,
+        "week": null,
+        "avatarUrl": null,
+        "lengthInSeconds": 0,
+        "soundsliceSlug": null,
+        "staffPickRating": null,
+        "studentId": null,
+        "vimeoVideoId": null,
+        "youtubeVideoId": null,
+        "user_progress": {
+          "150259": []
+        },
+        "progress_state": false,
+        "progress_percent": 0,
+        "completed": false,
+        "started": false,
+        "permissions": [],
+        "length_in_seconds": 0,
+        "position": 7,
+        "user_playlists": {
+          "150259": []
+        },
+        "is_added_to_primary_playlist": false,
+        "is_new": false,
+        "resources": {
+          "1": {
+            "resource_id": 120828,
+            "resource_name": "Course Resources Pack",
+            "resource_url": "https://s3.amazonaws.com/drumeo/The%20Drumeo%20Method/Level%202/tdm-level-2-7-music.zip"
+          }
+        },
+        "like_count": "0",
+        "is_liked_by_current_user": false,
+        "url": "https://dev.drumeo.com/laravel/public/members/learning-paths-jump-to-course/243090",
+        "mobile_app_url": "https://dev.drumeo.com/laravel/public/api/members/learning-path-courses/243090",
+        "lesson_count": 4,
+        "thumbnail_url": "https://d1923uyy6spedc.cloudfront.net/243090-card-thumbnail-1593031886.png",
+        "incomplete_lessons": 4,
+        "current_lesson": {
+          "__initializer__": null,
+          "__cloner__": null,
+          "__isInitialized__": true,
+          "user_progress": {
+            "150259": []
+          },
+          "progress_state": false,
+          "progress_percent": 1.4084507042253522,
+          "completed": false,
+          "started": false,
+          "permissions": [],
+          "length_in_seconds": 71,
+          "position": 1,
+          "user_playlists": {
+            "150259": []
+          },
+          "is_added_to_primary_playlist": false,
+          "is_new": false,
+          "resources": [],
+          "last_watch_position_in_seconds": 0,
+          "like_count": "79",
+          "is_liked_by_current_user": false,
+          "xp_bonus": 150,
+          "url": "https://dev.drumeo.com/laravel/public/members/learning-paths-jump-to-lesson/243203",
+          "mobile_app_url": "https://dev.drumeo.com/laravel/public/api/members/learning-path-lessons/243203"
+        },
+        "course_position": 0
+      },
+      "relationships": {
+        "data": {
+          "data": [
+            {
+              "type": "contentData",
+              "id": "120733"
+            },
+            {
+              "type": "contentData",
+              "id": "120801"
+            },
+            {
+              "type": "contentData",
+              "id": "120802"
+            },
+            {
+              "type": "contentData",
+              "id": "120827"
+            },
+            {
+              "type": "contentData",
+              "id": "120828"
+            },
+            {
+              "type": "contentData",
+              "id": "140419"
+            }
+          ]
+        },
+        "instructor": {
+          "data": [
+            {
+              "type": "instructor",
+              "id": "4843"
+            }
+          ]
+        },
+        "parent": {
+          "data": [
+            {
+              "type": "parent",
+              "id": "561133"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "type": "instructor",
+      "id": "31877",
+      "attributes": {
+        "slug": "dave-atkinson",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:20",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:20",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Dave Atkinson",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "parent",
+      "id": "241284",
+      "attributes": {
+        "slug": "basic-theory-ear-training",
+        "type": "learning-path-level",
+        "sort": 1,
+        "status": "published",
+        "total_xp": "19075",
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2020-01-31 22:00:00",
+        "archived_on": null,
+        "created_on": "2019-12-20 23:07:22",
+        "difficulty": "2",
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "title": "Basic Theory & Ear Training",
+        "xp": 1000,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": null,
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": 116,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "31978",
+      "attributes": {
+        "slug": "john-wooton",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:29",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:29",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "John Wooton",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "31878",
+      "attributes": {
+        "slug": "mike-michalkow",
+        "type": "instructor",
+        "sort": 0,
+        "status": "published",
+        "total_xp": null,
+        "brand": "drumeo",
+        "language": "en-US",
+        "show_in_new_feed": null,
+        "user": "",
+        "published_on": "2017-12-13 17:23:20",
+        "archived_on": null,
+        "created_on": "2017-12-13 17:23:20",
+        "difficulty": null,
+        "home_staff_pick_rating": null,
+        "legacy_id": null,
+        "legacy_wordpress_post_id": null,
+        "qna_video": null,
+        "title": null,
+        "xp": null,
+        "album": null,
+        "artist": null,
+        "bpm": null,
+        "cd_tracks": null,
+        "chord_or_scale": null,
+        "difficulty_range": null,
+        "episode_number": null,
+        "exercise_book_pages": null,
+        "fast_bpm": null,
+        "includes_song": null,
+        "instructors": null,
+        "live_event_start_time": null,
+        "live_event_end_time": null,
+        "live_event_youtube_id": null,
+        "live_stream_feed_type": null,
+        "name": "Mike Michalkow",
+        "released": null,
+        "slow_bpm": null,
+        "transcriber_name": null,
+        "week": null,
+        "avatar_url": null,
+        "length_in_seconds": null,
+        "soundslice_slug": null,
+        "staff_pick_rating": null,
+        "student_id": null,
+        "vimeo_video_id": null,
+        "youtube_video_id": null
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120624",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243084-card-thumbnail-1593030799.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120625",
+      "attributes": {
+        "key": "description",
+        "value": "<p>In this course, you'll learn about drum theory and notation, note values, and most importantly, how to read sheet music.</p>",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "125176",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Course Resources Pack",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "125177",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243084-resource-1584632335.zip",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140413",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243084-card-thumbnail-maxres-1593030792.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4371",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "parent",
+      "id": "561125",
+      "attributes": {
+        "child_position": 1
+      },
+      "relationships": {
+        "parent": {
+          "data": {
+            "type": "parent",
+            "id": "241284"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "121288",
+      "attributes": {
+        "key": "description",
+        "value": "<p>Here you'll learn everything you need to know about efficient practice, stretching and warm-ups, and creating practice plans that will help you reach your drumming goals.</p>",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "121289",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243085-card-thumbnail-1593031032.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "121290",
+      "attributes": {
+        "key": "header_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243170-card-thumbnail-1580498614.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "122122",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Course Resources Pack",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "122123",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243085-resource-1581071333.pdf",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140414",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243085-card-thumbnail-maxres-1593031020.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4372",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "parent",
+      "id": "561127",
+      "attributes": {
+        "child_position": 2
+      },
+      "relationships": {
+        "parent": {
+          "data": {
+            "type": "parent",
+            "id": "241284"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "121202",
+      "attributes": {
+        "key": "description",
+        "value": "<p>This course will introduce you to your first three drum rudiments and teach you how to apply them to the drum-set.</p>",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "121203",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243086-card-thumbnail-1593031219.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "121204",
+      "attributes": {
+        "key": "header_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243177-card-thumbnail-1580494536.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "122206",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Course Resources Pack",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "122207",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243086-resource-1581162683.zip",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140415",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243086-card-thumbnail-maxres-1593031214.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "8231",
+      "attributes": {
+        "position": 2
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31978"
+          }
+        }
+      }
+    },
+    {
+      "type": "parent",
+      "id": "561129",
+      "attributes": {
+        "child_position": 3
+      },
+      "relationships": {
+        "parent": {
+          "data": {
+            "type": "parent",
+            "id": "241284"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120850",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243087-card-thumbnail-1593031340.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120851",
+      "attributes": {
+        "key": "header_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243184-card-thumbnail-1580476944.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120852",
+      "attributes": {
+        "key": "description",
+        "value": "<p>As a drummer, it's so important to develop independence with each of your limbs. In this course, you'll take your first steps into the world of drumming independence and learn how to isolate and challenge each limb.</p>",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "122496",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Course Resources Pack",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "122497",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243087-resource-1581693611.zip",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140416",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243087-card-thumbnail-maxres-1593031335.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4373",
+      "attributes": {
+        "position": 2
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "parent",
+      "id": "561130",
+      "attributes": {
+        "child_position": 4
+      },
+      "relationships": {
+        "parent": {
+          "data": {
+            "type": "parent",
+            "id": "241284"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120847",
+      "attributes": {
+        "key": "description",
+        "value": "<p>This course will introduce you to three new styles of music including rock, metal, and punk!</p>",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120848",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243088-card-thumbnail-1593031473.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120849",
+      "attributes": {
+        "key": "header_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243270-card-thumbnail-1580490947.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "122359",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Course Resources Pack",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "122360",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/The%20Drumeo%20Method/Level%202/tdm-level-2-course-5-1.zip",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140417",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243088-card-thumbnail-maxres-1593031467.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4842",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31878"
+          }
+        }
+      }
+    },
+    {
+      "type": "parent",
+      "id": "561131",
+      "attributes": {
+        "child_position": 5
+      },
+      "relationships": {
+        "parent": {
+          "data": {
+            "type": "parent",
+            "id": "241284"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120829",
+      "attributes": {
+        "key": "description",
+        "value": "<p>Here you'll expand on what you learned in the \"Ears\" section of Level 1, by diving into the world of phrasing. You'll learn what phrasing actually is, how to hear it, and how to incorporate it into your practice.</p>",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120830",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243089-card-thumbnail-1593031811.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120831",
+      "attributes": {
+        "key": "header_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243197-card-thumbnail-1580472623.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "122362",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Course Resources Pack",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "122363",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243089-resource-1581523527.zip",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140418",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243089-card-thumbnail-maxres-1593031806.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4374",
+      "attributes": {
+        "position": 1
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31877"
+          }
+        }
+      }
+    },
+    {
+      "type": "parent",
+      "id": "561132",
+      "attributes": {
+        "child_position": 6
+      },
+      "relationships": {
+        "parent": {
+          "data": {
+            "type": "parent",
+            "id": "241284"
+          }
+        }
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120733",
+      "attributes": {
+        "key": "description",
+        "value": "<p>Apply the beats &amp; fills you learned in the previous lessons to real music! </p>",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120801",
+      "attributes": {
+        "key": "thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243090-card-thumbnail-1593031886.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120802",
+      "attributes": {
+        "key": "header_image_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243203-card-thumbnail-1580469479.jpg",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120827",
+      "attributes": {
+        "key": "resource_name",
+        "value": "Course Resources Pack",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "120828",
+      "attributes": {
+        "key": "resource_url",
+        "value": "https://s3.amazonaws.com/drumeo/The%20Drumeo%20Method/Level%202/tdm-level-2-7-music.zip",
+        "position": 1
+      }
+    },
+    {
+      "type": "contentData",
+      "id": "140419",
+      "attributes": {
+        "key": "original_thumbnail_url",
+        "value": "https://d1923uyy6spedc.cloudfront.net/243090-card-thumbnail-maxres-1593031882.png",
+        "position": 1
+      }
+    },
+    {
+      "type": "instructor",
+      "id": "4843",
+      "attributes": {
+        "position": 2
+      },
+      "relationships": {
+        "instructor": {
+          "data": {
+            "type": "instructor",
+            "id": "31878"
+          }
+        }
+      }
+    },
+    {
+      "type": "parent",
+      "id": "561133",
+      "attributes": {
+        "child_position": 7
+      },
+      "relationships": {
+        "parent": {
+          "data": {
+            "type": "parent",
+            "id": "241284"
+          }
+        }
+      }
+    }
+  ]
+}

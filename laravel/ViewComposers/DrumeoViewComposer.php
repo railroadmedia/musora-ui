@@ -527,6 +527,8 @@ class DrumeoViewComposer
      */
     public function methodLevelPageContent(View $view)
     {
+        $mockData = $this->getMockData('method.json');
+
         $view->with(
             [
                 'courseDescription' => [
@@ -552,71 +554,24 @@ class DrumeoViewComposer
                         ],
                     ],
                     'description' => [
-                        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.',
-                        'Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.',
-                        'Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.'
+                        'contentDescription' => '<p>Theory and notation, rudiments, independence, new styles, and ear training! Level 2 is where you’ll start to develop skills in some core areas that you’ll continue to work on throughout the rest of the Drumeo Method. You’ll learn some basic rudiments which are considered the alphabet of drumming, you’ll learn how to read drum notation and understand basic theory, you’ll learn how to practice effectively, and you’ll even dive into drumming styles like rock, punk, and metal. </p><p><br></p><p>Level 2 is also where you’ll start working on some new ear training skills to become a more musical drummer. These are invaluable skills that you’ll be able to apply to some new play-along tracks in this level and all of the other music you love to play!</p>',
+                        'instructors' => [
+                            [
+                                'name' => 'Dave Atkinson',
+                                'bio' => 'Drummer for the Canadian rock-band YUCA, Dave Atkinson is one of our most popular instructors. Teaching for over eight years now, he has helped thousands of students reach their goals through FreeDrumLessons.com, DrumLessons.com, and the instructional programs “Drum Play-Along System” and “Bass Drum Secrets”. A precise double-bass drummer and practice-pad lover, Dave brings a fresh outlook to the world of education through his hybrid teaching style - combining the best that formal training has to offer, with the creativity and resourcefulness of a self-taught drummer.',
+                            ],
+                            [
+                                'name' => 'Mike Michalkow',
+                                'bio' => 'Mike Michalkow has been teaching drums and percussion for over 20 years, having studied under master drummers Dom Famularo, Jim Chapin, Chuck Silverman, Thomas Lang, John “JR” Robinson, Peter Magadini, and Virgil Donati. Known as a versatile instructor, Mike’s simplified but comprehensive teaching methods have helped thousands of drummers around the world reach their goals, through bestsellers like the “Drumming System”, “Jazz Drumming System”, “Latin Drumming System”, “Moeller Method Secrets”, and “Total Rock Drummer”.',
+                            ],
+                            [
+                                'name' => 'John Wooton',
+                                'bio' => 'John Wooton is a world renowned marching percussion clinician. He\'s been associated with five P.A.S.I.C. Marching Percussion Forum champions. He\'s won several individual snare drum titles including the Percussive Arts Society National Championship and the Drum Corps Midwest Championship. John is currently the Director of Percussion Studies at The University of Southern Mississippi in Hattiesburg, Miss. He\'s released many books including "Dr. Throwdown\'s Rudimental Remedies", "The Drummer\'s Rudimental Reference Book", and others. John has performed clinics and recitals for Days of Percussion and marching percussion all over the United States, Canada, England, Argentina, Brazil, and Puerto Rico.',
+                            ],
+                        ]
                     ],
                 ],
-                'courseContent' => [
-                    'videos' => [
-                        [
-                            'index' => 1,
-                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-06.jpg',
-                            'title' => 'this is the course title',
-                            'length' => '19 mins',
-                            'xp' => '150 xp',
-                            'url' => self::$staticUrls['contentVideoLink'],
-                        ],
-                        [
-                            'index' => 2,
-                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dci-63.jpg',
-                            'title' => 'this is the course title',
-                            'length' => '10 mins',
-                            'xp' => '150 xp',
-                            'url' => self::$staticUrls['contentVideoLink'],
-                        ],
-                        [
-                            'index' => 3,
-                            'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/dcb-52a-550.jpg',
-                            'title' => 'this is the course title',
-                            'length' => '17 mins',
-                            'xp' => '150 xp',
-                            'url' => self::$staticUrls['contentVideoLink'],
-                        ],
-                        [
-                            'index' => 4,
-                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-15.jpg',
-                            'title' => 'this is the course title',
-                            'length' => '10 mins',
-                            'xp' => '150 xp',
-                            'url' => self::$staticUrls['contentVideoLink'],
-                        ],
-                        [
-                            'index' => 5,
-                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-45.jpg',
-                            'title' => 'this is the course title',
-                            'length' => '21 mins',
-                            'xp' => '150 xp',
-                            'url' => self::$staticUrls['contentVideoLink'],
-                        ],
-                        [
-                            'index' => 6,
-                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dca-11.jpg',
-                            'title' => 'this is the course title',
-                            'length' => '10 mins',
-                            'xp' => '150 xp',
-                            'url' => self::$staticUrls['contentVideoLink'],
-                        ],
-                        [
-                            'index' => 7,
-                            'thumbnail' => 'https://dzryyo1we6bm3.cloudfront.net/card-thumbnails/courses/550/dcb-06.jpg',
-                            'title' => 'this is the course title',
-                            'length' => '10 mins',
-                            'xp' => '150 xp',
-                            'url' => self::$staticUrls['contentVideoLink'],
-                        ],
-                    ],
-                ],
+                'catalogueJsonData' => $mockData,
                 'courseProgress' => [
                     'level' => '3.5',
                     'percent' => 64,
@@ -668,8 +623,11 @@ class DrumeoViewComposer
      */
     public function methodPageContent(View $view)
     {
+        $mockData = $this->getMockData('method.json');
+
         $view->with(
             [
+                'catalogueJsonData' => $mockData,
                 'nextLesson' => [
                     'teacherName' => 'teacher name',
                     'lessonTitle' => 'this is the lesson title',
@@ -689,108 +647,6 @@ class DrumeoViewComposer
                         'href' => '/test',
                     ]
                 ],
-                'lessons' => [
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'getting started on the drums',
-                        'lessonLevel' => 'level 1',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241248-card-thumbnail-1577144969.jpg',
-                        'url' => self::$staticUrls['methodLevelLink'],
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'basic theory & ear training',
-                        'lessonLevel' => 'level 2',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241284-card-thumbnail-1577144975.jpg',
-                        'url' => self::$staticUrls['methodLevelLink'],
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'the motions of drumming',
-                        'lessonLevel' => 'level 3',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241285-card-thumbnail-1577144979.jpg',
-                        'url' => self::$staticUrls['methodLevelLink'],
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'the moeller method & essential grooves',
-                        'lessonLevel' => 'level 4',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241286-card-thumbnail-1577144984.jpg',
-                        'url' => self::$staticUrls['methodLevelLink'],
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'rhythmic groupings & improvisation',
-                        'lessonLevel' => 'level 5',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241287-card-thumbnail-1577144994.jpg',
-                        'url' => self::$staticUrls['methodLevelLink'],
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'odd time & finger control',
-                        'lessonLevel' => 'level 6',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241288-card-thumbnail-1577144999.jpg',
-                        'url' => self::$staticUrls['methodLevelLink'],
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'foot technique & combinations',
-                        'lessonLevel' => 'level 7',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241289-card-thumbnail-1577145007.jpg',
-                        'url' => self::$staticUrls['methodLevelLink'],
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'brushes, textures & articulation',
-                        'lessonLevel' => 'level 8',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241290-card-thumbnail-1577145012.jpg',
-                        'url' => self::$staticUrls['methodLevelLink'],
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'advanced styles & musical decisions',
-                        'lessonLevel' => 'level 9',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241291-card-thumbnail-1577145017.jpg',
-                        'url' => self::$staticUrls['methodLevelLink'],
-                    ],
-                    [
-                        'teacherName' => 'jared falk',
-                        'lessonTitle' => 'go anywhere on the drums',
-                        'lessonLevel' => 'level 10',
-                        'lessonLength' => '8 mins',
-                        'lessonXp' => 150,
-                        'lessonDescription' => 'Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.',
-                        'thumbnail' => 'https://d1923uyy6spedc.cloudfront.net/241292-card-thumbnail-1577145021.jpg',
-                        'url' => self::$staticUrls['methodLevelLink'],
-                    ],
-                ]
             ]
         );
     }

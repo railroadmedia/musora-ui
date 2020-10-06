@@ -59789,13 +59789,14 @@ exports.default = Comment;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Content = /** @class */ (function () {
-    function Content(id, url, thumbnail, title, instructors, contentType, difficulty, contentIcon, date, artist, style, likes, liked, sheet, topic, length, totalXp, status, isAddedToPrimaryPlaylist, progress, parent) {
+    function Content(id, url, thumbnail, title, description, instructors, contentType, difficulty, contentIcon, date, artist, style, likes, liked, sheet, topic, length, totalXp, status, level, isAddedToPrimaryPlaylist, progress, parent) {
         if (isAddedToPrimaryPlaylist === void 0) { isAddedToPrimaryPlaylist = false; }
         if (progress === void 0) { progress = 0; }
         this.id = id;
         this.url = url;
         this.thumbnail = thumbnail;
         this.title = title;
+        this.description = description;
         this.instructors = instructors;
         this.contentType = contentType;
         this.difficulty = difficulty;
@@ -59810,6 +59811,7 @@ var Content = /** @class */ (function () {
         this.length = length;
         this.totalXp = totalXp;
         this.status = status;
+        this.level = level;
         this.isAddedToPrimaryPlaylist = isAddedToPrimaryPlaylist;
         this.progress = progress;
         this.parent = parent;
@@ -60197,8 +60199,9 @@ var Content = /** @class */ (function () {
             var thumbnail = _this.getContentData(relatedDataMap, 'thumbnail_url') || _this.defaultContentThumbnail;
             var sheet = _this.getContentData(relatedDataMap, 'sheet_music_thumbnail_url');
             var topic = _this.getContentTopic(relatedDataMap);
-            var content = new content_1.default(item.id, item.url || _this.getUrl(item), thumbnail, item.attributes.title, _this.getContentInstructors(relatedDataMap), item.attributes.type, item.attributes.difficulty, undefined, // todo - update contentIcon
-            item.attributes.publishedOn, item.attributes.artist, item.attributes.style, item.attributes.like_count, item.attributes.is_liked_by_current_user, sheet, topic, item.attributes.lengthInSeconds, item.attributes.totalXp, item.attributes.status, item.attributes.is_added_to_primary_playlist);
+            var description = _this.getContentData(relatedDataMap, 'description');
+            var content = new content_1.default(item.id, item.attributes.url || _this.getUrl(item), thumbnail, item.attributes.title, description, _this.getContentInstructors(relatedDataMap), item.attributes.type, item.attributes.difficulty, undefined, // todo - update contentIcon
+            item.attributes.publishedOn, item.attributes.artist, item.attributes.style, item.attributes.like_count, item.attributes.is_liked_by_current_user, sheet, topic, item.attributes.lengthInSeconds, item.attributes.totalXp, item.attributes.status, item.attributes.level_number, item.attributes.is_added_to_primary_playlist);
             if (relatedDataMap.hasOwnProperty('parent')) {
                 content.parent = _this.getParentContent(relatedDataMap);
             }
@@ -60317,8 +60320,9 @@ var Content = /** @class */ (function () {
         var thumbnail = this.getContentData(contentRelatedData, 'thumbnail_url') || this.defaultContentThumbnail;
         var sheet = this.getContentData(contentRelatedData, 'sheet_music_thumbnail_url');
         var topic = this.getContentData(contentRelatedData, 'topic');
-        return new content_1.default(+id, parentData[id].url || this.getUrl(parentData[id]), thumbnail, parentData[id].attributes.title, this.getContentInstructors(contentRelatedData), parentData[id].attributes.type, parentData[id].attributes.difficulty, undefined, // todo - update contentIcon
-        parentData[id].attributes.publishedOn, parentData[id].attributes.artist, parentData[id].attributes.style, parentData[id].attributes.like_count, parentData[id].attributes.is_liked_by_current_user, sheet, topic);
+        var description = this.getContentData(contentRelatedData, 'description');
+        return new content_1.default(+id, parentData[id].url || this.getUrl(parentData[id]), thumbnail, parentData[id].attributes.title, description, this.getContentInstructors(contentRelatedData), parentData[id].attributes.type, parentData[id].attributes.difficulty, undefined, // todo - update contentIcon
+        parentData[id].attributes.publishedOn, parentData[id].attributes.artist, parentData[id].attributes.style, parentData[id].attributes.like_count, parentData[id].attributes.is_liked_by_current_user, sheet, topic, parentData[id].attributes.lengthInSeconds, parentData[id].attributes.totalXp, parentData[id].attributes.status, parentData[id].attributes.level_number, parentData[id].attributes.is_added_to_primary_playlist);
     };
     Content.getUrl = function (content) {
         return '#'; // todo - update

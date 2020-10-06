@@ -7,6 +7,7 @@ export default class Content {
         public url: string,
         public thumbnail: string,
         public title: string,
+        public description: string,
         public instructors: Instructor[],
         public contentType: string,
         public difficulty: string,
@@ -21,6 +22,7 @@ export default class Content {
         public length?: number,
         public totalXp?: number,
         public status?: string,
+        public level?: number,
         public isAddedToPrimaryPlaylist = false,
         public progress = 0,
         public parent?: Content

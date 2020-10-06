@@ -26,6 +26,8 @@ import AccountSkillLevel from '../../components/Content/AccountSkillLevel';
 import ContentSearch from '../../components/Content/Search';
 import ShowsContent from '../../components/Content/Shows';
 import ScheduleCatalogue from '../../components/Content/Schedule';
+import MethodCatalogue from '../../components/Content/Method';
+import MethodLevelCatalogue from '../../components/Content/MethodLevel';
 
 
 Vue.component('content-row', ContentRow);
@@ -37,6 +39,8 @@ Vue.component('account-skill-level', AccountSkillLevel);
 Vue.component('content-search', ContentSearch);
 Vue.component('shows-content', ShowsContent);
 Vue.component('schedule-catalogue', ScheduleCatalogue);
+Vue.component('method-catalogue', MethodCatalogue);
+Vue.component('method-level-catalogue', MethodLevelCatalogue);
 
 const app = new Vue({
     el: '#vue-musora-ui'

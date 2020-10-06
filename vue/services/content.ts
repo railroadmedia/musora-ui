@@ -121,12 +121,14 @@ export default class Content {
             let thumbnail = this.getContentData(relatedDataMap, 'thumbnail_url') || this.defaultContentThumbnail;
             let sheet = this.getContentData(relatedDataMap, 'sheet_music_thumbnail_url');
             let topic = this.getContentTopic(relatedDataMap);
+            let description = this.getContentData(relatedDataMap, 'description');
 
             let content = new ContentModel(
                 item.id,
-                item.url || this.getUrl(item),
+                item.attributes.url || this.getUrl(item),
                 thumbnail,
                 item.attributes.title,
+                description,
                 this.getContentInstructors(relatedDataMap),
                 item.attributes.type,
                 item.attributes.difficulty,
@@ -141,6 +143,7 @@ export default class Content {
                 item.attributes.lengthInSeconds,
                 item.attributes.totalXp,
                 item.attributes.status,
+                item.attributes.level_number,
                 item.attributes.is_added_to_primary_playlist
             );
 
@@ -299,12 +302,14 @@ export default class Content {
         let thumbnail = this.getContentData(contentRelatedData, 'thumbnail_url') || this.defaultContentThumbnail;
         let sheet = this.getContentData(contentRelatedData, 'sheet_music_thumbnail_url');
         let topic = this.getContentData(contentRelatedData, 'topic');
+        let description = this.getContentData(contentRelatedData, 'description');
 
         return new ContentModel(
             +id,
             parentData[id].url || this.getUrl(parentData[id]),
             thumbnail,
             parentData[id].attributes.title,
+            description,
             this.getContentInstructors(contentRelatedData),
             parentData[id].attributes.type,
             parentData[id].attributes.difficulty,
@@ -315,7 +320,12 @@ export default class Content {
             parentData[id].attributes.like_count,
             parentData[id].attributes.is_liked_by_current_user,
             sheet,
-            topic
+            topic,
+            parentData[id].attributes.lengthInSeconds,
+            parentData[id].attributes.totalXp,
+            parentData[id].attributes.status,
+            parentData[id].attributes.level_number,
+            parentData[id].attributes.is_added_to_primary_playlist
         );
     }
 

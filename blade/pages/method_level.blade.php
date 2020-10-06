@@ -1,4 +1,4 @@
-@extends('musora-ui::layouts.members')
+@extends('musora-ui::layouts.vue_content')
 
 @section('musora-ui::title', 'Members - Drumeo Method')
 
@@ -7,14 +7,11 @@
     @include('musora-ui::partials.edge-nav', ['active' => 'method'])
 @endsection
 
-@php
-@endphp
-
-@section('musora-ui::content')
+@section('musora-ui::app')
     @include('musora-ui::partials.method-level-description', $courseDescription)
     @include('musora-ui::partials.course-data', $courseData)
 
-    @include('musora-ui::partials.course-content', $courseContent)
+    <method-level-catalogue preload-data='{{ $catalogueJsonData }}'></method-level-catalogue>
 
     @include('musora-ui::partials.lesson-progress', $courseProgress)
 
