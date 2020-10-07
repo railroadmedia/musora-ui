@@ -66,9 +66,6 @@ export default {
 
             return classes;
         },
-        $_width() {
-            return { width: this.content.progress + '%' };
-        },
     }
 };
 </script>

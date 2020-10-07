@@ -233,7 +233,8 @@
         "staffPickRating": "",
         "studentId": "",
         "vimeoVideoId": "",
-        "youtubeVideoId": ""
+        "youtubeVideoId": "",
+        "progress_percent": 45
       },
       "relationships": {
         "data": {

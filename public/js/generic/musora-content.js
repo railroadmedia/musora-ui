@@ -26311,6 +26311,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var content_1 = __importDefault(__webpack_require__(/*! ../../models/content */ "./vue/models/content.ts"));
 var contentInstructors_1 = __importDefault(__webpack_require__(/*! ../../mixins/contentInstructors */ "./vue/mixins/contentInstructors.ts"));
+var contentCard_1 = __importDefault(__webpack_require__(/*! ../../mixins/contentCard */ "./vue/mixins/contentCard.ts"));
 exports.default = {
     props: {
         content: {
@@ -26320,7 +26321,7 @@ exports.default = {
             type: Number,
         },
     },
-    mixins: [contentInstructors_1.default],
+    mixins: [contentInstructors_1.default, contentCard_1.default],
     methods: {
         getThumbnailUrl: function (content) {
             return content.thumbnail;
@@ -28428,7 +28429,23 @@ var render = function() {
                 ? _c("i", { staticClass: "icon-live text-white text-3xl" })
                 : _vm._e()
             ]
-          )
+          ),
+          _vm._v(" "),
+          _vm.content.progress
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "absolute rounded-b-lg overflow-hidden bottom-0 left-0 w-full h-4 flex items-end z-20"
+                },
+                [
+                  _c("div", {
+                    staticClass: "h-1 bg-edge-blue",
+                    style: _vm.$_width
+                  })
+                ]
+              )
+            : _vm._e()
         ]
       ),
       _vm._v(" "),
@@ -28820,7 +28837,23 @@ var render = function() {
                 attrs: { src: _vm.getThumbnailUrl(_vm.content) }
               }),
               _vm._v(" "),
-              _vm._m(0)
+              _vm._m(0),
+              _vm._v(" "),
+              _vm.content.progress
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "absolute rounded-b-lg overflow-hidden bottom-0 left-0 w-full h-4 flex items-end z-20"
+                    },
+                    [
+                      _c("div", {
+                        staticClass: "h-1 bg-edge-blue",
+                        style: _vm.$_width
+                      })
+                    ]
+                  )
+                : _vm._e()
             ]
           )
         ]
@@ -28835,15 +28868,15 @@ var render = function() {
           "div",
           {
             staticClass:
-              "flex-none flex items-center sm:space-x-4 md:space-x-12 text-gray sm:mr-4 md:mr-10"
+              "flex-none flex items-center sm:space-x-4 md:space-x-8 text-gray sm:mr-4 md:mr-10"
           },
           [
             _c("div", { staticClass: "capitalize w-12 flex justify-center" }, [
               _vm._v(_vm._s(_vm.content.length))
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "uppercase w-12 flex justify-center" }, [
-              _vm._v(_vm._s(_vm.content.totalXp))
+            _c("div", { staticClass: "uppercase w-16 flex justify-center" }, [
+              _vm._v(_vm._s(_vm.content.totalXp) + " xp")
             ])
           ]
         )
@@ -29075,7 +29108,23 @@ var render = function() {
             [_vm._v(_vm._s(_vm.getInstructors(_vm.content)))]
           ),
           _vm._v(" "),
-          _vm._m(0)
+          _vm._m(0),
+          _vm._v(" "),
+          _vm.content.progress
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "absolute rounded-b-lg overflow-hidden bottom-0 left-0 w-full h-4 flex items-end z-20"
+                },
+                [
+                  _c("div", {
+                    staticClass: "h-1 bg-edge-blue",
+                    style: _vm.$_width
+                  })
+                ]
+              )
+            : _vm._e()
         ]
       ),
       _vm._v(" "),
@@ -32432,6 +32481,11 @@ exports.default = {
     methods: {
         getUrl: function (content) {
             return contentCatalogueLinks_1.default[content.contentType] || '/router.php/vue/content_video';
+        },
+    },
+    computed: {
+        $_width: function () {
+            return { width: this.content.progress + '%' };
         },
     },
 };

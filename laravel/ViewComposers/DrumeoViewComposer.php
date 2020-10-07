@@ -784,64 +784,11 @@ class DrumeoViewComposer
      */
     public function packsPageContent(View $view)
     {
+        $startedContentJson = $this->getMockData('method.json');
+
         $view->with(
             [
-                'continueVideos' => [
-                    [
-                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                        'teacherName' => 'Instructor one',
-                        'icon' => 'icon-packs',
-                        'contentType' => 'successful drumming',
-                        'videoTitle' => 'this is the lesson title',
-                        'difficulty' => 'Beginner - 1',
-                        'url' => self::$staticUrls['contentVideoLink'],
-                    ],
-                    [
-                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                        'teacherName' => 'Instructor Two',
-                        'icon' => 'icon-packs',
-                        'contentType' => 'rock drumming masterclass',
-                        'videoTitle' => 'Continue Video Two',
-                        'difficulty' => 'Beginner - 1',
-                        'url' => self::$staticUrls['contentVideoLink'],
-                    ],
-                    [
-                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                        'teacherName' => 'Other Instructor',
-                        'icon' => 'icon-packs',
-                        'contentType' => 'cobus method',
-                        'videoTitle' => 'Continue Video Three',
-                        'difficulty' => 'Beginner - 1',
-                        'url' => self::$staticUrls['contentVideoLink'],
-                    ],
-                    [
-                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                        'teacherName' => 'Instructor one',
-                        'icon' => 'icon-packs',
-                        'contentType' => 'bass drum secrets',
-                        'videoTitle' => 'Continue Video Four',
-                        'difficulty' => 'Beginner - 1',
-                        'url' => self::$staticUrls['contentVideoLink'],
-                    ],
-                    [
-                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                        'teacherName' => 'Instructor Two',
-                        'icon' => 'icon-packs',
-                        'contentType' => 'independence made easy',
-                        'videoTitle' => 'Continue Video Five',
-                        'difficulty' => 'Beginner - 1',
-                        'url' => self::$staticUrls['contentVideoLink'],
-                    ],
-                    [
-                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                        'teacherName' => 'Other Instructor',
-                        'icon' => 'icon-packs',
-                        'contentType' => 'content type',
-                        'videoTitle' => 'Continue Video Six',
-                        'difficulty' => 'Beginner - 1',
-                        'url' => self::$staticUrls['contentVideoLink'],
-                    ]
-                ],
+                'startedContentJson' => $startedContentJson,
                 'continueAllUrl' => '#',
                 'packs' => [
                     [
@@ -1156,64 +1103,11 @@ class DrumeoViewComposer
      */
     public function showsPageContent(View $view)
     {
+        $startedContentJson = $this->getMockData('shows.json');
+
         $view->with(
             [
-                'continueVideos' => [
-                    [
-                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                        'teacherName' => 'Instructor one',
-                        'icon' => 'icon-courses',
-                        'contentType' => 'content type',
-                        'videoTitle' => 'Continue Video One',
-                        'difficulty' => 'Beginner - 1',
-                        'url' => self::$staticUrls['contentVideoLink'],
-                    ],
-                    [
-                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                        'teacherName' => 'Instructor Two',
-                        'icon' => 'icon-courses',
-                        'contentType' => 'content type',
-                        'videoTitle' => 'Continue Video Two',
-                        'difficulty' => 'Beginner - 1',
-                        'url' => self::$staticUrls['contentVideoLink'],
-                    ],
-                    [
-                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                        'teacherName' => 'Other Instructor',
-                        'icon' => 'icon-courses',
-                        'contentType' => 'content type',
-                        'videoTitle' => 'Continue Video Three',
-                        'difficulty' => 'Beginner - 1',
-                        'url' => self::$staticUrls['contentVideoLink'],
-                    ],
-                    [
-                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                        'teacherName' => 'Instructor one',
-                        'icon' => 'icon-courses',
-                        'contentType' => 'content type',
-                        'videoTitle' => 'Continue Video Four',
-                        'difficulty' => 'Beginner - 1',
-                        'url' => self::$staticUrls['contentVideoLink'],
-                    ],
-                    [
-                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                        'teacherName' => 'Instructor Two',
-                        'icon' => 'icon-courses',
-                        'contentType' => 'content type',
-                        'videoTitle' => 'Continue Video Five',
-                        'difficulty' => 'Beginner - 1',
-                        'url' => self::$staticUrls['contentVideoLink'],
-                    ],
-                    [
-                        'thumbnail' => 'https://dmmior4id2ysr.cloudfront.net/assets/images/drumeo_fallback_thumb.jpg',
-                        'teacherName' => 'Other Instructor',
-                        'icon' => 'icon-courses',
-                        'contentType' => 'content type',
-                        'videoTitle' => 'Continue Video Six',
-                        'difficulty' => 'Beginner - 1',
-                        'url' => self::$staticUrls['contentVideoLink'],
-                    ]
-                ],
+                'startedContentJson' => $startedContentJson,
                 'continueAllUrl' => '#',
                 'shows' => [
                     [

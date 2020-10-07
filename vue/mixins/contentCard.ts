@@ -7,4 +7,9 @@ export default {
             return ContentCatalogueLinks[content.contentType] || '/router.php/vue/content_video';
         },
     },
+    computed: {
+    	$_width() {
+            return { width: this.content.progress + '%' };
+        },
+    },
 };

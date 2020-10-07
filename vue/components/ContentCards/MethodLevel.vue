@@ -9,6 +9,12 @@
             <div class="rounded-lg overflow-hidden relative pb-9/16">
                 <img :src="getThumbnailUrl(content)" class="absolute object-cover object-center h-full w-full">
                 <div class="content-card-play absolute rounded-lg inset-0 flex items-center justify-center invisible opacity-0 z-10"><i class="icon-live text-white text-3xl"></i></div>
+                <div
+                    class="absolute rounded-b-lg overflow-hidden bottom-0 left-0 w-full h-4 flex items-end z-20"
+                    v-if="content.progress"
+                >
+                    <div class="h-1 bg-edge-blue" :style="$_width"></div>
+                </div>
             </div>
         </div>
         <div class="flex-1 flex flex-col md:flex-row">
@@ -33,6 +39,7 @@
 <script lang="ts">
 import ContentModel from '../../models/content';
 import ContentInstructorsMixin from '../../mixins/contentInstructors';
+import ContentCardMixin from '../../mixins/contentCard';
 
 export default {
     props: {
@@ -43,7 +50,7 @@ export default {
             type: Number,
         },
     },
-    mixins: [ContentInstructorsMixin],
+    mixins: [ContentInstructorsMixin, ContentCardMixin],
     methods: {
         getThumbnailUrl(content: ContentModel) {
             return content.thumbnail;

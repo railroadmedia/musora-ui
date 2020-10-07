@@ -1,4 +1,4 @@
-@extends('musora-ui::layouts.members')
+@extends('musora-ui::layouts.vue_content')
 
 @section('musora-ui::title', 'Members - Shows')
 
@@ -7,20 +7,17 @@
     @include('musora-ui::partials.edge-nav', ['active' => 'shows'])
 @endsection
 
-@section('musora-ui::content')
+@section('musora-ui::app')
     @include('musora-ui::partials.user-stats')
 
     <h1 class="container w-full mx-auto px-3 pt-6 font-extrabold text-4xl">Shows</h1>
 
     <div class="mx-auto w-full container px-3 pb-6 h-full">
-        @include(
-            'musora-ui::partials.video-row',
-            [
-                'rowTitle' => 'Continue',
-                'url' => $continueAllUrl,
-                'videos' => $continueVideos
-            ]
-        )
+        <content-row
+            content-list='{{ $startedContentJson }}'
+            section-title="continue"
+            section-url="#"
+        ></content-row>
 
         @include('musora-ui::partials.shows-content', $shows)
     </div>

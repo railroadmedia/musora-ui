@@ -1,4 +1,4 @@
-@extends('musora-ui::layouts.members')
+@extends('musora-ui::layouts.vue_content')
 
 @section('musora-ui::title', 'Members - Packs')
 
@@ -7,20 +7,17 @@
     <div id="menu-spacer"></div>
 @endsection
 
-@section('musora-ui::content')
+@section('musora-ui::app')
     @include('musora-ui::partials.user-stats')
 
     <h1 class="container w-full mx-auto px-3 pt-6 font-extrabold text-4xl">Packs</h1>
 
     <div class="mx-auto w-full container px-3 h-full mb-8">
-        @include(
-            'musora-ui::partials.video-row',
-            [
-                'rowTitle' => 'Continue',
-                'url' => $continueAllUrl,
-                'videos' => $continueVideos
-            ]
-        )
+        <content-row
+            content-list='{{ $startedContentJson }}'
+            section-title="continue"
+            section-url="#"
+        ></content-row>
 
         @include(
             'musora-ui::partials.packs-content',

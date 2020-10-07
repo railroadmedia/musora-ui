@@ -55467,9 +55467,6 @@ exports.default = {
             }
             return classes;
         },
-        $_width: function () {
-            return { width: this.content.progress + '%' };
-        },
     }
 };
 
@@ -59717,6 +59714,11 @@ exports.default = {
     methods: {
         getUrl: function (content) {
             return contentCatalogueLinks_1.default[content.contentType] || '/router.php/vue/content_video';
+        },
+    },
+    computed: {
+        $_width: function () {
+            return { width: this.content.progress + '%' };
         },
     },
 };
