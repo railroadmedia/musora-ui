@@ -1,4 +1,4 @@
-@extends('musora-ui::layouts.members')
+@extends('musora-ui::layouts.vue_content')
 
 @section('musora-ui::title', 'Members - Profile Dashboard')
 
@@ -7,28 +7,29 @@
     @include('musora-ui::partials.profile-nav', ['active' => 'dashboard'])
 @endsection
 
-@section('musora-ui::content')
+@section('musora-ui::app')
     @include('musora-ui::partials.user-stats-short')
     @include('musora-ui::partials.user-stats-details')
 
     <div class="mx-auto w-full container px-3 h-full">
-        @include(
-            'musora-ui::partials.video-row',
-            [
-                'rowTitle' => 'Continue',
-                'url' => $continueAllUrl,
-                'videos' => $videosContinue
-            ]
-        )
 
-        @include(
-            'musora-ui::partials.video-row',
-            [
-                'rowTitle' => 'Completed',
-                'url' => $completedAllUrl,
-                'videos' => $videosComplete
-            ]
-        )
+        <div class="container w-full h-full mx-auto px-3">
+            <content-row
+                content-list='{{ $startedContentJsonData }}'
+                section-title="continue"
+                section-url="{{ $viewAllStartedLink }}"
+                card-text-details-top="topic"
+            ></content-row>
+        </div>
+
+        <div class="container w-full h-full mx-auto px-3">
+            <content-row
+                content-list='{{ $completedContentJsonData }}'
+                section-title="Completed"
+                section-url="{{ $viewAllCompletedLink }}"
+                card-text-details-top="topic"
+            ></content-row>
+        </div>
 
         @include('musora-ui::partials.user-about')
     </div>
