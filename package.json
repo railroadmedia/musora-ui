@@ -23,7 +23,7 @@
     "@musora/icons": "^1.0.3",
     "@tinymce/tinymce-vue": "^3.2.2",
     "autoprefixer": "^9.7.6",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cropperjs": "^1.5.7",
     "dropzone": "^5.7.1",
     "flatpickr": "^4.6.6",
