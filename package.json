@@ -29,7 +29,7 @@
     "flatpickr": "^4.6.6",
     "laravel-mix": "^5.0.4",
     "laravel-mix-purgecss": "^5.0.0",
-    "luxon": "^1.25.0",
+    "luxon": "^2.5.2",
     "postcss-cli": "^7.1.0",
     "simplebar": "^5.2.0",
     "simplebar-vue": "^1.5.1",
